@@ -3,8 +3,8 @@ const https = require('https');
 const path = require('path');
 
 const videosPath = '/Users/tobypeters/clawd/toby-site/frontend/src/data/videos.json';
-// Using the provided API key
-const apiKey = 'YOUTUBE_API_KEY_REMOVED';
+// Set YOUTUBE_API_KEY env var (never hardcode keys in source)
+const apiKey = process.env.YOUTUBE_API_KEY;
 
 try {
   const data = JSON.parse(fs.readFileSync(videosPath, 'utf8'));

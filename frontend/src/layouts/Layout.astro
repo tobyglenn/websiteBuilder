@@ -7,12 +7,14 @@ interface Props {
 	title: string;
 	description?: string;
 	image?: string;
+	ogType?: string;
 }
 
 const { 
 	title, 
 	description = "Deep dives into fitness technology, wearables, and data-driven training.", 
-	image = "/og-default.jpg" 
+	image = "/og-default.jpg",
+	ogType = "website"
 } = Astro.props;
 ---
 
@@ -24,6 +26,7 @@ const {
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta property="og:type" content={ogType} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={image} />

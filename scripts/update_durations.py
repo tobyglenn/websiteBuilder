@@ -1,8 +1,9 @@
 import json
+import os
 import requests
 import isodate
 
-API_KEY = "YOUTUBE_API_KEY_REMOVED"
+API_KEY = os.environ.get("YOUTUBE_API_KEY")  # Set in .env (never commit keys)
 VIDEOS_FILE = "/Users/tobypeters/clawd/toby-site/frontend/src/data/videos.json"
 
 def get_video_durations(video_ids):

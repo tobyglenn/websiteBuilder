@@ -1,100 +1,152 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { VIDEOS, BLOG_POSTS } from '../data/mock.js';
-import { Search as SearchIcon, Play, FileText } from 'lucide-react';
+import { Search as SearchIcon } from 'lucide-react';
 
-const query = Astro.url.searchParams.get('q') || '';
-const lowerQuery = query.toLowerCase();
+// Pass data to client-side script as JSON
+const videosData = JSON.stringify(VIDEOS.map(v => ({
+  id: v.id,
+  title: v.title,
+  description: v.description,
+  thumbnail: v.thumbnail,
+  published_at: v.published_at,
+  tags: v.tags,
+})));
 
-// Filter Videos
-const videoResults = VIDEOS.filter(video => 
-    video.title.toLowerCase().includes(lowerQuery) || 
-    video.description.toLowerCase().includes(lowerQuery) ||
-    video.tags.some(tag => tag.toLowerCase().includes(lowerQuery))
-);
-
-// Filter Blog Posts
-const blogResults = BLOG_POSTS.filter(post => 
-    post.title.toLowerCase().includes(lowerQuery) || 
-    post.content.toLowerCase().includes(lowerQuery) ||
-    post.excerpt.toLowerCase().includes(lowerQuery)
-);
-
-const totalResults = videoResults.length + blogResults.length;
+const blogData = JSON.stringify(BLOG_POSTS.map(p => ({
+  slug: p.slug,
+  title: p.title,
+  excerpt: p.excerpt,
+  category: p.category,
+  published_at: p.published_at,
+  content: p.content,
+})));
 ---
 
-<Layout title={`Search Results for "${query}"`}>
+<Layout title="Search - Toby on Fitness Tech">
   <div class="container mx-auto px-4 py-16 min-h-[60vh]">
     
     <div class="mb-12 border-b border-neutral-800 pb-8">
         <h1 class="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3">
-            <SearchIcon size={32} class="text-blue-500" />
-            Search Results
+            <SearchIcon size={32} class="text-blue-500" /> Search Results
         </h1>
-        {query ? (
-            <p class="text-neutral-400 text-lg">
-                Found <span class="text-white font-bold">{totalResults}</span> results for "<span class="text-white italic">{query}</span>"
-            </p>
-        ) : (
-            <p class="text-neutral-400 text-lg">Please enter a search term.</p>
-        )}
+        <p id="search-summary" class="text-neutral-400 text-lg">Enter a search term above to find videos and articles.</p>
     </div>
 
-    {/* No Results */}
-    {query && totalResults === 0 && (
-        <div class="text-center py-12 bg-neutral-900/50 rounded-xl border border-neutral-800 border-dashed">
-            <p class="text-neutral-500 text-lg">No matches found. Try a different keyword.</p>
-        </div>
-    )}
+    <div id="no-results" class="hidden text-center py-12 bg-neutral-900/50 rounded-xl border border-neutral-800 border-dashed">
+        <p class="text-neutral-500 text-lg">No matches found. Try a different keyword.</p>
+    </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+    <div id="results-grid" class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         
-        {/* Video Results */}
-        {videoResults.length > 0 && (
-            <div>
-                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-white">
-                    <Play class="text-red-500 fill-red-500" size={20} /> Videos
-                </h2>
-                <div class="space-y-6">
-                    {videoResults.map(video => (
-                        <a href={`/video/${video.id}`} class="flex gap-4 group bg-neutral-900/50 p-4 rounded-xl border border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900 transition-all">
-                            <div class="relative w-40 flex-shrink-0 aspect-video rounded-lg overflow-hidden bg-neutral-800">
-                                <img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <h3 class="text-lg font-bold text-white mb-1 line-clamp-1 group-hover:text-blue-400 transition-colors">{video.title}</h3>
-                                <p class="text-sm text-neutral-400 line-clamp-2 mb-2">{video.description}</p>
-                                <span class="text-xs text-neutral-500">{new Date(video.published_at).toLocaleDateString()}</span>
-                            </div>
-                        </a>
-                    ))}
-                </div>
-            </div>
-        )}
+        <div id="video-results-section" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#ef4444" class="inline"><polygon points="5,3 19,12 5,21"/></svg>
+                Videos
+            </h2>
+            <div id="video-results" class="space-y-6"></div>
+        </div>
 
-        {/* Blog Results */}
-        {blogResults.length > 0 && (
-            <div>
-                <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-white">
-                    <FileText class="text-blue-500" size={20} /> Articles
-                </h2>
-                <div class="space-y-6">
-                    {blogResults.map(post => (
-                        <a href={`/blog/${post.slug}`} class="flex gap-4 group bg-neutral-900/50 p-4 rounded-xl border border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900 transition-all">
-                            <div class="flex-1">
-                                <span class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1 block">{post.category}</span>
-                                <h3 class="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">{post.title}</h3>
-                                <p class="text-sm text-neutral-400 line-clamp-2 mb-3">{post.excerpt}</p>
-                                <span class="text-xs text-neutral-500 flex items-center gap-1">
-                                    Read Analysis &rarr;
-                                </span>
-                            </div>
-                        </a>
-                    ))}
-                </div>
-            </div>
-        )}
+        <div id="blog-results-section" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2 text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline></svg>
+                Articles
+            </h2>
+            <div id="blog-results" class="space-y-6"></div>
+        </div>
 
     </div>
   </div>
 </Layout>
+
+<script define:vars={{ videosData, blogData }}>
+  const VIDEOS = JSON.parse(videosData);
+  const BLOG_POSTS = JSON.parse(blogData);
+
+  function search(q) {
+    if (!q || !q.trim()) return { videos: [], blog: [] };
+    const lower = q.toLowerCase();
+    const videos = VIDEOS.filter(v =>
+      v.title.toLowerCase().includes(lower) ||
+      (v.description || '').toLowerCase().includes(lower) ||
+      (v.tags || []).some(t => t.toLowerCase().includes(lower))
+    );
+    const blog = BLOG_POSTS.filter(p =>
+      p.title.toLowerCase().includes(lower) ||
+      (p.excerpt || '').toLowerCase().includes(lower) ||
+      (p.content || '').toLowerCase().includes(lower)
+    );
+    return { videos, blog };
+  }
+
+  function renderResults() {
+    const params = new URLSearchParams(window.location.search);
+    const q = params.get('q') || '';
+    const { videos, blog } = search(q);
+    const total = videos.length + blog.length;
+
+    const summary = document.getElementById('search-summary');
+    const noResults = document.getElementById('no-results');
+    const videoSection = document.getElementById('video-results-section');
+    const blogSection = document.getElementById('blog-results-section');
+    const videoResults = document.getElementById('video-results');
+    const blogResults = document.getElementById('blog-results');
+
+    if (!q.trim()) {
+      summary.textContent = 'Enter a search term above to find videos and articles.';
+      noResults.classList.add('hidden');
+      videoSection.classList.add('hidden');
+      blogSection.classList.add('hidden');
+      return;
+    }
+
+    summary.innerHTML = `Found <span class="text-white font-bold">${total}</span> results for "<span class="text-white italic">${q}</span>"`;
+
+    if (total === 0) {
+      noResults.classList.remove('hidden');
+      videoSection.classList.add('hidden');
+      blogSection.classList.add('hidden');
+      return;
+    }
+
+    noResults.classList.add('hidden');
+
+    if (videos.length > 0) {
+      videoSection.classList.remove('hidden');
+      videoResults.innerHTML = videos.map(v => `
+        <a href="/video/${v.id}" class="flex gap-4 group bg-neutral-900/50 p-4 rounded-xl border border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900 transition-all">
+          <div class="relative w-40 flex-shrink-0 aspect-video rounded-lg overflow-hidden bg-neutral-800">
+            <img src="${v.thumbnail}" alt="${v.title.replace(/"/g, '&quot;')}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" />
+          </div>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg font-bold text-white mb-1 line-clamp-1 group-hover:text-blue-400 transition-colors">${v.title}</h3>
+            <p class="text-sm text-neutral-400 line-clamp-2 mb-2">${v.description || ''}</p>
+            <span class="text-xs text-neutral-500">${new Date(v.published_at).toLocaleDateString()}</span>
+          </div>
+        </a>
+      `).join('');
+    } else {
+      videoSection.classList.add('hidden');
+    }
+
+    if (blog.length > 0) {
+      blogSection.classList.remove('hidden');
+      blogResults.innerHTML = blog.map(p => `
+        <a href="/blog/${p.slug}" class="flex gap-4 group bg-neutral-900/50 p-4 rounded-xl border border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900 transition-all">
+          <div class="flex-1">
+            <span class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1 block">${p.category}</span>
+            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">${p.title}</h3>
+            <p class="text-sm text-neutral-400 line-clamp-2 mb-3">${p.excerpt}</p>
+            <span class="text-xs text-neutral-500">Read Analysis →</span>
+          </div>
+        </a>
+      `).join('');
+    } else {
+      blogSection.classList.add('hidden');
+    }
+  }
+
+  // Run on load and on popstate
+  renderResults();
+  window.addEventListener('popstate', renderResults);
+</script>

@@ -1,0 +1,145 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const transformationVideos = [
+  {
+    id: 'tvKRk67XmQ8',
+    title: 'My Transformation Story — From 242 to 188 lbs',
+    description: 'The full story of how I went from 242 lbs to 188 lbs in 6 months using Tonal, a push-pull-legs Arnold Blueprint, and obsessive data tracking.',
+  },
+  {
+    id: 'M07Aq93TCkM',
+    title: 'Extreme Weight Loss: The Honest Truth',
+    description: 'No hype. No drugs. No tricks. Here\'s the real breakdown of what drove my transformation including the role of prescription medication.',
+  },
+  {
+    id: 'Qy61dHyFWK4',
+    title: 'I Was 238 lbs With a Broken Ankle',
+    description: 'The lowest point of my journey — a broken ankle on a cruise ship, unable to move, watching the scale creep back up. This is what getting back looks like.',
+  },
+];
+---
+
+<Layout 
+  title="Start Here - Toby on Fitness Tech"
+  description="New here? Start with Toby's transformation story — 242 to 188 lbs in 6 months — and find out what drives this channel."
+  ogType="article"
+>
+  <div class="bg-neutral-900 border-b border-neutral-800 pb-16 pt-24 md:pt-32">
+    <div class="container mx-auto px-4 max-w-4xl text-center">
+      <span class="inline-flex items-center gap-2 bg-green-900/30 border border-green-500/30 px-4 py-1.5 rounded-full text-green-300 text-sm font-semibold mb-6">
+        Start Here
+      </span>
+      <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+        The Real Story Behind This Channel
+      </h1>
+      <p class="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+        In 2023, I weighed 242 lbs. I was obese, approaching 40, and done making excuses. Six months later I was at 188 lbs. Here's exactly how — and why I built a channel around it.
+      </p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+
+    {/* Stats */}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-white mb-1">54</div>
+        <div class="text-sm text-neutral-400">lbs lost</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-white mb-1">6</div>
+        <div class="text-sm text-neutral-400">months</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-green-400 mb-1">1.2M+</div>
+        <div class="text-sm text-neutral-400">lbs lifted</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-blue-400 mb-1">104</div>
+        <div class="text-sm text-neutral-400">videos</div>
+      </div>
+    </div>
+
+    {/* Story */}
+    <div class="prose prose-invert prose-lg max-w-none mb-16 space-y-6 text-neutral-300">
+      <h2 class="text-3xl font-bold text-white">The Turnaround</h2>
+      
+      <p class="leading-relaxed">
+        In early 2023, I had a moment of clarity that a lot of people who've struggled with weight will recognize: I stepped on a scale, saw a number I couldn't rationalize away, and made a decision.
+      </p>
+
+      <p class="leading-relaxed">
+        I didn't join a gym. I bought a Tonal — a smart strength training machine — and designed a workout program based on the Arnold Schwarzenegger Blueprint: Push, Pull, Legs, repeated twice a week with a running day in between. Six days of training, one day off. For six months, I didn't miss a session.
+      </p>
+
+      <p class="leading-relaxed">
+        The data was everything. I tracked every pound lifted on Tonal. I wore a WHOOP for recovery. I logged every meal in Cronometer. I ran 4-mile routes and tracked pace on Garmin. When the numbers told me to rest, I rested. When they said I could push, I pushed.
+      </p>
+
+      <p class="leading-relaxed">
+        At the end of those six months: 242 → 188 lbs. And a very specific opinion about which fitness technology actually works and which is marketing noise.
+      </p>
+
+      <h2 class="text-3xl font-bold text-white mt-12">Why I Started This Channel</h2>
+
+      <p class="leading-relaxed">
+        When I switched from Tonal to Speediance, I couldn't find honest, technical reviews from someone who actually lifts heavy. Most reviews are by beginners or journalists. I needed reviews from someone who's been in a cut, who understands progressive overload, who cares about how the motor behaves under real load.
+      </p>
+
+      <p class="leading-relaxed">
+        So I made those reviews myself. I now own two Speediance machines. I've lifted over 1.2 million pounds on them. I've documented every firmware update, every bug, every improvement. If you're serious about home gym tech, this is the most detailed independent coverage you'll find.
+      </p>
+
+      <p class="leading-relaxed">
+        I also train BJJ and I'm building toward a 4-mile race time goal in 2026. The channel covers all of it — because the data, the technology, and the mindset all connect.
+      </p>
+    </div>
+
+    {/* Transformation Videos */}
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-8">Watch the Transformation Story</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {transformationVideos.map(video => (
+          <a href={`/video/${video.id}`} class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-green-500/50 transition-all hover:-translate-y-1 hover:shadow-xl">
+            <div class="aspect-video relative overflow-hidden bg-neutral-950">
+              <img 
+                src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
+                alt={video.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+                <div class="bg-green-600 p-3 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+                </div>
+              </div>
+              <span class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full uppercase">Transformation</span>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-white text-sm leading-snug group-hover:text-green-400 transition-colors mb-2">{video.title}</h3>
+              <p class="text-xs text-neutral-400 line-clamp-2">{video.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    {/* CTA Section */}
+    <div class="bg-gradient-to-br from-blue-900/20 to-green-900/20 border border-blue-500/20 rounded-2xl p-10 text-center">
+      <h2 class="text-2xl font-bold text-white mb-4">Where to Go Next</h2>
+      <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+        Ready to dive in? Browse the full video library for 104 videos on Speediance, BJJ, fitness tech, and training methodology.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/videos" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+          Browse All Videos →
+        </a>
+        <a href="/about" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
+          More About Me
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>

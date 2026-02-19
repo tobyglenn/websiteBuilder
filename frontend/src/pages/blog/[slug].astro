@@ -3,6 +3,11 @@ import Layout from '../../layouts/Layout.astro';
 import { BLOG_POSTS } from '../../data/mock.js';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
+function readTime(content = '') {
+  const words = content.split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
 export function getStaticPaths() {
   return BLOG_POSTS.map(post => ({
     params: { slug: post.slug },
@@ -31,7 +36,7 @@ const { post } = Astro.props;
         <div class="flex items-center gap-4 text-xs font-bold tracking-wider text-blue-500 uppercase mb-4">
             <span class="bg-blue-900/30 px-3 py-1 rounded-full border border-blue-500/30">{post.category}</span>
             <span class="text-neutral-500">•</span>
-            <span>5 min read</span>
+            <span>{readTime(post.content)}</span>
         </div>
         
         <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
@@ -72,16 +77,18 @@ const { post } = Astro.props;
       </div>
       
       {/* Footer / Tags */}
-      <div class="mt-16 pt-8 border-t border-neutral-800">
-        <div class="flex items-center gap-4">
+      {post.tags && post.tags.length > 0 && (
+        <div class="mt-16 pt-8 border-t border-neutral-800">
+          <div class="flex items-center gap-4 flex-wrap">
             <Tag size={16} class="text-neutral-500" />
-            <div class="flex gap-2">
-                <span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#wearables</span>
-                <span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#data</span>
-                <span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#science</span>
+            <div class="flex flex-wrap gap-2">
+              {post.tags.map(tag => (
+                <span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#{tag}</span>
+              ))}
             </div>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   </article>
 </Layout>

@@ -3,7 +3,10 @@ import Layout from '../../layouts/Layout.astro';
 import VideoPlayer from '../../components/VideoPlayer.jsx';
 import RelatedVideos from '../../components/RelatedVideos.jsx';
 import { VIDEOS } from '../../data/mock.js';
-import { Share2, ThumbsUp, Calendar, Eye, MessageSquare } from 'lucide-react';
+import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText } from 'lucide-react';
+
+// Load all transcript files at build time
+const transcriptFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true });
 
 export function getStaticPaths() {
   return VIDEOS.map(video => ({
@@ -14,13 +17,28 @@ export function getStaticPaths() {
 
 const { video } = Astro.props;
 
-// Calculate "related" videos (just excluding current for now)
-const relatedVideos = VIDEOS.filter(v => v.id !== video.id);
+// Resolve transcript content
+let transcriptContent = null;
+if (video.transcript_file) {
+  const key = `../../data/transcripts/${video.transcript_file}`;
+  const raw = transcriptFiles[key];
+  if (raw) {
+    // Strip header lines (Title:, Date:, Video ID:, URL:, Source:, ---)
+    transcriptContent = raw
+      .split('\n')
+      .filter(line => !line.startsWith('Title:') && !line.startsWith('Date:') && !line.startsWith('Video ID:') && !line.startsWith('URL:') && !line.startsWith('Source:') && !line.startsWith('---'))
+      .join('\n')
+      .trim();
+  }
+}
+
+// Calculate "related" videos - same category preference, excluding current
+const relatedVideos = VIDEOS.filter(v => v.id !== video.id).slice(0, 8);
 ---
 
 <Layout 
-  title={`${video.title} - Video Review`}
-  description={video.description}
+  title={`${video.title} - TobyOnFitnessTech`}
+  description={video.description?.slice(0, 155) || video.title}
   image={video.thumbnail}
   ogType="video.other"
 >
@@ -39,7 +57,9 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id);
           
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 pb-4 mb-6">
             <div class="flex items-center gap-4 text-sm text-neutral-400">
-                <span class="flex items-center gap-1"><Eye size={16} /> {video.views} views</span>
+                {video.views && video.views !== '0' && (
+                  <span class="flex items-center gap-1"><Eye size={16} /> {parseInt(video.views).toLocaleString()} views</span>
+                )}
                 <span class="flex items-center gap-1"><Calendar size={16} /> {video.published_at}</span>
             </div>
             
@@ -54,44 +74,67 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id);
           </div>
 
           {/* Description */}
-          <div class="bg-neutral-900/50 p-6 rounded-xl border border-neutral-800">
-            <h3 class="font-semibold mb-2">Description</h3>
-            <p class="text-neutral-300 leading-relaxed whitespace-pre-line">
-              {video.description}
-            </p>
-            <div class="mt-4 flex flex-wrap gap-2">
-                {video.tags && video.tags.map(tag => (
+          {video.description && (
+            <div class="bg-neutral-900/50 p-6 rounded-xl border border-neutral-800">
+              <h3 class="font-semibold mb-2">Description</h3>
+              <p class="text-neutral-300 leading-relaxed whitespace-pre-line">
+                {video.description}
+              </p>
+              {video.tags && video.tags.length > 0 && (
+                <div class="mt-4 flex flex-wrap gap-2">
+                  {video.tags.map(tag => (
                     <span class="text-xs bg-neutral-800 text-neutral-400 px-2 py-1 rounded-full">#{tag}</span>
-                ))}
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
+          )}
           
-          {/* Transcript Toggle (Placeholder) */}
+          {/* Transcript Section */}
           <div class="mt-6 border-t border-neutral-800 pt-4">
             <details class="group">
-                <summary class="flex items-center justify-between cursor-pointer list-none text-neutral-400 hover:text-white font-medium">
-                    <span>Show Transcript</span>
+                <summary class="flex items-center justify-between cursor-pointer list-none text-neutral-400 hover:text-white font-medium py-2">
+                    <span class="flex items-center gap-2">
+                      <FileText size={16} />
+                      {transcriptContent ? 'Show Transcript' : 'Transcript'}
+                    </span>
                     <span class="transition group-open:rotate-180">
                         <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
                     </span>
                 </summary>
-                <div class="text-neutral-500 mt-4 text-sm leading-relaxed">
-                    <p>Transcript functionality coming soon...</p>
+                <div class="mt-4 text-sm leading-relaxed">
+                  {transcriptContent ? (
+                    <div class="bg-neutral-900/50 rounded-xl border border-neutral-800 p-6 max-h-96 overflow-y-auto">
+                      <p class="text-neutral-300 whitespace-pre-wrap">{transcriptContent}</p>
+                    </div>
+                  ) : (
+                    <p class="text-neutral-500 italic">Transcript not available for this video.</p>
+                  )}
                 </div>
             </details>
           </div>
+
+          {/* YouTube Comments Note */}
+          <div class="mt-6 border-t border-neutral-800 pt-4">
+            <h3 class="text-lg font-bold mb-3 flex items-center gap-2 text-neutral-300">
+                <MessageSquare size={18} /> Comments
+            </h3>
+            <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800 text-center">
+              <p class="text-neutral-400 text-sm mb-3">
+                Join the conversation on YouTube.
+              </p>
+              <a 
+                href={`https://www.youtube.com/watch?v=${video.id}`} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-sm font-semibold rounded-lg transition-colors"
+              >
+                View & Comment on YouTube →
+              </a>
+            </div>
+          </div>
         </div>
         
-        {/* Comments Section (Placeholder) */}
-        <div class="mt-12">
-            <h3 class="text-xl font-bold mb-6 flex items-center gap-2">
-                <MessageSquare size={20} /> Comments
-            </h3>
-            <div class="bg-neutral-900 rounded-xl p-8 text-center border border-neutral-800">
-                <p class="text-neutral-400">Comments are disabled for this preview.</p>
-            </div>
-        </div>
-
       </div>
 
       {/* Sidebar Column */}
@@ -99,12 +142,13 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id);
         <div class="sticky top-24">
             <h3 class="text-lg font-bold mb-4 text-neutral-200">Related Videos</h3>
             <div class="flex flex-col gap-4">
-                 {/* Re-using logic inside a map here or a component */}
                  {relatedVideos.slice(0, 5).map(v => (
                      <a href={`/video/${v.id}`} class="flex gap-3 group">
                         <div class="relative w-40 flex-shrink-0 aspect-video rounded-lg overflow-hidden">
-                             <img src={v.thumbnail} class="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                             <span class="absolute bottom-1 right-1 bg-black/80 text-[10px] px-1 rounded text-white">10:00</span>
+                             <img src={v.thumbnail} class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt={v.title} loading="lazy" />
+                             {v.duration_formatted && (
+                               <span class="absolute bottom-1 right-1 bg-black/80 text-[10px] px-1 rounded text-white">{v.duration_formatted}</span>
+                             )}
                         </div>
                         <div class="flex-1 min-w-0">
                             <h4 class="text-sm font-semibold text-neutral-200 line-clamp-2 group-hover:text-blue-400 leading-snug">{v.title}</h4>
@@ -116,7 +160,7 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id);
             
             <div class="mt-8 bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-6 rounded-xl border border-blue-500/20">
                 <h4 class="font-bold text-white mb-2">Join the Newsletter</h4>
-                <p class="text-xs text-neutral-400 mb-4">Get the latest tech reviews delivered to your inbox.</p>
+                <p class="text-xs text-neutral-400 mb-4">Get the latest fitness tech reviews delivered to your inbox.</p>
                 <input type="email" placeholder="Email address" class="w-full bg-neutral-950 border border-neutral-800 rounded px-3 py-2 text-sm mb-2 focus:border-blue-500 outline-none" />
                 <button class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 rounded transition-colors">Subscribe</button>
             </div>

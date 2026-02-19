@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="Live Streams - Toby on Fitness Tech"
+  description="Live streams coming soon. Subscribe to YouTube for notifications on Speediance workouts, BJJ commentary, and fitness tech Q&A."
+>
+  <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-24">
+    <div class="max-w-2xl mx-auto">
+      
+      <div class="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold mb-6">
+        <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+        Coming Soon
+      </div>
+
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+        Live Streams
+      </h1>
+
+      <p class="text-xl text-neutral-400 mb-4 leading-relaxed">
+        Live streams are coming to TobyOnFitnessTech. Real-time Speediance workouts, BJJ match commentary, and live Q&amp;A on fitness tech.
+      </p>
+
+      <p class="text-neutral-500 mb-10">
+        Subscribe to YouTube and hit the notification bell so you never miss a stream.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a 
+          href="https://www.youtube.com/@tobyonfitnesstech?sub_confirmation=1"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-3 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition-all hover:scale-105"
+        >
+          Subscribe on YouTube
+        </a>
+        <a 
+          href="/videos"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700 rounded-full transition-all font-medium"
+        >
+          Watch Past Videos →
+        </a>
+      </div>
+
+      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
+        <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">Speediance Live Workouts</h3>
+          <p class="text-sm text-neutral-400">Real training sessions with live commentary on weights, form, and machine behavior.</p>
+        </div>
+        <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">BJJ Match Commentary</h3>
+          <p class="text-sm text-neutral-400">Breaking down high-level grappling matches and competition footage as it happens.</p>
+        </div>
+        <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">Fitness Tech Q&amp;A</h3>
+          <p class="text-sm text-neutral-400">Live answers to your questions about wearables, training data, and gear recommendations.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</Layout>

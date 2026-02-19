@@ -5,8 +5,8 @@ import { videos as allVideos } from '../data/youtube.js';
 export default function Hero() {
   const [status] = useState({ isLive: false, nextScheduled: null });
   
-  // Featured video - prioritize BJJ/OpenClaw content or fallback to first
-  const featuredVideo = allVideos.find(v => v.id === 'MsdQU6uuHaE') || allVideos[0];
+  // Featured video - always use the most recent (first in list, sorted by date)
+  const featuredVideo = allVideos[0];
   
   // Mock live status (placeholder logic)
   const mockStatus = { isLive: false, nextScheduled: "2026-02-20T18:00:00Z" };

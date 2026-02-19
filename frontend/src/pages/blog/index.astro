@@ -2,6 +2,11 @@
 import Layout from '../../layouts/Layout.astro';
 import { BLOG_POSTS } from '../../data/mock.js';
 
+function readTime(content = '') {
+  const words = content.split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
 const title = "Blog - Toby on Fitness Tech";
 const description = "Written analysis, deep dives, and technical breakdowns of fitness technology.";
 ---
@@ -43,7 +48,7 @@ const description = "Written analysis, deep dives, and technical breakdowns of f
             <div class="flex items-center text-xs text-neutral-500 mb-3 space-x-2">
                 <span>{new Date(post.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
                 <span>•</span>
-                <span>5 min read</span>
+                <span>{readTime(post.content)}</span>
             </div>
             
             <h2 class="text-xl font-bold mb-3 leading-snug group-hover:text-blue-400 transition-colors">

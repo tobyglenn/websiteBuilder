@@ -35,9 +35,11 @@ const recentPosts = BLOG_POSTS.slice(0, 3);
 							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
 							<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
 							
-							<div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded border border-white/10 flex items-center gap-1">
-								<Clock size={10} /> 12:45
-							</div>
+							{video.duration_formatted && (
+								<div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded border border-white/10 flex items-center gap-1">
+									<Clock size={10} /> {video.duration_formatted}
+								</div>
+							)}
 
 							<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-90 group-hover:scale-100">
 								<div class="bg-blue-600/90 p-4 rounded-full shadow-xl backdrop-blur-sm">
