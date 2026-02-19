@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Admin Dashboard">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-3xl font-bold mb-8">Admin Dashboard</h1>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Quick Actions -->
+            <div class="bg-neutral-800 p-6 rounded-xl">
+                <h2 class="text-xl font-bold mb-4">Actions</h2>
+                <div class="space-y-4">
+                    <button class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                        Force Refresh YouTube Data
+                    </button>
+                    <button class="w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg font-semibold transition-colors">
+                        Create New Blog Draft
+                    </button>
+                </div>
+            </div>
+
+            <!-- Draft Reviews -->
+            <div class="bg-neutral-800 p-6 rounded-xl">
+                <h2 class="text-xl font-bold mb-4">Pending Drafts</h2>
+                <ul class="space-y-4">
+                    <li class="flex items-center justify-between bg-neutral-900 p-4 rounded-lg">
+                        <div>
+                            <h4 class="font-bold">AI Draft: Oura Ring 4 Analysis</h4>
+                            <span class="text-xs text-yellow-500 uppercase">Needs Approval</span>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="text-sm px-3 py-1 bg-neutral-700 rounded hover:bg-neutral-600">Edit</button>
+                            <button class="text-sm px-3 py-1 bg-green-600 rounded hover:bg-green-500">Publish</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</Layout>

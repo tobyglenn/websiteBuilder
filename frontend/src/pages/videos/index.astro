@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { VIDEOS } from '../../data/mock.js';
+import { Play } from 'lucide-react';
+
+const title = "All Videos - Toby on Fitness Tech";
+const description = "Browse our complete library of fitness technology reviews, comparisons, and tutorials.";
+---
+
+<Layout title={title} description={description}>
+  <div class="container mx-auto px-4 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b border-neutral-800 pb-8">
+        <div>
+            <h1 class="text-4xl font-bold mb-4">Video Library</h1>
+            <p class="text-neutral-400 max-w-2xl">
+                Comprehensive reviews and deep dives into the latest fitness wearables and training methodology.
+            </p>
+        </div>
+        
+        {/* Filter/Sort Placeholder */}
+        <div class="flex gap-2 mt-4 md:mt-0">
+            <select class="bg-neutral-900 border border-neutral-800 rounded-lg px-4 py-2 text-sm focus:outline-none focus:border-blue-500">
+                <option>Latest Uploads</option>
+                <option>Most Popular</option>
+                <option>Reviews</option>
+                <option>Comparisons</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+      {VIDEOS.map((video) => (
+        <article class="flex flex-col group">
+          <a href={`/video/${video.id}`} class="block overflow-hidden rounded-xl aspect-video relative mb-4">
+            <img 
+              src={video.thumbnail} 
+              alt={video.title} 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div class="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+            <div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded">
+              12:45
+            </div>
+            <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="bg-blue-600/90 p-4 rounded-full shadow-lg transform scale-90 group-hover:scale-100 transition-transform">
+                    <Play className="text-white fill-white" size={24} />
+                </div>
+            </div>
+          </a>
+          
+          <div class="flex-1 flex flex-col">
+            <div class="flex items-center gap-2 text-xs text-blue-400 font-semibold mb-2 uppercase tracking-wide">
+                <span>Review</span>
+                <span class="text-neutral-600">•</span>
+                <span>{video.published_at}</span>
+            </div>
+            <h2 class="text-xl font-bold mb-2 leading-snug group-hover:text-blue-400 transition-colors">
+              <a href={`/video/${video.id}`}>{video.title}</a>
+            </h2>
+            <p class="text-neutral-400 text-sm line-clamp-2 mb-4 flex-grow">
+              {video.description}
+            </p>
+            <div class="flex items-center gap-2">
+                {video.tags.slice(0, 3).map(tag => (
+                    <span class="text-xs bg-neutral-900 text-neutral-500 border border-neutral-800 px-2 py-1 rounded-full">
+                        #{tag}
+                    </span>
+                ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+    
+    {/* Pagination */}
+    <div class="mt-16 flex justify-center gap-2">
+        <button class="px-4 py-2 bg-neutral-900 border border-neutral-800 rounded hover:bg-neutral-800 disabled:opacity-50" disabled>Previous</button>
+        <button class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">1</button>
+        <button class="px-4 py-2 bg-neutral-900 border border-neutral-800 rounded hover:bg-neutral-800">2</button>
+        <button class="px-4 py-2 bg-neutral-900 border border-neutral-800 rounded hover:bg-neutral-800">3</button>
+        <span class="px-4 py-2 text-neutral-500">...</span>
+        <button class="px-4 py-2 bg-neutral-900 border border-neutral-800 rounded hover:bg-neutral-800">Next</button>
+    </div>
+  </div>
+</Layout>

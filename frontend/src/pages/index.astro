@@ -1,0 +1,117 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.jsx';
+import Newsletter from '../components/Newsletter.jsx';
+import { VIDEOS, BLOG_POSTS } from '../data/mock.js';
+import { Play, ArrowRight, Clock } from 'lucide-react';
+
+const recentVideos = VIDEOS.slice(0, 3);
+const recentPosts = BLOG_POSTS.slice(0, 3);
+---
+
+<Layout title="Toby on Fitness Tech - Reviews, Analysis, & Live Streams">
+	
+	<Hero client:load />
+
+	{/* Recent Videos Section */}
+	<section class="py-24 bg-neutral-950">
+		<div class="container mx-auto px-4">
+			<div class="flex items-end justify-between mb-12 border-b border-neutral-900 pb-8">
+				<div>
+					<h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">Latest Uploads</h2>
+					<p class="text-neutral-500 max-w-2xl">
+						Fresh from the lab. In-depth testing and honest reviews.
+					</p>
+				</div>
+				<a href="/videos" class="hidden md:flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors group">
+					View All Videos <ArrowRight size={18} class="group-hover:translate-x-1 transition-transform" />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{recentVideos.map((video) => (
+					<a href={`/video/${video.id}`} class="group block relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10">
+						<div class="aspect-video relative overflow-hidden">
+							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+							<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+							
+							<div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded border border-white/10 flex items-center gap-1">
+								<Clock size={10} /> 12:45
+							</div>
+
+							<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-90 group-hover:scale-100">
+								<div class="bg-blue-600/90 p-4 rounded-full shadow-xl backdrop-blur-sm">
+									<Play className="text-white fill-white ml-1" size={24} />
+								</div>
+							</div>
+						</div>
+						
+						<div class="p-6">
+							<div class="flex items-center justify-between text-xs text-neutral-500 mb-3 font-medium uppercase tracking-wider">
+								<span>{video.views} views</span>
+								<span>{new Date(video.published_at).toLocaleDateString()}</span>
+							</div>
+							
+							<h3 class="text-lg font-bold text-white mb-3 line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors">
+								{video.title}
+							</h3>
+							
+							<p class="text-neutral-400 text-sm line-clamp-2 mb-4 leading-relaxed">
+								{video.description}
+							</p>
+
+							<div class="flex flex-wrap gap-2">
+								{video.tags.slice(0, 2).map(tag => (
+									<span class="text-[10px] bg-neutral-950 border border-neutral-800 text-neutral-400 px-2 py-1 rounded-full uppercase tracking-wider font-bold">
+										{tag}
+									</span>
+								))}
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+			
+			<div class="mt-12 text-center md:hidden">
+				<a href="/videos" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors">
+					View All Videos <ArrowRight size={16} />
+				</a>
+			</div>
+		</div>
+	</section>
+
+	{/* Recent Blog Posts */}
+	<section class="py-24 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="flex items-end justify-between mb-12">
+				<div>
+					<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Analysis Log</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Written Reviews</h2>
+				</div>
+				<a href="/blog" class="hidden md:flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group text-sm font-medium">
+					Read More Analysis <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				{recentPosts.map((post) => (
+					<article class="flex flex-col group border-l-2 border-neutral-800 pl-6 hover:border-blue-500 transition-colors py-2">
+						<span class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">{post.category}</span>
+						<h3 class="text-xl font-bold text-white mb-3 leading-tight group-hover:text-blue-400 transition-colors">
+							<a href={`/blog/${post.slug}`}>{post.title}</a>
+						</h3>
+						<p class="text-neutral-400 text-sm line-clamp-3 mb-4 leading-relaxed flex-grow">
+							{post.excerpt}
+						</p>
+						<a href={`/blog/${post.slug}`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
+							Read Article <ArrowRight size={14} class="group-hover/link:translate-x-1 transition-transform" />
+						</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<Newsletter client:visible />
+
+</Layout>

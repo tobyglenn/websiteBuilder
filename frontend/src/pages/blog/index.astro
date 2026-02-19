@@ -1,0 +1,65 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { BLOG_POSTS } from '../../data/mock.js';
+
+const title = "Blog - Toby on Fitness Tech";
+const description = "Written analysis, deep dives, and technical breakdowns of fitness technology.";
+---
+
+<Layout title={title} description={description}>
+  <div class="bg-neutral-900 border-b border-neutral-800">
+    <div class="container mx-auto px-4 py-16 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+        The Analysis Log
+      </h1>
+      <p class="text-xl text-neutral-400 max-w-2xl mx-auto">
+        Deep dives into data accuracy, sensor technology, and the science behind the metrics.
+      </p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {BLOG_POSTS.map((post) => (
+        <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl transition-all duration-300 group">
+          <a href={`/blog/${post.slug}`} class="block aspect-[16/9] overflow-hidden relative">
+            <div class="absolute inset-0 bg-neutral-800 animate-pulse" /> {/* Placeholder while loading */}
+            {post.image && (
+                <img 
+                    src={post.image} 
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                />
+            )}
+            <div class="absolute top-4 left-4">
+                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                    {post.category}
+                </span>
+            </div>
+          </a>
+          
+          <div class="p-6 flex flex-col flex-1">
+            <div class="flex items-center text-xs text-neutral-500 mb-3 space-x-2">
+                <span>{new Date(post.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span>•</span>
+                <span>5 min read</span>
+            </div>
+            
+            <h2 class="text-xl font-bold mb-3 leading-snug group-hover:text-blue-400 transition-colors">
+              <a href={`/blog/${post.slug}`}>{post.title}</a>
+            </h2>
+            
+            <p class="text-neutral-400 text-sm leading-relaxed mb-6 flex-grow">
+              {post.excerpt}
+            </p>
+            
+            <a href={`/blog/${post.slug}`} class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors">
+              Read Full Analysis &rarr;
+            </a>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</Layout>
