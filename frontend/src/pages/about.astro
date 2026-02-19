@@ -1,0 +1,112 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="About - Toby Glenn">
+  <main class="min-h-screen bg-neutral-950 text-white">
+    {/* Hero Section */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            I don't sell programs.<br />
+            <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">I just document what actually works.</span>
+          </h1>
+          <p class="text-xl text-neutral-400 mb-8 leading-relaxed">
+            Engineer. BJJ Practitioner. Data Nerd. <br/>
+            I dropped 54 lbs in 6 months with a broken ankle, and I'm here to show you exactly how.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* The Transformation */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+          <div class="md:w-1/2">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+               <h2 class="text-2xl font-bold mb-6 text-blue-400">The Stats</h2>
+               <div class="grid grid-cols-2 gap-6">
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">242</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Starting Weight</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-blue-500 mb-1">188</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Current Weight</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">6 Months</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Duration</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">1</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Broken Ankle</div>
+                 </div>
+               </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 space-y-6 text-neutral-300 leading-relaxed text-lg">
+            <h2 class="text-3xl font-bold text-white">The Turnaround</h2>
+            <p>
+              In late 2025, I was 242 pounds. I had broken my ankle, which meant traditional cardio was off the table. 
+              Most people would have used that as an excuse to wait. I decided to use it as a constraint to engineer a solution.
+            </p>
+            <p>
+              I turned to data-driven strength training and meticulous nutrition tracking. No crash diets, no "influencer" workouts. 
+              Just consistent, measurable inputs.
+            </p>
+            <p>
+              The result? I dropped to 188 lbs, rebuilt my strength, and completely overhauled my health metrics.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Philosophy / Pillars */}
+    <section class="py-16 bg-neutral-900/30 border-y border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-12 text-center">My Focus</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="space-y-4">
+            <h3 class="text-xl font-bold text-white">Speediance & Home Gym Tech</h3>
+            <p class="text-neutral-400">
+              I've lifted over 600,000 lbs on the Speediance Gym Monster. I test firmware updates, compare modes, and find the bugs 
+              so you don't have to. If a machine says it replaces a gym, I verify it.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-bold text-white">BJJ & Grappling</h3>
+            <p class="text-neutral-400">
+              Jiu-Jitsu isn't just a sport; it's a system. I analyze match footage, discuss belt culture, and break down the "why" 
+              behind the techniques.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-bold text-white">Data & Automation</h3>
+            <p class="text-neutral-400">
+              From Whoop recovery scores to building my own AI assistant (OpenClaw) to manage my schedule and training. 
+              If it can be measured and automated, I'm interested.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="py-24">
+       <div class="container mx-auto px-4 text-center">
+         <h2 class="text-3xl font-bold mb-6">See the evidence</h2>
+         <p class="text-neutral-400 mb-8 max-w-2xl mx-auto">
+           I document everything on YouTube. The successes, the failures, and the raw data.
+         </p>
+         <a href="/videos" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+           Browse Video Library
+         </a>
+       </div>
+    </section>
+  </main>
+</Layout>
