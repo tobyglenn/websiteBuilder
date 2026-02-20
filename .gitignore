@@ -35,3 +35,11 @@ coverage/
 backend/venv/
 __pycache__/
 *.pyc
+
+# Database files
+*.db
+backend/toby_site.db
+
+# Internal tracking files (not for public repo)
+PROGRESS.json
+improvement-log.json

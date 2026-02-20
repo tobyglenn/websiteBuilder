@@ -2,7 +2,7 @@ const fs = require('fs');
 const https = require('https');
 const path = require('path');
 
-const videosPath = '/Users/tobypeters/clawd/toby-site/frontend/src/data/videos.json';
+const videosPath = path.join(__dirname, 'frontend', 'src', 'data', 'videos.json');
 // Set YOUTUBE_API_KEY env var (never hardcode keys in source)
 const apiKey = process.env.YOUTUBE_API_KEY;
 
