@@ -2,6 +2,34 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-02-19T23:15:00-05:00",
+      "idea": "Running Log Page (/running) — Real Garmin Data Visualization",
+      "category": "New Page + Data Visualization",
+      "files_changed": [
+        "frontend/src/data/running.js",
+        "frontend/src/pages/running.astro",
+        "frontend/src/components/Header.jsx"
+      ],
+      "commit": "a5c23fd",
+      "data_sources": ["garmin_all_activities.json"],
+      "stats": {
+        "total_runs": 111,
+        "total_distance_mi": 265,
+        "longest_run_mi": 13.1,
+        "avg_pace": "8:42/mi",
+        "fastest_pace": "7:21/mi"
+      },
+      "sections": [
+        "Hero with Garmin/Strava links",
+        "Summary stats (6 cards: total runs, miles, time, pace, longest, best pace)",
+        "Distance over time chart (inline SVG)",
+        "Monthly mileage bar chart (11 months)",
+        "Recent runs table (20 runs with date, distance, pace, HR, calories)",
+        "Outdoor vs Treadmill breakdown"
+      ],
+      "notes": "Running page already existed in previous commit. Verified build: 132 pages. Pushed to fork."
+    },
+    {
       "timestamp": "2026-02-19T22:40:00-05:00",
       "idea": "Speediance Workout Volume Dashboard — /speediance page with monthly volume bar chart, workout type donut chart, exercise PRs, and recent sessions table",
       "category": "New Page + Data Visualization",
