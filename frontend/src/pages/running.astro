@@ -1,0 +1,423 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getRunningData } from '../data/running.js';
+
+const { stats, chartData, monthly, recentRuns } = getRunningData();
+
+// Serialize for client-side chart
+const chartJSON = JSON.stringify(chartData);
+const monthlyJSON = JSON.stringify(monthly);
+---
+
+<Layout
+  title="265 Miles: My Running Journey — TobyOnFitnessTech"
+  description="111 runs, 265 miles, and counting. Toby's complete Garmin running data visualized — pace trends, monthly volume, and every run logged."
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* ── Hero ──────────────────────────────────────────────────────────────── */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Garmin Data · Feb 2025 – Feb 2026</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            265 Miles:<br />
+            <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+              My Running Journey
+            </span>
+          </h1>
+          <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            I went from 1-mile treadmill sessions to 5-mile outdoor runs in a year.
+            Every rep, every split, every heart rate spike — all logged by Garmin.
+            This is what 111 runs actually looks like.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="https://connect.garmin.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600/20 hover:bg-blue-600/30 border border-blue-500/30 hover:border-blue-500/60 text-blue-400 hover:text-blue-300 font-medium rounded-full transition-all text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+              Garmin Connect
+            </a>
+            <a
+              href="https://www.strava.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600/20 hover:bg-orange-600/30 border border-orange-500/30 hover:border-orange-500/60 text-orange-400 hover:text-orange-300 font-medium rounded-full transition-all text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+              Strava Profile
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Summary Stats ─────────────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 col-span-2 sm:col-span-1 lg:col-span-1">
+            <div class="text-3xl font-bold text-blue-400 mb-1">{stats.totalRuns}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Total Runs</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.outdoorRuns} outdoor · {stats.treadmillRuns} treadmill</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.totalDistanceMi}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Miles Run</div>
+            <div class="text-xs text-neutral-600 mt-1">Total distance</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.totalDurationFormatted}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Time on Feet</div>
+            <div class="text-xs text-neutral-600 mt-1">Total duration</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.avgPaceFormatted}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Avg Pace</div>
+            <div class="text-xs text-neutral-600 mt-1">min / mile</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.longestRunMi}mi</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Longest Run</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.longestRunDate}</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-purple-400 mb-1">{stats.fastestPaceFormatted}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Best Pace</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.fastestPaceDate}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Charts ────────────────────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-2">Distance Over Time</h2>
+          <p class="text-neutral-400 text-sm">Every run plotted chronologically. Watch the distance grow.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          {/* Main scatter/line chart */}
+          <div class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-semibold text-neutral-300 uppercase tracking-wider">Distance per Run</h3>
+              <div class="flex items-center gap-4 text-xs text-neutral-500">
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span>Outdoor</span>
+                <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-neutral-500 inline-block"></span>Treadmill</span>
+              </div>
+            </div>
+            <div class="relative h-64 md:h-80">
+              <canvas id="distanceChart"></canvas>
+            </div>
+          </div>
+
+          {/* Monthly bar chart */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="text-sm font-semibold text-neutral-300 uppercase tracking-wider mb-4">Monthly Mileage</h3>
+            <div class="relative h-64 md:h-80">
+              <canvas id="monthlyChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Recent Runs Table ─────────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold mb-1">Recent Runs</h2>
+            <p class="text-neutral-400 text-sm">Last 20 sessions from Garmin Connect</p>
+          </div>
+          <a
+            href="https://connect.garmin.com/modern/activities?activityType=running"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-sm text-blue-400 hover:text-blue-300 font-medium flex items-center gap-1 transition-colors"
+          >
+            View all on Garmin
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        {/* Desktop table */}
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800 text-left">
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">Date</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">Route</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">Type</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">Distance</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">Time</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">Pace</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider text-right">Avg HR</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-900">
+              {recentRuns.map((run, i) => (
+                <tr class="hover:bg-neutral-900/50 transition-colors group">
+                  <td class="py-3 pr-4 text-neutral-400 font-mono text-xs whitespace-nowrap">{run.date}</td>
+                  <td class="py-3 pr-4 text-neutral-200 font-medium max-w-[180px] truncate">{run.name}</td>
+                  <td class="py-3 pr-4">
+                    <span class={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${run.type === 'Treadmill' ? 'bg-neutral-800 text-neutral-400' : 'bg-blue-900/40 text-blue-400'}`}>
+                      {run.type}
+                    </span>
+                  </td>
+                  <td class="py-3 pr-4 text-right font-mono font-semibold text-white">{run.distanceMi} mi</td>
+                  <td class="py-3 pr-4 text-right text-neutral-300 font-mono">{run.durationFormatted}</td>
+                  <td class="py-3 pr-4 text-right font-mono text-blue-400 font-semibold">{run.paceFormatted}</td>
+                  <td class="py-3 text-right text-neutral-400 font-mono">
+                    {run.avgHR ? (
+                      <span class={run.avgHR > 160 ? 'text-red-400' : run.avgHR > 140 ? 'text-orange-400' : 'text-green-400'}>
+                        {run.avgHR} bpm
+                      </span>
+                    ) : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile cards */}
+        <div class="md:hidden space-y-3">
+          {recentRuns.slice(0, 10).map((run) => (
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex-1 min-w-0 mr-3">
+                  <div class="font-medium text-white text-sm truncate">{run.name}</div>
+                  <div class="text-xs text-neutral-500 mt-0.5">{run.date}</div>
+                </div>
+                <span class={`shrink-0 inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${run.type === 'Treadmill' ? 'bg-neutral-800 text-neutral-400' : 'bg-blue-900/40 text-blue-400'}`}>
+                  {run.type}
+                </span>
+              </div>
+              <div class="grid grid-cols-3 gap-2 mt-3">
+                <div>
+                  <div class="text-white font-bold">{run.distanceMi} mi</div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">Distance</div>
+                </div>
+                <div>
+                  <div class="text-blue-400 font-bold font-mono">{run.paceFormatted}</div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">Pace</div>
+                </div>
+                <div>
+                  <div class={`font-bold ${run.avgHR ? (run.avgHR > 160 ? 'text-red-400' : run.avgHR > 140 ? 'text-orange-400' : 'text-green-400') : 'text-neutral-400'}`}>
+                    {run.avgHR ? `${run.avgHR} bpm` : '—'}
+                  </div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">Avg HR</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Callout / CTA ─────────────────────────────────────────────────────── */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="bg-gradient-to-r from-blue-900/20 to-purple-900/20 border border-blue-800/30 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 max-w-3xl mx-auto">
+          <div class="text-5xl shrink-0">🏃</div>
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="text-xl font-bold text-white mb-2">From 1 mile to 5 miles in a year</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Started on a treadmill barely making it a mile. Now doing 5-mile outdoor runs consistently.
+              No program, no coach — just progressive overload and logged data. The numbers don't lie.
+            </p>
+          </div>
+          <a
+            href="/about"
+            class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 text-sm"
+          >
+            Read My Story
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+{/* ── Chart.js via CDN ──────────────────────────────────────────────────────── */}
+<script define:vars={{ chartData, monthly }}>
+  window.__RUNNING_CHART_DATA__ = chartData;
+  window.__RUNNING_MONTHLY_DATA__ = monthly;
+</script>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+<script is:inline>
+  (function () {
+    // ── Shared chart defaults ──────────────────────────────────────────────
+    Chart.defaults.color = '#737373';
+    Chart.defaults.borderColor = '#262626';
+    Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
+
+    const chartData = window.__RUNNING_CHART_DATA__ || [];
+    const monthly = window.__RUNNING_MONTHLY_DATA__ || [];
+
+    // ── Distance per run (scatter with connecting line) ────────────────────
+    (function buildDistanceChart() {
+      const canvas = document.getElementById('distanceChart');
+      if (!canvas) return;
+
+      const outdoor = chartData.filter(d => d.type === 'outdoor');
+      const treadmill = chartData.filter(d => d.type === 'treadmill');
+
+      function toXY(arr) {
+        return arr.map((d, i) => ({ x: d.date, y: d.distance }));
+      }
+
+      // Build a full timeline for the line (all runs in order)
+      const allDates = chartData.map(d => d.date);
+
+      new Chart(canvas, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'Outdoor',
+              data: outdoor.map(d => ({ x: d.date, y: d.distance })),
+              backgroundColor: 'rgba(59,130,246,0.7)',
+              borderColor: 'rgba(59,130,246,1)',
+              pointRadius: 5,
+              pointHoverRadius: 7,
+              showLine: false,
+            },
+            {
+              label: 'Treadmill',
+              data: treadmill.map(d => ({ x: d.date, y: d.distance })),
+              backgroundColor: 'rgba(115,115,115,0.6)',
+              borderColor: 'rgba(115,115,115,0.9)',
+              pointRadius: 4,
+              pointHoverRadius: 6,
+              showLine: false,
+            },
+            {
+              label: 'Trend',
+              data: chartData.map(d => ({ x: d.date, y: d.distance })),
+              type: 'line',
+              borderColor: 'rgba(59,130,246,0.25)',
+              borderWidth: 1.5,
+              pointRadius: 0,
+              tension: 0.3,
+              fill: {
+                target: 'origin',
+                above: 'rgba(59,130,246,0.05)',
+              },
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          interaction: { mode: 'nearest', intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              borderColor: '#404040',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                title: (items) => items[0]?.raw?.x || '',
+                label: (item) => ` ${item.raw.y} miles  ·  ${item.dataset.label}`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              type: 'category',
+              grid: { color: '#1a1a1a' },
+              ticks: {
+                maxTicksLimit: 8,
+                maxRotation: 0,
+                callback: function (val, idx) {
+                  const d = this.getLabelForValue(val);
+                  return d ? d.slice(0, 7) : '';
+                },
+              },
+            },
+            y: {
+              grid: { color: '#1a1a1a' },
+              title: { display: true, text: 'miles', color: '#525252', font: { size: 11 } },
+              ticks: {
+                callback: v => v + ' mi',
+              },
+              min: 0,
+            },
+          },
+        },
+      });
+    })();
+
+    // ── Monthly mileage bar chart ──────────────────────────────────────────
+    (function buildMonthlyChart() {
+      const canvas = document.getElementById('monthlyChart');
+      if (!canvas) return;
+
+      const labels = monthly.map(m => m.label);
+      const distances = monthly.map(m => m.distance);
+
+      // Color bars: gradient blue for higher mileage
+      const maxDist = Math.max(...distances);
+      const bgColors = distances.map(d => {
+        const intensity = d / maxDist;
+        const alpha = 0.3 + intensity * 0.5;
+        return `rgba(59,130,246,${alpha.toFixed(2)})`;
+      });
+
+      new Chart(canvas, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Miles',
+            data: distances,
+            backgroundColor: bgColors,
+            borderColor: 'rgba(59,130,246,0.8)',
+            borderWidth: 1,
+            borderRadius: 6,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              borderColor: '#404040',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (item) => ` ${item.raw} miles · ${monthly[item.dataIndex]?.runs} runs`,
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: '#1a1a1a' },
+              ticks: { maxRotation: 45, font: { size: 10 } },
+            },
+            y: {
+              grid: { color: '#1a1a1a' },
+              ticks: { callback: v => v + ' mi' },
+              min: 0,
+            },
+          },
+        },
+      });
+    })();
+  })();
+</script>

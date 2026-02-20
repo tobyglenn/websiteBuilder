@@ -16,13 +16,41 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+
+const siteUrl = "https://tobyonfitnesstech.com";
+const articleJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.title,
+  "description": post.excerpt || post.title,
+  "datePublished": post.published_at,
+  "dateModified": post.published_at,
+  "url": `${siteUrl}/blog/${post.slug}`,
+  ...(post.image ? { "image": post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}` } : {}),
+  "author": {
+    "@type": "Person",
+    "@id": `${siteUrl}/#toby`,
+    "name": "Toby Glenn Peters",
+    "url": siteUrl
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Toby on Fitness Tech",
+    "url": siteUrl
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `${siteUrl}/blog/${post.slug}`
+  }
+};
 ---
 
 <Layout 
-  title={`${post.title} - Analysis`}
-  description={post.excerpt}
+  title={`${post.title} - TobyOnFitnessTech`}
+  description={post.excerpt?.slice(0, 155) || post.title}
   image={post.image}
   ogType="article"
+  jsonLd={articleJsonLd}
 >
   <article class="bg-neutral-950 min-h-screen pb-24">
     {/* Header / Hero */}

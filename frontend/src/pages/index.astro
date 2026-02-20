@@ -9,7 +9,10 @@ const recentVideos = VIDEOS.filter(v => !v.is_live).slice(0, 3);
 const recentPosts = BLOG_POSTS.slice(0, 3);
 ---
 
-<Layout title="Toby on Fitness Tech - Reviews, Analysis, & Live Streams">
+<Layout 
+  title="Toby on Fitness Tech - Reviews, Analysis, & Live Streams"
+  description="Independent fitness tech reviews from a real athlete. Speediance vs Tonal, Whoop vs Garmin, BJJ commentary, and transformation data. No fluff, just real numbers."
+>
 	
 	<Hero client:load />
 

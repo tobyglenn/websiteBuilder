@@ -17,6 +17,29 @@ export function getStaticPaths() {
 
 const { video } = Astro.props;
 
+// VideoObject JSON-LD structured data
+const videoJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": video.title,
+  "description": video.description || video.title,
+  "thumbnailUrl": video.thumbnail,
+  "uploadDate": video.published_at,
+  "url": `https://www.youtube.com/watch?v=${video.id}`,
+  "embedUrl": `https://www.youtube.com/embed/${video.id}`,
+  "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
+  "author": {
+    "@type": "Person",
+    "name": "Toby Glenn Peters",
+    "url": "https://tobyonfitnesstech.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Toby on Fitness Tech",
+    "url": "https://tobyonfitnesstech.com"
+  }
+};
+
 // Resolve transcript content
 let transcriptContent = null;
 if (video.transcript_file) {
@@ -41,6 +64,7 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id).slice(0, 8);
   description={video.description?.slice(0, 155) || video.title}
   image={video.thumbnail}
   ogType="video.other"
+  jsonLd={videoJsonLd}
 >
   <div class="container mx-auto px-4 py-8">
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">

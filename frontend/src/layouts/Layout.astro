@@ -8,14 +8,61 @@ interface Props {
 	description?: string;
 	image?: string;
 	ogType?: string;
+	canonicalUrl?: string;
+	jsonLd?: object | object[];
 }
 
 const { 
 	title, 
-	description = "Deep dives into fitness technology, wearables, and data-driven training.", 
+	description = "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.", 
 	image = "/og-default.jpg",
-	ogType = "website"
+	ogType = "website",
+	canonicalUrl,
+	jsonLd,
 } = Astro.props;
+
+const siteUrl = "https://tobyonfitnesstech.com";
+const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
+const resolvedImage = image.startsWith('http') ? image : (siteUrl + image);
+
+// Global sitewide schemas (Person + WebSite)
+const personSchema = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"@id": `${siteUrl}/#toby`,
+	"name": "Toby Glenn Peters",
+	"alternateName": "TobyOnFitnessTech",
+	"description": "Independent fitness technology reviewer. Former 242 lb, now 188 lb. Testing Speediance, Tonal, Whoop, Garmin & more with real data.",
+	"url": siteUrl,
+	"image": `${siteUrl}/og-default.jpg`,
+	"sameAs": [
+		"https://www.youtube.com/@TobyOnFitnessTech",
+		"https://twitter.com/tobyonft",
+		"https://www.instagram.com/tobyonfitnesstech"
+	],
+	"knowsAbout": ["Fitness Technology", "Strength Training", "Brazilian Jiu-Jitsu", "Wearables", "Home Gym Equipment", "Speediance", "Tonal"]
+};
+
+const websiteSchema = {
+	"@context": "https://schema.org",
+	"@type": "WebSite",
+	"@id": `${siteUrl}/#website`,
+	"url": siteUrl,
+	"name": "Toby on Fitness Tech",
+	"description": "Independent fitness technology reviews, analysis, and deep dives.",
+	"publisher": { "@id": `${siteUrl}/#toby` },
+	"potentialAction": {
+		"@type": "SearchAction",
+		"target": {
+			"@type": "EntryPoint",
+			"urlTemplate": `${siteUrl}/search?q={search_term_string}`
+		},
+		"query-input": "required name=search_term_string"
+	}
+};
+
+// Merge global schemas + any page-specific schema
+const allSchemas: object[] = [personSchema, websiteSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>
@@ -25,13 +72,20 @@ const {
 		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={resolvedUrl} />
 		<meta name="generator" content={Astro.generator} />
 		<meta property="og:type" content={ogType} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
-		<meta property="og:image" content={image} />
+		<meta property="og:image" content={resolvedImage} />
+		<meta property="og:url" content={resolvedUrl} />
+		<meta property="og:site_name" content="Toby on Fitness Tech" />
 		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={resolvedImage} />
 		<title>{title}</title>
+		<script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
 	</head>
 	<body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
 		<div data-pagefind-ignore>
