@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 >
   <main class="min-h-screen bg-neutral-950 text-white">
     {/* Hero Section */}
-    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+    <section class="pt-20 pb-12 md:pt-28 md:pb-16 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
@@ -237,12 +237,10 @@ import Layout from '../layouts/Layout.astro';
                   loading="lazy"
                 />
               </div>
-              <div class="absolute inset-x-0 bottom-0 h-16 overflow-hidden flex items-center justify-center pointer-events-none">
-                <div class="h-24 w-24 rounded-full bg-black/90 border border-black/70 flex flex-col items-center justify-center text-center px-2">
-                  <span class="text-white text-sm font-bold leading-tight">{label}</span>
-                  {date && <span class="text-neutral-300 text-[10px] leading-tight mt-1">{date}</span>}
-                </div>
-              </div>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent pt-8 pb-2 px-2 text-center pointer-events-none">
+    <span class="text-white text-xs font-bold block leading-tight drop-shadow">{label}</span>
+    {date && <span class="text-neutral-400 text-[10px] block">{date}</span>}
+  </div>
             </div>
           ))}
         </div>

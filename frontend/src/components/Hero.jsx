@@ -13,7 +13,7 @@ export default function Hero() {
   ];
 
   return (
-    <section className="relative overflow-hidden bg-neutral-950 pt-32 pb-24 md:pt-48 md:pb-32">
+    <section className="relative overflow-hidden bg-neutral-950 pt-24 pb-16 md:pt-36 md:pb-20">
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-blue-900/20 to-transparent pointer-events-none" />
@@ -84,7 +84,7 @@ export default function Hero() {
       </div>
 
       {/* Pillars Section */}
-      <div className="container mx-auto px-4 mt-24 md:mt-32">
+      <div className="container mx-auto px-4 mt-10 md:mt-14">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {pillars.map((pillar) => (
             <a key={pillar.name} href={pillar.href} className="group relative bg-neutral-900/50 border border-neutral-800 hover:border-blue-500/50 rounded-xl p-6 transition-all duration-300 hover:bg-neutral-800/50">

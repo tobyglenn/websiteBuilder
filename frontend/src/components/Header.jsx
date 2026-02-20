@@ -5,6 +5,7 @@ import SearchModal from './SearchModal.jsx';
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [pathname, setPathname] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -12,6 +13,10 @@ export default function Header() {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setPathname(window.location.pathname);
   }, []);
 
   const navLinks = [
@@ -41,7 +46,11 @@ export default function Header() {
             <a 
               key={link.name} 
               href={link.href}
-              className="text-sm font-medium text-neutral-300 hover:text-white transition-colors"
+              className={`text-sm font-medium transition-colors ${
+                pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+                  ? 'text-white border-b border-blue-500 pb-0.5'
+                  : 'text-neutral-300 hover:text-white'
+              }`}
             >
               {link.name}
             </a>
@@ -70,7 +79,11 @@ export default function Header() {
               <a 
                 key={link.name} 
                 href={link.href}
-                className="text-lg font-medium text-neutral-300 hover:text-white"
+                className={`text-lg font-medium transition-colors ${
+                  pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+                    ? 'text-white'
+                    : 'text-neutral-300 hover:text-white'
+                }`}
                 onClick={() => setIsMenuOpen(false)}
               >
                 {link.name}

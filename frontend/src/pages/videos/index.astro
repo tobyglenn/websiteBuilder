@@ -7,14 +7,21 @@ const description = "Browse all 104 videos covering Speediance reviews, BJJ comm
 ---
 
 <Layout title={title} description={description}>
-  <div class="container mx-auto px-4 py-12">
-    <div class="flex flex-col mb-12 border-b border-neutral-800 pb-8">
-      <h1 class="text-4xl font-bold mb-4">Video Library</h1>
-      <p class="text-neutral-400 max-w-2xl">
-        104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation content. Use the filters below to find what you're looking for.
-      </p>
+    <!-- Hero -->
+    <section class="bg-neutral-950 border-b border-neutral-800">
+      <div class="container mx-auto px-4 py-10 md:py-14 max-w-3xl text-center">
+        <p class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-4">VIDEO LIBRARY</p>
+        <h1 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
+          Everything on Camera.<br class="hidden md:block" />
+          <span class="text-neutral-400">No Scripts. No Sponsors.</span>
+        </h1>
+        <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
+          104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. Filter by topic below.
+        </p>
+      </div>
+    </section>
+    <!-- Grid -->
+    <div class="container mx-auto px-4 py-10">
+      <VideoGrid client:load showFilters={true} />
     </div>
-
-    <VideoGrid client:load showFilters={true} />
-  </div>
-</Layout>
+  </Layout>
