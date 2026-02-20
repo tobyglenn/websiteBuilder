@@ -139,6 +139,8 @@ export async function getStaticPaths() {
       transcriptHtml = '<p class="text-neutral-500">Transcript unavailable.</p>';
     }
 
+    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+
     return {
       params: { slug },
       props: {
@@ -151,6 +153,7 @@ export async function getStaticPaths() {
           duration,
           audioUrl,
           mdUrl,
+          coverImage,
           topics,
           links,
           showNotesHtml,

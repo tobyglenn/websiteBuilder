@@ -20,30 +20,45 @@ export default function EpisodeDetail({ episode }) {
 
       {/* Hero */}
       <header className="max-w-4xl mx-auto px-4 pt-6 pb-10">
-        <div className="flex items-center gap-2 mb-4 text-xs text-neutral-500 font-mono">
-          <span className="text-blue-400 font-bold tracking-widest uppercase">Episode {episode.number}</span>
-          <span>·</span>
-          <span>{episode.date}</span>
-          <span>·</span>
-          <span>{episode.duration}</span>
+        <div className="flex flex-col sm:flex-row gap-6 items-start">
+          {/* Cover art */}
+          {episode.coverImage && (
+            <img
+              src={episode.coverImage}
+              alt={`Episode ${episode.number} cover art`}
+              className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl object-cover shrink-0 border border-neutral-700 shadow-xl shadow-black/40"
+              onError={(e) => { e.currentTarget.style.display = 'none'; }}
+            />
+          )}
+
+          {/* Meta + title */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-3 text-xs text-neutral-500 font-mono">
+              <span className="text-blue-400 font-bold tracking-widest uppercase">Episode {episode.number}</span>
+              <span>·</span>
+              <span>{episode.date}</span>
+              <span>·</span>
+              <span>{episode.duration}</span>
+            </div>
+
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight mb-4">
+              {episode.title}
+            </h1>
+
+            <p className="text-neutral-300 text-lg leading-relaxed max-w-2xl mb-6">
+              {episode.description}
+            </p>
+
+            <a
+              href={episode.audioUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-semibold text-white transition-all duration-200 shadow-lg shadow-blue-900/30 hover:shadow-blue-900/50 hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>🎧</span> Listen to Episode
+            </a>
+          </div>
         </div>
-
-        <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight mb-4">
-          {episode.title}
-        </h1>
-
-        <p className="text-neutral-300 text-lg leading-relaxed max-w-2xl mb-8">
-          {episode.description}
-        </p>
-
-        <a
-          href={episode.audioUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-semibold text-white transition-all duration-200 shadow-lg shadow-blue-900/30 hover:shadow-blue-900/50 hover:scale-[1.02] active:scale-[0.98]"
-        >
-          <span>🎧</span> Listen to Episode
-        </a>
       </header>
 
       {/* Sticky tab bar */}

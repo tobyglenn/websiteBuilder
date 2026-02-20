@@ -12,6 +12,7 @@ interface Episode {
   audioUrl: string;
   duration: string;
   showNotesUrl: string;
+  coverImage: string;
 }
 
 function formatDate(raw: string): string {
@@ -73,8 +74,9 @@ try {
     const showNotesUrl = mdUrlToGitHub(link);
     const pubDate = formatDate(pubDateRaw);
     const episodeNum = parseInt(episodeNumStr, 10) || 0;
+    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
 
-    episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl });
+    episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
   }
 
   // Sort newest first
@@ -132,15 +134,25 @@ try {
       <div class="space-y-4">
         {episodes.map((ep) => (
           <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 mb-4">
-            <!-- Episode badge -->
-            <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2 py-1 rounded-full">
-              Episode {ep.episodeNum}
-            </span>
-
-            <!-- Title -->
-            <h2 class="text-xl font-bold text-white mt-2 mb-2">
-              {ep.title.replace(/^Episode \d+:\s*/i, '')}
-            </h2>
+            <!-- Cover art + meta row -->
+            <div class="flex gap-4 mb-4">
+              <img
+                src={ep.coverImage}
+                alt={`Episode ${ep.episodeNum} cover art`}
+                class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 border border-neutral-700"
+                onerror="this.style.display='none'"
+              />
+              <div class="flex flex-col justify-center min-w-0">
+                <!-- Episode badge -->
+                <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2 py-1 rounded-full self-start mb-2">
+                  Episode {ep.episodeNum}
+                </span>
+                <!-- Title -->
+                <h2 class="text-xl font-bold text-white leading-snug">
+                  {ep.title.replace(/^Episode \d+:\s*/i, '')}
+                </h2>
+              </div>
+            </div>
 
             <!-- Description -->
             <p class="text-neutral-400 text-sm leading-relaxed mb-3">
