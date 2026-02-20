@@ -1,4 +1,8 @@
 import { useState, useEffect } from 'react';
+import PodcastSubscribeButtons from './PodcastSubscribeButtons.jsx';
+
+const OPENCLAW_SPOTIFY = 'https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr';
+const OPENCLAW_APPLE   = 'https://podcasts.apple.com/podcast/id1878697245';
 
 export default function EpisodeDetail({ episode }) {
   const [activeTab, setActiveTab] = useState('shownotes');
@@ -57,6 +61,17 @@ export default function EpisodeDetail({ episode }) {
             >
               <span>🎧</span> Listen to Episode
             </a>
+
+            {/* Listen & Subscribe */}
+            <div className="mt-6">
+              <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-3">
+                Listen &amp; Subscribe
+              </p>
+              <PodcastSubscribeButtons
+                spotifyUrl={OPENCLAW_SPOTIFY}
+                appleUrl={OPENCLAW_APPLE}
+              />
+            </div>
           </div>
         </div>
       </header>

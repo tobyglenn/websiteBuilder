@@ -2,6 +2,7 @@
 import { marked } from 'marked';
 import Layout from '../../layouts/Layout.astro';
 import EpisodeDetail from '../../components/EpisodeDetail.jsx';
+import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
 
 export async function getStaticPaths() {
   // 1. Fetch RSS
@@ -171,6 +172,7 @@ const { episode } = Astro.props;
 
 <Layout title={`Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} description={episode.description}>
   <EpisodeDetail episode={episode} client:load />
+  <StickySubscribeBar client:load />
 </Layout>
 
 <style is:global>

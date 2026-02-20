@@ -1,0 +1,146 @@
+import { useState } from 'react';
+import PodcastSubscribeButtons from './PodcastSubscribeButtons.jsx';
+
+const OPENCLAW_SPOTIFY = 'https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr';
+const OPENCLAW_APPLE   = 'https://podcasts.apple.com/podcast/id1878697245';
+const FITNESS_SPOTIFY  = 'https://open.spotify.com/show/03gk0rvNxpDWJKnNFB4mu2';
+const FITNESS_APPLE    = 'https://podcasts.apple.com/podcast/id1836037910';
+
+function EpisodeCard({ ep }) {
+  return (
+    <article className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-400/5 hover:border-neutral-700 transition-all">
+      {/* Cover art + meta row */}
+      <div className="flex gap-4 mb-4">
+        <img
+          src={ep.coverImage}
+          alt={`Episode ${ep.episodeNum} cover art`}
+          className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 border border-neutral-700"
+          onError={e => { e.currentTarget.style.display = 'none'; }}
+        />
+        <div className="flex flex-col justify-center min-w-0">
+          <span className="bg-blue-400/10 text-blue-400 text-xs font-bold px-2 py-0.5 rounded-full self-start mb-2">
+            EP {ep.episodeNum}
+          </span>
+          <h2 className="text-xl font-bold text-white leading-snug">
+            {ep.title.replace(/^Episode \d+:\s*/i, '')}
+          </h2>
+        </div>
+      </div>
+
+      {/* Description */}
+      <p className="text-neutral-400 text-sm leading-relaxed mb-3">
+        {ep.description}
+      </p>
+
+      {/* Meta */}
+      <p className="text-neutral-500 text-xs mb-4 flex items-center gap-2 flex-wrap">
+        <span>{ep.pubDate}</span>
+        {ep.duration && (
+          <>
+            <span>·</span>
+            <span>⏱ {ep.duration}</span>
+          </>
+        )}
+      </p>
+
+      {/* Actions */}
+      <div className="mt-2">
+        <a
+          href={ep.audioUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-semibold text-white text-sm transition-all duration-200 hover:scale-[1.01] mb-2"
+        >
+          🎧 Listen
+        </a>
+        <div className="grid grid-cols-2 gap-2">
+          <a
+            href={`/podcasts/episode-${ep.episodeNum}/`}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+          >
+            📄 Show Notes
+          </a>
+          <a
+            href={`/podcasts/episode-${ep.episodeNum}/?tab=transcript`}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+          >
+            📝 Transcript
+          </a>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export default function PodcastShowSwitcher({ episodes = [], fetchError = false }) {
+  const [activeShow, setActiveShow] = useState('openclaw');
+
+  const tabs = [
+    { id: 'openclaw', label: '🎙 OpenClaw Daily' },
+    { id: 'fitness',  label: '💪 Toby on Fitness Tech' },
+  ];
+
+  return (
+    <div>
+      {/* Show Switcher tabs */}
+      <div className="flex gap-2 mb-6 flex-wrap">
+        {tabs.map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveShow(tab.id)}
+            className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all ${
+              activeShow === tab.id
+                ? 'bg-blue-400 text-neutral-950 border-blue-400'
+                : 'bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* OpenClaw Daily subscribe buttons — always visible */}
+      <div className="mb-8">
+        <PodcastSubscribeButtons
+          spotifyUrl={OPENCLAW_SPOTIFY}
+          appleUrl={OPENCLAW_APPLE}
+        />
+      </div>
+
+      {/* Content area */}
+      {activeShow === 'openclaw' ? (
+        <div>
+          {fetchError ? (
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+              <p className="text-neutral-400 text-sm">⚠️ Episodes temporarily unavailable. Please check back soon.</p>
+            </div>
+          ) : episodes.length === 0 ? (
+            <div className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+              <p className="text-neutral-400 text-sm">No episodes found in the feed yet.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {episodes.map(ep => (
+                <EpisodeCard key={ep.episodeNum} ep={ep} />
+              ))}
+            </div>
+          )}
+        </div>
+      ) : (
+        <div className="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 text-center">
+          <div className="text-4xl mb-4">💪</div>
+          <h3 className="text-xl font-bold text-white mb-2">Toby on Fitness Tech</h3>
+          <p className="text-neutral-400 text-sm mb-6 max-w-md mx-auto">
+            Coming soon — subscribe below to stay updated on the latest episodes about fitness tech, wearables, and health innovation.
+          </p>
+          <div className="flex justify-center">
+            <PodcastSubscribeButtons
+              spotifyUrl={FITNESS_SPOTIFY}
+              appleUrl={FITNESS_APPLE}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
