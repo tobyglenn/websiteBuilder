@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const episodes = [
+  {
+    number: 'Episode 3',
+    title: 'The Ecosystem Explodes',
+    description: "DigitalOcean coverage, Cloudflare's Moltworker, CNBC capabilities, security updates, version patches, LLM stats, hardware guides, Adafruit tutorials, and the growing skills marketplace.",
+    duration: '~11 min',
+    published: 'February 20, 2026',
+    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_003_full.mp3',
+    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_003.md',
+  },
+  {
+    number: 'Episode 2',
+    title: 'The Local AI Revolution',
+    description: 'Raspberry Pi official support, Mac Mini shortage, Bitsight security research (30K exposed instances), Peter Steinberger profile, VentureBeat coverage, Trend Micro analysis, Georgetown research, developer tools, hardware guides, and the future of local AI agents.',
+    duration: '~23 min',
+    published: 'February 20, 2026',
+    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_002_full.mp3',
+    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_002.md',
+  },
+  {
+    number: 'Episode 1 (Full)',
+    title: 'The Full Story',
+    description: 'The inaugural episode covering the foundation transition, security debates, coverage reaction, hardware options, model releases, and community ecosystem.',
+    duration: '~38 min',
+    published: 'February 19, 2026',
+    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_001_full_v2.mp3',
+    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_001_full_v2.md',
+  },
+  {
+    number: 'Episode 1 (Highlights)',
+    title: 'Highlights',
+    description: 'Quick 3-minute summary of the main news and tips.',
+    duration: '~3 min',
+    published: 'February 19, 2026',
+    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_001_highlights_v2.mp3',
+    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_001_highlights_v2.md',
+  },
+];
+
+const rssFeed = 'https://grayking-creator.github.io/openclaw-podcast/feed.xml';
+---
+
+<Layout title="Podcasts | Toby on Fitness Tech" description="OpenClaw Daily — your AI-hosted podcast covering the latest in fitness tech, local AI, hardware, and the OpenClaw ecosystem. Hosted by Nova & Alloy.">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+
+    <!-- Hero -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        🎙️ OpenClaw Daily Podcast
+      </h1>
+      <p class="text-neutral-400 text-lg mb-6 max-w-2xl mx-auto">
+        AI-hosted daily episodes covering fitness tech, local AI, hardware, security, and the OpenClaw ecosystem — fresh takes every day.
+      </p>
+      <!-- Hosts badge -->
+      <span class="inline-flex items-center gap-2 bg-neutral-800 border border-neutral-700 text-neutral-300 text-sm font-medium px-4 py-2 rounded-full">
+        🎤 Hosts: Nova (warm British) &amp; Alloy (neutral)
+      </span>
+    </div>
+
+    <!-- RSS Subscribe card -->
+    <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 mb-10 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+      <div class="flex-1">
+        <p class="text-blue-400 text-sm font-semibold mb-1">📡 Subscribe via RSS</p>
+        <code class="text-neutral-300 text-xs break-all select-all">{rssFeed}</code>
+      </div>
+      <a
+        href={rssFeed}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="shrink-0 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+      >
+        Open Feed
+      </a>
+    </div>
+
+    <!-- Episode list -->
+    <div class="space-y-6">
+      {episodes.map((ep) => (
+        <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+          <div class="flex flex-col sm:flex-row sm:items-start gap-4">
+            <div class="flex-1">
+              <!-- Badge -->
+              <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2 py-1 rounded-full">
+                {ep.number}
+              </span>
+
+              <!-- Title -->
+              <h2 class="text-xl font-bold text-white mt-3 mb-2">
+                {ep.title}
+              </h2>
+
+              <!-- Description -->
+              <p class="text-neutral-400 text-sm mb-3 leading-relaxed">
+                {ep.description}
+              </p>
+
+              <!-- Meta -->
+              <p class="text-neutral-500 text-xs mb-5">
+                {ep.duration} &nbsp;·&nbsp; {ep.published}
+              </p>
+
+              <!-- Actions -->
+              <div class="flex flex-wrap items-center gap-4">
+                <a
+                  href={ep.listenUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+                >
+                  🎧 Listen
+                </a>
+                <a
+                  href={ep.notesUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="text-neutral-400 hover:text-white text-sm transition-colors"
+                >
+                  📄 Show Notes
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Footer note -->
+    <p class="text-center text-neutral-600 text-xs mt-12">
+      Episodes generated by OpenClaw AI · Voices by OpenAI TTS
+    </p>
+
+  </div>
+</Layout>
