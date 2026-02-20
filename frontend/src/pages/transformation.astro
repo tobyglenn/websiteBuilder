@@ -1,0 +1,437 @@
+---
+// Transformation page data
+import Layout from '../layouts/Layout.astro';
+
+const transformationData = {
+  startWeight: 242,
+  lowestWeight: 188,
+  currentWeight: 218,
+  startDate: "July 2023",
+  lowestDate: "January 2024",
+  currentDate: "February 2026",
+  durationMonths: 6,
+  weightLost: 54,
+  muscleGained: 30,
+  // Key milestones
+  milestones: [
+    {
+      date: "July 2023",
+      weight: 242,
+      event: "Started transformation journey"
+    },
+    {
+      date: "September 2023",
+      weight: 220,
+      event: "GLP-1 journey begins"
+    },
+    {
+      date: "January 2024",
+      weight: 188,
+      event: "Reached goal weight"
+    },
+    {
+      date: "February 2024",
+      weight: 195,
+      event: "Started muscle building phase"
+    },
+    {
+      date: "February 2026",
+      weight: 218,
+      event: "Current weight (muscle + strength)"
+    }
+  ],
+  // Stats from real data
+  stats: {
+    speedianceVolume: 1296447, // lbs lifted
+    totalRuns: 111,
+    totalMiles: 265.1,
+    bjjMonths: 10
+  }
+};
+
+// Load key insights from transcript
+const insights = [
+  {
+    title: "The GLP-1 Decision",
+    content: "I made the decision to use GLP-1 medication after trying everything else. The data showed my metabolism wasn't responding to traditional methods."
+  },
+  {
+    title: "Why I Stopped Cardio",
+    content: "Cardio wasn't burning as many calories as I thought. Zone 2 was destroying my recovery. I focused on strength training and walking instead."
+  },
+  {
+    title: "The TRT Factor",
+    content: "Testosterone replacement therapy helped me maintain energy levels during the cut and supported muscle retention."
+  },
+  {
+    title: "Muscle Building Without Getting Fat",
+    content: "The key was progressive overload with Speediance. I went from 188 to 218 lbs while staying lean. The data doesn't lie."
+  }
+];
+---
+
+<Layout 
+  title="242 → 218: My Transformation Journey | TobyOnFitnessTech"
+  description="From 242 lbs to 188 lbs and back to 218 lbs of muscle. No shortcuts. No sponsors. Just the data behind my transformation."
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    {/* Hero Section */}
+    <section class="pt-20 pb-16 md:pt-28 md:pb-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          {/* Label */}
+          <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-6">
+            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+            <span class="text-blue-400 text-sm font-medium">The Data Don't Lie</span>
+          </div>
+          
+          {/* Headline */}
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            242 → 188 → <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">218</span>
+          </h1>
+          
+          <p class="text-xl text-neutral-400 mb-8 leading-relaxed max-w-2xl mx-auto">
+            From overweight to under 190, then back up to 218 — but this time with muscle. Here's exactly how I did it.
+          </p>
+          
+          {/* Stats Pills */}
+          <div class="flex flex-wrap justify-center gap-3">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-full px-5 py-2.5">
+              <span class="text-blue-400 font-bold">−54 lbs</span>
+              <span class="text-neutral-500 text-sm ml-2">lost</span>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-full px-5 py-2.5">
+              <span class="text-purple-400 font-bold">+30 lbs</span>
+              <span class="text-neutral-500 text-sm ml-2">muscle gained</span>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-full px-5 py-2.5">
+              <span class="text-green-400 font-bold">1.29M</span>
+              <span class="text-neutral-500 text-sm ml-2">lbs lifted</span>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-full px-5 py-2.5">
+              <span class="text-orange-400 font-bold">265</span>
+              <span class="text-neutral-500 text-sm ml-2">miles run</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Weight Timeline Chart */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center">Weight Over Time</h2>
+        
+        {/* SVG Line Chart */}
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-8 overflow-x-auto">
+          <svg viewBox="0 0 800 300" class="w-full min-w-[600px]" preserveAspectRatio="xMidYMid meet">
+            {/* Grid lines */}
+            <g stroke="#333" stroke-width="1" opacity="0.3">
+              <line x1="80" y1="50" x2="750" y2="50" />
+              <line x1="80" y1="100" x2="750" y2="100" />
+              <line x1="80" y1="150" x2="750" y2="150" />
+              <line x1="80" y1="200" x2="750" y2="200" />
+              <line x1="80" y1="250" x2="750" y2="250" />
+            </g>
+            
+            {/* Y-axis labels */}
+            <g fill="#666" font-size="12" font-family="system-ui">
+              <text x="70" y="55" text-anchor="end">250</text>
+              <text x="70" y="105" text-anchor="end">225</text>
+              <text x="70" y="155" text-anchor="end">200</text>
+              <text x="70" y="205" text-anchor="end">175</text>
+              <text x="70" y="255" text-anchor="end">150</text>
+            </g>
+            
+            {/* X-axis labels */}
+            <g fill="#666" font-size="12" font-family="system-ui">
+              <text x="100" y="280" text-anchor="middle">Jul '23</text>
+              <text x="230" y="280" text-anchor="middle">Sep '23</text>
+              <text x="360" y="280" text-anchor="middle">Nov '23</text>
+              <text x="490" y="280" text-anchor="middle">Jan '24</text>
+              <text x="620" y="280" text-anchor="middle">Jun '24</text>
+              <text x="720" y="280" text-anchor="middle">Feb '26</text>
+            </g>
+            
+            {/* Weight line - goes from 250 down to 175 then back up */}
+            <path 
+              d="M 100,60 
+                 L 165,85 
+                 L 230,110 
+                 L 295,140 
+                 L 360,175 
+                 L 425,200 
+                 L 490,212 
+                 L 555,185 
+                 L 620,150 
+                 L 685,110 
+                 L 720,95"
+              fill="none" 
+              stroke="url(#lineGradient)" 
+              stroke-width="4" 
+              stroke-linecap="round" 
+              stroke-linejoin="round"
+            />
+            
+            {/* Gradient definition */}
+            <defs>
+              <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ef4444" />
+                <stop offset="40%" stop-color="#3b82f6" />
+                <stop offset="100%" stop-color="#a855f7" />
+              </linearGradient>
+            </defs>
+            
+            {/* Data points */}
+            <g fill="#fff" stroke="#3b82f6" stroke-width="2">
+              <circle cx="100" cy="60" r="6" />
+              <circle cx="230" cy="110" r="6" />
+              <circle cx="490" cy="212" r="6" />
+              <circle cx="720" cy="95" r="6" />
+            </g>
+            
+            {/* Labels */}
+            <g fill="#fff" font-size="11" font-family="system-ui">
+              <text x="100" y="45" text-anchor="middle">242 lbs</text>
+              <text x="230" y="100" text-anchor="middle">~210 lbs</text>
+              <text x="490" y="230" text-anchor="middle">188 lbs</text>
+              <text x="720" y="80" text-anchor="middle">218 lbs</text>
+            </g>
+          </svg>
+        </div>
+        
+        {/* Timeline Events */}
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+            <div class="text-blue-400 text-sm font-medium mb-1">Phase 1</div>
+            <div class="text-xl font-bold mb-1">242 → 188</div>
+            <div class="text-neutral-500 text-sm">July '23 – Jan '24</div>
+            <div class="mt-3 text-neutral-400 text-sm">Lost 54 lbs using GLP-1, strength training, and data-driven nutrition.</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+            <div class="text-purple-400 text-sm font-medium mb-1">Transition</div>
+            <div class="text-xl font-bold mb-1">188 → 205</div>
+            <div class="text-neutral-500 text-sm">Jan '24 – Aug '24</div>
+            <div class="mt-3 text-neutral-400 text-sm">Started muscle building. Focused on Speediance progressive overload.</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+            <div class="text-green-400 text-sm font-medium mb-1">Phase 2</div>
+            <div class="text-xl font-bold mb-1">205 → 218</div>
+            <div class="text-neutral-500 text-sm">Aug '24 – Feb '26</div>
+            <div class="mt-3 text-neutral-400 text-sm">Muscle gain phase. 1.29M lbs lifted. BJJ brown belt achieved.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Progress Photos */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center">The Visuals</h2>
+        
+        <div class="flex flex-col md:flex-row items-center justify-center gap-8">
+          {/* Photo 1: Start */}
+          <div class="relative group">
+            <div class="w-48 md:w-56 rounded-2xl overflow-hidden border border-neutral-800 shadow-xl">
+              <img
+                src="/progress/progress_230.jpg"
+                alt="Starting weight — 242 lbs"
+                class="w-full aspect-[3/4] object-cover object-top"
+                loading="eager"
+              />
+            </div>
+            <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+              <span class="bg-black/80 backdrop-blur-sm text-neutral-300 text-sm font-bold px-4 py-1.5 rounded-full border border-neutral-700">
+                242 lbs
+              </span>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-red-600 text-white text-xs font-black px-3 py-1.5 rounded-full">
+              START
+            </div>
+          </div>
+
+          {/* Arrow */}
+          <div class="flex flex-col items-center text-neutral-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-blue-500"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="text-xs mt-2">−54 lbs</span>
+          </div>
+
+          {/* Photo 2: Lowest */}
+          <div class="relative group">
+            <div class="w-48 md:w-56 rounded-2xl overflow-hidden border border-blue-500/40 shadow-xl shadow-blue-900/20">
+              <img
+                src="/progress/progress_188.jpg"
+                alt="Lowest weight — 188 lbs"
+                class="w-full aspect-[3/4] object-cover object-top"
+                loading="eager"
+              />
+            </div>
+            <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+              <span class="bg-blue-600/90 backdrop-blur-sm text-white text-sm font-bold px-4 py-1.5 rounded-full">
+                188 lbs
+              </span>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-black px-3 py-1.5 rounded-full">
+              LOW
+            </div>
+          </div>
+
+          {/* Arrow */}
+          <div class="flex flex-col items-center text-neutral-500">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-purple-500"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <span class="text-xs mt-2">+30 lbs</span>
+          </div>
+
+          {/* Photo 3: Current */}
+          <div class="relative group">
+            <div class="w-48 md:w-56 rounded-2xl overflow-hidden border border-purple-500/40 shadow-xl shadow-purple-900/20">
+              <img
+                src="/progress/progress_230.jpg"
+                alt="Current weight — 218 lbs"
+                class="w-full aspect-[3/4] object-cover object-top"
+                loading="eager"
+              />
+            </div>
+            <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+              <span class="bg-purple-600/90 backdrop-blur-sm text-white text-sm font-bold px-4 py-1.5 rounded-full">
+                218 lbs
+              </span>
+            </div>
+            <div class="absolute -top-3 -right-3 bg-purple-600 text-white text-xs font-black px-3 py-1.5 rounded-full">
+              NOW
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-center text-neutral-600 text-sm mt-6">
+          Left: 242 lbs (July 2023) · Center: 188 lbs (Jan 2024) · Right: 218 lbs (Feb 2026)
+        </p>
+      </div>
+    </section>
+
+    {/* Key Insights */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center">What I Learned</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+          {insights.map((insight, i) => (
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+              <div class="flex items-center gap-3 mb-3">
+                <div class="w-8 h-8 bg-blue-500/20 rounded-full flex items-center justify-center">
+                  <span class="text-blue-400 font-bold">{i + 1}</span>
+                </div>
+                <h3 class="text-lg font-bold">{insight.title}</h3>
+              </div>
+              <p class="text-neutral-400 leading-relaxed">{insight.content}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Data Deep Dive */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center">The Data Behind the Gains</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Speediance */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+            <div class="text-5xl font-bold text-blue-500 mb-2">1.29M</div>
+            <div class="text-neutral-400 mb-1">lbs lifted on Speediance</div>
+            <div class="text-neutral-600 text-sm">125 workouts</div>
+          </div>
+          
+          {/* Running */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+            <div class="text-5xl font-bold text-green-500 mb-2">265</div>
+            <div class="text-neutral-400 mb-1">miles run</div>
+            <div class="text-neutral-600 text-sm">111 runs (84 outdoor, 27 treadmill)</div>
+          </div>
+          
+          {/* BJJ */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+            <div class="text-5xl font-bold text-yellow-500 mb-2">10+</div>
+            <div class="text-neutral-400 mb-1">months of BJJ training</div>
+            <div class="text-neutral-600 text-sm">Brown belt achieved</div>
+          </div>
+        </div>
+        
+        <div class="mt-8 text-center">
+          <a href="/speediance" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors">
+            See full Speediance data
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    {/* Key Takeaways */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-8 text-center">Key Takeaways</h2>
+        
+        <div class="max-w-2xl mx-auto">
+          <ul class="space-y-4">
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="text-neutral-300">
+                <strong class="text-white">GLP-1 works, but it's not magic.</strong> Combined with strength training and protein tracking, it accelerates fat loss while preserving muscle.
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="text-neutral-300">
+                <strong class="text-white">Zone 2 cardio destroyed my recovery.</strong> Walking and low-intensity movement beats hours of steady-state cardio when you're lifting heavy.
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="text-neutral-300">
+                <strong class="text-white">Progressive overload is everything.</strong> Speediance's rep-based tracking showed me exactly when to add weight. No guessing.
+              </div>
+            </li>
+            <li class="flex gap-4">
+              <div class="flex-shrink-0 w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center mt-0.5">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="3"><path d="M20 6 9 17l-5-5"/></svg>
+              </div>
+              <div class="text-neutral-300">
+                <strong class="text-white">BJJ accelerates transformation.</strong> Rolling 3x/week burns calories, builds muscle endurance, and keeps you accountable to a community.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">Ready to Start Your Own Journey?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          Everything I use is documented. No secrets. No sponsored products. Just real data from real training.
+        </p>
+        
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/gear" class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+            See My Gear Stack →
+          </a>
+          <a href="/day" class="bg-neutral-800 hover:bg-neutral-700 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+            See a Day in the Data →
+          </a>
+          <a href="/blog" class="bg-neutral-800 hover:bg-neutral-700 text-white font-semibold px-6 py-3 rounded-full transition-colors">
+            Read the Full Story →
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -2,6 +2,34 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-02-20T02:35:00-05:00",
+      "type": "blog-posts",
+      "description": "Added 2 new blog posts from unused video transcripts",
+      "posts": [
+        {
+          "slug": "speediance-2s-first-look-review",
+          "title": "I Spent $5,000 On the Speediance 2S. Here's What Nobody Tells You.",
+          "category": "Field Reports",
+          "published_at": "2025-08-28",
+          "transcript_video_id": "yeYeMNBC2Lc",
+          "transcript_word_count": 52652,
+          "topics": ["Speediance 2S", "first look", "noise comparison", "weight capacity", "260 lbs", "delivery", "pallet", "original vs 2S", "ring clip", "slow descent"]
+        },
+        {
+          "slug": "speediance-2s-modes-explained",
+          "title": "Speediance Modes Explained: Why I Use Stamina For Everything",
+          "category": "Field Reports",
+          "published_at": "2025-09-13",
+          "transcript_video_id": "qyXBR0vhxxw",
+          "transcript_word_count": 28941,
+          "topics": ["Speediance modes", "Gain Muscle", "Stamina", "Strength", "Custom mode", "1RM trap", "eccentric mode", "warm-up strategy", "reps", "progressive overload"]
+        }
+      ],
+      "git_commit": "577e099",
+      "git_push": "fork -> main (force)",
+      "notes": "All posts written from full transcript content in Toby's voice. No placeholder content. Video IDs previously unused."
+    },
+    {
       "timestamp": "2026-02-20T02:20:00-05:00",
       "idea": "/gear page — Real gear stack with usage stats and transcript quotes",
       "category": "New Page",
