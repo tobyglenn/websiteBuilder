@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import { SEO } from 'astro-seo';
 
 interface Props {
 	title: string;
@@ -69,22 +70,32 @@ const allSchemas: object[] = [personSchema, websiteSchema, ...(jsonLd ? (Array.i
 <html lang="en" class="dark scroll-smooth">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="canonical" href={resolvedUrl} />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
-		<meta property="og:type" content={ogType} />
-		<meta property="og:title" content={title} />
-		<meta property="og:description" content={description} />
-		<meta property="og:image" content={resolvedImage} />
-		<meta property="og:url" content={resolvedUrl} />
-		<meta property="og:site_name" content="Toby on Fitness Tech" />
-		<meta name="twitter:card" content="summary_large_image" />
-		<meta name="twitter:title" content={title} />
-		<meta name="twitter:description" content={description} />
-		<meta name="twitter:image" content={resolvedImage} />
-		<title>{title}</title>
+		<SEO
+			title={title}
+			description={description}
+			canonical={resolvedUrl}
+			openGraph={{
+				basic: {
+					title: title,
+					type: ogType,
+					image: resolvedImage,
+					url: resolvedUrl,
+				},
+				optional: { siteName: "Toby on Fitness Tech" }
+			}}
+			twitter={{ card: "summary_large_image" }}
+			extend={{
+				meta: [
+					{ name: "twitter:title", content: title },
+					{ name: "twitter:description", content: description },
+					{ name: "twitter:image", content: resolvedImage },
+				]
+			}}
+		/>
 		<script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
 	</head>
 	<body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
