@@ -1,0 +1,5385 @@
+{
+  "workoutTypes": {
+    "Warrior 1": {
+      "name": "Warrior 1",
+      "code": "68b6d5cc8f08c917c22418db",
+      "sessions": [
+        {
+          "date": "2025-09-02",
+          "totalCapacity": 4085.0,
+          "durationMinute": 24,
+          "calorie": 204,
+          "actionNum": 16
+        },
+        {
+          "date": "2025-09-03",
+          "totalCapacity": 11352.5,
+          "durationMinute": 24,
+          "calorie": 509,
+          "actionNum": 16
+        },
+        {
+          "date": "2025-09-05",
+          "totalCapacity": 11041.5,
+          "durationMinute": 30,
+          "calorie": 627,
+          "actionNum": 16
+        },
+        {
+          "date": "2025-09-08",
+          "totalCapacity": 11047.0,
+          "durationMinute": 53,
+          "calorie": 659,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-10",
+          "totalCapacity": 17039.0,
+          "durationMinute": 53,
+          "calorie": 867,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-14",
+          "totalCapacity": 25214.0,
+          "durationMinute": 53,
+          "calorie": 1284,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-16",
+          "totalCapacity": 16617.5,
+          "durationMinute": 53,
+          "calorie": 940,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-19",
+          "totalCapacity": 28493.0,
+          "durationMinute": 53,
+          "calorie": 1198,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-20",
+          "totalCapacity": 1810.5,
+          "durationMinute": 53,
+          "calorie": 19,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-21",
+          "totalCapacity": 18465.5,
+          "durationMinute": 53,
+          "calorie": 903,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-27",
+          "totalCapacity": 12087.0,
+          "durationMinute": 53,
+          "calorie": 366,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-09-29",
+          "totalCapacity": 13361.5,
+          "durationMinute": 53,
+          "calorie": 494,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-10-06",
+          "totalCapacity": 29124.5,
+          "durationMinute": 53,
+          "calorie": 1258,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-10-09",
+          "totalCapacity": 16566.0,
+          "durationMinute": 53,
+          "calorie": 462,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-10-11",
+          "totalCapacity": 30648.0,
+          "durationMinute": 53,
+          "calorie": 1417,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-11-06",
+          "totalCapacity": 7490.5,
+          "durationMinute": 53,
+          "calorie": 427,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-11-10",
+          "totalCapacity": 11152.0,
+          "durationMinute": 53,
+          "calorie": 398,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-11-14",
+          "totalCapacity": 32887.0,
+          "durationMinute": 53,
+          "calorie": 846,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-11-19",
+          "totalCapacity": 8620.0,
+          "durationMinute": 53,
+          "calorie": 332,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-12-07",
+          "totalCapacity": 14541.5,
+          "durationMinute": 53,
+          "calorie": 509,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-12-09",
+          "totalCapacity": 33203.5,
+          "durationMinute": 53,
+          "calorie": 1097,
+          "actionNum": 30
+        },
+        {
+          "date": "2025-12-19",
+          "totalCapacity": 33294.0,
+          "durationMinute": 53,
+          "calorie": 1597,
+          "actionNum": 30
+        },
+        {
+          "date": "2026-01-06",
+          "totalCapacity": 19499.0,
+          "durationMinute": 53,
+          "calorie": 1024,
+          "actionNum": 30
+        },
+        {
+          "date": "2026-01-23",
+          "totalCapacity": 17802.0,
+          "durationMinute": 50,
+          "calorie": 651,
+          "actionNum": 30
+        },
+        {
+          "date": "2026-01-29",
+          "totalCapacity": 27095.0,
+          "durationMinute": 50,
+          "calorie": 1091,
+          "actionNum": 30
+        },
+        {
+          "date": "2026-02-02",
+          "totalCapacity": 35305.0,
+          "durationMinute": 50,
+          "calorie": 1507,
+          "actionNum": 30
+        },
+        {
+          "date": "2026-02-10",
+          "totalCapacity": 6332.5,
+          "durationMinute": 50,
+          "calorie": 308,
+          "actionNum": 30
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Kneeling Single-Arm Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1898,
+          "weights": "73,73",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 160,
+          "right1RM": 146
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High Cable Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 546,
+          "weights": "21",
+          "setsAndReps": "13",
+          "best1RM": 43,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1508,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Single-Arm High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1378,
+          "weights": "53,53",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 122,
+          "right1RM": 107
+        },
+        {
+          "name": "Supine Dual-Handle Reverse Fly",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "25",
+          "setsAndReps": "13",
+          "best1RM": 61,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Wide Row",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 1430,
+          "weights": "55",
+          "setsAndReps": "13",
+          "best1RM": 110,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 52,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Single-Arm Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 2444,
+          "weights": "94,94",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 160,
+          "right1RM": 146
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High Cable Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 728,
+          "weights": "28",
+          "setsAndReps": "13",
+          "best1RM": 43,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1950,
+          "weights": "75",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Single-Arm High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1768,
+          "weights": "68,68",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 122,
+          "right1RM": 107
+        },
+        {
+          "name": "Supine Dual-Handle Reverse Fly",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 858,
+          "weights": "33",
+          "setsAndReps": "13",
+          "best1RM": 61,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Wide Row",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 1820,
+          "weights": "70",
+          "setsAndReps": "13",
+          "best1RM": 110,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 858,
+          "weights": "33",
+          "setsAndReps": "13",
+          "best1RM": 52,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual-Handle Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1170,
+          "weights": "45",
+          "setsAndReps": "13",
+          "best1RM": 90,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Shoulder Press",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 572,
+          "weights": "22",
+          "setsAndReps": "13",
+          "best1RM": 44,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Double-Handle Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "25",
+          "setsAndReps": "13",
+          "best1RM": 67,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Arnold Press",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 728,
+          "weights": "28",
+          "setsAndReps": "13",
+          "best1RM": 56,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bird Dog Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1586,
+          "weights": "61,61",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 122,
+          "right1RM": 122
+        },
+        {
+          "name": "Standing Dual-Handle Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "29",
+          "setsAndReps": "13",
+          "best1RM": 45,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle Low-to-High Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 48,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual-Handle Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1508,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 90,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Shoulder Press",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 728,
+          "weights": "28",
+          "setsAndReps": "13",
+          "best1RM": 44,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Double-Handle Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 858,
+          "weights": "33",
+          "setsAndReps": "13",
+          "best1RM": 67,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Arnold Press",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 910,
+          "weights": "35",
+          "setsAndReps": "13",
+          "best1RM": 56,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bird Dog Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 2028,
+          "weights": "78,78",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 122,
+          "right1RM": 122
+        },
+        {
+          "name": "Standing Dual-Handle Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "29",
+          "setsAndReps": "13",
+          "best1RM": 45,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle Low-to-High Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 48,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Biceps",
+        "Rear Delts",
+        "Lats",
+        "Pecs",
+        "Side Delts"
+      ],
+      "bestSession": {
+        "date": "2026-02-02",
+        "totalCapacity": 35305.0,
+        "durationMinute": 50,
+        "calorie": 1507,
+        "actionNum": 30
+      },
+      "totalSessions": 27,
+      "avgVolume": 18302.8,
+      "totalVolume": 494174.5
+    },
+    "Custom": {
+      "name": "Custom",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2025-08-27",
+          "totalCapacity": 780.0,
+          "durationMinute": 0,
+          "calorie": 7,
+          "actionNum": 0
+        },
+        {
+          "date": "2025-08-28",
+          "totalCapacity": 1560.0,
+          "durationMinute": 0,
+          "calorie": 14,
+          "actionNum": 0
+        },
+        {
+          "date": "2025-09-06",
+          "totalCapacity": 260.0,
+          "durationMinute": 0,
+          "calorie": 6,
+          "actionNum": 0
+        },
+        {
+          "date": "2025-09-06",
+          "totalCapacity": 520.0,
+          "durationMinute": 0,
+          "calorie": 3,
+          "actionNum": 0
+        },
+        {
+          "date": "2025-10-18",
+          "totalCapacity": 1299.32,
+          "durationMinute": 0,
+          "calorie": 31,
+          "actionNum": 0
+        },
+        {
+          "date": "2026-01-24",
+          "totalCapacity": 2825.8,
+          "durationMinute": 0,
+          "calorie": 103,
+          "actionNum": 0
+        },
+        {
+          "date": "2026-01-26",
+          "totalCapacity": 73.12,
+          "durationMinute": 0,
+          "calorie": 1,
+          "actionNum": 0
+        },
+        {
+          "date": "2026-01-30",
+          "totalCapacity": 32.0,
+          "durationMinute": 0,
+          "calorie": 1,
+          "actionNum": 0
+        },
+        {
+          "date": "2026-02-03",
+          "totalCapacity": 8.0,
+          "durationMinute": 0,
+          "calorie": 0,
+          "actionNum": 0
+        },
+        {
+          "date": "2026-02-05",
+          "totalCapacity": 344.4,
+          "durationMinute": 0,
+          "calorie": 18,
+          "actionNum": 0
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-01-24",
+        "totalCapacity": 2825.8,
+        "durationMinute": 0,
+        "calorie": 103,
+        "actionNum": 0
+      },
+      "totalSessions": 10,
+      "avgVolume": 770.3,
+      "totalVolume": 7702.6
+    },
+    "Back Barbell": {
+      "name": "Back Barbell",
+      "code": "691fadec8f081ab0e81190d7",
+      "sessions": [
+        {
+          "date": "2025-11-21",
+          "totalCapacity": 13730.0,
+          "durationMinute": 35,
+          "calorie": 348,
+          "actionNum": 22
+        },
+        {
+          "date": "2026-01-18",
+          "totalCapacity": 10552.0,
+          "durationMinute": 35,
+          "calorie": 341,
+          "actionNum": 22
+        },
+        {
+          "date": "2026-01-23",
+          "totalCapacity": 8091.0,
+          "durationMinute": 31,
+          "calorie": 249,
+          "actionNum": 22
+        },
+        {
+          "date": "2026-02-03",
+          "totalCapacity": 88.0,
+          "durationMinute": 31,
+          "calorie": 13,
+          "actionNum": 22
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Kneeling Barbell Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1144,
+          "weights": "88",
+          "setsAndReps": "13",
+          "best1RM": 294,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Barbell Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1183,
+          "weights": "91",
+          "setsAndReps": "13",
+          "best1RM": 280,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1248,
+          "weights": "96",
+          "setsAndReps": "13",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1287,
+          "weights": "99",
+          "setsAndReps": "13",
+          "best1RM": 248,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Wide Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 689,
+          "weights": "53",
+          "setsAndReps": "13",
+          "best1RM": 106,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell Straight Arm Pushdown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 962,
+          "weights": "74",
+          "setsAndReps": "13",
+          "best1RM": 168,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1248,
+          "weights": "96",
+          "setsAndReps": "13",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Reverse-Grip Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1105,
+          "weights": "85",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Wide Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1313,
+          "weights": "101",
+          "setsAndReps": "13",
+          "best1RM": 202,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Bent Over Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1287,
+          "weights": "99",
+          "setsAndReps": "13",
+          "best1RM": 198,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Barbell Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1456,
+          "weights": "112",
+          "setsAndReps": "13",
+          "best1RM": 294,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Barbell Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1508,
+          "weights": "116",
+          "setsAndReps": "13",
+          "best1RM": 280,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1586,
+          "weights": "122",
+          "setsAndReps": "13",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1638,
+          "weights": "126",
+          "setsAndReps": "13",
+          "best1RM": 248,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bent-Over Reverse-Grip Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "80",
+          "setsAndReps": "13",
+          "best1RM": 126,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Wide Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 871,
+          "weights": "67",
+          "setsAndReps": "13",
+          "best1RM": 106,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell Straight Arm Pushdown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1222,
+          "weights": "94",
+          "setsAndReps": "13",
+          "best1RM": 168,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1586,
+          "weights": "122",
+          "setsAndReps": "13",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Reverse-Grip Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1404,
+          "weights": "108",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Wide Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1677,
+          "weights": "129",
+          "setsAndReps": "13",
+          "best1RM": 202,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Bent Over Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1638,
+          "weights": "126",
+          "setsAndReps": "13",
+          "best1RM": 198,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bent-Over Reverse-Grip Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "80",
+          "setsAndReps": "13",
+          "best1RM": 126,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Lats"
+      ],
+      "bestSession": {
+        "date": "2025-11-21",
+        "totalCapacity": 13730.0,
+        "durationMinute": 35,
+        "calorie": 348,
+        "actionNum": 22
+      },
+      "totalSessions": 4,
+      "avgVolume": 8115.2,
+      "totalVolume": 32461.0
+    },
+    "Chest handles": {
+      "name": "Chest handles",
+      "code": "6908f1348f085f13ae4b7769",
+      "sessions": [
+        {
+          "date": "2025-11-03",
+          "totalCapacity": 14359.5,
+          "durationMinute": 27,
+          "calorie": 398,
+          "actionNum": 18
+        },
+        {
+          "date": "2025-11-09",
+          "totalCapacity": 21458.5,
+          "durationMinute": 40,
+          "calorie": 678,
+          "actionNum": 26
+        },
+        {
+          "date": "2025-11-14",
+          "totalCapacity": 6798.5,
+          "durationMinute": 40,
+          "calorie": 302,
+          "actionNum": 26
+        },
+        {
+          "date": "2025-11-17",
+          "totalCapacity": 9113.0,
+          "durationMinute": 40,
+          "calorie": 552,
+          "actionNum": 26
+        },
+        {
+          "date": "2025-11-22",
+          "totalCapacity": 4335.0,
+          "durationMinute": 40,
+          "calorie": 218,
+          "actionNum": 26
+        },
+        {
+          "date": "2025-11-25",
+          "totalCapacity": 5683.5,
+          "durationMinute": 40,
+          "calorie": 223,
+          "actionNum": 26
+        },
+        {
+          "date": "2026-01-26",
+          "totalCapacity": 14562.0,
+          "durationMinute": 40,
+          "calorie": 518,
+          "actionNum": 26
+        },
+        {
+          "date": "2026-02-03",
+          "totalCapacity": 1421.5,
+          "durationMinute": 40,
+          "calorie": 114,
+          "actionNum": 26
+        },
+        {
+          "date": "2026-02-04",
+          "totalCapacity": 10191.5,
+          "durationMinute": 40,
+          "calorie": 406,
+          "actionNum": 26
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23",
+          "setsAndReps": "13",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle High to Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "25",
+          "setsAndReps": "13",
+          "best1RM": 50,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 832,
+          "weights": "32",
+          "setsAndReps": "13",
+          "best1RM": 64,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Alternating Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 338,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 52,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 55,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle Low-to-High Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Supine Dual-Handle Twist Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual-Handle Reverse Grip Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 52,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Single-Arm Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26,26",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 49,
+          "right1RM": 53
+        },
+        {
+          "name": "Supine Narrow-Grip Dual-Handle Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Dual-Handle Chest Fly (Floor)",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23",
+          "setsAndReps": "13",
+          "best1RM": 49,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 780,
+          "weights": "30",
+          "setsAndReps": "13",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle High to Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 832,
+          "weights": "32",
+          "setsAndReps": "13",
+          "best1RM": 50,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1066,
+          "weights": "41",
+          "setsAndReps": "13",
+          "best1RM": 64,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26",
+          "setsAndReps": "13",
+          "best1RM": 52,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Alternating Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual-Handle Reverse Grip Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 858,
+          "weights": "33",
+          "setsAndReps": "13",
+          "best1RM": 52,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Dual-Handle High-to-Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 910,
+          "weights": "35",
+          "setsAndReps": "13",
+          "best1RM": 55,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle Low-to-High Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Supine Dual-Handle Twist Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 910,
+          "weights": "35",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Single-Arm Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34,34",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 49,
+          "right1RM": 53
+        },
+        {
+          "name": "Supine Narrow-Grip Dual-Handle Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Dual-Handle Chest Fly (Floor)",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "29",
+          "setsAndReps": "13",
+          "best1RM": 49,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Pecs"
+      ],
+      "bestSession": {
+        "date": "2025-11-09",
+        "totalCapacity": 21458.5,
+        "durationMinute": 40,
+        "calorie": 678,
+        "actionNum": 26
+      },
+      "totalSessions": 9,
+      "avgVolume": 9769.2,
+      "totalVolume": 87923.0
+    },
+    "one arm": {
+      "name": "one arm",
+      "code": "68f107e08f080ed70565d150",
+      "sessions": [
+        {
+          "date": "2025-10-16",
+          "totalCapacity": 6882.0,
+          "durationMinute": 28,
+          "calorie": 920,
+          "actionNum": 20
+        },
+        {
+          "date": "2025-10-20",
+          "totalCapacity": 11301.5,
+          "durationMinute": 46,
+          "calorie": 1076,
+          "actionNum": 33
+        },
+        {
+          "date": "2025-10-21",
+          "totalCapacity": 12457.0,
+          "durationMinute": 56,
+          "calorie": 853,
+          "actionNum": 40
+        },
+        {
+          "date": "2025-10-31",
+          "totalCapacity": 9137.0,
+          "durationMinute": 109,
+          "calorie": 709,
+          "actionNum": 40
+        },
+        {
+          "date": "2026-02-03",
+          "totalCapacity": 0,
+          "durationMinute": 109,
+          "calorie": 44,
+          "actionNum": 40
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Standing Single-Arm Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "17,17",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 68,
+          "right1RM": 35
+        },
+        {
+          "name": "Standing Single-Arm Neutral-Grip Front Raise(Floor)",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 546,
+          "weights": "21,21",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 48,
+          "right1RM": 42
+        },
+        {
+          "name": "Standing Single-Leg Calf Raise",
+          "mainMuscle": "Calves",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26,26",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 56,
+          "right1RM": 52
+        },
+        {
+          "name": "Incline Single-Arm Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "18,18",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 67,
+          "right1RM": 36
+        },
+        {
+          "name": "Incline Single-Arm Overhead Triceps Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 208,
+          "weights": "8,8",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 30,
+          "right1RM": 17
+        },
+        {
+          "name": "Seated Single-Arm Concentration Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "20,20",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 56,
+          "right1RM": 40
+        },
+        {
+          "name": "Single-Arm Staggered Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "40,40",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 86,
+          "right1RM": 80
+        },
+        {
+          "name": "Single-Arm Upright Row",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 312,
+          "weights": "12,12",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 50,
+          "right1RM": 24
+        },
+        {
+          "name": "Standing Single-Arm Shrug\uff08Main Fram\uff09",
+          "mainMuscle": "Trapezius",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "40,40",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 84,
+          "right1RM": 80
+        },
+        {
+          "name": "Standing Single-Arm Neutral-Grip Front Raise(Main Fram)",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 494,
+          "weights": "19,19",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 42,
+          "right1RM": 38
+        },
+        {
+          "name": "Standing Single-Arm Biceps Curl\uff08Main Frame\uff09",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "18,18",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 68,
+          "right1RM": 36
+        },
+        {
+          "name": "Half Kneeling Single- Arm Underhand Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1534,
+          "weights": "59,59",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 62,
+          "right1RM": 118
+        },
+        {
+          "name": "Standing Single-Arm High to Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 364,
+          "weights": "14,14",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 34,
+          "right1RM": 28
+        },
+        {
+          "name": "Standing Single-Arm High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1378,
+          "weights": "53,53",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 122,
+          "right1RM": 107
+        },
+        {
+          "name": "Standing Single-Arm Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 364,
+          "weights": "14,14",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 48,
+          "right1RM": 28
+        },
+        {
+          "name": "Standing Single-Arm Underhand Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 390,
+          "weights": "15,15",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 40,
+          "right1RM": 30
+        },
+        {
+          "name": "Standing Single-Arm Rear Delt Fly",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "17,17",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 30,
+          "right1RM": 34
+        },
+        {
+          "name": "Seated Single-Arm Cross Body Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34,34",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 52,
+          "right1RM": 69
+        },
+        {
+          "name": "Seated Incline Single-Arm Rear Delt Fly",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 390,
+          "weights": "15,15",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 30,
+          "right1RM": 31
+        },
+        {
+          "name": "Supine Single-Arm Triceps Push",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 208,
+          "weights": "8,8",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 44,
+          "right1RM": 17
+        },
+        {
+          "name": "Standing Single-Arm Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 572,
+          "weights": "22,22",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 68,
+          "right1RM": 35
+        },
+        {
+          "name": "Standing Single-Arm Neutral-Grip Front Raise(Floor)",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26,26",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 48,
+          "right1RM": 42
+        },
+        {
+          "name": "Standing Single-Leg Calf Raise",
+          "mainMuscle": "Calves",
+          "auxMuscles": [],
+          "capacity": 858,
+          "weights": "33,33",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 56,
+          "right1RM": 52
+        },
+        {
+          "name": "Incline Single-Arm Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23,23",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 67,
+          "right1RM": 36
+        },
+        {
+          "name": "Incline Single-Arm Overhead Triceps Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 260,
+          "weights": "10,10",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 30,
+          "right1RM": 17
+        },
+        {
+          "name": "Seated Single-Arm Concentration Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "25,25",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 56,
+          "right1RM": 40
+        },
+        {
+          "name": "Single-Arm Staggered Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 1326,
+          "weights": "51,51",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 86,
+          "right1RM": 80
+        },
+        {
+          "name": "Single-Arm Upright Row",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 390,
+          "weights": "15,15",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 50,
+          "right1RM": 24
+        },
+        {
+          "name": "Standing Single-Arm Shrug\uff08Main Fram\uff09",
+          "mainMuscle": "Trapezius",
+          "auxMuscles": [],
+          "capacity": 1326,
+          "weights": "51,51",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 84,
+          "right1RM": 80
+        },
+        {
+          "name": "Standing Single-Arm Neutral-Grip Front Raise(Main Fram)",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 624,
+          "weights": "24,24",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 42,
+          "right1RM": 38
+        },
+        {
+          "name": "Standing Single-Arm Biceps Curl\uff08Main Frame\uff09",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23,23",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 68,
+          "right1RM": 36
+        },
+        {
+          "name": "Half Kneeling Single- Arm Underhand Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1950,
+          "weights": "75,75",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 62,
+          "right1RM": 118
+        },
+        {
+          "name": "Standing Single-Arm High to Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "18,18",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 34,
+          "right1RM": 28
+        },
+        {
+          "name": "Standing Single-Arm High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1768,
+          "weights": "68,68",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 122,
+          "right1RM": 107
+        },
+        {
+          "name": "Standing Single-Arm Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "18,18",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 48,
+          "right1RM": 28
+        },
+        {
+          "name": "Standing Single-Arm Underhand Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 494,
+          "weights": "19,19",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 40,
+          "right1RM": 30
+        },
+        {
+          "name": "Standing Single-Arm Rear Delt Fly",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 546,
+          "weights": "21,21",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 30,
+          "right1RM": 34
+        },
+        {
+          "name": "Seated Single-Arm Cross Body Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1144,
+          "weights": "44,44",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 52,
+          "right1RM": 69
+        },
+        {
+          "name": "Seated Incline Single-Arm Rear Delt Fly",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 494,
+          "weights": "19,19",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 30,
+          "right1RM": 31
+        },
+        {
+          "name": "Supine Single-Arm Triceps Push",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 260,
+          "weights": "10,10",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 44,
+          "right1RM": 17
+        }
+      ],
+      "muscles": [
+        "Biceps",
+        "Rear Delts",
+        "Trapezius",
+        "Calves",
+        "Lats",
+        "Pecs",
+        "Side Delts",
+        "Front Delts",
+        "Triceps",
+        "Gluteus"
+      ],
+      "bestSession": {
+        "date": "2025-10-21",
+        "totalCapacity": 12457.0,
+        "durationMinute": 56,
+        "calorie": 853,
+        "actionNum": 40
+      },
+      "totalSessions": 5,
+      "avgVolume": 7955.5,
+      "totalVolume": 39777.5
+    },
+    "Arms Barbell": {
+      "name": "Arms Barbell",
+      "code": "69063cb28f085f13ae4b3b02",
+      "sessions": [
+        {
+          "date": "2025-11-01",
+          "totalCapacity": 1083.0,
+          "durationMinute": 26,
+          "calorie": 47,
+          "actionNum": 16
+        },
+        {
+          "date": "2025-11-02",
+          "totalCapacity": 9082.0,
+          "durationMinute": 24,
+          "calorie": 681,
+          "actionNum": 16
+        },
+        {
+          "date": "2025-11-04",
+          "totalCapacity": 6689.0,
+          "durationMinute": 26,
+          "calorie": 370,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-13",
+          "totalCapacity": 10465.0,
+          "durationMinute": 26,
+          "calorie": 586,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-17",
+          "totalCapacity": 11030.0,
+          "durationMinute": 26,
+          "calorie": 414,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-20",
+          "totalCapacity": 10734.0,
+          "durationMinute": 26,
+          "calorie": 400,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-22",
+          "totalCapacity": 7571.0,
+          "durationMinute": 26,
+          "calorie": 328,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-25",
+          "totalCapacity": 0,
+          "durationMinute": 26,
+          "calorie": 7,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-25",
+          "totalCapacity": 12752.0,
+          "durationMinute": 26,
+          "calorie": 431,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-28",
+          "totalCapacity": 4868.0,
+          "durationMinute": 26,
+          "calorie": 288,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-11-29",
+          "totalCapacity": 4825.0,
+          "durationMinute": 26,
+          "calorie": 236,
+          "actionNum": 17
+        },
+        {
+          "date": "2025-12-12",
+          "totalCapacity": 13917.0,
+          "durationMinute": 26,
+          "calorie": 887,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-01-09",
+          "totalCapacity": 2293.0,
+          "durationMinute": 26,
+          "calorie": 161,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-01-16",
+          "totalCapacity": 12002.0,
+          "durationMinute": 26,
+          "calorie": 540,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-01-22",
+          "totalCapacity": 12465.0,
+          "durationMinute": 26,
+          "calorie": 566,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-01-29",
+          "totalCapacity": 1666.0,
+          "durationMinute": 26,
+          "calorie": 161,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-01-31",
+          "totalCapacity": 5076.0,
+          "durationMinute": 26,
+          "calorie": 153,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-02-06",
+          "totalCapacity": 5083.0,
+          "durationMinute": 26,
+          "calorie": 166,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-02-09",
+          "totalCapacity": 5052.0,
+          "durationMinute": 26,
+          "calorie": 210,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-02-18",
+          "totalCapacity": 11447.0,
+          "durationMinute": 26,
+          "calorie": 859,
+          "actionNum": 17
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Standing Barbell Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "54",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell High Cable Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 481,
+          "weights": "37",
+          "setsAndReps": "13",
+          "best1RM": 74,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "\u200bSupine Barbell High Cable Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 585,
+          "weights": "45",
+          "setsAndReps": "13",
+          "best1RM": 90,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Supine Barbell Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 546,
+          "weights": "42",
+          "setsAndReps": "13",
+          "best1RM": 90,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "\u200bSupine Barbell Overhand Biceps Curl",
+          "mainMuscle": "Forearms",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "36",
+          "setsAndReps": "13",
+          "best1RM": 72,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Overhead Triceps Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 611,
+          "weights": "47",
+          "setsAndReps": "13",
+          "best1RM": 94,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Reverse-Grip Overhead Tricep Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 390,
+          "weights": "30",
+          "setsAndReps": "13",
+          "best1RM": 60,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Table Top Barbell Triceps Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 78,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Reverse-Grip Overhead Tricep Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 507,
+          "weights": "39",
+          "setsAndReps": "13",
+          "best1RM": 60,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 910,
+          "weights": "70",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell High Cable Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 611,
+          "weights": "47",
+          "setsAndReps": "13",
+          "best1RM": 74,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "\u200bSupine Barbell High Cable Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 90,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Supine Barbell Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 689,
+          "weights": "53",
+          "setsAndReps": "13",
+          "best1RM": 90,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "\u200bSupine Barbell Overhand Biceps Curl",
+          "mainMuscle": "Forearms",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "46",
+          "setsAndReps": "13",
+          "best1RM": 72,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Overhead Triceps Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 780,
+          "weights": "60",
+          "setsAndReps": "13",
+          "best1RM": 94,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Reverse-Grip Overhead Tricep Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 507,
+          "weights": "39",
+          "setsAndReps": "13",
+          "best1RM": 60,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Table Top Barbell Triceps Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 572,
+          "weights": "44",
+          "setsAndReps": "13",
+          "best1RM": 78,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Biceps",
+        "Triceps",
+        "Forearms"
+      ],
+      "bestSession": {
+        "date": "2025-12-12",
+        "totalCapacity": 13917.0,
+        "durationMinute": 26,
+        "calorie": 887,
+        "actionNum": 17
+      },
+      "totalSessions": 20,
+      "avgVolume": 7405.0,
+      "totalVolume": 148100.0
+    },
+    "Warrior 2": {
+      "name": "Warrior 2",
+      "code": "68ca84868f086c639f98d40f",
+      "sessions": [
+        {
+          "date": "2025-09-17",
+          "totalCapacity": 4267.0,
+          "durationMinute": 42,
+          "calorie": 220,
+          "actionNum": 20
+        },
+        {
+          "date": "2025-09-18",
+          "totalCapacity": 33230.0,
+          "durationMinute": 65,
+          "calorie": 1233,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-10-12",
+          "totalCapacity": 21982.0,
+          "durationMinute": 65,
+          "calorie": 940,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-10-14",
+          "totalCapacity": 36008.0,
+          "durationMinute": 65,
+          "calorie": 1634,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-11-01",
+          "totalCapacity": 14383.5,
+          "durationMinute": 65,
+          "calorie": 352,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-12-12",
+          "totalCapacity": 9018.0,
+          "durationMinute": 65,
+          "calorie": 436,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-12-15",
+          "totalCapacity": 41058.0,
+          "durationMinute": 65,
+          "calorie": 1511,
+          "actionNum": 34
+        },
+        {
+          "date": "2026-01-07",
+          "totalCapacity": 20698.0,
+          "durationMinute": 66,
+          "calorie": 1011,
+          "actionNum": 34
+        },
+        {
+          "date": "2026-01-11",
+          "totalCapacity": 41481.5,
+          "durationMinute": 66,
+          "calorie": 1371,
+          "actionNum": 34
+        },
+        {
+          "date": "2026-01-27",
+          "totalCapacity": 22014.5,
+          "durationMinute": 64,
+          "calorie": 939,
+          "actionNum": 34
+        },
+        {
+          "date": "2026-02-12",
+          "totalCapacity": 21623.0,
+          "durationMinute": 64,
+          "calorie": 889,
+          "actionNum": 34
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1508,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing High-to-Low Woodchops",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 1976,
+          "weights": "76,76",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 134,
+          "right1RM": 170
+        },
+        {
+          "name": "Standing Barbell Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 702,
+          "weights": "54",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle High to Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "25",
+          "setsAndReps": "13",
+          "best1RM": 50,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Underhand Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "HandsWU-1",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 494.0,
+          "weights": "19",
+          "setsAndReps": "13",
+          "best1RM": 80.0,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1950,
+          "weights": "75",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing High-to-Low Woodchops",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 2522,
+          "weights": "97,97",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 134,
+          "right1RM": 170
+        },
+        {
+          "name": "Standing Barbell Triceps Push Down",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 910,
+          "weights": "70",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle High to Low Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 832,
+          "weights": "32",
+          "setsAndReps": "13",
+          "best1RM": 50,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Underhand Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 2652,
+          "weights": "51,51",
+          "setsAndReps": "13,13",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "HandsWU-1",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1040.0,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 80.0,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Half Kneeling Single-Arm Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1820,
+          "weights": "70,70",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 161,
+          "right1RM": 140
+        },
+        {
+          "name": "Standing Single-Arm Low-to-High Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1450,
+          "weights": "50,50",
+          "setsAndReps": "13,16",
+          "best1RM": 0,
+          "left1RM": 110,
+          "right1RM": 101
+        },
+        {
+          "name": "Pallof Press",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 780,
+          "weights": "30,30",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 60,
+          "right1RM": 61
+        },
+        {
+          "name": "Standing Alternating Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "26,26",
+          "setsAndReps": "13,13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Half Kneeling Single-Arm Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 2314,
+          "weights": "89,89",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 161,
+          "right1RM": 140
+        },
+        {
+          "name": "Standing Single-Arm Low-to-High Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1690,
+          "weights": "65,65",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 110,
+          "right1RM": 101
+        },
+        {
+          "name": "Pallof Press",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 1014,
+          "weights": "39,39",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 60,
+          "right1RM": 61
+        },
+        {
+          "name": "Standing Alternating Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 884,
+          "weights": "34,34",
+          "setsAndReps": "13,13",
+          "best1RM": 53,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual Handle Alternating Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "46",
+          "setsAndReps": "13",
+          "best1RM": 92,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Supine Dual-Handle Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23",
+          "setsAndReps": "13",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Front Raise",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "18",
+          "setsAndReps": "13",
+          "best1RM": 36,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Lateral Raise",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 468,
+          "weights": "18",
+          "setsAndReps": "13",
+          "best1RM": 36,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Single-Arm Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 780,
+          "weights": "30,30",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 71,
+          "right1RM": 60
+        },
+        {
+          "name": "Seated Dual-Handle Shoulder Press",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 572,
+          "weights": "22",
+          "setsAndReps": "13",
+          "best1RM": 44,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual-Handle Calf Raise",
+          "mainMuscle": "Calves",
+          "auxMuscles": [],
+          "capacity": 1196,
+          "weights": "46",
+          "setsAndReps": "13",
+          "best1RM": 93,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual Handle Alternating Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 92,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Supine Dual-Handle Chest Fly",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 780,
+          "weights": "30",
+          "setsAndReps": "13",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Front Raise",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23",
+          "setsAndReps": "13",
+          "best1RM": 36,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Dual-Handle Lateral Raise",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "23",
+          "setsAndReps": "13",
+          "best1RM": 36,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Single-Arm Biceps Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 988,
+          "weights": "38,38",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 71,
+          "right1RM": 60
+        },
+        {
+          "name": "Seated Dual-Handle Shoulder Press",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 728,
+          "weights": "28",
+          "setsAndReps": "13",
+          "best1RM": 44,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Dual-Handle Calf Raise",
+          "mainMuscle": "Calves",
+          "auxMuscles": [],
+          "capacity": 1560,
+          "weights": "60",
+          "setsAndReps": "13",
+          "best1RM": 93,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Biceps",
+        "Calves",
+        "Lats",
+        "Pecs",
+        "Side Delts",
+        "Front Delts",
+        "Triceps",
+        "Abs"
+      ],
+      "bestSession": {
+        "date": "2026-01-11",
+        "totalCapacity": 41481.5,
+        "durationMinute": 66,
+        "calorie": 1371,
+        "actionNum": 34
+      },
+      "totalSessions": 11,
+      "avgVolume": 24160.3,
+      "totalVolume": 265763.5
+    },
+    "Warrior 3 (bar)": {
+      "name": "Warrior 3 (bar)",
+      "code": "68d2816f8f08fac936510650",
+      "sessions": [
+        {
+          "date": "2025-10-02",
+          "totalCapacity": 15816.0,
+          "durationMinute": 30,
+          "calorie": 754,
+          "actionNum": 20
+        },
+        {
+          "date": "2025-10-06",
+          "totalCapacity": 5477.0,
+          "durationMinute": 30,
+          "calorie": 223,
+          "actionNum": 20
+        },
+        {
+          "date": "2025-11-05",
+          "totalCapacity": 7018.0,
+          "durationMinute": 30,
+          "calorie": 330,
+          "actionNum": 20
+        },
+        {
+          "date": "2026-01-13",
+          "totalCapacity": 12656.0,
+          "durationMinute": 30,
+          "calorie": 594,
+          "actionNum": 20
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Incline Barbell Close-Grip Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 806,
+          "weights": "62",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1118,
+          "weights": "86",
+          "setsAndReps": "13",
+          "best1RM": 185,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Reverse Grip Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "50",
+          "setsAndReps": "13",
+          "best1RM": 101,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1508,
+          "weights": "116",
+          "setsAndReps": "13",
+          "best1RM": 232,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Z Press",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 70,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bent-Over Barbell Wide Row",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 585,
+          "weights": "45",
+          "setsAndReps": "13",
+          "best1RM": 91,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Calf Raise",
+          "mainMuscle": "Calves",
+          "auxMuscles": [],
+          "capacity": 351,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Front Raise",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 351,
+          "weights": "27",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bent-Over Reverse-Grip Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 819,
+          "weights": "63",
+          "setsAndReps": "13",
+          "best1RM": 126,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1430,
+          "weights": "110",
+          "setsAndReps": "13",
+          "best1RM": 185,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Reverse Grip Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 845,
+          "weights": "65",
+          "setsAndReps": "13",
+          "best1RM": 101,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 2860,
+          "weights": "220",
+          "setsAndReps": "13",
+          "best1RM": 388,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Incline Barbell Close-Grip Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "80",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Bench Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 1924,
+          "weights": "148",
+          "setsAndReps": "13",
+          "best1RM": 232,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Z Press",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 559,
+          "weights": "43",
+          "setsAndReps": "13",
+          "best1RM": 70,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bent-Over Barbell Wide Row",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 91,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Calf Raise",
+          "mainMuscle": "Calves",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Barbell Front Raise",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 442,
+          "weights": "34",
+          "setsAndReps": "13",
+          "best1RM": 54,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Bent-Over Reverse-Grip Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1040,
+          "weights": "80",
+          "setsAndReps": "13",
+          "best1RM": 126,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 2860,
+          "weights": "220",
+          "setsAndReps": "13",
+          "best1RM": 388,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Rear Delts",
+        "Calves",
+        "Lats",
+        "Pecs",
+        "Front Delts",
+        "Gluteus"
+      ],
+      "bestSession": {
+        "date": "2025-10-02",
+        "totalCapacity": 15816.0,
+        "durationMinute": 30,
+        "calorie": 754,
+        "actionNum": 20
+      },
+      "totalSessions": 4,
+      "avgVolume": 10241.8,
+      "totalVolume": 40967.0
+    },
+    "Leg Day": {
+      "name": "Leg Day",
+      "code": "691884128f08cdb1cc5e9011",
+      "sessions": [
+        {
+          "date": "2025-12-10",
+          "totalCapacity": 11804.0,
+          "durationMinute": 16,
+          "calorie": 489,
+          "actionNum": 9
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Barbell Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 2522,
+          "weights": "194",
+          "setsAndReps": "13",
+          "best1RM": 388,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Split Squat",
+          "mainMuscle": "Quadriceps",
+          "auxMuscles": [],
+          "capacity": 1872,
+          "weights": "72,72",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 144,
+          "right1RM": 144
+        },
+        {
+          "name": "Barbell Split Squat",
+          "mainMuscle": "Quadriceps",
+          "auxMuscles": [],
+          "capacity": 1872,
+          "weights": "72,72",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 144,
+          "right1RM": 144
+        },
+        {
+          "name": "Barbell Stiff-Leg Deadlift",
+          "mainMuscle": "Hamstrings",
+          "auxMuscles": [],
+          "capacity": 910,
+          "weights": "70",
+          "setsAndReps": "13",
+          "best1RM": 140,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Hip Thrust",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 1560,
+          "weights": "120",
+          "setsAndReps": "13",
+          "best1RM": 240,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 2860,
+          "weights": "220",
+          "setsAndReps": "13",
+          "best1RM": 388,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Split Squat",
+          "mainMuscle": "Quadriceps",
+          "auxMuscles": [],
+          "capacity": 2392,
+          "weights": "92,92",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 144,
+          "right1RM": 144
+        },
+        {
+          "name": "Barbell Stiff-Leg Deadlift",
+          "mainMuscle": "Hamstrings",
+          "auxMuscles": [],
+          "capacity": 1170,
+          "weights": "90",
+          "setsAndReps": "13",
+          "best1RM": 140,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Barbell Hip Thrust",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 1989,
+          "weights": "153",
+          "setsAndReps": "13",
+          "best1RM": 240,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Gluteus",
+        "Quadriceps",
+        "Hamstrings"
+      ],
+      "bestSession": {
+        "date": "2025-12-10",
+        "totalCapacity": 11804.0,
+        "durationMinute": 16,
+        "calorie": 489,
+        "actionNum": 9
+      },
+      "totalSessions": 1,
+      "avgVolume": 11804.0,
+      "totalVolume": 11804.0
+    },
+    "Warrior 4 (rope)": {
+      "name": "Warrior 4 (rope)",
+      "code": "68d5550b8f0841f571eb9ca0",
+      "sessions": [
+        {
+          "date": "2025-09-25",
+          "totalCapacity": 8375.5,
+          "durationMinute": 31,
+          "calorie": 589,
+          "actionNum": 20
+        },
+        {
+          "date": "2025-09-26",
+          "totalCapacity": 13831.0,
+          "durationMinute": 50,
+          "calorie": 699,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-09-30",
+          "totalCapacity": 10191.5,
+          "durationMinute": 50,
+          "calorie": 1023,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-10-08",
+          "totalCapacity": 6472.0,
+          "durationMinute": 50,
+          "calorie": 480,
+          "actionNum": 34
+        },
+        {
+          "date": "2025-11-08",
+          "totalCapacity": 1765.0,
+          "durationMinute": 50,
+          "calorie": 231,
+          "actionNum": 34
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Half-Kneeling Face Pull",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 663,
+          "weights": "51",
+          "setsAndReps": "13",
+          "best1RM": 103,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Tricep Rope Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 494,
+          "weights": "38",
+          "setsAndReps": "13",
+          "best1RM": 76,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Tricep Rope Cross-Body Crunch",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "20,20",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 42,
+          "right1RM": 42
+        },
+        {
+          "name": "Incline Tricep Rope Straight Arm Pushdown ",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 533,
+          "weights": "41",
+          "setsAndReps": "13",
+          "best1RM": 82,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Tricep Rope Crunch",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 299,
+          "weights": "23",
+          "setsAndReps": "13",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing High Cable Biceps Curl with Rope Attachment",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 455,
+          "weights": "35",
+          "setsAndReps": "13",
+          "best1RM": 70,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing High Cable Tricep Rope Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 403,
+          "weights": "31",
+          "setsAndReps": "13",
+          "best1RM": 63,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Face Pull (Rear Delts)",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 403,
+          "weights": "31",
+          "setsAndReps": "13",
+          "best1RM": 63,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 403,
+          "weights": "31",
+          "setsAndReps": "13",
+          "best1RM": 62,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Overhead Triceps Extension (Main Frame)",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Half-Kneeling Face Pull",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 858,
+          "weights": "66",
+          "setsAndReps": "13",
+          "best1RM": 103,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Tricep Rope Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 624,
+          "weights": "48",
+          "setsAndReps": "13",
+          "best1RM": 76,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Tricep Rope Cross-Body Crunch",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 650,
+          "weights": "25,25",
+          "setsAndReps": "13,13",
+          "best1RM": 0,
+          "left1RM": 42,
+          "right1RM": 42
+        },
+        {
+          "name": "Incline Tricep Rope Straight Arm Pushdown ",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 676,
+          "weights": "52",
+          "setsAndReps": "13",
+          "best1RM": 82,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Tricep Rope Crunch",
+          "mainMuscle": "Abs",
+          "auxMuscles": [],
+          "capacity": 390,
+          "weights": "30",
+          "setsAndReps": "13",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing High Cable Biceps Curl with Rope Attachment",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 585,
+          "weights": "45",
+          "setsAndReps": "13",
+          "best1RM": 70,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 62,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing High Cable Tricep Rope Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 63,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Face Pull (Rear Delts)",
+          "mainMuscle": "Rear Delts",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 63,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Overhead Triceps Extension (Main Frame)",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 663,
+          "weights": "51",
+          "setsAndReps": "13",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Shrug",
+          "mainMuscle": "Trapezius",
+          "auxMuscles": [],
+          "capacity": 520,
+          "weights": "40",
+          "setsAndReps": "13",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Upright Row",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 325,
+          "weights": "25",
+          "setsAndReps": "13",
+          "best1RM": 50,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Tricep Rope Romanian Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 780,
+          "weights": "60",
+          "setsAndReps": "13",
+          "best1RM": 120,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Y-Front Raise",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 286,
+          "weights": "22",
+          "setsAndReps": "13",
+          "best1RM": 44,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Hammer Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 455,
+          "weights": "35",
+          "setsAndReps": "13",
+          "best1RM": 70,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Tricep Rope Bent-Over Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 598,
+          "weights": "46",
+          "setsAndReps": "13",
+          "best1RM": 92,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Tricep Rope Overhead Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 247,
+          "weights": "19",
+          "setsAndReps": "13",
+          "best1RM": 38,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Shrug",
+          "mainMuscle": "Trapezius",
+          "auxMuscles": [],
+          "capacity": 663,
+          "weights": "51",
+          "setsAndReps": "13",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Upright Row",
+          "mainMuscle": "Side Delts",
+          "auxMuscles": [],
+          "capacity": 416,
+          "weights": "32",
+          "setsAndReps": "13",
+          "best1RM": 50,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Tricep Rope Romanian Deadlift",
+          "mainMuscle": "Gluteus",
+          "auxMuscles": [],
+          "capacity": 988,
+          "weights": "76",
+          "setsAndReps": "13",
+          "best1RM": 120,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Y-Front Raise",
+          "mainMuscle": "Front Delts",
+          "auxMuscles": [],
+          "capacity": 364,
+          "weights": "28",
+          "setsAndReps": "13",
+          "best1RM": 44,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Tricep Rope Hammer Curl",
+          "mainMuscle": "Biceps",
+          "auxMuscles": [],
+          "capacity": 572,
+          "weights": "44",
+          "setsAndReps": "13",
+          "best1RM": 70,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Tricep Rope Bent-Over Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 754,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 92,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Tricep Rope Overhead Extension",
+          "mainMuscle": "Triceps",
+          "auxMuscles": [],
+          "capacity": 312,
+          "weights": "24",
+          "setsAndReps": "13",
+          "best1RM": 38,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Biceps",
+        "Rear Delts",
+        "Trapezius",
+        "Lats",
+        "Side Delts",
+        "Triceps",
+        "Gluteus",
+        "Front Delts",
+        "Abs"
+      ],
+      "bestSession": {
+        "date": "2025-09-26",
+        "totalCapacity": 13831.0,
+        "durationMinute": 50,
+        "calorie": 699,
+        "actionNum": 34
+      },
+      "totalSessions": 5,
+      "avgVolume": 8127.0,
+      "totalVolume": 40635.0
+    },
+    "Deadlift": {
+      "name": "Deadlift",
+      "code": "691884128f08cdb1cc5e9011",
+      "sessions": [
+        {
+          "date": "2025-11-15",
+          "totalCapacity": 0,
+          "durationMinute": 7,
+          "calorie": 10,
+          "actionNum": 1
+        },
+        {
+          "date": "2025-11-15",
+          "totalCapacity": 1040.0,
+          "durationMinute": 7,
+          "calorie": 56,
+          "actionNum": 1
+        },
+        {
+          "date": "2025-11-15",
+          "totalCapacity": 2600.0,
+          "durationMinute": 5,
+          "calorie": 35,
+          "actionNum": 1
+        },
+        {
+          "date": "2025-11-20",
+          "totalCapacity": 3120.0,
+          "durationMinute": 2,
+          "calorie": 35,
+          "actionNum": 1
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-11-20",
+        "totalCapacity": 3120.0,
+        "durationMinute": 2,
+        "calorie": 35,
+        "actionNum": 1
+      },
+      "totalSessions": 4,
+      "avgVolume": 1690.0,
+      "totalVolume": 6760.0
+    },
+    "Biceps": {
+      "name": "Biceps",
+      "code": "688ea8558f0889b1d03e55d0",
+      "sessions": [
+        {
+          "date": "2025-08-03",
+          "totalCapacity": 1901.5,
+          "durationMinute": 14,
+          "calorie": 59,
+          "actionNum": 8
+        },
+        {
+          "date": "2025-08-11",
+          "totalCapacity": 4911.0,
+          "durationMinute": 14,
+          "calorie": 144,
+          "actionNum": 8
+        },
+        {
+          "date": "2025-08-15",
+          "totalCapacity": 5430.5,
+          "durationMinute": 14,
+          "calorie": 176,
+          "actionNum": 8
+        },
+        {
+          "date": "2025-08-27",
+          "totalCapacity": 5534.5,
+          "durationMinute": 14,
+          "calorie": 172,
+          "actionNum": 8
+        },
+        {
+          "date": "2025-10-03",
+          "totalCapacity": 750.0,
+          "durationMinute": 14,
+          "calorie": 17,
+          "actionNum": 8
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-08-27",
+        "totalCapacity": 5534.5,
+        "durationMinute": 14,
+        "calorie": 172,
+        "actionNum": 8
+      },
+      "totalSessions": 5,
+      "avgVolume": 3705.5,
+      "totalVolume": 18527.5
+    },
+    "pulldown": {
+      "name": "pulldown",
+      "code": "688f5d8b8f088bec57f21be1",
+      "sessions": [
+        {
+          "date": "2025-08-09",
+          "totalCapacity": 4832.5,
+          "durationMinute": 9,
+          "calorie": 116,
+          "actionNum": 5
+        },
+        {
+          "date": "2025-08-10",
+          "totalCapacity": 3085.0,
+          "durationMinute": 13,
+          "calorie": 61,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-08-12",
+          "totalCapacity": 3128.5,
+          "durationMinute": 13,
+          "calorie": 43,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-08-14",
+          "totalCapacity": 7344.0,
+          "durationMinute": 13,
+          "calorie": 188,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-08-19",
+          "totalCapacity": 7206.5,
+          "durationMinute": 13,
+          "calorie": 171,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-08-22",
+          "totalCapacity": 8001.5,
+          "durationMinute": 13,
+          "calorie": 157,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-08-29",
+          "totalCapacity": 4016.0,
+          "durationMinute": 13,
+          "calorie": 60,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-08-31",
+          "totalCapacity": 7649.5,
+          "durationMinute": 12,
+          "calorie": 248,
+          "actionNum": 7
+        },
+        {
+          "date": "2025-10-31",
+          "totalCapacity": 7873.5,
+          "durationMinute": 12,
+          "calorie": 247,
+          "actionNum": 7
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1508,
+          "weights": "58",
+          "setsAndReps": "13",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Underhand Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1272,
+          "weights": "53",
+          "setsAndReps": "12",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1848,
+          "weights": "77",
+          "setsAndReps": "12",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Underhand Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1272,
+          "weights": "53",
+          "setsAndReps": "12",
+          "best1RM": 80,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 744,
+          "weights": "31",
+          "setsAndReps": "12",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Kneeling Dual-Handle Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1848,
+          "weights": "77",
+          "setsAndReps": "12",
+          "best1RM": 125,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Standing Dual-Handle High-to-Low Chest Press",
+          "mainMuscle": "Pecs",
+          "auxMuscles": [],
+          "capacity": 744,
+          "weights": "31",
+          "setsAndReps": "12",
+          "best1RM": 46,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Lats",
+        "Pecs"
+      ],
+      "bestSession": {
+        "date": "2025-08-22",
+        "totalCapacity": 8001.5,
+        "durationMinute": 13,
+        "calorie": 157,
+        "actionNum": 7
+      },
+      "totalSessions": 9,
+      "avgVolume": 5904.1,
+      "totalVolume": 53137.0
+    },
+    "New Custom3": {
+      "name": "New Custom3",
+      "code": "68b55dfe8f088c70eddad735",
+      "sessions": [
+        {
+          "date": "2025-09-01",
+          "totalCapacity": 8561.0,
+          "durationMinute": 12,
+          "calorie": 281,
+          "actionNum": 8
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-09-01",
+        "totalCapacity": 8561.0,
+        "durationMinute": 12,
+        "calorie": 281,
+        "actionNum": 8
+      },
+      "totalSessions": 1,
+      "avgVolume": 8561.0,
+      "totalVolume": 8561.0
+    },
+    "Barbell Bench": {
+      "name": "Barbell Bench",
+      "code": "68b55dfe8f088c70eddad735",
+      "sessions": [
+        {
+          "date": "2025-09-01",
+          "totalCapacity": 0,
+          "durationMinute": 12,
+          "calorie": 9,
+          "actionNum": 8
+        },
+        {
+          "date": "2025-09-08",
+          "totalCapacity": 10388.0,
+          "durationMinute": 12,
+          "calorie": 367,
+          "actionNum": 8
+        }
+      ],
+      "exercises": [
+        {
+          "name": "Seated Barbell Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1248,
+          "weights": "96",
+          "setsAndReps": "13",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Wide Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 689,
+          "weights": "53",
+          "setsAndReps": "13",
+          "best1RM": 106,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Reverse-Grip Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1105,
+          "weights": "85",
+          "setsAndReps": "13",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1248,
+          "weights": "96",
+          "setsAndReps": "13",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1512,
+          "weights": "126",
+          "setsAndReps": "12",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Wide Reverse-Grip Lat Pulldown",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 840,
+          "weights": "70",
+          "setsAndReps": "12",
+          "best1RM": 106,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Reverse-Grip Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1344,
+          "weights": "112",
+          "setsAndReps": "12",
+          "best1RM": 170,
+          "left1RM": 0,
+          "right1RM": 0
+        },
+        {
+          "name": "Seated Barbell Row",
+          "mainMuscle": "Lats",
+          "auxMuscles": [],
+          "capacity": 1512,
+          "weights": "126",
+          "setsAndReps": "12",
+          "best1RM": 192,
+          "left1RM": 0,
+          "right1RM": 0
+        }
+      ],
+      "muscles": [
+        "Lats"
+      ],
+      "bestSession": {
+        "date": "2025-09-08",
+        "totalCapacity": 10388.0,
+        "durationMinute": 12,
+        "calorie": 367,
+        "actionNum": 8
+      },
+      "totalSessions": 2,
+      "avgVolume": 5194.0,
+      "totalVolume": 10388.0
+    },
+    "curls": {
+      "name": "curls",
+      "code": "68c4965d8f089af09bc9d8b2",
+      "sessions": [
+        {
+          "date": "2025-09-12",
+          "totalCapacity": 1602.0,
+          "durationMinute": 3,
+          "calorie": 36,
+          "actionNum": 2
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-09-12",
+        "totalCapacity": 1602.0,
+        "durationMinute": 3,
+        "calorie": 36,
+        "actionNum": 2
+      },
+      "totalSessions": 1,
+      "avgVolume": 1602.0,
+      "totalVolume": 1602.0
+    },
+    "shoulder press": {
+      "name": "shoulder press",
+      "code": "68cad9438f086c639f98db5a",
+      "sessions": [
+        {
+          "date": "2025-09-20",
+          "totalCapacity": 2209.0,
+          "durationMinute": 7,
+          "calorie": 128,
+          "actionNum": 2
+        },
+        {
+          "date": "2025-09-20",
+          "totalCapacity": 3745.0,
+          "durationMinute": 7,
+          "calorie": 114,
+          "actionNum": 2
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-09-20",
+        "totalCapacity": 3745.0,
+        "durationMinute": 7,
+        "calorie": 114,
+        "actionNum": 2
+      },
+      "totalSessions": 2,
+      "avgVolume": 2977.0,
+      "totalVolume": 5954.0
+    },
+    "Warrior 3": {
+      "name": "Warrior 3",
+      "code": "68d2816f8f08fac936510650",
+      "sessions": [
+        {
+          "date": "2025-09-23",
+          "totalCapacity": 11898.0,
+          "durationMinute": 30,
+          "calorie": 578,
+          "actionNum": 20
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-09-23",
+        "totalCapacity": 11898.0,
+        "durationMinute": 30,
+        "calorie": 578,
+        "actionNum": 20
+      },
+      "totalSessions": 1,
+      "avgVolume": 11898.0,
+      "totalVolume": 11898.0
+    },
+    "New Custom2": {
+      "name": "New Custom2",
+      "code": "688ea8558f0889b1d03e55d0",
+      "sessions": [
+        {
+          "date": "2025-08-03",
+          "totalCapacity": 0,
+          "durationMinute": 14,
+          "calorie": 5,
+          "actionNum": 8
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-08-03",
+        "totalCapacity": 0,
+        "durationMinute": 14,
+        "calorie": 5,
+        "actionNum": 8
+      },
+      "totalSessions": 1,
+      "avgVolume": 0.0,
+      "totalVolume": 0
+    },
+    "Power Upper Chest Delts Triceps Advanced": {
+      "name": "Power Upper Chest Delts Triceps Advanced",
+      "code": "6811f0f0e4b04a3828628edf",
+      "sessions": [
+        {
+          "date": "2025-08-29",
+          "totalCapacity": 4936.0,
+          "durationMinute": 54,
+          "calorie": 185,
+          "actionNum": 0
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-08-29",
+        "totalCapacity": 4936.0,
+        "durationMinute": 54,
+        "calorie": 185,
+        "actionNum": 0
+      },
+      "totalSessions": 1,
+      "avgVolume": 4936.0,
+      "totalVolume": 4936.0
+    },
+    "GYM MONSTER 101": {
+      "name": "GYM MONSTER 101",
+      "code": "67a5b590e4b011a5f4410e18",
+      "sessions": [
+        {
+          "date": "2025-07-25",
+          "totalCapacity": 350.0,
+          "durationMinute": 6,
+          "calorie": 50,
+          "actionNum": 0
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-07-25",
+        "totalCapacity": 350.0,
+        "durationMinute": 6,
+        "calorie": 50,
+        "actionNum": 0
+      },
+      "totalSessions": 1,
+      "avgVolume": 350.0,
+      "totalVolume": 350.0
+    },
+    "Trial Workout": {
+      "name": "Trial Workout",
+      "code": "6887966c8f08a8ea120f046c",
+      "sessions": [
+        {
+          "date": "2025-07-28",
+          "totalCapacity": 5025.5,
+          "durationMinute": 8,
+          "calorie": 62,
+          "actionNum": 2
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2025-07-28",
+        "totalCapacity": 5025.5,
+        "durationMinute": 8,
+        "calorie": 62,
+        "actionNum": 2
+      },
+      "totalSessions": 1,
+      "avgVolume": 5025.5,
+      "totalVolume": 5025.5
+    }
+  },
+  "exercisePRs": {
+    "Standing Barbell Triceps Push Down": {
+      "best1RM": 170,
+      "workout": "Arms Barbell"
+    },
+    "Incline Barbell High Cable Biceps Curl": {
+      "best1RM": 74,
+      "workout": "Arms Barbell"
+    },
+    "\u200bSupine Barbell High Cable Biceps Curl": {
+      "best1RM": 90,
+      "workout": "Arms Barbell"
+    },
+    "Supine Barbell Biceps Curl": {
+      "best1RM": 90,
+      "workout": "Arms Barbell"
+    },
+    "\u200bSupine Barbell Overhand Biceps Curl": {
+      "best1RM": 72,
+      "workout": "Arms Barbell"
+    },
+    "Standing Barbell Overhead Triceps Extension": {
+      "best1RM": 94,
+      "workout": "Arms Barbell"
+    },
+    "Standing Barbell Reverse-Grip Overhead Tricep Extension": {
+      "best1RM": 60,
+      "workout": "Arms Barbell"
+    },
+    "Table Top Barbell Triceps Extension": {
+      "best1RM": 78,
+      "workout": "Arms Barbell"
+    },
+    "Kneeling Dual-Handle Lat Pulldown": {
+      "best1RM": 125,
+      "workout": "Warrior 2"
+    },
+    "Kneeling Dual-Handle High to Low Chest Fly": {
+      "best1RM": 50,
+      "workout": "Warrior 2"
+    },
+    "Kneeling Dual-Handle Underhand Lat Pulldown": {
+      "best1RM": 80,
+      "workout": "Warrior 2"
+    },
+    "HandsWU-1": {
+      "best1RM": 80.0,
+      "workout": "Warrior 2"
+    },
+    "Standing Alternating Chest Press": {
+      "best1RM": 53,
+      "workout": "Warrior 2"
+    },
+    "Dual Handle Alternating Bench Press": {
+      "best1RM": 92,
+      "workout": "Warrior 2"
+    },
+    "Supine Dual-Handle Chest Fly": {
+      "best1RM": 46,
+      "workout": "Warrior 2"
+    },
+    "Seated Dual-Handle Front Raise": {
+      "best1RM": 36,
+      "workout": "Warrior 2"
+    },
+    "Seated Dual-Handle Lateral Raise": {
+      "best1RM": 36,
+      "workout": "Warrior 2"
+    },
+    "Seated Dual-Handle Shoulder Press": {
+      "best1RM": 44,
+      "workout": "Warrior 2"
+    },
+    "Dual-Handle Calf Raise": {
+      "best1RM": 93,
+      "workout": "Warrior 2"
+    },
+    "Half-Kneeling Face Pull": {
+      "best1RM": 103,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Kneeling Tricep Rope Lat Pulldown": {
+      "best1RM": 76,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Incline Tricep Rope Straight Arm Pushdown ": {
+      "best1RM": 82,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Seated Tricep Rope Crunch": {
+      "best1RM": 46,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing High Cable Biceps Curl with Rope Attachment": {
+      "best1RM": 70,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing High Cable Tricep Rope Curl": {
+      "best1RM": 63,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Tricep Rope Face Pull (Rear Delts)": {
+      "best1RM": 63,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Tricep Rope Row": {
+      "best1RM": 62,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Tricep Rope Overhead Triceps Extension (Main Frame)": {
+      "best1RM": 80,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Tricep Rope Shrug": {
+      "best1RM": 80,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Tricep Rope Upright Row": {
+      "best1RM": 50,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Tricep Rope Romanian Deadlift": {
+      "best1RM": 120,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Y-Front Raise": {
+      "best1RM": 44,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Tricep Rope Hammer Curl": {
+      "best1RM": 70,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Tricep Rope Bent-Over Row": {
+      "best1RM": 92,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Seated Tricep Rope Overhead Extension": {
+      "best1RM": 38,
+      "workout": "Warrior 4 (rope)"
+    },
+    "Standing Dual-Handle High-to-Low Chest Press": {
+      "best1RM": 46,
+      "workout": "pulldown"
+    },
+    "Barbell Deadlift": {
+      "best1RM": 388,
+      "workout": "Leg Day"
+    },
+    "Barbell Stiff-Leg Deadlift": {
+      "best1RM": 140,
+      "workout": "Leg Day"
+    },
+    "Barbell Hip Thrust": {
+      "best1RM": 240,
+      "workout": "Leg Day"
+    },
+    "Kneeling Barbell Lat Pulldown": {
+      "best1RM": 294,
+      "workout": "Back Barbell"
+    },
+    "Kneeling Barbell Reverse-Grip Lat Pulldown": {
+      "best1RM": 280,
+      "workout": "Back Barbell"
+    },
+    "Seated Barbell Lat Pulldown": {
+      "best1RM": 192,
+      "workout": "Back Barbell"
+    },
+    "Seated Barbell Reverse-Grip Lat Pulldown": {
+      "best1RM": 248,
+      "workout": "Back Barbell"
+    },
+    "Seated Barbell Wide Reverse-Grip Lat Pulldown": {
+      "best1RM": 106,
+      "workout": "Back Barbell"
+    },
+    "Incline Barbell Straight Arm Pushdown": {
+      "best1RM": 168,
+      "workout": "Back Barbell"
+    },
+    "Seated Barbell Row": {
+      "best1RM": 192,
+      "workout": "Back Barbell"
+    },
+    "Seated Barbell Reverse-Grip Row": {
+      "best1RM": 170,
+      "workout": "Back Barbell"
+    },
+    "Seated Barbell Wide Row": {
+      "best1RM": 202,
+      "workout": "Back Barbell"
+    },
+    "Barbell Bent Over Row": {
+      "best1RM": 198,
+      "workout": "Back Barbell"
+    },
+    "Bent-Over Reverse-Grip Barbell Row": {
+      "best1RM": 126,
+      "workout": "Back Barbell"
+    },
+    "Standing Dual-Handle Biceps Curl": {
+      "best1RM": 45,
+      "workout": "Warrior (Biceps)"
+    },
+    "Standing Dual-Handle Neutral-Grip Front Raise": {
+      "best1RM": 42,
+      "workout": "Warrior (Biceps)"
+    },
+    "Standing Dual-Handle Lateral Raise": {
+      "best1RM": 39,
+      "workout": "Warrior (Biceps)"
+    },
+    "Seated Double-Handle Biceps Curl": {
+      "best1RM": 67,
+      "workout": "Warrior (Biceps)"
+    },
+    "Incline Dual-Handle Chest Fly (Floor)": {
+      "best1RM": 49,
+      "workout": "Warrior (Biceps)"
+    },
+    "Bent-Over Dual-Handle Reverse Fly": {
+      "best1RM": 25,
+      "workout": "Warrior (Biceps)"
+    },
+    "Kneeling Dual-Handle High-to-Low Chest Press": {
+      "best1RM": 64,
+      "workout": "Chest handles"
+    },
+    "Standing Dual-Handle High-to-Low Chest Fly": {
+      "best1RM": 53,
+      "workout": "Chest handles"
+    },
+    "Seated Dual-Handle High-to-Low Chest Fly": {
+      "best1RM": 52,
+      "workout": "Chest handles"
+    },
+    "Incline Dual-Handle High-to-Low Chest Fly": {
+      "best1RM": 55,
+      "workout": "Chest handles"
+    },
+    "Standing Dual-Handle Low-to-High Chest Press": {
+      "best1RM": 54,
+      "workout": "Chest handles"
+    },
+    "Supine Dual-Handle Twist Fly": {
+      "best1RM": 54,
+      "workout": "Chest handles"
+    },
+    "Dual-Handle Reverse Grip Bench Press": {
+      "best1RM": 52,
+      "workout": "Chest handles"
+    },
+    "Supine Narrow-Grip Dual-Handle Chest Press": {
+      "best1RM": 53,
+      "workout": "Chest handles"
+    },
+    "Standing Dual-Handle High Cable Curl": {
+      "best1RM": 43,
+      "workout": "Warrior 1"
+    },
+    "Supine Dual-Handle Reverse Fly": {
+      "best1RM": 61,
+      "workout": "Warrior 1"
+    },
+    "Seated Dual-Handle Wide Row": {
+      "best1RM": 110,
+      "workout": "Warrior 1"
+    },
+    "Dual-Handle Bench Press": {
+      "best1RM": 90,
+      "workout": "Warrior 1"
+    },
+    "Seated Dual-Handle Arnold Press": {
+      "best1RM": 56,
+      "workout": "Warrior 1"
+    },
+    "Standing Dual-Handle Low-to-High Chest Fly": {
+      "best1RM": 48,
+      "workout": "Warrior 1"
+    },
+    "Incline Barbell Close-Grip Chest Press": {
+      "best1RM": 125,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Incline Barbell Bench Press": {
+      "best1RM": 185,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Barbell Reverse Grip Bench Press": {
+      "best1RM": 101,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Barbell Bench Press": {
+      "best1RM": 232,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Seated Barbell Z Press": {
+      "best1RM": 70,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Bent-Over Barbell Wide Row": {
+      "best1RM": 91,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Standing Barbell Calf Raise": {
+      "best1RM": 54,
+      "workout": "Warrior 3 (bar)"
+    },
+    "Standing Barbell Front Raise": {
+      "best1RM": 54,
+      "workout": "Warrior 3 (bar)"
+    }
+  },
+  "totalWorkouts": 125,
+  "totalVolumeLbs": 1296447.1,
+  "dateRange": {
+    "start": "2025-07-25",
+    "end": "2026-02-18"
+  },
+  "allSessions": [
+    {
+      "date": "2025-07-25",
+      "title": "GYM MONSTER 101",
+      "totalCapacity": 350.0,
+      "durationMinute": 6,
+      "calorie": 50,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-07-28",
+      "title": "Trial Workout",
+      "totalCapacity": 5025.5,
+      "durationMinute": 8,
+      "calorie": 62,
+      "actionNum": 2
+    },
+    {
+      "date": "2025-08-03",
+      "title": "New Custom2",
+      "totalCapacity": 0,
+      "durationMinute": 14,
+      "calorie": 5,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-08-03",
+      "title": "Biceps",
+      "totalCapacity": 1901.5,
+      "durationMinute": 14,
+      "calorie": 59,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-08-09",
+      "title": "pulldown",
+      "totalCapacity": 4832.5,
+      "durationMinute": 9,
+      "calorie": 116,
+      "actionNum": 5
+    },
+    {
+      "date": "2025-08-10",
+      "title": "pulldown",
+      "totalCapacity": 3085.0,
+      "durationMinute": 13,
+      "calorie": 61,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-08-11",
+      "title": "Biceps",
+      "totalCapacity": 4911.0,
+      "durationMinute": 14,
+      "calorie": 144,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-08-12",
+      "title": "pulldown",
+      "totalCapacity": 3128.5,
+      "durationMinute": 13,
+      "calorie": 43,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-08-14",
+      "title": "pulldown",
+      "totalCapacity": 7344.0,
+      "durationMinute": 13,
+      "calorie": 188,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-08-15",
+      "title": "Biceps",
+      "totalCapacity": 5430.5,
+      "durationMinute": 14,
+      "calorie": 176,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-08-19",
+      "title": "pulldown",
+      "totalCapacity": 7206.5,
+      "durationMinute": 13,
+      "calorie": 171,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-08-22",
+      "title": "pulldown",
+      "totalCapacity": 8001.5,
+      "durationMinute": 13,
+      "calorie": 157,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-08-27",
+      "title": "Biceps",
+      "totalCapacity": 5534.5,
+      "durationMinute": 14,
+      "calorie": 172,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-08-27",
+      "title": "Custom",
+      "totalCapacity": 780.0,
+      "durationMinute": 0,
+      "calorie": 7,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-08-28",
+      "title": "Custom",
+      "totalCapacity": 1560.0,
+      "durationMinute": 0,
+      "calorie": 14,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-08-29",
+      "title": "Power Upper Chest Delts Triceps Advanced",
+      "totalCapacity": 4936.0,
+      "durationMinute": 54,
+      "calorie": 185,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-08-29",
+      "title": "pulldown",
+      "totalCapacity": 4016.0,
+      "durationMinute": 13,
+      "calorie": 60,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-08-31",
+      "title": "pulldown",
+      "totalCapacity": 7649.5,
+      "durationMinute": 12,
+      "calorie": 248,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-09-01",
+      "title": "New Custom3",
+      "totalCapacity": 8561.0,
+      "durationMinute": 12,
+      "calorie": 281,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-09-01",
+      "title": "Barbell Bench",
+      "totalCapacity": 0,
+      "durationMinute": 12,
+      "calorie": 9,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-09-02",
+      "title": "Warrior 1",
+      "totalCapacity": 4085.0,
+      "durationMinute": 24,
+      "calorie": 204,
+      "actionNum": 16
+    },
+    {
+      "date": "2025-09-03",
+      "title": "Warrior 1",
+      "totalCapacity": 11352.5,
+      "durationMinute": 24,
+      "calorie": 509,
+      "actionNum": 16
+    },
+    {
+      "date": "2025-09-05",
+      "title": "Warrior 1",
+      "totalCapacity": 11041.5,
+      "durationMinute": 30,
+      "calorie": 627,
+      "actionNum": 16
+    },
+    {
+      "date": "2025-09-06",
+      "title": "Custom",
+      "totalCapacity": 260.0,
+      "durationMinute": 0,
+      "calorie": 6,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-09-06",
+      "title": "Custom",
+      "totalCapacity": 520.0,
+      "durationMinute": 0,
+      "calorie": 3,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-09-08",
+      "title": "Barbell Bench",
+      "totalCapacity": 10388.0,
+      "durationMinute": 12,
+      "calorie": 367,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-09-08",
+      "title": "Warrior 1",
+      "totalCapacity": 11047.0,
+      "durationMinute": 53,
+      "calorie": 659,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-10",
+      "title": "Warrior 1",
+      "totalCapacity": 17039.0,
+      "durationMinute": 53,
+      "calorie": 867,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-12",
+      "title": "curls",
+      "totalCapacity": 1602.0,
+      "durationMinute": 3,
+      "calorie": 36,
+      "actionNum": 2
+    },
+    {
+      "date": "2025-09-14",
+      "title": "Warrior 1",
+      "totalCapacity": 25214.0,
+      "durationMinute": 53,
+      "calorie": 1284,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-16",
+      "title": "Warrior 1",
+      "totalCapacity": 16617.5,
+      "durationMinute": 53,
+      "calorie": 940,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-17",
+      "title": "Warrior 2",
+      "totalCapacity": 4267.0,
+      "durationMinute": 42,
+      "calorie": 220,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-09-18",
+      "title": "Warrior 2",
+      "totalCapacity": 33230.0,
+      "durationMinute": 65,
+      "calorie": 1233,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-09-19",
+      "title": "Warrior 1",
+      "totalCapacity": 28493.0,
+      "durationMinute": 53,
+      "calorie": 1198,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-20",
+      "title": "shoulder press",
+      "totalCapacity": 2209.0,
+      "durationMinute": 7,
+      "calorie": 128,
+      "actionNum": 2
+    },
+    {
+      "date": "2025-09-20",
+      "title": "shoulder press",
+      "totalCapacity": 3745.0,
+      "durationMinute": 7,
+      "calorie": 114,
+      "actionNum": 2
+    },
+    {
+      "date": "2025-09-20",
+      "title": "Warrior 1",
+      "totalCapacity": 1810.5,
+      "durationMinute": 53,
+      "calorie": 19,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-21",
+      "title": "Warrior 1",
+      "totalCapacity": 18465.5,
+      "durationMinute": 53,
+      "calorie": 903,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-23",
+      "title": "Warrior 3",
+      "totalCapacity": 11898.0,
+      "durationMinute": 30,
+      "calorie": 578,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-09-25",
+      "title": "Warrior 4 (rope)",
+      "totalCapacity": 8375.5,
+      "durationMinute": 31,
+      "calorie": 589,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-09-26",
+      "title": "Warrior 4 (rope)",
+      "totalCapacity": 13831.0,
+      "durationMinute": 50,
+      "calorie": 699,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-09-27",
+      "title": "Warrior 1",
+      "totalCapacity": 12087.0,
+      "durationMinute": 53,
+      "calorie": 366,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-29",
+      "title": "Warrior 1",
+      "totalCapacity": 13361.5,
+      "durationMinute": 53,
+      "calorie": 494,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-09-30",
+      "title": "Warrior 4 (rope)",
+      "totalCapacity": 10191.5,
+      "durationMinute": 50,
+      "calorie": 1023,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-10-02",
+      "title": "Warrior 3 (bar)",
+      "totalCapacity": 15816.0,
+      "durationMinute": 30,
+      "calorie": 754,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-10-03",
+      "title": "Biceps",
+      "totalCapacity": 750.0,
+      "durationMinute": 14,
+      "calorie": 17,
+      "actionNum": 8
+    },
+    {
+      "date": "2025-10-06",
+      "title": "Warrior 1",
+      "totalCapacity": 29124.5,
+      "durationMinute": 53,
+      "calorie": 1258,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-10-06",
+      "title": "Warrior 3 (bar)",
+      "totalCapacity": 5477.0,
+      "durationMinute": 30,
+      "calorie": 223,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-10-08",
+      "title": "Warrior 4 (rope)",
+      "totalCapacity": 6472.0,
+      "durationMinute": 50,
+      "calorie": 480,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-10-09",
+      "title": "Warrior 1",
+      "totalCapacity": 16566.0,
+      "durationMinute": 53,
+      "calorie": 462,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-10-11",
+      "title": "Warrior 1",
+      "totalCapacity": 30648.0,
+      "durationMinute": 53,
+      "calorie": 1417,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-10-12",
+      "title": "Warrior 2",
+      "totalCapacity": 21982.0,
+      "durationMinute": 65,
+      "calorie": 940,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-10-14",
+      "title": "Warrior 2",
+      "totalCapacity": 36008.0,
+      "durationMinute": 65,
+      "calorie": 1634,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-10-16",
+      "title": "one arm",
+      "totalCapacity": 6882.0,
+      "durationMinute": 28,
+      "calorie": 920,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-10-18",
+      "title": "Custom",
+      "totalCapacity": 1299.32,
+      "durationMinute": 0,
+      "calorie": 31,
+      "actionNum": 0
+    },
+    {
+      "date": "2025-10-20",
+      "title": "one arm",
+      "totalCapacity": 11301.5,
+      "durationMinute": 46,
+      "calorie": 1076,
+      "actionNum": 33
+    },
+    {
+      "date": "2025-10-21",
+      "title": "one arm",
+      "totalCapacity": 12457.0,
+      "durationMinute": 56,
+      "calorie": 853,
+      "actionNum": 40
+    },
+    {
+      "date": "2025-10-31",
+      "title": "pulldown",
+      "totalCapacity": 7873.5,
+      "durationMinute": 12,
+      "calorie": 247,
+      "actionNum": 7
+    },
+    {
+      "date": "2025-10-31",
+      "title": "one arm",
+      "totalCapacity": 9137.0,
+      "durationMinute": 109,
+      "calorie": 709,
+      "actionNum": 40
+    },
+    {
+      "date": "2025-11-01",
+      "title": "Warrior 2",
+      "totalCapacity": 14383.5,
+      "durationMinute": 65,
+      "calorie": 352,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-11-01",
+      "title": "Arms Barbell",
+      "totalCapacity": 1083.0,
+      "durationMinute": 26,
+      "calorie": 47,
+      "actionNum": 16
+    },
+    {
+      "date": "2025-11-02",
+      "title": "Arms Barbell",
+      "totalCapacity": 9082.0,
+      "durationMinute": 24,
+      "calorie": 681,
+      "actionNum": 16
+    },
+    {
+      "date": "2025-11-03",
+      "title": "Chest handles",
+      "totalCapacity": 14359.5,
+      "durationMinute": 27,
+      "calorie": 398,
+      "actionNum": 18
+    },
+    {
+      "date": "2025-11-04",
+      "title": "Arms Barbell",
+      "totalCapacity": 6689.0,
+      "durationMinute": 26,
+      "calorie": 370,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-05",
+      "title": "Warrior 3 (bar)",
+      "totalCapacity": 7018.0,
+      "durationMinute": 30,
+      "calorie": 330,
+      "actionNum": 20
+    },
+    {
+      "date": "2025-11-06",
+      "title": "Warrior 1",
+      "totalCapacity": 7490.5,
+      "durationMinute": 53,
+      "calorie": 427,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-11-08",
+      "title": "Warrior 4 (rope)",
+      "totalCapacity": 1765.0,
+      "durationMinute": 50,
+      "calorie": 231,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-11-09",
+      "title": "Chest handles",
+      "totalCapacity": 21458.5,
+      "durationMinute": 40,
+      "calorie": 678,
+      "actionNum": 26
+    },
+    {
+      "date": "2025-11-10",
+      "title": "Warrior 1",
+      "totalCapacity": 11152.0,
+      "durationMinute": 53,
+      "calorie": 398,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-11-13",
+      "title": "Arms Barbell",
+      "totalCapacity": 10465.0,
+      "durationMinute": 26,
+      "calorie": 586,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-14",
+      "title": "Chest handles",
+      "totalCapacity": 6798.5,
+      "durationMinute": 40,
+      "calorie": 302,
+      "actionNum": 26
+    },
+    {
+      "date": "2025-11-14",
+      "title": "Warrior 1",
+      "totalCapacity": 32887.0,
+      "durationMinute": 53,
+      "calorie": 846,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-11-15",
+      "title": "Deadlift",
+      "totalCapacity": 0,
+      "durationMinute": 7,
+      "calorie": 10,
+      "actionNum": 1
+    },
+    {
+      "date": "2025-11-15",
+      "title": "Deadlift",
+      "totalCapacity": 1040.0,
+      "durationMinute": 7,
+      "calorie": 56,
+      "actionNum": 1
+    },
+    {
+      "date": "2025-11-15",
+      "title": "Deadlift",
+      "totalCapacity": 2600.0,
+      "durationMinute": 5,
+      "calorie": 35,
+      "actionNum": 1
+    },
+    {
+      "date": "2025-11-17",
+      "title": "Arms Barbell",
+      "totalCapacity": 11030.0,
+      "durationMinute": 26,
+      "calorie": 414,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-17",
+      "title": "Chest handles",
+      "totalCapacity": 9113.0,
+      "durationMinute": 40,
+      "calorie": 552,
+      "actionNum": 26
+    },
+    {
+      "date": "2025-11-19",
+      "title": "Warrior 1",
+      "totalCapacity": 8620.0,
+      "durationMinute": 53,
+      "calorie": 332,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-11-20",
+      "title": "Arms Barbell",
+      "totalCapacity": 10734.0,
+      "durationMinute": 26,
+      "calorie": 400,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-20",
+      "title": "Deadlift",
+      "totalCapacity": 3120.0,
+      "durationMinute": 2,
+      "calorie": 35,
+      "actionNum": 1
+    },
+    {
+      "date": "2025-11-21",
+      "title": "Back Barbell",
+      "totalCapacity": 13730.0,
+      "durationMinute": 35,
+      "calorie": 348,
+      "actionNum": 22
+    },
+    {
+      "date": "2025-11-22",
+      "title": "Chest handles",
+      "totalCapacity": 4335.0,
+      "durationMinute": 40,
+      "calorie": 218,
+      "actionNum": 26
+    },
+    {
+      "date": "2025-11-22",
+      "title": "Arms Barbell",
+      "totalCapacity": 7571.0,
+      "durationMinute": 26,
+      "calorie": 328,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-25",
+      "title": "Chest handles",
+      "totalCapacity": 5683.5,
+      "durationMinute": 40,
+      "calorie": 223,
+      "actionNum": 26
+    },
+    {
+      "date": "2025-11-25",
+      "title": "Arms Barbell",
+      "totalCapacity": 0,
+      "durationMinute": 26,
+      "calorie": 7,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-25",
+      "title": "Arms Barbell",
+      "totalCapacity": 12752.0,
+      "durationMinute": 26,
+      "calorie": 431,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-28",
+      "title": "Arms Barbell",
+      "totalCapacity": 4868.0,
+      "durationMinute": 26,
+      "calorie": 288,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-11-29",
+      "title": "Arms Barbell",
+      "totalCapacity": 4825.0,
+      "durationMinute": 26,
+      "calorie": 236,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-12-07",
+      "title": "Warrior 1",
+      "totalCapacity": 14541.5,
+      "durationMinute": 53,
+      "calorie": 509,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-12-09",
+      "title": "Warrior 1",
+      "totalCapacity": 33203.5,
+      "durationMinute": 53,
+      "calorie": 1097,
+      "actionNum": 30
+    },
+    {
+      "date": "2025-12-10",
+      "title": "Leg Day",
+      "totalCapacity": 11804.0,
+      "durationMinute": 16,
+      "calorie": 489,
+      "actionNum": 9
+    },
+    {
+      "date": "2025-12-12",
+      "title": "Arms Barbell",
+      "totalCapacity": 13917.0,
+      "durationMinute": 26,
+      "calorie": 887,
+      "actionNum": 17
+    },
+    {
+      "date": "2025-12-12",
+      "title": "Warrior 2",
+      "totalCapacity": 9018.0,
+      "durationMinute": 65,
+      "calorie": 436,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-12-15",
+      "title": "Warrior 2",
+      "totalCapacity": 41058.0,
+      "durationMinute": 65,
+      "calorie": 1511,
+      "actionNum": 34
+    },
+    {
+      "date": "2025-12-19",
+      "title": "Warrior 1",
+      "totalCapacity": 33294.0,
+      "durationMinute": 53,
+      "calorie": 1597,
+      "actionNum": 30
+    },
+    {
+      "date": "2026-01-06",
+      "title": "Warrior 1",
+      "totalCapacity": 19499.0,
+      "durationMinute": 53,
+      "calorie": 1024,
+      "actionNum": 30
+    },
+    {
+      "date": "2026-01-07",
+      "title": "Warrior 2",
+      "totalCapacity": 20698.0,
+      "durationMinute": 66,
+      "calorie": 1011,
+      "actionNum": 34
+    },
+    {
+      "date": "2026-01-09",
+      "title": "Arms Barbell",
+      "totalCapacity": 2293.0,
+      "durationMinute": 26,
+      "calorie": 161,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-01-11",
+      "title": "Warrior 2",
+      "totalCapacity": 41481.5,
+      "durationMinute": 66,
+      "calorie": 1371,
+      "actionNum": 34
+    },
+    {
+      "date": "2026-01-13",
+      "title": "Warrior 3 (bar)",
+      "totalCapacity": 12656.0,
+      "durationMinute": 30,
+      "calorie": 594,
+      "actionNum": 20
+    },
+    {
+      "date": "2026-01-16",
+      "title": "Arms Barbell",
+      "totalCapacity": 12002.0,
+      "durationMinute": 26,
+      "calorie": 540,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-01-18",
+      "title": "Back Barbell",
+      "totalCapacity": 10552.0,
+      "durationMinute": 35,
+      "calorie": 341,
+      "actionNum": 22
+    },
+    {
+      "date": "2026-01-22",
+      "title": "Arms Barbell",
+      "totalCapacity": 12465.0,
+      "durationMinute": 26,
+      "calorie": 566,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-01-23",
+      "title": "Warrior 1",
+      "totalCapacity": 17802.0,
+      "durationMinute": 50,
+      "calorie": 651,
+      "actionNum": 30
+    },
+    {
+      "date": "2026-01-23",
+      "title": "Back Barbell",
+      "totalCapacity": 8091.0,
+      "durationMinute": 31,
+      "calorie": 249,
+      "actionNum": 22
+    },
+    {
+      "date": "2026-01-24",
+      "title": "Custom",
+      "totalCapacity": 2825.8,
+      "durationMinute": 0,
+      "calorie": 103,
+      "actionNum": 0
+    },
+    {
+      "date": "2026-01-26",
+      "title": "Chest handles",
+      "totalCapacity": 14562.0,
+      "durationMinute": 40,
+      "calorie": 518,
+      "actionNum": 26
+    },
+    {
+      "date": "2026-01-26",
+      "title": "Custom",
+      "totalCapacity": 73.12,
+      "durationMinute": 0,
+      "calorie": 1,
+      "actionNum": 0
+    },
+    {
+      "date": "2026-01-27",
+      "title": "Warrior 2",
+      "totalCapacity": 22014.5,
+      "durationMinute": 64,
+      "calorie": 939,
+      "actionNum": 34
+    },
+    {
+      "date": "2026-01-29",
+      "title": "Warrior 1",
+      "totalCapacity": 27095.0,
+      "durationMinute": 50,
+      "calorie": 1091,
+      "actionNum": 30
+    },
+    {
+      "date": "2026-01-29",
+      "title": "Arms Barbell",
+      "totalCapacity": 1666.0,
+      "durationMinute": 26,
+      "calorie": 161,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-01-30",
+      "title": "Custom",
+      "totalCapacity": 32.0,
+      "durationMinute": 0,
+      "calorie": 1,
+      "actionNum": 0
+    },
+    {
+      "date": "2026-01-31",
+      "title": "Arms Barbell",
+      "totalCapacity": 5076.0,
+      "durationMinute": 26,
+      "calorie": 153,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-02-02",
+      "title": "Warrior 1",
+      "totalCapacity": 35305.0,
+      "durationMinute": 50,
+      "calorie": 1507,
+      "actionNum": 30
+    },
+    {
+      "date": "2026-02-03",
+      "title": "Custom",
+      "totalCapacity": 8.0,
+      "durationMinute": 0,
+      "calorie": 0,
+      "actionNum": 0
+    },
+    {
+      "date": "2026-02-03",
+      "title": "Back Barbell",
+      "totalCapacity": 88.0,
+      "durationMinute": 31,
+      "calorie": 13,
+      "actionNum": 22
+    },
+    {
+      "date": "2026-02-03",
+      "title": "Chest handles",
+      "totalCapacity": 1421.5,
+      "durationMinute": 40,
+      "calorie": 114,
+      "actionNum": 26
+    },
+    {
+      "date": "2026-02-03",
+      "title": "one arm",
+      "totalCapacity": 0,
+      "durationMinute": 109,
+      "calorie": 44,
+      "actionNum": 40
+    },
+    {
+      "date": "2026-02-04",
+      "title": "Chest handles",
+      "totalCapacity": 10191.5,
+      "durationMinute": 40,
+      "calorie": 406,
+      "actionNum": 26
+    },
+    {
+      "date": "2026-02-05",
+      "title": "Custom",
+      "totalCapacity": 344.4,
+      "durationMinute": 0,
+      "calorie": 18,
+      "actionNum": 0
+    },
+    {
+      "date": "2026-02-06",
+      "title": "Arms Barbell",
+      "totalCapacity": 5083.0,
+      "durationMinute": 26,
+      "calorie": 166,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-02-09",
+      "title": "Arms Barbell",
+      "totalCapacity": 5052.0,
+      "durationMinute": 26,
+      "calorie": 210,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-02-10",
+      "title": "Warrior 1",
+      "totalCapacity": 6332.5,
+      "durationMinute": 50,
+      "calorie": 308,
+      "actionNum": 30
+    },
+    {
+      "date": "2026-02-12",
+      "title": "Warrior 2",
+      "totalCapacity": 21623.0,
+      "durationMinute": 64,
+      "calorie": 889,
+      "actionNum": 34
+    },
+    {
+      "date": "2026-02-18",
+      "title": "Arms Barbell",
+      "totalCapacity": 11447.0,
+      "durationMinute": 26,
+      "calorie": 859,
+      "actionNum": 17
+    }
+  ]
+}

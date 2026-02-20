@@ -3,8 +3,13 @@
  * Runs at build time in Node.js context only.
  */
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-const DATA_PATH = '/Users/tobyglennpeters/clawd/data/garmin_all_activities.json';
+const DATA_PATH = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  'garmin_all_activities.json'
+);
 
 function fmtPace(paceDecimal) {
   const m = Math.floor(paceDecimal);

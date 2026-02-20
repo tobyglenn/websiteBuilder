@@ -3,8 +3,13 @@
  * Imported at build time by speediance.astro (Node.js context only).
  */
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import path from 'node:path';
 
-const DATA_PATH = '/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json';
+const DATA_PATH = path.resolve(
+  path.dirname(fileURLToPath(import.meta.url)),
+  'speediance_dashboard_data.json'
+);
 
 const MONTH_NAMES = {
   '01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr',
