@@ -1,46 +1,89 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const episodes = [
-  {
-    number: 'Episode 3',
-    title: 'The Ecosystem Explodes',
-    description: "DigitalOcean coverage, Cloudflare's Moltworker, CNBC capabilities, security updates, version patches, LLM stats, hardware guides, Adafruit tutorials, and the growing skills marketplace.",
-    duration: '~11 min',
-    published: 'February 20, 2026',
-    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_003_full.mp3',
-    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_003.md',
-  },
-  {
-    number: 'Episode 2',
-    title: 'The Local AI Revolution',
-    description: 'Raspberry Pi official support, Mac Mini shortage, Bitsight security research (30K exposed instances), Peter Steinberger profile, VentureBeat coverage, Trend Micro analysis, Georgetown research, developer tools, hardware guides, and the future of local AI agents.',
-    duration: '~23 min',
-    published: 'February 20, 2026',
-    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_002_full.mp3',
-    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_002.md',
-  },
-  {
-    number: 'Episode 1 (Full)',
-    title: 'The Full Story',
-    description: 'The inaugural episode covering the foundation transition, security debates, coverage reaction, hardware options, model releases, and community ecosystem.',
-    duration: '~38 min',
-    published: 'February 19, 2026',
-    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_001_full_v2.mp3',
-    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_001_full_v2.md',
-  },
-  {
-    number: 'Episode 1 (Highlights)',
-    title: 'Highlights',
-    description: 'Quick 3-minute summary of the main news and tips.',
-    duration: '~3 min',
-    published: 'February 19, 2026',
-    listenUrl: 'https://grayking-creator.github.io/openclaw-podcast/audio/episode_001_highlights_v2.mp3',
-    notesUrl: 'https://grayking-creator.github.io/openclaw-podcast/episode_001_highlights_v2.md',
-  },
-];
-
 const rssFeed = 'https://tobyonfitnesstech.com/podcasts/feed.xml';
+const feedUrl = 'https://grayking-creator.github.io/openclaw-podcast/feed.xml';
+
+interface Episode {
+  episodeNum: number;
+  title: string;
+  description: string;
+  pubDate: string;
+  audioUrl: string;
+  duration: string;
+  showNotesUrl: string;
+}
+
+function formatDate(raw: string): string {
+  try {
+    const d = new Date(raw);
+    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  } catch {
+    return raw;
+  }
+}
+
+function extractTag(xml: string, tag: string): string {
+  const re = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
+  const m = xml.match(re);
+  return (m ? (m[1] ?? m[2] ?? '') : '').trim();
+}
+
+function extractAttr(xml: string, tag: string, attr: string): string {
+  const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]*)"`, 'i');
+  const m = xml.match(re);
+  return m ? m[1].trim() : '';
+}
+
+function mdUrlToGitHub(url: string): string {
+  // https://grayking-creator.github.io/openclaw-podcast/episode_002.md
+  // → https://github.com/grayking-creator/openclaw-podcast/blob/main/episode_002.md
+  const m = url.match(/https:\/\/([^.]+)\.github\.io\/([^/]+)\/(.+)/);
+  if (m) {
+    return `https://github.com/${m[1]}/${m[2]}/blob/main/${m[3]}`;
+  }
+  return url;
+}
+
+let episodes: Episode[] = [];
+let fetchError = false;
+
+try {
+  const res = await fetch(feedUrl);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const xml = await res.text();
+
+  // Split into <item> blocks (strip channel-level content first)
+  const channelMatch = xml.match(/<channel[^>]*>([\s\S]*?)<\/channel>/i);
+  const channelXml = channelMatch ? channelMatch[1] : xml;
+
+  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+  let m: RegExpExecArray | null;
+
+  while ((m = itemRegex.exec(channelXml)) !== null) {
+    const item = m[1];
+
+    const title = extractTag(item, 'title');
+    const description = extractTag(item, 'description');
+    const pubDateRaw = extractTag(item, 'pubDate');
+    const audioUrl = extractAttr(item, 'enclosure', 'url');
+    const duration = extractTag(item, 'itunes:duration');
+    const episodeNumStr = extractTag(item, 'itunes:episode');
+    const link = extractTag(item, 'link');
+    const showNotesUrl = mdUrlToGitHub(link);
+    const pubDate = formatDate(pubDateRaw);
+    const episodeNum = parseInt(episodeNumStr, 10) || 0;
+
+    episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl });
+  }
+
+  // Sort newest first
+  episodes.sort((a, b) => b.episodeNum - a.episodeNum);
+
+} catch (err) {
+  fetchError = true;
+  console.error('[podcasts.astro] RSS fetch failed:', err);
+}
 ---
 
 <Layout title="Podcasts | Toby on Fitness Tech" description="OpenClaw Daily — your AI-hosted podcast covering the latest in fitness tech, local AI, hardware, and the OpenClaw ecosystem. Hosted by Nova & Alloy.">
@@ -55,8 +98,8 @@ const rssFeed = 'https://tobyonfitnesstech.com/podcasts/feed.xml';
         AI-hosted daily episodes covering fitness tech, local AI, hardware, security, and the OpenClaw ecosystem — fresh takes every day.
       </p>
       <!-- Hosts badge -->
-      <span class="inline-flex items-center gap-2 bg-neutral-800 border border-neutral-700 text-neutral-300 text-sm font-medium px-4 py-2 rounded-full">
-        🎤 Hosts: Nova (warm British) &amp; Alloy (neutral)
+      <span class="bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm px-3 py-1 rounded-full inline-block">
+        🎤 Hosts: Nova &amp; Alloy
       </span>
     </div>
 
@@ -77,55 +120,63 @@ const rssFeed = 'https://tobyonfitnesstech.com/podcasts/feed.xml';
     </div>
 
     <!-- Episode list -->
-    <div class="space-y-6">
-      {episodes.map((ep) => (
-        <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
-          <div class="flex flex-col sm:flex-row sm:items-start gap-4">
-            <div class="flex-1">
-              <!-- Badge -->
-              <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2 py-1 rounded-full">
-                {ep.number}
-              </span>
+    {fetchError ? (
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 mb-4 text-center">
+        <p class="text-neutral-400 text-sm">⚠️ Episodes temporarily unavailable. Please check back soon.</p>
+      </div>
+    ) : episodes.length === 0 ? (
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 mb-4 text-center">
+        <p class="text-neutral-400 text-sm">No episodes found in the feed yet.</p>
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {episodes.map((ep) => (
+          <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 mb-4">
+            <!-- Episode badge -->
+            <span class="bg-blue-500/10 text-blue-400 text-xs font-medium px-2 py-1 rounded-full">
+              Episode {ep.episodeNum}
+            </span>
 
-              <!-- Title -->
-              <h2 class="text-xl font-bold text-white mt-3 mb-2">
-                {ep.title}
-              </h2>
+            <!-- Title -->
+            <h2 class="text-xl font-bold text-white mt-2 mb-2">
+              {ep.title.replace(/^Episode \d+:\s*/i, '')}
+            </h2>
 
-              <!-- Description -->
-              <p class="text-neutral-400 text-sm mb-3 leading-relaxed">
-                {ep.description}
-              </p>
+            <!-- Description -->
+            <p class="text-neutral-400 text-sm leading-relaxed mb-3">
+              {ep.description}
+            </p>
 
-              <!-- Meta -->
-              <p class="text-neutral-500 text-xs mb-5">
-                {ep.duration} &nbsp;·&nbsp; {ep.published}
-              </p>
+            <!-- Meta -->
+            <p class="text-neutral-500 text-xs mb-4">
+              {ep.duration} &nbsp;·&nbsp; {ep.pubDate}
+            </p>
 
-              <!-- Actions -->
-              <div class="flex flex-wrap items-center gap-4">
+            <!-- Actions -->
+            <div class="flex flex-wrap items-center">
+              <a
+                href={ep.audioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+              >
+                🎧 Listen
+              </a>
+              {ep.showNotesUrl && (
                 <a
-                  href={ep.listenUrl}
+                  href={ep.showNotesUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
-                >
-                  🎧 Listen
-                </a>
-                <a
-                  href={ep.notesUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="text-neutral-400 hover:text-white text-sm transition-colors"
+                  class="text-neutral-400 hover:text-white text-sm transition-colors ml-4"
                 >
                   📄 Show Notes
                 </a>
-              </div>
+              )}
             </div>
-          </div>
-        </article>
-      ))}
-    </div>
+          </article>
+        ))}
+      </div>
+    )}
 
     <!-- Footer note -->
     <p class="text-center text-neutral-600 text-xs mt-12">
