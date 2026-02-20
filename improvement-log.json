@@ -2,8 +2,33 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-02-20T00:25:00-05:00",
+      "idea": "/bjj page \u2014 Brown Belt BJJ journey page with belt timeline, competition record (3rd place at brown belt, reverse triangle win), training philosophy, signature moves, and 4 embedded BJJ videos",
+      "category": "New Page",
+      "files_changed": [
+        "frontend/src/data/bjj.js",
+        "frontend/src/pages/bjj.astro",
+        "frontend/src/components/Header.jsx"
+      ],
+      "commit": "77235b8",
+      "data_sources": [
+        "Video transcripts (dG8GPamRHmA, DvBzOcR-RXo, CvOTYwkVHAc, apsAL3x_V3k)"
+      ],
+      "sections": [
+        "Hero with belt status pill, stats (10+ years, 3 medals, Gi & No-Gi)",
+        "Belt timeline (White \u2192 Blue \u2192 Purple \u2192 Brown) with competition notes per belt",
+        "Competition record cards with medal icons and brown belt match story (concrete takedown, reverse triangle)",
+        "Game highlights \u2014 3 signature moves (reverse triangle, double leg, cartwheel pass)",
+        "Training philosophy \u2014 4 principles (compete to validate, dynamic submissions, injury awareness, size-aware game)",
+        "4 BJJ video embeds with YouTube thumbnails and descriptions",
+        "Belt promotion hot take section (Israetel controversy, own competition standard)",
+        "CTA linking to /videos, /training, /about"
+      ],
+      "notes": "Clarity subagent ran but did not write files. Implemented directly. All content from real transcripts \u2014 belt history, competition story (concrete throw in overtime), reverse triangle win at brown belt. Build: 133 pages. No placeholder content."
+    },
+    {
       "timestamp": "2026-02-19T23:15:00-05:00",
-      "idea": "Running Log Page (/running) — Real Garmin Data Visualization",
+      "idea": "Running Log Page (/running) \u2014 Real Garmin Data Visualization",
       "category": "New Page + Data Visualization",
       "files_changed": [
         "frontend/src/data/running.js",
@@ -11,7 +36,9 @@
         "frontend/src/components/Header.jsx"
       ],
       "commit": "a5c23fd",
-      "data_sources": ["garmin_all_activities.json"],
+      "data_sources": [
+        "garmin_all_activities.json"
+      ],
       "stats": {
         "total_runs": 111,
         "total_distance_mi": 265.1,
@@ -28,16 +55,16 @@
         "6 summary stat cards (total runs, miles, hours, pace, longest, kcal)",
         "Monthly mileage SVG bar chart (11 months, gradient fill, run count labels)",
         "Activity heatmap (GitHub-style SVG calendar grid, daily miles, color-coded)",
-        "Pace PRs board (4 distance brackets: 1mi, 2mi, 3mi, 4mi — fastest pace)",
+        "Pace PRs board (4 distance brackets: 1mi, 2mi, 3mi, 4mi \u2014 fastest pace)",
         "Recent 10 runs table with HR zone color bars (desktop) + cards (mobile)",
         "Running gear section (4 cards: shoes, watch, safety, recovery tracking)",
         "CTA linking to /training, /speediance, /blog"
       ],
-      "notes": "Fully rebuilt with enhanced features: activity heatmap (SVG calendar grid), monthly bar chart with labels, pace PRs by distance bracket (real data — 1mi, 2mi, 3mi, 4mi), recent runs table with HR zone color bars, gear section. Build: 132 pages. Commit: 676f79b."
+      "notes": "Fully rebuilt with enhanced features: activity heatmap (SVG calendar grid), monthly bar chart with labels, pace PRs by distance bracket (real data \u2014 1mi, 2mi, 3mi, 4mi), recent runs table with HR zone color bars, gear section. Build: 132 pages. Commit: 676f79b."
     },
     {
       "timestamp": "2026-02-19T22:40:00-05:00",
-      "idea": "Speediance Workout Volume Dashboard — /speediance page with monthly volume bar chart, workout type donut chart, exercise PRs, and recent sessions table",
+      "idea": "Speediance Workout Volume Dashboard \u2014 /speediance page with monthly volume bar chart, workout type donut chart, exercise PRs, and recent sessions table",
       "category": "New Page + Data Visualization",
       "files_changed": [
         "frontend/src/data/speediance.js",
@@ -45,7 +72,9 @@
         "frontend/src/components/Header.jsx"
       ],
       "commit": "d0162d3",
-      "data_sources": ["speediance_dashboard_data.json"],
+      "data_sources": [
+        "speediance_dashboard_data.json"
+      ],
       "stats": {
         "total_volume_lbs": 1296447,
         "total_workouts": 125,
@@ -67,7 +96,15 @@
           "published_at": "2025-11-21",
           "transcript_video_id": "cN4YyRwoxXc",
           "transcript_word_count": 7871,
-          "topics": ["Speediance", "1RM", "progressive overload", "PR system", "Lunar Flow challenge", "deadlift 260lbs", "Customize vs dynamic modes"]
+          "topics": [
+            "Speediance",
+            "1RM",
+            "progressive overload",
+            "PR system",
+            "Lunar Flow challenge",
+            "deadlift 260lbs",
+            "Customize vs dynamic modes"
+          ]
         },
         {
           "slug": "mike-israetel-bjj-black-belt-defence",
@@ -76,7 +113,16 @@
           "published_at": "2025-11-13",
           "transcript_video_id": "dG8GPamRHmA",
           "transcript_word_count": 9022,
-          "topics": ["BJJ", "Mike Israetel", "black belt controversy", "Greg Doucette", "Ariel Helwani", "Craig Jones principle", "competition experience", "brown belt"]
+          "topics": [
+            "BJJ",
+            "Mike Israetel",
+            "black belt controversy",
+            "Greg Doucette",
+            "Ariel Helwani",
+            "Craig Jones principle",
+            "competition experience",
+            "brown belt"
+          ]
         },
         {
           "slug": "242-to-188-the-honest-truth",
@@ -85,12 +131,51 @@
           "published_at": "2025-10-07",
           "transcript_video_id": "M07Aq93TCkM",
           "transcript_word_count": 5405,
-          "topics": ["weight loss", "GLP-1", "tirzepatide", "TRT", "Anavar", "tadalafil", "transformation", "800-1200 calories", "20K steps", "transparency"]
+          "topics": [
+            "weight loss",
+            "GLP-1",
+            "tirzepatide",
+            "TRT",
+            "Anavar",
+            "tadalafil",
+            "transformation",
+            "800-1200 calories",
+            "20K steps",
+            "transparency"
+          ]
         }
       ],
       "git_commit": "5c6e84b",
       "git_push": "fork -> main (force)",
       "notes": "All posts written from full transcript content in Toby's voice. No placeholder content. Video IDs used are all previously unused (not in the already-used list: xFknwPPhVnI, 0C8mQoV-Xpg, apsAL3x_V3k, ZbEstduW90I)."
+    },
+    {
+      "timestamp": "2026-02-20T00:29:00-05:00",
+      "type": "blog-posts",
+      "description": "Added 2 new blog posts from unused video transcripts",
+      "posts": [
+        {
+          "slug": "tonal-scam-review",
+          "title": "I Lifted 9 Million Pounds on Tonal. Here's Why I'll Never Buy Another One.",
+          "category": "Signal vs. Noise",
+          "published_at": "2025-08-26",
+          "transcript_video_id": "iOYPjqDTdas",
+          "transcript_word_count": 3328,
+          "topics": ["Tonal", "Smart Gym", "Customer Service", "Membership", "9 million pounds", "Bar control module", "Buyback program", "Tonal vs Speediance"]
+        },
+        {
+          "slug": "training-split-physique-build-vs-maintain",
+          "title": "The Training That Built My Physique Isn't What I Do Today",
+          "category": "The Long Game",
+          "published_at": "2026-01-14",
+          "transcript_video_id": "JxRdaMTOOHo",
+          "transcript_word_count": 10917,
+          "topics": ["Training split", "Arnold Blueprint", "PPL", "Bro split", "Full body", "Hypertrophy", "Physique building", "Maintenance"]
+        }
+      ],
+      "git_commit": "3a0e4fe",
+      "git_push": "fork -> main (force)",
+      "notes": "All posts written from full transcript content in Toby's voice. No placeholder content. Video IDs used: iOYPjqDTdas and JxRdaMTOOHo. Both previously unused."
     }
   ],
   "in_progress": null,
@@ -98,7 +183,7 @@
   "visual_audit": {
     "timestamp": "2026-02-19T22:20:00-05:00",
     "type": "visual-design-audit",
-    "description": "Full visual design audit of /, /blog, /about, /videos — 8 specific fixes implemented",
+    "description": "Full visual design audit of /, /blog, /about, /videos \u2014 8 specific fixes implemented",
     "git_commit": "29dfae0",
     "git_push": "fork -> main (force)",
     "files_changed": [
@@ -121,28 +206,28 @@
         "id": 2,
         "severity": "visual",
         "page": "/blog",
-        "description": "Blog hero reduced from py-20 to py-10 md:py-14 — removed excessive empty black space before category filters.",
+        "description": "Blog hero reduced from py-20 to py-10 md:py-14 \u2014 removed excessive empty black space before category filters.",
         "file": "src/pages/blog/index.astro"
       },
       {
         "id": 3,
         "severity": "visual",
         "page": "/",
-        "description": "Hero section vertical padding reduced (pt-32 pb-24 md:pt-48 md:pb-32 → pt-24 pb-16 md:pt-36 md:pb-20) and pillar margin reduced (mt-24 md:mt-32 → mt-10 md:mt-14). Eliminated massive empty space.",
+        "description": "Hero section vertical padding reduced (pt-32 pb-24 md:pt-48 md:pb-32 \u2192 pt-24 pb-16 md:pt-36 md:pb-20) and pillar margin reduced (mt-24 md:mt-32 \u2192 mt-10 md:mt-14). Eliminated massive empty space.",
         "file": "src/components/Hero.jsx"
       },
       {
         "id": 4,
         "severity": "visual",
         "page": "/",
-        "description": "Latest Uploads and Written Reviews sections reduced from py-24 to py-16 — tighter, more intentional vertical rhythm.",
+        "description": "Latest Uploads and Written Reviews sections reduced from py-24 to py-16 \u2014 tighter, more intentional vertical rhythm.",
         "file": "src/pages/index.astro"
       },
       {
         "id": 5,
         "severity": "visual",
         "page": "/about",
-        "description": "About page hero top padding reduced from pt-32 md:pt-40 to pt-20 md:pt-28 — content starts sooner without feeling cramped.",
+        "description": "About page hero top padding reduced from pt-32 md:pt-40 to pt-20 md:pt-28 \u2014 content starts sooner without feeling cramped.",
         "file": "src/pages/about.astro"
       },
       {
@@ -182,22 +267,22 @@
     "page": "/training",
     "file": "src/pages/training.astro",
     "data_sources": {
-      "garmin": "garmin_all_activities.json — 113 activities, 265.6mi, 199 weight entries",
-      "speediance": "speediance_dashboard_data.json — 125 sessions, 1,296,447 lbs, 78 exercises with PRs",
-      "eight_sleep": "eight_sleep_historical.csv (JSON) — 8 nights, avg score 68.7"
+      "garmin": "garmin_all_activities.json \u2014 113 activities, 265.6mi, 199 weight entries",
+      "speediance": "speediance_dashboard_data.json \u2014 125 sessions, 1,296,447 lbs, 78 exercises with PRs",
+      "eight_sleep": "eight_sleep_historical.csv (JSON) \u2014 8 nights, avg score 68.7"
     },
     "sections": [
       "Hero with 3 mega-stats (miles / lbs lifted / sleep score) + secondary pills",
-      "Monthly running mileage — inline SVG bar chart (gradient fill, 11 months)",
-      "Monthly lifting volume — inline SVG bar chart (gradient fill, 8 months)",
-      "PR Board — top 10 exercise 1RMs with horizontal bar comparison chart",
-      "Weight timeline — inline SVG line chart (29 sampled weigh-ins over 12 months)",
-      "Sleep recovery — 6 nightly score cards + SVG line chart with score zones",
-      "Full Picture — 3-column summary cards (Running / Lifting / Sleep)",
+      "Monthly running mileage \u2014 inline SVG bar chart (gradient fill, 11 months)",
+      "Monthly lifting volume \u2014 inline SVG bar chart (gradient fill, 8 months)",
+      "PR Board \u2014 top 10 exercise 1RMs with horizontal bar comparison chart",
+      "Weight timeline \u2014 inline SVG line chart (29 sampled weigh-ins over 12 months)",
+      "Sleep recovery \u2014 6 nightly score cards + SVG line chart with score zones",
+      "Full Picture \u2014 3-column summary cards (Running / Lifting / Sleep)",
       "CTA with links to /running and /blog"
     ],
     "header_change": "Added Training nav link to Header.jsx",
-    "build_result": "✓ 131 pages built successfully",
-    "notes": "All charts are inline SVG — no external chart libraries. Data processed via Python3 and embedded as static JS variables in Astro frontmatter."
+    "build_result": "\u2713 131 pages built successfully",
+    "notes": "All charts are inline SVG \u2014 no external chart libraries. Data processed via Python3 and embedded as static JS variables in Astro frontmatter."
   }
 }

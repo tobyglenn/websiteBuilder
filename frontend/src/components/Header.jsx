@@ -27,6 +27,7 @@ export default function Header() {
     { name: 'Speediance', href: '/speediance' },
     { name: 'Training', href: '/training' },
     { name: 'BJJ', href: '/bjj' },
+    { name: 'Day', href: '/day' },
     { name: 'About', href: '/about' },
   ];
 
