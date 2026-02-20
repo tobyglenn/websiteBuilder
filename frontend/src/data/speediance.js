@@ -2,14 +2,7 @@
  * speediance.js — server-side data processing for Speediance workout data.
  * Imported at build time by speediance.astro (Node.js context only).
  */
-import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-
-const DATA_PATH = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  'speediance_dashboard_data.json'
-);
+import rawData from './speediance_dashboard_data.json';
 
 const MONTH_NAMES = {
   '01': 'Jan', '02': 'Feb', '03': 'Mar', '04': 'Apr',
@@ -18,7 +11,7 @@ const MONTH_NAMES = {
 };
 
 export function getSpeedianceData() {
-  const raw = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+  const raw = rawData;
 
   const sessions = raw.allSessions || [];
   const prs = raw.exercisePRs || {};

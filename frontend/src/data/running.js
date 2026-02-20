@@ -2,14 +2,7 @@
  * running.js — server-side Garmin data for /running page.
  * Runs at build time in Node.js context only.
  */
-import fs from 'node:fs';
-import { fileURLToPath } from 'node:url';
-import path from 'node:path';
-
-const DATA_PATH = path.resolve(
-  path.dirname(fileURLToPath(import.meta.url)),
-  'garmin_all_activities.json'
-);
+import rawData from './garmin_all_activities.json';
 
 function fmtPace(paceDecimal) {
   const m = Math.floor(paceDecimal);
@@ -30,7 +23,7 @@ function fmtDate(dateStr, fmt = 'short') {
 }
 
 export function getRunningData() {
-  const raw = JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+  const raw = rawData;
   const all = raw.activities || [];
 
   const runs = all
