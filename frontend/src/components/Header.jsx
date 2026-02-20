@@ -28,6 +28,7 @@ export default function Header() {
     { name: 'Training', href: '/training' },
     { name: 'BJJ', href: '/bjj' },
     { name: 'Day', href: '/day' },
+    { name: 'Gear', href: '/gear' },
     { name: 'About', href: '/about' },
   ];
 
