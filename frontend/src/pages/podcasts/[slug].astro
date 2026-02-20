@@ -61,9 +61,16 @@ export async function getStaticPaths() {
     }
 
     // Step 2: Fetch transcript (special case for ep0 whose RSS link is the homepage)
+    // Convert GitHub Pages URL to raw.githubusercontent.com for fetching
+    const rawMdUrl = mdUrl && mdUrl.includes('grayking-creator.github.io/openclaw-podcast/')
+      ? mdUrl.replace(
+          'https://grayking-creator.github.io/openclaw-podcast/',
+          'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/'
+        )
+      : mdUrl;
     const transcriptFetchUrl = episodeNum === 0
       ? 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/episode_000.md'
-      : mdUrl;
+      : rawMdUrl;
 
     try {
       const mdRes = await fetch(transcriptFetchUrl);
