@@ -1,0 +1,722 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// ═══════════════════════════════════════════════════════════════════════════
+//  REAL TRAINING DATA — extracted from Garmin, Speediance & 8Sleep exports
+//  Generated: 2026-02-19
+// ═══════════════════════════════════════════════════════════════════════════
+
+// ── Hero stats ─────────────────────────────────────────────────────────────
+const TOTAL_MILES = 265.6;
+const TOTAL_RUNS = 113;
+const TOTAL_CALORIES = 39240;
+const TOTAL_DURATION_HRS = 67.8;
+const AVG_HR = 128;
+const SPEEDIANCE_WORKOUTS = 125;
+const SPEEDIANCE_VOLUME_LBS = 1296447;
+const SLEEP_AVG_SCORE = 68.7;
+const SLEEP_AVG_QUALITY = 74.3;
+const SLEEP_AVG_HRV = 84.9;
+const SLEEP_AVG_HOURS = 5.8;
+
+// ── Monthly running mileage ─────────────────────────────────────────────────
+const MONTHLY_MILES = [
+  { month: "Feb '25", miles: 1.0 },
+  { month: "Mar '25", miles: 4.1 },
+  { month: "Apr '25", miles: 1.1 },
+  { month: "May '25", miles: 37.0 },
+  { month: "Jun '25", miles: 76.8 },
+  { month: "Jul '25", miles: 31.9 },
+  { month: "Aug '25", miles: 38.6 },
+  { month: "Sep '25", miles: 12.4 },
+  { month: "Oct '25", miles: 1.7 },
+  { month: "Jan '26", miles: 29.0 },
+  { month: "Feb '26", miles: 31.9 },
+];
+
+// ── Monthly lifting volume ─────────────────────────────────────────────────
+const MONTHLY_VOLUME = [
+  { month: "Jul '25", lbs: 5376 },
+  { month: "Aug '25", lbs: 70317 },
+  { month: "Sep '25", lbs: 279692 },
+  { month: "Oct '25", lbs: 211794 },
+  { month: "Nov '25", lbs: 244653 },
+  { month: "Dec '25", lbs: 156836 },
+  { month: "Jan '26", lbs: 230884 },
+  { month: "Feb '26", lbs: 96896 },
+];
+
+// ── Top 10 PRs (Speediance 1RM) ─────────────────────────────────────────────
+const TOP_PRS = [
+  { name: "Barbell Deadlift", weight: 388, category: "Legs" },
+  { name: "Kneeling Barbell Lat Pulldown", weight: 294, category: "Back" },
+  { name: "Kneeling Barbell Rev-Grip Lat Pulldown", weight: 280, category: "Back" },
+  { name: "Seated Barbell Rev-Grip Lat Pulldown", weight: 248, category: "Back" },
+  { name: "Barbell Hip Thrust", weight: 240, category: "Legs" },
+  { name: "Barbell Bench Press", weight: 232, category: "Chest" },
+  { name: "Seated Barbell Wide Row", weight: 202, category: "Back" },
+  { name: "Barbell Bent Over Row", weight: 198, category: "Back" },
+  { name: "Seated Barbell Lat Pulldown", weight: 192, category: "Back" },
+  { name: "Seated Barbell Row", weight: 192, category: "Back" },
+];
+
+// ── Weight timeline (sampled from 199 weigh-ins) ──────────────────────────
+const WEIGHT_POINTS = [
+  { date: "Feb 4", w: 205.0 }, { date: "Feb 15", w: 211.8 }, { date: "Feb 22", w: 207.8 },
+  { date: "Mar 8", w: 205.2 }, { date: "Mar 18", w: 207.8 }, { date: "Mar 28", w: 206.6 },
+  { date: "Apr 12", w: 206.8 }, { date: "Apr 22", w: 207.2 }, { date: "May 2", w: 207.2 },
+  { date: "May 12", w: 207.6 }, { date: "May 22", w: 204.6 }, { date: "Jun 1", w: 203.8 },
+  { date: "Jun 11", w: 203.6 }, { date: "Jun 21", w: 204.0 }, { date: "Jul 1", w: 204.0 },
+  { date: "Jul 13", w: 205.2 }, { date: "Jul 23", w: 206.2 }, { date: "Aug 2", w: 207.8 },
+  { date: "Aug 12", w: 207.4 }, { date: "Aug 22", w: 208.0 }, { date: "Sep 1", w: 208.8 },
+  { date: "Sep 18", w: 210.4 }, { date: "Oct 9", w: 211.4 }, { date: "Nov 6", w: 211.8 },
+  { date: "Nov 27", w: 214.0 }, { date: "Dec 18", w: 216.6 }, { date: "Jan 8", w: 218.0 },
+  { date: "Jan 29", w: 218.6 }, { date: "Feb 13", w: 218.4 },
+];
+
+// ── 8Sleep nightly scores ──────────────────────────────────────────────────
+const SLEEP_NIGHTS = [
+  { date: "Feb 11", score: 61, quality: 93, hrv: 27.9, hours: 3.48 },
+  { date: "Feb 12", score: 47, quality: 23, hrv: 21.8, hours: 5.87 },
+  { date: "Feb 13", score: 78, quality: 80, hrv: 174.7, hours: 6.31 },
+  { date: "Feb 17", score: 50, quality: 62, hrv: 56.8, hours: 4.77 },
+  { date: "Feb 18", score: 88, quality: 95, hrv: 22.7, hours: 6.70 },
+  { date: "Feb 19", score: 88, quality: 93, hrv: 26.3, hours: 6.66 },
+];
+
+// ── SVG bar chart generator ────────────────────────────────────────────────
+function barChart(data: {label: string, value: number}[], color: string, W=780, H=180): string {
+  const PAD = { l: 8, r: 8, t: 20, b: 28 };
+  const cw = W - PAD.l - PAD.r;
+  const ch = H - PAD.t - PAD.b;
+  const n = data.length;
+  const maxV = Math.max(...data.map(d => d.value));
+  const bw = cw / n;
+  const gap = bw * 0.18;
+
+  const parts: string[] = [];
+  data.forEach(({ label, value }, i) => {
+    const x = PAD.l + i * bw + gap;
+    const w = bw - gap * 2;
+    const bh = (value / maxV) * ch;
+    const y = PAD.t + ch - bh;
+    parts.push(`<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${w.toFixed(1)}" height="${bh.toFixed(1)}" fill="${color}" rx="4" opacity="0.85"/>`);
+    parts.push(`<text x="${(x + w / 2).toFixed(1)}" y="${H - 8}" text-anchor="middle" fill="#6b7280" font-size="10" font-family="system-ui,sans-serif">${label}</text>`);
+    if (bh > 22) {
+      const valLabel = value >= 1000 ? `${(value/1000).toFixed(0)}k` : value.toFixed(0);
+      parts.push(`<text x="${(x + w / 2).toFixed(1)}" y="${(y - 5).toFixed(1)}" text-anchor="middle" fill="${color}" font-size="9" font-weight="700" font-family="system-ui,sans-serif">${valLabel}</text>`);
+    }
+  });
+  return parts.join('\n  ');
+}
+
+function lineChart(data: {x: string, y: number}[], color: string, yMin: number, yMax: number, W=780, H=180): string {
+  const PAD = { l: 30, r: 8, t: 12, b: 12 };
+  const cw = W - PAD.l - PAD.r;
+  const ch = H - PAD.t - PAD.b;
+  const n = data.length;
+
+  const px = (i: number) => (PAD.l + (i / (n - 1)) * cw).toFixed(1);
+  const py = (v: number) => (PAD.t + ch - ((v - yMin) / (yMax - yMin)) * ch).toFixed(1);
+
+  const pts = data.map((d, i) => `${px(i)},${py(d.y)}`).join(' ');
+  const pathD = data.map((d, i) => `${i === 0 ? 'M' : 'L'}${px(i)},${py(d.y)}`).join(' ');
+  const areaD = `${pathD} L${px(n-1)},${(PAD.t + ch).toFixed(1)} L${px(0)},${(PAD.t + ch).toFixed(1)} Z`;
+
+  const dots = data.map((d, i) => `<circle cx="${px(i)}" cy="${py(d.y)}" r="3.5" fill="${color}" stroke="#0a0a0a" stroke-width="1.5"/>`).join('\n  ');
+
+  // Y-axis ticks
+  const ticks = [yMin, yMin + (yMax - yMin) * 0.5, yMax].map(v =>
+    `<text x="${PAD.l - 4}" y="${py(v)}" text-anchor="end" fill="#4b5563" font-size="9" dominant-baseline="middle" font-family="system-ui,sans-serif">${v.toFixed(0)}</text>`
+  ).join('\n  ');
+
+  // Grid lines
+  const grids = [0.25, 0.5, 0.75].map(t => {
+    const gv = yMin + (yMax - yMin) * t;
+    return `<line x1="${PAD.l}" y1="${py(gv)}" x2="${W - PAD.r}" y2="${py(gv)}" stroke="#262626" stroke-width="1"/>`;
+  }).join('\n  ');
+
+  return [grids, `<path d="${areaD}" fill="${color}" opacity="0.08"/>`,
+    `<path d="${pathD}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>`,
+    dots, ticks].join('\n  ');
+}
+
+// ── Pre-render charts ──────────────────────────────────────────────────────
+const runBars = barChart(
+  MONTHLY_MILES.map(d => ({ label: d.month.split(' ')[0], value: d.miles })),
+  "#3b82f6"
+);
+const liftBars = barChart(
+  MONTHLY_VOLUME.map(d => ({ label: d.month.split(' ')[0], value: d.lbs })),
+  "#8b5cf6"
+);
+const weightLine = lineChart(
+  WEIGHT_POINTS.map(d => ({ x: d.date, y: d.w })),
+  "#10b981", 198, 225
+);
+
+// PR bar chart (top 10 horizontal bars — built inline in template)
+const maxPR = TOP_PRS[0].weight;
+
+// Category colors
+const catColor: Record<string, string> = {
+  Legs: "#f59e0b", Back: "#3b82f6", Chest: "#8b5cf6", Arms: "#10b981", Shoulders: "#ef4444"
+};
+---
+
+<Layout
+  title="Training Stats — TobyOnFitnessTech"
+  description="Toby's complete training data: 265 miles run, 1.29M lbs lifted, 113 Garmin activities, 125 Speediance sessions — visualized."
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        HERO
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(139,92,246,0.07),_transparent_65%)] pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,_rgba(59,130,246,0.07),_transparent_65%)] pointer-events-none" />
+
+      <div class="container mx-auto px-4 relative z-10">
+        <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">
+          Garmin · Speediance · 8Sleep &nbsp;·&nbsp; Feb 2025 – Feb 2026
+        </p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+          One Year of<br />
+          <span class="bg-gradient-to-r from-blue-500 via-purple-500 to-emerald-400 bg-clip-text text-transparent">
+            Real Training Data
+          </span>
+        </h1>
+        <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-12">
+          Every run logged by Garmin. Every rep tracked by Speediance.
+          Every night scored by 8Sleep. This is what a full year actually looks like.
+        </p>
+
+        {/* ── Mega stats row ── */}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mb-6">
+
+          <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gradient-to-br from-blue-600/20 to-blue-900/10 border border-blue-500/30 rounded-2xl p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            <div class="text-4xl font-black text-blue-400 mb-1">{TOTAL_MILES.toFixed(1)}</div>
+            <div class="text-sm font-semibold text-white mb-0.5">Miles Run</div>
+            <div class="text-xs text-neutral-500">{TOTAL_RUNS} activities · {TOTAL_DURATION_HRS.toFixed(0)} hours</div>
+            <div class="mt-3 flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              <span class="text-xs text-blue-500 font-medium">Garmin Connect</span>
+            </div>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gradient-to-br from-purple-600/20 to-purple-900/10 border border-purple-500/30 rounded-2xl p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            <div class="text-4xl font-black text-purple-400 mb-1">1.29M</div>
+            <div class="text-sm font-semibold text-white mb-0.5">Pounds Lifted</div>
+            <div class="text-xs text-neutral-500">{SPEEDIANCE_WORKOUTS} sessions · 388 lb deadlift PR</div>
+            <div class="mt-3 flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 12h2l2-6 4 12 4-12 2 6h2"/></svg>
+              <span class="text-xs text-purple-500 font-medium">Speediance</span>
+            </div>
+          </div>
+
+          <div class="col-span-2 sm:col-span-1 lg:col-span-2 bg-gradient-to-br from-amber-600/15 to-amber-900/10 border border-amber-500/30 rounded-2xl p-6 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+            <div class="text-4xl font-black text-amber-400 mb-1">{SLEEP_AVG_SCORE.toFixed(0)}</div>
+            <div class="text-sm font-semibold text-white mb-0.5">Avg Sleep Score</div>
+            <div class="text-xs text-neutral-500">{SLEEP_AVG_HOURS.toFixed(1)} hrs · {SLEEP_AVG_HRV.toFixed(0)} HRV avg</div>
+            <div class="mt-3 flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+              <span class="text-xs text-amber-500 font-medium">8Sleep Pod</span>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Secondary stat pills ── */}
+        <div class="flex flex-wrap gap-3">
+          {[
+            { label: "Avg Heart Rate", val: `${AVG_HR} bpm`, color: "text-red-400" },
+            { label: "Calories Burned", val: `${(TOTAL_CALORIES/1000).toFixed(1)}k`, color: "text-orange-400" },
+            { label: "Avg Sleep Quality", val: `${SLEEP_AVG_QUALITY.toFixed(0)}/100`, color: "text-amber-400" },
+            { label: "Top PR: Deadlift", val: "388 lbs", color: "text-emerald-400" },
+            { label: "Date Range", val: "Feb '25 – Feb '26", color: "text-neutral-300" },
+          ].map(pill => (
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-full text-sm">
+              <span class={`font-bold ${pill.color}`}>{pill.val}</span>
+              <span class="text-neutral-500">{pill.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        MONTHLY RUNNING MILEAGE
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Garmin · Running</p>
+            <h2 class="text-2xl md:text-3xl font-bold">Monthly Mileage</h2>
+            <p class="text-neutral-400 mt-1 text-sm">
+              From 1-mile treadmill sessions to 76-mile months — every run, every month.
+            </p>
+          </div>
+          <div class="flex gap-6 text-right">
+            <div>
+              <div class="text-2xl font-bold text-blue-400">76.8</div>
+              <div class="text-xs text-neutral-500">Peak month (Jun '25)</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-white">{TOTAL_MILES.toFixed(1)}</div>
+              <div class="text-xs text-neutral-500">Total miles</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 md:p-8 overflow-x-auto">
+          <svg viewBox="0 0 780 180" class="w-full min-w-[500px]" role="img" aria-label="Monthly running mileage bar chart">
+            <defs>
+              <linearGradient id="runGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#60a5fa"/>
+                <stop offset="100%" stop-color="#2563eb"/>
+              </linearGradient>
+            </defs>
+            <!-- Horizontal grid lines -->
+            <line x1="8" y1="20" x2="772" y2="20" stroke="#1f2937" stroke-width="1"/>
+            <line x1="8" y1="68" x2="772" y2="68" stroke="#1f2937" stroke-width="1"/>
+            <line x1="8" y1="116" x2="772" y2="116" stroke="#1f2937" stroke-width="1"/>
+            <line x1="8" y1="152" x2="772" y2="152" stroke="#1f2937" stroke-width="1"/>
+            <Fragment set:html={runBars.replace(/fill="#3b82f6"/g, 'fill="url(#runGrad)"')} />
+          </svg>
+        </div>
+
+        {/* Monthly detail pills */}
+        <div class="mt-4 flex flex-wrap gap-2">
+          {MONTHLY_MILES.map(d => (
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-neutral-900 border border-neutral-800 rounded-full text-xs">
+              <span class="text-neutral-400">{d.month}</span>
+              <span class="font-bold text-blue-400">{d.miles.toFixed(1)} mi</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        MONTHLY LIFTING VOLUME
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <p class="text-xs font-bold tracking-widest text-purple-500 uppercase mb-2">Speediance · Lifting</p>
+            <h2 class="text-2xl md:text-3xl font-bold">Monthly Volume</h2>
+            <p class="text-neutral-400 mt-1 text-sm">
+              Total weight lifted each month — Sep '25 peak of 280k lbs in one month.
+            </p>
+          </div>
+          <div class="flex gap-6 text-right">
+            <div>
+              <div class="text-2xl font-bold text-purple-400">280k</div>
+              <div class="text-xs text-neutral-500">Peak month (Sep '25)</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-white">1.29M</div>
+              <div class="text-xs text-neutral-500">Total lbs lifted</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 md:p-8 overflow-x-auto">
+          <svg viewBox="0 0 780 180" class="w-full min-w-[500px]" role="img" aria-label="Monthly lifting volume bar chart">
+            <defs>
+              <linearGradient id="liftGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#a78bfa"/>
+                <stop offset="100%" stop-color="#7c3aed"/>
+              </linearGradient>
+            </defs>
+            <line x1="8" y1="20" x2="772" y2="20" stroke="#1f2937" stroke-width="1"/>
+            <line x1="8" y1="68" x2="772" y2="68" stroke="#1f2937" stroke-width="1"/>
+            <line x1="8" y1="116" x2="772" y2="116" stroke="#1f2937" stroke-width="1"/>
+            <line x1="8" y1="152" x2="772" y2="152" stroke="#1f2937" stroke-width="1"/>
+            <Fragment set:html={liftBars.replace(/fill="#8b5cf6"/g, 'fill="url(#liftGrad)"')} />
+          </svg>
+        </div>
+
+        <div class="mt-4 flex flex-wrap gap-2">
+          {MONTHLY_VOLUME.map(d => (
+            <div class="flex items-center gap-2 px-3 py-1.5 bg-neutral-900 border border-neutral-800 rounded-full text-xs">
+              <span class="text-neutral-400">{d.month}</span>
+              <span class="font-bold text-purple-400">{(d.lbs/1000).toFixed(0)}k lbs</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        PR BOARD
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <p class="text-xs font-bold tracking-widest text-emerald-500 uppercase mb-2">Speediance · 1-Rep Max</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-2">PR Board</h2>
+        <p class="text-neutral-400 text-sm mb-8">Top 10 estimated 1RMs from {SPEEDIANCE_WORKOUTS} Speediance sessions — tracked from 78 unique exercises.</p>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
+          {/* Header */}
+          <div class="grid grid-cols-12 gap-4 px-5 py-3 border-b border-neutral-800 text-xs font-semibold text-neutral-500 uppercase tracking-wider">
+            <div class="col-span-1">#</div>
+            <div class="col-span-5">Exercise</div>
+            <div class="col-span-2">Category</div>
+            <div class="col-span-4 text-right">1RM</div>
+          </div>
+
+          {TOP_PRS.map((pr, i) => {
+            const pct = (pr.weight / maxPR) * 100;
+            const color = catColor[pr.category] ?? "#6b7280";
+            return (
+              <div class="grid grid-cols-12 gap-4 px-5 py-4 border-b border-neutral-800/60 hover:bg-neutral-800/30 transition-colors group relative overflow-hidden">
+                {/* Progress bar background */}
+                <div
+                  class="absolute inset-y-0 left-0 opacity-5 group-hover:opacity-10 transition-opacity"
+                  style={`width: ${pct}%; background: ${color};`}
+                />
+
+                <div class="col-span-1 relative z-10">
+                  {i === 0 ? (
+                    <span class="text-amber-400 font-black text-lg">🥇</span>
+                  ) : (
+                    <span class="text-neutral-600 font-bold text-sm">{i + 1}</span>
+                  )}
+                </div>
+                <div class="col-span-5 relative z-10">
+                  <div class="font-medium text-white text-sm leading-snug">{pr.name}</div>
+                </div>
+                <div class="col-span-2 relative z-10">
+                  <span
+                    class="inline-block px-2 py-0.5 rounded-full text-xs font-semibold"
+                    style={`background: ${color}22; color: ${color};`}
+                  >
+                    {pr.category}
+                  </span>
+                </div>
+                <div class="col-span-4 relative z-10 text-right">
+                  <span class="text-xl font-black" style={`color: ${color};`}>{pr.weight}</span>
+                  <span class="text-neutral-500 text-xs ml-1">lbs</span>
+                </div>
+              </div>
+            );
+          })}
+
+          <div class="px-5 py-3 text-xs text-neutral-600 text-center">
+            78 exercises tracked · 125 sessions · {SPEEDIANCE_VOLUME_LBS.toLocaleString()} lbs total volume
+          </div>
+        </div>
+
+        {/* Horizontal PR bar chart */}
+        <div class="mt-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-5 md:p-8">
+          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Visual comparison</p>
+          <div class="space-y-3">
+            {TOP_PRS.map((pr, i) => {
+              const pct = (pr.weight / maxPR) * 100;
+              const color = catColor[pr.category] ?? "#6b7280";
+              return (
+                <div class="flex items-center gap-3">
+                  <div class="w-36 text-right text-xs text-neutral-400 shrink-0 truncate">{pr.name.split(' ').slice(-2).join(' ')}</div>
+                  <div class="flex-1 h-6 bg-neutral-800 rounded-full overflow-hidden">
+                    <div
+                      class="h-full rounded-full flex items-center justify-end pr-2 text-xs font-bold text-white transition-all"
+                      style={`width: ${pct}%; background: linear-gradient(90deg, ${color}99, ${color});`}
+                    >
+                      {pr.weight}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        WEIGHT TIMELINE
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <p class="text-xs font-bold tracking-widest text-emerald-500 uppercase mb-2">Garmin · Body Weight</p>
+            <h2 class="text-2xl md:text-3xl font-bold">Weight Timeline</h2>
+            <p class="text-neutral-400 mt-1 text-sm">
+              199 weigh-ins over 12 months — from 203 lbs to 218 lbs as strength training volume grew.
+            </p>
+          </div>
+          <div class="flex gap-6 text-right">
+            <div>
+              <div class="text-2xl font-bold text-emerald-400">205 lbs</div>
+              <div class="text-xs text-neutral-500">Starting (Feb '25)</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-white">218 lbs</div>
+              <div class="text-xs text-neutral-500">Current (Feb '26)</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-amber-400">+13 lbs</div>
+              <div class="text-xs text-neutral-500">12-month change</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 md:p-8 overflow-x-auto">
+          <svg viewBox="0 0 780 180" class="w-full min-w-[500px]" role="img" aria-label="Weight timeline line chart">
+            <defs>
+              <linearGradient id="weightGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#10b981"/>
+                <stop offset="100%" stop-color="#059669"/>
+              </linearGradient>
+            </defs>
+            <Fragment set:html={weightLine.replace(/stroke="#10b981"/g, 'stroke="url(#weightGrad)"').replace(/fill="#10b981" opacity="0.08"/g, 'fill="#10b981" opacity="0.06"')} />
+          </svg>
+        </div>
+
+        <p class="mt-3 text-xs text-neutral-600 text-center">
+          Weight increase reflects muscle gain from 125 Speediance sessions — body recomposition, not fat gain.
+        </p>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        SLEEP SCORES (8Sleep)
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+          <div>
+            <p class="text-xs font-bold tracking-widest text-amber-500 uppercase mb-2">8Sleep Pod · Sleep Data</p>
+            <h2 class="text-2xl md:text-3xl font-bold">Sleep Recovery</h2>
+            <p class="text-neutral-400 mt-1 text-sm">
+              8Sleep Pod tracking — nightly sleep scores, quality, HRV and hours.
+            </p>
+          </div>
+          <div class="flex gap-6 text-right">
+            <div>
+              <div class="text-2xl font-bold text-amber-400">{SLEEP_AVG_SCORE.toFixed(0)}</div>
+              <div class="text-xs text-neutral-500">Avg Sleep Score</div>
+            </div>
+            <div>
+              <div class="text-2xl font-bold text-white">{SLEEP_AVG_HOURS.toFixed(1)} hrs</div>
+              <div class="text-xs text-neutral-500">Avg Sleep Time</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Sleep score cards */}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+          {SLEEP_NIGHTS.map(night => {
+            const scoreColor = night.score >= 80 ? "#10b981" : night.score >= 60 ? "#f59e0b" : "#ef4444";
+            return (
+              <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 text-center hover:border-amber-500/30 transition-colors">
+                <div class="text-xs text-neutral-500 mb-2">{night.date}</div>
+                <div class="text-3xl font-black mb-1" style={`color: ${scoreColor};`}>{night.score}</div>
+                <div class="text-xs text-neutral-600 mb-3">sleep score</div>
+                <div class="space-y-1">
+                  <div class="flex justify-between text-xs">
+                    <span class="text-neutral-600">Quality</span>
+                    <span class="text-neutral-300 font-medium">{night.quality}</span>
+                  </div>
+                  <div class="flex justify-between text-xs">
+                    <span class="text-neutral-600">HRV</span>
+                    <span class="text-neutral-300 font-medium">{night.hrv.toFixed(0)}</span>
+                  </div>
+                  <div class="flex justify-between text-xs">
+                    <span class="text-neutral-600">Hours</span>
+                    <span class="text-neutral-300 font-medium">{night.hours.toFixed(1)}</span>
+                  </div>
+                </div>
+                {/* Score bar */}
+                <div class="mt-3 h-1 bg-neutral-800 rounded-full overflow-hidden">
+                  <div class="h-full rounded-full" style={`width: ${night.score}%; background: ${scoreColor};`} />
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Sleep score line chart */}
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 md:p-8 overflow-x-auto">
+          <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mb-4">Nightly sleep scores (Feb 2026)</p>
+          <svg viewBox="0 0 780 160" class="w-full min-w-[400px]" role="img" aria-label="8Sleep nightly score chart">
+            <defs>
+              <linearGradient id="sleepGrad" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#d97706"/>
+              </linearGradient>
+            </defs>
+            <!-- Score zones -->
+            <rect x="30" y="8" width="742" height="28" fill="#10b981" opacity="0.05" rx="2"/>
+            <text x="34" y="28" fill="#10b981" font-size="9" opacity="0.6" font-family="system-ui,sans-serif">GREAT (80+)</text>
+            <rect x="30" y="36" width="742" height="36" fill="#f59e0b" opacity="0.04" rx="2"/>
+            <text x="34" y="60" fill="#f59e0b" font-size="9" opacity="0.6" font-family="system-ui,sans-serif">FAIR (60–79)</text>
+            <rect x="30" y="72" width="742" height="56" fill="#ef4444" opacity="0.03" rx="2"/>
+            <text x="34" y="120" fill="#ef4444" font-size="9" opacity="0.5" font-family="system-ui,sans-serif">POOR (&lt;60)</text>
+            <!-- Grid lines at 20, 40, 60, 80 -->
+            {[20, 40, 60, 80].map(v => {
+              const y = 8 + 120 - (v / 100) * 120;
+              return <line x1="30" y1={y} x2="772" y2={y} stroke="#262626" stroke-width="1"/>;
+            })}
+            <!-- Data points and line -->
+            {SLEEP_NIGHTS.map((night, i) => {
+              const n = SLEEP_NIGHTS.length;
+              const cx = 30 + (i / (n - 1)) * 742;
+              const cy = 8 + 120 - (night.score / 100) * 120;
+              const scoreColor = night.score >= 80 ? "#10b981" : night.score >= 60 ? "#f59e0b" : "#ef4444";
+              return (
+                <>
+                  {i > 0 && (() => {
+                    const pi = i - 1;
+                    const px2 = 30 + (pi / (n - 1)) * 742;
+                    const py2 = 8 + 120 - (SLEEP_NIGHTS[pi].score / 100) * 120;
+                    return <line x1={px2} y1={py2} x2={cx} y2={cy} stroke="url(#sleepGrad)" stroke-width="2.5"/>;
+                  })()}
+                  <circle cx={cx} cy={cy} r="6" fill={scoreColor} stroke="#0a0a0a" stroke-width="2"/>
+                  <text x={cx} y={cy - 12} text-anchor="middle" fill={scoreColor} font-size="10" font-weight="700" font-family="system-ui,sans-serif">{night.score}</text>
+                  <text x={cx} y="148" text-anchor="middle" fill="#6b7280" font-size="9" font-family="system-ui,sans-serif">{night.date}</text>
+                </>
+              );
+            })}
+          </svg>
+        </div>
+
+        <p class="mt-3 text-xs text-neutral-600 text-center">
+          8Sleep data collection started Feb 2026 · Scores 0–100 · Green=great · Yellow=fair · Red=poor
+        </p>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        TRAINING SPLIT SUMMARY
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Combined Training</p>
+        <h2 class="text-2xl md:text-3xl font-bold mb-8">The Full Picture</h2>
+
+        <div class="grid md:grid-cols-3 gap-6">
+          {/* Running card */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 hover:border-blue-500/30 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-blue-600/20 rounded-xl flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-bold text-white">Running</div>
+                <div class="text-xs text-neutral-500">Garmin Connect</div>
+              </div>
+            </div>
+            <div class="space-y-3">
+              {[
+                { label: "Total Distance", val: `${TOTAL_MILES.toFixed(1)} miles` },
+                { label: "Total Activities", val: `${TOTAL_RUNS} runs` },
+                { label: "Total Duration", val: `${TOTAL_DURATION_HRS.toFixed(0)} hours` },
+                { label: "Calories Burned", val: `${(TOTAL_CALORIES/1000).toFixed(1)}k kcal` },
+                { label: "Avg Heart Rate", val: `${AVG_HR} bpm` },
+                { label: "Peak Month", val: "76.8 mi (Jun '25)" },
+              ].map(stat => (
+                <div class="flex justify-between items-center text-sm">
+                  <span class="text-neutral-500">{stat.label}</span>
+                  <span class="text-white font-medium">{stat.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Lifting card */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 hover:border-purple-500/30 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-purple-600/20 rounded-xl flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h2l2-6 4 12 4-12 2 6h2"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-bold text-white">Strength Training</div>
+                <div class="text-xs text-neutral-500">Speediance Smart Gym</div>
+              </div>
+            </div>
+            <div class="space-y-3">
+              {[
+                { label: "Total Volume", val: `${(SPEEDIANCE_VOLUME_LBS/1000000).toFixed(2)}M lbs` },
+                { label: "Total Sessions", val: `${SPEEDIANCE_WORKOUTS} workouts` },
+                { label: "Exercises Tracked", val: "78 unique exercises" },
+                { label: "Deadlift PR", val: "388 lbs" },
+                { label: "Bench Press PR", val: "232 lbs" },
+                { label: "Peak Month", val: "280k lbs (Sep '25)" },
+              ].map(stat => (
+                <div class="flex justify-between items-center text-sm">
+                  <span class="text-neutral-500">{stat.label}</span>
+                  <span class="text-white font-medium">{stat.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Sleep card */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 hover:border-amber-500/30 transition-colors">
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-10 h-10 bg-amber-600/20 rounded-xl flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                </svg>
+              </div>
+              <div>
+                <div class="font-bold text-white">Sleep Recovery</div>
+                <div class="text-xs text-neutral-500">8Sleep Pod</div>
+              </div>
+            </div>
+            <div class="space-y-3">
+              {[
+                { label: "Avg Sleep Score", val: `${SLEEP_AVG_SCORE.toFixed(0)}/100` },
+                { label: "Avg Quality Score", val: `${SLEEP_AVG_QUALITY.toFixed(0)}/100` },
+                { label: "Avg Hours Slept", val: `${SLEEP_AVG_HOURS.toFixed(1)} hrs` },
+                { label: "Avg HRV", val: `${SLEEP_AVG_HRV.toFixed(0)} ms` },
+                { label: "Best Night", val: "88/100" },
+                { label: "Tracking Started", val: "Feb 11, 2026" },
+              ].map(stat => (
+                <div class="flex justify-between items-center text-sm">
+                  <span class="text-neutral-500">{stat.label}</span>
+                  <span class="text-white font-medium">{stat.val}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        CTA
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-20 border-t border-neutral-900">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-4">Want the full breakdown?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          I write about the tech behind the training — Garmin, Speediance, 8Sleep, and the tools that make this data possible.
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/running" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Running Deep Dive
+          </a>
+          <a href="/blog" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">
+            Read the Blog
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
