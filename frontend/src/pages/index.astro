@@ -5,7 +5,7 @@ import Newsletter from '../components/Newsletter.jsx';
 import { VIDEOS, BLOG_POSTS } from '../data/mock.js';
 import { Play, ArrowRight, Clock } from 'lucide-react';
 
-const recentVideos = VIDEOS.slice(0, 3);
+const recentVideos = VIDEOS.filter(v => !v.is_live).slice(0, 3);
 const recentPosts = BLOG_POSTS.slice(0, 3);
 ---
 

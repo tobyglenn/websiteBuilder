@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Play, Filter, Clock, SortDesc, SortAsc, Eye, EyeOff } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
 
@@ -8,7 +8,7 @@ const CATEGORIES = [
   { id: 'bjj', name: 'BJJ & Grappling', color: 'bg-purple-600 text-white' },
   { id: 'transformation', name: 'Transformation', color: 'bg-green-600 text-white' },
   { id: 'tech', name: 'Tech & Gear', color: 'bg-cyan-600 text-white' },
-  { id: 'methodology', name: 'Methodology', color: 'bg-orange-600 text-white' }
+  { id: 'methodology', name: 'Methodology', color: 'bg-orange-600 text-white' },
 ];
 
 const SORT_OPTIONS = [
@@ -17,6 +17,25 @@ const SORT_OPTIONS = [
   { id: 'shortest', name: 'Shortest First' },
   { id: 'longest', name: 'Longest First' },
 ];
+
+// Determine if a video is a short based on duration (< 5 minutes)
+function isShortVideo(video) {
+  if (video.is_live) return false; // live streams are never shorts
+  const fmt = video.duration_formatted;
+  if (!fmt || fmt === '0:00') return false;
+  const parts = fmt.split(':').map(Number);
+  let totalSeconds;
+  if (parts.length === 2) {
+    // M:SS
+    totalSeconds = parts[0] * 60 + parts[1];
+  } else if (parts.length === 3) {
+    // H:MM:SS
+    totalSeconds = parts[0] * 3600 + parts[1] * 60 + parts[2];
+  } else {
+    return false;
+  }
+  return totalSeconds < 300; // under 5 minutes
+}
 
 function categorizeVideo(title, description = "") {
   if (!title) return ['all'];
@@ -37,7 +56,16 @@ function categorizeVideo(title, description = "") {
 export default function VideoGrid({ limit, showFilters = true }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
-  const [showShorts, setShowShorts] = useState(false); // Default hide shorts
+  const [showShorts, setShowShorts] = useState(false);
+
+  // Read ?category= from URL on mount and apply filter
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const cat = params.get('category');
+    if (cat && CATEGORIES.some(c => c.id === cat)) {
+      setSelectedCategory(cat);
+    }
+  }, []);
 
   const processedVideos = useMemo(() => {
     return allVideos.map(v => ({
@@ -50,24 +78,22 @@ export default function VideoGrid({ limit, showFilters = true }) {
   }, []);
 
   const filteredVideos = useMemo(() => {
-    let result = processedVideos;
-    
-    // 1. Filter by Category
-    if (selectedCategory !== 'all') {
-      result = result.filter(v => v.categories.includes(selectedCategory));
-    }
+    let result = [...processedVideos];
 
-    // 2. Filter Shorts (unless toggled on)
+    // Exclude live stream from grid always (they go in the hero instead)
+    result = result.filter(v => !v.is_live);
+
+    // Hide shorts by default (anything under 5 minutes)
     if (!showShorts) {
-        result = result.filter(v => !v.is_short);
-    } else {
-        // If showing shorts, maybe we want ONLY shorts? Or mix? 
-        // User asked for a toggle. Usually "Show Shorts" means include them.
-        // But maybe a specific filter for shorts is better? 
-        // For now, "Show Shorts" includes them. "Hide Shorts" removes them.
+      result = result.filter(v => !isShortVideo(v));
     }
 
-    // 3. Sort
+    // Category filter
+    if (selectedCategory !== 'all') {
+      result = result.filter(v => v.categories?.includes(selectedCategory));
+    }
+
+    // Sort
     result = [...result].sort((a, b) => {
         if (sortBy === 'newest') return b.dateObj - a.dateObj;
         if (sortBy === 'oldest') return a.dateObj - b.dateObj;
@@ -78,7 +104,7 @@ export default function VideoGrid({ limit, showFilters = true }) {
 
     if (limit) return result.slice(0, limit);
     return result;
-  }, [processedVideos, selectedCategory, sortBy, showShorts, limit]);
+  }, [processedVideos, selectedCategory, sortBy, limit, showShorts]);
 
   return (
     <div className="space-y-6">
@@ -119,19 +145,26 @@ export default function VideoGrid({ limit, showFilters = true }) {
                         <SortDesc size={14} />
                     </div>
                 </div>
-
-                {/* Shorts Toggle */}
-                <button 
-                    onClick={() => setShowShorts(!showShorts)}
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${showShorts ? 'text-white' : 'text-neutral-500 hover:text-neutral-300'}`}
-                >
-                    {showShorts ? <Eye size={16} /> : <EyeOff size={16} />}
-                    {showShorts ? 'Shorts Visible' : 'Shorts Hidden'}
-                </button>
             </div>
             
-            <div className="text-xs text-neutral-500">
+            <div className="flex items-center gap-3">
+              {/* Shorts Toggle */}
+              <button
+                onClick={() => setShowShorts(s => !s)}
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                  showShorts
+                    ? 'bg-red-600 text-white'
+                    : 'bg-neutral-800 text-neutral-400 hover:text-white'
+                }`}
+                title={showShorts ? 'Hide Shorts' : 'Show Shorts'}
+              >
+                {showShorts ? <EyeOff size={14} /> : <Eye size={14} />}
+                <span>Shorts</span>
+              </button>
+
+              <div className="text-xs text-neutral-500">
                 Showing {filteredVideos.length} videos
+              </div>
             </div>
           </div>
         </div>
@@ -153,7 +186,7 @@ export default function VideoGrid({ limit, showFilters = true }) {
               {/* Thumbnail Container */}
               <div className="aspect-video relative overflow-hidden bg-neutral-950">
                 <img 
-                    src={video.thumbnail?.replace('default', 'hqdefault')} // Better quality thumb
+                    src={video.thumbnail}
                     alt={video.title} 
                     loading="lazy" 
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" 
@@ -168,11 +201,9 @@ export default function VideoGrid({ limit, showFilters = true }) {
 
                 {/* Duration Badge */}
                 <div className="absolute bottom-2 right-2 bg-black/80 text-white text-xs font-bold px-1.5 py-0.5 rounded flex items-center gap-1 backdrop-blur-md">
-                   {video.is_short ? (
-                       <span className="text-red-400">SHORT</span>
-                   ) : (
-                       <span>{video.duration_formatted || "0:00"}</span>
-                   )}
+                  {(video.duration_formatted && video.duration_formatted !== '0:00') && (
+                    <span>{video.duration_formatted}</span>
+                  )}
                 </div>
 
                 {/* Category Badge (Top Left) */}
@@ -207,11 +238,12 @@ export default function VideoGrid({ limit, showFilters = true }) {
 
 // Helper to parse ISO duration (e.g. PT15M33S) into seconds for sorting
 function parseDuration(iso) {
-    if (!iso) return 0;
-    const match = iso.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-    if (!match) return 0;
-    const hours = (parseInt(match[1]) || 0) * 3600;
-    const minutes = (parseInt(match[2]) || 0) * 60;
-    const seconds = parseInt(match[3]) || 0;
-    return hours + minutes + seconds;
+  if (!iso) return 0;
+  if (iso === 'P0D') return 0;
+  const match = iso.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+  if (!match) return 0;
+  const hours   = (parseInt(match[1]) || 0) * 3600;
+  const minutes = (parseInt(match[2]) || 0) * 60;
+  const seconds = parseInt(match[3]) || 0;
+  return hours + minutes + seconds;
 }

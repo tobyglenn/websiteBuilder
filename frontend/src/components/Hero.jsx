@@ -1,18 +1,13 @@
-import React, { useState } from 'react';
-import { Play, Calendar, Dumbbell, Users, TrendingDown, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { Play, Dumbbell, Users, TrendingDown, ArrowRight } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
 
 export default function Hero() {
-  const [status] = useState({ isLive: false, nextScheduled: null });
-  
-  // Featured video - always use the most recent (first in list, sorted by date)
-  const featuredVideo = allVideos[0];
-  
-  // Mock live status (placeholder logic)
-  const mockStatus = { isLive: false, nextScheduled: "2026-02-20T18:00:00Z" };
+  // Featured video - prefer live stream if one exists, otherwise most recent
+  const featuredVideo = allVideos.find(v => v.is_live) || allVideos[0];
 
   const pillars = [
-    { icon: Dumbbell, name: 'Speediance Authority', description: '600,000+ lbs lifted. The definitive independent Speediance resource.', href: '/videos?category=speediance' },
+    { icon: Dumbbell, name: 'Speediance User', description: '1,000,000+ lbs lifted. The definitive independent Speediance resource.', href: '/videos?category=speediance' },
     { icon: Users, name: 'BJJ Insight', description: 'Thoughtful commentary on grappling culture and match analysis.', href: '/videos?category=bjj' },
     { icon: TrendingDown, name: 'Transformation', description: '242 → 188 lbs. Real numbers, documented progress.', href: '/about' }
   ];
@@ -28,10 +23,17 @@ export default function Hero() {
       <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12">
         {/* Text Content */}
         <div className="flex-1 text-center md:text-left">
-          <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-blue-300 text-sm font-semibold mb-6">
-            <span className="w-2 h-2 rounded-full bg-blue-400" />
-            Latest Video
-          </div>
+          {featuredVideo?.is_live ? (
+            <div className="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold mb-6">
+              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              Upcoming Live Stream
+            </div>
+          ) : (
+            <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-blue-300 text-sm font-semibold mb-6">
+              <span className="w-2 h-2 rounded-full bg-blue-400" />
+              Latest Video
+            </div>
+          )}
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
             Serious fitness,<br />
@@ -54,39 +56,32 @@ export default function Hero() {
 
         {/* Featured Video Card */}
         {featuredVideo && (
-            <div className="flex-1 w-full max-w-xl relative group">
+            <a href={`/video/${featuredVideo.id}`} className="flex-1 w-full max-w-xl relative group block">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
             <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800">
                 <img src={featuredVideo.thumbnail} alt={featuredVideo.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" />
+                {featuredVideo?.is_live && (
+                  <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                    Live Feb 19 · 6:30 PM ET
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">FEATURED</span>
                     <h3 className="text-xl font-bold text-white mb-1">{featuredVideo.title}</h3>
                     <p className="text-sm text-neutral-300 line-clamp-1">{featuredVideo.description?.slice(0, 80)}...</p>
                 </div>
-                <a href={`/video/${featuredVideo.id}`} className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full border border-white/30 hover:scale-110 transition-transform">
                     <Play size={32} fill="white" className="text-white ml-1" />
                     </div>
-                </a>
+                </div>
                 </div>
             </div>
-            </div>
+            </a>
         )}
       </div>
-
-      {/* Live Status Bar */}
-      {mockStatus.nextScheduled && !mockStatus.isLive && (
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 bg-neutral-900/90 backdrop-blur border border-neutral-800 rounded-full py-2 px-6 flex items-center gap-4 shadow-xl animate-fade-in-up">
-          <div className="flex items-center gap-2 text-blue-400">
-            <Calendar size={16} />
-            <span className="text-sm font-bold">Next Live:</span>
-          </div>
-          <span className="text-sm text-neutral-300">Feb 20 • 6:00 PM EST</span>
-          <div className="h-4 w-px bg-neutral-800" />
-          <a href="#" className="text-xs font-semibold text-white hover:text-blue-400 transition-colors uppercase tracking-wider">Set Reminder</a>
-        </div>
-      )}
 
       {/* Pillars Section */}
       <div className="container mx-auto px-4 mt-24 md:mt-32">

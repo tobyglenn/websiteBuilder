@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Search } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import SearchModal from './SearchModal.jsx';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,19 +48,7 @@ export default function Header() {
 
         {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-4">
-          <div className="relative group">
-            <form action="/search" method="GET" className="relative">
-                <input 
-                    type="text" 
-                    name="q"
-                    placeholder="Search..." 
-                    className="bg-neutral-900 border border-neutral-800 rounded-full py-1.5 pl-4 pr-10 text-sm focus:outline-none focus:border-blue-500 w-32 focus:w-48 transition-all duration-300"
-                />
-                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 group-hover:text-white">
-                    <Search size={16} />
-                </button>
-            </form>
-          </div>
+          <SearchModal />
         </div>
 
         {/* Mobile Menu Button */}
@@ -85,17 +74,9 @@ export default function Header() {
                 {link.name}
               </a>
             ))}
-             <form action="/search" method="GET" className="relative mt-4">
-                <input 
-                    type="text" 
-                    name="q"
-                    placeholder="Search content..." 
-                    className="w-full bg-neutral-900 border border-neutral-800 rounded-lg py-2 pl-4 pr-10 text-sm focus:outline-none focus:border-blue-500"
-                />
-                <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400">
-                    <Search size={16} />
-                </button>
-            </form>
+             <div className="mt-4">
+              <SearchModal />
+            </div>
           </nav>
         </div>
       )}

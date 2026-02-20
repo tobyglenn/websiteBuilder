@@ -8,15 +8,69 @@ import Layout from '../layouts/Layout.astro';
     <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
-        <div class="max-w-3xl">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            I don't sell programs.<br />
-            <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">I just document what actually works.</span>
-          </h1>
-          <p class="text-xl text-neutral-400 mb-8 leading-relaxed">
-            Engineer. BJJ Practitioner. Data Nerd. <br/>
-            I dropped 54 lbs in 6 months with a broken ankle, and I'm here to show you exactly how.
-          </p>
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* Left — text */}
+          <div class="flex-1 max-w-2xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              I don't sell programs.<br />
+              <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">I just document what actually works.</span>
+            </h1>
+            <p class="text-xl text-neutral-400 mb-8 leading-relaxed">
+              Computer Programmer. BJJ Practitioner. Data Nerd. <br/>
+              I dropped 54 lbs in 6 months and I'm here to show you exactly how.
+            </p>
+          </div>
+
+          {/* Right — before/after comparison */}
+          <div class="flex-shrink-0 w-full lg:w-auto">
+            <div class="flex gap-3 items-end">
+              {/* Before */}
+              <div class="relative group">
+                <div class="w-44 md:w-52 rounded-2xl overflow-hidden border border-neutral-800 shadow-xl">
+                  <img
+                    src="/progress/progress_230.jpg"
+                    alt="Before — 230 lbs"
+                    class="w-full aspect-[3/4] object-cover object-top"
+                    loading="eager"
+                  />
+                </div>
+                <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+                  <span class="bg-black/80 backdrop-blur-sm text-neutral-300 text-xs font-bold px-3 py-1 rounded-full border border-neutral-700">
+                    230 lbs
+                  </span>
+                </div>
+              </div>
+
+              {/* Arrow / divider */}
+              <div class="flex flex-col items-center gap-1 pb-10 text-neutral-500">
+                <div class="h-px w-6 bg-neutral-700"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <div class="h-px w-6 bg-neutral-700"></div>
+              </div>
+
+              {/* After */}
+              <div class="relative group">
+                <div class="w-44 md:w-52 rounded-2xl overflow-hidden border border-blue-500/40 shadow-xl shadow-blue-900/20">
+                  <img
+                    src="/progress/progress_188.jpg"
+                    alt="After — 188 lbs"
+                    class="w-full aspect-[3/4] object-cover object-top"
+                    loading="eager"
+                  />
+                </div>
+                <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+                  <span class="bg-blue-600/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
+                    188 lbs
+                  </span>
+                </div>
+                {/* -54 lbs badge */}
+                <div class="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-black px-2.5 py-1.5 rounded-full shadow-lg rotate-6">
+                  −54 lbs
+                </div>
+              </div>
+            </div>
+            <p class="text-center text-neutral-600 text-xs mt-4 tracking-wider uppercase">6 months · no excuses</p>
+          </div>
         </div>
       </div>
     </section>
@@ -35,15 +89,23 @@ import Layout from '../layouts/Layout.astro';
                  </div>
                  <div>
                    <div class="text-4xl font-bold text-blue-500 mb-1">188</div>
-                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Current Weight</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Achieved Jan 4, 2024</div>
                  </div>
                  <div>
                    <div class="text-4xl font-bold text-white mb-1">6 Months</div>
                    <div class="text-sm text-neutral-500 uppercase tracking-wider">Duration</div>
                  </div>
                  <div>
-                   <div class="text-4xl font-bold text-white mb-1">1</div>
-                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Broken Ankle</div>
+                   <div class="text-4xl font-bold text-white mb-1">0</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Excuses Made</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">54 lbs</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Total Lost</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">1M+</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Lbs Lifted</div>
                  </div>
                </div>
             </div>
@@ -51,15 +113,145 @@ import Layout from '../layouts/Layout.astro';
           <div class="md:w-1/2 space-y-6 text-neutral-300 leading-relaxed text-lg">
             <h2 class="text-3xl font-bold text-white">The Turnaround</h2>
             <p>
-              In late 2025, I was 242 pounds. I had broken my ankle, which meant traditional cardio was off the table. 
-              Most people would have used that as an excuse to wait. I decided to use it as a constraint to engineer a solution.
+              In late 2024, I was 242 pounds. Traditional cardio — the thing most people lean on to lose weight — wasn't cutting it. 
+              I decided to engineer a smarter solution.
             </p>
             <p>
-              I turned to data-driven strength training and meticulous nutrition tracking. No crash diets, no "influencer" workouts. 
-              Just consistent, measurable inputs.
+              I chose to to be a computer programmer. I went deep on the data: WHOOP recovery scores, Garmin activity tracking, 8Sleep sleep quality, and meticulous calorie logging via Cronometer. 
+              Every variable that I could control, I controlled. Every variable I could, I measured.
             </p>
             <p>
-              The result? I dropped to 188 lbs, rebuilt my strength, and completely overhauled my health metrics.
+              The anchor of my training became a <strong class="text-white">digital cable machine</strong> — a smart home gym that let me train heavy from home. 
+              I've now logged over 1,000,000 lbs of lifting volume on it. No hype — I have the data to prove it.
+            </p>
+            <p>
+              Alongside the machine work, I returned to <strong class="text-white">Brazilian Jiu-Jitsu</strong> as both a physical outlet and a mental anchor. 
+              BJJ forced me to stay disciplined, stay humble, and keep showing up — even when the scale wasn't moving the way I wanted.
+            </p>
+            <p>
+              Six months later: 188 lbs. 54 lbs lost.
+            </p>
+            <div class="pt-2">
+              <a href="/videos?category=transformation" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group">
+                Watch the transformation videos 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Chapter 2 — The Build */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">Chapter 2</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">
+            188 lbs Was the Starting Line, Not the Finish.
+          </h2>
+
+          {/* Stats grid */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mb-10">
+            <h3 class="text-xl font-bold mb-6 text-blue-400">The Build Phase Numbers</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">1,296,447</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs Lifted Since July 2025</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">125</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Speediance Sessions</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">265.1 mi</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Miles Run (Past Year)</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">111</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Runs Logged</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Prose */}
+          <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
+            <p>
+              I hit 188 lbs on January 4, 2024, and immediately understood that the cut was just phase one. 
+              Losing weight is a subtraction problem. Building something on top of it is a different challenge entirely — and honestly, 
+              the more interesting one. The scale has been climbing since. 188 → 205 → 218-229 lbs as of early 2026. 
+              That's not a setback. That's the plan working.
+            </p>
+            <p>
+              The <strong class="text-white">Speediance</strong> became the anchor of phase two. In the seven months between July 2025 and February 2026 alone, 
+              I logged 125 sessions and moved <strong class="text-white">1,296,447 lbs</strong> of total volume. My best single session: 
+              35,305 lbs in 50 minutes on February 2, 2026. Top lifts tracked by the machine — barbell lat pulldown at a 294 lb 1RM, 
+              bent over row at 198 lbs, bench press at 90 lbs via the cable system. These aren't estimates. The machine logs every rep.
+            </p>
+            <p>
+              Running got rebuilt from scratch in parallel. I started with 1-mile sessions — genuinely just trying to not stop. 
+              By early 2026 I'm doing 5-mile runs. 111 runs logged over the past year: 84 outdoor, 27 treadmill, 2 open water swims. 
+              <strong class="text-white">265.1 miles total.</strong> Not fast. But consistent, progressive, and building. 
+              The weight going up isn't something to explain away — muscle weighs something. That's the point.
+            </p>
+            <p>
+              Every training decision now runs through the stack: WHOOP gives me a recovery score each morning, 
+              8Sleep tells me how the night actually went, and the AI assistant I built on <strong class="text-white">OpenClaw</strong> reads all of it — 
+              Garmin activity, sleep data, HRV trends — and generates a daily readiness recommendation before I decide whether to push or pull back. 
+              The system makes the decisions defensible. No guessing, no going on feel when the data says otherwise.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Progress Photos */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-10">
+          <h2 class="text-3xl font-bold mb-3">Progress Photos</h2>
+          <p class="text-neutral-400 text-lg">242 → 188 lbs. Every photo is real, unedited, and timestamped by weight.</p>
+        </div>
+
+        {/* Timeline gallery */}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            { src: '/progress/progress_230.jpg', label: '230 lbs', date: 'Aug 4, 2023' },
+            { src: '/progress/progress_220.jpg', label: '220 lbs', date: 'Sep 7, 2023' },
+            { src: '/progress/progress_200.jpg', label: '200 lbs', date: 'Dec 1, 2023' },
+            { src: '/progress/progress_188.jpg', label: '188 lbs', date: 'Jan 4, 2024' },
+            { src: '/progress/progress_191.jpg', label: '191 lbs', date: 'Feb 6, 2024' },
+            { src: '/progress/progress_211.jpg', label: '211 lbs', date: 'Jun 2, 2024' },
+            { src: '/progress/progress_229.jpg', label: '229 lbs', date: 'Feb 3, 2026' },
+            { src: '/progress/workout_action.jpg', label: 'Training', date: '' },
+          ].map(({ src, label, date }) => (
+            <div class="relative group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-all">
+              <div class="aspect-[3/4]">
+                <img
+                  src={src}
+                  alt={label}
+                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              <div class="absolute inset-x-0 bottom-0 h-16 overflow-hidden flex items-center justify-center pointer-events-none">
+                <div class="h-24 w-24 rounded-full bg-black/90 border border-black/70 flex flex-col items-center justify-center text-center px-2">
+                  <span class="text-white text-sm font-bold leading-tight">{label}</span>
+                  {date && <span class="text-neutral-300 text-[10px] leading-tight mt-1">{date}</span>}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Data callout */}
+        <div class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6">
+          <div class="flex-shrink-0 text-5xl">📊</div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2">Every data point logged</h3>
+            <p class="text-neutral-400">
+              These photos don't tell the whole story. Behind each one: daily WHOOP recovery scores, Garmin training load, 8Sleep sleep quality data, 
+              and Cronometer nutrition logs. The transformation was systematic, not accidental.
             </p>
           </div>
         </div>
@@ -72,9 +264,9 @@ import Layout from '../layouts/Layout.astro';
         <h2 class="text-3xl font-bold mb-12 text-center">My Focus</h2>
         <div class="grid md:grid-cols-3 gap-8">
           <div class="space-y-4">
-            <h3 class="text-xl font-bold text-white">Speediance & Home Gym Tech</h3>
+            <h3 class="text-xl font-bold text-white">Home Gym Tech</h3>
             <p class="text-neutral-400">
-              I've lifted over 600,000 lbs on the Speediance Gym Monster. I test firmware updates, compare modes, and find the bugs 
+              I've lifted over 1,000,000 lbs on my digital cable machine. I test firmware updates, compare modes, and find the bugs 
               so you don't have to. If a machine says it replaces a gym, I verify it.
             </p>
           </div>

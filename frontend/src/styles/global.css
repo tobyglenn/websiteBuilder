@@ -1,1 +1,132 @@
 @import "tailwindcss";
+
+/* ============================================================
+   Safari / Legacy Browser Compatibility
+   ============================================================ */
+
+/**
+ * oklch() color fallbacks for Safari < 15.4
+ *
+ * Tailwind v4 generates all color CSS custom properties using oklch().
+ * Browsers that don't support oklch (Safari < 15.4, old Chrome) will
+ * resolve the variable to its initial value (transparent/invalid),
+ * making the whole site lose color. This block overrides every
+ * --color-* variable used in this project with hex equivalents,
+ * scoped to browsers that fail the oklch support test.
+ *
+ * Because this is unlayered CSS, it wins the cascade over the
+ * layered `@layer theme { :root { ... } }` that Tailwind generates.
+ */
+@supports not (color: oklch(0 0 0)) {
+  :root {
+    /* Neutral scale */
+    --color-neutral-100: #f5f5f5;
+    --color-neutral-200: #e5e5e5;
+    --color-neutral-300: #d4d4d4;
+    --color-neutral-400: #a3a3a3;
+    --color-neutral-500: #737373;
+    --color-neutral-600: #525252;
+    --color-neutral-700: #404040;
+    --color-neutral-800: #262626;
+    --color-neutral-900: #171717;
+    --color-neutral-950: #0a0a0a;
+
+    /* Blue */
+    --color-blue-200: #bfdbfe;
+    --color-blue-300: #93c5fd;
+    --color-blue-400: #60a5fa;
+    --color-blue-500: #3b82f6;
+    --color-blue-600: #2563eb;
+    --color-blue-700: #1d4ed8;
+    --color-blue-900: #1e3a8a;
+
+    /* Purple */
+    --color-purple-400: #a78bfa;
+    --color-purple-500: #8b5cf6;
+    --color-purple-600: #7c3aed;
+    --color-purple-900: #4c1d95;
+
+    /* Red */
+    --color-red-200: #fecaca;
+    --color-red-300: #fca5a5;
+    --color-red-400: #f87171;
+    --color-red-500: #ef4444;
+    --color-red-600: #dc2626;
+    --color-red-700: #b91c1c;
+    --color-red-900: #7f1d1d;
+
+    /* Orange */
+    --color-orange-600: #ea580c;
+
+    /* Green */
+    --color-green-300: #86efac;
+    --color-green-400: #4ade80;
+    --color-green-500: #22c55e;
+    --color-green-600: #16a34a;
+    --color-green-900: #14532d;
+
+    /* Cyan */
+    --color-cyan-600: #0891b2;
+  }
+}
+
+/**
+ * Mobile menu enter animation
+ *
+ * Header.jsx uses `animate-in slide-in-from-top-2` for the mobile nav.
+ * These classes come from `tailwindcss-animate` which is NOT installed —
+ * so Tailwind v4 emits no CSS for them. Define the animation here as a
+ * lightweight substitute. Works in all browsers including Safari.
+ */
+@keyframes tw-enter-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-0.5rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in.slide-in-from-top-2 {
+  animation: tw-enter-from-top 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ============================================================
+   Pagefind UI Overrides
+   ============================================================ */
+:root {
+  --pagefind-ui-scale: 1;
+  --pagefind-ui-primary: #3b82f6;
+  --pagefind-ui-text: #f5f5f5;
+  --pagefind-ui-background: #171717;
+  --pagefind-ui-border: #404040;
+  --pagefind-ui-tag: #262626;
+  --pagefind-ui-border-width: 1px;
+  --pagefind-ui-border-radius: 12px;
+  --pagefind-ui-font: inherit;
+}
+
+.pagefind-ui__search-input {
+  background: #262626 !important;
+  color: #f5f5f5 !important;
+}
+
+.pagefind-ui__result {
+  border-color: #262626 !important;
+}
+
+.pagefind-ui__result:hover {
+  background: #262626 !important;
+}
+
+.pagefind-ui__result-title {
+  color: #f5f5f5 !important;
+}
+
+.pagefind-ui__result-excerpt mark {
+  background: transparent !important;
+  color: #3b82f6 !important;
+  font-weight: 600;
+}

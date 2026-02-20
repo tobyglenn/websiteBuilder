@@ -34,10 +34,14 @@ const {
 		<title>{title}</title>
 	</head>
 	<body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
-		<Header client:load />
-		<main class="flex-grow pt-16">
+		<div data-pagefind-ignore>
+			<Header client:load />
+		</div>
+		<main class="flex-grow pt-16" data-pagefind-body>
 			<slot />
 		</main>
-		<Footer />
+		<div data-pagefind-ignore>
+			<Footer />
+		</div>
 	</body>
 </html>
