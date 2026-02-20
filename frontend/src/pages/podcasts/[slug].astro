@@ -48,17 +48,54 @@ export async function getStaticPaths() {
     let links: { title: string; url: string }[] = [];
     let showNotesHtml = '';
 
+    // Step 1: Fetch dedicated show notes file (episodes 1+)
+    let showNotesMd = '';
+    if (episodeNum > 0) {
+      const snUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/show_notes_episode_${String(episodeNum).padStart(3, '0')}.md`;
+      try {
+        const snRes = await fetch(snUrl);
+        if (snRes.ok) {
+          showNotesMd = await snRes.text();
+        }
+      } catch {
+        // no show notes file — graceful fallback
+      }
+    }
+
+    // Step 2: Fetch transcript (special case for ep0 whose RSS link is the homepage)
+    const transcriptFetchUrl = episodeNum === 0
+      ? 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/episode_000.md'
+      : mdUrl;
+
     try {
-      const mdRes = await fetch(mdUrl);
+      const mdRes = await fetch(transcriptFetchUrl);
       rawMd = await mdRes.text();
 
-      // Check for structured ## SHOW NOTES block
-      const showNotesMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## |\Z)/m);
-      if (showNotesMatch) {
-        showNotesHtml = await marked.parse(showNotesMatch[1]);
+      // Step 3: Process fetched markdown
+      if (episodeNum === 0) {
+        // Extract show notes section from episode_000.md
+        if (!showNotesMd) {
+          const snMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## Full Transcript)/m);
+          showNotesMd = snMatch ? snMatch[1].trim() : '';
+        }
+        // Extract transcript portion only
+        const txMatch = rawMd.match(/^## Full Transcript\s*\n([\s\S]*)$/m);
+        rawMd = txMatch ? txMatch[1] : rawMd;
       }
 
-      // Extract section headings as topics (always — fallback if no SHOW NOTES)
+      // Render show notes HTML
+      if (showNotesMd) {
+        showNotesHtml = await marked.parse(showNotesMd);
+      } else {
+        // Legacy fallback: look for ## SHOW NOTES in transcript
+        const showNotesMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## )/m);
+        if (showNotesMatch) {
+          showNotesHtml = await marked.parse(showNotesMatch[1]);
+          rawMd = rawMd.replace(/^## SHOW NOTES[\s\S]*?(?=^## )/m, '');
+        }
+      }
+
+      // Step 4: Extract section headings as topics (always — fallback if no SHOW NOTES)
       topics = [...rawMd.matchAll(/^## SECTION \d+:\s*(.+)$/gm)].map(m => m[1].trim());
       if (!topics.length) {
         topics = [...rawMd.matchAll(/^## (.+)$/gm)]
@@ -82,13 +119,8 @@ export async function getStaticPaths() {
           .slice(0, 10);
       }
 
-      // Remove SHOW NOTES block from transcript if present
-      const transcriptMd = showNotesMatch
-        ? rawMd.replace(/^## SHOW NOTES[\s\S]*?(?=^## |\Z)/m, '')
-        : rawMd;
-
-      // Parse markdown → HTML
-      let html = await marked.parse(transcriptMd);
+      // Parse markdown → HTML (rawMd already has show notes stripped if needed)
+      let html = await marked.parse(rawMd);
 
       // Style speaker labels
       html = html
@@ -123,7 +155,7 @@ export async function getStaticPaths() {
     };
   }));
 
-  return episodes.filter(e => e.props.episode.number > 0);
+  return episodes.filter(e => e.props.episode.number > 0 && e.props.episode.number !== 3);
 }
 
 const { episode } = Astro.props;
