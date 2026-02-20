@@ -24,6 +24,7 @@ export default function Header() {
     { name: 'Videos', href: '/videos' },
     { name: 'Blog', href: '/blog' },
     { name: 'Running', href: '/running' },
+    { name: 'Speediance', href: '/speediance' },
     { name: 'Training', href: '/training' },
     { name: 'About', href: '/about' },
   ];

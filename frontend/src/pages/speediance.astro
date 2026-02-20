@@ -1,0 +1,406 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSpeedianceData } from '../data/speediance.js';
+
+const { stats, chartData, donutData, workoutTypeBreakdown, exercisePRs, recentSessions } = getSpeedianceData();
+
+// Serialize for client-side charts
+const chartJSON = JSON.stringify(chartData);
+const donutJSON = JSON.stringify(donutData);
+---
+
+<Layout
+  title={`${stats.totalVolumeFmt} lbs Lifted: My Speediance Journey — TobyOnFitnessTech`}
+  description={`${stats.totalWorkouts} workouts, ${stats.totalVolumeFmt} lbs lifted on Speediance. Real data from Toby's home gym — monthly volume trends, top exercises, and personal records.`}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* ── Hero ──────────────────────────────────────────────────────────────── */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-orange-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-orange-500 uppercase mb-4">Speediance Data · Jul 2025 – Feb 2026</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {stats.totalVolumeFmt} lbs Lifted:<br />
+            <span class="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+              My Speediance Journey
+            </span>
+          </h1>
+          <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            I swapped the commercial gym for a Speediance smart home gym and haven't looked back.
+            {stats.totalWorkouts} workouts, {stats.totalVolumeFmt} lbs of volume, and a body that's gone from
+            188 lbs to 218 lbs of muscle. Every session logged, every PR tracked.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="https://www.speediance.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600/20 hover:bg-orange-600/30 border border-orange-500/30 hover:border-orange-500/60 text-orange-400 hover:text-orange-300 font-medium rounded-full transition-all text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
+              Speediance.com
+            </a>
+            <a
+              href="/videos?q=speediance"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 hover:bg-neutral-800 border border-neutral-700/50 hover:border-neutral-600 text-neutral-300 hover:text-white font-medium rounded-full transition-all text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              Watch My Speediance Videos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Summary Stats ─────────────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 col-span-2 sm:col-span-1 lg:col-span-1">
+            <div class="text-3xl font-bold text-orange-400 mb-1">{stats.totalVolumeFmt}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs Lifted</div>
+            <div class="text-xs text-neutral-600 mt-1">Total volume</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.totalWorkouts}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Workouts</div>
+            <div class="text-xs text-neutral-600 mt-1">Since Jul 2025</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.totalHours}h</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Time Trained</div>
+            <div class="text-xs text-neutral-600 mt-1">Total duration</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{(stats.avgVolume / 1000).toFixed(1)}k</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Avg / Session</div>
+            <div class="text-xs text-neutral-600 mt-1">lbs per workout</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{(stats.bestSessionVolume / 1000).toFixed(1)}k</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Best Session</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.bestSessionDate}</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-red-400 mb-1">{(stats.totalCalories / 1000).toFixed(1)}k</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Calories Burned</div>
+            <div class="text-xs text-neutral-600 mt-1">Total kcal</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Charts ────────────────────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-2">Volume Over Time</h2>
+          <p class="text-neutral-400 text-sm">Monthly lifting volume — watch the numbers climb as programming matured.</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          {/* Monthly volume bar chart */}
+          <div class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-semibold text-neutral-300 uppercase tracking-wider">Monthly Volume (lbs)</h3>
+              <span class="text-xs text-neutral-600 bg-neutral-800 px-2 py-1 rounded-full">{stats.dateStart} → {stats.dateEnd}</span>
+            </div>
+            <div class="relative h-64 md:h-72">
+              <canvas id="volumeChart"></canvas>
+            </div>
+          </div>
+
+          {/* Workout type donut */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="text-sm font-semibold text-neutral-300 uppercase tracking-wider mb-4">Volume by Workout Type</h3>
+            <div class="relative h-48">
+              <canvas id="donutChart"></canvas>
+            </div>
+            <div class="mt-4 space-y-2">
+              {workoutTypeBreakdown.slice(0, 5).map((t) => (
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-neutral-400 truncate mr-2">{t.name}</span>
+                  <span class="text-neutral-300 font-mono shrink-0">{t.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Personal Records ──────────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-2">Personal Records</h2>
+          <p class="text-neutral-400 text-sm">Best 1-rep max estimates tracked by Speediance. These are real numbers.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {exercisePRs.map((pr, i) => (
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 hover:border-orange-800/50 transition-colors group">
+              <div class="flex items-start justify-between">
+                <div class="flex-1 min-w-0 mr-2">
+                  <div class="text-sm font-medium text-neutral-200 leading-snug">{pr.name}</div>
+                  <div class="text-xs text-neutral-600 mt-1">{pr.workout}</div>
+                </div>
+                <div class="shrink-0 text-right">
+                  <div class="text-xl font-bold text-orange-400">{pr.weight}</div>
+                  <div class="text-xs text-neutral-600">lbs</div>
+                </div>
+              </div>
+              {i === 0 && (
+                <div class="mt-2 pt-2 border-t border-neutral-800">
+                  <span class="text-xs text-yellow-500 font-semibold">🏆 Top PR</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Recent Sessions Table ─────────────────────────────────────────────── */}
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold mb-1">Recent Workouts</h2>
+            <p class="text-neutral-400 text-sm">Last 20 sessions from Speediance</p>
+          </div>
+          <a
+            href="/videos"
+            class="text-sm text-orange-400 hover:text-orange-300 font-medium flex items-center gap-1 transition-colors"
+          >
+            Watch workout videos
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        {/* Desktop table */}
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800 text-left">
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">Date</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">Workout</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">Volume</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">Duration</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider text-right">Calories</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-900">
+              {recentSessions.map((s) => (
+                <tr class="hover:bg-neutral-900/50 transition-colors">
+                  <td class="py-3 pr-4 text-neutral-400 font-mono text-xs whitespace-nowrap">{s.date}</td>
+                  <td class="py-3 pr-4 text-neutral-200 font-medium">{s.title}</td>
+                  <td class="py-3 pr-4 text-right font-mono font-semibold text-orange-400">
+                    {s.volume >= 1000 ? (s.volume / 1000).toFixed(1) + 'k' : s.volume} lbs
+                  </td>
+                  <td class="py-3 pr-4 text-right text-neutral-300 font-mono">{s.duration}m</td>
+                  <td class="py-3 text-right text-neutral-400 font-mono">
+                    {s.calories > 0 ? s.calories + ' kcal' : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile cards */}
+        <div class="md:hidden space-y-3">
+          {recentSessions.slice(0, 10).map((s) => (
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex-1 min-w-0 mr-3">
+                  <div class="font-medium text-white text-sm">{s.title}</div>
+                  <div class="text-xs text-neutral-500 mt-0.5">{s.date}</div>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="font-bold text-orange-400 font-mono">
+                    {s.volume >= 1000 ? (s.volume / 1000).toFixed(1) + 'k' : s.volume}
+                  </div>
+                  <div class="text-xs text-neutral-600">lbs</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-3">
+                <div>
+                  <div class="text-white font-mono">{s.duration}m</div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">Duration</div>
+                </div>
+                <div>
+                  <div class="text-neutral-300 font-mono">{s.calories > 0 ? s.calories + ' kcal' : '—'}</div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">Calories</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Callout / CTA ─────────────────────────────────────────────────────── */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="bg-gradient-to-r from-orange-900/20 to-red-900/20 border border-orange-800/30 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 max-w-3xl mx-auto">
+          <div class="text-5xl shrink-0">🏋️</div>
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="text-xl font-bold text-white mb-2">From 188 to 218 lbs — without a commercial gym</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Speediance replaced my gym membership. {stats.totalVolumeFmt} lbs of volume, zero commute,
+              and more progressive overload than I ever got at a traditional gym.
+              The data doesn't lie.
+            </p>
+          </div>
+          <a
+            href="/about"
+            class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-full transition-all hover:scale-105 text-sm"
+          >
+            Read My Story
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+{/* ── Pass data to client ───────────────────────────────────────────────────── */}
+<script define:vars={{ chartData, donutData }}>
+  window.__SPEEDIANCE_CHART_DATA__ = chartData;
+  window.__SPEEDIANCE_DONUT_DATA__ = donutData;
+</script>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+<script is:inline>
+  (function () {
+    Chart.defaults.color = '#737373';
+    Chart.defaults.borderColor = '#262626';
+    Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
+
+    const chartData = window.__SPEEDIANCE_CHART_DATA__ || [];
+    const donutData = window.__SPEEDIANCE_DONUT_DATA__ || [];
+
+    // ── Monthly Volume Bar Chart ───────────────────────────────────────────
+    (function buildVolumeChart() {
+      const canvas = document.getElementById('volumeChart');
+      if (!canvas) return;
+
+      const labels = chartData.map(d => d.label);
+      const volumes = chartData.map(d => d.volume);
+      const workouts = chartData.map(d => d.workouts);
+      const maxVol = Math.max(...volumes);
+
+      const bgColors = volumes.map(v => {
+        const intensity = v / maxVol;
+        const alpha = 0.25 + intensity * 0.55;
+        return `rgba(249,115,22,${alpha.toFixed(2)})`;
+      });
+
+      new Chart(canvas, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'Volume (lbs)',
+            data: volumes,
+            backgroundColor: bgColors,
+            borderColor: 'rgba(249,115,22,0.8)',
+            borderWidth: 1,
+            borderRadius: 8,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              borderColor: '#404040',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (item) => {
+                  const lbs = item.raw;
+                  const formatted = lbs >= 1000 ? (lbs / 1000).toFixed(1) + 'k lbs' : lbs + ' lbs';
+                  return ` ${formatted} · ${workouts[item.dataIndex]} workouts`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: '#1a1a1a' },
+              ticks: { maxRotation: 30, font: { size: 11 } },
+            },
+            y: {
+              grid: { color: '#1a1a1a' },
+              ticks: {
+                callback: v => v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v,
+              },
+              min: 0,
+            },
+          },
+        },
+      });
+    })();
+
+    // ── Workout Type Donut Chart ───────────────────────────────────────────
+    (function buildDonutChart() {
+      const canvas = document.getElementById('donutChart');
+      if (!canvas) return;
+
+      const colors = [
+        'rgba(249,115,22,0.85)',
+        'rgba(239,68,68,0.80)',
+        'rgba(251,191,36,0.80)',
+        'rgba(234,179,8,0.75)',
+        'rgba(249,115,22,0.50)',
+        'rgba(239,68,68,0.45)',
+        'rgba(251,191,36,0.45)',
+        'rgba(180,83,9,0.60)',
+      ];
+
+      new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: donutData.map(d => d.name),
+          datasets: [{
+            data: donutData.map(d => d.volume),
+            backgroundColor: colors,
+            borderColor: '#171717',
+            borderWidth: 2,
+            hoverOffset: 4,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '65%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              borderColor: '#404040',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (item) => {
+                  const v = item.raw;
+                  const pct = donutData[item.dataIndex]?.pct || 0;
+                  return ` ${(v / 1000).toFixed(0)}k lbs · ${pct}%`;
+                },
+              },
+            },
+          },
+        },
+      });
+    })();
+  })();
+</script>

@@ -41,6 +41,86 @@
   ],
   "in_progress": null,
   "notes": "Autonomous overnight improvement loop for TobyOnFitnessTech",
+  "visual_audit": {
+    "timestamp": "2026-02-19T22:20:00-05:00",
+    "type": "visual-design-audit",
+    "description": "Full visual design audit of /, /blog, /about, /videos — 8 specific fixes implemented",
+    "git_commit": "29dfae0",
+    "git_push": "fork -> main (force)",
+    "files_changed": [
+      "src/components/Header.jsx",
+      "src/components/Hero.jsx",
+      "src/pages/about.astro",
+      "src/pages/blog/index.astro",
+      "src/pages/index.astro",
+      "src/pages/videos/index.astro"
+    ],
+    "fixes": [
+      {
+        "id": 1,
+        "severity": "critical-bug",
+        "page": "/blog",
+        "description": "Category filter bar sticky position: was 'sticky top-0 z-10' which caused it to scroll UNDER the fixed 64px header (z-50). Fixed to 'sticky top-16 z-40'.",
+        "file": "src/pages/blog/index.astro"
+      },
+      {
+        "id": 2,
+        "severity": "visual",
+        "page": "/blog",
+        "description": "Blog hero reduced from py-20 to py-10 md:py-14 — removed excessive empty black space before category filters.",
+        "file": "src/pages/blog/index.astro"
+      },
+      {
+        "id": 3,
+        "severity": "visual",
+        "page": "/",
+        "description": "Hero section vertical padding reduced (pt-32 pb-24 md:pt-48 md:pb-32 → pt-24 pb-16 md:pt-36 md:pb-20) and pillar margin reduced (mt-24 md:mt-32 → mt-10 md:mt-14). Eliminated massive empty space.",
+        "file": "src/components/Hero.jsx"
+      },
+      {
+        "id": 4,
+        "severity": "visual",
+        "page": "/",
+        "description": "Latest Uploads and Written Reviews sections reduced from py-24 to py-16 — tighter, more intentional vertical rhythm.",
+        "file": "src/pages/index.astro"
+      },
+      {
+        "id": 5,
+        "severity": "visual",
+        "page": "/about",
+        "description": "About page hero top padding reduced from pt-32 md:pt-40 to pt-20 md:pt-28 — content starts sooner without feeling cramped.",
+        "file": "src/pages/about.astro"
+      },
+      {
+        "id": 6,
+        "severity": "visual",
+        "page": "/about",
+        "description": "Progress photo labels replaced: removed awkward overflow-hidden circular badge design, replaced with clean gradient-to-top label strip at bottom of each photo.",
+        "file": "src/pages/about.astro"
+      },
+      {
+        "id": 7,
+        "severity": "enhancement",
+        "page": "/videos",
+        "description": "Added styled hero section to Videos page: blue eyebrow label, large headline 'Everything on Camera. No Scripts. No Sponsors.', subtitle. Matches visual hierarchy of blog/about pages.",
+        "file": "src/pages/videos/index.astro"
+      },
+      {
+        "id": 8,
+        "severity": "enhancement",
+        "page": "all",
+        "description": "Header nav active state: added pathname detection via useEffect+useState. Active link shows white text with a blue bottom border underline. Applies to both desktop and mobile nav.",
+        "file": "src/components/Header.jsx"
+      },
+      {
+        "id": 9,
+        "severity": "cleanup",
+        "page": "/blog",
+        "description": "Removed invalid CSS class 'letter-spacing-wide' from blog hero paragraph (tracking-widest was already present and handling the spacing).",
+        "file": "src/pages/blog/index.astro"
+      }
+    ]
+  },
   "completed_latest": {
     "timestamp": "2026-02-19T22:21:00-05:00",
     "type": "new-page",
