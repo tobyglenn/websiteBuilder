@@ -28,6 +28,31 @@
       "notes": "Built directly after subagent timeout. All weight data from About page (real). Uses existing progress photos. Dark theme matches site. Build: 139 pages."
     },
     {
+      "timestamp": "2026-02-20T02:25:00-05:00",
+      "idea": "/training page — Holistic training volume trends with Speediance + Garmin data",
+      "category": "New Page + Data Visualization",
+      "files_changed": [
+        "frontend/src/pages/training.astro",
+        "frontend/src/components/Header.jsx"
+      ],
+      "commit": "5c6e84b",
+      "data_sources": [
+        "speediance_dashboard_data.json (1.29M lbs, 125 workouts)",
+        "garmin_all_activities.json (265 mi, 111 runs)"
+      ],
+      "sections": [
+        "Hero with stats pills (1.29M lbs, 265 mi, 125 workouts)",
+        "Monthly running mileage bar chart (Feb '25 to Feb '26)",
+        "Monthly lifting volume bar chart (Jul '25 to Feb '26)",
+        "Top 10 Speediance PRs (deadlift 388 lbs, lat pulldown 294 lbs, etc.)",
+        "Weight timeline chart (199 weigh-ins from Feb '25 to Feb '26)",
+        "6Sleep nightly scores (score, quality, HRV, hours)",
+        "Key insights: peak volume in Nov '25, running peaks in Jun '25",
+        "CTA section linking to /speediance, /running, /blog"
+      ],
+      "notes": "All data from real JSON exports. Dark theme matches site. SVG charts for all visualizations."
+    },
+    {
       "timestamp": "2026-02-20T02:35:00-05:00",
       "type": "blog-posts",
       "description": "Added 2 new blog posts from unused video transcripts",

@@ -27,6 +27,7 @@ export default function Header() {
     { name: 'Running', href: '/running' },
     { name: 'Speediance', href: '/speediance' },
     { name: 'Training', href: '/training' },
+    { name: 'Sleep', href: '/sleep' },
     { name: 'BJJ', href: '/bjj' },
     { name: 'Day', href: '/day' },
     { name: 'Gear', href: '/gear' },
