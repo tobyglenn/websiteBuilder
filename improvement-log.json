@@ -2,8 +2,52 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-02-20T04:30:00-05:00",
+      "type": "blog-posts",
+      "description": "Added 2 new blog posts from unused video transcripts",
+      "posts": [
+        {
+          "slug": "speediance-partner-mode-v2-vs-v3",
+          "title": "Speediance's Lost Feature: What V3 Took Away (And Why It Matters)",
+          "category": "Field Reports",
+          "published_at": "2026-01-24",
+          "transcript_video_id": "wMT8i8E14NU",
+          "transcript_word_count": 5501,
+          "topics": [
+            "Speediance",
+            "partner mode",
+            "V2 vs V3",
+            "Free Lift",
+            "daughter Lily",
+            "dual motors",
+            "family workout"
+          ]
+        },
+        {
+          "slug": "full-body-minus-legs-training-split",
+          "title": "I Stopped Training Legs \u2014 Here's What Happened",
+          "category": "The Long Game",
+          "published_at": "2026-01-18",
+          "transcript_video_id": "nxsD-MZljM8",
+          "transcript_word_count": 2906,
+          "topics": [
+            "training split",
+            "full body",
+            "PPL",
+            "legs",
+            "41,500 lbs volume",
+            "Lunar Challenge",
+            "bro split"
+          ]
+        }
+      ],
+      "git_commit": "a3aead3",
+      "git_push": "fork -> main (force)",
+      "notes": "All posts written from full transcript content in Toby's voice. No placeholder content. Video IDs previously unused."
+    },
+    {
       "timestamp": "2026-02-20T04:25:00-05:00",
-      "idea": "/sleep page — Sleep & recovery data dashboard with 8Sleep metrics",
+      "idea": "/sleep page \u2014 Sleep & recovery data dashboard with 8Sleep metrics",
       "category": "New Page + Data Visualization",
       "files_changed": [
         "frontend/src/data/sleep.js",
@@ -28,7 +72,7 @@
     },
     {
       "timestamp": "2026-02-20T03:10:00-05:00",
-      "idea": "/transformation page — Weight journey timeline with SVG chart, progress photos, key insights, and real data stats",
+      "idea": "/transformation page \u2014 Weight journey timeline with SVG chart, progress photos, key insights, and real data stats",
       "category": "New Page + Data Visualization",
       "files_changed": [
         "frontend/src/pages/transformation.astro",
@@ -36,15 +80,15 @@
       ],
       "commit": "044efc5",
       "data_sources": [
-        "About page (242→188→218 weight data)",
+        "About page (242\u2192188\u2192218 weight data)",
         "Speediance dashboard (1.29M lbs lifted)",
         "Garmin data (265 miles, 111 runs)"
       ],
       "sections": [
-        "Hero with headline 242→188→218 and stats pills (-54 lbs, +30 lbs muscle, 1.29M lbs, 265 mi)",
+        "Hero with headline 242\u2192188\u2192218 and stats pills (-54 lbs, +30 lbs muscle, 1.29M lbs, 265 mi)",
         "SVG weight timeline chart (Jul '23 to Feb '26)",
-        "Three-phase breakdown: Loss (242→188), Transition (188→205), Gain (205→218)",
-        "Progress photos comparison (242 lbs → 188 lbs → 218 lbs)",
+        "Three-phase breakdown: Loss (242\u2192188), Transition (188\u2192205), Gain (205\u2192218)",
+        "Progress photos comparison (242 lbs \u2192 188 lbs \u2192 218 lbs)",
         "Key insights: GLP-1, cardio, TRT, muscle building",
         "Data deep dive: Speediance volume, running miles, BJJ training",
         "Key takeaways: 4 actionable lessons",
@@ -54,7 +98,7 @@
     },
     {
       "timestamp": "2026-02-20T02:25:00-05:00",
-      "idea": "/training page — Holistic training volume trends with Speediance + Garmin data",
+      "idea": "/training page \u2014 Holistic training volume trends with Speediance + Garmin data",
       "category": "New Page + Data Visualization",
       "files_changed": [
         "frontend/src/pages/training.astro",
@@ -89,7 +133,18 @@
           "published_at": "2025-08-28",
           "transcript_video_id": "yeYeMNBC2Lc",
           "transcript_word_count": 52652,
-          "topics": ["Speediance 2S", "first look", "noise comparison", "weight capacity", "260 lbs", "delivery", "pallet", "original vs 2S", "ring clip", "slow descent"]
+          "topics": [
+            "Speediance 2S",
+            "first look",
+            "noise comparison",
+            "weight capacity",
+            "260 lbs",
+            "delivery",
+            "pallet",
+            "original vs 2S",
+            "ring clip",
+            "slow descent"
+          ]
         },
         {
           "slug": "speediance-2s-modes-explained",
@@ -98,7 +153,18 @@
           "published_at": "2025-09-13",
           "transcript_video_id": "qyXBR0vhxxw",
           "transcript_word_count": 28941,
-          "topics": ["Speediance modes", "Gain Muscle", "Stamina", "Strength", "Custom mode", "1RM trap", "eccentric mode", "warm-up strategy", "reps", "progressive overload"]
+          "topics": [
+            "Speediance modes",
+            "Gain Muscle",
+            "Stamina",
+            "Strength",
+            "Custom mode",
+            "1RM trap",
+            "eccentric mode",
+            "warm-up strategy",
+            "reps",
+            "progressive overload"
+          ]
         }
       ],
       "git_commit": "577e099",
@@ -107,7 +173,7 @@
     },
     {
       "timestamp": "2026-02-20T02:20:00-05:00",
-      "idea": "/gear page — Real gear stack with usage stats and transcript quotes",
+      "idea": "/gear page \u2014 Real gear stack with usage stats and transcript quotes",
       "category": "New Page",
       "files_changed": [
         "frontend/src/pages/gear.astro",
@@ -127,11 +193,11 @@
         "Each gear card includes real usage stats, transcript quotes, pros/cons",
         "Affiliate disclosure at bottom"
       ],
-      "notes": "All content from real transcripts — Speediance review (cN4YyRwoxXc), Tonal critique (iOYPjqDTdas). Real stats: 1,296,447 lbs lifted on Speediance. Build: 136 pages. No placeholder content."
+      "notes": "All content from real transcripts \u2014 Speediance review (cN4YyRwoxXc), Tonal critique (iOYPjqDTdas). Real stats: 1,296,447 lbs lifted on Speediance. Build: 136 pages. No placeholder content."
     },
     {
       "timestamp": "2026-02-20T01:15:00-05:00",
-      "idea": "/day page — A Day in the Data with real 8Sleep, Garmin, Speediance, and WHOOP metrics",
+      "idea": "/day page \u2014 A Day in the Data with real 8Sleep, Garmin, Speediance, and WHOOP metrics",
       "category": "New Page",
       "files_changed": [
         "frontend/src/pages/day.astro",
@@ -315,7 +381,16 @@
           "published_at": "2025-08-26",
           "transcript_video_id": "iOYPjqDTdas",
           "transcript_word_count": 3328,
-          "topics": ["Tonal", "Smart Gym", "Customer Service", "Membership", "9 million pounds", "Bar control module", "Buyback program", "Tonal vs Speediance"]
+          "topics": [
+            "Tonal",
+            "Smart Gym",
+            "Customer Service",
+            "Membership",
+            "9 million pounds",
+            "Bar control module",
+            "Buyback program",
+            "Tonal vs Speediance"
+          ]
         },
         {
           "slug": "training-split-physique-build-vs-maintain",
@@ -324,7 +399,16 @@
           "published_at": "2026-01-14",
           "transcript_video_id": "JxRdaMTOOHo",
           "transcript_word_count": 10917,
-          "topics": ["Training split", "Arnold Blueprint", "PPL", "Bro split", "Full body", "Hypertrophy", "Physique building", "Maintenance"]
+          "topics": [
+            "Training split",
+            "Arnold Blueprint",
+            "PPL",
+            "Bro split",
+            "Full body",
+            "Hypertrophy",
+            "Physique building",
+            "Maintenance"
+          ]
         }
       ],
       "git_commit": "3a0e4fe",

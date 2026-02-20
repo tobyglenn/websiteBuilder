@@ -30,6 +30,7 @@ export default function Header() {
     { name: 'Sleep', href: '/sleep' },
     { name: 'BJJ', href: '/bjj' },
     { name: 'Day', href: '/day' },
+    { name: 'Podcasts', href: '/podcasts' },
     { name: 'Gear', href: '/gear' },
     { name: 'About', href: '/about' },
   ];

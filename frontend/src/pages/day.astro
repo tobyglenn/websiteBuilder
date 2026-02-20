@@ -1,4 +1,5 @@
 ---
+import Layout from '../layouts/Layout.astro';
 // Real data from TobyOnFitnessTech data sources
 // 8Sleep: eight_sleep_historical.csv
 // Garmin: garmin_all_activities.json  
@@ -61,14 +62,10 @@ const timelineEvents = [
 ];
 ---
 
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>A Day in the Life | TobyOnFitnessTech</title>
-  <meta name="description" content="See how Toby integrates fitness tech into his daily routine — from 8Sleep recovery to morning runs and Speediance workouts.">
-</head>
-<body class="bg-neutral-950 text-white min-h-screen">
+<Layout
+  title="A Day in the Life | TobyOnFitnessTech"
+  description="See how Toby integrates fitness tech into his daily routine — from 8Sleep recovery to morning runs and Speediance workouts."
+>
   
   {/* Hero Section */}
   <section class="pt-24 pb-12 md:pt-32 md:pb-16 bg-gradient-to-b from-neutral-900 to-neutral-950">
@@ -233,5 +230,4 @@ const timelineEvents = [
     </div>
   </section>
 
-</body>
-</html>
+</Layout>
