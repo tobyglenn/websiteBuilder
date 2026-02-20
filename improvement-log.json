@@ -14,20 +14,26 @@
       "data_sources": ["garmin_all_activities.json"],
       "stats": {
         "total_runs": 111,
-        "total_distance_mi": 265,
-        "longest_run_mi": 13.1,
-        "avg_pace": "8:42/mi",
-        "fastest_pace": "7:21/mi"
+        "total_distance_mi": 265.1,
+        "total_hours": 67.2,
+        "total_cal": 38777,
+        "avg_pace": "15:12/mi",
+        "longest_run_mi": 5.0,
+        "longest_run_date": "Jun 30, 2025",
+        "outdoor_runs": 84,
+        "treadmill_runs": 27
       },
       "sections": [
-        "Hero with Garmin/Strava links",
-        "Summary stats (6 cards: total runs, miles, time, pace, longest, best pace)",
-        "Distance over time chart (inline SVG)",
-        "Monthly mileage bar chart (11 months)",
-        "Recent runs table (20 runs with date, distance, pace, HR, calories)",
-        "Outdoor vs Treadmill breakdown"
+        "Hero with stats pills (outdoor/treadmill/kcal counts)",
+        "6 summary stat cards (total runs, miles, hours, pace, longest, kcal)",
+        "Monthly mileage SVG bar chart (11 months, gradient fill, run count labels)",
+        "Activity heatmap (GitHub-style SVG calendar grid, daily miles, color-coded)",
+        "Pace PRs board (4 distance brackets: 1mi, 2mi, 3mi, 4mi — fastest pace)",
+        "Recent 10 runs table with HR zone color bars (desktop) + cards (mobile)",
+        "Running gear section (4 cards: shoes, watch, safety, recovery tracking)",
+        "CTA linking to /training, /speediance, /blog"
       ],
-      "notes": "Running page already existed in previous commit. Verified build: 132 pages. Pushed to fork."
+      "notes": "Fully rebuilt with enhanced features: activity heatmap (SVG calendar grid), monthly bar chart with labels, pace PRs by distance bracket (real data — 1mi, 2mi, 3mi, 4mi), recent runs table with HR zone color bars, gear section. Build: 132 pages. Commit: 676f79b."
     },
     {
       "timestamp": "2026-02-19T22:40:00-05:00",
