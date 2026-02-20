@@ -83,6 +83,49 @@ try {
   fetchError = true;
   console.error('[podcasts.astro] RSS fetch failed:', err);
 }
+
+const FITNESS_FEED = 'https://anchor.fm/s/108bc95a4/podcast/rss';
+const FITNESS_COVER = 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg';
+
+interface FitnessEpisode {
+  index: number;
+  title: string;
+  description: string;
+  pubDate: string;
+  audioUrl: string;
+  duration: string;
+  spotifyUrl: string;
+  coverImage: string;
+}
+
+let fitnessEpisodes: FitnessEpisode[] = [];
+let fitnessFetchError = false;
+
+try {
+  const fitnessRes = await fetch(FITNESS_FEED);
+  if (!fitnessRes.ok) throw new Error(`HTTP ${fitnessRes.status}`);
+  const fitnessXml = await fitnessRes.text();
+
+  const fitnessItems = fitnessXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+  fitnessItems.forEach((item, idx) => {
+    const title = extractTag(item, 'title');
+    const rawDesc = extractTag(item, 'description');
+    const description = rawDesc
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'")
+      .replace(/\s+/g, ' ').trim()
+      .slice(0, 300) + (rawDesc.length > 300 ? '…' : '');
+    const pubDateRaw = extractTag(item, 'pubDate');
+    const pubDate = formatDate(pubDateRaw);
+    const audioUrl = extractAttr(item, 'enclosure', 'url');
+    const duration = extractTag(item, 'itunes:duration');
+    const spotifyUrl = extractTag(item, 'link');
+    fitnessEpisodes.push({ index: idx + 1, title, description, pubDate, audioUrl, duration, spotifyUrl, coverImage: FITNESS_COVER });
+  });
+} catch (err) {
+  fitnessFetchError = true;
+  console.error('[podcasts.astro] Fitness RSS failed:', err);
+}
 ---
 
 <Layout title="Podcasts | Toby on Fitness Tech" description="OpenClaw Daily — your AI-hosted podcast covering the latest in fitness tech, local AI, hardware, and the OpenClaw ecosystem. Hosted by Nova & Alloy.">
@@ -122,6 +165,8 @@ try {
     <PodcastShowSwitcher
       episodes={episodes}
       fetchError={fetchError}
+      fitnessEpisodes={fitnessEpisodes}
+      fitnessFetchError={fitnessFetchError}
       client:load
     />
 
