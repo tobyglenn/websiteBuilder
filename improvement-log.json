@@ -2,6 +2,31 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-02-20T04:25:00-05:00",
+      "idea": "/sleep page — Sleep & recovery data dashboard with 8Sleep metrics",
+      "category": "New Page + Data Visualization",
+      "files_changed": [
+        "frontend/src/data/sleep.js",
+        "frontend/src/pages/sleep.astro",
+        "frontend/src/components/Header.jsx"
+      ],
+      "commit": "cca0300",
+      "data_sources": [
+        "eight_sleep_historical.csv (8 nights of data)"
+      ],
+      "sections": [
+        "Hero with stats pills (avg score 68, avg 5.8h sleep, avg HRV 57ms, 8 nights)",
+        "Sleep score trend SVG line chart",
+        "Hours slept bar chart",
+        "Sleep stages donut chart (estimated deep/light/REM/awake percentages)",
+        "Key insights (4 bullet points)",
+        "Recent nights table with score, quality, HRV, hours, HR",
+        "CTA section linking to /day, /training, /blog",
+        "Last updated timestamp"
+      ],
+      "notes": "Implemented directly after Clarity subagent timeout. All data from 8Sleep JSON export. Dark theme matches site. Build: 140 pages."
+    },
+    {
       "timestamp": "2026-02-20T03:10:00-05:00",
       "idea": "/transformation page — Weight journey timeline with SVG chart, progress photos, key insights, and real data stats",
       "category": "New Page + Data Visualization",
