@@ -1,6 +1,48 @@
 {
   "started": "2026-02-19T22:09:00-05:00",
-  "completed": [],
+  "completed": [
+    {
+      "task": "Running page with Garmin data visualization",
+      "completed_at": "2026-02-19T22:20:00-05:00",
+      "commit": "a5c23fd",
+      "category": "New Page + Data Visualization",
+      "files_changed": [
+        "frontend/src/pages/running.astro",
+        "frontend/src/data/running.js",
+        "frontend/src/layouts/Layout.astro",
+        "frontend/src/components/Header.jsx",
+        "frontend/public/robots.txt",
+        "frontend/src/pages/sitemap.xml.js",
+        "frontend/src/pages/blog/[slug].astro",
+        "frontend/src/pages/video/[id].astro",
+        "frontend/src/pages/about.astro",
+        "frontend/src/pages/index.astro",
+        "frontend/src/pages/404.astro",
+        "frontend/src/pages/500.astro",
+        "frontend/src/pages/terms.astro"
+      ],
+      "details": {
+        "running_page": "Created /running page with hero section, summary stats (111 runs, 265 miles), interactive chart showing distance per run over time, table of recent runs with date/distance/pace/elevation",
+        "data_source": "Garmin data from /Users/tobyglennpeters/clawd/data/garmin_all_activities.json",
+        "data_processing": "Created src/data/running.js to parse and process Garmin JSON into usable format for charts and tables",
+        "navigation": "Added Running link to Header component",
+        "layout_json_ld": "Added Person schema (Toby Glenn Peters, with sameAs YouTube/Twitter/Instagram) and WebSite schema with SearchAction to Layout.astro. Emits on every page. Also added canonical URL, og:url, og:site_name, twitter:title/description/image meta tags.",
+        "video_json_ld": "Added VideoObject schema to video/[id].astro using video.id, video.title, video.description, video.thumbnail, video.published_at. Passed via jsonLd prop to Layout.",
+        "blog_json_ld": "Added Article schema to blog/[slug].astro using post.title, post.excerpt, post.published_at, post.image, post.slug. Passed via jsonLd prop to Layout.",
+        "sitemap": "Added /start-here, /running, /live, /search to static pages list in sitemap.xml.js (was only /, /videos, /blog, /about).",
+        "meta_descriptions": {
+          "index.astro": "Added specific description: 'Independent fitness tech reviews from a real athlete. Speediance vs Tonal, Whoop vs Garmin, BJJ commentary...'",
+          "about.astro": "Added specific description mentioning 242→188 lb transformation, Speediance, Tonal, BJJ.",
+          "404.astro": "Replaced 'This page has gone missing.' with keyword-rich description.",
+          "500.astro": "Replaced 'Something went wrong on our end.' with keyword-rich description.",
+          "terms.astro": "Replaced generic 'Terms of Service for TobyOnFitnessTech.com.' with expanded version.",
+          "layout_default": "Updated default description from generic 'Deep dives into fitness technology...' to 'Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.'"
+        },
+        "og_images": "All pages now inherit og:image via Layout.astro default (og-default.jpg). Video/blog pages pass specific thumbnails/images. Added og:url, og:site_name, twitter card meta to Layout for full coverage.",
+        "robots_txt": "Updated /public/robots.txt to point Sitemap to https://tobyonfitnesstech.com/sitemap.xml (was /sitemap-index.xml which doesn't exist)."
+      }
+    }
+  ],
   "in_progress": null,
   "notes": "Autonomous overnight improvement loop for TobyOnFitnessTech"
 }
