@@ -130,3 +130,29 @@
   color: #3b82f6 !important;
   font-weight: 600;
 }
+
+/* ============================================================
+   Podcast transcript styles
+   ============================================================ */
+.transcript-content h2 {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #a3a3a3;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #262626;
+}
+.transcript-content p {
+  margin-bottom: 1.25rem;
+}
+.transcript-content a {
+  color: #60a5fa;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.transcript-content a:hover {
+  color: #93c5fd;
+}

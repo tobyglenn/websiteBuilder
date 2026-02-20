@@ -1,0 +1,146 @@
+---
+import { marked } from 'marked';
+import Layout from '../../layouts/Layout.astro';
+import EpisodeDetail from '../../components/EpisodeDetail.jsx';
+
+export async function getStaticPaths() {
+  // 1. Fetch RSS
+  const rssRes = await fetch('https://grayking-creator.github.io/openclaw-podcast/feed.xml');
+  const rssText = await rssRes.text();
+
+  // 2. Parse episodes (same helpers as podcasts.astro — inlined here)
+  const getTag = (xml: string, tag: string): string => {
+    // Handle CDATA
+    const cdataRe = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`, 'i');
+    const cdataM = xml.match(cdataRe);
+    if (cdataM) return cdataM[1].trim();
+    const plainRe = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
+    const plainM = xml.match(plainRe);
+    return plainM ? plainM[1].trim() : '';
+  };
+
+  const getAttr = (xml: string, tag: string, attr: string): string => {
+    const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]+)"`, 'i');
+    const m = xml.match(re);
+    return m ? m[1] : '';
+  };
+
+  const items = rssText.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+
+  const episodes = await Promise.all(items.map(async (item) => {
+    const episodeNum = parseInt(getTag(item, 'itunes:episode') || '0');
+    const slug = `episode-${episodeNum}`;
+    const mdUrl = getTag(item, 'link');
+    const audioUrl = getAttr(item, 'enclosure', 'url');
+    const title = getTag(item, 'title').replace(/^Episode \d+:\s*/, '');
+    const description = getTag(item, 'description');
+    const pubDate = getTag(item, 'pubDate');
+    const duration = getTag(item, 'itunes:duration');
+
+    // Format date
+    const dateObj = new Date(pubDate);
+    const formattedDate = isNaN(dateObj.getTime()) ? pubDate : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // Fetch .md content
+    let rawMd = '';
+    let transcriptHtml = '';
+    let topics: string[] = [];
+    let links: { title: string; url: string }[] = [];
+    let showNotesHtml = '';
+
+    try {
+      const mdRes = await fetch(mdUrl);
+      rawMd = await mdRes.text();
+
+      // Check for structured ## SHOW NOTES block
+      const showNotesMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## |\Z)/m);
+      if (showNotesMatch) {
+        showNotesHtml = await marked.parse(showNotesMatch[1]);
+      }
+
+      // Extract section headings as topics (always — fallback if no SHOW NOTES)
+      topics = [...rawMd.matchAll(/^## SECTION \d+:\s*(.+)$/gm)].map(m => m[1].trim());
+      if (!topics.length) {
+        topics = [...rawMd.matchAll(/^## (.+)$/gm)]
+          .map(m => m[1].trim())
+          .filter(t => !t.match(/^(SHOW NOTES|Full Story|Episode)/i));
+      }
+
+      // Extract URLs for links section
+      const urlMatches = [...rawMd.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)];
+      links = urlMatches.map(m => ({ title: m[1], url: m[2] }));
+      if (!links.length) {
+        links = [...rawMd.matchAll(/https?:\/\/[^\s)>\]]+/g)]
+          .map(m => {
+            try {
+              return { title: new URL(m[0]).hostname.replace('www.', ''), url: m[0] };
+            } catch {
+              return null;
+            }
+          })
+          .filter((l): l is { title: string; url: string } => l !== null)
+          .slice(0, 10);
+      }
+
+      // Remove SHOW NOTES block from transcript if present
+      const transcriptMd = showNotesMatch
+        ? rawMd.replace(/^## SHOW NOTES[\s\S]*?(?=^## |\Z)/m, '')
+        : rawMd;
+
+      // Parse markdown → HTML
+      let html = await marked.parse(transcriptMd);
+
+      // Style speaker labels
+      html = html
+        .replace(/\[NOVA\]:/g, '<span class="speaker nova">Nova</span>')
+        .replace(/\[ALLOY\]:/g, '<span class="speaker alloy">Alloy</span>')
+        .replace(/\*\*Nova:\*\*/g, '<span class="speaker nova">Nova</span>')
+        .replace(/\*\*Alloy:\*\*/g, '<span class="speaker alloy">Alloy</span>');
+
+      transcriptHtml = html;
+    } catch (e) {
+      transcriptHtml = '<p class="text-neutral-500">Transcript unavailable.</p>';
+    }
+
+    return {
+      params: { slug },
+      props: {
+        episode: {
+          slug,
+          number: episodeNum,
+          title,
+          description,
+          date: formattedDate,
+          duration,
+          audioUrl,
+          mdUrl,
+          topics,
+          links,
+          showNotesHtml,
+          transcriptHtml,
+        }
+      }
+    };
+  }));
+
+  return episodes.filter(e => e.props.episode.number > 0);
+}
+
+const { episode } = Astro.props;
+---
+
+<Layout title={`Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} description={episode.description}>
+  <EpisodeDetail episode={episode} client:load />
+</Layout>
+
+<style is:global>
+  .speaker {
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 0.5rem;
+  }
+  .speaker.nova { color: #60a5fa; } /* blue-400 */
+  .speaker.alloy { color: #c084fc; } /* purple-400 */
+</style>
