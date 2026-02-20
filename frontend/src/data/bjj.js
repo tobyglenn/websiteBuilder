@@ -7,9 +7,6 @@ export const beltTimeline = [
     color: '#e5e7eb',
     period: 'Early 2010s',
     highlights: [
-      'Competed in first tournament — took gold',
-      'Learned takedown-to-submission game',
-      'Began developing reverse triangle attacks',
       'Lost a ton of tournament matches at 170',
       'Spent a ton of time at white belt and needed a lot of it to improve',
       'Began developing triangle attacks',
