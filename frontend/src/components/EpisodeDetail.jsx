@@ -97,7 +97,7 @@ function ShowNotes({ episode }) {
     <div className="space-y-12">
       {episode.showNotesHtml ? (
         <div
-          className="prose prose-invert prose-sm max-w-none text-neutral-300"
+          className="show-notes-content prose prose-invert prose-sm max-w-none text-neutral-300"
           dangerouslySetInnerHTML={{ __html: episode.showNotesHtml }}
         />
       ) : (
