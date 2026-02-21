@@ -1,13 +1,23 @@
-export default function PodcastSubscribeButtons({ spotifyUrl, appleUrl, className = '' }) {
+export default function PodcastSubscribeButtons({
+  spotifyUrl,
+  appleUrl,
+  iheartUrl,
+  rssUrl,
+  youtubeUrl,
+  amazonUrl,
+  overcastUrl,
+  pocketcastsUrl,
+  className = '',
+}) {
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
+      {/* Spotify */}
       {spotifyUrl && (
         <a
           href={spotifyUrl}
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#1DB954]"
-          style={{ '--tw-shadow-color': 'rgba(29,185,84,0.3)' }}
           onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(29,185,84,0.30)'}
           onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
         >
@@ -17,6 +27,8 @@ export default function PodcastSubscribeButtons({ spotifyUrl, appleUrl, classNam
           Spotify
         </a>
       )}
+
+      {/* Apple Podcasts */}
       {appleUrl && (
         <a
           href={appleUrl}
@@ -29,7 +41,94 @@ export default function PodcastSubscribeButtons({ spotifyUrl, appleUrl, classNam
           <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.217c4.293 0 7.783 3.49 7.783 7.783S16.293 19.783 12 19.783 4.217 16.293 4.217 12 7.707 4.217 12 4.217zm0 2.61a5.173 5.173 0 100 10.346A5.173 5.173 0 0012 6.827zm0 2.61a2.564 2.564 0 110 5.128 2.564 2.564 0 010-5.128zm-4.391 8.52a.782.782 0 01.782.783v1.043a.782.782 0 11-1.565 0V18.74a.782.782 0 01.783-.783zm8.782 0a.782.782 0 01.783.783v1.043a.782.782 0 11-1.565 0V18.74a.782.782 0 01.782-.783z"/>
           </svg>
-          Apple Podcasts
+          Apple
+        </a>
+      )}
+
+      {/* Pocket Casts */}
+      {pocketcastsUrl && (
+        <a
+          href={pocketcastsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#F43E37]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(244,62,55,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <circle cx="12" cy="12" r="10"/>
+            <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" strokeWidth="2"/>
+            <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          </svg>
+          Pocket Casts
+        </a>
+      )}
+
+      {/* iHeartRadio */}
+      {iheartUrl && (
+        <a
+          href={iheartUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#C6002B]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(198,0,43,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          iHeart
+        </a>
+      )}
+
+      {/* YouTube Music */}
+      {youtubeUrl && (
+        <a
+          href={youtubeUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#FF0000]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(255,0,0,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+          </svg>
+          YouTube Music
+        </a>
+      )}
+
+      {/* Amazon Music */}
+      {amazonUrl && (
+        <a
+          href={amazonUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#232F3E]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(35,47,62,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M13.5 6.375c-3.09 0-5.625 2.535-5.625 5.625 0 3.09 2.535 5.625 5.625 5.625 3.09 0 5.625-2.535 5.625-5.625 0-3.09-2.535-5.625-5.625-5.625zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+          </svg>
+          Amazon
+        </a>
+      )}
+
+      {/* RSS Feed - styled like other buttons */}
+      {rssUrl && (
+        <a
+          href={rssUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#EE802F]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(238,128,47,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/>
+          </svg>
+          RSS
         </a>
       )}
     </div>
