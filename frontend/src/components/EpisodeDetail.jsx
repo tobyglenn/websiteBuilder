@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react';
 import PodcastSubscribeButtons from './PodcastSubscribeButtons.jsx';
 
-const OPENCLAW_SPOTIFY = 'https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr';
-const OPENCLAW_APPLE   = 'https://podcasts.apple.com/podcast/id1878697245';
+const OPENCLAW_SPOTIFY  = 'https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr';
+const OPENCLAW_APPLE    = 'https://podcasts.apple.com/podcast/id1878697245';
+const OPENCLAW_IHEART   = 'https://iheart.com/podcast/324046562/';
+const OPENCLAW_AMAZON   = 'https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily';
+const OPENCLAW_RSS      = 'https://grayking-creator.github.io/openclaw-podcast/feed.xml';
 
 export default function EpisodeDetail({ episode }) {
   const [activeTab, setActiveTab] = useState('shownotes');
@@ -70,6 +73,9 @@ export default function EpisodeDetail({ episode }) {
               <PodcastSubscribeButtons
                 spotifyUrl={OPENCLAW_SPOTIFY}
                 appleUrl={OPENCLAW_APPLE}
+                iheartUrl={OPENCLAW_IHEART}
+                amazonUrl={OPENCLAW_AMAZON}
+                rssUrl={OPENCLAW_RSS}
               />
             </div>
           </div>
@@ -107,6 +113,23 @@ export default function EpisodeDetail({ episode }) {
         ) : (
           <FullTranscript episode={episode} />
         )}
+      </div>
+
+      {/* Subscribe footer */}
+      <div className="max-w-4xl mx-auto px-4 py-12 mt-4 border-t border-neutral-800">
+        <p className="text-center text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-5">
+          🎙 Never miss an episode — subscribe now
+        </p>
+        <div className="flex justify-center">
+          <PodcastSubscribeButtons
+            spotifyUrl={OPENCLAW_SPOTIFY}
+            appleUrl={OPENCLAW_APPLE}
+            iheartUrl={OPENCLAW_IHEART}
+            amazonUrl={OPENCLAW_AMAZON}
+            rssUrl={OPENCLAW_RSS}
+            className="justify-center"
+          />
+        </div>
       </div>
     </div>
   );
