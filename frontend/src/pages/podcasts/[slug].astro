@@ -61,17 +61,15 @@ export async function getStaticPaths() {
       // no show notes file — graceful fallback
     }
 
-    // Step 2: Fetch transcript (special case for ep0 whose RSS link is the homepage)
-    // Convert GitHub Pages URL to raw.githubusercontent.com for fetching
-    const rawMdUrl = mdUrl && mdUrl.includes('grayking-creator.github.io/openclaw-podcast/')
-      ? mdUrl.replace(
-          'https://grayking-creator.github.io/openclaw-podcast/',
-          'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/'
-        )
-      : mdUrl;
-    const transcriptFetchUrl = episodeNum === 0
-      ? 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/episode_000.md'
-      : rawMdUrl;
+    // Step 2: Fetch transcript — hardcoded filenames per episode number
+    const TRANSCRIPT_FILES: Record<number, string> = {
+      0: 'episode_000.md',
+      1: 'episode_001_full_v2.md',
+      2: 'episode_002.md',
+      3: 'episode_003.md',
+    };
+    const transcriptFile = TRANSCRIPT_FILES[episodeNum] ?? `episode_00${episodeNum}.md`;
+    const transcriptFetchUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/${transcriptFile}`;
 
     try {
       const mdRes = await fetch(transcriptFetchUrl);
@@ -164,7 +162,7 @@ export async function getStaticPaths() {
     };
   }));
 
-  return episodes.filter(e => e.props.episode.number !== 3);
+  return episodes;
 }
 
 const { episode } = Astro.props;
