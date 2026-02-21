@@ -14,16 +14,16 @@ export default function Footer() {
               Helping you train smarter, not harder.
             </p>
             <div className="flex gap-4">
-              <a href="https://youtube.com/@tobyonfitnesstech" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#FF0000] transition-colors">
+              <a href="https://youtube.com/@tobyonfitness" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#FF0000] transition-colors">
                 <Youtube size={20} />
               </a>
-              <a href="https://twitter.com/tobyonfitnesstech" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#1DA1F2] transition-colors">
+              <a href="https://twitter.com/tobyglenn" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#1DA1F2] transition-colors">
                 <Twitter size={20} />
               </a>
-              <a href="https://instagram.com/tobyonfitnesstech" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#E1306C] transition-colors">
+              <a href="https://instagram.com/tobyonfitness" target="_blank" rel="noopener noreferrer" className="text-neutral-400 hover:text-[#E1306C] transition-colors">
                 <Instagram size={20} />
               </a>
-              <a href="mailto:contact@toby.tech" className="text-neutral-400 hover:text-white transition-colors">
+              <a href="mailto:admin@tobyonfitnesstech.com" className="text-neutral-400 hover:text-white transition-colors">
                 <Mail size={20} />
               </a>
             </div>

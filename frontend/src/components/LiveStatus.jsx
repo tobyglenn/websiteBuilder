@@ -27,7 +27,7 @@ export default function LiveStatus() {
               <p className="text-red-200">Streaming: Tech Review Q&A</p>
             </div>
           </div>
-          <a href="https://youtube.com/@tobyonfitnesstech/live" target="_blank" className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
+          <a href="https://youtube.com/@tobyonfitness/live" target="_blank" className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-bold transition-colors">
             Watch Stream
           </a>
         </div>
