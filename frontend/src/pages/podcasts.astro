@@ -141,6 +141,39 @@ try {
       </p>
     </div>
 
+    <!-- Toby on Fitness Tech Tab -->
+    <div class="mb-12">
+      <h2 class="text-2xl font-bold mb-6 text-center">Toby on Fitness Tech</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {fitnessEpisodes.map((episode) => (
+          <a href={`/podcasts/toft-${episode.index}`} class="block bg-neutral-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div class="flex">
+              <div class="flex-shrink-0 w-24 h-24">
+                <img src={episode.coverImage} alt={episode.title} class="w-full h-full object-cover" />
+              </div>
+              <div class="p-4 flex-1">
+                <h3 class="font-bold text-lg mb-1 line-clamp-2">{episode.title}</h3>
+                <div class="flex items-center text-sm text-neutral-400 mb-2">
+                  <span>{episode.pubDate}</span>
+                  <span class="mx-2">•</span>
+                  <span>{episode.duration}</span>
+                </div>
+                <p class="text-neutral-300 text-sm line-clamp-2">{episode.description}</p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="text-center mt-6">
+        <a href="https://anchor.fm/tobyonfitnesstech" target="_blank" class="inline-flex items-center px-4 py-2 bg-neutral-700 text-neutral-200 rounded-lg hover:bg-neutral-600 transition-colors">
+          <span>Subscribe on Anchor</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-2" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.586 4.586a2 2 0 112.828 2.828l-3 3a2 2 0 01-2.828 0 1 1 0 00-1.414 1.414 4 4 0 005.656 0l3-3a4 4 0 00-5.656-5.656l-1.5 1.5a1 1 0 101.414 1.414l1.5-1.5zm-5 5a2 2 0 012.828 0 1 1 0 101.414-1.414 4 4 0 00-5.656 0l-3 3a4 4 0 105.656 5.656l1.5-1.5a1 1 0 10-1.414-1.414l-1.5 1.5a2 2 0 11-2.828-2.828l3-3z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+    </div>
+
     <!-- Show Switcher + Episode List (React island) -->
     <PodcastShowSwitcher
       episodes={episodes}
