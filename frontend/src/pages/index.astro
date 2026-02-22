@@ -2,10 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.jsx';
 import Newsletter from '../components/Newsletter.jsx';
-import { VIDEOS, BLOG_POSTS } from '../data/mock.js';
+import { BLOG_POSTS } from '../data/mock.js';
+import videosData from '../data/videos.json';
 import { Play, ArrowRight, Clock } from 'lucide-react';
 
-const recentVideos = VIDEOS.filter(v => !v.is_live).slice(0, 3);
+const allVideos = videosData.videos || [];
+const recentVideos = allVideos.slice(0, 3);
 const recentPosts = BLOG_POSTS.slice(0, 3);
 ---
 
@@ -33,12 +35,16 @@ const recentPosts = BLOG_POSTS.slice(0, 3);
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{recentVideos.map((video) => (
-					<a href={`/video/${video.id}`} class="group block relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10">
+					<a href={video.is_live ? `https://www.youtube.com/live/${video.id}` : `/video/${video.id}`} target={video.is_live ? '_blank' : '_self'} class="group block relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10">
 						<div class="aspect-video relative overflow-hidden">
 							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
 							<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
 							
-							{video.duration_formatted && (
+							{video.is_live ? (
+								<div class="absolute top-3 left-3 flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+									<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Live
+								</div>
+							) : video.duration_formatted && (
 								<div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded border border-white/10 flex items-center gap-1">
 									<Clock size={10} /> {video.duration_formatted}
 								</div>
@@ -53,8 +59,12 @@ const recentPosts = BLOG_POSTS.slice(0, 3);
 						
 						<div class="p-6">
 							<div class="flex items-center justify-between text-xs text-neutral-500 mb-3 font-medium uppercase tracking-wider">
-								<span>{video.views} views</span>
-								<span>{new Date(video.published_at).toLocaleDateString()}</span>
+								{video.is_live ? (
+									<span class="flex items-center gap-1 text-red-400 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block"></span> LIVE NOW</span>
+								) : (
+									<span>{video.viewCount?.toLocaleString() ?? 0} views</span>
+								)}
+								<span>{new Date(video.publishedAt).toLocaleDateString()}</span>
 							</div>
 							
 							<h3 class="text-lg font-bold text-white mb-3 line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors">
@@ -64,14 +74,6 @@ const recentPosts = BLOG_POSTS.slice(0, 3);
 							<p class="text-neutral-400 text-sm line-clamp-2 mb-4 leading-relaxed">
 								{video.description}
 							</p>
-
-							<div class="flex flex-wrap gap-2">
-								{video.tags.slice(0, 2).map(tag => (
-									<span class="text-[10px] bg-neutral-950 border border-neutral-800 text-neutral-400 px-2 py-1 rounded-full uppercase tracking-wider font-bold">
-										{tag}
-									</span>
-								))}
-							</div>
 						</div>
 					</a>
 				))}
