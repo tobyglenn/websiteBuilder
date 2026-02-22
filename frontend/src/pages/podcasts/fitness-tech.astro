@@ -1,0 +1,181 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PodcastSubscribeButtons from '../../components/PodcastSubscribeButtons.jsx';
+
+const FITNESS_FEED = 'https://anchor.fm/s/108bc95a4/podcast/rss';
+const FITNESS_COVER = 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg';
+
+const FITNESS_SPOTIFY = 'https://open.spotify.com/show/03gk0rvNxpDWJKnNFB4mu2';
+const FITNESS_APPLE = 'https://podcasts.apple.com/podcast/id1836037910';
+const FITNESS_IHEART = 'https://www.iheart.com/podcast/269-toby-on-fitness-tech-291065725/';
+const FITNESS_AMAZON = 'https://music.amazon.com/podcasts/0b8655b3-ecde-4762-9cf8-a78ef72030fd/toby-on-fitness-tech';
+
+interface FitnessEpisode {
+  index: number;
+  title: string;
+  description: string;
+  pubDate: string;
+  audioUrl: string;
+  duration: string;
+  spotifyUrl: string;
+  coverImage: string;
+}
+
+function formatDate(raw: string): string {
+  try {
+    const d = new Date(raw);
+    return d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+  } catch {
+    return raw;
+  }
+}
+
+function extractTag(xml: string, tag: string): string {
+  const re = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
+  const m = xml.match(re);
+  return (m ? (m[1] ?? m[2] ?? '') : '').trim();
+}
+
+function extractAttr(xml: string, tag: string, attr: string): string {
+  const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]*)"`, 'i');
+  const m = xml.match(re);
+  return m ? m[1].trim() : '';
+}
+
+let fitnessEpisodes: FitnessEpisode[] = [];
+let fitnessFetchError = false;
+
+try {
+  const fitnessRes = await fetch(FITNESS_FEED);
+  if (!fitnessRes.ok) throw new Error(`HTTP ${fitnessRes.status}`);
+  const fitnessXml = await fitnessRes.text();
+
+  const fitnessItems = fitnessXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+
+  fitnessItems.forEach((item, idx) => {
+    const title = extractTag(item, 'title');
+    const rawDesc = extractTag(item, 'description');
+    const description = rawDesc
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&amp;/g, '&')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, 300) + (rawDesc.length > 300 ? '…' : '');
+    const pubDateRaw = extractTag(item, 'pubDate');
+    const pubDate = formatDate(pubDateRaw);
+    const audioUrl = extractAttr(item, 'enclosure', 'url');
+    const duration = extractTag(item, 'itunes:duration');
+    const spotifyUrl = extractTag(item, 'link');
+
+    fitnessEpisodes.push({
+      index: idx + 1,
+      title,
+      description,
+      pubDate,
+      audioUrl,
+      duration,
+      spotifyUrl,
+      coverImage: FITNESS_COVER,
+    });
+  });
+} catch (err) {
+  fitnessFetchError = true;
+  console.error('[podcasts/fitness-tech.astro] RSS fetch failed:', err);
+}
+---
+
+<Layout
+  title="Toby on Fitness Tech Podcast | Toby on Fitness Tech"
+  description="Real-world breakdowns of training, nutrition, recovery, and the tech behind better results. No fluff, just what works."
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Hero -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-green-500 to-teal-500 bg-clip-text text-transparent">
+        💪 Toby on Fitness Tech
+      </h1>
+      <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+        Real-world breakdowns of training, nutrition, recovery, and the tech behind
+        better results. No fluff, just what works.
+      </p>
+    </div>
+
+    <!-- Subscribe Buttons -->
+    <div class="mb-10">
+      <PodcastSubscribeButtons
+        spotifyUrl={FITNESS_SPOTIFY}
+        appleUrl={FITNESS_APPLE}
+        iheartUrl={FITNESS_IHEART}
+        amazonUrl={FITNESS_AMAZON}
+        client:load
+      />
+    </div>
+
+    <!-- Episodes -->
+    {fitnessFetchError ? (
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <p class="text-neutral-400 text-sm">⚠️ Episodes temporarily unavailable. Please check back soon.</p>
+      </div>
+    ) : fitnessEpisodes.length === 0 ? (
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <p class="text-neutral-400 text-sm">No episodes found yet.</p>
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {fitnessEpisodes.map((ep) => (
+          <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:shadow-xl hover:shadow-green-400/5 hover:border-neutral-700 transition-all">
+            <div class="flex gap-4 mb-4">
+              <img
+                src={ep.coverImage}
+                alt="Toby on Fitness Tech"
+                class="w-20 h-20 rounded-xl object-cover shrink-0 border border-neutral-700"
+              />
+              <div class="flex flex-col justify-center min-w-0">
+                <span class="bg-green-400/10 text-green-400 text-xs font-bold px-2 py-0.5 rounded-full self-start mb-2">
+                  💪 Fitness Tech
+                </span>
+                <h2 class="text-xl font-bold text-white leading-snug">{ep.title}</h2>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed mb-3">{ep.description}</p>
+            <p class="text-neutral-500 text-xs mb-4 flex items-center gap-2 flex-wrap">
+              <span>{ep.pubDate}</span>
+              {ep.duration && (
+                <>
+                  <span>·</span>
+                  <span>⏱ {ep.duration}</span>
+                </>
+              )}
+            </p>
+            <div class="mt-2 grid grid-cols-2 gap-2">
+              <a
+                href={ep.audioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="col-span-2 flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-500 hover:to-teal-500 rounded-xl font-semibold text-white text-sm transition-all duration-200 hover:scale-[1.01] mb-1"
+              >
+                🎧 Listen
+              </a>
+              <a
+                href={`/podcasts/toft-${ep.index}/`}
+                class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+              >
+                📄 Show Notes
+              </a>
+              <a
+                href={`/podcasts/toft-${ep.index}/?tab=transcript`}
+                class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+              >
+                📝 Transcript
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>

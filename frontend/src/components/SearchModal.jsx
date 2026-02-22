@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Search, X } from 'lucide-react';
 
-export default function SearchModal() {
+export default function SearchModal({ close }) {
   const [isOpen, setIsOpen] = useState(false);
   const [initialized, setInitialized] = useState(false);
 
   const openModal = useCallback(() => setIsOpen(true), []);
-  const closeModal = useCallback(() => setIsOpen(false), []);
+  const closeModal = useCallback(() => {
+    setIsOpen(false);
+    if (close) close();
+  }, [close]);
 
   // Keyboard shortcut: Cmd/Ctrl+K or /
   useEffect(() => {
