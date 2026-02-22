@@ -45,220 +45,178 @@ export default function Header() {
   ];
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800' : 'bg-transparent'
-      }`}
-    >
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <a href="/" className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
-          TobyOnFitnessTech
-        </a>
+    <>
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled ? 'bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800' : 'bg-transparent'
+        }`}
+      >
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <a href="/" className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+            TobyOnFitnessTech
+          </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-6">
-          {navLinks.map((link) => {
-            if (link.hasDropdown) {
-              // Blog & Articles dropdown
-              return (
-                <div key={link.name} className="relative group">
-                  <a
-                    href={link.href}
-                    className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-                      pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/')
-                        ? 'text-white border-b border-blue-500 pb-0.5'
-                        : 'text-neutral-300 hover:text-white'
-                    }`}
-                  >
-                    {link.name}
-                    <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />
-                  </a>
-                  {/* Dropdown panel */}
-                  <div className="absolute top-full pt-3 left-1/2 -translate-x-1/2 w-80 opacity-0 invisible
-                                  group-hover:opacity-100 group-hover:visible
-                                  transition-all duration-200 z-50">
-                    <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900/95 backdrop-blur-md border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
-                      {subNavItems.map((subLink) => (
-                        <a
-                          key={subLink.href}
-                          href={subLink.href}
-                          className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
-                            pathname === subLink.href || (pathname.startsWith(subLink.href) && subLink.href !== '/')
-                              ? 'bg-blue-500/20 text-blue-400'
-                              : 'text-neutral-400 hover:bg-neutral-800 hover:text-white'
-                          }`}
-                        >
-                          <span>{subLink.icon}</span>
-                          <span>{subLink.name}</span>
-                        </a>
-                      ))}
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => {
+              if (link.hasDropdown) {
+                // Blog & Articles dropdown
+                return (
+                  <div key={link.name} className="relative group">
+                    <a
+                      href={link.href}
+                      className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+                        pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/')
+                          ? 'text-white border-b border-blue-500 pb-0.5'
+                          : 'text-neutral-300 hover:text-white'
+                      }`}
+                    >
+                      {link.name}
+                      <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />
+                    </a>
+                    {/* Dropdown panel */}
+                    <div className="absolute top-full pt-3 left-1/2 -translate-x-1/2 w-80 opacity-0 invisible
+                                    group-hover:opacity-100 group-hover:visible
+                                    transition-all duration-200 z-50">
+                      <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900/95 backdrop-blur-md border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
+                        {subNavItems.map((subLink) => (
+                          <a
+                            key={subLink.href}
+                            href={subLink.href}
+                            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
+                              pathname === subLink.href || (pathname.startsWith(subLink.href) && subLink.href !== '/')
+                                ? 'bg-blue-500/20 text-blue-400'
+                                : 'text-neutral-400 hover:bg-neutral-800 hover:text-white'
+                            }`}
+                          >
+                            <span>{subLink.icon}</span>
+                            <span>{subLink.name}</span>
+                          </a>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                </div>
+                );
+              }
+              // Regular link
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  className={`text-sm font-medium transition-colors ${
+                    pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
+                      ? 'text-white border-b border-blue-500 pb-0.5'
+                      : 'text-neutral-300 hover:text-white'
+                  }`}
+                >
+                  {link.name}
+                </a>
               );
-            }
-            // Regular link
-            return (
-              <a
-                key={link.name}
-                href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href))
-                    ? 'text-white border-b border-blue-500 pb-0.5'
-                    : 'text-neutral-300 hover:text-white'
-                }`}
-              >
-                {link.name}
-              </a>
-            );
-          })}
-        </nav>
+            })}
+          </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-4">
-          <SearchModal />
+          {/* Desktop Actions */}
+          <div className="hidden md:flex items-center gap-4">
+            <SearchModal />
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="md:hidden text-neutral-300 hover:text-white"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-neutral-300 hover:text-white"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
+      </header>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-50 bg-neutral-950/95 backdrop-blur-md">
-          <div className="flex flex-col h-full p-6">
-            {/* Close button */}
-            <div className="flex justify-between items-center mb-6">
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        <div className="md:hidden fixed inset-0 z-[100] bg-neutral-950 overflow-y-auto">
+          <div className="flex flex-col min-h-full p-6">
+            {/* Header row */}
+            <div className="flex justify-between items-center mb-8">
+              <a href="/" className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
                 TobyOnFitnessTech
-              </span>
-              <button onClick={() => setIsMenuOpen(false)} className="text-neutral-300 hover:text-white">
+              </a>
+              <button onClick={() => setIsMenuOpen(false)} className="text-neutral-300 hover:text-white p-2">
                 <X size={24} />
               </button>
             </div>
 
-            {/* Scrollable nav */}
-            <nav className="flex flex-col space-y-4 overflow-y-auto flex-grow">
-              {/* Blog Dropdown */}
-              <div className="border border-neutral-800 rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setIsBlogDropdownOpen(!isBlogDropdownOpen)}
-                  className="w-full flex justify-between items-center p-4 hover:bg-neutral-900 transition-colors">
-                  <span className="flex items-center gap-2 text-neutral-300">
-                    📝 Blog & Articles
-                  </span>
-                  <ChevronDown
-                    size={20}
-                    className={`transition-transform ${isBlogDropdownOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {isBlogDropdownOpen && (
-                  <div className="px-4 pb-4 space-y-2">
-                    {subNavItems.map((subLink) => (
-                      <a
-                        key={subLink.href}
-                        href={subLink.href}
-                        className={`block py-2 text-neutral-400 hover:text-white transition-colors ${
-                          pathname === subLink.href || pathname.startsWith(subLink.href)
-                            ? 'text-white'
-                            : ''
-                        }`}
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <span className="mr-2">{subLink.icon}</span>
-                        {subLink.name}
-                      </a>
-                    ))}
-                  </div>
-                )}
-              </div>
-
-              {/* Podcast Dropdown */}
-              <div className="border border-neutral-800 rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setIsPodcastDropdownOpen(!isPodcastDropdownOpen)}
-                  className="w-full flex justify-between items-center p-4 hover:bg-neutral-900 transition-colors">
-                  <span className="flex items-center gap-2 text-neutral-300">
-                    🎙️ Podcasts
-                  </span>
-                  <ChevronDown
-                    size={20}
-                    className={`transition-transform ${isPodcastDropdownOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-                {isPodcastDropdownOpen && (
-                  <div className="px-4 pb-4 space-y-2">
-                    <a
-                      href="/podcasts/openclaw"
-                      className={`block py-2 text-neutral-400 hover:text-white transition-colors ${
-                        pathname === '/podcasts/openclaw'
-                          ? 'text-white'
-                          : ''
-                      }`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      🎙️ OpenClaw Daily
-                    </a>
-                    <a
-                      href="/podcasts/fitness-tech"
-                      className={`block py-2 text-neutral-400 hover:text-white transition-colors ${
-                        pathname === '/podcasts/fitness-tech'
-                          ? 'text-white'
-                          : ''
-                      }`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      💪 Fitness Tech Podcast
-                    </a>
-                  </div>
-                )}
-              </div>
-
-              {/* Direct Links */}
-              <a
-                href="/"
-                className="block py-2 text-lg font-medium transition-colors text-neutral-300 hover:text-white"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Home
-              </a>
-              <a
-                href="/videos"
-                className={`block py-2 text-lg font-medium transition-colors ${
-                  pathname === '/videos'
-                    ? 'text-white'
-                    : 'text-neutral-300 hover:text-white'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Videos
-              </a>
-              <a
-                href="/about"
-                className={`block py-2 text-lg font-medium transition-colors ${
-                  pathname === '/about'
-                    ? 'text-white'
-                    : 'text-neutral-300 hover:text-white'
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                About
-              </a>
+            {/* Direct links first */}
+            <nav className="flex flex-col space-y-1 mb-6">
+              {[
+                { name: 'Home', href: '/' },
+                { name: 'Videos', href: '/videos' },
+                { name: 'About', href: '/about' },
+              ].map((link) => (
+                <a
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="block px-4 py-3 rounded-xl text-lg font-medium text-neutral-200 hover:bg-neutral-800 hover:text-white transition-colors"
+                >
+                  {link.name}
+                </a>
+              ))}
             </nav>
 
-            {/* Search Modal */}
-            <div className="mt-4">
+            {/* Blog accordion */}
+            <div className="mb-3 border border-neutral-800 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setIsBlogDropdownOpen(!isBlogDropdownOpen)}
+                className="w-full flex justify-between items-center px-4 py-3 text-neutral-200 hover:bg-neutral-800 transition-colors"
+              >
+                <span className="flex items-center gap-2 font-medium">📝 Blog & Articles</span>
+                <ChevronDown size={18} className={`transition-transform duration-200 ${isBlogDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isBlogDropdownOpen && (
+                <div className="border-t border-neutral-800 px-4 py-3 grid grid-cols-2 gap-2">
+                  {subNavItems.map((sub) => (
+                    <a
+                      key={sub.href}
+                      href={sub.href}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors"
+                    >
+                      <span>{sub.icon}</span>
+                      <span>{sub.name}</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* Podcasts accordion */}
+            <div className="border border-neutral-800 rounded-xl overflow-hidden">
+              <button
+                onClick={() => setIsPodcastDropdownOpen(!isPodcastDropdownOpen)}
+                className="w-full flex justify-between items-center px-4 py-3 text-neutral-200 hover:bg-neutral-800 transition-colors"
+              >
+                <span className="flex items-center gap-2 font-medium">🎙️ Podcasts</span>
+                <ChevronDown size={18} className={`transition-transform duration-200 ${isPodcastDropdownOpen ? 'rotate-180' : ''}`} />
+              </button>
+              {isPodcastDropdownOpen && (
+                <div className="border-t border-neutral-800 px-4 py-3 space-y-2">
+                  <a href="/podcasts/openclaw" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                    🎙️ OpenClaw Daily
+                  </a>
+                  <a href="/podcasts/fitness-tech" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                    💪 Fitness Tech Podcast
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {/* Search at bottom */}
+            <div className="mt-auto pt-6">
               <SearchModal close={() => setIsMenuOpen(false)} />
             </div>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
