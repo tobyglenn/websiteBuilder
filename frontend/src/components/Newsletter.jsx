@@ -1,14 +1,29 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 
 export default function Newsletter() {
-  useEffect(() => {
-    if (document.querySelector('script[data-uid="cbadc25c13"]')) return;
-    const script = document.createElement('script');
-    script.async = true;
-    script.setAttribute('data-uid', 'cbadc25c13');
-    script.src = 'https://tobyonfitnesstech.kit.com/cbadc25c13/index.js';
-    document.head.appendChild(script);
-  }, []);
+  const [email, setEmail] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch('https://app.kit.com/forms/cbadc25c13/subscriptions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email_address: email
+        })
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+    }
+  };
 
   return (
     <section className="bg-gradient-to-br from-neutral-900 to-neutral-950 border-t border-neutral-800 py-24 relative overflow-hidden">
@@ -21,7 +36,28 @@ export default function Newsletter() {
           Get weekly breakdowns of the latest fitness tech, leaked specs, and exclusive discounts delivered straight to your inbox. No spam, just data.
         </p>
 
-        <div data-uid="cbadc25c13" />
+        {submitted ? (
+          <p className="text-green-400 text-lg font-medium mb-6">
+            ✅ You're subscribed! Check your inbox.
+          </p>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 mb-6" action="https://app.kit.com/forms/cbadc25c13/subscriptions" method="POST">
+            <input
+              type="email"
+              placeholder="Your email address"
+              className="bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white w-full"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-400 text-white font-semibold px-6 py-3 rounded-xl transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
+        )}
 
         <p className="mt-6 text-xs text-neutral-600">
           By subscribing, you agree to our Privacy Policy. You can unsubscribe at any time.
