@@ -18,12 +18,13 @@ const SORT_OPTIONS = [
   { id: 'longest', name: 'Longest First' },
 ];
 
-// Determine if a video is a short based on duration (< 5 minutes)
+// Determine if a video is a short based on duration (< 3 minutes)
 function isShortVideo(video) {
   if (video.is_live) return false; // live streams are never shorts
-  const fmt = video.duration_formatted;
-  if (!fmt || fmt === '0:00') return false;
-  const parts = fmt.split(':').map(Number);
+  const dur = video.duration;
+  // Treat null, undefined, "LIVE" as not a short
+  if (!dur || dur === 'LIVE') return false;
+  const parts = dur.split(':').map(Number);
   let totalSeconds;
   if (parts.length === 2) {
     // M:SS
@@ -34,7 +35,7 @@ function isShortVideo(video) {
   } else {
     return false;
   }
-  return totalSeconds < 300; // under 5 minutes
+  return totalSeconds < 180; // under 3 minutes
 }
 
 function categorizeVideo(title, description = "") {
