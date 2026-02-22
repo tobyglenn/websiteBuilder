@@ -7,7 +7,7 @@ import videosData from '../data/videos.json';
 import { Play, ArrowRight, Clock } from 'lucide-react';
 
 const allVideos = videosData.videos || [];
-const recentVideos = allVideos.slice(0, 3);
+const recentVideos = allVideos.filter(v => !v.is_live).slice(0, 3);
 const recentPosts = BLOG_POSTS.slice(0, 3);
 ---
 
