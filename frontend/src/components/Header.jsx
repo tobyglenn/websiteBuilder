@@ -34,15 +34,16 @@ export default function Header() {
 
   // Blog dropdown items with icons
   const subNavItems = [
+    { name: 'Start Here', href: '/start-here', icon: '🚀' },
+    { name: 'All Articles', href: '/blog', icon: '📰' },
     { name: 'Transformation', href: '/transformation', icon: '🏆' },
     { name: 'Running', href: '/running', icon: '⏱' },
     { name: 'Speediance', href: '/speediance', icon: '💪' },
     { name: 'Training', href: '/training', icon: '🏋️' },
     { name: 'Sleep', href: '/sleep', icon: '😴' },
     { name: 'BJJ', href: '/bjj', icon: '🥋' },
-    { name: 'Day in a Week', href: '/day-in-a-week', icon: '📅' },
+    { name: 'Day in a Week', href: '/day', icon: '📅' },
     { name: 'Gear', href: '/gear', icon: '🛠' },
-    { name: 'Start Here', href: '/start-here', icon: '🚀' },
   ];
 
   return (
