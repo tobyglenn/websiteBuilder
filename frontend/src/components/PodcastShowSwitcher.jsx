@@ -103,20 +103,19 @@ function FitnessEpisodeCard({ ep }) {
         >
           🎧 Listen
         </a>
-        {/* Show Notes */}
-        <div className="mt-3 bg-neutral-800/50 rounded-xl p-4 border border-neutral-700/50">
-          <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">📄 Show Notes</p>
-          <div className="text-neutral-300 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: ep.fullDescription || ep.description }} />
-        </div>
-        {/* Transcript */}
-        <div className="mt-2 bg-neutral-800/30 rounded-xl p-4 border border-neutral-700/30">
-          <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-1">📝 Transcript</p>
-          <p className="text-neutral-500 text-sm italic">Transcript not available for this episode.</p>
-        </div>
-        {/* Subscribe links */}
-        <div className="flex gap-2 mt-3">
-          <a href={ep.spotifyUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-neutral-500 hover:text-white border border-neutral-800 hover:border-neutral-600 transition-all">🎵 Spotify</a>
-          <a href="https://podcasts.apple.com/podcast/id1836037910" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-neutral-500 hover:text-white border border-neutral-800 hover:border-neutral-600 transition-all">🍎 Apple</a>
+        <div className="grid grid-cols-2 gap-2">
+          <a
+            href={`/podcasts/toft-${ep.index}/`}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+          >
+            📄 Show Notes
+          </a>
+          <a
+            href={`/podcasts/toft-${ep.index}/?tab=transcript`}
+            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+          >
+            📝 Transcript
+          </a>
         </div>
       </div>
     </article>

@@ -162,14 +162,72 @@ export async function getStaticPaths() {
     };
   }));
 
-  return episodes;
+  // TOFT episodes from Anchor RSS
+  const toftEpisodes: any[] = [];
+  try {
+    const toftRes = await fetch('https://anchor.fm/s/108bc95a4/podcast/rss');
+    const toftXml = await toftRes.text();
+    const toftItems = toftXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+    toftItems.forEach((item, idx) => {
+      const index = idx + 1;
+      const slug = `toft-${index}`;
+      const title = getTag(item, 'title');
+      const rawDesc = getTag(item, 'description');
+      const showNotesHtml = rawDesc
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+      const description = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300);
+      const pubDateRaw = getTag(item, 'pubDate');
+      const dateObj = new Date(pubDateRaw);
+      const date = isNaN(dateObj.getTime()) ? pubDateRaw : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      const audioUrl = (() => { const re = /<enclosure[^>]*\surl="([^"]+)"/i; const m = item.match(re); return m ? m[1] : ''; })();
+      const duration = getTag(item, 'itunes:duration');
+      toftEpisodes.push({
+        params: { slug },
+        props: {
+          episode: {
+            slug, isToft: true, index, title, description, date, duration, audioUrl,
+            coverImage: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg',
+            showNotesHtml,
+            transcriptHtml: '<p class="text-neutral-500 italic">Transcript not available for this episode.</p>',
+          }
+        }
+      });
+    });
+  } catch (e) { /* Anchor RSS unavailable */ }
+
+  return [...episodes, ...toftEpisodes];
 }
 
 const { episode } = Astro.props;
 ---
 
-<Layout title={`Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} description={episode.description}>
-  <EpisodeDetail episode={episode} client:load />
+<Layout title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} description={episode.description}>
+  {episode.isToft ? (
+    <div class="max-w-3xl mx-auto px-4 py-12">
+      <a href="/podcasts/" class="text-blue-400 text-sm hover:underline mb-6 inline-block">← Back to Podcasts</a>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <div class="flex gap-4 mb-6">
+          <img src={episode.coverImage} alt="Toby on Fitness Tech" class="w-24 h-24 rounded-xl object-cover border border-neutral-700 shrink-0" />
+          <div>
+            <span class="bg-green-400/10 text-green-400 text-xs font-bold px-2 py-0.5 rounded-full inline-block mb-2">💪 Fitness Tech</span>
+            <h1 class="text-2xl font-bold text-white">{episode.title}</h1>
+            <p class="text-neutral-500 text-sm mt-1">{episode.date}{episode.duration ? ` · ⏱ ${episode.duration}` : ''}</p>
+          </div>
+        </div>
+        <audio controls class="w-full mb-8 rounded-xl" src={episode.audioUrl}></audio>
+        <div class="mb-8">
+          <h2 class="text-lg font-bold text-white mb-3">📄 Show Notes</h2>
+          <div class="text-neutral-300 text-sm leading-relaxed prose prose-invert max-w-none" set:html={episode.showNotesHtml} />
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-white mb-3">📝 Transcript</h2>
+          <div class="text-neutral-400 text-sm" set:html={episode.transcriptHtml} />
+        </div>
+      </div>
+    </div>
+  ) : (
+    <EpisodeDetail episode={episode} client:load />
+  )}
   <StickySubscribeBar client:load />
 </Layout>
 
