@@ -153,13 +153,13 @@ export default function VideoGrid({ limit, showFilters = true }) {
               <button
                 onClick={() => setShowShorts(s => !s)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  showShorts
+                  !showShorts
                     ? 'bg-red-600 text-white'
                     : 'bg-neutral-800 text-neutral-400 hover:text-white'
                 }`}
                 title={showShorts ? 'Hide Shorts' : 'Show Shorts'}
               >
-                {showShorts ? <EyeOff size={14} /> : <Eye size={14} />}
+                {showShorts ? <Eye size={14} /> : <EyeOff size={14} />}
                 <span>Shorts</span>
               </button>
 
