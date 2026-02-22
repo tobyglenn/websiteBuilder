@@ -5,21 +5,21 @@ import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
 
 interface Props {
-	title: string;
-	description?: string;
-	image?: string;
-	ogType?: string;
-	canonicalUrl?: string;
-	jsonLd?: object | object[];
+  title: string;
+  description?: string;
+  image?: string;
+  ogType?: string;
+  canonicalUrl?: string;
+  jsonLd?: object | object[];
 }
 
 const { 
-	title, 
-	description = "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.", 
-	image = "/og-default.jpg",
-	ogType = "website",
-	canonicalUrl,
-	jsonLd,
+  title, 
+  description = "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.",
+  image = "/og-default.jpg",
+  ogType = "website",
+  canonicalUrl,
+  jsonLd,
 } = Astro.props;
 
 const siteUrl = "https://tobyonfitnesstech.com";
@@ -28,38 +28,35 @@ const resolvedImage = image.startsWith('http') ? image : (siteUrl + image);
 
 // Global sitewide schemas (Person + WebSite)
 const personSchema = {
-	"@context": "https://schema.org",
-	"@type": "Person",
-	"@id": `${siteUrl}/#toby`,
-	"name": "Toby Glenn Peters",
-	"alternateName": "TobyOnFitnessTech",
-	"description": "Independent fitness technology reviewer. Former 242 lb, now 188 lb. Testing Speediance, Tonal, Whoop, Garmin & more with real data.",
-	"url": siteUrl,
-	"image": `${siteUrl}/og-default.jpg`,
-	"sameAs": [
-		"https://www.youtube.com/@tobyonfitness",
-		"https://twitter.com/tobyglenn",
-		"https://www.instagram.com/tobyonfitness"
-	],
-	"knowsAbout": ["Fitness Technology", "Strength Training", "Brazilian Jiu-Jitsu", "Wearables", "Home Gym Equipment", "Speediance", "Tonal"]
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": `${siteUrl}/#toby`,
+  "name": "Toby Glenn Peters",
+  "alternateName": "TobyOnFitnessTech",
+  "description": "Independent fitness technology reviewer. Former 242 lb, now 188 lb. Testing Speediance, Tonal, Whoop, Garmin & more with real data.",
+  "url": siteUrl,
+  "image": `${siteUrl}/og-default.jpg`,
+  "sameAs": [
+    "https://www.youtube.com/@TobyOnFitnessTech",
+    "https://twitter.com/tobyonft",
+    "https://www.instagram.com/tobyonfitnesstech"
+  ],
+  "knowsAbout": ["Fitness Technology", "Strength Training", "Brazilian Jiu-Jitsu", "Wearables", "Home Gym Equipment", "Speediance", "Tonal"]
 };
 
 const websiteSchema = {
-	"@context": "https://schema.org",
-	"@type": "WebSite",
-	"@id": `${siteUrl}/#website`,
-	"url": siteUrl,
-	"name": "Toby on Fitness Tech",
-	"description": "Independent fitness technology reviews, analysis, and deep dives.",
-	"publisher": { "@id": `${siteUrl}/#toby` },
-	"potentialAction": {
-		"@type": "SearchAction",
-		"target": {
-			"@type": "EntryPoint",
-			"urlTemplate": `${siteUrl}/search?q={search_term_string}`
-		},
-		"query-input": "required name=search_term_string"
-	}
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${siteUrl}/#website`,
+  "url": siteUrl,
+  "name": "Toby on Fitness Tech",
+  "description": "Independent fitness technology reviews, analysis, and deep dives.",
+  "publisher": { "@id": `${siteUrl}/#toby` },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": { "@type": "EntryPoint", "urlTemplate": `${siteUrl}/search?q={search_term_string}` },
+    "query-input": "required name=search_term_string"
+  }
 };
 
 // Merge global schemas + any page-specific schema
@@ -68,45 +65,63 @@ const allSchemas: object[] = [personSchema, websiteSchema, ...(jsonLd ? (Array.i
 
 <!doctype html>
 <html lang="en" class="dark scroll-smooth">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		<meta name="generator" content={Astro.generator} />
-		<SEO
-			title={title}
-			description={description}
-			canonical={resolvedUrl}
-			openGraph={{
-				basic: {
-					title: title,
-					type: ogType,
-					image: resolvedImage,
-					url: resolvedUrl,
-				},
-				optional: { siteName: "Toby on Fitness Tech" }
-			}}
-			twitter={{ card: "summary_large_image" }}
-			extend={{
-				meta: [
-					{ name: "twitter:title", content: title },
-					{ name: "twitter:description", content: description },
-					{ name: "twitter:image", content: resolvedImage },
-				]
-			}}
-		/>
-		<script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
-	</head>
-	<body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
-		<div data-pagefind-ignore>
-			<Header client:load />
-		</div>
-		<main class="flex-grow pt-16" data-pagefind-body>
-			<slot />
-		</main>
-		<div data-pagefind-ignore>
-			<Footer />
-		</div>
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <SEO 
+      title={title}
+      description={description}
+      canonical={resolvedUrl}
+      openGraph={{
+        basic: {
+          title: title,
+          type: ogType,
+          image: resolvedImage,
+          url: resolvedUrl,
+        },
+        optional: {
+          siteName: "Toby on Fitness Tech"
+        }
+      }}
+      twitter={{
+        card: "summary_large_image"
+      }}
+      extend={{
+        meta: [
+          { name: "twitter:title", content: title },
+          { name: "twitter:description", content: description },
+          { name: "twitter:image", content: resolvedImage },
+          { name: "author", content: "Toby Glenn Peters" },
+          { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+          { name: "ai-content-type", content: "educational" },
+          { name: "ai-purpose", content: "product reviews, fitness analysis, tech comparison" },
+          { name: "ai-target-audience", content: "fitness enthusiasts, tech adopters, home gym owners" },
+          { name: "googlebot", content: "index, follow" },
+          { name: "bingbot", content: "index, follow" },
+          { name: "keywords", content: "fitness tech, Speediance, Tonal, Whoop, Garmin, BJJ, home gym, smart fitness equipment, wearables" },
+        ],
+        link: [
+          { rel: "alternate", type: "application/rss+xml", title: "Blog Feed", href: `${siteUrl}/blog/rss.xml` },
+          { rel: "alternate", type: "application/rss+xml", title: "Podcast Feed", href: `${siteUrl}/podcasts/feed.xml` },
+        ]
+      }}
+    />
+    
+    <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
+  </head>
+  <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
+    <div data-pagefind-ignore>
+      <Header client:load />
+    </div>
+    <main class="flex-grow pt-16" data-pagefind-body>
+      <slot />
+    </main>
+    <div data-pagefind-ignore>
+      <Footer />
+    </div>
+  </body>
 </html>

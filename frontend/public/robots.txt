@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tobyonfitnesstech.com/sitemap-index.xml
+
+# Optimize crawl budget
+crawl-delay: 1
+
+# Disallow admin/tracking URLs
+Disallow: /404
+Disallow: /500
+Disallow: /_astro
+Disallow: /_internal
