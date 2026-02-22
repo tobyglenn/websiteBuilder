@@ -103,23 +103,20 @@ function FitnessEpisodeCard({ ep }) {
         >
           🎧 Listen
         </a>
-        <div className="grid grid-cols-2 gap-2">
-          <a
-            href={ep.spotifyUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
-          >
-            🎵 Spotify
-          </a>
-          <a
-            href="https://podcasts.apple.com/podcast/id1836037910"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
-          >
-            🍎 Apple
-          </a>
+        {/* Show Notes */}
+        <div className="mt-3 bg-neutral-800/50 rounded-xl p-4 border border-neutral-700/50">
+          <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-2">📄 Show Notes</p>
+          <div className="text-neutral-300 text-sm leading-relaxed" dangerouslySetInnerHTML={{ __html: ep.fullDescription || ep.description }} />
+        </div>
+        {/* Transcript */}
+        <div className="mt-2 bg-neutral-800/30 rounded-xl p-4 border border-neutral-700/30">
+          <p className="text-xs font-semibold text-neutral-400 uppercase tracking-wide mb-1">📝 Transcript</p>
+          <p className="text-neutral-500 text-sm italic">Transcript not available for this episode.</p>
+        </div>
+        {/* Subscribe links */}
+        <div className="flex gap-2 mt-3">
+          <a href={ep.spotifyUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-neutral-500 hover:text-white border border-neutral-800 hover:border-neutral-600 transition-all">🎵 Spotify</a>
+          <a href="https://podcasts.apple.com/podcast/id1836037910" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg text-xs text-neutral-500 hover:text-white border border-neutral-800 hover:border-neutral-600 transition-all">🍎 Apple</a>
         </div>
       </div>
     </article>
@@ -145,12 +142,12 @@ export default function PodcastShowSwitcher({
   return (
     <div>
       {/* Show Switcher tabs */}
-      <div className="flex gap-2 mb-6 flex-wrap">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-6 w-full">
         {tabs.map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveShow(tab.id)}
-            className={`px-5 py-2 rounded-full text-sm font-semibold border transition-all ${
+            className={`w-full px-5 py-2 rounded-full text-sm font-semibold border transition-all ${
               activeShow === tab.id
                 ? 'bg-blue-400 text-neutral-950 border-blue-400'
                 : 'bg-transparent text-neutral-400 border-neutral-700 hover:border-neutral-500'
@@ -180,6 +177,12 @@ export default function PodcastShowSwitcher({
       {/* Content area */}
       {activeShow === 'openclaw' ? (
         <div>
+          <div className="text-center mb-8">
+            <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
+              AI-hosted daily episodes covering fitness tech, local AI, hardware, security, and the OpenClaw ecosystem — fresh takes every day.
+            </p>
+          </div>
+
           <div className="mb-8">
             <PodcastSubscribeButtons
               spotifyUrl={OPENCLAW_SPOTIFY}
@@ -215,6 +218,12 @@ export default function PodcastShowSwitcher({
         </div>
       ) : (
         <div>
+          <div className="text-center mb-8">
+            <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
+              Real-world breakdowns of training, nutrition, recovery, and the tech behind better results. No fluff, just what works.
+            </p>
+          </div>
+
           <div className="mb-8">
             <PodcastSubscribeButtons
               spotifyUrl={FITNESS_SPOTIFY}

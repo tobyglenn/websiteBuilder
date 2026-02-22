@@ -90,6 +90,7 @@ interface FitnessEpisode {
   index: number;
   title: string;
   description: string;
+  fullDescription: string;
   pubDate: string;
   audioUrl: string;
   duration: string;
@@ -121,7 +122,8 @@ try {
     const duration = extractTag(item, 'itunes:duration');
     const spotifyUrl = extractTag(item, 'link');
     
-    fitnessEpisodes.push({ index: idx + 1, title, description, pubDate, audioUrl, duration, spotifyUrl, coverImage: FITNESS_COVER });
+    const fullDescription = rawDesc.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+    fitnessEpisodes.push({ index: idx + 1, title, description, fullDescription, pubDate, audioUrl, duration, spotifyUrl, coverImage: FITNESS_COVER });
   });
 } catch (err) {
   fitnessFetchError = true;
@@ -134,11 +136,8 @@ try {
     <!-- Hero -->
     <div class="text-center mb-12">
       <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-        🎙️ OpenClaw Podcasts
+        🎙️ Podcasts
       </h1>
-      <p class="text-neutral-400 text-lg mb-6 max-w-2xl mx-auto">
-        AI-hosted daily episodes covering fitness tech, local AI, hardware, security, and the OpenClaw ecosystem — fresh takes every day.
-      </p>
     </div>
 
     <!-- Show Switcher + Episode List (React island) -->
