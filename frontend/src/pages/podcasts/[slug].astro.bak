@@ -1,0 +1,293 @@
+---
+import { marked } from 'marked';
+import Layout from '../../layouts/Layout.astro';
+import EpisodeDetail from '../../components/EpisodeDetail.jsx';
+import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
+
+export async function getStaticPaths() {
+  // Load transcript files — must be inside getStaticPaths for Astro's isolated scope
+  const transcriptFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true });
+
+  const TOFT_VIDEOS: Record<number, string> = {
+    1: 'ZbEstduW90I', 2: '-BuRtR6WNOc', 3: 'JxRdaMTOOHo', 4: 'cN4YyRwoxXc',
+    5: 'dG8GPamRHmA', 6: 'J3W59IR2Las', 7: 'M07Aq93TCkM', 8: 'Ndso4yB1GbM',
+    9: 'pMdn1a5EA1s', 10: 'qyXBR0vhxxw', 11: 'NKY4uXpFTns', 12: 'udS5Iu6SXWM',
+    13: 'yeYeMNBC2Lc', 14: 'iOYPjqDTdas',
+  };
+  const TOFT_TRANSCRIPTS: Record<number, string> = {
+    1: '2026-02-04_Speediance_2S_V31_Review_New_Safety_Start_Firmware_Changes_RealWorld_Lifting.txt',
+    2: '2026-01-27_Speediance_V3_Software_Is_Here_But_Is_It_Good.txt',
+    3: '2026-01-14_Build_Your_Best_Training_Split_Arnold_Blueprint_PPL_Full_Body_or_Bro_Split.txt',
+    4: '2025-11-21_Speediance_2S_1RM_EXPOSED_How_to_Actually_Unlock_260lbs_on_the_2S.txt',
+    5: '2025-11-13_Is_Mike_Israetel_Really_a_Legit_BJJ_Black_Belt_My_Experience_Why_the_Internet_Is.txt',
+    6: '2025-11-07_Speediance_2S_vs_Original_Real_User_Review_Tips_Upgrades_After_600000_lbs_Lifted.txt',
+    7: '2025-10-07_Extreme_Weight_Loss_The_Honest_Truth_About_My_Transformation_Prescription_Meds_a.txt',
+    8: '2025-09-23_Family_Fitness_Fun_Speediance_Workout_With_Dad_Daughter_Safe_Lifting_for_Kids.txt',
+    9: '2025-09-20_Speediance_Spotter_Modes_Explained_How_to_Safely_Do_Drop_Sets_Avoid_Injury.txt',
+    10: '2025-09-13_Speediance_2s_Modes_Explained.txt',
+    11: '2025-09-06_Speediance_2s_Max_Lat_Pulldown_260lbs_-Does_it_break_the_machine.txt',
+    12: '2025-09-01_Speediance_first_thing_to_do_Immediately_change_this_setting.txt',
+    13: '2025-08-28_Speediance_2s_first_look_and_demo.txt',
+    14: '2025-08-26_Is_Tonal_a_scam.txt',
+  };
+  const getToftTranscript = (index: number): string => {
+    const filename = TOFT_TRANSCRIPTS[index];
+    if (!filename) return '';
+    const key = `../../data/transcripts/${filename}`;
+    return (transcriptFiles[key] as string) ?? '';
+  };
+  // 1. Fetch RSS
+  const rssRes = await fetch('https://grayking-creator.github.io/openclaw-podcast/feed.xml');
+  const rssText = await rssRes.text();
+
+  // 2. Parse episodes (same helpers as podcasts.astro — inlined here)
+  const getTag = (xml: string, tag: string): string => {
+    // Handle CDATA
+    const cdataRe = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`, 'i');
+    const cdataM = xml.match(cdataRe);
+    if (cdataM) return cdataM[1].trim();
+    const plainRe = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
+    const plainM = xml.match(plainRe);
+    return plainM ? plainM[1].trim() : '';
+  };
+
+  const getAttr = (xml: string, tag: string, attr: string): string => {
+    const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]+)"`, 'i');
+    const m = xml.match(re);
+    return m ? m[1] : '';
+  };
+
+  const items = rssText.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+
+  const episodes = await Promise.all(items.map(async (item) => {
+    const episodeNum = parseInt(getTag(item, 'itunes:episode') || '0');
+    const slug = `episode-${episodeNum}`;
+    const mdUrl = getTag(item, 'link');
+    const audioUrl = getAttr(item, 'enclosure', 'url');
+    const title = getTag(item, 'title').replace(/^Episode \d+:\s*/, '');
+    const description = getTag(item, 'description');
+    const pubDate = getTag(item, 'pubDate');
+    const duration = getTag(item, 'itunes:duration');
+
+    // Format date
+    const dateObj = new Date(pubDate);
+    const formattedDate = isNaN(dateObj.getTime()) ? pubDate : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+
+    // Fetch .md content
+    let rawMd = '';
+    let transcriptHtml = '';
+    let topics: string[] = [];
+    let links: { title: string; url: string }[] = [];
+    let showNotesHtml = '';
+
+    // Step 1: Fetch dedicated show notes file (all episodes)
+    let showNotesMd = '';
+    const snUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/show_notes_episode_${String(episodeNum).padStart(3, '0')}.md`;
+    try {
+      const snRes = await fetch(snUrl);
+      if (snRes.ok) {
+        showNotesMd = await snRes.text();
+      }
+    } catch {
+      // no show notes file — graceful fallback
+    }
+
+    // Step 2: Fetch transcript — hardcoded filenames per episode number
+    const TRANSCRIPT_FILES: Record<number, string> = {
+      0: 'episode_000.md',
+      1: 'episode_001_full_v2.md',
+      2: 'episode_002.md',
+      3: 'episode_003.md',
+    };
+    const transcriptFile = TRANSCRIPT_FILES[episodeNum] ?? `episode_00${episodeNum}.md`;
+    const transcriptFetchUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/${transcriptFile}`;
+
+    try {
+      const mdRes = await fetch(transcriptFetchUrl);
+      rawMd = await mdRes.text();
+
+      // Step 3: Process fetched markdown
+      if (episodeNum === 0) {
+        // Extract show notes section from episode_000.md
+        if (!showNotesMd) {
+          const snMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## Full Transcript)/m);
+          showNotesMd = snMatch ? snMatch[1].trim() : '';
+        }
+        // Extract transcript portion only
+        const txMatch = rawMd.match(/^## Full Transcript\s*\n([\s\S]*)$/m);
+        rawMd = txMatch ? txMatch[1] : rawMd;
+      }
+
+      // Render show notes HTML
+      if (showNotesMd) {
+        showNotesHtml = await marked.parse(showNotesMd);
+      } else {
+        // Legacy fallback: look for ## SHOW NOTES in transcript
+        const showNotesMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## )/m);
+        if (showNotesMatch) {
+          showNotesHtml = await marked.parse(showNotesMatch[1]);
+          rawMd = rawMd.replace(/^## SHOW NOTES[\s\S]*?(?=^## )/m, '');
+        }
+      }
+
+      // Step 4: Extract section headings as topics (always — fallback if no SHOW NOTES)
+      topics = [...rawMd.matchAll(/^## SECTION \d+:\s*(.+)$/gm)].map(m => m[1].trim());
+      if (!topics.length) {
+        topics = [...rawMd.matchAll(/^## (.+)$/gm)]
+          .map(m => m[1].trim())
+          .filter(t => !t.match(/^(SHOW NOTES|Full Story|Episode)/i));
+      }
+
+      // Extract URLs for links section
+      const urlMatches = [...rawMd.matchAll(/\[([^\]]+)\]\((https?:\/\/[^)]+)\)/g)];
+      links = urlMatches.map(m => ({ title: m[1], url: m[2] }));
+      if (!links.length) {
+        links = [...rawMd.matchAll(/https?:\/\/[^\s)>\]]+/g)]
+          .map(m => {
+            try {
+              return { title: new URL(m[0]).hostname.replace('www.', ''), url: m[0] };
+            } catch {
+              return null;
+            }
+          })
+          .filter((l): l is { title: string; url: string } => l !== null)
+          .slice(0, 10);
+      }
+
+      // Parse markdown → HTML (rawMd already has show notes stripped if needed)
+      let html = await marked.parse(rawMd);
+
+      // Style speaker labels
+      html = html
+        .replace(/\[NOVA\]:/g, '<span class="speaker nova">Nova</span>')
+        .replace(/\[ALLOY\]:/g, '<span class="speaker alloy">Alloy</span>')
+        .replace(/\*\*Nova:\*\*/g, '<span class="speaker nova">Nova</span>')
+        .replace(/\*\*Alloy:\*\*/g, '<span class="speaker alloy">Alloy</span>');
+
+      transcriptHtml = html;
+    } catch (e) {
+      transcriptHtml = '<p class="text-neutral-500">Transcript unavailable.</p>';
+    }
+
+    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+
+    return {
+      params: { slug },
+      props: {
+        episode: {
+          slug,
+          number: episodeNum,
+          title,
+          description,
+          date: formattedDate,
+          duration,
+          audioUrl,
+          mdUrl,
+          coverImage,
+          topics,
+          links,
+          showNotesHtml,
+          transcriptHtml,
+        }
+      }
+    };
+  }));
+
+  // TOFT episodes from Anchor RSS
+  const toftEpisodes: any[] = [];
+  try {
+    const toftRes = await fetch('https://anchor.fm/s/108bc95a4/podcast/rss');
+    const toftXml = await toftRes.text();
+    const toftItems = toftXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+    toftItems.forEach((item, idx) => {
+      const index = idx + 1;
+      const slug = `toft-${index}`;
+      const title = getTag(item, 'title');
+      const rawDesc = getTag(item, 'description');
+      const showNotesHtml = rawDesc
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+      const description = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300);
+      const pubDateRaw = getTag(item, 'pubDate');
+      const dateObj = new Date(pubDateRaw);
+      const date = isNaN(dateObj.getTime()) ? pubDateRaw : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      const audioUrl = (() => { const re = /<enclosure[^>]*\surl="([^"]+)"/i; const m = item.match(re); return m ? m[1] : ''; })();
+      const duration = getTag(item, 'itunes:duration');
+      toftEpisodes.push({
+        params: { slug },
+        props: {
+          episode: {
+            slug, isToft: true, index, title, description, date, duration, audioUrl,
+            coverImage: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg',
+            videoId: TOFT_VIDEOS[index] ?? null,
+            showNotesHtml,
+            transcriptHtml: getToftTranscript(index),
+          }
+        }
+      });
+    });
+  } catch (e) { console.error('[slug].astro TOFT error:', e); }
+
+  console.log(`[slug].astro: built ${episodes.length} OC episodes + ${toftEpisodes.length} TOFT episodes`);
+  return [...episodes, ...toftEpisodes];
+}
+
+const { episode } = Astro.props;
+---
+
+<Layout title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} description={episode.description}>
+  {episode.isToft ? (
+    <div class="max-w-3xl mx-auto px-4 py-12">
+      <a href="/podcasts/" class="text-blue-400 text-sm hover:underline mb-6 inline-block">← Back to Podcasts</a>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <div class="flex gap-4 mb-6">
+          <img src={episode.coverImage} alt="Toby on Fitness Tech" class="w-24 h-24 rounded-xl object-cover border border-neutral-700 shrink-0" />
+          <div>
+            <span class="bg-green-400/10 text-green-400 text-xs font-bold px-2 py-0.5 rounded-full inline-block mb-2">💪 Fitness Tech</span>
+            <h1 class="text-2xl font-bold text-white">{episode.title}</h1>
+            <p class="text-neutral-500 text-sm mt-1">{episode.date}{episode.duration ? ` · ⏱ ${episode.duration}` : ''}</p>
+          </div>
+        </div>
+        {episode.videoId ? (
+          <div class="aspect-video w-full mb-8 rounded-2xl overflow-hidden border border-neutral-800">
+            <iframe
+              src={`https://www.youtube.com/embed/${episode.videoId}`}
+              title={episode.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full h-full"
+            />
+          </div>
+        ) : (
+          <audio controls class="w-full mb-8 rounded-xl" src={episode.audioUrl}></audio>
+        )}
+        <div class="mb-8">
+          <h2 class="text-lg font-bold text-white mb-3">📄 Show Notes</h2>
+          <div class="text-neutral-300 text-sm leading-relaxed prose prose-invert max-w-none" set:html={episode.showNotesHtml} />
+        </div>
+        <div>
+          <h2 class="text-lg font-bold text-white mb-3">📝 Transcript</h2>
+          {episode.transcriptHtml ? (
+            <pre class="text-neutral-300 text-sm whitespace-pre-wrap leading-relaxed font-sans">{episode.transcriptHtml}</pre>
+          ) : (
+            <p class="text-neutral-500 italic">Transcript not available for this episode.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  ) : (
+    <EpisodeDetail episode={episode} client:load />
+  )}
+  <StickySubscribeBar client:load />
+</Layout>
+
+<style is:global>
+  .speaker {
+    font-weight: 700;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-right: 0.5rem;
+  }
+  .speaker.nova { color: #60a5fa; } /* blue-400 */
+  .speaker.alloy { color: #c084fc; } /* purple-400 */
+</style>
