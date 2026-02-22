@@ -8,6 +8,7 @@ export default function Header() {
   const [pathname, setPathname] = useState('');
   const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
   const [isPodcastDropdownOpen, setIsPodcastDropdownOpen] = useState(false);
+  const [isDesktopBlogOpen, setIsDesktopBlogOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -63,7 +64,12 @@ export default function Header() {
               if (link.hasDropdown) {
                 // Blog & Articles dropdown
                 return (
-                  <div key={link.name} className="relative group">
+                  <div
+                    key={link.name}
+                    className="relative"
+                    onMouseEnter={() => setIsDesktopBlogOpen(true)}
+                    onMouseLeave={() => setIsDesktopBlogOpen(false)}
+                  >
                     <a
                       href={link.href}
                       className={`text-sm font-medium transition-colors flex items-center gap-1 ${
@@ -73,29 +79,31 @@ export default function Header() {
                       }`}
                     >
                       {link.name}
-                      <ChevronDown size={14} className="transition-transform duration-200 group-hover:rotate-180" />
+                      <ChevronDown
+                        size={14}
+                        className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`}
+                      />
                     </a>
-                    {/* Dropdown panel */}
-                    <div className="absolute top-full pt-3 left-1/2 -translate-x-1/2 w-80 opacity-0 invisible
-                                    group-hover:opacity-100 group-hover:visible
-                                    transition-all duration-200 z-50">
-                      <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900/95 backdrop-blur-md border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
-                        {subNavItems.map((subLink) => (
-                          <a
-                            key={subLink.href}
-                            href={subLink.href}
-                            className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
-                              pathname === subLink.href || (pathname.startsWith(subLink.href) && subLink.href !== '/')
-                                ? 'bg-blue-500/20 text-blue-400'
-                                : 'text-neutral-400 hover:bg-neutral-800 hover:text-white'
-                            }`}
-                          >
-                            <span>{subLink.icon}</span>
-                            <span>{subLink.name}</span>
-                          </a>
-                        ))}
+                    {isDesktopBlogOpen && (
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 z-[200] pt-2">
+                        <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
+                          {subNavItems.map((subLink) => (
+                            <a
+                              key={subLink.href}
+                              href={subLink.href}
+                              className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${
+                                pathname === subLink.href || (pathname.startsWith(subLink.href) && subLink.href !== '/')
+                                  ? 'bg-blue-500/20 text-blue-400'
+                                  : 'text-neutral-400 hover:bg-neutral-800 hover:text-white'
+                              }`}
+                            >
+                              <span>{subLink.icon}</span>
+                              <span>{subLink.name}</span>
+                            </a>
+                          ))}
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </div>
                 );
               }
