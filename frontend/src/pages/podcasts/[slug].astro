@@ -4,6 +4,40 @@ import Layout from '../../layouts/Layout.astro';
 import EpisodeDetail from '../../components/EpisodeDetail.jsx';
 import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
 
+// Load all transcript files at build time
+const transcriptFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true });
+
+// TOFT episode → YouTube video ID + transcript file mapping
+const TOFT_VIDEOS: Record<number, string> = {
+  1: 'ZbEstduW90I', 2: '-BuRtR6WNOc', 3: 'JxRdaMTOOHo', 4: 'cN4YyRwoxXc',
+  5: 'dG8GPamRHmA', 6: 'J3W59IR2Las', 7: 'M07Aq93TCkM', 8: 'Ndso4yB1GbM',
+  9: 'pMdn1a5EA1s', 10: 'qyXBR0vhxxw', 11: 'NKY4uXpFTns', 12: 'udS5Iu6SXWM',
+  13: 'yeYeMNBC2Lc', 14: 'iOYPjqDTdas',
+};
+const TOFT_TRANSCRIPTS: Record<number, string> = {
+  1: '2026-02-04_Speediance_2S_V31_Review_New_Safety_Start_Firmware_Changes_RealWorld_Lifting.txt',
+  2: '2026-01-27_Speediance_V3_Software_Is_Here_But_Is_It_Good.txt',
+  3: '2026-01-14_Build_Your_Best_Training_Split_Arnold_Blueprint_PPL_Full_Body_or_Bro_Split.txt',
+  4: '2025-11-21_Speediance_2S_1RM_EXPOSED_How_to_Actually_Unlock_260lbs_on_the_2S.txt',
+  5: '2025-11-13_Is_Mike_Israetel_Really_a_Legit_BJJ_Black_Belt_My_Experience_Why_the_Internet_Is.txt',
+  6: '2025-11-07_Speediance_2S_vs_Original_Real_User_Review_Tips_Upgrades_After_600000_lbs_Lifted.txt',
+  7: '2025-10-07_Extreme_Weight_Loss_The_Honest_Truth_About_My_Transformation_Prescription_Meds_a.txt',
+  8: '2025-09-23_Family_Fitness_Fun_Speediance_Workout_With_Dad_Daughter_Safe_Lifting_for_Kids.txt',
+  9: '2025-09-20_Speediance_Spotter_Modes_Explained_How_to_Safely_Do_Drop_Sets_Avoid_Injury.txt',
+  10: '2025-09-13_Speediance_2s_Modes_Explained.txt',
+  11: '2025-09-06_Speediance_2s_Max_Lat_Pulldown_260lbs_-Does_it_break_the_machine.txt',
+  12: '2025-09-01_Speediance_first_thing_to_do_Immediately_change_this_setting.txt',
+  13: '2025-08-28_Speediance_2s_first_look_and_demo.txt',
+  14: '2025-08-26_Is_Tonal_a_scam.txt',
+};
+
+function getToftTranscript(index: number): string {
+  const filename = TOFT_TRANSCRIPTS[index];
+  if (!filename) return '';
+  const key = `../../data/transcripts/${filename}`;
+  return (transcriptFiles[key] as string) ?? '';
+}
+
 export async function getStaticPaths() {
   // 1. Fetch RSS
   const rssRes = await fetch('https://grayking-creator.github.io/openclaw-podcast/feed.xml');
@@ -187,8 +221,9 @@ export async function getStaticPaths() {
           episode: {
             slug, isToft: true, index, title, description, date, duration, audioUrl,
             coverImage: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg',
+            videoId: TOFT_VIDEOS[index] ?? null,
             showNotesHtml,
-            transcriptHtml: '<p class="text-neutral-500 italic">Transcript not available for this episode.</p>',
+            transcriptHtml: getToftTranscript(index),
           }
         }
       });
@@ -214,14 +249,30 @@ const { episode } = Astro.props;
             <p class="text-neutral-500 text-sm mt-1">{episode.date}{episode.duration ? ` · ⏱ ${episode.duration}` : ''}</p>
           </div>
         </div>
-        <audio controls class="w-full mb-8 rounded-xl" src={episode.audioUrl}></audio>
+        {episode.videoId ? (
+          <div class="aspect-video w-full mb-8 rounded-2xl overflow-hidden border border-neutral-800">
+            <iframe
+              src={`https://www.youtube.com/embed/${episode.videoId}`}
+              title={episode.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              class="w-full h-full"
+            />
+          </div>
+        ) : (
+          <audio controls class="w-full mb-8 rounded-xl" src={episode.audioUrl}></audio>
+        )}
         <div class="mb-8">
           <h2 class="text-lg font-bold text-white mb-3">📄 Show Notes</h2>
           <div class="text-neutral-300 text-sm leading-relaxed prose prose-invert max-w-none" set:html={episode.showNotesHtml} />
         </div>
         <div>
           <h2 class="text-lg font-bold text-white mb-3">📝 Transcript</h2>
-          <div class="text-neutral-400 text-sm" set:html={episode.transcriptHtml} />
+          {episode.transcriptHtml ? (
+            <pre class="text-neutral-300 text-sm whitespace-pre-wrap leading-relaxed font-sans">{episode.transcriptHtml}</pre>
+          ) : (
+            <p class="text-neutral-500 italic">Transcript not available for this episode.</p>
+          )}
         </div>
       </div>
     </div>
