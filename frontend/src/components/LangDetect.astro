@@ -1,0 +1,42 @@
+---
+// LangDetect.astro - Auto-detect user language and redirect on first visit
+---
+
+<script>
+  (function() {
+    const SUPPORTED_LANGS = ['es', 'pt', 'hi', 'de'];
+    const LOCALE_PATH_REGEX = /^\/(es|pt|hi|de)\//;
+    
+    function init() {
+      // Skip if already on a locale path
+      if (LOCALE_PATH_REGEX.test(window.location.pathname)) {
+        return;
+      }
+      
+      // Check if user has already set a preference
+      const storedLang = localStorage.getItem('preferredLang');
+      if (storedLang && SUPPORTED_LANGS.includes(storedLang)) {
+        // User has overridden, don't redirect
+        return;
+      }
+      
+      // Detect language from browser
+      const browserLang = navigator.language || navigator.languages?.[0] || '';
+      const langCode = browserLang.split('-')[0].toLowerCase();
+      
+      // If detected language is supported, redirect
+      if (SUPPORTED_LANGS.includes(langCode)) {
+        localStorage.setItem('preferredLang', langCode);
+        const targetPath = `/${langCode}${window.location.pathname}`;
+        window.location.href = targetPath;
+      }
+    }
+    
+    // Run on page load
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

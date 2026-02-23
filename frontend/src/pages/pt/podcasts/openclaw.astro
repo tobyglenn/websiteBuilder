@@ -1,0 +1,187 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PodcastSubscribeButtons from '../../../components/PodcastSubscribeButtons.jsx';
+
+const LANG = 'pt';
+const feedUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_${LANG}.xml`;
+
+interface Episode {
+  episodeNum: number;
+  title: string;
+  description: string;
+  pubDate: string;
+  audioUrl: string;
+  duration: string;
+  showNotesUrl: string;
+  coverImage: string;
+}
+
+function formatDate(raw: string): string {
+  try {
+    const d = new Date(raw);
+    return d.toLocaleDateString('pt-BR', { month: 'long', day: 'numeric', year: 'numeric' });
+  } catch {
+    return raw;
+  }
+}
+
+function extractTag(xml: string, tag: string): string {
+  const re = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
+  const m = xml.match(re);
+  return (m ? (m[1] ?? m[2] ?? '') : '').trim();
+}
+
+function extractAttr(xml: string, tag: string, attr: string): string {
+  const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]*)"`, 'i');
+  const m = xml.match(re);
+  return m ? m[1].trim() : '';
+}
+
+let episodes: Episode[] = [];
+let fetchError = false;
+
+try {
+  const res = await fetch(feedUrl);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  const xml = await res.text();
+
+  const channelMatch = xml.match(/<channel[^>]*>([\s\S]*?)<\/channel>/i);
+  const channelXml = channelMatch ? channelMatch[1] : xml;
+
+  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+  let m: RegExpExecArray | null;
+
+  while ((m = itemRegex.exec(channelXml)) !== null) {
+    const item = m[1];
+    const title = extractTag(item, 'title');
+    const description = extractTag(item, 'description');
+    const pubDateRaw = extractTag(item, 'pubDate');
+    const audioUrl = extractAttr(item, 'enclosure', 'url');
+    const duration = extractTag(item, 'itunes:duration');
+    const episodeNumStr = extractTag(item, 'itunes:episode');
+    const link = extractTag(item, 'link');
+    const showNotesUrl = link;
+    const pubDate = formatDate(pubDateRaw);
+    const episodeNum = parseInt(episodeNumStr, 10) || 0;
+    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+
+    episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
+  }
+
+  episodes.sort((a, b) => b.episodeNum - a.episodeNum);
+} catch (err) {
+  fetchError = true;
+  console.error('[pt/podcasts/openclaw.astro] RSS fetch failed:', err);
+}
+---
+
+<Layout
+  title="OpenClaw Daily | Toby on Fitness Tech"
+  description="Episódios diários de IA sobre tecnologia fitness, IA local, hardware, segurança e o ecossistema OpenClaw."
+  lang={LANG}
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Hero -->
+    <div class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        🎙️ OpenClaw Daily
+      </h1>
+      <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+        Episódios diários de IA sobre tecnologia fitness, IA local, hardware, segurança
+        e o ecossistema OpenClaw — novas perspectivas todos os dias.
+      </p>
+    </div>
+
+    <!-- Hosts badge -->
+    <div class="text-center mb-8">
+      <span class="bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm px-4 py-1.5 rounded-full inline-block">
+        🎤 Anfitriões: Nova &amp; Alloy
+      </span>
+    </div>
+
+    <!-- Subscribe Buttons -->
+    <div class="mb-10">
+      <PodcastSubscribeButtons
+        spotifyUrl="https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr"
+        appleUrl="https://podcasts.apple.com/podcast/id1878697245"
+        pocketcastsUrl="https://pca.st/qdsn1ef7"
+        iheartUrl="https://iheart.com/podcast/324046562/"
+        amazonUrl="https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily"
+        client:load
+      />
+    </div>
+
+    <!-- Episodes -->
+    {fetchError ? (
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <p class="text-neutral-400 text-sm">⚠️ Episódios temporariamente indisponíveis. Por favor, volte em breve.</p>
+      </div>
+    ) : episodes.length === 0 ? (
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <p class="text-neutral-400 text-sm">Nenhum episódio encontrado no feed ainda.</p>
+      </div>
+    ) : (
+      <div class="space-y-4">
+        {episodes.map((ep) => (
+          <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-400/5 hover:border-neutral-700 transition-all">
+            <div class="flex gap-4 mb-4">
+              <img
+                src={ep.coverImage}
+                alt={`Episode ${ep.episodeNum} cover art`}
+                class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 border border-neutral-700"
+                onerror="this.style.display='none'"
+              />
+              <div class="flex flex-col justify-center min-w-0">
+                <span class="bg-blue-400/10 text-blue-400 text-xs font-bold px-2 py-0.5 rounded-full self-start mb-2">
+                  EP {ep.episodeNum}
+                </span>
+                <h2 class="text-xl font-bold text-white leading-snug">
+                  {ep.title.replace(/^Episode \d+:\s*/i, '')}
+                </h2>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed mb-3">{ep.description}</p>
+            <p class="text-neutral-500 text-xs mb-4 flex items-center gap-2 flex-wrap">
+              <span>{ep.pubDate}</span>
+              {ep.duration && (
+                <>
+                  <span>·</span>
+                  <span>⏱ {ep.duration}</span>
+                </>
+              )}
+            </p>
+            <div class="mt-2">
+              <a
+                href={ep.audioUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-semibold text-white text-sm transition-all duration-200 hover:scale-[1.01] mb-2"
+              >
+                🎧 Ouvir
+              </a>
+              <div class="grid grid-cols-2 gap-2">
+                <a
+                  href={`/pt/podcasts/episode-${ep.episodeNum}/`}
+                  class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+                >
+                  📄 Notas do Programa
+                </a>
+                <a
+                  href={`/pt/podcasts/episode-${ep.episodeNum}/?tab=transcript`}
+                  class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
+                >
+                  📝 Transcrição
+                </a>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    )}
+
+    <!-- Footer note -->
+    <p class="text-center text-neutral-600 text-xs mt-12">
+      Episódios gerados por OpenClaw AI · Vozes por OpenAI TTS
+    </p>
+  </div>
+</Layout>

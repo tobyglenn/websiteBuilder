@@ -3,6 +3,8 @@ import '../styles/global.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
+import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
+import LangDetect from '../components/LangDetect.astro';
 
 interface Props {
   title: string;
@@ -11,6 +13,8 @@ interface Props {
   ogType?: string;
   canonicalUrl?: string;
   jsonLd?: object | object[];
+  lang?: string;
+  episodeSlug?: string;
 }
 
 const { 
@@ -20,11 +24,29 @@ const {
   ogType = "website",
   canonicalUrl,
   jsonLd,
+  lang = 'en',
+  episodeSlug,
 } = Astro.props;
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
 const resolvedImage = image.startsWith('http') ? image : (siteUrl + image);
+
+// Build hreflang links for multilingual support
+const locales = ['en', 'es', 'pt', 'hi', 'de'];
+const hreflangLinks = locales.map((locale) => {
+  let href: string;
+  if (locale === 'en') {
+    href = episodeSlug 
+      ? `${siteUrl}/podcasts/${episodeSlug}/`
+      : `${siteUrl}/podcasts/openclaw/`;
+  } else {
+    href = episodeSlug 
+      ? `${siteUrl}/${locale}/podcasts/${episodeSlug}/`
+      : `${siteUrl}/${locale}/podcasts/openclaw/`;
+  }
+  return { lang: locale, href };
+});
 
 // Global sitewide schemas (Person + WebSite)
 const personSchema = {
@@ -107,9 +129,18 @@ const allSchemas: object[] = [personSchema, websiteSchema, ...(jsonLd ? (Array.i
         link: [
           { rel: "alternate", type: "application/rss+xml", title: "Blog Feed", href: `${siteUrl}/blog/rss.xml` },
           { rel: "alternate", type: "application/rss+xml", title: "Podcast Feed", href: `${siteUrl}/podcasts/feed.xml` },
+          // hreflang for multilingual support
+          ...hreflangLinks.map(({ lang: hreflangLang, href }) => ({ 
+            rel: "alternate", 
+            hreflang: hreflangLang, 
+            href 
+          })),
+          { rel: "alternate", hreflang: "x-default", href: resolvedUrl },
         ]
       }}
     />
+    
+    <LangDetect />
     
     <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
   </head>
