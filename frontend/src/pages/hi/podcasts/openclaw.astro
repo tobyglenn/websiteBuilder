@@ -1,5 +1,6 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import LanguageSwitcher from '../../../components/LanguageSwitcher.tsx';
 import PodcastSubscribeButtons from '../../../components/PodcastSubscribeButtons.jsx';
 
 const LANG = 'hi';
@@ -92,6 +93,11 @@ try {
       </p>
     </div>
 
+    <!-- Language Switcher -->
+    <div class="flex justify-center mb-6">
+      <LanguageSwitcher client:load currentLang="hi" />
+    </div>
+
     <!-- Hosts badge -->
     <div class="text-center mb-8">
       <span class="bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm px-4 py-1.5 rounded-full inline-block">
@@ -109,6 +115,18 @@ try {
         amazonUrl="https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily"
         client:load
       />
+    </div>
+
+    <!-- RSS Feed -->
+    <div class="flex justify-center mb-8">
+      <a
+        href="https://grayking-creator.github.io/openclaw-podcast/translations/feed_hi.xml"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-2 px-4 py-2 bg-neutral-900 border border-neutral-800 rounded-xl text-sm text-neutral-400 hover:text-orange-400 hover:border-orange-400/40 transition-all"
+      >
+        📡 RSS फ़ीड
+      </a>
     </div>
 
     <!-- Episodes -->

@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import LanguageSwitcher from '../../components/LanguageSwitcher.tsx';
 import PodcastSubscribeButtons from '../../components/PodcastSubscribeButtons.jsx';
 
 const feedUrl = 'https://grayking-creator.github.io/openclaw-podcast/feed.xml';
@@ -102,6 +103,11 @@ try {
         AI-hosted daily episodes covering fitness tech, local AI, hardware, security,
         and the OpenClaw ecosystem — fresh takes every day.
       </p>
+    </div>
+
+    <!-- Language Switcher -->
+    <div class="flex justify-center mb-6">
+      <LanguageSwitcher client:load currentLang="en" />
     </div>
 
     <!-- Hosts badge -->
