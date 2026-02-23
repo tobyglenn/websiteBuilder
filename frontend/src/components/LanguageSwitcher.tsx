@@ -24,24 +24,35 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Get the target path for a given language
+  // Only these paths have locale versions — everything else falls back to podcast index
+  const LOCALE_PATHS = [
+    /^\/podcasts\/openclaw\/?$/,
+    /^\/podcasts\/episode-\d+\/?$/,
+  ];
+
   const getTargetPath = (langCode: string) => {
-    const lang = languages.find(l => l.code === langCode);
-    if (!lang) return '/podcasts/openclaw/';
-    
-    // If we're on an episode page, try to go to the same episode in target language
-    if (currentSlug) {
-      // currentSlug is like "episode-1" - need to preserve it
-      if (langCode === 'en') {
-        return `/podcasts/${currentSlug}/`;
-      }
-      return `/${langCode}/podcasts/${currentSlug}/`;
-    }
-    
-    return lang.path;
+    const currentPath = typeof window !== 'undefined' ? window.location.pathname : '/';
+    // Strip existing locale prefix to get base path
+    const basePath = currentPath.replace(/^\/(es|pt|hi|de)\//, '/');
+    // Ensure trailing slash
+    const normalized = basePath.endsWith('/') ? basePath : basePath + '/';
+    // Check if a locale version of this page exists
+    const hasLocale = LOCALE_PATHS.some(re => re.test(normalized.replace(/\/$/, '')));
+    // Fall back to podcast index if no locale version exists
+    const targetBase = hasLocale ? normalized : '/podcasts/openclaw/';
+    return langCode === 'en' ? targetBase : `/${langCode}${targetBase}`;
   };
 
-  const currentLanguage = languages.find(l => l.code === currentLang) || languages[0];
+  // Detect active language from URL path (most reliable source of truth)
+  const [activeLang, setActiveLang] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const path = window.location.pathname;
+      const match = path.match(/^\/(es|pt|hi|de)\//);
+      return match ? match[1] : (localStorage.getItem('preferredLang') || currentLang);
+    }
+    return currentLang;
+  });
+  const currentLanguage = languages.find(l => l.code === activeLang) || languages[0];
 
   return (
     <div className="relative" ref={dropdownRef}>
@@ -66,7 +77,7 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
         <div className="absolute right-0 mt-2 w-48 bg-neutral-900 border border-neutral-800 rounded-xl shadow-xl z-50 overflow-hidden">
           <div className="py-1">
             {languages.map((lang) => {
-              const isActive = lang.code === currentLang;
+              const isActive = lang.code === activeLang;
               const targetPath = getTargetPath(lang.code);
               
               return (
@@ -78,7 +89,7 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
                       ? 'bg-blue-400/10 text-blue-400 border-l-2 border-blue-400' 
                       : 'text-neutral-300 hover:bg-neutral-800 hover:text-white'
                   }`}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => { localStorage.setItem('preferredLang', lang.code); setActiveLang(lang.code); setIsOpen(false); }}
                 >
                   <span className="text-base">{lang.flag}</span>
                   <span>{lang.name}</span>

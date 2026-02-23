@@ -23,13 +23,27 @@ export default function Header() {
     setPathname(window.location.pathname);
   }, []);
 
+  // Detect locale from current path
+  const locale = pathname.match(/^\/(es|pt|hi|de)\//)?.[1] || 'en';
+  const podcastBase = locale === 'en' ? '' : `/${locale}`;
+  const podcastNames = {
+    en: { openclaw: 'OpenClaw Podcast', fitness: 'Fitness Tech Podcast' },
+    es: { openclaw: 'Podcast OpenClaw', fitness: 'Podcast Fitness Tech' },
+    pt: { openclaw: 'Podcast OpenClaw', fitness: 'Podcast Fitness Tech' },
+    hi: { openclaw: 'OpenClaw पॉडकास्ट', fitness: 'फिटनेस टेक पॉडकास्ट' },
+    de: { openclaw: 'OpenClaw Podcast', fitness: 'Fitness-Tech-Podcast' },
+  };
+  const pn = podcastNames[locale] || podcastNames.en;
+  // Only show language switcher on pages that have translations
+  const isPodcastPage = /\/podcasts\/(openclaw|episode-\d+)/.test(pathname);
+
   // New 6-item nav structure
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Videos', href: '/videos' },
     { name: 'Blog & Articles', href: '/blog', hasDropdown: true },
-    { name: 'OpenClaw Podcast', href: '/podcasts/openclaw' },
-    { name: 'Fitness Tech Podcast', href: '/podcasts/fitness-tech' },
+    { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
+    { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
     { name: 'About', href: '/about' },
   ];
 
@@ -129,7 +143,7 @@ export default function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             <SearchModal />
-            <LanguageSwitcher />
+            {isPodcastPage && <LanguageSwitcher />}
           </div>
 
           {/* Mobile Menu Button */}
@@ -211,10 +225,10 @@ export default function Header() {
               </button>
               {isPodcastDropdownOpen && (
                 <div className="border-t border-neutral-800 px-4 py-3 space-y-2">
-                  <a href="/podcasts/openclaw" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                  <a href={`${podcastBase}/podcasts/openclaw`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
                     🎙️ OpenClaw Daily
                   </a>
-                  <a href="/podcasts/fitness-tech" onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                  <a href={`${podcastBase}/podcasts/fitness-tech`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
                     💪 Fitness Tech Podcast
                   </a>
                 </div>
