@@ -44,6 +44,17 @@ jobs:
         env:
           SITE: https://tobyonfitnesstech.com
 
+      - name: Submit to IndexNow
+        run: |
+          echo "Submitting sitemap to Bing IndexNow..."
+          curl -X POST "https://www.bing.com/indexnow" \
+            -H "Content-Type: application/json" \
+            -d '{
+              "host": "tobyonfitnesstech.com",
+              "key": "21df5f0e15ba46c9ba198d5c8c3d53c6",
+              "sitemap": "https://tobyonfitnesstech.com/sitemap-index.xml"
+            }' || echo "IndexNow submission failed (non-critical)"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
