@@ -17,28 +17,54 @@ export function getStaticPaths() {
 
 const { video } = Astro.props;
 
-// VideoObject JSON-LD structured data
-const videoJsonLd = {
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// VideoObject JSON-LD structured data — enhanced with duration, view count, and entity refs
+// duration_iso (ISO 8601, e.g. "PT16M13S") is required for Google Video Rich Results
+const videoJsonLd: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "VideoObject",
+  "@id": `${siteUrl}/video/${video.id}#video`,
   "name": video.title,
-  "description": video.description || video.title,
-  "thumbnailUrl": video.thumbnail,
+  "description": (video.full_description || video.description || video.title).slice(0, 5000),
+  "thumbnailUrl": [
+    `https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`,
+    `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+    video.thumbnail,
+  ].filter(Boolean),
   "uploadDate": video.published_at,
-  "url": `https://www.youtube.com/watch?v=${video.id}`,
+  "url": `${siteUrl}/video/${video.id}`,
   "embedUrl": `https://www.youtube.com/embed/${video.id}`,
   "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
+  "isFamilyFriendly": true,
+  "inLanguage": "en",
   "author": {
     "@type": "Person",
+    "@id": `${siteUrl}/#toby`,
     "name": "Toby Glenn Peters",
-    "url": "https://tobyonfitnesstech.com"
+    "url": siteUrl
   },
   "publisher": {
     "@type": "Organization",
+    "@id": `${siteUrl}/#organization`,
     "name": "Toby on Fitness Tech",
-    "url": "https://tobyonfitnesstech.com"
+    "url": siteUrl
   }
 };
+
+// Add ISO 8601 duration if available (required for video rich result duration display)
+if (video.duration_iso && video.duration_iso !== "P0D" && video.duration_iso !== "LIVE") {
+  videoJsonLd["duration"] = video.duration_iso;
+}
+
+// Add view count interaction statistic if available
+if (video.view_count && video.view_count > 0) {
+  videoJsonLd["interactionStatistic"] = {
+    "@type": "InteractionCounter",
+    "interactionType": { "@type": "WatchAction" },
+    "userInteractionCount": video.view_count
+  };
+}
 
 // Resolve transcript content
 let transcriptContent = null;
