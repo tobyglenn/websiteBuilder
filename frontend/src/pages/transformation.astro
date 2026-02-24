@@ -49,6 +49,79 @@ const transformationData = {
   }
 };
 
+const siteUrl = "https://tobyonfitnesstech.com";
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "@id": `${siteUrl}/transformation#howto`,
+  "name": "How to Lose 54 lbs in 6 Months: Toby's Data-Driven Transformation",
+  "description": "A step-by-step account of how Toby Peters went from 242 lbs to 188 lbs using GLP-1 medication, Speediance strength training, strategic cardio reduction, and data-driven nutrition tracking.",
+  "totalTime": "P6M",
+  "image": `${siteUrl}/progress/progress_188.jpg`,
+  "author": {
+    "@type": "Person",
+    "@id": `${siteUrl}/#toby`,
+    "name": "Toby Glenn Peters"
+  },
+  "supply": [
+    { "@type": "HowToSupply", "name": "GLP-1 medication (Semaglutide/Wegovy)" },
+    { "@type": "HowToSupply", "name": "Speediance smart home gym" },
+    { "@type": "HowToSupply", "name": "Protein tracking app (Cronometer)" },
+    { "@type": "HowToSupply", "name": "Fitness wearable (Garmin or Whoop)" }
+  ],
+  "tool": [
+    { "@type": "HowToTool", "name": "Speediance Cable Machine" },
+    { "@type": "HowToTool", "name": "Garmin Forerunner 265S" },
+    { "@type": "HowToTool", "name": "Eight Sleep Pod" }
+  ],
+  "step": [
+    {
+      "@type": "HowToStep",
+      "position": 1,
+      "name": "Establish Your Baseline with Data",
+      "text": "Track everything for 2 weeks before making changes. Use a fitness wearable (Garmin, Whoop) to measure resting heart rate, HRV, and estimated calorie burn. Log all food in Cronometer. This data becomes your foundation.",
+      "url": `${siteUrl}/transformation`
+    },
+    {
+      "@type": "HowToStep",
+      "position": 2,
+      "name": "Start GLP-1 Medication (If Prescribed)",
+      "text": "In September 2023 at 220 lbs, Toby began GLP-1 medication under medical supervision. GLP-1 reduces appetite and food noise. Combined with a high-protein diet (180g+ daily) and resistance training, it enables a sustainable 500-700 calorie daily deficit without muscle loss.",
+      "url": `${siteUrl}/transformation`
+    },
+    {
+      "@type": "HowToStep",
+      "position": 3,
+      "name": "Replace Excessive Cardio with Strength Training",
+      "text": "Stop doing hours of zone 2 cardio — it destroys recovery. Instead, do 4-5 strength sessions per week on Speediance or similar cable machine. Focus on progressive overload: add reps or weight every session. Walking 8,000+ steps daily handles low-intensity calorie burn without impacting recovery.",
+      "url": `${siteUrl}/transformation`
+    },
+    {
+      "@type": "HowToStep",
+      "position": 4,
+      "name": "Reach Goal Weight and Transition to Muscle Building",
+      "text": "Toby reached 188 lbs in January 2024 — a 54 lb loss in 6 months. Shift strategy from fat loss to lean muscle gain. Increase protein intake to 200g+ daily. Begin a push-pull-legs program. Use Speediance's rep tracking to ensure progressive overload every session.",
+      "url": `${siteUrl}/transformation`,
+      "image": `${siteUrl}/progress/progress_188.jpg`
+    },
+    {
+      "@type": "HowToStep",
+      "position": 5,
+      "name": "Add Brazilian Jiu-Jitsu for Sustainable Fitness",
+      "text": "BJJ 3x per week burns 400-600 calories per session, builds functional muscle endurance, and provides community accountability. After 10+ months of training, Toby achieved brown belt and went from 188 to 218 lbs of muscle.",
+      "url": `${siteUrl}/bjj`
+    },
+    {
+      "@type": "HowToStep",
+      "position": 6,
+      "name": "Use Sleep Data to Optimize Recovery",
+      "text": "The Eight Sleep Pod and Garmin sleep tracking revealed chronic underrecovery (5.8 hours avg). Prioritize 7-8 hours. HRV (target: 80+) is the single best indicator that recovery is on track. Poor sleep stalls fat loss and kills muscle gain.",
+      "url": `${siteUrl}/transformation`
+    }
+  ]
+};
+
 // Load key insights from transcript
 const insights = [
   {
@@ -74,6 +147,7 @@ const insights = [
   title="242 → 218: My Transformation Journey | TobyOnFitnessTech"
   description="From 242 lbs to 188 lbs and back to 218 lbs of muscle. No shortcuts. No sponsors. Just the data behind my transformation."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "Transformation", url: "/transformation" }]}
+  jsonLd={howToSchema}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
     {/* Hero Section */}
