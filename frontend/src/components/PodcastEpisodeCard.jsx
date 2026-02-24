@@ -5,7 +5,7 @@ export default function PodcastEpisodeCard({ ep }) {
       <div className="flex gap-4 mb-4">
         <img
           src={ep.coverImage}
-          alt={`Episode ${ep.episodeNum} cover art`}
+          alt={`${ep.title} — Episode ${ep.episodeNum}`}
           className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 border border-neutral-700"
           onError={e => { e.currentTarget.style.display = 'none'; }}
         />

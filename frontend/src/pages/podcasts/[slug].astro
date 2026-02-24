@@ -277,7 +277,7 @@ const { episode } = Astro.props;
       <a href="/podcasts/" class="text-blue-400 text-sm hover:underline mb-6 inline-block">← Back to Podcasts</a>
       <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
         <div class="flex gap-4 mb-6">
-          <img src={episode.coverImage} alt="Toby on Fitness Tech" class="w-24 h-24 rounded-xl object-cover border border-neutral-700 shrink-0" />
+          <img src={episode.coverImage} alt={episode.title} class="w-24 h-24 rounded-xl object-cover border border-neutral-700 shrink-0" />
           <div>
             <span class="bg-green-400/10 text-green-400 text-xs font-bold px-2 py-0.5 rounded-full inline-block mb-2">💪 Fitness Tech</span>
             <h1 class="text-2xl font-bold text-white">{episode.title}</h1>
