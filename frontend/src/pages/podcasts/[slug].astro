@@ -266,6 +266,11 @@ const { episode } = Astro.props;
       "url": "https://tobyonfitnesstech.com"
     }
   }}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Podcasts", url: "/podcasts" },
+    { name: episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`, url: `/podcasts/${episode.slug}` }
+  ]}
 >
   {episode.isToft ? (
     <div class="max-w-3xl mx-auto px-4 py-12">

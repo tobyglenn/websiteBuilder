@@ -12,6 +12,7 @@ const donutJSON = JSON.stringify(donutData);
 <Layout
   title={`${stats.totalVolumeFmt} lbs Lifted: My Speediance Journey — TobyOnFitnessTech`}
   description={`${stats.totalWorkouts} workouts, ${stats.totalVolumeFmt} lbs lifted on Speediance. Real data from Toby's home gym — monthly volume trends, top exercises, and personal records.`}
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "Speediance Journey", url: "/speediance" }]}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
 

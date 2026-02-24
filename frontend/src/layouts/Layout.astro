@@ -15,6 +15,7 @@ interface Props {
   jsonLd?: object | object[];
   lang?: string;
   episodeSlug?: string;
+  breadcrumbs?: Array<{ name: string; url: string }>;
 }
 
 const { 
@@ -26,6 +27,7 @@ const {
   jsonLd,
   lang = 'en',
   episodeSlug,
+  breadcrumbs,
 } = Astro.props;
 
 const siteUrl = "https://tobyonfitnesstech.com";
@@ -81,8 +83,20 @@ const websiteSchema = {
   }
 };
 
-// Merge global schemas + any page-specific schema
-const allSchemas: object[] = [personSchema, websiteSchema, ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+// Build BreadcrumbList schema if breadcrumbs provided
+const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": breadcrumbs.map((crumb, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "name": crumb.name,
+    "item": crumb.url.startsWith('http') ? crumb.url : `${siteUrl}${crumb.url}`
+  }))
+} : null;
+
+// Merge global schemas + breadcrumb + any page-specific schema
+const allSchemas: object[] = [personSchema, websiteSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>

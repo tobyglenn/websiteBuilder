@@ -51,6 +51,11 @@ const articleJsonLd = {
   image={post.image}
   ogType="article"
   jsonLd={articleJsonLd}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: post.title, url: `/blog/${post.slug}` }
+  ]}
 >
   <article class="bg-neutral-950 min-h-screen pb-24">
     {/* Header / Hero */}
