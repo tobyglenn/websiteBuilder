@@ -18,6 +18,59 @@ export function getStaticPaths() {
 const { post } = Astro.props;
 
 const siteUrl = "https://tobyonfitnesstech.com";
+
+// Extract FAQ schema from blog post content (## headings become Q&A pairs)
+function extractFAQSchema(content: string): object | null {
+  const lines = content.split('\n');
+  const qaPairs: Array<{ question: string; answer: string }> = [];
+
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i].trim();
+    // Match ## headings (but not # or ###)
+    if (line.startsWith('## ') && !line.startsWith('### ')) {
+      const question = line.replace(/^##\s+/, '').trim();
+      // Collect the following paragraph(s) as the answer (stop at next heading)
+      const answerLines: string[] = [];
+      i++;
+      while (i < lines.length) {
+        const nextLine = lines[i].trim();
+        if (nextLine.startsWith('#')) break;
+        if (nextLine.length > 0) {
+          answerLines.push(nextLine);
+        }
+        i++;
+      }
+      const answer = answerLines.join(' ').trim();
+      if (question.length > 5 && answer.length > 20) {
+        qaPairs.push({ question, answer });
+      }
+      continue;
+    }
+    i++;
+  }
+
+  if (qaPairs.length < 2) return null;
+
+  // Limit to first 5 FAQs (Google recommends not stuffing)
+  const limited = qaPairs.slice(0, 5);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": limited.map(({ question, answer }) => ({
+      "@type": "Question",
+      "name": question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": answer.slice(0, 1000)
+      }
+    }))
+  };
+}
+
+const faqSchema = extractFAQSchema(post.content || '');
+
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "Article",
@@ -50,7 +103,7 @@ const articleJsonLd = {
   description={post.excerpt?.slice(0, 155) || post.title}
   image={post.image}
   ogType="article"
-  jsonLd={articleJsonLd}
+  jsonLd={faqSchema ? [articleJsonLd, faqSchema] : articleJsonLd}
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Blog", url: "/blog" },
