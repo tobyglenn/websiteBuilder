@@ -49,7 +49,7 @@ export default function Footer() {
             </p>
             <div className="flex gap-2">
               <a 
-                href="https://youtube.com/@TobyOnFitnessTech" 
+                href="https://www.youtube.com/@tobyonfitness" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 text-neutral-400 hover:text-red-500 transition-colors"
@@ -57,7 +57,7 @@ export default function Footer() {
                 <Youtube size={20} />
               </a>
               <a 
-                href="https://twitter.com/tobyonft" 
+                href="https://x.com/tobyglenn" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 text-neutral-400 hover:text-blue-400 transition-colors"
@@ -65,7 +65,7 @@ export default function Footer() {
                 <Twitter size={20} />
               </a>
               <a 
-                href="https://instagram.com/tobyonfitnesstech" 
+                href="https://www.instagram.com/tobyonfitness" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 text-neutral-400 hover:text-pink-500 transition-colors"
@@ -73,7 +73,7 @@ export default function Footer() {
                 <Instagram size={20} />
               </a>
               <a 
-                href="mailto:contact@toby.tech" 
+                href="mailto:admin@tobyonfitnesstech.com" 
                 className="p-2 text-neutral-400 hover:text-white transition-colors"
               >
                 <Mail size={20} />
