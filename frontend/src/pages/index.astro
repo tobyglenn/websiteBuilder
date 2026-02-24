@@ -9,11 +9,35 @@ import { Play, ArrowRight, Clock } from 'lucide-react';
 const allVideos = videosData.videos || [];
 const recentVideos = allVideos.filter(v => !v.is_live).slice(0, 3);
 const recentPosts = BLOG_POSTS.slice(0, 3);
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tobyonfitnesstech.com/#webpage-home",
+  "name": "Toby on Fitness Tech - Home",
+  "description": "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.",
+  "url": "https://tobyonfitnesstech.com",
+  "inLanguage": "en",
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://tobyonfitnesstech.com/images/og-home.jpg"
+  },
+  "isPartOf": {
+    "@id": "https://tobyonfitnesstech.com/#website"
+  },
+  "about": {
+    "@id": "https://tobyonfitnesstech.com/#organization"
+  },
+  "author": {
+    "@id": "https://tobyonfitnesstech.com/#person"
+  }
+};
 ---
 
 <Layout 
   title="Toby on Fitness Tech - Reviews, Analysis, & Live Streams"
   description="Independent fitness tech reviews from a real athlete. Speediance vs Tonal, Whoop vs Garmin, BJJ commentary, and transformation data. No fluff, just real numbers."
+  jsonLd={webPageSchema}
 >
 	
 	<Hero client:load />
