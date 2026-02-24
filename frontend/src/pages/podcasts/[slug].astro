@@ -98,6 +98,7 @@ export async function getStaticPaths() {
       1: 'episode_001_full_v2.md',
       2: 'episode_002.md',
       3: 'episode_003.md',
+      5: 'episode_005.md',
     };
     const transcriptFile = TRANSCRIPT_FILES[episodeNum] ?? `episode_00${episodeNum}.md`;
     const transcriptFetchUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/${transcriptFile}`;
@@ -234,7 +235,38 @@ export async function getStaticPaths() {
 const { episode } = Astro.props;
 ---
 
-<Layout title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} description={episode.description}>
+<Layout 
+  title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | OpenClaw Daily`}
+  description={episode.description}
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "PodcastEpisode",
+    "name": episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`,
+    "description": episode.description,
+    "partOfSeries": {
+      "@type": "PodcastSeries",
+      "name": episode.isToft ? "Toby on Fitness Tech" : "OpenClaw Daily",
+      "url": episode.isToft
+        ? "https://tobyonfitnesstech.com/podcasts/"
+        : "https://tobyonfitnesstech.com/podcasts/openclaw/"
+    },
+    "datePublished": episode.date,
+    "contentUrl": episode.audioUrl,
+    ...(episode.videoId ? { "video": { "@type": "VideoObject", "embedUrl": `https://www.youtube.com/embed/${episode.videoId}`, "url": `https://www.youtube.com/watch?v=${episode.videoId}` } } : {}),
+    "inLanguage": "en",
+    "author": {
+      "@type": "Person",
+      "@id": "https://tobyonfitnesstech.com/#toby",
+      "name": "Toby Glenn Peters",
+      "url": "https://tobyonfitnesstech.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": episode.isToft ? "Toby on Fitness Tech" : "OpenClaw",
+      "url": "https://tobyonfitnesstech.com"
+    }
+  }}
+>
   {episode.isToft ? (
     <div class="max-w-3xl mx-auto px-4 py-12">
       <a href="/podcasts/" class="text-blue-400 text-sm hover:underline mb-6 inline-block">← Back to Podcasts</a>
