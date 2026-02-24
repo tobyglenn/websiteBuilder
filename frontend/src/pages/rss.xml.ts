@@ -16,5 +16,6 @@ export async function GET(context: APIContext) {
       author: 'Toby Glenn Peters',
     })),
     customData: `<language>en-us</language><managingEditor>toby@tobyonfitnesstech.com (Toby Glenn Peters)</managingEditor><webMaster>toby@tobyonfitnesstech.com (Toby Glenn Peters)</webMaster><ttl>60</ttl>`,
+    stylesheet: false,
   });
 }
