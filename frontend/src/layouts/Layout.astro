@@ -132,7 +132,14 @@ const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
 } : null;
 
 // Merge global schemas + breadcrumb + any page-specific schema
-const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+// SpeakableSpecification — marks key sections for voice search (Google Assistant, Siri, Alexa)
+const speakableSchema = {
+  "@context": "https://schema.org",
+  "@type": "SpeakableSpecification",
+  "cssSelector": ["h1", "h2", "[data-speakable]", "article p:first-of-type", "meta[name='description']"]
+};
+
+const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, speakableSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>
