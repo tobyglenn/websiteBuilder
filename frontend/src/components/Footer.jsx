@@ -47,12 +47,12 @@ export default function Footer() {
               Dedicated to cutting through the marketing hype and delivering data-driven 
               reviews of fitness technology. Helping you train smarter, not harder.
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-2">
               <a 
                 href="https://youtube.com/@TobyOnFitnessTech" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-neutral-400 hover:text-red-500 transition-colors"
+                className="p-2 text-neutral-400 hover:text-red-500 transition-colors"
               >
                 <Youtube size={20} />
               </a>
@@ -60,7 +60,7 @@ export default function Footer() {
                 href="https://twitter.com/tobyonft" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-neutral-400 hover:text-blue-400 transition-colors"
+                className="p-2 text-neutral-400 hover:text-blue-400 transition-colors"
               >
                 <Twitter size={20} />
               </a>
@@ -68,13 +68,13 @@ export default function Footer() {
                 href="https://instagram.com/tobyonfitnesstech" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="text-neutral-400 hover:text-pink-500 transition-colors"
+                className="p-2 text-neutral-400 hover:text-pink-500 transition-colors"
               >
                 <Instagram size={20} />
               </a>
               <a 
                 href="mailto:contact@toby.tech" 
-                className="text-neutral-400 hover:text-white transition-colors"
+                className="p-2 text-neutral-400 hover:text-white transition-colors"
               >
                 <Mail size={20} />
               </a>
