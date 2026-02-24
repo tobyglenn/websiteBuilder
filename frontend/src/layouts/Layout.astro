@@ -141,8 +141,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, ...(breadcrumbSchema 
           { name: "keywords", content: "fitness tech, Speediance, Tonal, Whoop, Garmin, BJJ, home gym, smart fitness equipment, wearables" },
         ],
         link: [
-          { rel: "alternate", type: "application/rss+xml", title: "Blog Feed", href: `${siteUrl}/blog/rss.xml` },
-          { rel: "alternate", type: "application/rss+xml", title: "Podcast Feed", href: `${siteUrl}/podcasts/feed.xml` },
+          { rel: "alternate", type: "application/rss+xml", title: "Blog Feed", href: `${siteUrl}/rss.xml` },
           // hreflang for multilingual support
           ...hreflangLinks.map(({ lang: hreflangLang, href }) => ({ 
             rel: "alternate", 
