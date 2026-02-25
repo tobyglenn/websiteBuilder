@@ -1,12 +1,80 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import VideoGrid from '../../components/VideoGrid.jsx';
+import { VIDEOS } from '../../data/mock.js';
 
 const title = "All Videos - Toby on Fitness Tech";
 const description = "Browse all 104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and transformation content.";
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Build CollectionPage + ItemList schema for the top videos
+// Use top 20 by view count for itemListElement (keeps payload size reasonable)
+const topVideos = [...VIDEOS]
+  .sort((a: { view_count?: number }, b: { view_count?: number }) => (b.view_count || 0) - (a.view_count || 0))
+  .slice(0, 20);
+
+const videosCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/videos#collection`,
+  "name": "Toby on Fitness Tech — Full Video Library",
+  "description": "All 104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. No scripts, no sponsors.",
+  "url": `${siteUrl}/videos`,
+  "inLanguage": "en",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "about": [
+    { "@type": "Thing", "name": "Fitness Technology" },
+    { "@type": "Thing", "name": "Speediance" },
+    { "@type": "Thing", "name": "Brazilian Jiu-Jitsu" },
+    { "@type": "Thing", "name": "Home Gym Equipment" }
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Top Videos by Toby on Fitness Tech",
+    "numberOfItems": VIDEOS.length,
+    "itemListElement": topVideos.map((video: {
+      id: string;
+      title: string;
+      description: string;
+      thumbnail: string;
+      published_at: string;
+      view_count?: number;
+      duration_iso?: string;
+    }, index: number) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${siteUrl}/video/${video.id}`,
+      "name": video.title,
+      "item": {
+        "@type": "VideoObject",
+        "@id": `${siteUrl}/video/${video.id}#video`,
+        "name": video.title,
+        "description": video.description,
+        "thumbnailUrl": video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+        "uploadDate": video.published_at,
+        "url": `${siteUrl}/video/${video.id}`,
+        "embedUrl": `https://www.youtube.com/embed/${video.id}`,
+        "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
+        "author": { "@id": `${siteUrl}/#toby` },
+        "publisher": { "@id": `${siteUrl}/#organization` },
+        ...(video.duration_iso && video.duration_iso !== "P0D" && video.duration_iso !== "LIVE" ? { "duration": video.duration_iso } : {}),
+        ...(video.view_count && video.view_count > 0 ? {
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": { "@type": "WatchAction" },
+            "userInteractionCount": video.view_count
+          }
+        } : {})
+      }
+    }))
+  }
+};
 ---
 
-<Layout title={title} description={description} breadcrumbs={[{ name: "Home", url: "/" }, { name: "Videos", url: "/videos" }]}>
+<Layout title={title} description={description} breadcrumbs={[{ name: "Home", url: "/" }, { name: "Videos", url: "/videos" }]} jsonLd={videosCollectionSchema}>
     <!-- Hero -->
     <section class="bg-neutral-950 border-b border-neutral-800">
       <div class="container mx-auto px-4 py-10 md:py-14 max-w-3xl text-center">
