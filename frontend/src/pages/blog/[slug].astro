@@ -71,9 +71,12 @@ function extractFAQSchema(content: string): object | null {
 
 const faqSchema = extractFAQSchema(post.content || '');
 
+const wordCount = (post.content || '').split(/\s+/).filter(Boolean).length;
+
 const articleJsonLd = {
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": "BlogPosting",
+  "@id": `${siteUrl}/blog/${post.slug}#article`,
   "headline": post.title,
   "description": post.excerpt || post.title,
   "datePublished": post.published_at,
@@ -87,14 +90,18 @@ const articleJsonLd = {
     "url": siteUrl
   },
   "publisher": {
-    "@type": "Organization",
-    "name": "Toby on Fitness Tech",
-    "url": siteUrl
+    "@id": `${siteUrl}/#organization`
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": `${siteUrl}/blog/${post.slug}`
-  }
+  },
+  "isPartOf": {
+    "@id": `${siteUrl}/blog#collection`
+  },
+  "wordCount": wordCount,
+  ...(post.tags && post.tags.length > 0 ? { "keywords": post.tags.join(', ') } : {}),
+  ...(post.category ? { "articleSection": post.category } : {})
 };
 ---
 

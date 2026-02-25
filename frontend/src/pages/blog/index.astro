@@ -7,6 +7,48 @@ function readTime(content = '') {
   return `${Math.max(1, Math.round(words / 200))} min read`;
 }
 
+const siteUrl = "https://tobyonfitnesstech.com";
+
+const blogListSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/blog#collection`,
+  "name": "The Analysis Log — Toby on Fitness Tech",
+  "description": "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.",
+  "url": `${siteUrl}/blog`,
+  "inLanguage": "en",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "hasPart": BLOG_POSTS.slice(0, 10).map((post, index) => ({
+    "@type": "BlogPosting",
+    "@id": `${siteUrl}/blog/${post.slug}`,
+    "position": index + 1,
+    "headline": post.title,
+    "description": post.excerpt || post.title,
+    "url": `${siteUrl}/blog/${post.slug}`,
+    "datePublished": post.published_at,
+    ...(post.image ? { "image": post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}` } : {}),
+    "author": { "@id": `${siteUrl}/#toby` },
+    "publisher": { "@id": `${siteUrl}/#organization` }
+  }))
+};
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "@id": `${siteUrl}/blog#itemlist`,
+  "name": "Latest Fitness Tech Analysis Posts",
+  "description": "Independent fitness technology analysis and reviews",
+  "url": `${siteUrl}/blog`,
+  "numberOfItems": BLOG_POSTS.length,
+  "itemListElement": BLOG_POSTS.slice(0, 10).map((post, index) => ({
+    "@type": "ListItem",
+    "position": index + 1,
+    "url": `${siteUrl}/blog/${post.slug}`,
+    "name": post.title
+  }))
+};
+
 const CATEGORIES = [
   'All',
   'Field Reports',
@@ -31,7 +73,7 @@ const title = "The Analysis Log — Toby on Fitness Tech";
 const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
 ---
 
-<Layout title={title} description={description} breadcrumbs={[{ name: "Home", url: "/" }, { name: "Blog", url: "/blog" }]}>
+<Layout title={title} description={description} jsonLd={[blogListSchema, itemListSchema]} breadcrumbs={[{ name: "Home", url: "/" }, { name: "Blog", url: "/blog" }]}>
 
   <!-- ░░ HERO ░░ -->
   <section class="bg-neutral-950 border-b border-neutral-800">
