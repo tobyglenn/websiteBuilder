@@ -34,21 +34,32 @@ const siteUrl = "https://tobyonfitnesstech.com";
 const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
 const resolvedImage = image.startsWith('http') ? image : (siteUrl + image);
 
-// Build hreflang links for multilingual support
+// Build hreflang links — only for pages with actual translated versions
 const locales = ['en', 'es', 'pt', 'hi', 'de'];
-const hreflangLinks = locales.map((locale) => {
-  let href: string;
-  if (locale === 'en') {
-    href = episodeSlug 
-      ? `${siteUrl}/podcasts/${episodeSlug}/`
-      : `${siteUrl}/podcasts/openclaw/`;
-  } else {
-    href = episodeSlug 
-      ? `${siteUrl}/${locale}/podcasts/${episodeSlug}/`
-      : `${siteUrl}/${locale}/podcasts/openclaw/`;
-  }
-  return { lang: locale, href };
-});
+
+let hreflangBase: string | null = null;
+if (episodeSlug) {
+  // Podcast episode pages and openclaw landing: /podcasts/[episodeSlug]/
+  hreflangBase = `/podcasts/${episodeSlug}/`;
+} else if (lang !== 'en') {
+  // Translated landing pages (de/es/hi/pt): strip locale prefix from URL
+  // e.g. /de/podcasts/openclaw/ → /podcasts/openclaw/
+  const localeRegex = new RegExp(`^/(${locales.filter(l => l !== 'en').join('|')})/`);
+  hreflangBase = Astro.url.pathname.replace(localeRegex, '/');
+}
+
+const hreflangLinks = hreflangBase ? locales.map((locale) => ({
+  lang: locale,
+  href: locale === 'en'
+    ? `${siteUrl}${hreflangBase}`
+    : `${siteUrl}/${locale}${hreflangBase}`
+})) : [];
+
+const hreflangXDefault = hreflangBase ? `${siteUrl}${hreflangBase}` : resolvedUrl;
+
+// og:locale mapping
+const localeMap: Record<string, string> = { en: 'en_US', de: 'de_DE', es: 'es_ES', hi: 'hi_IN', pt: 'pt_BR' };
+const ogLocale = localeMap[lang] ?? 'en_US';
 
 // Global sitewide schemas (Person + WebSite)
 const personSchema = {
@@ -143,7 +154,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
 ---
 
 <!doctype html>
-<html lang="en" class="dark scroll-smooth">
+<html lang={lang} class="dark scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -163,7 +174,8 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
           url: resolvedUrl,
         },
         optional: {
-          siteName: "Toby on Fitness Tech"
+          siteName: "Toby on Fitness Tech",
+          locale: ogLocale,
         }
       }}
       twitter={{
@@ -185,13 +197,15 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
         ],
         link: [
           { rel: "alternate", type: "application/rss+xml", title: "Blog Feed", href: `${siteUrl}/rss.xml` },
-          // hreflang for multilingual support
-          ...hreflangLinks.map(({ lang: hreflangLang, href }) => ({ 
-            rel: "alternate", 
-            hreflang: hreflangLang, 
-            href 
-          })),
-          { rel: "alternate", hreflang: "x-default", href: resolvedUrl },
+          // hreflang for multilingual support — only on pages with translations
+          ...(hreflangLinks.length > 0 ? [
+            ...hreflangLinks.map(({ lang: hreflangLang, href }) => ({
+              rel: "alternate",
+              hreflang: hreflangLang,
+              href
+            })),
+            { rel: "alternate", hreflang: "x-default", href: hreflangXDefault },
+          ] : []),
         ]
       }}
     />

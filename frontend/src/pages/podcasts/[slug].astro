@@ -238,6 +238,7 @@ const { episode } = Astro.props;
 <Layout 
   title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | OpenClaw Daily`}
   description={episode.description}
+  episodeSlug={episode.slug}
   jsonLd={{
     "@context": "https://schema.org",
     "@type": "PodcastEpisode",
