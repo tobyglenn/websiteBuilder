@@ -1,0 +1,54 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# WordPress artifact redirects (301 permanent)
+[[redirects]]
+  from = "/comments/feed/"
+  to = "/rss.xml"
+  status = 301
+
+[[redirects]]
+  from = "/feed/"
+  to = "/rss.xml"
+  status = 301
+
+[[redirects]]
+  from = "/feed"
+  to = "/rss.xml"
+  status = 301
+
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-admin"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-content/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/wp-includes/*"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/"
+  status = 301
+
+[[redirects]]
+  from = "/?p=*"
+  to = "/"
+  status = 301
