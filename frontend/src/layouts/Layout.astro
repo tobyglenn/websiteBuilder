@@ -34,6 +34,11 @@ const siteUrl = "https://tobyonfitnesstech.com";
 const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
 const resolvedImage = image.startsWith('http') ? image : (siteUrl + image);
 
+// Truncate title for HTML <title> tag (SEO best practice: <60 chars)
+// Pages already include their own suffix (e.g., " | Toby on Fitness Tech"), so we truncate the full title
+const maxTitleLength = 60;
+const seoTitle = title.length > maxTitleLength ? title.slice(0, maxTitleLength - 3) + '...' : title;
+
 // Build hreflang links — only for pages with actual translated versions
 const locales = ['en', 'es', 'pt', 'hi', 'de'];
 
@@ -159,11 +164,11 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
     
     <SEO 
-      title={title}
+      title={seoTitle}
       description={description}
       canonical={resolvedUrl}
       openGraph={{
@@ -179,7 +184,8 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
         }
       }}
       twitter={{
-        card: "summary_large_image"
+        card: "summary_large_image",
+        title: title
       }}
       extend={{
         meta: [

@@ -22,7 +22,7 @@ def main():
         if not video_id or not filename:
             continue
             
-        url = f"http://192.168.1.236:8085/outgoing/transcripts/{filename}"
+        url = f"http://192.168.1.221:8085/outgoing/transcripts/{filename}"
         print(f"[{i+1}/101] {filename}...", end=" ")
         
         try:
