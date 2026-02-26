@@ -226,8 +226,59 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id).slice(0, 8);
           {/* YouTube Comments Note */}
           <div class="mt-6 border-t border-neutral-800 pt-4">
             <h3 class="text-lg font-bold mb-3 flex items-center gap-2 text-neutral-300">
-                <MessageSquare size={18} /> Comments
+                <MessageSquare size={18} /> Community Discussion
             </h3>
+            
+            {video.comments && video.comments.length > 0 && (
+              <div class="mb-6 space-y-4">
+                {video.comments.map(comment => (
+                  <div class="p-4 rounded-xl bg-neutral-900/40 border border-neutral-800">
+                    {/* Main Comment */}
+                    <div class="flex gap-4">
+                      <img src={comment.avatar} alt={comment.author} class="w-10 h-10 rounded-full bg-neutral-800" loading="lazy" />
+                      <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                          <span class="font-semibold text-sm text-neutral-200">{comment.author}</span>
+                          <span class="text-xs text-neutral-500">{new Date(comment.published_at).toLocaleDateString()}</span>
+                        </div>
+                        <p class="text-sm text-neutral-300 leading-relaxed" set:html={comment.text}></p>
+                        {comment.likes > 0 && (
+                          <div class="flex items-center gap-1 mt-2 text-xs text-neutral-500 font-medium">
+                            <ThumbsUp size={12} /> {comment.likes}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {/* Replies */}
+                    {comment.replies && comment.replies.length > 0 && (
+                      <div class="mt-4 ml-12 pl-4 border-l-2 border-blue-500/30 space-y-3">
+                        {comment.replies.map(reply => (
+                          <div class={`flex gap-3 p-3 rounded-lg ${reply.is_author ? 'bg-blue-600/10 border border-blue-500/30' : 'bg-neutral-800/50'}`}>
+                            <img src={reply.avatar} alt={reply.author} class="w-8 h-8 rounded-full bg-neutral-800" loading="lazy" />
+                            <div class="flex-1">
+                              <div class="flex items-center gap-2 mb-1">
+                                <span class="font-semibold text-sm text-neutral-200">{reply.author}</span>
+                                {reply.is_author && (
+                                  <span class="text-[10px] bg-blue-600 text-white px-1.5 py-0.5 rounded font-bold uppercase tracking-wide">Author</span>
+                                )}
+                                <span class="text-xs text-neutral-500">{new Date(reply.published_at).toLocaleDateString()}</span>
+                              </div>
+                              <p class="text-sm text-neutral-300 leading-relaxed" set:html={reply.text}></p>
+                              {reply.likes > 0 && (
+                                <div class="flex items-center gap-1 mt-1 text-xs text-neutral-500 font-medium">
+                                  <ThumbsUp size={10} /> {reply.likes}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
             <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800 text-center">
               <p class="text-neutral-400 text-sm mb-3">
                 Join the conversation on YouTube.

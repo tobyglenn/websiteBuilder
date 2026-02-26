@@ -23,6 +23,7 @@ export const VIDEOS = (videosData.videos || []).map(v => ({
   tags: extractTags(v.description),
   transcript_file: v.transcript_file || null,
   has_transcript: v.has_transcript || false,
+  comments: v.comments || [],
   duration_formatted: v.duration_formatted || null,
   duration_iso: v.duration_iso || null,
   is_short: v.is_short || false,
