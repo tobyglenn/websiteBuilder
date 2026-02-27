@@ -1,0 +1,134 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { gearItems } from '../../data/gearItems';
+
+export function getStaticPaths() {
+  return gearItems.map((item) => ({
+    params: { slug: item.slug },
+    props: { item }
+  }));
+}
+
+const { item } = Astro.props;
+
+const verdictClasses: Record<string, string> = {
+  'Not Recommended': 'bg-red-500/15 text-red-300 border-red-500/25',
+  Good: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/25',
+  Great: 'bg-blue-500/15 text-blue-300 border-blue-500/25',
+  Essential: 'bg-green-500/15 text-green-300 border-green-500/25'
+};
+
+const productJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: item.name,
+  category: item.category,
+  description: item.shortDescription,
+  image: `https://tobyonfitnesstech.com${item.image}`,
+  url: `https://tobyonfitnesstech.com/gear/${item.slug}`,
+  review: {
+    '@type': 'Review',
+    author: {
+      '@type': 'Person',
+      name: 'Toby Glenn Peters'
+    },
+    reviewRating: {
+      '@type': 'Rating',
+      ratingValue: item.verdict === 'Essential' ? 5 : item.verdict === 'Great' ? 4 : item.verdict === 'Good' ? 3 : 1,
+      bestRating: 5
+    },
+    reviewBody: item.shortDescription
+  }
+};
+---
+
+<Layout
+  title={`${item.name} Review - Toby on Fitness Tech`}
+  description={item.shortDescription}
+  jsonLd={productJsonLd}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Gear', url: '/gear' },
+    { name: item.name, url: `/gear/${item.slug}` }
+  ]}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-32 pb-10 border-b border-neutral-900/80">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <a href="/gear" class="inline-flex items-center text-sm text-blue-300 hover:text-blue-200 mb-6">← Back to gear list</a>
+
+        <div class="flex flex-wrap items-center gap-2 mb-3">
+          <span class="text-xs text-neutral-400">{item.categoryEmoji} {item.category}</span>
+          <span class={`text-xs px-2 py-0.5 rounded-full border ${verdictClasses[item.verdict]}`}>{item.verdict}</span>
+          <span class="text-xs text-neutral-500">{item.location}</span>
+        </div>
+
+        <h1 class="text-3xl md:text-4xl font-bold leading-tight mb-4">{item.name}</h1>
+        <p class="text-lg text-neutral-400">{item.detailIntro}</p>
+      </div>
+    </section>
+
+    <section class="py-10">
+      <div class="container mx-auto px-4 max-w-4xl">
+        <img src={item.image} alt={item.name} class="w-full h-auto rounded-2xl border border-neutral-800 mb-8" />
+
+        <div class="space-y-4 mb-8">
+          {item.details.map((paragraph: string) => (
+            <p class="text-neutral-300 leading-relaxed">{paragraph}</p>
+          ))}
+        </div>
+
+        {item.metrics && item.metrics.length > 0 && (
+          <div class="grid gap-3 sm:grid-cols-2 mb-8">
+            {item.metrics.map((metric: { label: string; value: string }) => (
+              <div class="rounded-xl border border-neutral-800 bg-neutral-900/70 p-4">
+                <div class="text-xl font-bold">{metric.value}</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">{metric.label}</div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <div class="grid gap-4 md:grid-cols-2 mb-8">
+          <div class="rounded-xl border border-neutral-800 bg-neutral-900/70 p-5">
+            <h2 class="text-sm font-bold uppercase tracking-wide text-green-300 mb-3">The Good</h2>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              {item.pros.map((pro: string) => (
+                <li>• {pro}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="rounded-xl border border-neutral-800 bg-neutral-900/70 p-5">
+            <h2 class="text-sm font-bold uppercase tracking-wide text-red-300 mb-3">Watchouts</h2>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              {item.cons.map((con: string) => (
+                <li>• {con}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {item.replacedBy && (
+          <div class="rounded-xl border border-neutral-800 bg-neutral-900/70 p-5 mb-8">
+            <h2 class="text-sm font-bold uppercase tracking-wide text-neutral-300 mb-2">Replacement Context</h2>
+            <p class="text-neutral-400 text-sm">{item.replacedBy}</p>
+          </div>
+        )}
+
+        {item.affiliateUrl && item.affiliateLabel && (
+          <a
+            href={item.affiliateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2 bg-[#ff9900]/10 hover:bg-[#ff9900]/20 border border-[#ff9900]/30 text-white text-sm font-semibold rounded-lg transition-all"
+          >
+            🛒 {item.affiliateLabel}
+          </a>
+        )}
+
+        <p class="text-xs text-neutral-500 mt-4">{item.affiliateNote}</p>
+      </div>
+    </section>
+  </main>
+</Layout>

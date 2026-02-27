@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { currentGearItems, replacedGearItems } from '../../data/gearItems';
+
+const gearJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: "Toby's Fitness Tech Gear",
+  description: 'Compact list of gear with direct links to full detailed reviews.',
+  url: 'https://tobyonfitnesstech.com/gear',
+  itemListElement: currentGearItems.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'Product',
+      name: item.name,
+      category: item.category,
+      description: item.shortDescription,
+      image: `https://tobyonfitnesstech.com${item.image}`,
+      url: `https://tobyonfitnesstech.com/gear/${item.slug}`
+    }
+  }))
+};
+
+const verdictClasses: Record<string, string> = {
+  'Not Recommended': 'bg-red-500/15 text-red-300 border-red-500/25',
+  Good: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/25',
+  Great: 'bg-blue-500/15 text-blue-300 border-blue-500/25',
+  Essential: 'bg-green-500/15 text-green-300 border-green-500/25'
+};
+---
+
+<Layout title="My Gear - Toby on Fitness Tech" jsonLd={gearJsonLd}>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-neutral-900/80">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <p class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-4">Gear List</p>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-5">What I Use (Quick List)</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">
+          This page is now a fast index. Each item has a short summary and image here, then links to its own full review page with detailed notes, pros, cons, and context.
+        </p>
+      </div>
+    </section>
+
+    <section class="py-12">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="text-2xl font-bold mb-2">Current Gear</h2>
+        <p class="text-sm text-neutral-500 mb-8">Daily-driver gear and active tools in my workflow.</p>
+
+        <div class="space-y-4">
+          {currentGearItems.map((item) => (
+            <a
+              href={`/gear/${item.slug}`}
+              class="group block rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-blue-500/40 hover:bg-neutral-900 transition-all"
+            >
+              <article class="p-4 md:p-5 grid gap-4 md:grid-cols-[180px_1fr_auto] md:items-center">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  class="w-full h-32 object-cover rounded-lg border border-neutral-800"
+                  loading="lazy"
+                />
+
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span class="text-xs text-neutral-400">{item.categoryEmoji} {item.category}</span>
+                    <span class={`text-xs px-2 py-0.5 rounded-full border ${verdictClasses[item.verdict]}`}>{item.verdict}</span>
+                    <span class="text-xs text-neutral-500">{item.location}</span>
+                  </div>
+                  <h3 class="text-xl font-semibold group-hover:text-blue-300 transition-colors">{item.name}</h3>
+                  <p class="text-sm text-neutral-400 mt-2">{item.shortDescription}</p>
+                </div>
+
+                <div class="text-sm font-semibold text-blue-300 group-hover:text-blue-200">Full details →</div>
+              </article>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="text-2xl font-bold mb-2">What I Replaced</h2>
+        <p class="text-sm text-neutral-500 mb-8">Previous devices and why they fell out of my stack.</p>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          {replacedGearItems.map((item) => (
+            <a
+              href={`/gear/${item.slug}`}
+              class="group rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-red-500/35 transition-colors p-4"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-neutral-400">{item.categoryEmoji} {item.category}</span>
+                <span class={`text-xs px-2 py-0.5 rounded-full border ${verdictClasses[item.verdict]}`}>{item.verdict}</span>
+              </div>
+              <h3 class="font-semibold text-lg group-hover:text-red-300 transition-colors">{item.name}</h3>
+              <p class="text-sm text-neutral-400 mt-2">{item.shortDescription}</p>
+              <p class="text-xs text-neutral-500 mt-3">View full context →</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
