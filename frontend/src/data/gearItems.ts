@@ -420,6 +420,42 @@ export const gearItems: GearItem[] = [
     affiliateNote: 'No active recommendation from my current setup.',
     replacedBy: 'Returned (no replacement in this slot)',
     sortOrder: 103
+  },
+  {
+    slug: 'oura-ring-gen-1-2',
+    name: 'Oura Ring (Gen 1 & 2)',
+    category: 'What I Replaced',
+    categoryEmoji: '🗑️',
+    status: 'replaced',
+    verdict: 'Not Recommended',
+    location: 'Dead',
+    image: '/images/gear/oura-ring.jpg',
+    shortDescription: 'Phenomenal tracking. Terrible battery longevity. Three devices dead within two years.',
+    detailIntro: 'The Oura Ring tracks exceptionally well — but all three of mine had batteries fail inside two years.',
+    details: [
+      'I owned three Oura Ring units (Gen 1 and Gen 2). Every single one had its battery die within two years of use.',
+      'One replacement was covered under the original two-year warranty. Oura later changed their warranty terms from two years down to one year.',
+      'You pay for the device AND a monthly membership — and get a warranty that does not even cover the most common failure mode.',
+      'The form factor is excellent. The sleep and recovery tracking is among the best available in any wearable.',
+      'But a wearable that dies in under two years is not a wearable — it is a subscription with a hardware timer.',
+      'I replaced it with WHOOP, which uses a charging pack instead of an internal battery, solving the dead-battery problem entirely.'
+    ],
+    pros: [
+      'Outstanding sleep stage tracking',
+      'Best-in-class form factor — feels like wearing nothing',
+      'Readiness and recovery scores were accurate and useful',
+      'Discreet — nobody knows you are tracking'
+    ],
+    cons: [
+      'Battery died on all three units within two years',
+      'Warranty changed from 2 years to 1 year mid-ownership',
+      'Charges both device price AND monthly membership fee',
+      'No way to replace battery — device is a write-off when it dies',
+      'Customer support was unhelpful on out-of-warranty failures'
+    ],
+    affiliateNote: 'Cannot recommend. Hardware lifespan does not justify the combined device + membership cost.',
+    replacedBy: 'WHOOP 4.0',
+    sortOrder: 104
   }
 ];
 
