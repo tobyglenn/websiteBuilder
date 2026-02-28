@@ -19,7 +19,7 @@ export default function EpisodeDetail({ episode }) {
     <div className="min-h-screen">
       {/* Back nav */}
       <div className="max-w-4xl mx-auto px-4 pt-8">
-        <a href="/podcasts" className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors group">
+        <a href="/podcasts/openclaw/" className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors group">
           <span className="group-hover:-translate-x-1 transition-transform inline-block">←</span>
           All Episodes
         </a>
