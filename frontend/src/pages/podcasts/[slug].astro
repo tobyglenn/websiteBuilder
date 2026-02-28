@@ -3,6 +3,16 @@ import { marked } from 'marked';
 import Layout from '../../layouts/Layout.astro';
 import EpisodeDetail from '../../components/EpisodeDetail.jsx';
 import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
+import {
+  englishShowNotesCandidates,
+  englishTranscriptCandidates,
+  extractAttr,
+  extractChannelItems,
+  extractTag,
+  fetchFirstAvailableText,
+  normalizeEpisodeTitle,
+  parseEpisodeNumber,
+} from '../../lib/openclawFeed';
 
 export async function getStaticPaths() {
   // Load transcript files — must be inside getStaticPaths for Astro's isolated scope
@@ -40,34 +50,18 @@ export async function getStaticPaths() {
   const rssRes = await fetch('https://grayking-creator.github.io/openclaw-podcast/feed.xml');
   const rssText = await rssRes.text();
 
-  // 2. Parse episodes (same helpers as podcasts.astro — inlined here)
-  const getTag = (xml: string, tag: string): string => {
-    // Handle CDATA
-    const cdataRe = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`, 'i');
-    const cdataM = xml.match(cdataRe);
-    if (cdataM) return cdataM[1].trim();
-    const plainRe = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
-    const plainM = xml.match(plainRe);
-    return plainM ? plainM[1].trim() : '';
-  };
-
-  const getAttr = (xml: string, tag: string, attr: string): string => {
-    const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]+)"`, 'i');
-    const m = xml.match(re);
-    return m ? m[1] : '';
-  };
-
-  const items = rssText.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+  // 2. Parse episodes
+  const items = extractChannelItems(rssText);
 
   const episodes = await Promise.all(items.map(async (item) => {
-    const episodeNum = parseInt(getTag(item, 'itunes:episode') || '0');
+    const episodeNum = parseEpisodeNumber(item);
     const slug = `episode-${episodeNum}`;
-    const mdUrl = getTag(item, 'link');
-    const audioUrl = getAttr(item, 'enclosure', 'url');
-    const title = getTag(item, 'title').replace(/^Episode \d+:\s*/, '');
-    const description = getTag(item, 'description');
-    const pubDate = getTag(item, 'pubDate');
-    const duration = getTag(item, 'itunes:duration');
+    const audioUrl = extractAttr(item, 'enclosure', 'url');
+    const title = normalizeEpisodeTitle(extractTag(item, 'title'));
+    const description = extractTag(item, 'description');
+    const pubDate = extractTag(item, 'pubDate');
+    const duration = extractTag(item, 'itunes:duration');
+    let transcriptSourceUrl = extractTag(item, 'link');
 
     // Format date
     const dateObj = new Date(pubDate);
@@ -82,30 +76,26 @@ export async function getStaticPaths() {
 
     // Step 1: Fetch dedicated show notes file (all episodes)
     let showNotesMd = '';
-    const snUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/show_notes_episode_${String(episodeNum).padStart(3, '0')}.md`;
-    try {
-      const snRes = await fetch(snUrl);
-      if (snRes.ok) {
-        showNotesMd = await snRes.text();
-      }
-    } catch {
-      // no show notes file — graceful fallback
+    const showNotesResult = await fetchFirstAvailableText(
+      englishShowNotesCandidates(episodeNum),
+    );
+    if (showNotesResult) {
+      showNotesMd = showNotesResult.text;
     }
 
-    // Step 2: Fetch transcript — hardcoded filenames per episode number
-    const TRANSCRIPT_FILES: Record<number, string> = {
-      0: 'episode_000.md',
-      1: 'episode_001_full_v2.md',
-      2: 'episode_002.md',
-      3: 'episode_003.md',
-      5: 'episode_005.md',
-    };
-    const transcriptFile = TRANSCRIPT_FILES[episodeNum] ?? `episode_00${episodeNum}.md`;
-    const transcriptFetchUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/${transcriptFile}`;
+    // Step 2: Fetch transcript with filename fallbacks for legacy naming.
+    const transcriptResult = await fetchFirstAvailableText(
+      englishTranscriptCandidates(episodeNum),
+    );
+    if (transcriptResult) {
+      rawMd = transcriptResult.text;
+      transcriptSourceUrl = transcriptResult.url;
+    }
 
     try {
-      const mdRes = await fetch(transcriptFetchUrl);
-      rawMd = await mdRes.text();
+      if (!rawMd.trim()) {
+        throw new Error('Transcript not found');
+      }
 
       // Step 3: Process fetched markdown
       if (episodeNum === 0) {
@@ -183,7 +173,7 @@ export async function getStaticPaths() {
           date: formattedDate,
           duration,
           audioUrl,
-          mdUrl,
+          mdUrl: transcriptSourceUrl,
           coverImage,
           topics,
           links,
@@ -203,16 +193,16 @@ export async function getStaticPaths() {
     toftItems.forEach((item, idx) => {
       const index = idx + 1;
       const slug = `toft-${index}`;
-      const title = getTag(item, 'title');
-      const rawDesc = getTag(item, 'description');
+      const title = extractTag(item, 'title');
+      const rawDesc = extractTag(item, 'description');
       const showNotesHtml = rawDesc
         .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
       const description = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300);
-      const pubDateRaw = getTag(item, 'pubDate');
+      const pubDateRaw = extractTag(item, 'pubDate');
       const dateObj = new Date(pubDateRaw);
       const date = isNaN(dateObj.getTime()) ? pubDateRaw : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
-      const audioUrl = (() => { const re = /<enclosure[^>]*\surl="([^"]+)"/i; const m = item.match(re); return m ? m[1] : ''; })();
-      const duration = getTag(item, 'itunes:duration');
+      const audioUrl = extractAttr(item, 'enclosure', 'url');
+      const duration = extractTag(item, 'itunes:duration');
       toftEpisodes.push({
         params: { slug },
         props: {

@@ -2,6 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import LanguageSwitcher from '../../components/LanguageSwitcher.tsx';
 import PodcastSubscribeButtons from '../../components/PodcastSubscribeButtons.jsx';
+import {
+  extractAttr,
+  extractChannelItems,
+  extractTag,
+  normalizeEpisodeTitle,
+  parseEpisodeNumber,
+} from '../../lib/openclawFeed';
 
 const feedUrl = 'https://grayking-creator.github.io/openclaw-podcast/feed.xml';
 const pocketcastsUrl = 'https://pca.st/qdsn1ef7';
@@ -32,18 +39,6 @@ function formatDate(raw: string): string {
   }
 }
 
-function extractTag(xml: string, tag: string): string {
-  const re = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
-  const m = xml.match(re);
-  return (m ? (m[1] ?? m[2] ?? '') : '').trim();
-}
-
-function extractAttr(xml: string, tag: string, attr: string): string {
-  const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]*)"`, 'i');
-  const m = xml.match(re);
-  return m ? m[1].trim() : '';
-}
-
 function mdUrlToGitHub(url: string): string {
   const m = url.match(/https:\/\/([^.]+)\.github\.io\/([^/]+)\/(.+)/);
   if (m) {
@@ -60,24 +55,18 @@ try {
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const xml = await res.text();
 
-  const channelMatch = xml.match(/<channel[^>]*>([\s\S]*?)<\/channel>/i);
-  const channelXml = channelMatch ? channelMatch[1] : xml;
+  const items = extractChannelItems(xml);
 
-  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
-  let m: RegExpExecArray | null;
-
-  while ((m = itemRegex.exec(channelXml)) !== null) {
-    const item = m[1];
-    const title = extractTag(item, 'title');
+  for (const item of items) {
+    const title = normalizeEpisodeTitle(extractTag(item, 'title'));
     const description = extractTag(item, 'description');
     const pubDateRaw = extractTag(item, 'pubDate');
     const audioUrl = extractAttr(item, 'enclosure', 'url');
     const duration = extractTag(item, 'itunes:duration');
-    const episodeNumStr = extractTag(item, 'itunes:episode');
     const link = extractTag(item, 'link');
     const showNotesUrl = mdUrlToGitHub(link);
     const pubDate = formatDate(pubDateRaw);
-    const episodeNum = parseInt(episodeNumStr, 10) || 0;
+    const episodeNum = parseEpisodeNumber(item);
     const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
 
     episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
@@ -173,7 +162,7 @@ try {
                   EP {ep.episodeNum}
                 </span>
                 <h2 class="text-xl font-bold text-white leading-snug">
-                  {ep.title.replace(/^Episode \d+:\s*/i, '')}
+                  {ep.title}
                 </h2>
               </div>
             </div>

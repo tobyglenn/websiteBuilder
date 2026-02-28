@@ -3,6 +3,17 @@ import { marked } from 'marked';
 import Layout from '../../../layouts/Layout.astro';
 import EpisodeDetail from '../../../components/EpisodeDetail.jsx';
 import StickySubscribeBar from '../../../components/StickySubscribeBar.jsx';
+import {
+  ensureEpisodeFromFallbackFeed,
+  extractAttr,
+  extractChannelItems,
+  extractTag,
+  fetchFirstAvailableText,
+  localizedShowNotesCandidates,
+  localizedTranscriptCandidates,
+  normalizeEpisodeTitle,
+  parseEpisodeNumber,
+} from '../../../lib/openclawFeed';
 
 export async function getStaticPaths() {
   const langCode = 'es';
@@ -12,31 +23,20 @@ export async function getStaticPaths() {
   const rssRes = await fetch(feedUrl);
   const rssText = await rssRes.text();
 
-  // 2. Parse episodes using helper functions
-  const getTag = (xml: string, tag: string): string => {
-    const cdataRe = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`, 'i');
-    const cdataM = xml.match(cdataRe);
-    if (cdataM) return cdataM[1].trim();
-    const plainRe = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, 'i');
-    const plainM = xml.match(plainRe);
-    return plainM ? plainM[1].trim() : '';
-  };
-
-  const getAttr = (xml: string, tag: string, attr: string): string => {
-    const re = new RegExp(`<${tag}[^>]*\\s${attr}="([^"]+)"`, 'i');
-    const m = xml.match(re);
-    return m ? m[1] : '';
-  };
-
-  const items = rssText.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
+  // 2. Parse episodes
+  let items = extractChannelItems(rssText);
+  items = await ensureEpisodeFromFallbackFeed(items, 0);
 
   const episodes = await Promise.all(items.map(async (item) => {
-    const episodeNum = parseInt(getTag(item, 'itunes:episode') || '0');
+    const episodeNum = parseEpisodeNumber(item);
     const slug = `episode-${episodeNum}`;
-    const title = getTag(item, 'title').replace(/^Episode \d+:\s*/, '');
-    const description = getTag(item, 'description');
-    const pubDate = getTag(item, 'pubDate');
-    const duration = getTag(item, 'itunes:duration');
+    const title = normalizeEpisodeTitle(extractTag(item, 'title'));
+    const description = extractTag(item, 'description');
+    const pubDate = extractTag(item, 'pubDate');
+    const duration = extractTag(item, 'itunes:duration');
+    const audioUrl = extractAttr(item, 'enclosure', 'url');
+    const fallbackLink = extractTag(item, 'link');
+    let transcriptSourceUrl = fallbackLink;
 
     // Format date in Spanish
     const dateObj = new Date(pubDate);
@@ -44,42 +44,25 @@ export async function getStaticPaths() {
 
     // Fetch translated show notes
     let showNotesHtml = '';
-    const snUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/es/show_notes_episode_${String(episodeNum).padStart(3, '0')}_es.md`;
-    try {
-      const snRes = await fetch(snUrl);
-      if (snRes.ok) {
-        const showNotesMd = await snRes.text();
-        showNotesHtml = await marked.parse(showNotesMd);
-      }
-    } catch {
-      // No show notes file - graceful fallback
+    const showNotesResult = await fetchFirstAvailableText(
+      localizedShowNotesCandidates(langCode, episodeNum),
+    );
+    if (showNotesResult) {
+      showNotesHtml = await marked.parse(showNotesResult.text);
     }
 
     // Fetch translated transcript (for topics/links)
     let transcriptHtml = '';
-    const transcriptUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/es/episode_${String(episodeNum).padStart(3, '0')}_es.md`;
-    try {
-      const mdRes = await fetch(transcriptUrl);
-      if (mdRes.ok) {
-        const rawMd = await mdRes.text();
-        // Extract topics from section headings
-        const topics = [...rawMd.matchAll(/^## SECTION \d+:\s*(.+)$/gm)].map(m => m[1].trim());
-        if (!topics.length) {
-          const sectionTopics = [...rawMd.matchAll(/^## (.+)$/gm)]
-            .map(m => m[1].trim())
-            .filter(t => !t.match(/^(SHOW NOTES|Full Story|Episode)/i));
-          topics.push(...sectionTopics);
-        }
-        
-        // Render markdown for display
-        transcriptHtml = await marked.parse(rawMd);
-      }
-    } catch {
+    const transcriptResult = await fetchFirstAvailableText(
+      localizedTranscriptCandidates(langCode, episodeNum),
+    );
+    if (transcriptResult) {
+      transcriptSourceUrl = transcriptResult.url;
+      transcriptHtml = await marked.parse(transcriptResult.text);
+    } else {
       transcriptHtml = '<p class="text-neutral-500">Transcripción no disponible.</p>';
     }
 
-    // Build translated audio URL
-    const audioUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/es/episode_${String(episodeNum).padStart(3, '0')}_es.mp3`;
     const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
 
     return {
@@ -93,6 +76,7 @@ export async function getStaticPaths() {
           date: formattedDate,
           duration,
           audioUrl,
+          mdUrl: transcriptSourceUrl,
           coverImage,
           showNotesHtml,
           transcriptHtml,
