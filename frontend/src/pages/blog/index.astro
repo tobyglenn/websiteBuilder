@@ -121,7 +121,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
     <!-- ░░ LEAD STORY LAYOUT ░░ -->
     {featuredPost ? (
-      <div id="lead-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
 
         <!-- Featured Post -->
         <article class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-800 hover:shadow-2xl hover:shadow-blue-950/30 transition-all duration-300 group border-l-4 border-l-blue-500 flex flex-col"
@@ -226,47 +226,8 @@ const description = "Independent analysis of fitness technology. Real data. No a
     )}
 
     <!-- ░░ FULL GRID ░░ -->
-    <div id="filtered-grid" style="display:none">
-      <div class="flex items-center gap-4 mb-8">
-        <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">Posts</h2>
-        <div class="flex-1 border-t border-neutral-800" />
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {BLOG_POSTS.map(post => (
-          <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group"
-            data-category={post.category}
-            data-filtered-card
-          >
-            <a href={`/blog/${post.slug}`} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
-              <div class="absolute inset-0 z-0 bg-neutral-800" />
-              {post.image && (
-                <img src={post.image} alt={post.title} class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
-              )}
-              <div class="absolute top-4 left-4">
-                <span class="bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">{post.category}</span>
-              </div>
-            </a>
-            <div class="p-6 flex flex-col flex-1">
-              <div class="flex items-center text-xs text-neutral-500 mb-3 space-x-2">
-                <span>{new Date(post.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                <span>·</span>
-                <span>{readTime(post.content)}</span>
-              </div>
-              <h2 class="text-xl font-bold mb-3 leading-snug group-hover:text-blue-400 transition-colors text-white">
-                <a href={`/blog/${post.slug}`}>{post.title}</a>
-              </h2>
-              <p class="text-neutral-300 text-sm leading-relaxed mb-6 flex-grow line-clamp-2">{post.excerpt}</p>
-              <a href={`/blog/${post.slug}`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors">
-                Read Full Analysis <span>&rarr;</span>
-              </a>
-            </div>
-          </article>
-        ))}
-      </div>
-    </div>
-
     {gridPosts.length > 0 && (
-      <div id="all-grid">
+      <div>
         <div class="flex items-center gap-4 mb-8">
           <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">More Analysis</h2>
           <div class="flex-1 border-t border-neutral-800" />
@@ -328,27 +289,6 @@ const description = "Independent analysis of fitness technology. Real data. No a
       const params = new URLSearchParams(window.location.search);
       const active = params.get('category') || 'All';
 
-      const leadSection = document.getElementById('lead-section');
-      const allGrid = document.getElementById('all-grid');
-      const filteredGrid = document.getElementById('filtered-grid');
-
-      if (active === 'All') {
-        // Show normal featured/sidebar/grid layout
-        if (leadSection) leadSection.style.display = '';
-        if (allGrid) allGrid.style.display = '';
-        if (filteredGrid) filteredGrid.style.display = 'none';
-      } else {
-        // Hide lead layout, show filtered flat grid
-        if (leadSection) leadSection.style.display = 'none';
-        if (allGrid) allGrid.style.display = 'none';
-        if (filteredGrid) filteredGrid.style.display = '';
-
-        // Filter the flat grid cards
-        document.querySelectorAll('[data-filtered-card]').forEach(card => {
-          card.style.display = card.getAttribute('data-category') === active ? '' : 'none';
-        });
-      }
-
       // Update button active states
       document.querySelectorAll('[data-cat-btn]').forEach(btn => {
         const cat = btn.getAttribute('data-cat-btn');
@@ -358,6 +298,16 @@ const description = "Independent analysis of fitness technology. Real data. No a
         } else {
           btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-900/40');
           btn.classList.add('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
+        }
+      });
+
+      // Show/hide post cards
+      document.querySelectorAll('[data-post-card]').forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (active === 'All' || cat === active) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
         }
       });
     }
