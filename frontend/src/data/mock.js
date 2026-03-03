@@ -212,7 +212,7 @@ export const BLOG_POSTS = [
     excerpt: "Having tested both devices rigorously over a 60+ day period wearing them through intense training cycles and recovery days.",
     category: "Field Reports",
     published_at: "2026-03-01",
-    image: "https://i.ytimg.com/vi/skiltOPni7I/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/DHYERsqckrA/maxresdefault.jpg",
     tags: ["fitness tech", "sleep tracking", "Oura", "WHOOP"],
     content: "## Hardware and Design Evolution\n\nWHOOP 5 is marketed as smaller but is actually thicker than WHOOP 4. The height off the wrist matters for sleep comfort, and WHOOP 5 sits as high as a Garmin watch. Oura Ring bypasses the wrist-strap problem entirely, feeling like jewelry significantly more comfortable to sleep in.\n\n## Sleep Tracking Accuracy\n\nI tracked sleep stages, HRV, resting heart rate, and respiratory rate on both devices for 60 days. WHOOP answers how hard can I push my body today. Oura breaks down sleep stages with surprising accuracy and gives prescriptive guidance.\n\n## Nap Detection\n\nOura's automatic nap detection is industry-leading. WHOOP requires manual tagging but provides more context about how naps affect recovery score.\n\n## Verdict\n\nWHOOP for recovery optimization. Oura for sleep-specific insights and prescriptive advice. Both require 60+ days to establish baselines before data becomes actionable."
   },
@@ -222,7 +222,7 @@ export const BLOG_POSTS = [
     excerpt: "After using both for extended periods, here is the definitive comparison on price, weight capacity, and AI features.",
     category: "Field Reports",
     published_at: "2026-03-01",
-    image: "https://i.ytimg.com/vi/-za9-uOurew/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/iOYPjqDTdas/maxresdefault.jpg",
     tags: ["Speediance", "Tonal", "home gym", "smart gym"],
     content: "## Price Breakdown\n\nTonal starts at $3,995 with mandatory $63/month membership. Speediance GM2 starts at $2,499 with optional $24/month. Total 3-year cost Tonal approximately $6,263 vs Speediance approximately $3,543 without subscription.\n\n## Weight Capacity\n\nTonal: 200 lbs per arm. GM2: 220 lbs per arm. The extra 20 lbs matters for advanced lifters doing squats and deadlifts.\n\n## AI and Form Coaching\n\nTonal uses computer vision for real-time form corrections. Speediance GM2 uses depth-sensing camera for ROM tracking and basic form cues.\n\n## The Membership Problem\n\nTonal without membership becomes a paperweight with giant reactivation ads. Speediance without Plus remains functional for tracking workouts.\n\n## Verdict\n\nTonal if you want best AI coaching and subscription forever. Speediance GM2 for better value and freedom to own your device."
   },
@@ -232,7 +232,7 @@ export const BLOG_POSTS = [
     excerpt: "Your recovery score is WHOOP's most powerful feature but most misunderstood. Here is how to interpret HRV data and what to do on red days.",
     category: "Field Reports",
     published_at: "2026-03-01",
-    image: "https://i.ytimg.com/vi/apsAL3x_V3k/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/tJy-087yD3g/maxresdefault.jpg",
     tags: ["WHOOP", "recovery", "HRV", "training"],
     content: "## What Recovery Score Actually Measures\n\nWHOOP calculates recovery using HRV, sleep performance, and recent strain. The algorithm compares your current HRV to your rolling 7-day baseline.\n\n## Yellow Days vs Red Days\n\nGreen 67-100% means full send with maximal training. Yellow 34-66% means moderate effort. Red 1-33% means recovery mode with rest.\n\n## When to Trust the Score vs Your Body\n\nThe score is descriptive, not prescriptive. One red day does not mean you are broken. Five red days means something is wrong. Trust trends over daily scores.\n\n## What Actually Wipes Recovery\n\nFrom 60 days of logs: Alcohol reduces recovery by 10-15%, poor sleep, work stress, and illness.\n\n## Actionable Takeaways\n\nLog behaviors to surface correlations. Establish 60-day baseline before trusting patterns. Use score as one data point, not gospel. Trends beat single day scores."
   },
@@ -242,7 +242,7 @@ export const BLOG_POSTS = [
     excerpt: "The GM2 is a significant upgrade but whether it is worth the extra $1,000+ depends on your lifting level and whether you will actually use the AI features.",
     category: "Field Reports",
     published_at: "2026-03-01",
-    image: "https://i.ytimg.com/vi/J3W59IR2Las/hqdefault.jpg",
+    image: "https://i.ytimg.com/vi/Wvx6G50r69w/maxresdefault.jpg",
     tags: ["Speediance", "Gym Monster", "upgrade", "home gym"],
     content: "## Hardware Upgrades\n\nWeight Capacity: GM1 has 180 lbs per arm, GM2 has 220 lbs per arm. Those 40 extra pounds matter for deadlifts and heavy rows. Display: GM1 has 21.5 inch 1080p, GM2 has 32 inch 4K touchscreen.\n\n## The AI Form Coach\n\nUses depth-sensing camera for ROM tracking and basic form cues. Helpful for beginners learning movement patterns. Advanced lifters will not find much value.\n\n## Update Promise\n\nSpeediance focuses software development on GM2. GM1 still gets updates but major features prioritize GM2.\n\n## Price Difference\n\nGM1 is often $1,000 to $1,500 cheaper especially used.\n\n## Verdict\n\nGet GM2 if you are an advanced lifter hitting 180+ lbs or want future-proof hardware. Stick with GM1 if you are beginner or intermediate or want to save money. Both are excellent and GM2 is evolutionary not revolutionary."
   }
