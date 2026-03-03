@@ -59,15 +59,11 @@ const CATEGORIES = [
   'Signal vs. Noise',
 ];
 
-const activeCategory = Astro.url.searchParams.get('category') || 'All';
+const activeCategory = 'All';
 
-const filteredPosts = activeCategory === 'All'
-  ? BLOG_POSTS
-  : BLOG_POSTS.filter(p => p.category === activeCategory);
-
-const featuredPost = filteredPosts[0];
-const sidebarPosts = filteredPosts.slice(1, 5);
-const gridPosts = filteredPosts.slice(5);
+const featuredPost = BLOG_POSTS[0];
+const sidebarPosts = BLOG_POSTS.slice(1, 5);
+const gridPosts = BLOG_POSTS.slice(5);
 
 const title = "The Analysis Log — Toby on Fitness Tech";
 const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
@@ -105,6 +101,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
           return (
             <a
               href={href}
+              data-cat-btn={cat}
               class={[
                 'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap',
                 isActive
@@ -127,7 +124,10 @@ const description = "Independent analysis of fitness technology. Real data. No a
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
 
         <!-- Featured Post -->
-        <article class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-800 hover:shadow-2xl hover:shadow-blue-950/30 transition-all duration-300 group border-l-4 border-l-blue-500 flex flex-col">
+        <article class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-800 hover:shadow-2xl hover:shadow-blue-950/30 transition-all duration-300 group border-l-4 border-l-blue-500 flex flex-col"
+          data-category={featuredPost.category}
+          data-post-card
+        >
           <a href={`/blog/${featuredPost.slug}`} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
             <div class="absolute inset-0 z-0 bg-neutral-800" />
             {featuredPost.image && (
@@ -183,7 +183,10 @@ const description = "Independent analysis of fitness technology. Real data. No a
           </h3>
           <div class="flex flex-col divide-y divide-neutral-800">
             {sidebarPosts.length > 0 ? sidebarPosts.map(post => (
-              <article class="flex gap-4 py-4 group hover:bg-neutral-900/50 rounded-lg px-2 transition-colors">
+              <article class="flex gap-4 py-4 group hover:bg-neutral-900/50 rounded-lg px-2 transition-colors"
+                data-category={post.category}
+                data-post-card
+              >
                 <a href={`/blog/${post.slug}`} class="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden relative bg-neutral-800">
                   {post.image && (
                     <img
@@ -232,7 +235,10 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {gridPosts.map(post => (
-            <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group">
+            <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group"
+              data-category={post.category}
+              data-post-card
+            >
               <a href={`/blog/${post.slug}`} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
                 <div class="absolute inset-0 z-0 bg-neutral-800" />
                 {post.image && (
@@ -277,4 +283,36 @@ const description = "Independent analysis of fitness technology. Real data. No a
     )}
 
   </div>
+
+  <script>
+    function applyFilter() {
+      const params = new URLSearchParams(window.location.search);
+      const active = params.get('category') || 'All';
+
+      // Update button active states
+      document.querySelectorAll('[data-cat-btn]').forEach(btn => {
+        const cat = btn.getAttribute('data-cat-btn');
+        if (cat === active) {
+          btn.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-900/40');
+          btn.classList.remove('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
+        } else {
+          btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-900/40');
+          btn.classList.add('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
+        }
+      });
+
+      // Show/hide post cards
+      document.querySelectorAll('[data-post-card]').forEach(card => {
+        const cat = card.getAttribute('data-category');
+        if (active === 'All' || cat === active) {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    applyFilter();
+    window.addEventListener('popstate', applyFilter);
+  </script>
 </Layout>
