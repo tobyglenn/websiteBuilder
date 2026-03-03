@@ -121,7 +121,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
     <!-- ░░ LEAD STORY LAYOUT ░░ -->
     {featuredPost ? (
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+      <div id="lead-section" class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
 
         <!-- Featured Post -->
         <article class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-800 hover:shadow-2xl hover:shadow-blue-950/30 transition-all duration-300 group border-l-4 border-l-blue-500 flex flex-col"
@@ -226,7 +226,8 @@ const description = "Independent analysis of fitness technology. Real data. No a
     )}
 
     <!-- ░░ FULL GRID ░░ -->
-    {gridPosts.length > 0 && (
+    <div id="all-grid-section">
+      {gridPosts.length > 0 && (
       <div>
         <div class="flex items-center gap-4 mb-8">
           <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">More Analysis</h2>
@@ -234,7 +235,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {gridPosts.map(post => (
+          {BLOG_POSTS.map(post => (
             <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group"
               data-category={post.category}
               data-post-card
@@ -281,6 +282,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         </div>
       </div>
     )}
+    </div>
 
   </div>
 
@@ -288,6 +290,23 @@ const description = "Independent analysis of fitness technology. Real data. No a
     function applyFilter() {
       const params = new URLSearchParams(window.location.search);
       const active = params.get('category') || 'All';
+
+      const leadSection = document.getElementById('lead-section');
+      const allGridSection = document.getElementById('all-grid-section');
+
+      if (active === 'All') {
+        // Restore normal layout
+        if (leadSection) leadSection.style.display = '';
+        if (allGridSection) allGridSection.style.display = '';
+        document.querySelectorAll('[data-post-card]').forEach(c => c.style.display = '');
+      } else {
+        // Hide lead layout entirely, filter grid cards
+        if (leadSection) leadSection.style.display = 'none';
+        if (allGridSection) allGridSection.style.display = '';
+        document.querySelectorAll('[data-post-card]').forEach(card => {
+          card.style.display = card.getAttribute('data-category') === active ? '' : 'none';
+        });
+      }
 
       // Update button active states
       document.querySelectorAll('[data-cat-btn]').forEach(btn => {
@@ -298,16 +317,6 @@ const description = "Independent analysis of fitness technology. Real data. No a
         } else {
           btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-900/40');
           btn.classList.add('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
-        }
-      });
-
-      // Show/hide post cards
-      document.querySelectorAll('[data-post-card]').forEach(card => {
-        const cat = card.getAttribute('data-category');
-        if (active === 'All' || cat === active) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
         }
       });
     }

@@ -230,7 +230,7 @@ export const BLOG_POSTS = [
     slug: "whoop-recovery-scores-explained",
     title: "WHOOP Recovery Scores Explained: Complete Guide to HRV-Based Readiness",
     excerpt: "Your recovery score is WHOOP's most powerful feature but most misunderstood. Here is how to interpret HRV data and what to do on red days.",
-    category: "The Numbers",
+    category: "Field Reports",
     published_at: "2026-03-01",
     image: "",
     tags: ["WHOOP", "recovery", "HRV", "training"],
