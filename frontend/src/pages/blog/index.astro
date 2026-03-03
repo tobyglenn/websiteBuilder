@@ -61,9 +61,13 @@ const CATEGORIES = [
 
 const activeCategory = 'All';
 
-const featuredPost = BLOG_POSTS[0];
-const sidebarPosts = BLOG_POSTS.slice(1, 5);
-const gridPosts = BLOG_POSTS.slice(5);
+const sortedPosts = [...BLOG_POSTS].sort((a, b) =>
+  new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+);
+
+const featuredPost = sortedPosts[0];
+const sidebarPosts = sortedPosts.slice(1, 5);
+const gridPosts = sortedPosts.slice(5);
 
 const title = "The Analysis Log — Toby on Fitness Tech";
 const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
@@ -235,7 +239,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {BLOG_POSTS.map(post => (
+          {sortedPosts.map(post => (
             <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group"
               data-category={post.category}
               data-post-card
