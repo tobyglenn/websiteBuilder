@@ -6,7 +6,7 @@ import { Activity, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
 import fs from 'fs';
 import path from 'path';
 
-const whoopDataPath = '/Users/tobyglennpeters/clawd/data/whoop_v2_latest.json';
+const whoopDataPath = path.join(process.cwd(), 'src/data/whoop_v2_latest.json');
 const whoopDataRaw = fs.readFileSync(whoopDataPath, 'utf-8');
 const whoopData = JSON.parse(whoopDataRaw);
 
