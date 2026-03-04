@@ -2,6 +2,22 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T13:12:00-05:00",
+      "idea": "Enhanced video page with category-filtered related videos and More Videos section",
+      "category": "UX Enhancement - Video Page",
+      "files_changed": [
+        "src/pages/video/[id].astro"
+      ],
+      "commit": "de99a5e",
+      "sections": [
+        "Related videos now filtered by category tag (prioritizes matching tags)",
+        "Added category badge above video player",
+        "Added 'More Videos in Category' section below transcript with 4 video cards",
+        "Link to view all category videos on /videos page"
+      ],
+      "notes": "Clarity subagent timed out. Implemented directly. Related videos now filter by tag/category for better relevance. Build: 253 pages."
+    },
+    {
       "timestamp": "2026-03-04T11:15:00-05:00",
       "idea": "Fix broken blog category filtering - now reads URL params and filters posts",
       "category": "UX Enhancement - Blog",
