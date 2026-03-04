@@ -234,14 +234,16 @@ const { episode } = Astro.props;
     "@type": "PodcastEpisode",
     "name": episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`,
     "description": episode.description,
+    "datePublished": episode.date,
+    "duration": episode.duration,
+    "image": episode.coverImage,
     "partOfSeries": {
       "@type": "PodcastSeries",
-      "name": episode.isToft ? "Toby on Fitness Tech" : "OpenClaw Daily",
-      "url": episode.isToft
-        ? "https://tobyonfitnesstech.com/podcasts/"
-        : "https://tobyonfitnesstech.com/podcasts/openclaw/"
+      "name": "Toby on Fitness Tech",
+      "url": "https://tobyonfitnesstech.com/podcasts/"
     },
-    "datePublished": episode.date,
+    "episodeNumber": episode.isToft ? undefined : episode.number,
+    "url": `https://tobyonfitnesstech.com/podcasts/${episode.slug}`,
     "contentUrl": episode.audioUrl,
     ...(episode.videoId ? { "video": { "@type": "VideoObject", "embedUrl": `https://www.youtube.com/embed/${episode.videoId}`, "url": `https://www.youtube.com/watch?v=${episode.videoId}` } } : {}),
     "inLanguage": "en",
