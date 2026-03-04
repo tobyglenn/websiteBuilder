@@ -861,6 +861,25 @@
         "Dark card design matching site theme"
       ],
       "notes": "View counts already displayed on VideoGrid (verified). Fixed duplicate parseDuration function causing build error. Build: 251 pages."
+    },
+    {
+      "timestamp": "2026-03-04T09:18:00-05:00",
+      "type": "blog-post",
+      "description": "Added new blog post from unused video transcript",
+      "post": {
+        "slug": "speediance-unlimited-sets-setting",
+        "title": "The Speediance Setting Everyone Gets Wrong",
+        "category": "Signal vs. Noise",
+        "published_at": "2025-09-01",
+        "transcript_video_id": "udS5Iu6SXWM",
+        "transcript_file": "2025-09-01_Speediance_first_thing_to_do_Immediately_change_this_setting.txt",
+        "topics": [
+          "Unlimited Sets",
+          "Progressive Overload",
+          "Eccentric Mode",
+          "Settings"
+        ]
+      }
     }
   ],
   "in_progress": null,
