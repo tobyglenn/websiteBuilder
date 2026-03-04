@@ -786,6 +786,48 @@
         "Categorization based on title/description keywords"
       ],
       "notes": "Built with Clarity subagent. Categories derived from video titles/descriptions. 263 pages built."
+    },
+    {
+      "timestamp": "2026-03-04T11:16:00-05:00",
+      "idea": "Dynamic Training Activity Section on Homepage",
+      "category": "Homepage Enhancement",
+      "files_changed": [
+        "src/pages/index.astro",
+        "src/lib/trainingStats.js"
+      ],
+      "commit": "a826190",
+      "data_sources": [
+        "speediance_dashboard_data.json - 125 workouts",
+        "garmin_all_activities.json - 111 runs"
+      ],
+      "sections": [
+        "Training Streak counter - consecutive days with Speediance workouts",
+        "Last Workout display - date and workout type",
+        "This Week volume - total lbs lifted this week",
+        "This Month miles - total Garmin miles this month"
+      ],
+      "notes": "Built with Clarity subagent. Calculates streak from Speediance workout dates, shows weekly volume and monthly miles. Dark theme matches site. Build: 263 pages."
+    },
+    {
+      "timestamp": "2026-03-04T11:16:00-05:00",
+      "idea": "Dynamic Training Activity Section on Homepage",
+      "category": "Homepage Enhancement",
+      "files_changed": [
+        "src/pages/index.astro",
+        "src/lib/trainingStats.js"
+      ],
+      "commit": "a826190",
+      "data_sources": [
+        "speediance_dashboard_data.json - 125 workouts",
+        "garmin_all_activities.json - 111 runs"
+      ],
+      "sections": [
+        "Training Streak counter - consecutive days with Speediance workouts",
+        "Last Workout display - date and workout type",
+        "This Week volume - total lbs lifted this week",
+        "This Month miles - total Garmin miles this month"
+      ],
+      "notes": "Built with Clarity subagent. Calculates streak from Speediance workout dates, shows weekly volume and monthly miles. Dark theme matches site. Build: 263 pages."
     }
   ],
   "in_progress": null,
