@@ -103,9 +103,29 @@ const description = "Independent analysis of fitness technology. Real data. No a
     </div>
   </section>
 
-  <!-- ░░ CATEGORY FILTER ░░ -->
+  <!-- ░░ SEARCH + CATEGORY FILTER ░░ -->
   <section class="bg-neutral-950 border-b border-neutral-800 sticky top-16 z-40 backdrop-blur">
     <div class="container mx-auto px-4 py-4">
+      <!-- Search Input -->
+      <div class="max-w-md mx-auto mb-4">
+        <div class="relative">
+          <input
+            type="text"
+            id="blog-search"
+            placeholder="Search posts..."
+            class="w-full bg-neutral-900 border border-neutral-700 text-white placeholder-neutral-500 px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          />
+          <button
+            id="clear-search"
+            class="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white p-1 hidden"
+            aria-label="Clear search"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
       <div class="flex flex-wrap gap-2 justify-center">
         {CATEGORIES.map(cat => {
           const href = cat === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(cat)}`;
@@ -139,6 +159,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         <article class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-800 hover:shadow-2xl hover:shadow-blue-950/30 transition-all duration-300 group border-l-4 border-l-blue-500 flex flex-col"
           data-category={featuredPost.category}
           data-post-card
+          data-title={featuredPost.title.toLowerCase()}
         >
           <a href={`/blog/${featuredPost.slug}`} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
             <div class="absolute inset-0 z-0 bg-neutral-800" />
@@ -198,6 +219,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
               <article class="flex gap-4 py-4 group hover:bg-neutral-900/50 rounded-lg px-2 transition-colors"
                 data-category={post.category}
                 data-post-card
+                data-title={post.title.toLowerCase()}
               >
                 <a href={`/blog/${post.slug}`} class="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden relative bg-neutral-800">
                   {post.image && (
@@ -251,6 +273,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
             <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group"
               data-category={post.category}
               data-post-card
+              data-title={post.title.toLowerCase()}
             >
               <a href={`/blog/${post.slug}`} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
                 <div class="absolute inset-0 z-0 bg-neutral-800" />
@@ -302,11 +325,12 @@ const description = "Independent analysis of fitness technology. Real data. No a
     function applyFilter() {
       const params = new URLSearchParams(window.location.search);
       const active = params.get('category') || 'All';
+      const searchTerm = (document.getElementById('blog-search')?.value || '').toLowerCase().trim();
 
       const leadSection = document.getElementById('lead-section');
       const allGridSection = document.getElementById('all-grid-section');
 
-      if (active === 'All') {
+      if (active === 'All' && !searchTerm) {
         // Restore normal layout
         if (leadSection) leadSection.style.display = '';
         if (allGridSection) allGridSection.style.display = '';
@@ -315,8 +339,12 @@ const description = "Independent analysis of fitness technology. Real data. No a
         // Hide lead layout entirely, filter grid cards
         if (leadSection) leadSection.style.display = 'none';
         if (allGridSection) allGridSection.style.display = '';
+        
         document.querySelectorAll('[data-post-card]').forEach(card => {
-          card.style.display = card.getAttribute('data-category') === active ? '' : 'none';
+          const categoryMatch = active === 'All' || card.getAttribute('data-category') === active;
+          const title = card.getAttribute('data-title') || '';
+          const searchMatch = !searchTerm || title.includes(searchTerm);
+          card.style.display = (categoryMatch && searchMatch) ? '' : 'none';
         });
       }
 
@@ -329,6 +357,29 @@ const description = "Independent analysis of fitness technology. Real data. No a
         } else {
           btn.classList.remove('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-900/40');
           btn.classList.add('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
+        }
+      });
+    }
+
+    // Search input handler
+    const searchInput = document.getElementById('blog-search');
+    const clearBtn = document.getElementById('clear-search');
+    
+    if (searchInput) {
+      searchInput.addEventListener('input', () => {
+        const hasValue = searchInput.value.length > 0;
+        if (clearBtn) clearBtn.classList.toggle('hidden', !hasValue);
+        applyFilter();
+      });
+    }
+    
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (searchInput) {
+          searchInput.value = '';
+          clearBtn.classList.add('hidden');
+          searchInput.focus();
+          applyFilter();
         }
       });
     }
