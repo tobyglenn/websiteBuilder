@@ -39,7 +39,7 @@ export default function Footer() {
   return (
     <footer className="bg-neutral-950 border-t border-neutral-900 pt-16 pb-8">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <h3 className="text-xl font-bold text-white mb-4">TobyOnFitnessTech</h3>
@@ -90,6 +90,21 @@ export default function Footer() {
               <li><a href="/live" className="hover:text-blue-400 transition-colors">Live Streams</a></li>
               <li><a href="/podcasts" className="hover:text-blue-400 transition-colors">Podcasts</a></li>
               <li><a href="/gear" className="hover:text-blue-400 transition-colors">My Gear</a></li>
+            </ul>
+          </div>
+
+          {/* Data Pages */}
+          <div>
+            <h4 className="font-semibold text-white mb-4">Data Pages</h4>
+            <ul className="space-y-2 text-sm text-neutral-400">
+              <li><a href="/running" className="hover:text-blue-400 transition-colors">Running Log</a></li>
+              <li><a href="/speediance" className="hover:text-blue-400 transition-colors">Lifting Stats</a></li>
+              <li><a href="/sleep" className="hover:text-blue-400 transition-colors">Sleep Data</a></li>
+              <li><a href="/training" className="hover:text-blue-400 transition-colors">Training Trends</a></li>
+              <li><a href="/bjj" className="hover:text-blue-400 transition-colors">BJJ Journey</a></li>
+              <li><a href="/transformation" className="hover:text-blue-400 transition-colors">Weight Journey</a></li>
+              <li><a href="/prs" className="hover:text-blue-400 transition-colors">PR Board</a></li>
+              <li><a href="/whoop" className="hover:text-blue-400 transition-colors">Recovery</a></li>
             </ul>
           </div>
 
