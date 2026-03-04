@@ -58,7 +58,8 @@ function categorizeVideo(title, description = "") {
   return cats;
 }
 
-export default function VideoGrid({ limit, showFilters = true }) {
+export default function VideoGrid({ limit, showFilters = true, videos }) {
+  const allVideosData = videos || allVideos;
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
 
@@ -239,7 +240,14 @@ export default function VideoGrid({ limit, showFilters = true }) {
 
 // Helper to parse ISO duration (e.g. PT15M33S) into seconds for sorting
 function parseDuration(iso) {
-  // existing code
+  if (!iso) return 0;
+  if (iso === 'P0D') return 0;
+  const match = iso.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+  if (!match) return 0;
+  const hours = (parseInt(match[1]) || 0) * 3600;
+  const minutes = (parseInt(match[2]) || 0) * 60;
+  const seconds = parseInt(match[3]) || 0;
+  return hours + minutes + seconds;
 }
 
 // Format view counts (e.g., 1200 -> 1.2K, 1500000 -> 1.5M)
