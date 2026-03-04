@@ -2,6 +2,23 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T11:15:00-05:00",
+      "idea": "Fix broken blog category filtering - now reads URL params and filters posts",
+      "category": "UX Enhancement - Blog",
+      "files_changed": [
+        "src/pages/blog/index.astro"
+      ],
+      "commit": "cbfedad",
+      "sections": [
+        "Added URL parameter reading: Astro.url.searchParams.get('category')",
+        "Changed activeCategory from hardcoded 'All' to use URL param",
+        "Added filteredPosts array that filters by category when not 'All'",
+        "Updated JSON-LD schemas to use filteredPosts instead of BLOG_POSTS",
+        "Now works: /blog?category=Field+Reports shows only Field Reports posts"
+      ],
+      "notes": "Bug fix - category buttons existed but were non-functional. Build: 252 pages."
+    },
+    {
       "timestamp": "2026-03-04T10:30:00-05:00",
       "idea": "Enhance About page with running stats and BJJ journey expansion",
       "category": "Content Enhancement - About Page",

@@ -9,16 +9,20 @@ function readTime(content = '') {
 
 const siteUrl = "https://tobyonfitnesstech.com";
 
-// Process posts first (needed for schemas below)
+// Read category from URL and set activeCategory
 const urlCategory = Astro.url.searchParams.get('category');
 const activeCategory = urlCategory || 'All';
 
+// Sort posts by date descending
 const sortedPosts = [...BLOG_POSTS].sort((a, b) =>
   new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
 );
 
+// Filter posts based on activeCategory
 const filteredPosts = activeCategory === 'All' ? sortedPosts : sortedPosts.filter(p => p.category === activeCategory);
 
+
+// Process posts first (needed for schemas below)
 const blogListSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
