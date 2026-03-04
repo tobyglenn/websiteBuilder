@@ -58,6 +58,7 @@ export default function Header() {
     { name: 'Sleep', href: '/sleep', icon: '😴' },
     { name: 'WHOOP', href: '/whoop', icon: '💓' },
     { name: 'BJJ', href: '/bjj', icon: '🥋' },
+          { name: 'WHOOP', href: '/whoop' },
     { name: 'Day in a Week', href: '/day', icon: '📅' },
     { name: 'Gear', href: '/gear', icon: '🛠' },
   ];
