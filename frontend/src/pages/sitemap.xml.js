@@ -20,11 +20,43 @@ const GEAR_SLUGS = [
   'oura-ring-gen-1-2',
 ];
 
-// All podcast episode slugs (matching getStaticPaths in [slug].astro)
-// These are fetched from RSS at build time — we hardcode the known slugs for sitemap
-// The slug is derived from: episode title → lowercase → spaces to hyphens → remove special chars
-// Since episodes come from RSS (dynamic at build), we reference the TOFT video transcript keys
-// which are episodes 1-14 of the TOFT podcast
+// Fetch podcast episode pages from RSS feeds (build-time, same sources as [slug].astro)
+async function fetchPodcastEpisodePaths() {
+  const today = new Date().toISOString().slice(0, 10);
+  const paths = [];
+
+  // OpenClaw Daily RSS — English + translated (episode-N slugs)
+  const openclawFeeds = [
+    { locale: 'en', url: 'https://grayking-creator.github.io/openclaw-podcast/feed.xml' },
+    { locale: 'de', url: 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_de.xml' },
+    { locale: 'es', url: 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_es.xml' },
+    { locale: 'hi', url: 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_hi.xml' },
+    { locale: 'pt', url: 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_pt.xml' },
+  ];
+
+  await Promise.all(openclawFeeds.map(async ({ locale, url }) => {
+    try {
+      const res = await fetch(url, { signal: AbortSignal.timeout(8000) });
+      if (!res.ok) return;
+      const xml = await res.text();
+      const items = xml.match(/<item>([\s\S]*?)<\/item>/gi) ?? [];
+      items.forEach((item, i) => {
+        const epNum = i + 1; // episodes listed newest-first; use index+1 as fallback
+        // Try to extract episode number from itunes:episode tag
+        const itunesMatch = item.match(/<itunes:episode>(\d+)<\/itunes:episode>/);
+        const num = itunesMatch ? parseInt(itunesMatch[1], 10) : epNum;
+        const pubDateMatch = item.match(/<pubDate>([^<]+)<\/pubDate>/);
+        const lastmod = pubDateMatch ? new Date(pubDateMatch[1]).toISOString().slice(0, 10) : today;
+        const urlPath = locale === 'en' ? `/podcasts/episode-${num}` : `/${locale}/podcasts/episode-${num}`;
+        paths.push({ path: urlPath, changefreq: 'monthly', priority: 0.7, lastmod });
+      });
+    } catch {
+      // Feed unreachable at build time — skip silently
+    }
+  }));
+
+  return paths;
+}
 
 // Static pages with their metadata
 const staticPages = [
@@ -96,12 +128,15 @@ function gearEntry(slug) {
 }
 
 export async function GET() {
+  const podcastEpisodes = await fetchPodcastEpisodePaths();
+
   const allUrls = [
     ...staticPages.map(urlEntry),
     ...translatedPages.map(urlEntry),
     ...GEAR_SLUGS.map(gearEntry),
     ...VIDEOS.map(videoEntry),
     ...BLOG_POSTS.map(blogEntry),
+    ...podcastEpisodes.map(urlEntry),
   ].join('\n');
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
