@@ -16,6 +16,7 @@ interface Props {
   lang?: string;
   episodeSlug?: string;
   breadcrumbs?: Array<{ name: string; url: string }>;
+  noindex?: boolean;
 }
 
 const { 
@@ -28,7 +29,10 @@ const {
   lang = 'en',
   episodeSlug,
   breadcrumbs,
+  noindex = false,
 } = Astro.props;
+
+const robotsContent = noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
@@ -193,7 +197,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
           { name: "twitter:description", content: description },
           { name: "twitter:image", content: resolvedImage },
           { name: "author", content: "Toby Glenn Peters" },
-          { name: "robots", content: "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
+          { name: "robots", content: noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
           { name: "ai-content-type", content: "educational" },
           { name: "ai-purpose", content: "product reviews, fitness analysis, tech comparison" },
           { name: "ai-target-audience", content: "fitness enthusiasts, tech adopters, home gym owners" },
