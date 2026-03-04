@@ -937,6 +937,22 @@
         "Partner mode still broken"
       ],
       "notes": "New post: The V3.1 Change That Finally Makes Progressive Overload Work - 900+ word field report from transcript. Published 2026-02-18."
+    },
+    {
+      "timestamp": "2026-03-04T12:20:00-05:00",
+      "idea": "Add sitemap.xml and robots.txt for SEO",
+      "category": "SEO Enhancement",
+      "files_changed": [
+        "public/sitemap.xml",
+        "public/robots.txt"
+      ],
+      "commit": "8d026bc",
+      "sections": [
+        "Created sitemap.xml with all main pages, data pages, and 28 blog posts",
+        "Created robots.txt allowing all crawlers and pointing to sitemap",
+        "Priorities set: homepage 1.0, blog 1.0, content pages 0.7-0.9, legal 0.3"
+      ],
+      "notes": "Static sitemap with changefreq and priority attributes. Improves search engine indexing."
     }
   ],
   "in_progress": null,
