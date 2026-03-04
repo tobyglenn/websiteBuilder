@@ -69,7 +69,11 @@ function generateRecoveryChart(records) {
 const recoveryChartPoints = generateRecoveryChart(recentRecords);
 ---
 
-<Layout title="WHOOP Recovery Data | TobyOnFitnessTech">
+<Layout 
+  title="WHOOP Recovery Data | TobyOnFitnessTech"
+  description="Live WHOOP recovery scores, HRV trends, sleep performance, and strain data from Toby's real training. Updated daily."
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "WHOOP Data", url: "/whoop" }]}
+>
   <Header client:load />
   
   <main class="bg-neutral-950 min-h-screen pb-20">
