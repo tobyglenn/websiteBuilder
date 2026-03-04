@@ -2,6 +2,24 @@ import { VIDEOS, BLOG_POSTS } from '../data/mock.js';
 
 const SITE_URL = 'https://tobyonfitnesstech.com';
 
+// Gear review pages — individual product review pages at /gear/[slug]
+const GEAR_SLUGS = [
+  'speediance-gym-monster-2s',
+  'speediance-gym-monster-original',
+  'doorway-pull-up-bar',
+  'whoop-5',
+  'garmin-forerunner-265s',
+  'apple-watch-series-11',
+  '8sleep-pod',
+  'cronometer',
+  'openclaw-m1-mac-mini',
+  'openclaw-mac-studio',
+  'tonal',
+  'apple-watch-gen-1-2',
+  'motorola-watch-2r',
+  'oura-ring-gen-1-2',
+];
+
 // All podcast episode slugs (matching getStaticPaths in [slug].astro)
 // These are fetched from RSS at build time — we hardcode the known slugs for sitemap
 // The slug is derived from: episode title → lowercase → spaces to hyphens → remove special chars
@@ -68,10 +86,20 @@ function blogEntry(post) {
   </url>`;
 }
 
+function gearEntry(slug) {
+  return `  <url>
+    <loc>${SITE_URL}/gear/${slug}</loc>
+    <lastmod>2026-03-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+}
+
 export async function GET() {
   const allUrls = [
     ...staticPages.map(urlEntry),
     ...translatedPages.map(urlEntry),
+    ...GEAR_SLUGS.map(gearEntry),
     ...VIDEOS.map(videoEntry),
     ...BLOG_POSTS.map(blogEntry),
   ].join('\n');
