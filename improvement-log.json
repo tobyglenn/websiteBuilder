@@ -917,6 +917,26 @@
           "Settings"
         ]
       }
+    },
+    {
+      "timestamp": "2026-03-04T11:19:00-05:00",
+      "idea": "New blog post: Speediance V3.1 Progressive Overload Fix",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "0914c3e",
+      "transcript_source": "2026-02-18_Speediance_Fixed_Progressive_Overload_Mostly.txt (3229 words)",
+      "sections": [
+        "The Problem: Progressive overload silently adding weight without prompting",
+        "The Fix: V3.1 now prompts before increasing weight",
+        "Unilateral exercises still have bugs",
+        "Why Safety Start isn't the answer - limits range of motion",
+        "Eccentric training philosophy",
+        "One-second pause solution",
+        "Partner mode still broken"
+      ],
+      "notes": "New post: The V3.1 Change That Finally Makes Progressive Overload Work - 900+ word field report from transcript. Published 2026-02-18."
     }
   ],
   "in_progress": null,

@@ -1,13 +1,15 @@
+# Robots.txt for TobyOnFitnessTech
+# https://tobyonfitnesstech.com
+
 User-agent: *
 Allow: /
 
+# Sitemap
 Sitemap: https://tobyonfitnesstech.com/sitemap.xml
 
-# Optimize crawl budget
-crawl-delay: 1
+# Crawl-delay (optional, be nice to servers)
+Crawl-delay: 1
 
-# Disallow admin/tracking URLs
-Disallow: /404
-Disallow: /500
-Disallow: /_astro
-Disallow: /_internal
+# Disallow admin/private areas (none currently)
+# Disallow: /admin/
+# Disallow: /api/
