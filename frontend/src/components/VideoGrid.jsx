@@ -1,14 +1,15 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { Play, Filter, Clock, SortDesc, SortAsc, Eye, EyeOff } from 'lucide-react';
+import { Play, Filter, Clock, SortDesc, Eye, EyeOff } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
 
 const CATEGORIES = [
-  { id: 'all', name: 'All Topics', color: 'bg-neutral-800 text-white' },
-  { id: 'speediance', name: 'Speediance', color: 'bg-blue-600 text-white' },
-  { id: 'bjj', name: 'BJJ & Grappling', color: 'bg-purple-600 text-white' },
-  { id: 'transformation', name: 'Transformation', color: 'bg-green-600 text-white' },
-  { id: 'tech', name: 'Tech & Gear', color: 'bg-cyan-600 text-white' },
-  { id: 'methodology', name: 'Methodology', color: 'bg-orange-600 text-white' },
+  { id: 'all', name: 'All' },
+  { id: 'speediance', name: 'Speediance' },
+  { id: 'bjj', name: 'BJJ' },
+  { id: 'wearables', name: 'Wearables' },
+  { id: 'openclaw', name: 'OpenClaw' },
+  { id: 'training', name: 'Training' },
+  { id: 'shorts', name: 'Shorts' },
 ];
 
 const SORT_OPTIONS = [
@@ -39,25 +40,27 @@ function isShortVideo(video) {
 }
 
 function categorizeVideo(title, description = "") {
-  if (!title) return ['all'];
+  if (!title) return ['training'];
   const t = title.toLowerCase();
   const d = description.toLowerCase();
   const text = t + " " + d;
-  
   const cats = [];
+  // Speediance related
   if (text.includes('speediance') || text.includes('tonal') || text.includes('home gym') || text.includes('resistance')) cats.push('speediance');
-  if (text.includes('bjj') || text.includes('jiu-jitsu') || text.includes('grappling') || text.includes('black belt') || text.includes('israetel') || text.includes('jocko') || text.includes('gordon ryan')) cats.push('bjj');
-  if (text.includes('weight loss') || text.includes('transformation') || text.includes('242') || text.includes('188') || text.includes('pounds') || text.includes('obese') || text.includes('fat loss')) cats.push('transformation');
-  if (text.includes('whoop') || text.includes('garmin') || text.includes('tracker') || text.includes('wearable') || text.includes('openclaw')) cats.push('tech');
-  if (text.includes('training split') || text.includes('workout strategy') || text.includes('method') || text.includes('split') || text.includes('hypertrophy')) cats.push('methodology');
-  
-  return cats.length > 0 ? cats : ['all'];
+  // BJJ related
+  if (text.includes('bjj') || text.includes('jiu-jitsu') || text.includes('grappling') || text.includes('black belt') || text.includes('mat')) cats.push('bjj');
+  // Wearables related
+  if (text.includes('whoop') || text.includes('garmin') || text.includes('8sleep') || text.includes('sleep') || text.includes('recovery')) cats.push('wearables');
+  // OpenClaw related
+  if (text.includes('openclaw') || text.includes('ai') || text.includes('app') || text.includes('automation')) cats.push('openclaw');
+  // If none matched, default to training
+  if (cats.length === 0) cats.push('training');
+  return cats;
 }
 
 export default function VideoGrid({ limit, showFilters = true }) {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
-  const [showShorts, setShowShorts] = useState(false);
 
   // Read ?category= from URL on mount and apply filter
   useEffect(() => {
@@ -78,24 +81,32 @@ export default function VideoGrid({ limit, showFilters = true }) {
     }));
   }, []);
 
+  // Count videos per category for UI badges
+  const categoryCounts = useMemo(() => {
+    const counts = { all: processedVideos.length, shorts: processedVideos.filter(v => v.is_short).length };
+    CATEGORIES.forEach(cat => {
+      if (cat.id !== 'all' && cat.id !== 'shorts') {
+        counts[cat.id] = processedVideos.filter(v => v.categories.includes(cat.id)).length;
+      }
+    });
+    return counts;
+  }, [processedVideos]);
+
   const filteredVideos = useMemo(() => {
     let result = [...processedVideos];
 
     // Exclude live stream from grid always (they go in the hero instead)
     result = result.filter(v => !v.is_live);
 
-    // Hide shorts by default (anything under 5 minutes)
-    if (!showShorts) {
-      result = result.filter(v => !isShortVideo(v));
-    }
-
-    // Category filter
-    if (selectedCategory !== 'all') {
+    // Category filter logic
+    if (selectedCategory === 'shorts') {
+      result = result.filter(v => v.is_short);
+    } else if (selectedCategory !== 'all') {
       result = result.filter(v => v.categories?.includes(selectedCategory));
     }
 
     // Sort
-    result = [...result].sort((a, b) => {
+    result = result.sort((a, b) => {
         if (sortBy === 'newest') return b.dateObj - a.dateObj;
         if (sortBy === 'oldest') return a.dateObj - b.dateObj;
         if (sortBy === 'shortest') return a.durationSec - b.durationSec;
@@ -105,7 +116,7 @@ export default function VideoGrid({ limit, showFilters = true }) {
 
     if (limit) return result.slice(0, limit);
     return result;
-  }, [processedVideos, selectedCategory, sortBy, limit, showShorts]);
+  }, [processedVideos, selectedCategory, sortBy, limit]);
 
   return (
     <div className="space-y-6">
@@ -119,11 +130,11 @@ export default function VideoGrid({ limit, showFilters = true }) {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === cat.id 
-                    ? cat.color 
-                    : 'bg-neutral-900 text-neutral-400 border border-neutral-800 hover:border-neutral-600 hover:text-white'
+                    ? 'bg-blue-600 text-white' 
+                    : 'bg-neutral-800 text-neutral-400 border border-neutral-800 hover:border-neutral-600 hover:text-white'
                 }`}
               >
-                {cat.name}
+                {cat.name} ({categoryCounts[cat.id] ?? 0})
               </button>
             ))}
           </div>
@@ -148,24 +159,8 @@ export default function VideoGrid({ limit, showFilters = true }) {
                 </div>
             </div>
             
-            <div className="flex items-center gap-3">
-              {/* Shorts Toggle */}
-              <button
-                onClick={() => setShowShorts(s => !s)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
-                  !showShorts
-                    ? 'bg-red-600 text-white'
-                    : 'bg-neutral-800 text-neutral-400 hover:text-white'
-                }`}
-                title={showShorts ? 'Hide Shorts' : 'Show Shorts'}
-              >
-                {showShorts ? <Eye size={14} /> : <EyeOff size={14} />}
-                <span>Shorts</span>
-              </button>
-
-              <div className="text-xs text-neutral-500">
+            <div className="text-xs text-neutral-500">
                 Showing {filteredVideos.length} videos
-              </div>
             </div>
           </div>
         </div>
