@@ -17,6 +17,14 @@ export function getStaticPaths() {
 
 const { post } = Astro.props;
 
+// Sort posts by date (newest first) for navigation
+const sortedPosts = [...BLOG_POSTS].sort((a, b) => 
+  new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+);
+const currentIndex = sortedPosts.findIndex(p => p.slug === post.slug);
+const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
+const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
+
 const siteUrl = "https://tobyonfitnesstech.com";
 
 // Extract FAQ schema from blog post content (## headings become Q&A pairs)
@@ -179,6 +187,33 @@ const articleJsonLd = {
                 <span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#{tag}</span>
               ))}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Next/Previous Post Navigation */}
+      {(prevPost || nextPost) && (
+        <div class="mt-16 pt-12 border-t border-neutral-800">
+          <h3 class="text-lg font-bold text-white mb-8 text-center">Keep Reading</h3>
+          <div class="grid md:grid-cols-2 gap-4">
+            {prevPost && (
+              <a href={`/blog/${prevPost.slug}`} class="group block bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-blue-500/50 rounded-xl p-5 transition-all">
+                <div class="flex items-center gap-2 text-xs font-semibold text-blue-400 mb-2">
+                  <svg class="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+                  Previous
+                </div>
+                <div class="font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-2">{prevPost.title}</div>
+              </a>
+            )}
+            {nextPost && (
+              <a href={`/blog/${nextPost.slug}`} class="group block bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 hover:border-blue-500/50 rounded-xl p-5 transition-all text-right md:[&_div:first-child]:justify-end">
+                <div class="flex items-center justify-end gap-2 text-xs font-semibold text-blue-400 mb-2">
+                  Next
+                  <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+                </div>
+                <div class="font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-2">{nextPost.title}</div>
+              </a>
+            )}
           </div>
         </div>
       )}
