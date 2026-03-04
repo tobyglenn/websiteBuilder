@@ -1,7 +1,7 @@
 // trainingStats.js - compute training activity metrics for homepage
 // This runs at build time (Node) in Astro, so we can import JSON directly.
-import speedData from '/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json' assert { type: 'json' };
-import garminData from '/Users/tobyglennpeters/clawd/data/garmin_all_activities.json' assert { type: 'json' };
+import speedData from '../data/speediance_dashboard_data.json' assert { type: 'json' };
+import garminData from '../data/garmin_all_activities.json' assert { type: 'json' };
 
 // Helper to parse date strings (YYYY-MM-DD) into Date objects (UTC)
 function parseDate(dateStr) {
