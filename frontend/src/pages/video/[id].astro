@@ -81,8 +81,20 @@ if (video.transcript_file) {
   }
 }
 
-// Calculate "related" videos - same category preference, excluding current
-const relatedVideos = VIDEOS.filter(v => v.id !== video.id).slice(0, 8);
+// Extract category from video tags (first tag that looks like a category)
+const videoCategory = video.tags && video.tags.length > 0 ? video.tags[0] : null;
+
+// Calculate "related" videos - filter by category if available, excluding current
+let relatedVideos = VIDEOS.filter(v => v.id !== video.id);
+if (videoCategory) {
+  // First: videos with matching category
+  const categoryMatches = relatedVideos.filter(v => v.tags && v.tags.includes(videoCategory));
+  if (categoryMatches.length >= 4) {
+    relatedVideos = categoryMatches;
+  }
+}
+// Take up to 8 related videos
+relatedVideos = relatedVideos.slice(0, 8);
 ---
 
 <Layout 
@@ -104,6 +116,14 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id).slice(0, 8);
       <div class="lg:col-span-2 space-y-6">
         
         {/* Video Player */}
+        {videoCategory && (
+          <div class="mb-4">
+            <span class="inline-block bg-blue-600/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">
+              {videoCategory}
+            </span>
+          </div>
+        )}
+        
         {video.is_live ? (
           <div id="live-player-container" data-video-id={video.id}>
             <a
@@ -222,6 +242,36 @@ const relatedVideos = VIDEOS.filter(v => v.id !== video.id).slice(0, 8);
                 </div>
             </details>
           </div>
+
+          {/* More Videos in Category */}
+          {relatedVideos.length > 0 && (
+            <div class="mt-8 border-t border-neutral-800 pt-6">
+              <h3 class="text-lg font-bold mb-4 text-neutral-200">
+                {videoCategory ? `More ${videoCategory} Videos` : 'More Videos'}
+              </h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {relatedVideos.slice(0, 4).map(v => (
+                  <a href={`/video/${v.id}`} class="flex gap-3 group bg-neutral-900/30 p-2 rounded-lg hover:bg-neutral-800/50 transition-colors">
+                    <div class="relative w-32 flex-shrink-0 aspect-video rounded-md overflow-hidden">
+                        <img src={v.thumbnail} class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt={v.title} loading="lazy" />
+                        {v.duration_formatted && (
+                          <span class="absolute bottom-1 right-1 bg-black/80 text-[10px] px-1 rounded text-white">{v.duration_formatted}</span>
+                        )}
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="text-sm font-semibold text-neutral-200 line-clamp-2 group-hover:text-blue-400 leading-snug">{v.title}</h4>
+                        <p class="text-xs text-neutral-500 mt-1">{v.views && v.views !== '0' ? `${parseInt(v.views).toLocaleString()} views` : v.published_at}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+              {relatedVideos.length > 4 && (
+                <a href={`/videos?category=${encodeURIComponent(videoCategory || 'all')}`} class="inline-block mt-4 text-sm text-blue-400 hover:text-blue-300 font-medium">
+                  View all {relatedVideos.length} videos →
+                </a>
+              )}
+            </div>
+          )}
 
           {/* YouTube Comments Note */}
           <div class="mt-6 border-t border-neutral-800 pt-4">
