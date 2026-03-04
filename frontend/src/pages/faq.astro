@@ -1,179 +1,205 @@
 ---
 import Layout from '../layouts/Layout.astro';
-
-const faqSections = [
-  {
-    title: 'Training Philosophy',
-    items: [
-      {
-        question: 'Why do you train at 6:30 AM?',
-        answer:
-          'I default to 6:30 AM because the easiest workouts to skip are the ones that happen after work stress starts building. Morning training locks in consistency, gives me a full recovery window before the rest of the day, and protects my sleep quality by finishing hard work before the evening taper of recovery drops off.',
-      },
-      {
-        question: 'What is your weekly training split?',
-        answer:
-          'The structure is simple: lifting four days, BJJ three days, and running two to three shorter sessions depending on recovery. I keep the pattern repeatable instead of random—heavy work gets the first half of the week, skill sessions around it, and one clear recovery day when the metrics and sleep tell me to back off.',
-      },
-      {
-        question: 'Why is leg training non-negotiable for me?',
-        answer:
-          'Leg work is the glue for everything else—squat and hinge patterns carry over to posterior chain strength, posture, and running economy. If leg volume goes down, lower-body stiffness, energy, and recovery quality all degrade. That shows up in the lifts and in daily performance.',
-      },
-      {
-        question: 'How do you track workouts and progress?',
-        answer:
-          'I track every working set, total load moved, and subjective readiness. On top of that I watch trend lines—not just one good day or one bad day—so adjustments are driven by patterns across weeks: average training load, sleep, resting metrics, and performance consistency.',
-      },
-    ],
-  },
-  {
-    title: 'Gear & Equipment',
-    items: [
-      {
-        question: 'Why choose Speediance over Tonal?',
-        answer:
-          'Tonal got me started, and I still respect it, but I moved to Speediance for software transparency and raw training data quality I can rely on for volume tracking. The main reason is practical: easier progression visibility and better integration into the exact metrics I use for analysis.',
-      },
-      {
-        question: 'What should I pick: Garmin or WHOOP?',
-        answer:
-          'If you want straightforward activity, pace, race-day type metrics, Garmin is simple and hard to beat. If you want deeper recovery trend tooling and more contextual readiness scoring, WHOOP is usually stronger. For me, both can stack, but neither is “best” in isolation.',
-      },
-      {
-        question: 'Why use 8Sleep if I already track fitness?',
-        answer:
-          '8Sleep closes the loop: recovery isn’t just how rested you *felt*—it’s what your sleep architecture and consistency show over time. That matters when you’re balancing heavy lifting, BJJ, and running. Better sleep signal means better training and fewer bad decisions.',
-      },
-    ],
-  },
-  {
-    title: 'Weight & Nutrition',
-    items: [
-      {
-        question: 'How did you lose 54 pounds?',
-        answer:
-          'Consistency. No shortcut: calorie control, higher protein, and progressive training with enough protein timing and sleep consistency to hold onto lean tissue. The full data trail is on this site and in my videos so you can see the trend, not just a single screenshot.',
-      },
-      {
-        question: 'What is your view on GLP-1 medications?',
-        answer:
-          'They can be useful for people with specific medical needs, but they are not the whole solution. Lifestyle habits still matter: protein intake, training frequency, sleep, and long-term behavior are still the foundation. I avoid framing GLP-1 as a shortcut for anyone who still needs sustainable habits.',
-      },
-      {
-        question: 'Can you really build muscle over 40?',
-        answer:
-          'Absolutely—if training is progressive, recovery is respected, and nutrition is adequate. Building muscle after 40 is slower for some, easier to hold, and harder to measure if you are not tracking weekly load and body composition trends. The strategy is not “harder than it used to be,” it’s “more precise than when I was younger.”',
-      },
-    ],
-  },
-  {
-    title: 'About This Site',
-    items: [
-      {
-        question: 'How often do you post?',
-        answer:
-          'I aim for a steady cadence: frequent video updates, fresh long-form written analysis, and periodic deep-dive content tied to what I’m testing in real life. The goal is fewer fluff pieces, more usable, evidence-based updates.',
-      },
-      {
-        question: 'Do you publish sponsored content?',
-        answer:
-          'Yes, but transparently. Any affiliate links or sponsor content is disclosed clearly, and I never let a sponsor change the outcome. If a product underperforms, I still say so.',
-      },
-      {
-        question: 'How can I contact you with questions?',
-        answer:
-          'For questions, collaborations, or feedback, email me at admin@tobyonfitnesstech.com.',
-      },
-    ],
-  },
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": faqSections.flatMap((section) =>
-    section.items.map((item) => ({
-      "@type": "Question",
-      "name": item.question,
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": item.answer,
-      },
-    }))
-  ),
-};
 ---
 
 <Layout
-  title="FAQ - Toby on Fitness Tech"
-  description="Frequently asked questions about training philosophy, gear, weight loss, nutrition, and how this site is run."
+  title="FAQ - TobyOnFitnessTech"
+  description="Common questions about Toby's training, gear stack, weight loss journey, and how this site works."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "FAQ", url: "/faq" }]}
-  jsonLd={faqSchema}
 >
-  <main class="bg-neutral-950 text-white">
+  <main class="min-h-screen bg-neutral-950 text-white">
+
     {/* Hero */}
-    <section class="pt-24 pb-14 border-b border-neutral-800">
-      <div class="container mx-auto px-4 max-w-4xl">
-        <p class="text-blue-500 text-sm font-bold uppercase tracking-[0.2em]">FAQ</p>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-black mt-3 mb-4 leading-tight">
-          Common Questions
-        </h1>
-        <p class="text-neutral-400 max-w-2xl text-lg">
-          Practical answers about training, gear, nutrition, and how this site operates—no hype, just what I actually use.
-        </p>
+    <section class="pt-20 pb-12 md:pt-28 md:pb-16">
+      <div class="container mx-auto px-4 text-center">
+        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-3 block">FAQ</span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Common Questions</h1>
+        <p class="text-neutral-400 text-lg max-w-xl mx-auto">Everything people actually ask about the gear, the training, the weight loss, and this site.</p>
       </div>
     </section>
 
-    {/* FAQ Content */}
-    <section class="py-16">
-      <div class="container mx-auto px-4 max-w-4xl space-y-10">
-        {faqSections.map((section) => (
-          <div class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6 md:p-8">
-            <h2 class="text-2xl font-bold text-white mb-6 border-b border-blue-500/20 pb-4">
-              {section.title}
-            </h2>
+    {/* FAQ Sections */}
+    <section class="pb-20">
+      <div class="container mx-auto px-4 max-w-3xl space-y-10">
 
-            <div class="space-y-3">
-              {section.items.map((item) => (
-                <details class="group rounded-xl border border-neutral-800 bg-neutral-950/40 overflow-hidden hover:border-blue-500/40 transition-all">
-                  <summary class="cursor-pointer list-none px-5 py-4 flex items-center justify-between gap-4 text-left">
-                    <span class="font-semibold text-white group-hover:text-blue-300 transition-colors">{item.question}</span>
-                    <span class="text-blue-500 transition-transform duration-200 group-open:rotate-180">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0">
-                        <path d="m6 9 6 6 6-6" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div class="px-5 pb-5 text-neutral-300 leading-relaxed">
-                    <p>{item.answer}</p>
-                  </div>
-                </details>
-              ))}
-            </div>
+        {/* Training Philosophy */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">🏋️ Training Philosophy</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Why do you train at 6:30 AM?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Mornings are the only time nothing can steal the session. By 8:00 AM I'm done — lifting or on the mat — and the rest of the day belongs to work and family. Training at night has never worked for me: I get a second wind that wrecks my sleep, and by 9 PM I'm too tired to actually push hard. Early is the only reliable answer.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                What's your current training split?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Full body minus legs, 4x per week on the Speediance. BJJ 3–4x per week. Running 2–3x per week. That's roughly 10 hours of training total — which is my ceiling before WHOOP starts flashing red and recovery tanks. I don't do dedicated leg work because BJJ and running cover it adequately, and I'm not competing in powerlifting.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Why don't you train legs?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                BJJ involves a lot of leg-based movement — guard, takedowns, transitions. Running adds direct leg stress. Between the two, my legs are getting substantial training stimulus without a dedicated lifting session. Adding heavy squats or deadlifts on top risks overloading a system that's already working hard, and recovery would suffer. If I weren't doing BJJ, I'd add legs back.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                How do you track progress?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                WHOOP for daily recovery score and HRV. Garmin for every run (GPS, HR zones, pace, training load). Speediance tracks lifting volume, 1RM estimates, and PR history automatically. 8Sleep for sleep stages. I built an AI morning report on OpenClaw that pulls all of this together before I wake up and gives me a training recommendation with confidence percentage.
+              </div>
+            </details>
           </div>
-        ))}
+        </div>
+
+        {/* Gear & Equipment */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">⚙️ Gear & Equipment</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Speediance vs Tonal — which should I buy?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                I owned Tonal for years and switched. The short version: two Speediances cost less over 5 years than one Tonal when you factor in membership. Speediance goes to 260 lbs, has no mandatory subscription, and the hardware lasts. The only area Tonal still wins: female coach options and video production quality. If your partner specifically wants a female-led guided experience, Tonal is the answer. For everyone else, Speediance.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                WHOOP or Garmin — do you need both?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                They answer different questions. Garmin answers "what did I do?" — activity log, GPS, pace, HR zones. WHOOP answers "how did I recover?" — overnight physiology, HRV baseline, readiness. If you only want one: Garmin if you run, WHOOP if you care more about recovery. I use both because I take training seriously enough to want both questions answered correctly.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Is the 8Sleep Pod worth it?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                If you run warm, yes. It's the only thing that consistently improved my deep sleep percentage. The temperature regulation is the feature — not the sleep tracking. I use it alongside WHOOP because 8Sleep's sleep stages data gives me an independent read. The subscription cost is real, but for recovery as a serious athlete it's hard to argue with the data it produces.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Which Speediance model — Original, 2S, or Gym Monster 2?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Get the 2S if you need a quiet environment (office gym) or you're lifting above 180 lbs regularly. Get the Original if noise isn't an issue and you want to save money — open-box Originals at $1,000–1,500 with warranty are a steal. The Gym Monster 2 adds a bigger screen and AI form coach, which is useful for beginners but overkill for advanced lifters. I have both an Original (living room) and a 2S (office).
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* Weight & Nutrition */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">📊 Weight & Nutrition</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                How did you lose 54 lbs in 6 months?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Pharmaceutical support (tirzepatide GLP-1, restructured TRT protocol, Anavar for muscle preservation), 800–1,200 calories 6 days a week, 10,000–20,000 steps daily, and 30,000–50,000 lbs of lifting volume per day. I've written the full honest breakdown — including every drug and dose — in the <a href="/blog/242-to-188-the-honest-truth" class="text-blue-400 hover:underline">242 to 188: The Honest Truth</a> post. I didn't do this naturally. I'm not going to pretend otherwise.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Are you still on GLP-1 medication?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                No. The tirzepatide protocol was for the 6-month cut specifically. I'm in a muscle-building phase now (188 → 218 lbs), which means eating more, not less. I'm still on TRT — that's permanent due to primary hypogonadism from a physical injury. But the GLP-1 was a tool for a specific goal, not a lifestyle.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Can you build muscle after 40?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Yes, with caveats. Recovery takes longer. Sleep becomes even more important. The margin for error on nutrition is smaller. But the muscle-building mechanism doesn't disappear — progressive overload still works, protein synthesis still happens. I've gone from 188 to 218 lbs since the cut, with 1.29M lbs lifted on the Speediance in that window. The data says it's working.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                What does your diet look like now?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                High protein, moderate carbs, not obsessively tracked. I use Cronometer when I'm being precise. The general rule: eat around training, prioritize protein, don't go to bed hungry when trying to build. The calorie surplus for a lean bulk is smaller than most people think — 200–300 above maintenance is enough. More than that and you're adding fat faster than necessary.
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* About This Site */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">📝 About This Site</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Is any content sponsored?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                No paid sponsorships. Some gear links may be affiliate links (disclosed where applicable), but no brand pays me for coverage or controls what I say. I bought every piece of equipment reviewed here out of pocket. The Speediance, Tonal, WHOOP, Garmin, 8Sleep — all purchased at retail. That's the only way the reviews mean anything.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                How often do you post?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                YouTube videos go up whenever I have something worth saying — typically 2–4 per week. Blog posts are generated from video transcripts and published on an ongoing basis. The data dashboards update automatically from live data sources. No posting schedule for its own sake — content exists when there's something real to show.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                How do I contact you?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                YouTube comments are the best way — I read them and respond to ones worth answering in video form. For quick questions, the comment section gets a response faster than email. For business inquiries, use the email in the YouTube channel About section.
+              </div>
+            </details>
+          </div>
+        </div>
+
       </div>
     </section>
 
     {/* CTA */}
-    <section class="pb-16">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto bg-gradient-to-br from-blue-900/20 to-cyan-900/10 border border-blue-500/25 rounded-2xl p-8 md:p-10 text-center">
-          <h2 class="text-3xl font-bold text-white mb-3">Still wondering about something?</h2>
-          <p class="text-neutral-300 mb-7 max-w-2xl mx-auto">
-            You can message me directly for specifics on programming, gear choices, or method changes. I can’t answer every inbox personally, but I’ll prioritize useful follow-ups.
-          </p>
-          <div class="flex flex-col sm:flex-row justify-center gap-3">
-            <a href="mailto:admin@tobyonfitnesstech.com" class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors">
-              Email with Questions
-            </a>
-            <a href="/videos" class="inline-flex items-center justify-center gap-2 px-6 py-3 border border-blue-500 text-blue-300 hover:bg-blue-500/10 rounded-full font-semibold transition-colors">
-              Watch More Training Content
-            </a>
-          </div>
+    <section class="py-16 border-t border-neutral-900 bg-neutral-900/30">
+      <div class="container mx-auto px-4 text-center max-w-xl">
+        <h2 class="text-2xl font-bold text-white mb-3">Ready to dive deeper?</h2>
+        <p class="text-neutral-400 mb-6">The blog and data pages have the full details behind every answer above.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/blog" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">Read the Blog</a>
+          <a href="/videos" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">Watch Videos</a>
+          <a href="/gear" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">See My Gear</a>
         </div>
       </div>
     </section>
+
   </main>
 </Layout>
