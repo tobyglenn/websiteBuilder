@@ -2,6 +2,22 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T09:16:00-05:00",
+      "idea": "Add Data Pages section to footer navigation",
+      "category": "UX Enhancement - Navigation",
+      "files_changed": [
+        "src/components/Footer.jsx"
+      ],
+      "commit": "164d4ab",
+      "sections": [
+        "Added new 'Data Pages' column to footer grid",
+        "8 links: Running Log, Lifting Stats, Sleep Data, Training Trends, BJJ Journey, Weight Journey, PR Board, Recovery",
+        "Changed grid from md:grid-cols-4 to md:grid-cols-5 to accommodate new column",
+        "Matches existing styling (text-neutral-400, hover:text-blue-400)"
+      ],
+      "notes": "Helps visitors discover the data pages. Built with Clarity subagent."
+    },
+    {
       "timestamp": "2026-03-04T02:56:00-05:00",
       "type": "blog-posts",
       "description": "Added 2 new blog posts from unused video transcripts",
