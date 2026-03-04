@@ -45,6 +45,7 @@ export default function Header() {
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
     { name: 'About', href: '/about' },
+    { name: 'FAQ', href: '/faq' },
   ];
 
   // Blog dropdown items with icons
@@ -178,6 +179,7 @@ export default function Header() {
                 { name: 'Home', href: '/' },
                 { name: 'Videos', href: '/videos' },
                 { name: 'About', href: '/about' },
+                { name: 'FAQ', href: '/faq' },
               ].map((link) => (
                 <a
                   key={link.href}
