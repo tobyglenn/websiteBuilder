@@ -2,6 +2,24 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T02:45:00-05:00",
+      "idea": "Add OpenClaw fitness automation blog post from transcript",
+      "category": "Content - Blog Posts",
+      "files_changed": ["src/data/mock.js"],
+      "commit": "d65c24e",
+      "posts": [
+        {
+          "slug": "openclaw-fitness-automation-setup",
+          "title": "I Built an AI System That Manages My Entire Fitness Life. Here's How.",
+          "category": "Signal vs. Noise",
+          "published_at": "2026-02-18",
+          "transcript_video_id": "xFknwPPhVnI",
+          "topics": ["OpenClaw", "fitness automation", "morning reports", "nightly reports", "data unification", "Mac Mini", "MiniMax", "agent swarm"]
+        }
+      ],
+      "notes": "Implemented directly from full transcript (~8300 words). Build: 242 pages. Clarity subagent timed out, implemented directly."
+    },
+    {
       "timestamp": "2026-03-04T01:46:00-05:00",
       "idea": "Data Deep Dive homepage nav section",
       "category": "Homepage Enhancement",
