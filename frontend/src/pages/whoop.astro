@@ -1,0 +1,271 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import { Activity, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
+import fs from 'fs';
+import path from 'path';
+
+const whoopDataPath = '/Users/tobyglennpeters/clawd/data/whoop_v2_latest.json';
+const whoopDataRaw = fs.readFileSync(whoopDataPath, 'utf-8');
+const whoopData = JSON.parse(whoopDataRaw);
+
+const recoveryRecords = whoopData.recovery?.records || [];
+const workoutRecords = whoopData.workouts?.records || [];
+const lastSynced = whoopData.last_synced;
+
+// Calculate stats from recovery data
+const recoveryScores = recoveryRecords.map(r => r.score?.recovery_score).filter(Boolean);
+const hrvValues = recoveryRecords.map(r => r.score?.hrv_rmssd_milli).filter(Boolean);
+const rhrValues = recoveryRecords.map(r => r.score?.resting_heart_rate).filter(Boolean);
+const spo2Values = recoveryRecords.map(r => r.score?.spo2_percentage).filter(Boolean);
+
+const avgRecovery = recoveryScores.length ? (recoveryScores.reduce((a, b) => a + b, 0) / recoveryScores.length).toFixed(1) : 0;
+const avgHRV = hrvValues.length ? (hrvValues.reduce((a, b) => a + b, 0) / hrvValues.length).toFixed(1) : 0;
+const avgRHR = rhrValues.length ? (rhrValues.reduce((a, b) => a + b, 0) / rhrValues.length).toFixed(1) : 0;
+const avgSpO2 = spo2Values.length ? (spo2Values.filter(s => s > 0).reduce((a, b) => a + b, 0) / spo2Values.filter(s => s > 0).length).toFixed(1) : 0;
+
+// Get recent 30 days for charts
+const recentRecords = recoveryRecords.slice(0, 30).reverse();
+
+// Calculate strain from workouts
+const strainValues = workoutRecords.map(w => w.strain).filter(Boolean);
+const avgStrain = strainValues.length ? (strainValues.reduce((a, b) => a + b, 0) / strainValues.length).toFixed(1) : 0;
+
+// Recent recovery table (last 14)
+const recentTable = recoveryRecords.slice(0, 14).map(r => ({
+  date: new Date(r.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+  score: r.score?.recovery_score || 0,
+  rhr: r.score?.resting_heart_rate || 0,
+  hrv: r.score?.hrv_rmssd_milli?.toFixed(1) || 0,
+  spo2: r.score?.spo2_percentage?.toFixed(1) || 0
+}));
+
+// Recovery color helper
+function getRecoveryColor(score) {
+  if (score >= 67) return 'text-green-400 bg-green-400/10';
+  if (score >= 34) return 'text-yellow-400 bg-yellow-400/10';
+  return 'text-red-400 bg-red-400/10';
+}
+
+// Generate SVG chart for recovery scores
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = 30;
+const maxScore = 100;
+
+function generateRecoveryChart(records) {
+  if (!records.length) return '';
+  
+  const points = records.map((r, i) => {
+    const x = chartPadding + (i / (records.length - 1)) * (chartWidth - 2 * chartPadding);
+    const y = chartHeight - chartPadding - (r.score / maxScore) * (chartHeight - 2 * chartPadding);
+    return `${x},${y}`;
+  }).join(' ');
+  
+  return points;
+}
+
+const recoveryChartPoints = generateRecoveryChart(recentRecords);
+---
+
+<Layout title="WHOOP Recovery Data | TobyOnFitnessTech">
+  <Header client:load />
+  
+  <main class="bg-neutral-950 min-h-screen pb-20">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
+            <Activity class="w-4 h-4" />
+            Recovery Data
+          </span>
+          <span class="text-neutral-500 text-sm">{recoveryRecords.length} nights tracked</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">WHOOP Recovery</h1>
+        <p class="text-lg text-neutral-400 max-w-2xl">
+          Real recovery data from my WHOOP 4.0 — sleep-based recovery scores, HRV, RHR, and strain analysis.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stats Grid -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Activity class="w-4 h-4" />
+              Avg Recovery
+            </div>
+            <div class="text-3xl font-bold text-white">{avgRecovery}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Heart class="w-4 h-4" />
+              Avg HRV
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHRV}<span class="text-lg text-neutral-500">ms</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <TrendingUp class="w-4 h-4" />
+              Avg RHR
+            </div>
+            <div class="text-3xl font-bold text-white">{avgRHR}<span class="text-lg text-neutral-500">bpm</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Zap class="w-4 h-4" />
+              Avg Strain
+            </div>
+            <div class="text-3xl font-bold text-white">{avgStrain}<span class="text-lg text-neutral-500">/21.0</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recovery Score Chart -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Recovery Score Trend (Last 30 Days)</h2>
+          {recentRecords.length > 0 ? (
+            <div class="overflow-x-auto">
+              <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[400px]" preserveAspectRatio="xMidYMid meet">
+                {/* Grid lines */}
+                <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                
+                {/* Y-axis labels */}
+                <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
+                
+                {/* Chart line */}
+                <polyline
+                  points={recoveryChartPoints}
+                  fill="none"
+                  stroke="#3B82F6"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                
+                {/* Data points */}
+                {recentRecords.map((r, i) => {
+                  const x = chartPadding + (i / (recentRecords.length - 1)) * (chartWidth - 2 * chartPadding);
+                  const y = chartHeight - chartPadding - (r.score / maxScore) * (chartHeight - 2 * chartPadding);
+                  return (
+                    <circle cx={x} cy={y} r="3" fill="#3B82F6" />
+                  );
+                })}
+              </svg>
+            </div>
+          ) : (
+            <p class="text-neutral-400">No recovery data available</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Recovery Table -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Recent Recovery Records</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-neutral-400 text-sm border-b border-neutral-800">
+                  <th class="text-left py-3 px-2">Date</th>
+                  <th class="text-left py-3 px-2">Recovery</th>
+                  <th class="text-left py-3 px-2">RHR</th>
+                  <th class="text-left py-3 px-2">HRV</th>
+                  <th class="text-left py-3 px-2">SpO2</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentTable.map((row) => (
+                  <tr class="border-b border-neutral-800/50 hover:bg-neutral-800/30">
+                    <td class="py-3 px-2 text-white">{row.date}</td>
+                    <td class="py-3 px-2">
+                      <span class={`px-2 py-1 rounded text-sm font-medium ${getRecoveryColor(row.score)}`}>
+                        {row.score}
+                      </span>
+                    </td>
+                    <td class="py-3 px-2 text-neutral-300">{row.rhr} bpm</td>
+                    <td class="py-3 px-2 text-neutral-300">{row.hrv} ms</td>
+                    <td class="py-3 px-2 text-neutral-300">{row.spo2}%</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Insights -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Key Insights</h2>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+              <span class="text-neutral-300">Average recovery score of {avgRecovery}/100 suggests moderate training load tolerance</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+              <span class="text-neutral-300">HRV averaging {avgHRV}ms — within normal range for resistance training</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+              <span class="text-neutral-300">Resting heart rate of {avgRHR}bpm shows good cardiovascular fitness</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="w-2 h-2 rounded-full bg-blue-500 mt-2"></span>
+              <span class="text-neutral-300">{workoutRecords.length} workouts tracked with average strain of {avgStrain}/21</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-8 border border-blue-800/30">
+          <h2 class="text-2xl font-bold text-white mb-4">Track Your Recovery</h2>
+          <p class="text-neutral-400 mb-6">
+            See how WHOOP data integrates with my broader fitness ecosystem.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/sleep" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+              8Sleep Data
+            </a>
+            <a href="/training" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              Training Overview
+            </a>
+            <a href="/day" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              A Day in the Data
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-2 text-neutral-500 text-sm">
+          <Clock class="w-4 h-4" />
+          <span>Last synced: {lastSynced ? new Date(lastSynced).toLocaleString() : 'N/A'}</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

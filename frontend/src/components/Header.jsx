@@ -56,6 +56,7 @@ export default function Header() {
     { name: 'Speediance', href: '/speediance', icon: '💪' },
     { name: 'Training', href: '/training', icon: '🏋️' },
     { name: 'Sleep', href: '/sleep', icon: '😴' },
+    { name: 'WHOOP', href: '/whoop', icon: '💓' },
     { name: 'BJJ', href: '/bjj', icon: '🥋' },
     { name: 'Day in a Week', href: '/day', icon: '📅' },
     { name: 'Gear', href: '/gear', icon: '🛠' },
