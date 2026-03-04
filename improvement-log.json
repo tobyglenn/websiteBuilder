@@ -2,6 +2,26 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T10:30:00-05:00",
+      "idea": "Enhance About page with running stats and BJJ journey expansion",
+      "category": "Content Enhancement - About Page",
+      "files_changed": [
+        "src/pages/about.astro"
+      ],
+      "commit": "c5e9a7c",
+      "sections": [
+        "Running Stats section: 111 runs, 265.1 mi, 67.2 hrs, 15:12/mi avg pace, 5mi longest run",
+        "Training Philosophy section: Why I train at 6:30 AM, BJJ + Lifting + Running stack",
+        "BJJ Journey expansion: Competition record, training frequency (3-4x/week), Greg Doucette connection, brown belt philosophy"
+      ],
+      "data_sources": [
+        "garmin_all_activities.json (111 runs, 265.1 miles)",
+        "speediance_dashboard_data.json (1.29M lbs)",
+        "Video transcripts for BJJ content"
+      ],
+      "notes": "Clarity subagent added Running Stats section then timed out. Added Training Philosophy and BJJ expansion directly. Build: 252 pages."
+    },
+    {
       "timestamp": "2026-03-04T09:16:00-05:00",
       "idea": "Add Data Pages section to footer navigation",
       "category": "UX Enhancement - Navigation",
