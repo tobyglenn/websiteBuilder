@@ -87,7 +87,15 @@ const chart = testChart(RECENT_NIGHTS);
 const hoursSvg = hoursChart(RECENT_NIGHTS);
 const { svg: qualitySvg, legend: qualityLegend } = qualityDonut();
 ---
-<Layout title="Sleep & Recovery Data | TobyOnFitnessTech">
+<Layout title="Sleep & Recovery Data | TobyOnFitnessTech" jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Sleep & Recovery Data",
+    "description": "Sleep scores, hours, and stages from 8Sleep data, with insights and recent nights.",
+    "author": { "@type": "Person", "name": "Toby Glenn Peters" },
+    "datePublished": "2026-03-04",
+    "url": "https://tobyonfitnesstech.com/sleep"
+  }}>
   <main class="bg-neutral-950 min-h-screen">
     <section class="py-10">
       <div class="text-center">
