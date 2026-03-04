@@ -221,7 +221,12 @@ export default function VideoGrid({ limit, showFilters = true }) {
                 </h3>
                 <div className="flex items-center justify-between text-xs text-neutral-500">
                     <span>{video.published_at}</span>
-                    {video.viewCount && <span>{parseInt(video.viewCount).toLocaleString()} views</span>}
+                    {video.viewCount && (
+                <div className="flex items-center space-x-1 text-neutral-400 text-xs mt-1">
+                  <Eye size={12} className="stroke-current" />
+                  <span>{formatViews(video.viewCount)}</span>
+                </div>
+              )}
                 </div>
               </div>
             </a>
@@ -234,12 +239,18 @@ export default function VideoGrid({ limit, showFilters = true }) {
 
 // Helper to parse ISO duration (e.g. PT15M33S) into seconds for sorting
 function parseDuration(iso) {
-  if (!iso) return 0;
-  if (iso === 'P0D') return 0;
-  const match = iso.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
-  if (!match) return 0;
-  const hours   = (parseInt(match[1]) || 0) * 3600;
-  const minutes = (parseInt(match[2]) || 0) * 60;
-  const seconds = parseInt(match[3]) || 0;
-  return hours + minutes + seconds;
+  // existing code
+}
+
+// Format view counts (e.g., 1200 -> 1.2K, 1500000 -> 1.5M)
+function formatViews(count) {
+  const num = Number(count);
+  if (isNaN(num)) return '';
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return num.toString();
 }
