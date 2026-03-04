@@ -12,7 +12,13 @@
           "category": "Field Reports",
           "published_at": "2025-09-25",
           "transcript_video_id": "_AWCpE8BK1M",
-          "topics": ["Speediance", "customize settings", "20 and 13 formula", "warm-up", "handle pairing"]
+          "topics": [
+            "Speediance",
+            "customize settings",
+            "20 and 13 formula",
+            "warm-up",
+            "handle pairing"
+          ]
         },
         {
           "slug": "whoop-5-not-smaller-review",
@@ -20,7 +26,14 @@
           "category": "Signal vs. Noise",
           "published_at": "2026-01-14",
           "transcript_video_id": "DHYERsqckrA",
-          "topics": ["WHOOP 5", "WHOOP 4", "form factor", "battery", "band compatibility", "review"]
+          "topics": [
+            "WHOOP 5",
+            "WHOOP 4",
+            "form factor",
+            "battery",
+            "band compatibility",
+            "review"
+          ]
         }
       ],
       "git_commit": "1f3901c",
@@ -32,7 +45,9 @@
       "timestamp": "2026-03-04T02:45:00-05:00",
       "idea": "Add OpenClaw fitness automation blog post from transcript",
       "category": "Content - Blog Posts",
-      "files_changed": ["src/data/mock.js"],
+      "files_changed": [
+        "src/data/mock.js"
+      ],
       "commit": "d65c24e",
       "posts": [
         {
@@ -41,7 +56,16 @@
           "category": "Signal vs. Noise",
           "published_at": "2026-02-18",
           "transcript_video_id": "xFknwPPhVnI",
-          "topics": ["OpenClaw", "fitness automation", "morning reports", "nightly reports", "data unification", "Mac Mini", "MiniMax", "agent swarm"]
+          "topics": [
+            "OpenClaw",
+            "fitness automation",
+            "morning reports",
+            "nightly reports",
+            "data unification",
+            "Mac Mini",
+            "MiniMax",
+            "agent swarm"
+          ]
         }
       ],
       "notes": "Implemented directly from full transcript (~8300 words). Build: 242 pages. Clarity subagent timed out, implemented directly."
@@ -50,9 +74,14 @@
       "timestamp": "2026-03-04T01:46:00-05:00",
       "idea": "Data Deep Dive homepage nav section",
       "category": "Homepage Enhancement",
-      "files_changed": ["src/pages/index.astro"],
+      "files_changed": [
+        "src/pages/index.astro"
+      ],
       "commit": "af93fc9",
-      "sections": ["8-card grid: Running, Lifting, Sleep, Transformation, Training, BJJ, Gear, Day in the Data", "Real stats in each card, emoji icons, hover effects, 2x4 mobile → 4x2 desktop"],
+      "sections": [
+        "8-card grid: Running, Lifting, Sleep, Transformation, Training, BJJ, Gear, Day in the Data",
+        "Real stats in each card, emoji icons, hover effects, 2x4 mobile \u2192 4x2 desktop"
+      ],
       "notes": "Clarity subagent completed in ~1m33s. Build: 241 pages."
     },
     {
@@ -78,7 +107,13 @@
           "category": "Field Reports",
           "published_at": "2025-09-01",
           "transcript_video_id": "udS5Iu6SXWM",
-          "topics": ["Unlimited Sets setting", "eccentric mode vs Tonal", "warm-up setup via Stamina mode", "1RM tracking", "Free Lift vs programmed workouts"]
+          "topics": [
+            "Unlimited Sets setting",
+            "eccentric mode vs Tonal",
+            "warm-up setup via Stamina mode",
+            "1RM tracking",
+            "Free Lift vs programmed workouts"
+          ]
         },
         {
           "slug": "speediance-260lb-lat-pulldown-machine-test",
@@ -86,7 +121,13 @@
           "category": "Field Reports",
           "published_at": "2025-09-06",
           "transcript_video_id": "NKY4uXpFTns",
-          "topics": ["260lb lat pulldown test", "two weighted vests", "machine picks Toby up wall", "zero wobble finding", "Tonal comparison"]
+          "topics": [
+            "260lb lat pulldown test",
+            "two weighted vests",
+            "machine picks Toby up wall",
+            "zero wobble finding",
+            "Tonal comparison"
+          ]
         }
       ],
       "git_commit": "5729f09",
@@ -667,7 +708,13 @@
           "category": "Field Reports",
           "published_at": "2025-09-20",
           "transcript_video_id": "pMdn1a5EA1s",
-          "topics": ["Spotter Mode 1 vs Mode 2", "drop sets test", "attachment safety technique", "350lb free weight injury story", "facing the machine"]
+          "topics": [
+            "Spotter Mode 1 vs Mode 2",
+            "drop sets test",
+            "attachment safety technique",
+            "350lb free weight injury story",
+            "facing the machine"
+          ]
         },
         {
           "slug": "speediance-family-workout-lily",
@@ -675,7 +722,12 @@
           "category": "Field Reports",
           "published_at": "2025-09-23",
           "transcript_video_id": "Ndso4yB1GbM",
-          "topics": ["family fitness", "Lily lat pulldowns", "kids lifting safety", "teaching movement patterns early"]
+          "topics": [
+            "family fitness",
+            "Lily lat pulldowns",
+            "kids lifting safety",
+            "teaching movement patterns early"
+          ]
         }
       ],
       "git_commit": "a699780",
@@ -689,10 +741,17 @@
       "category": "Content",
       "status": "attempted_no_new_commit",
       "notes": "Spawned Clarity subagent. Build at 237 pages. No new commits in this session."
+    },
+    {
+      "timestamp": "2026-03-04T04:47:00-05:00",
+      "idea": "Add 2 new blog posts from unused transcripts",
+      "category": "Content - Blog Posts",
+      "status": "attempted_subagent_timeout",
+      "notes": "Clarity subagent started but did not complete within timeout. Site already has substantial content from previous runs (23+ blog posts). Will retry in next cycle."
     }
   ],
   "in_progress": null,
-  "notes": "Autonomous overnight improvement loop for TobyOnFitnessTech",
+  "notes": "All gear reviews written from real transcript content. Dark theme matches existing site. No placeholder content.",
   "visual_audit": {
     "timestamp": "2026-02-19T22:20:00-05:00",
     "type": "visual-design-audit",
@@ -777,9 +836,14 @@
     "timestamp": "2026-03-04T03:49:00Z",
     "idea": "WHOOP Recovery Data Dashboard Page",
     "category": "data-visualization",
-    "files_changed": ["src/pages/whoop.astro", "src/components/Header.jsx"],
+    "files_changed": [
+      "src/pages/whoop.astro",
+      "src/components/Header.jsx"
+    ],
     "commit": "82f6874",
-    "data_sources": ["whoop_v2_latest.json - 1500 recovery records, 1799 workouts"],
+    "data_sources": [
+      "whoop_v2_latest.json - 1500 recovery records, 1799 workouts"
+    ],
     "sections": [
       "Hero with stats pills (avg recovery 54.9, avg HRV 36.6ms, avg RHR 66.6bpm, avg strain 12.9)",
       "Recovery score trend SVG line chart (last 30 days)",
@@ -790,22 +854,20 @@
     ],
     "notes": "Built directly after Clarity subagent stuck. Uses real WHOOP JSON data. Dark theme matches site."
   },
-    "page": "/gear",
-    "file": "src/pages/gear.astro",
-    "data_sources": {
-      "transcripts": "iOYPjqDTdas (Tonal review), cN4YyRwoxXc (Speediance review)",
-      "speediance": "speediance_dashboard_data.json \u2014 1,296,447 lbs total volume"
-    },
-    "sections": [
-      "Hero: What I Actually Use with stats pills",
-      "Verdict legend with color codes",
-      "Home Gym: Speediance Gym Monster 2S (Great), Tonal (Not Recommended)",
-      "Wearables: Garmin Forerunner 265 (Great), WHOOP 4.0 (Essential)",
-      "Sleep Tech: 8Sleep Pod 3 (Great)",
-      "Affiliate disclosure"
-    ],
-    "header_change": "Added Gear nav link to Header.jsx",
-    "build_result": "\u2713 136 pages built successfully",
-    "notes": "All gear reviews written from real transcript content. Dark theme matches existing site. No placeholder content."
-  }
+  "page": "/gear",
+  "file": "src/pages/gear.astro",
+  "data_sources": {
+    "transcripts": "iOYPjqDTdas (Tonal review), cN4YyRwoxXc (Speediance review)",
+    "speediance": "speediance_dashboard_data.json \u2014 1,296,447 lbs total volume"
+  },
+  "sections": [
+    "Hero: What I Actually Use with stats pills",
+    "Verdict legend with color codes",
+    "Home Gym: Speediance Gym Monster 2S (Great), Tonal (Not Recommended)",
+    "Wearables: Garmin Forerunner 265 (Great), WHOOP 4.0 (Essential)",
+    "Sleep Tech: 8Sleep Pod 3 (Great)",
+    "Affiliate disclosure"
+  ],
+  "header_change": "Added Gear nav link to Header.jsx",
+  "build_result": "\u2713 136 pages built successfully"
 }
