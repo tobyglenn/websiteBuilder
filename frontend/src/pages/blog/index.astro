@@ -9,6 +9,16 @@ function readTime(content = '') {
 
 const siteUrl = "https://tobyonfitnesstech.com";
 
+// Process posts first (needed for schemas below)
+const urlCategory = Astro.url.searchParams.get('category');
+const activeCategory = urlCategory || 'All';
+
+const sortedPosts = [...BLOG_POSTS].sort((a, b) =>
+  new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+);
+
+const filteredPosts = activeCategory === 'All' ? sortedPosts : sortedPosts.filter(p => p.category === activeCategory);
+
 const blogListSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -19,7 +29,7 @@ const blogListSchema = {
   "inLanguage": "en",
   "isPartOf": { "@id": `${siteUrl}/#website` },
   "author": { "@id": `${siteUrl}/#toby` },
-  "hasPart": BLOG_POSTS.slice(0, 10).map((post, index) => ({
+  "hasPart": filteredPosts.slice(0, 10).map((post, index) => ({
     "@type": "BlogPosting",
     "@id": `${siteUrl}/blog/${post.slug}`,
     "position": index + 1,
@@ -41,7 +51,7 @@ const itemListSchema = {
   "description": "Independent fitness technology analysis and reviews",
   "url": `${siteUrl}/blog`,
   "numberOfItems": BLOG_POSTS.length,
-  "itemListElement": BLOG_POSTS.slice(0, 10).map((post, index) => ({
+  "itemListElement": filteredPosts.slice(0, 10).map((post, index) => ({
     "@type": "ListItem",
     "position": index + 1,
     "url": `${siteUrl}/blog/${post.slug}`,
@@ -59,15 +69,9 @@ const CATEGORIES = [
   'Signal vs. Noise',
 ];
 
-const activeCategory = 'All';
-
-const sortedPosts = [...BLOG_POSTS].sort((a, b) =>
-  new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
-);
-
-const featuredPost = sortedPosts[0];
-const sidebarPosts = sortedPosts.slice(1, 5);
-const gridPosts = sortedPosts.slice(5);
+const featuredPost = filteredPosts[0];
+const sidebarPosts = filteredPosts.slice(1, 5);
+const gridPosts = filteredPosts.slice(5);
 
 const title = "The Analysis Log — Toby on Fitness Tech";
 const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
@@ -239,7 +243,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sortedPosts.map(post => (
+          {filteredPosts.map(post => (
             <article class="flex flex-col bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-700 hover:shadow-xl hover:shadow-black/30 transition-all duration-300 group"
               data-category={post.category}
               data-post-card
