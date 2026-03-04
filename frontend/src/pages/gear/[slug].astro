@@ -28,16 +28,21 @@ const productJsonLd = {
   url: `https://tobyonfitnesstech.com/gear/${item.slug}`,
   review: {
     '@type': 'Review',
+    itemReviewed: {
+      '@type': 'Product',
+      name: item.name
+    },
     author: {
       '@type': 'Person',
-      name: 'Toby Glenn Peters'
+      name: 'Toby Peters'
     },
     reviewRating: {
       '@type': 'Rating',
       ratingValue: item.verdict === 'Essential' ? 5 : item.verdict === 'Great' ? 4 : item.verdict === 'Good' ? 3 : 1,
       bestRating: 5
     },
-    reviewBody: item.shortDescription
+    reviewBody: item.shortDescription,
+    datePublished: new Date().toISOString()
   }
 };
 ---

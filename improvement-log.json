@@ -2,6 +2,33 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T02:56:00-05:00",
+      "type": "blog-posts",
+      "description": "Added 2 new blog posts from unused video transcripts",
+      "posts": [
+        {
+          "slug": "speediance-customization-why-it-breaks-settings",
+          "title": "The Speediance Setting That Will Reset Your Entire Workout (Avoid This)",
+          "category": "Field Reports",
+          "published_at": "2025-09-25",
+          "transcript_video_id": "_AWCpE8BK1M",
+          "topics": ["Speediance", "customize settings", "20 and 13 formula", "warm-up", "handle pairing"]
+        },
+        {
+          "slug": "whoop-5-not-smaller-review",
+          "title": "I Tested the WHOOP 5 Against WHOOP 4. It's Not Actually Smaller.",
+          "category": "Signal vs. Noise",
+          "published_at": "2026-01-14",
+          "transcript_video_id": "DHYERsqckrA",
+          "topics": ["WHOOP 5", "WHOOP 4", "form factor", "battery", "band compatibility", "review"]
+        }
+      ],
+      "git_commit": "1f3901c",
+      "git_push": "origin main (force)",
+      "build_pages": 247,
+      "notes": "Both posts written from full transcript content in Toby's voice. Unused transcripts: _AWCpE8BK1M (554 words), DHYERsqckrA (365 words)."
+    },
+    {
       "timestamp": "2026-03-04T02:45:00-05:00",
       "idea": "Add OpenClaw fitness automation blog post from transcript",
       "category": "Content - Blog Posts",
