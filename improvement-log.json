@@ -2,6 +2,32 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T00:54:00-05:00",
+      "type": "blog-posts",
+      "description": "Added 2 more blog posts from unused Speediance transcripts (subagent timed out, implemented directly)",
+      "posts": [
+        {
+          "slug": "speediance-unlimited-sets-eccentric-mode-setup",
+          "title": "The Two Speediance Settings Nobody Tells You About (But Should Be Default)",
+          "category": "Field Reports",
+          "published_at": "2025-09-01",
+          "transcript_video_id": "udS5Iu6SXWM",
+          "topics": ["Unlimited Sets setting", "eccentric mode vs Tonal", "warm-up setup via Stamina mode", "1RM tracking", "Free Lift vs programmed workouts"]
+        },
+        {
+          "slug": "speediance-260lb-lat-pulldown-machine-test",
+          "title": "I Put the Speediance 2S Through Its Maximum Weight. Here's What Happened.",
+          "category": "Field Reports",
+          "published_at": "2025-09-06",
+          "transcript_video_id": "NKY4uXpFTns",
+          "topics": ["260lb lat pulldown test", "two weighted vests", "machine picks Toby up wall", "zero wobble finding", "Tonal comparison"]
+        }
+      ],
+      "git_commit": "5729f09",
+      "build_pages": 239,
+      "notes": "Subagent timed out (471k tokens, 10m). Implemented directly from raw transcripts."
+    },
+    {
       "timestamp": "2026-03-04T00:10:00-05:00",
       "type": "blog-posts",
       "description": "Added 2 new blog posts from WHOOP/Garmin transcripts (subagent timed out, implemented directly)",
@@ -563,6 +589,33 @@
       "git_commit": "3a0e4fe",
       "git_push": "fork -> main (force)",
       "notes": "All posts written from full transcript content in Toby's voice. No placeholder content. Video IDs used: iOYPjqDTdas and JxRdaMTOOHo. Both previously unused."
+    },
+    {
+      "timestamp": "2026-03-04T00:56:00-05:00",
+      "type": "blog-posts",
+      "description": "Added 2 new blog posts from unused video transcripts",
+      "posts": [
+        {
+          "slug": "speediance-spotter-modes-drop-sets-safety",
+          "title": "Speediance Spotter Modes Tested: The One You Should Actually Use",
+          "category": "Field Reports",
+          "published_at": "2025-09-20",
+          "transcript_video_id": "pMdn1a5EA1s",
+          "topics": ["Spotter Mode 1 vs Mode 2", "drop sets test", "attachment safety technique", "350lb free weight injury story", "facing the machine"]
+        },
+        {
+          "slug": "speediance-family-workout-lily",
+          "title": "I Did a Full Workout With My 6-Year-Old Daughter. Here's What Happened.",
+          "category": "Field Reports",
+          "published_at": "2025-09-23",
+          "transcript_video_id": "Ndso4yB1GbM",
+          "topics": ["family fitness", "Lily lat pulldowns", "kids lifting safety", "teaching movement patterns early"]
+        }
+      ],
+      "git_commit": "a699780",
+      "git_push": "main (force)",
+      "build_pages": 239,
+      "notes": "Posts written directly from full transcripts. Both in Toby's voice with specific data points."
     },
     {
       "timestamp": "2026-03-04T00:41:00-05:00",
