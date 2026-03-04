@@ -1008,6 +1008,22 @@
   ],
   "in_progress": null,
   "notes": "All gear reviews written from real transcript content. Dark theme matches existing site. No placeholder content.",
+    {
+      "timestamp": "2026-03-04T16:25:00-05:00",
+      "idea": "Add estimated reading time to blog post cards",
+      "category": "UX Enhancement - Blog",
+      "files_changed": [
+        "src/pages/blog/index.astro"
+      ],
+      "commit": "b7e0e6e",
+      "sections": [
+        "Added readTime() function that calculates words/200 for minutes",
+        "Reading time displayed on featured post (e.g., '5 min read')",
+        "Reading time displayed on grid posts",
+        "Styled as muted text-xs pill between date and title"
+      ],
+      "notes": "Clarity subagent completed successfully. Helps readers know article length before clicking. Build: 256 pages."
+    },
   "visual_audit": {
     "timestamp": "2026-02-19T22:20:00-05:00",
     "type": "visual-design-audit",

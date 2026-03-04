@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import heatmapData from '../data/heatmap.json';
 
 // ═══════════════════════════════════════════════════════════════════════════
 //  REAL TRAINING DATA — extracted from Garmin, Speediance & 8Sleep exports
@@ -162,6 +163,13 @@ const maxPR = TOP_PRS[0].weight;
 const catColor: Record<string, string> = {
   Legs: "#f59e0b", Back: "#3b82f6", Chest: "#8b5cf6", Arms: "#10b981", Shoulders: "#ef4444"
 };
+
+// ── Training Consistency Heatmap (pre-generated from Speediance + Garmin) ──
+const heatmapWeeks = heatmapData.weeks;
+const monthPositions = heatmapData.mlabels;
+const heatmapTotalActive = heatmapData.totalActive;
+const heatmapLongest = heatmapData.longest;
+const heatmapActivePct = heatmapData.pct;
 ---
 
 <Layout
@@ -692,6 +700,83 @@ const catColor: Record<string, string> = {
                   <span class="text-white font-medium">{stat.val}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ══════════════════════════════════════════════════════════════════════
+        TRAINING CONSISTENCY HEATMAP
+        ══════════════════════════════════════════════════════════════════════ */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-8">
+            <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Consistency</span>
+            <h2 class="text-3xl font-bold text-white">Training Calendar</h2>
+            <p class="text-neutral-500 mt-2">Every workout and run from Speediance + Garmin — last 52 weeks</p>
+          </div>
+
+          {/* Streak Stats */}
+          <div class="grid grid-cols-3 gap-4 mb-8">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">{heatmapTotalActive}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Active Days</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">{heatmapLongest}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Longest Streak</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">{Math.round((heatmapTotalActive / 365) * 100)}%</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Days Active</div>
+            </div>
+          </div>
+
+          {/* Heatmap Grid */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
+            {/* Month labels */}
+            <div class="flex gap-[3px] mb-1 ml-8 min-w-max">
+              {heatmapWeeks.map((_, i) => {
+                const pos = monthPositions.find(m => m.col === i);
+                return <div class="w-[11px] text-[9px] text-neutral-600 flex-shrink-0">{pos ? pos.label : ''}</div>;
+              })}
+            </div>
+            {/* Grid: rows = days of week, cols = weeks */}
+            <div class="flex gap-[3px] min-w-max">
+              {/* Day labels */}
+              <div class="flex flex-col gap-[3px] mr-1">
+                {['S','M','T','W','T','F','S'].map((d, i) => (
+                  <div class="h-[11px] w-6 text-[9px] text-neutral-600 flex items-center justify-end pr-1">{i % 2 === 1 ? d : ''}</div>
+                ))}
+              </div>
+              {/* Week columns */}
+              {heatmapWeeks.map((week, wi) => (
+                <div class="flex flex-col gap-[3px]">
+                  {week.map((day, di) => {
+                    const bg = !day.date ? 'bg-neutral-950' :
+                      day.count === 0 ? 'bg-neutral-800' :
+                      day.count === 1 ? 'bg-blue-900' :
+                      day.count === 2 ? 'bg-blue-700' : 'bg-blue-500';
+                    return (
+                      <div
+                        class={`w-[11px] h-[11px] rounded-[2px] flex-shrink-0 ${bg}`}
+                        title={day.date ? `${day.date}: ${day.count} workout${day.count !== 1 ? 's' : ''}` : ''}
+                      />
+                    );
+                  })}
+                </div>
+              ))}
+            </div>
+            {/* Legend */}
+            <div class="flex items-center gap-2 mt-4 justify-end">
+              <span class="text-[10px] text-neutral-500">Less</span>
+              <div class="w-[11px] h-[11px] rounded-[2px] bg-neutral-800" />
+              <div class="w-[11px] h-[11px] rounded-[2px] bg-blue-900" />
+              <div class="w-[11px] h-[11px] rounded-[2px] bg-blue-700" />
+              <div class="w-[11px] h-[11px] rounded-[2px] bg-blue-500" />
+              <span class="text-[10px] text-neutral-500">More</span>
             </div>
           </div>
         </div>
