@@ -62,6 +62,8 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
   const allVideosData = videos || allVideos;
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
+  const [searchInput, setSearchInput] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Read ?category= from URL on mount and apply filter
   useEffect(() => {
@@ -71,6 +73,15 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
       setSelectedCategory(cat);
     }
   }, []);
+
+  // Debounce search input for smoother client-side filtering
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearchQuery(searchInput.trim());
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   const processedVideos = useMemo(() => {
     return allVideos.map(v => ({
@@ -106,6 +117,16 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
       result = result.filter(v => v.categories?.includes(selectedCategory));
     }
 
+    // Search filter (title + description, case-insensitive)
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      result = result.filter(v => {
+        const title = v.title?.toLowerCase() || '';
+        const description = v.description?.toLowerCase() || '';
+        return title.includes(query) || description.includes(query);
+      });
+    }
+
     // Sort
     result = result.sort((a, b) => {
         if (sortBy === 'newest') return b.dateObj - a.dateObj;
@@ -117,7 +138,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
 
     if (limit) return result.slice(0, limit);
     return result;
-  }, [processedVideos, selectedCategory, sortBy, limit]);
+  }, [processedVideos, selectedCategory, sortBy, searchQuery, limit]);
 
   return (
     <div className="space-y-6">
@@ -142,7 +163,30 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
 
           {/* Bottom Row: Controls */}
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 flex-wrap">
+                {/* Search Input */}
+                <div className="relative">
+                  <input
+                    type="text"
+                    value={searchInput}
+                    onChange={(e) => setSearchInput(e.target.value)}
+                    placeholder="Search title or description..."
+                    className="w-72 max-w-[80vw] bg-neutral-900 border border-neutral-800 text-white placeholder:text-neutral-500 py-2 pl-4 pr-20 rounded-lg text-sm focus:outline-none focus:border-blue-500"
+                  />
+                  {searchInput && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSearchInput('');
+                        setSearchQuery('');
+                      }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 text-xs rounded-md bg-neutral-800 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-600"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+
                 {/* Sort Dropdown */}
                 <div className="relative group">
                     <select 
@@ -160,8 +204,14 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                 </div>
             </div>
             
-            <div className="text-xs text-neutral-500">
-                Showing {filteredVideos.length} videos
+            <div className="text-xs text-neutral-500 text-right">
+                {searchQuery ? (
+                  <>
+                    Searching for <span className="text-blue-400">“{searchQuery}”</span> • {filteredVideos.length} result{filteredVideos.length === 1 ? '' : 's'}
+                  </>
+                ) : (
+                  <>Showing {filteredVideos.length} videos</>
+                )}
             </div>
           </div>
         </div>
