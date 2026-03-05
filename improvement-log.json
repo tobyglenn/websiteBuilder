@@ -177,6 +177,16 @@
       ],
       "commit": "b7cc8d8",
       "notes": "Added new blog post covering Standard/Chain/Eccentric modes, Gain Muscle/Stamina/Strength presets, Customize mode trap, and Eccentric training benefits. Build passes (new post page generated)."
+    },
+    {
+      "timestamp": "2026-03-05T15:16:00-05:00",
+      "idea": "Personal Records (PR) board page with strength, running, weight journey, and BJJ stats",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/pages/pr.astro"
+      ],
+      "commit": "f0cc775",
+      "notes": "New /pr page with: Lifetime volume stats (1.29M lbs, 265 miles, 238 workouts), Strength PRs table (Deadlift 405, Squat 365, Bench 275, etc.), Running PRs (1mi 6:52, 5K 22:18, 10K 47:42, Half 1:44:32), Weight journey timeline (242→188→218), BJJ stats (Blue Belt, 2+ years). Dark theme matches site. Build passes (280 pages)."
     }
   ],
   "in_progress": null,
