@@ -4,6 +4,42 @@ import { getRunningData } from '../data/running.js';
 
 const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData();
 
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Running Log: 265 Miles on Garmin",
+  "description": "111 runs, 265 miles tracked on Garmin Fenix 7. Monthly mileage charts, activity heatmap, pace PRs, and full run log.",
+  "author": { "@type": "Person", "name": "Toby Glenn Peters" },
+  "datePublished": "2026-03-04",
+  "url": "https://tobyonfitnesstech.com/running"
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Running Training Guide",
+  "description": "How to train for fitness using running with Garmin GPS tracking",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Warm Up",
+      "text": "Start with 5 minutes of dynamic stretching and light jogging to prepare your muscles and joints for the run."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Main Run",
+      "text": "Run at your target pace using Garmin to track HR zones, ensuring you stay in the optimal training zone for your fitness level."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Cool Down",
+      "text": "Finish with 5 minutes of easy jogging and static stretching to promote recovery and reduce injury risk."
+    }
+  ]
+};
+
+const allSchemas = [articleSchema, howToSchema];
+
 // ── Monthly bar chart SVG ──────────────────────────────────────────────────
 const barW = 40, barGap = 12, chartH = 140, labelH = 28;
 const maxDist = Math.max(...monthly.map(m => m.distance));
@@ -68,15 +104,7 @@ weeks.forEach((week, wi) => {
 <Layout
   title="Running Log: 265 Miles on Garmin — TobyOnFitnessTech"
   description="111 runs, 265 miles tracked on Garmin Fenix 7. Monthly mileage charts, activity heatmap, pace PRs, and full run log."
-  jsonLd={{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Running Log: 265 Miles on Garmin",
-    "description": "111 runs, 265 miles tracked on Garmin Fenix 7. Monthly mileage charts, activity heatmap, pace PRs, and full run log.",
-    "author": { "@type": "Person", "name": "Toby Glenn Peters" },
-    "datePublished": "2026-03-04",
-    "url": "https://tobyonfitnesstech.com/running"
-  }}
+  jsonLd={allSchemas}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
 
