@@ -159,6 +159,16 @@
       "notes": "Comprehensive gear page already existed with detailed reviews for Speediance (1.29M lbs), Garmin (265 miles, 111 runs), WHOOP, 8Sleep, Cronometer, OpenClaw. Includes current gear and replaced items with detailed pros/cons. Build passes (267 pages)."
     },
     {
+      "timestamp": "2026-03-05T14:15:00-05:00",
+      "idea": "New blog post: Speediance 2S vs Original review after 600K+ lbs",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "c8a9f67",
+      "notes": "Added new blog post from transcript 2025-11-07. Covers processor differences, daily use comparison, cable angle adapters, rope attachments, software bugs, and recommendations. Build passes."
+    },
+    {
       "timestamp": "2026-03-05T13:15:00-05:00",
       "idea": "Add new blog post: Speediance 2s Modes Explained (from transcript 2025-09-13)",
       "category": "Content - Blog Post",
