@@ -1,11 +1,139 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why do you train at 6:30 AM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mornings are the only time nothing can steal the session. By 8:00 AM I'm done — lifting or on the mat — and the rest of the day belongs to work and family. Training at night has never worked for me: I get a second wind that wrecks my sleep, and by 9 PM I'm too tired to actually push hard. Early is the only reliable answer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's your current training split?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Full body minus legs, 4x per week on the Speediance. BJJ 3–4x per week. Running 2–3x per week. That's roughly 10 hours of training total — which is my ceiling before WHOOP starts flashing red and recovery tanks. I don't do dedicated leg work because BJJ and running cover it adequately, and I'm not competing in powerlifting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why don't you train legs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BJJ involves a lot of leg-based movement — guard, takedowns, transitions. Running adds direct leg stress. Between the two, my legs are getting substantial training stimulus without a dedicated lifting session. Adding heavy squats or deadlifts on top risks overloading a system that's already working hard, and recovery would suffer. If I weren't doing BJJ, I'd add legs back."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do you track progress?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WHOOP for daily recovery score and HRV. Garmin for every run (GPS, HR zones, pace, training load). Speediance tracks lifting volume, 1RM estimates, and PR history automatically. 8Sleep for sleep stages. I built an AI morning report on OpenClaw that pulls all of this together before I wake up and gives me a training recommendation with confidence percentage."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Speediance vs Tonal — which should I buy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "I owned Tonal for years and switched. The short version: two Speediances cost less over 5 years than one Tonal when you factor in membership. Speediance goes to 260 lbs, has no mandatory subscription, and the hardware lasts. The only area Tonal still wins: female coach options and video production quality. If your partner specifically wants a female-led guided experience, Tonal is the answer. For everyone else, Speediance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "WHOOP or Garmin — do you need both?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "They answer different questions. Garmin answers what did I do — activity log, GPS, pace, HR zones. WHOOP answers how did I recover — overnight physiology, HRV baseline, readiness. If you only want one: Garmin if you run, WHOOP if you care more about recovery. I use both because I take training seriously enough to want both questions answered correctly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the 8Sleep Pod worth it?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "If you run warm, yes. It's the only thing that consistently improved my deep sleep percentage. The temperature regulation is the feature — not the sleep tracking. I use it alongside WHOOP because 8Sleep's sleep stages data gives me an independent read. The subscription cost is real, but for recovery as a serious athlete it's hard to argue with the data it produces."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which Speediance model — Original, 2S, or Gym Monster 2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Get the 2S if you need a quiet environment (office gym) or you're lifting above 180 lbs regularly. Get the Original if noise isn't an issue and you want to save money — open-box Originals at $1,000–1,500 with warranty are a steal. The Gym Monster 2 adds a bigger screen and AI form coach, which is useful for beginners but overkill for advanced lifters. I have both an Original (living room) and a 2S (office)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How did you lose 54 lbs in 6 months?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pharmaceutical support (tirzepatide GLP-1, restructured TRT protocol, Anavar for muscle preservation), 800–1,200 calories 6 days a week, 10,000–20,000 steps daily, and 30,000–50,000 lbs of lifting volume per day. I've written the full honest breakdown — including every drug and dose — in the 242 to 188: The Honest Truth blog post. I didn't do this naturally. I'm not going to pretend otherwise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Are you still on GLP-1 medication?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The tirzepatide protocol was for the 6-month cut specifically. I'm in a muscle-building phase now (188 → 218 lbs), which means eating more, not less. I'm still on TRT — that's permanent due to primary hypogonadism from a physical injury. But the GLP-1 was a tool for a specific goal, not a lifestyle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can you build muscle after 40?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, with caveats. Recovery takes longer. Sleep becomes even more important. The margin for error on nutrition is smaller. But the muscle-building mechanism doesn't disappear — progressive overload still works, protein synthesis still happens. I've gone from 188 to 218 lbs since the cut, with 1.29M lbs lifted on the Speediance in that window. The data says it's working."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does your diet look like now?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "High protein, moderate carbs, not obsessively tracked. I use Cronometer when I'm being precise. The general rule: eat around training, prioritize protein, don't go to bed hungry when trying to build. The calorie surplus for a lean bulk is smaller than most people think — 200–300 above maintenance is enough. More than that and you're adding fat faster than necessary."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is any content sponsored?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No paid sponsorships. Some gear links may be affiliate links (disclosed where applicable), but no brand pays me for coverage or controls what I say. I bought every piece of equipment reviewed here out of pocket. The Speediance, Tonal, WHOOP, Garmin, 8Sleep — all purchased at retail. That's the only way the reviews mean anything."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How often do you post?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "YouTube videos go up whenever I have something worth saying — typically 2–4 per week. Blog posts are generated from video transcripts and published on an ongoing basis. The data dashboards update automatically from live data sources. No posting schedule for its own sake — content exists when there's something real to show."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I contact you?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "YouTube comments are the best way — I read them and respond to ones worth answering in video form. For quick questions, the comment section gets a response faster than email. For business inquiries, use the email in the YouTube channel About section."
+      }
+    }
+  ]
+};
 ---
 
 <Layout
   title="FAQ - TobyOnFitnessTech"
   description="Common questions about Toby's training, gear stack, weight loss journey, and how this site works."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "FAQ", url: "/faq" }]}
+  jsonLd={faqSchema}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
 

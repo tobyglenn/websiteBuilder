@@ -68,6 +68,16 @@
       },
       "notes": "Created stats.js to calculate totals from real JSON data. Updated homepage to show dynamic stats: \ud83c\udfcb\ufe0f Total Lbs Lifted, \ud83c\udfc3 Total Miles Run, \ud83d\udcaa Total Workouts."
     }
+{
+      "timestamp": "2026-03-04T20:22:00-05:00",
+      "idea": "Speediance stats page with real training data (1.29M lbs, 125 workouts)",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/pages/speediance.astro"
+      ],
+      "commit": "14d15ea",
+      "notes": "New /speediance page with hero section, 6 stat cards (total volume, workouts, hours, avg session, best session, calories), monthly volume chart, donut chart for workout types, exercise PRs, and recent sessions. Data from speediance_dashboard_data.json. Build passes (263 pages)."
+    }
   ],
   "in_progress": null,
   "notes": "\n2026-03-04: Added 2 new blog posts:\n- speediance-2s-1rm-exposed (from 2025-11-21 transcript)\n- mike-israetel-black-belt-controversy (from 2025-11-13 transcript)"
