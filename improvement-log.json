@@ -157,6 +157,16 @@
       ],
       "commit": "pre-existing",
       "notes": "Comprehensive gear page already existed with detailed reviews for Speediance (1.29M lbs), Garmin (265 miles, 111 runs), WHOOP, 8Sleep, Cronometer, OpenClaw. Includes current gear and replaced items with detailed pros/cons. Build passes (267 pages)."
+    },
+    {
+      "timestamp": "2026-03-05T13:15:00-05:00",
+      "idea": "Add new blog post: Speediance 2s Modes Explained (from transcript 2025-09-13)",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "b7cc8d8",
+      "notes": "Added new blog post covering Standard/Chain/Eccentric modes, Gain Muscle/Stamina/Strength presets, Customize mode trap, and Eccentric training benefits. Build passes (new post page generated)."
     }
   ],
   "in_progress": null,
