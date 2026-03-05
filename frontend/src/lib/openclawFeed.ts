@@ -1,10 +1,20 @@
+function decodeXmlEntities(str: string): string {
+  return str
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&apos;/g, "'");
+}
+
 export function extractTag(xml: string, tag: string): string {
   const re = new RegExp(
     `<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>|<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`,
     "i",
   );
   const m = xml.match(re);
-  return (m ? (m[1] ?? m[2] ?? "") : "").trim();
+  return decodeXmlEntities((m ? (m[1] ?? m[2] ?? "") : "").trim());
 }
 
 export function extractAttr(xml: string, tag: string, attr: string): string {
