@@ -5,7 +5,10 @@
       "timestamp": "2026-03-04T19:24:00-05:00",
       "idea": "Running stats page with real Garmin data (monthly chart, heatmap, PRs)",
       "category": "UX Enhancement - Data Pages",
-      "files_changed": ["src/data/running.js", "src/pages/running.astro"],
+      "files_changed": [
+        "src/data/running.js",
+        "src/pages/running.astro"
+      ],
       "commit": "676f79b",
       "notes": "Already implemented in prior run. Verified build passes (271 pages). Running page includes: 265 miles, 111 runs, monthly mileage SVG chart, activity heatmap, pace PRs by distance, recent runs with HR zones, gear section."
     },
@@ -29,7 +32,9 @@
       "timestamp": "2026-03-04T17:35:00-05:00",
       "idea": "New blog post: Speediance eccentric mode deep dive",
       "category": "Content - Blog Post",
-      "files_changed": ["src/data/mock.js"],
+      "files_changed": [
+        "src/data/mock.js"
+      ],
       "commit": "2ef55b9",
       "transcript_video_id": "tRnUgneY8AU",
       "slug": "speediance-eccentric-mode-deep-dive",
@@ -39,7 +44,9 @@
       "timestamp": "2026-03-04T17:35:00-05:00",
       "idea": "New blog post: Speediance Sequence button workout hack",
       "category": "Content - Blog Post",
-      "files_changed": ["src/data/mock.js"],
+      "files_changed": [
+        "src/data/mock.js"
+      ],
       "commit": "2ef55b9",
       "transcript_video_id": "_1_Z9BD7M2E",
       "slug": "speediance-sequence-button-workout-hack",
@@ -49,16 +56,19 @@
       "timestamp": "2026-03-04T18:25:00-05:00",
       "idea": "Add lifetime stats dashboard to homepage with real Garmin + Speediance data",
       "category": "UX Enhancement - Homepage",
-      "files_changed": ["src/data/stats.js", "src/pages/index.astro"],
+      "files_changed": [
+        "src/data/stats.js",
+        "src/pages/index.astro"
+      ],
       "commit": "867e772",
       "stats": {
         "totalLbsLifted": 1296447,
         "totalMilesRun": 265.6,
         "totalWorkouts": 238
       },
-      "notes": "Created stats.js to calculate totals from real JSON data. Updated homepage to show dynamic stats: 🏋️ Total Lbs Lifted, 🏃 Total Miles Run, 💪 Total Workouts."
+      "notes": "Created stats.js to calculate totals from real JSON data. Updated homepage to show dynamic stats: \ud83c\udfcb\ufe0f Total Lbs Lifted, \ud83c\udfc3 Total Miles Run, \ud83d\udcaa Total Workouts."
     }
   ],
   "in_progress": null,
-  "notes": ""
+  "notes": "\n2026-03-04: Added 2 new blog posts:\n- speediance-2s-1rm-exposed (from 2025-11-21 transcript)\n- mike-israetel-black-belt-controversy (from 2025-11-13 transcript)"
 }
