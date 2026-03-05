@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
+import { Activity, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
 import {
   RECOVERY_RECORDS,
   AVG_RECOVERY,
@@ -12,150 +13,344 @@ import {
   RECENT_RECORDS,
   TREND_DATA,
   RECOVERY_BREAKDOWN,
-} from '../data/whoop';
+  LAST_SYNCED,
+} from '../data/whoop.js';
 
-const CHART_W = 800;
-const CHART_H = 280;
-const PADDING = 30;
+// Recovery color helper
+function getRecoveryColor(score) {
+  if (score >= 67) return 'text-green-400 bg-green-400/10';
+  if (score >= 34) return 'text-yellow-400 bg-yellow-400/10';
+  return 'text-red-400 bg-red-400/10';
+}
 
-const latest = RECOVERY_RECORDS[RECOVERY_RECORDS.length - 1] ?? null;
+// Chart dimensions
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = 30;
+const maxScore = 100;
 
-function linePath(data, key, min, max) {
-  if (data.length < 2) return '';
-  const width = CHART_W - PADDING * 2;
-  const height = CHART_H - PADDING * 2;
-
+// Generate recovery trend SVG points
+function generateTrendLine(data, valueKey, maxVal = 100) {
+  if (!data.length) return '';
   return data
-    .map((point, i) => {
-      const x = PADDING + (i / (data.length - 1)) * width;
-      const y = PADDING + (1 - (point[key] - min) / (max - min || 1)) * height;
-      return `${i === 0 ? 'M' : 'L'} ${x.toFixed(2)} ${y.toFixed(2)}`;
+    .map((d, i) => {
+      const x = chartPadding + (i / (data.length - 1)) * (chartWidth - 2 * chartPadding);
+      const y = chartHeight - chartPadding - (d[valueKey] / maxVal) * (chartHeight - 2 * chartPadding);
+      return `${x},${y}`;
     })
     .join(' ');
 }
 
-const recoveryValues = TREND_DATA.map((d) => d.recovery);
-const hrvValues = TREND_DATA.map((d) => d.hrv);
+const recoveryPoints = generateTrendLine(TREND_DATA, 'recovery', 100);
+const hrvPoints = generateTrendLine(TREND_DATA, 'hrv', 100);
 
-const recMin = Math.min(...recoveryValues, 0);
-const recMax = Math.max(...recoveryValues, 100);
-const hrvMin = Math.min(...hrvValues);
-const hrvMax = Math.max(...hrvValues);
+// Donut chart calculations
+const donutSize = 160;
+const donutStroke = 20;
+const donutRadius = (donutSize - donutStroke) / 2;
+const circumference = 2 * Math.PI * donutRadius;
 
-const recoveryPath = linePath(TREND_DATA, 'recovery', recMin, recMax);
-const hrvPath = linePath(TREND_DATA, 'hrv', hrvMin, hrvMax);
+const total = RECOVERY_BREAKDOWN.total || 1;
+const greenPct = (RECOVERY_BREAKDOWN.green / total) * 100;
+const yellowPct = (RECOVERY_BREAKDOWN.yellow / total) * 100;
+const redPct = (RECOVERY_BREAKDOWN.red / total) * 100;
 
-const totalBreakdown = RECOVERY_BREAKDOWN.green + RECOVERY_BREAKDOWN.yellow + RECOVERY_BREAKDOWN.red || 1;
-const radius = 70;
-const circumference = 2 * Math.PI * radius;
+const greenOffset = 0;
+const yellowOffset = greenPct;
+const redOffset = greenPct + yellowPct;
 
-const greenArc = (RECOVERY_BREAKDOWN.green / totalBreakdown) * circumference;
-const yellowArc = (RECOVERY_BREAKDOWN.yellow / totalBreakdown) * circumference;
-const redArc = (RECOVERY_BREAKDOWN.red / totalBreakdown) * circumference;
+const greenDash = (greenPct / 100) * circumference;
+const yellowDash = (yellowPct / 100) * circumference;
+const redDash = (redPct / 100) * circumference;
+
+// Last synced
+const lastSynced = whoopData?.last_synced;
 ---
 
-<Layout
-  title="WHOOP Recovery Dashboard | TobyOnFitnessTech"
-  description="Real WHOOP recovery analytics with trend charts, breakdowns, and daily records."
+<Layout 
+  title="WHOOP Recovery Data | TobyOnFitnessTech"
+  description="Live WHOOP recovery scores, HRV trends, sleep performance, and strain data from Toby's real training. Updated daily."
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "WHOOP Data", url: "/whoop" }]}
 >
   <Header client:load />
-
-  <main class="min-h-screen bg-neutral-950 text-white pt-20 pb-16 px-4">
-    <section class="max-w-6xl mx-auto mb-10">
-      <p class="text-blue-500 text-sm uppercase tracking-wide mb-2">WHOOP Analytics</p>
-      <h1 class="text-4xl md:text-5xl font-bold mb-3">WHOOP Recovery Dashboard</h1>
-      <p class="text-neutral-400 max-w-3xl">
-        Real recovery metrics from WHOOP, including HRV, resting heart rate, and sleep performance trends.
-      </p>
-    </section>
-
-    <section class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 gap-4 mb-10">
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <p class="text-sm text-neutral-400">Average Recovery</p>
-        <p class="text-3xl font-semibold text-blue-500">{AVG_RECOVERY}%</p>
-      </div>
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <p class="text-sm text-neutral-400">Average HRV</p>
-        <p class="text-3xl font-semibold text-blue-500">{AVG_HRV} ms</p>
-      </div>
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <p class="text-sm text-neutral-400">Average Resting HR</p>
-        <p class="text-3xl font-semibold text-blue-500">{AVG_RHR} bpm</p>
-      </div>
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <p class="text-sm text-neutral-400">Average Sleep Performance</p>
-        <p class="text-3xl font-semibold text-blue-500">{AVG_SLEEP_PERF}%</p>
-      </div>
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <p class="text-sm text-neutral-400">Days Tracked</p>
-        <p class="text-3xl font-semibold text-blue-500">{TOTAL_DAYS}</p>
-      </div>
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <p class="text-sm text-neutral-400">Latest Recovery</p>
-        <p class="text-3xl font-semibold text-blue-500">{latest ? `${latest.recovery_score}%` : 'N/A'}</p>
+  
+  <main class="bg-neutral-950 min-h-screen pb-20">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
+            <Activity class="w-4 h-4" />
+            Recovery Data
+          </span>
+          <span class="text-neutral-500 text-sm">{TOTAL_DAYS} nights tracked</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">WHOOP Recovery</h1>
+        <p class="text-lg text-neutral-400 max-w-2xl">
+          Real recovery data from my WHOOP 4.0 — sleep-based recovery scores, HRV, RHR, and strain analysis.
+        </p>
       </div>
     </section>
 
-    <section class="max-w-6xl mx-auto grid gap-6 lg:grid-cols-2 mb-10">
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <h2 class="text-xl font-semibold mb-4">Recovery Trend</h2>
-        <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} class="w-full h-auto">
-          <path d={recoveryPath} fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round" />
-        </svg>
-      </div>
-
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <h2 class="text-xl font-semibold mb-4">HRV Trend</h2>
-        <svg viewBox={`0 0 ${CHART_W} ${CHART_H}`} class="w-full h-auto">
-          <path d={hrvPath} fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" />
-        </svg>
-      </div>
-    </section>
-
-    <section class="max-w-6xl mx-auto grid lg:grid-cols-2 gap-6 mb-10">
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
-        <h2 class="text-xl font-semibold mb-4">Recovery Breakdown</h2>
-        <div class="flex items-center gap-8">
-          <svg width="180" height="180" viewBox="0 0 180 180">
-            <g transform="translate(90,90) rotate(-90)">
-              <circle r={radius} cx="0" cy="0" fill="none" stroke="#262626" stroke-width="20" />
-              <circle r={radius} cx="0" cy="0" fill="none" stroke="#22c55e" stroke-width="20" stroke-dasharray={`${greenArc} ${circumference - greenArc}`} stroke-dashoffset="0" />
-              <circle r={radius} cx="0" cy="0" fill="none" stroke="#eab308" stroke-width="20" stroke-dasharray={`${yellowArc} ${circumference - yellowArc}`} stroke-dashoffset={-greenArc} />
-              <circle r={radius} cx="0" cy="0" fill="none" stroke="#ef4444" stroke-width="20" stroke-dasharray={`${redArc} ${circumference - redArc}`} stroke-dashoffset={-(greenArc + yellowArc)} />
-            </g>
-          </svg>
-          <div class="space-y-2 text-sm">
-            <p><span class="inline-block w-3 h-3 bg-green-500 rounded-full mr-2"></span>Green (67-100): {RECOVERY_BREAKDOWN.green}</p>
-            <p><span class="inline-block w-3 h-3 bg-yellow-500 rounded-full mr-2"></span>Yellow (34-66): {RECOVERY_BREAKDOWN.yellow}</p>
-            <p><span class="inline-block w-3 h-3 bg-red-500 rounded-full mr-2"></span>Red (0-33): {RECOVERY_BREAKDOWN.red}</p>
+    <!-- Stats Grid - 6 cards -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Activity class="w-4 h-4" />
+              Avg Recovery
+            </div>
+            <div class="text-3xl font-bold text-white">{AVG_RECOVERY}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Heart class="w-4 h-4" />
+              Avg HRV
+            </div>
+            <div class="text-3xl font-bold text-white">{AVG_HRV}<span class="text-lg text-neutral-500">ms</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <TrendingUp class="w-4 h-4" />
+              Avg RHR
+            </div>
+            <div class="text-3xl font-bold text-white">{AVG_RHR}<span class="text-lg text-neutral-500">bpm</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Moon class="w-4 h-4" />
+              Sleep Perf
+            </div>
+            <div class="text-3xl font-bold text-white">{AVG_SLEEP_PERF}<span class="text-lg text-neutral-500">%</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Zap class="w-4 h-4" />
+              Green Days
+            </div>
+            <div class="text-3xl font-bold text-green-400">{RECOVERY_BREAKDOWN.green}</div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Clock class="w-4 h-4" />
+              Total Days
+            </div>
+            <div class="text-3xl font-bold text-white">{TOTAL_DAYS}</div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 overflow-x-auto">
-        <h2 class="text-xl font-semibold mb-4">Recent 10 Days</h2>
-        <table class="w-full text-sm">
-          <thead>
-            <tr class="text-neutral-400 border-b border-neutral-800">
-              <th class="text-left py-2">Date</th>
-              <th class="text-left py-2">Recovery</th>
-              <th class="text-left py-2">HRV</th>
-              <th class="text-left py-2">Resting HR</th>
-              <th class="text-left py-2">Sleep</th>
-            </tr>
-          </thead>
-          <tbody>
-            {RECENT_RECORDS.map((row) => (
-              <tr class="border-b border-neutral-800/70">
-                <td class="py-2">{row.date}</td>
-                <td class="py-2">{row.recovery_score}%</td>
-                <td class="py-2">{row.hrv.toFixed(1)}</td>
-                <td class="py-2">{row.resting_hr}</td>
-                <td class="py-2">{row.sleep_performance}%</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <!-- Charts Grid -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Recovery Trend Chart -->
+          <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+            <h2 class="text-xl font-bold text-white mb-6">Recovery Score Trend</h2>
+            {TREND_DATA.length > 0 ? (
+              <div class="overflow-x-auto">
+                <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
+                  <!-- Grid -->
+                  <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                  <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                  
+                  <!-- Y-axis labels -->
+                  <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                  <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
+                  
+                  <!-- Line -->
+                  <polyline
+                    points={recoveryPoints}
+                    fill="none"
+                    stroke="#3B82F6"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  
+                  <!-- Data points -->
+                  {TREND_DATA.map((d, i) => {
+                    const x = chartPadding + (i / (TREND_DATA.length - 1)) * (chartWidth - 2 * chartPadding);
+                    const y = chartHeight - chartPadding - (d.recovery / 100) * (chartHeight - 2 * chartPadding);
+                    return (
+                      <circle cx={x} cy={y} r="3" fill="#3B82F6" />
+                    );
+                  })}
+                </svg>
+              </div>
+            ) : (
+              <p class="text-neutral-400">No recovery data available</p>
+            )}
+          </div>
+
+          <!-- HRV Trend Chart -->
+          <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+            <h2 class="text-xl font-bold text-white mb-6">HRV Trend</h2>
+            {TREND_DATA.length > 0 ? (
+              <div class="overflow-x-auto">
+                <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
+                  <!-- Grid -->
+                  <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                  <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                  
+                  <!-- Y-axis labels -->
+                  <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                  <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
+                  
+                  <!-- Line -->
+                  <polyline
+                    points={hrvPoints}
+                    fill="none"
+                    stroke="#10B981"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  
+                  <!-- Data points -->
+                  {TREND_DATA.map((d, i) => {
+                    const x = chartPadding + (i / (TREND_DATA.length - 1)) * (chartWidth - 2 * chartPadding);
+                    const y = chartHeight - chartPadding - (d.hrv / 100) * (chartHeight - 2 * chartPadding);
+                    return (
+                      <circle cx={x} cy={y} r="3" fill="#10B981" />
+                    );
+                  })}
+                </svg>
+              </div>
+            ) : (
+              <p class="text-neutral-400">No HRV data available</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recovery Breakdown & Recent Table -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Donut Chart -->
+          <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+            <h2 class="text-xl font-bold text-white mb-6">Recovery Breakdown</h2>
+            <div class="flex items-center justify-center gap-8">
+              <svg width={donutSize} height={donutSize} class="transform -rotate-90">
+                <!-- Green segment -->
+                <circle
+                  cx={donutSize / 2}
+                  cy={donutSize / 2}
+                  r={donutRadius}
+                  fill="none"
+                  stroke="#22C55E"
+                  stroke-width={donutStroke}
+                  stroke-dasharray={`${greenDash} ${circumference}`}
+                  stroke-dashoffset={-greenOffset}
+                />
+                <!-- Yellow segment -->
+                <circle
+                  cx={donutSize / 2}
+                  cy={donutSize / 2}
+                  r={donutRadius}
+                  fill="none"
+                  stroke="#EAB308"
+                  stroke-width={donutStroke}
+                  stroke-dasharray={`${yellowDash} ${circumference}`}
+                  stroke-dashoffset={-yellowOffset}
+                />
+                <!-- Red segment -->
+                <circle
+                  cx={donutSize / 2}
+                  cy={donutSize / 2}
+                  r={donutRadius}
+                  fill="none"
+                  stroke="#EF4444"
+                  stroke-width={donutStroke}
+                  stroke-dasharray={`${redDash} ${circumference}`}
+                  stroke-dashoffset={-redOffset}
+                />
+              </svg>
+              <div class="space-y-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                  <span class="text-neutral-300">Green (67+): {RECOVERY_BREAKDOWN.green}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                  <span class="text-neutral-300">Yellow (34-66): {RECOVERY_BREAKDOWN.yellow}</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                  <span class="text-neutral-300">Red (0-33): {RECOVERY_BREAKDOWN.red}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent 10 Days Table -->
+          <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+            <h2 class="text-xl font-bold text-white mb-6">Recent 10 Days</h2>
+            <div class="overflow-x-auto">
+              <table class="w-full">
+                <thead>
+                  <tr class="text-neutral-400 text-sm border-b border-neutral-800">
+                    <th class="text-left py-2 px-2">Date</th>
+                    <th class="text-left py-2 px-2">Recovery</th>
+                    <th class="text-left py-2 px-2">HRV</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {RECENT_RECORDS.map((row) => (
+                    <tr class="border-b border-neutral-800/50">
+                      <td class="py-2 px-2 text-white text-sm">
+                        {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </td>
+                      <td class="py-2 px-2">
+                        <span class={`px-2 py-0.5 rounded text-sm font-medium ${getRecoveryColor(row.recovery_score)}`}>
+                          {row.recovery_score}
+                        </span>
+                      </td>
+                      <td class="py-2 px-2 text-neutral-300 text-sm">{row.hrv.toFixed(1)} ms</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-8 border border-blue-800/30">
+          <h2 class="text-2xl font-bold text-white mb-4">Track Your Recovery</h2>
+          <p class="text-neutral-400 mb-6">
+            See how WHOOP data integrates with my broader fitness ecosystem.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/sleep" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+              8Sleep Data
+            </a>
+            <a href="/training" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              Training Overview
+            </a>
+            <a href="/day" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              A Day in the Data
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-2 text-neutral-500 text-sm">
+          <Clock class="w-4 h-4" />
+          <span>Last synced: {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : 'N/A'}</span>
+        </div>
       </div>
     </section>
   </main>

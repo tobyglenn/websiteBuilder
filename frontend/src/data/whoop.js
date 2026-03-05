@@ -50,6 +50,9 @@ const TREND_DATA = RECOVERY_RECORDS.slice(-30).map((r) => ({
   hrv: r.hrv,
 }));
 
+// Last synced timestamp
+const LAST_SYNCED = whoopData?.last_synced;
+
 // Recovery breakdown for donut chart
 const greenDays = RECOVERY_RECORDS.filter((r) => r.recovery_score >= 67).length;
 const yellowDays = RECOVERY_RECORDS.filter((r) => r.recovery_score >= 34 && r.recovery_score < 67).length;
@@ -72,4 +75,5 @@ export {
   RECENT_RECORDS,
   TREND_DATA,
   RECOVERY_BREAKDOWN,
+  LAST_SYNCED,
 };
