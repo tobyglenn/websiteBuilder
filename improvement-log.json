@@ -115,8 +115,19 @@
       ],
       "commit": "5d465c2",
       "notes": "Created whoop.js data module. Updated whoop.astro with hero, 6 stat cards, recovery trend chart, HRV chart, donut chart, recent days table. Build passes."
+    },
+    {
+      "timestamp": "2026-03-05T06:50:00-05:00",
+      "idea": "Fix broken build caused by malformed Lily Lifts blog post; VideoObject schema already present",
+      "category": "Bug Fix / Maintenance",
+      "files_changed": [
+        "src/data/mock.js",
+        "src/pages/running.astro"
+      ],
+      "commit": "4440289",
+      "notes": "Removed broken Lily Lifts post (raw newlines in content string caused syntax error). Verified VideoObject JSON-LD schema already implemented in video/[id].astro and videos/index.astro. Build passes (279 pages)."
     }
   ],
   "in_progress": null,
-  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23_Family_Fitness_Fun_Speediance_Workout_With_Dad_Daughter_Safe_Lifting_for_Kids.txt. Published 2025-09-23. Category: Field Reports."
+  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages)."
 }
