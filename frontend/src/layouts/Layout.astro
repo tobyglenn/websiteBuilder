@@ -32,6 +32,12 @@ const {
   noindex = false,
 } = Astro.props;
 
+// Default description constant for SEO fallback
+const DEFAULT_DESCRIPTION = "Independent fitness technology reviews, analysis, and deep dives on Speediance, Tonal, Garmin, WHOOP, running, and home gym training.";
+
+// Use as fallback for all meta tags
+const seoDescription = description || DEFAULT_DESCRIPTION;
+
 const robotsContent = noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 
 const siteUrl = "https://tobyonfitnesstech.com";
@@ -184,7 +190,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     
     <SEO 
       title={seoTitle}
-      description={description}
+      description={seoDescription}
       canonical={resolvedUrl}
       openGraph={{
         basic: {
@@ -205,7 +211,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
       extend={{
         meta: [
           { name: "twitter:title", content: title },
-          { name: "twitter:description", content: description },
+          { name: "twitter:description", content: seoDescription },
           { name: "twitter:image", content: resolvedImage },
           { name: "author", content: "Toby Glenn Peters" },
           { name: "robots", content: noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },

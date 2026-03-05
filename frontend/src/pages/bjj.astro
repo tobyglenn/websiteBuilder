@@ -15,6 +15,37 @@ const beltColors = {
   Purple: '#8b5cf6',
   Brown: '#b45309',
 };
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What belt is Toby Peters in BJJ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Toby Peters is a Brazilian Jiu-Jitsu brown belt with 10+ years of training experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to get a brown belt in BJJ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The time varies, but typically 8-12 years of consistent training for most practitioners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is reverse triangle in BJJ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A reverse triangle is a submission where you trap your opponent's arm and neck in a triangle choke from an atypical angle."
+      }
+    }
+  ]
+};
 ---
 
 <Layout
@@ -22,6 +53,9 @@ const beltColors = {
   description="Toby Peters is a Brazilian Jiu-Jitsu brown belt — 10+ years of training, 3 competition medals (including a reverse triangle win at brown belt), and 20+ videos covering BJJ belt culture, technique, and training philosophy."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "BJJ Journey", url: "/bjj" }]}
 >
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  </Fragment>
   <main class="min-h-screen bg-neutral-950 text-white">
 
     {/* ── Hero ─────────────────────────────────────────────────────── */}

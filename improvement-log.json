@@ -109,6 +109,16 @@
       ],
       "commit": "8d62329",
       "notes": "Added related posts section after prev/next navigation. Shows 3 related posts matching by category or tags, filled with recent posts if needed. Cards display thumbnail, title, category badge, date, and reading time. Spark subagent completed. Build passes (263 pages)."
+    },
+    {
+      "timestamp": "2026-03-05T00:42:00-05:00",
+      "idea": "Add search functionality to videos page with debounced filtering",
+      "category": "UX Enhancement - Videos",
+      "files_changed": [
+        "src/components/VideoGrid.jsx"
+      ],
+      "commit": "bcee222",
+      "notes": "Added search input with 300ms debounce, filters videos by title/description, shows result count, clear button to reset. Spark subagent completed after Clarity timeout. Build passes (265 pages)."
     }
   ],
   "in_progress": null,
