@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { BLOG_POSTS } from '../../data/mock.js';
+import ShareButtons from '../../components/ShareButtons.jsx';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
 function readTime(content = '') {
@@ -192,6 +193,8 @@ const articleJsonLd = {
                 <span>{new Date(post.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             </div>
         </div>
+
+        <ShareButtons url={Astro.url.href} title={post.title} client:load />
       </div>
     </div>
 
