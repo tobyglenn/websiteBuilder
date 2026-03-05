@@ -2,6 +2,17 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-05T09:15:00-05:00",
+      "idea": "Add social sharing buttons to blog post pages",
+      "category": "UX Enhancement - Blog",
+      "files_changed": [
+        "src/components/ShareButtons.jsx",
+        "src/pages/blog/[slug].astro"
+      ],
+      "commit": "c7893f5",
+      "notes": "Added ShareButtons component with Twitter, Facebook, LinkedIn, and Copy Link buttons. Integrated into blog post pages below title. Build passes (267 pages)."
+    },
+    {
       "timestamp": "2026-03-04T19:24:00-05:00",
       "idea": "Running stats page with real Garmin data (monthly chart, heatmap, PRs)",
       "category": "UX Enhancement - Data Pages",
@@ -126,6 +137,14 @@
       ],
       "commit": "4440289",
       "notes": "Removed broken Lily Lifts post (raw newlines in content string caused syntax error). Verified VideoObject JSON-LD schema already implemented in video/[id].astro and videos/index.astro. Build passes (279 pages)."
+    },
+    {
+      "timestamp": "2026-03-05T10:15:00-05:00",
+      "idea": "Video transcript viewer already implemented; workout heatmap and homepage blog section attempted but subagents failed",
+      "category": "No Changes - Already Implemented / Subagent Errors",
+      "files_changed": [],
+      "commit": "none",
+      "notes": "Video transcript viewer already exists in video/[id].astro (Show Transcript toggle). Attempted workout frequency heatmap (Clarity connection error) and latest blog posts section (Spark 429 rate limit). Site build passes. All major features already implemented."
     }
   ],
   "in_progress": null,
