@@ -81,6 +81,22 @@ const faqSchema = extractFAQSchema(post.content || '');
 
 const wordCount = (post.content || '').split(/\s+/).filter(Boolean).length;
 
+const authorSchema = {
+  "@type": "Person",
+  "@id": `${siteUrl}/#toby`,
+  "name": "Toby Glenn Peters",
+  "jobTitle": "Fitness Enthusiast & Tech Builder",
+  "url": siteUrl,
+  "sameAs": [
+    "https://www.youtube.com/@tobyonfitness",
+    "https://www.instagram.com/tobyonfitness"
+  ],
+  "knowsAbout": ["Speediance", "BJJ", "Garmin", "WHOOP", "8Sleep", "Running", "Brazilian Jiu-Jitsu"],
+  "award": "242→188 lb transformation",
+  "description": "Independent fitness technology reviewer and builder with data-first training, recovery, and tech coverage from Speediance, WHOOP, Garmin, and Garmin-powered running data."
+};
+
+
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
@@ -91,12 +107,7 @@ const articleJsonLd = {
   "dateModified": post.published_at,
   "url": `${siteUrl}/blog/${post.slug}`,
   ...(post.image ? { "image": post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}` } : {}),
-  "author": {
-    "@type": "Person",
-    "@id": `${siteUrl}/#toby`,
-    "name": "Toby Glenn Peters",
-    "url": siteUrl
-  },
+  "author": authorSchema,
   "publisher": {
     "@id": `${siteUrl}/#organization`
   },
