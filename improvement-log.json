@@ -121,16 +121,14 @@
       "notes": "Added search input with 300ms debounce, filters videos by title/description, shows result count, clear button to reset. Spark subagent completed after Clarity timeout. Build passes (265 pages)."
     },
     {
-      "timestamp": "2026-03-05T01:55:00-05:00",
-      "idea": "New blog post: 242 to 188 transformation truth",
-      "category": "Content - Blog Post",
+      "timestamp": "2026-03-05T02:50:00-05:00",
+      "idea": "Add YouTube thumbnails to video grid with duration badges and hover effects",
+      "category": "UX Enhancement - Videos",
       "files_changed": [
-        "src/data/mock.js"
+        "src/components/VideoGrid.jsx"
       ],
-      "commit": "4126554",
-      "transcript_video_id": "M07Aq93TCkM",
-      "slug": "242-to-188-transformation-truth",
-      "notes": "Full transparency about prescription drug use for weight loss. Uses transcript from 2025-10-07. Covers TRT, Tirzepatide/GLP-1, Anavar, Cialis stack. Timeline from 242 to 188 lbs in 6 months. Category: The Long Game."
+      "commit": "73b5634",
+      "notes": "Added thumbnail display from videos.json, duration badges on thumbnails (bottom-right), hover effects (scale + brightness), LIVE badges for live streams. Kept existing search/category filtering and responsive grid layout. Build passes (279 pages). Spark subagent completed after Clarity timeout."
     }
   ],
   "in_progress": null,
