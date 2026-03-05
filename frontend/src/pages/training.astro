@@ -805,4 +805,15 @@ const heatmapActivePct = heatmapData.pct;
     </section>
 
   </main>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Fitness Workouts",
+    "description": "Browse our collection of workout routines and training programs",
+    "step": [
+      { "@type": "HowToStep", "name": "Browse", "text": "Explore our workout categories" },
+      { "@type": "HowToStep", "name": "Select", "text": "Choose a workout that fits your goals" },
+      { "@type": "HowToStep", "name": "Follow", "text": "Complete the workout following the instructions" }
+    ]
+  })} />
 </Layout>

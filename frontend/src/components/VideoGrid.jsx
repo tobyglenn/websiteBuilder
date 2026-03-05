@@ -106,6 +106,7 @@ function resolveThumbnail(video) {
 function resolveDurationLabel(video) {
   const raw = String(video.duration_formatted || video.duration || '').trim();
   if (!raw || raw === '0:00' || raw === 'P0D') return null;
+  if (raw.toUpperCase() === 'LIVE') return 'LIVE';
   return raw;
 }
 
@@ -145,6 +146,9 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
       const publishedRaw = v.publishedAt || v.published_at || v.publishedAt || '2026-02-18';
       const publishedDate = String(publishedRaw).split('T')[0] || '2026-02-18';
 
+      const isLive = isLiveVideo(v);
+      const durationLabel = resolveDurationLabel(v);
+
       return {
         ...v,
         title,
@@ -154,8 +158,9 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
         published_at: publishedDate,
         dateObj: new Date(publishedRaw || '2026-02-18T00:00:00Z'),
         durationSec: parseDuration(v.duration_iso || v.duration || 'PT0S'),
-        durationLabel: resolveDurationLabel(v),
-        is_live: isLiveVideo(v),
+        durationLabel,
+        durationBadgeText: isLive ? 'LIVE' : durationLabel,
+        is_live: isLive,
         is_short: isShortVideo(v),
         viewCount: Number(v.viewCount ?? v.view_count ?? 0),
       };
@@ -342,7 +347,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                   </div>
 
                   {/* Duration / LIVE badge */}
-                  {video.durationLabel && (
+                  {video.durationBadgeText && (
                     <div
                       className={`absolute bottom-2 right-2 rounded px-2 py-1 text-[11px] font-semibold tracking-wide flex items-center gap-1.5 ${
                         isLive
@@ -358,7 +363,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                       ) : (
                         <>
                           <Clock size={12} className="stroke-current" />
-                          <span>{video.durationLabel}</span>
+                          <span>{video.durationBadgeText}</span>
                         </>
                       )}
                     </div>

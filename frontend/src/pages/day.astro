@@ -65,6 +65,72 @@ const timelineEvents = [
 <Layout
   title="A Day in the Life | TobyOnFitnessTech"
   description="See how Toby integrates fitness tech into his daily routine — from 8Sleep recovery to morning runs and Speediance workouts."
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "A Day in the Life: Fitness Routine with Data-Driven Training",
+    "description": "A complete daily fitness routine combining morning running, strength training with Speediance, recovery tracking with 8Sleep and WHOOP, and nutrition optimization.",
+    "url": "https://tobyonfitnesstech.com/day",
+    "author": {
+      "@type": "Person",
+      "name": "Toby Glenn Peters"
+    },
+    "datePublished": "2026-02-19",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Sleep & Recovery Tracking",
+        "text": "Track sleep using 8Sleep to monitor sleep score, HRV, heart rate, and respiratory rate. Aim for 7-9 hours of sleep for optimal recovery.",
+        "tool": {
+          "@type": "HowToTool",
+          "name": "8Sleep"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Morning Run",
+        "text": `Start the day with a morning run. This routine includes ${dayData.morningRun.distance} miles at ${dayData.morningRun.pace} pace, burning ${dayData.morningRun.calories} calories with an average HR of ${dayData.morningRun.avgHR}.`,
+        "tool": {
+          "@type": "HowToTool",
+          "name": "Garmin Fenix 7"
+        },
+        "duration": `PT${parseInt(dayData.morningRun.duration.split(':')[0])}M${parseInt(dayData.morningRun.duration.split(':')[1])}S`
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Strength Training",
+        "text": `Perform ${dayData.lifting.workout} session targeting arms. Complete ${dayData.lifting.exercises.length} exercises: ${dayData.lifting.exercises.join(', ')}. Total volume: ${dayData.lifting.volume.toLocaleString()} lbs in ${dayData.lifting.duration} minutes.`,
+        "tool": [
+          {
+            "@type": "HowToTool",
+            "name": "Speediance Smart Gym"
+          },
+          {
+            "@type": "HowToTool",
+            "name": "Barbell"
+          }
+        ],
+        "duration": `PT${dayData.lifting.duration}M`
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Strain & Recovery Monitoring",
+        "text": `Check WHOOP strain (${dayData.recovery.whoopStrain}) and recovery (${dayData.recovery.whoopRecovery}%) to gauge readiness for the next day's training.`,
+        "tool": {
+          "@type": "HowToTool",
+          "name": "WHOOP 4.0"
+        }
+      }
+    ],
+    "nutrition": {
+      "@type": "NutritionInformation",
+      "calories": `${dayData.nutrition.calories} calories`,
+      "proteinContent": `${dayData.nutrition.protein}g protein`,
+      "carbohydrateContent": `${dayData.nutrition.carbs}g carbs`,
+      "fatContent": `${dayData.nutrition.fat}g fat`
+    },
+    "totalTime": "PT3H30M"
+  }}
 >
   
   {/* Hero Section */}
