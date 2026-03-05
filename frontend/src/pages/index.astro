@@ -11,7 +11,20 @@ import { lifetimeStats } from '../data/stats.js';
 const lastWorkout = lastWorkoutData;
 
 const allVideos = videosData.videos || [];
+
+const popularVideos = [...allVideos]
+  .filter(v => !v.is_live && v.viewCount > 0)
+  .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
+  .slice(0, 5);
+
 const recentVideos = allVideos.filter(v => !v.is_live).slice(0, 3);
+
+function formatViews(count) {
+  if (!count) return '0 views';
+  if (count >= 1000) return (count / 1000).toFixed(1) + 'K views';
+  return count + ' views';
+}
+
 const recentPosts = BLOG_POSTS.slice(0, 3);
 
 const formattedLifetimeStats = {
@@ -117,6 +130,41 @@ const webPageSchema = {
 						Subscribe
 					</a>
 				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* Popular Videos Section */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch Next</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Most Popular Videos</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Top videos by views from the channel.</p>
+			</div>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				{popularVideos.map(video => (
+					<a href={`/video/${video.id}`} class="group block bg-neutral-950 rounded-xl overflow-hidden border border-neutral-800 hover:border-blue-500/50 transition-all">
+						<div class="aspect-video relative overflow-hidden">
+							<img
+								src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+								alt={video.title}
+								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+								loading="lazy"
+							/>
+							{video.duration_formatted && video.duration_formatted !== 'Live' && (
+								<span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded">{video.duration_formatted}</span>
+							)}
+						</div>
+						<div class="p-4">
+							<h3 class="font-semibold text-white text-sm mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">{video.title}</h3>
+							<div class="flex items-center justify-between text-xs text-neutral-500">
+								<span>{formatViews(video.viewCount)}</span>
+								<span>{video.publishedAt ? new Date(video.publishedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : ''}</span>
+							</div>
+						</div>
+					</a>
+				))}
 			</div>
 		</div>
 	</section>
