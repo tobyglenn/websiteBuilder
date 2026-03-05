@@ -27,7 +27,6 @@ function getRecoveryColor(score) {
 const chartWidth = 600;
 const chartHeight = 200;
 const chartPadding = 30;
-const maxScore = 100;
 
 // Generate recovery trend SVG points
 function generateTrendLine(data, valueKey, maxVal = 100) {
@@ -63,8 +62,7 @@ const greenDash = (greenPct / 100) * circumference;
 const yellowDash = (yellowPct / 100) * circumference;
 const redDash = (redPct / 100) * circumference;
 
-// Last synced
-const lastSynced = whoopData?.last_synced;
+// Last synced is imported as LAST_SYNCED from whoop.js
 ---
 
 <Layout 
