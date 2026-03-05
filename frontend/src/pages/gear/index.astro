@@ -1,6 +1,70 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { currentGearItems, replacedGearItems } from '../../data/gearItems';
+import fs from 'fs';
+import path from 'path';
+
+// Load data using absolute paths (safe for Astro SSG)
+let speedianceStats = { totalVolume: 0, totalWorkouts: 0 };
+let garminStats = { totalMiles: '0', totalRuns: 0 };
+let avgRecovery = 0, avgHRV = 0, avgRHR = 0;
+let avgSleepScore = 0, avgSleepHours = 0;
+
+try {
+  const speedianceData = JSON.parse(fs.readFileSync('/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json', 'utf-8'));
+  speedianceStats = {
+    totalVolume: speedianceData.totalVolumeLbs || 0,
+    totalWorkouts: speedianceData.totalWorkouts || 0,
+  };
+} catch (e) {}
+
+try {
+  const garminData = JSON.parse(fs.readFileSync('/Users/tobyglennpeters/clawd/data/garmin_all_activities.json', 'utf-8'));
+  const garminActivities = garminData.activities || garminData || [];
+  const totalMiles = garminActivities.reduce((sum: number, a: any) => sum + (a.distance_miles || a.distance || 0), 0);
+  const totalRuns = garminActivities.filter((a: any) => (a.activityType || a.type || '').toLowerCase().includes('run')).length;
+  garminStats = { totalMiles: totalMiles.toFixed(1), totalRuns };
+} catch (e) {}
+
+try {
+  const whoopDir = '/Users/tobyglennpeters/clawd/data/whoop';
+  const whoopFiles = fs.readdirSync(whoopDir).filter(f => f.endsWith('.json')).slice(0, 30);
+  const scores: number[] = [], hrvs: number[] = [], rhrs: number[] = [];
+  for (const f of whoopFiles) {
+    try {
+      const d = JSON.parse(fs.readFileSync(path.join(whoopDir, f), 'utf-8'));
+      const score = d.score?.recovery_score ?? d.recovery_score ?? d.score;
+      const hrv = d.score?.hrv_rmssd_milli ?? d.hrv_rmssd_milli;
+      const rhr = d.score?.resting_heart_rate ?? d.resting_heart_rate;
+      if (typeof score === 'number') scores.push(score > 1 ? score : score * 100);
+      if (typeof hrv === 'number') hrvs.push(hrv);
+      if (typeof rhr === 'number') rhrs.push(rhr);
+    } catch (e) {}
+  }
+  if (scores.length) avgRecovery = scores.reduce((a, b) => a + b, 0) / scores.length;
+  if (hrvs.length) avgHRV = hrvs.reduce((a, b) => a + b, 0) / hrvs.length;
+  if (rhrs.length) avgRHR = rhrs.reduce((a, b) => a + b, 0) / rhrs.length;
+} catch (e) {}
+
+try {
+  const csvRaw = fs.readFileSync('/Users/tobyglennpeters/clawd/data/eight_sleep_historical.csv', 'utf-8');
+  // Try JSON first (file may actually be JSON despite .csv extension)
+  let records: any[] = [];
+  try { records = JSON.parse(csvRaw); } catch {
+    // Parse actual CSV
+    const lines = csvRaw.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim());
+    records = lines.slice(1).map(line => {
+      const vals = line.split(',');
+      return Object.fromEntries(headers.map((h, i) => [h, vals[i]?.trim()]));
+    });
+  }
+  const recent = records.slice(0, 30);
+  const scores = recent.map(r => parseFloat(r.sleep_score || r.score || '0')).filter(n => !isNaN(n));
+  const hours = recent.map(r => parseFloat(r.time_slept_hours || r.hours || '0')).filter(n => !isNaN(n));
+  if (scores.length) avgSleepScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+  if (hours.length) avgSleepHours = hours.reduce((a, b) => a + b, 0) / hours.length;
+} catch (e) {}
 
 const gearJsonLd = {
   '@context': 'https://schema.org',
@@ -39,6 +103,102 @@ const verdictClasses: Record<string, string> = {
         <p class="text-lg text-neutral-400 max-w-3xl">
           This page is now a fast index. Each item has a short summary and image here, then links to its own full review page with detailed notes, pros, cons, and context.
         </p>
+      </div>
+    </section>
+
+    <section class="py-12 md:py-16 border-b border-neutral-900/80">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <p class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-2">Live Stats</p>
+            <h2 class="text-2xl md:text-3xl font-bold">Real-World Performance Data</h2>
+          </div>
+          <p class="text-xs text-neutral-500 hidden md:block">Auto-calculated from current datasets</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">🏋️</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Strength</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">Speediance Gym Monster 2S</h3>
+            <p class="text-sm text-neutral-400 mb-6">AI-powered smart home gym with electronic resistance.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{new Intl.NumberFormat('en-US').format(speedianceStats.totalVolume)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Total lbs Lifted</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{speedianceStats.totalWorkouts}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Workouts</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">⌚</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Multisport</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">Garmin Fenix 7</h3>
+            <p class="text-sm text-neutral-400 mb-6">Premium multisport GPS watch for running and training.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{garminStats.totalMiles}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Total Miles</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{garminStats.totalRuns}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Runs</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">💓</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Recovery</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">WHOOP 4.0</h3>
+            <p class="text-sm text-neutral-400 mb-6">Continuous health monitoring with recovery tracking.</p>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgRecovery.toFixed(0)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Avg Recovery</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgHRV.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">HRV (ms)</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgRHR.toFixed(0)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">RHR (bpm)</div>
+              </div>
+            </div>
+            <p class="text-xs text-neutral-500 mt-3">30-day averages</p>
+          </div>
+
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">😴</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Sleep</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">8Sleep Pod 4</h3>
+            <p class="text-sm text-neutral-400 mb-6">Smart mattress with temperature control and sleep tracking.</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{avgSleepScore.toFixed(0)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Avg Sleep Score</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{avgSleepHours.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Avg Hours</div>
+              </div>
+            </div>
+            <p class="text-xs text-neutral-500 mt-3">30-day averages</p>
+          </div>
+        </div>
       </div>
     </section>
 
