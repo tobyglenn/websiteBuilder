@@ -9,7 +9,7 @@ export async function GET(context: APIContext) {
     site: context.site ?? 'https://tobyonfitnesstech.com',
     items: BLOG_POSTS.map((post) => ({
       title: post.title,
-      pubDate: new Date(post.published_at),
+      pubDate: new Date(post.published_at || post.date || '2025-01-01'),
       description: post.excerpt || post.title,
       link: `/blog/${post.slug}/`,
       categories: post.tags || [],
