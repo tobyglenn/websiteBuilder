@@ -25,6 +25,31 @@ const currentIndex = sortedPosts.findIndex(p => p.slug === post.slug);
 const prevPost = currentIndex < sortedPosts.length - 1 ? sortedPosts[currentIndex + 1] : null;
 const nextPost = currentIndex > 0 ? sortedPosts[currentIndex - 1] : null;
 
+const currentPostTags = (post.tags || []).map((tag: string) => String(tag).toLowerCase().trim());
+const categoryMatches = sortedPosts.filter(p => p.slug !== post.slug && p.category === post.category);
+const tagMatches = sortedPosts.filter(p =>
+  p.slug !== post.slug &&
+  p.category !== post.category &&
+  (p.tags || []).some((tag: string) => currentPostTags.includes(String(tag).toLowerCase().trim()))
+);
+
+const uniqueRelatedPosts = [...categoryMatches];
+for (const candidate of tagMatches) {
+  if (!uniqueRelatedPosts.some(p => p.slug === candidate.slug)) {
+    uniqueRelatedPosts.push(candidate);
+  }
+}
+
+let relatedPosts = uniqueRelatedPosts.slice(0, 3);
+if (relatedPosts.length < 3) {
+  for (const candidate of sortedPosts) {
+    if (candidate.slug === post.slug) continue;
+    if (relatedPosts.some(p => p.slug === candidate.slug)) continue;
+    relatedPosts.push(candidate);
+    if (relatedPosts.length === 3) break;
+  }
+}
+
 const siteUrl = "https://tobyonfitnesstech.com";
 
 // Extract FAQ schema from blog post content (## headings become Q&A pairs)
@@ -225,6 +250,42 @@ const articleJsonLd = {
                 <div class="font-semibold text-white group-hover:text-blue-400 transition-colors line-clamp-2">{nextPost.title}</div>
               </a>
             )}
+          </div>
+        </div>
+      )}
+
+      {/* Related Posts */}
+      {relatedPosts.length > 0 && (
+        <div class="mt-16 pt-12 border-t border-neutral-800">
+          <h3 class="text-lg font-bold text-white mb-8 text-center">Related Posts</h3>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {relatedPosts.map(relatedPost => (
+              <a href={`/blog/${relatedPost.slug}`} class="group block bg-neutral-900 border border-neutral-800 hover:border-blue-500/50 rounded-xl overflow-hidden hover:bg-neutral-800 transition-all">
+                <div class="relative aspect-[16/9] overflow-hidden">
+                  <div class="absolute inset-0 z-0 bg-neutral-800" />
+                  {relatedPost.image && (
+                    <img
+                      src={relatedPost.image}
+                      alt={relatedPost.title}
+                      class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  )}
+                  <div class="absolute inset-0 bg-gradient-to-t from-neutral-900/50 to-transparent" />
+                </div>
+                <div class="p-4 space-y-3">
+                  <span class="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold tracking-wide bg-blue-900/20 text-blue-400 border border-blue-900/40">{relatedPost.category}</span>
+                  <h4 class="font-semibold text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-2">
+                    {relatedPost.title}
+                  </h4>
+                  <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-500">
+                    <span>{new Date(relatedPost.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span>•</span>
+                    <span>{readTime(relatedPost.content)}</span>
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
         </div>
       )}
