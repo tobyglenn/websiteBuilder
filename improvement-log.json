@@ -121,14 +121,14 @@
       "notes": "Added search input with 300ms debounce, filters videos by title/description, shows result count, clear button to reset. Spark subagent completed after Clarity timeout. Build passes (265 pages)."
     },
     {
-      "timestamp": "2026-03-05T02:50:00-05:00",
-      "idea": "Add YouTube thumbnails to video grid with duration badges and hover effects",
-      "category": "UX Enhancement - Videos",
+      "timestamp": "2026-03-05T03:47:00-05:00",
+      "idea": "Add BJJ journey section to About page",
+      "category": "UX Enhancement - About Page",
       "files_changed": [
-        "src/components/VideoGrid.jsx"
+        "src/pages/about.astro"
       ],
-      "commit": "73b5634",
-      "notes": "Added thumbnail display from videos.json, duration badges on thumbnails (bottom-right), hover effects (scale + brightness), LIVE badges for live streams. Kept existing search/category filtering and responsive grid layout. Build passes (279 pages). Spark subagent completed after Clarity timeout."
+      "commit": "e5691eb",
+      "notes": "Added BJJ journey section with Toby's transformation story (242→188 lbs fat loss, 205→218 lbs muscle building), BJJ training background, and links to BJJ-related content. Dark theme matches existing site. Vision subagent completed after Clarity/Spark/MiniMax/Pulse rate limits. Build passes (266 pages)."
     }
   ],
   "in_progress": null,
