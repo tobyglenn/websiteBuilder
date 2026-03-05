@@ -1,0 +1,167 @@
+---
+import Layout from '../layouts/Layout.astro';
+import fs from 'node:fs';
+import path from 'node:path';
+
+const speediancePath = '/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json';
+const garminPath = '/Users/tobyglennpeters/clawd/data/garmin_all_activities.json';
+const whoopDir = '/Users/tobyglennpeters/clawd/data/whoop';
+const eightSleepPath = '/Users/tobyglennpeters/clawd/data/eight_sleep_historical.csv';
+
+const fmtNumber = (n: number) => new Intl.NumberFormat('en-US').format(Math.round(n));
+const fmtCompact = (n: number) => new Intl.NumberFormat('en-US', { notation: 'compact', maximumFractionDigits: 2 }).format(n);
+
+// Speediance
+const speedianceRaw = JSON.parse(fs.readFileSync(speediancePath, 'utf-8'));
+const totalLbsLifted = Number(speedianceRaw?.totalVolumeLbs || 0);
+const totalSpeedianceWorkouts = Number(speedianceRaw?.totalWorkouts || 0);
+
+// Garmin
+const garminRaw = JSON.parse(fs.readFileSync(garminPath, 'utf-8'));
+const garminActivities = Array.isArray(garminRaw) ? garminRaw : (garminRaw?.activities || []);
+const runs = garminActivities.filter((a: any) => {
+  const t = String(a?.activityType || a?.type || '').toLowerCase();
+  return t.includes('run');
+});
+const totalRunMiles = garminActivities.reduce((sum: number, a: any) => {
+  const d = Number(a?.distance ?? a?.distanceInMeters ?? a?.distanceMeters ?? a?.distance_m ?? 0);
+  return sum + (Number.isFinite(d) ? d : 0);
+}, 0) / 1609.344;
+
+// WHOOP (directory is currently empty in this environment; compute safely)
+let whoopRecoveryAvg: number | null = null;
+if (fs.existsSync(whoopDir)) {
+  const stack = [whoopDir];
+  const recoveryScores: number[] = [];
+
+  while (stack.length) {
+    const current = stack.pop()!;
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const full = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(full);
+      } else if (entry.isFile() && entry.name.endsWith('.json')) {
+        try {
+          const parsed = JSON.parse(fs.readFileSync(full, 'utf-8'));
+          const candidates: any[] = Array.isArray(parsed)
+            ? parsed
+            : [parsed, ...(parsed && typeof parsed === 'object' ? Object.values(parsed) : [])];
+
+          for (const c of candidates) {
+            if (!c || typeof c !== 'object') continue;
+            const value = c.recovery ?? c.recovery_score ?? c.recoveryScore ?? c.score;
+            if (typeof value === 'number' && Number.isFinite(value)) recoveryScores.push(value);
+          }
+        } catch {
+          // Ignore malformed files
+        }
+      }
+    }
+  }
+
+  if (recoveryScores.length) {
+    const normalized = Math.max(...recoveryScores) <= 1 ? recoveryScores.map(v => v * 100) : recoveryScores;
+    whoopRecoveryAvg = normalized.reduce((a, b) => a + b, 0) / normalized.length;
+  }
+}
+
+// 8Sleep historical file is JSON array despite .csv extension
+const eightSleepRaw = JSON.parse(fs.readFileSync(eightSleepPath, 'utf-8'));
+const eightSleepRows = Array.isArray(eightSleepRaw) ? eightSleepRaw : [];
+const sleepScores = eightSleepRows
+  .map((r: any) => Number(r?.sleep_score))
+  .filter((n: number) => Number.isFinite(n) && n > 0);
+const sleepHours = eightSleepRows
+  .map((r: any) => Number(r?.time_slept_hours))
+  .filter((n: number) => Number.isFinite(n) && n > 0);
+const avgSleepScore = sleepScores.length ? sleepScores.reduce((a: number, b: number) => a + b, 0) / sleepScores.length : 0;
+const avgSleepHours = sleepHours.length ? sleepHours.reduce((a: number, b: number) => a + b, 0) / sleepHours.length : 0;
+
+const cards = [
+  {
+    name: 'Speediance Gym Monster 2S',
+    description: 'Smart home gym with real-time force tracking',
+    accent: 'from-cyan-400 to-blue-500',
+    stats: [
+      { label: 'Total Lifted', value: `${fmtCompact(totalLbsLifted)} lbs` },
+      { label: 'Workouts Logged', value: fmtNumber(totalSpeedianceWorkouts) },
+    ],
+  },
+  {
+    name: 'Garmin Fenix 7',
+    description: 'GPS watch for running/HR tracking',
+    accent: 'from-cyan-400 to-indigo-500',
+    stats: [
+      { label: 'Total Miles', value: `${totalRunMiles.toFixed(1)} mi` },
+      { label: 'Runs Recorded', value: fmtNumber(runs.length) },
+    ],
+  },
+  {
+    name: 'WHOOP 4.0',
+    description: 'Recovery and strain monitoring',
+    accent: 'from-cyan-300 to-teal-500',
+    stats: [
+      { label: 'Average Recovery', value: whoopRecoveryAvg != null ? `${whoopRecoveryAvg.toFixed(0)}%` : 'No files found' },
+      { label: 'Data Source', value: '/clawd/data/whoop/' },
+    ],
+  },
+  {
+    name: '8Sleep Pod 4',
+    description: 'Temperature-regulating smart mattress',
+    accent: 'from-cyan-400 to-sky-500',
+    stats: [
+      { label: 'Avg Sleep Score', value: `${avgSleepScore.toFixed(0)}/100` },
+      { label: 'Avg Time Slept', value: `${avgSleepHours.toFixed(2)} hrs` },
+    ],
+  },
+];
+---
+
+<Layout
+  title="My Fitness Tech Stack | TobyOnFitnessTech"
+  description="A data-driven breakdown of the gear powering my training: Speediance, Garmin, WHOOP, and 8Sleep with live stats from my own datasets."
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Gear', url: '/gear' }]}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-32 pb-16 md:pt-40 md:pb-20 relative overflow-hidden border-b border-neutral-900">
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(34,211,238,0.10),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-4">Gear · Real Data · Daily Use</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            My Fitness Tech Stack
+          </h1>
+          <p class="text-xl text-neutral-300 leading-relaxed max-w-2xl">
+            Four devices, one philosophy: data-driven training. I use objective metrics from lifting, running,
+            recovery, and sleep to make better decisions and stay consistent.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-14">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {cards.map((card) => (
+            <article class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 hover:border-cyan-400/40 transition-colors">
+              <div class={`inline-block text-xs font-semibold px-3 py-1 rounded-full mb-4 bg-gradient-to-r ${card.accent} text-neutral-950`}>
+                Equipment
+              </div>
+              <h2 class="text-2xl font-bold text-white mb-2">{card.name}</h2>
+              <p class="text-neutral-400 mb-6">{card.description}</p>
+
+              <div class="grid grid-cols-2 gap-3">
+                {card.stats.map((stat) => (
+                  <div class="bg-neutral-950 border border-neutral-800 rounded-xl p-4">
+                    <div class="text-xl font-bold text-cyan-400">{stat.value}</div>
+                    <div class="text-xs text-neutral-500 uppercase tracking-wider mt-1">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
