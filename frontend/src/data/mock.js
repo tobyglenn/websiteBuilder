@@ -557,4 +557,128 @@ export const BLOG_POSTS = [
     tags: ["weight loss", "transformation", "GLP-1", "TRT", "prescription", "fitness journey"],
     content: "## The Comment That Started This Video\n\nSomeone on YouTube commented: \"Hey, I'm going to buy the original Speediance, and when I get a physique that looks like yours, I'm going to buy the Gym Monster 2.\"\n\nThat comment bugged me. Not because of the compliment — because they had no idea what it actually took to get here. And I realized: I've never been fully transparent about my transformations. Every single one — including this one — involved prescription drugs.\n\nSo here's the truth. All of it.\n\n## My History With Weight Loss Drugs\n\nI was a morbidly obese kid. Fat in elementary school, fatter by senior year of high school. That first transformation? I used fenfluramine — back when it was over-the-counter. Ordered it off the internet, dropped the weight, looked decent.\n\nI thought that transformation was natural. I was running, right? That was the cause.\n\nIt wasn't. The drug was the cause. I just didn't realize it.\n\nFast forward to 2023. I'm at 242 pounds. I try to lose weight the \"natural\" way — running, calorie deficit, all of it. I fail. Every single time. I'd go out running, get hungry, eat more than I burned, and gain weight.\n\nJuly 2023: I've lost 5 pounds total in six months. At 237 pounds, I'm going nowhere.\n\nThat's when I got serious.\n\n## The Stack (What I Actually Used)\n\nI found a doctor who specializes in this. Here's exactly what was in my protocol:\n\n**TRT (Testosterone Replacement Therapy)** — I'd been on TRT for years due to low testosterone from a broken testicle (work accident, not jiu-jitsu). The change: going from once-weekly injections to subcutaneous injections three times per week. This stabilized my serum levels and made a huge difference in how I felt.\n\n**Tirzepatide (Tzepide)** — This is the GLP-1 agonist. I specifically requested this over semaglutide because the data showed lower instances of gastric issues. One injection per week. This was the hunger suppressor that made 800-1200 calories per day actually doable.\n\n**Anavar** — This is an oral anabolic steroid. Yes, controversial. Yes, prescribed. The goal was to lose 54 pounds in six months WITHOUT losing muscle. That math doesn't work with just a GLP-1 — I'd have shredded muscle tissue. The Anavar kept my lean mass intact.\n\n**Cialis** — Normally for erectile dysfunction. But my doctor also prescribed it because it's a vasodilator. More blood flow = better pumps = more motivation in the gym. I know that sounds like an excuse, but honestly? It was a game-changer. Highest safety profile of anything on this list.\n\nEverything was prescribed by a doctor. I have no affiliation with any of these clinics. I'm not recommending this — I'm telling you what I did.\n\n## The Timeline (Exact Dates)\n\nHere's exactly what happened:\n\n- **August 4, 2023:** 230 lbs\n- **September 7, 2023:** 220 lbs\n- **October 2023:** 213 lbs\n- **November 2023:** 202 lbs\n- **December 2023:** 200 lbs\n- **By March 2024:** 188 lbs\n\n54 pounds in roughly six months. From 242 to 188.\n\nThe November to December slowdown? That was Thanksgiving. Holiday weight loss is hard.\n\n## The Training (30,000 to 50,000 Pounds Per Day)\n\nPeople ask what workouts I did during this period. The answer: the same type of volume I do now, just with a calorie deficit on top.\n\nMinimum 30,000 pounds per day. Some days 50,000. Almost every day.\n\nHere's the crazy part: I have insomnia when my calories drop. So what did I do with 3-5 hours of awake time every night? I'd go downstairs to my treadmill, play video games, and walk. I'd hit 15,000-20,000 steps on those nights.\n\nMy minimum was 10,000 steps per day. Most days I got way more than that.\n\n## The Calories (800-1200 Per Day, 6 Days Per Week)\n\nThis is the part most people can't fathom. Six days a week: 800-1200 calories. Every day.\n\nOne cheat day per week. Whatever I wanted. However many calories. No counting. The only rule: it had to be at least seven days since the last cheat day.\n\nWas it hard? Not with the GLP-1. The hunger suppression was real. But the discipline still mattered. Every meal was logged. Everything was calculated.\n\nWould I recommend this to someone without a GLP-1? No. I don't think it's possible without one. The hunger would be unbearable.\n\n## What Nobody Tells You\n\nHere's what I realized after this transformation: I've never done this naturally. Not once. Not in high school. Not in 2023. Every single transformation in my life has involved pharmaceutical assistance.\n\nMy former partner posted about her transformation claiming it was natural. It wasn't. She was on the same stuff I was — she just didn't disclose it.\n\nThe Liver King situation frustrated me because of this exact hypocrisy. He was calling people \"subprime\" for taking supplements while he was on a protocol that made mine look like nothing.\n\nI'm not trying to be a role model for natural transformation. I'm not claiming this is achievable without help. I'm just telling you what actually happened.\n\n## The Maintenance\n\nOnce you've lost the weight, maintenance is easier. I'm currently around 218 pounds — heavier than my low point, but I'm intentionally building muscle now.\n\nThe GLP-1 made maintenance easy because you can dial the dose up or down depending on your goals. Want to lose more? Dial up. Want to maintain? Dial down. Want to bulk? Go off it entirely.\n\nComing off completely? The hunger returns. It's not fun. It's not like the GLP-1 where you just feel normal — you feel hungry. Really hungry. That's the trade-off.\n\n## The Bottom Line\n\nDid I take the easy way out? Depends on your definition of easy. The drugs made the calorie restriction possible. But I still lifted 30,000-50,000 pounds per day. I still hit 10,000+ steps. I still tracked everything.\n\nCould you do this without the drugs? Maybe. But at 800-1200 calories per day, your hunger would be constant. Your willpower would need to be superhuman. The GLP-1 isn't cheating — it's a tool that makes the math work.\n\nI'm not telling you to do this. I'm telling you what I did. If you want my physique, now you know what it actually costs.\n\nThe decision is yours.\n"
   }
+,
+  {
+    slug: "lily-lifts-daughter-speediance-workout",
+    title: "Lily Lifts: My Daughter's First Workout on the Speediance",
+    excerpt: "I put my 6-year-old daughter on the Speediance and let her try real exercises — with the weight turned off. What she could lift shocked me. Here's how I'm introducing my kids to resistance training safely — and why the weight-off feature changes everything for family fitness.",
+    category: "Field Reports",
+    published_at: "2025-09-23",
+    image: "https://i.ytimg.com/vi/Ndso4yB1GbM/hqdefault.jpg",
+    tags: ["Speediance", "family fitness", "kids lifting", "daughter", "resistance training", "parenting"],
+    content: "## A New Series: Lily Lifts
+
+I've been thinking about this for a while. My kids watch me lift every day. They're curious. They want to be part of it.
+
+So I started a new series: Lily Lifts. My daughter Lily — she's six — joined me for a workout on the Speediance.
+
+The goal wasn't to make her lift heavy. It wasn't to train her. It was to show her what dad does, let her move her body, and make it fun.
+
+That's it.
+
+## Why I Let Her Lift
+
+Kids should move. That's the whole point. They're designed to run, jump, climb, and explore.
+
+But here's what most people don't realize: resistance training for kids doesn't mean weights. It means moving their own body against gravity. It means pull-ups, push-ups, and yes — machine movements with zero resistance.
+
+The Speediance's weight-off mode is a game-changer for this. I can set the resistance to zero, and the cables still have maybe 3-5 pounds of pull depending on the movement. That's perfect for a 50-pound kid.
+
+No loading. No injury risk. Just movement.
+
+## The Exercises We Did
+
+I ran through my normal workout. Lily did modified versions alongside me.
+
+**Lat Pulldowns:** I was doing single-arm kneeling lat pulldowns at 104 pounds. Lily? She couldn't reach the handles from her knees.
+
+So I pulled the bar down to her. She did 10 reps pulling it back up to her chest.
+
+She loved it. "Daddy, this is like a butterfly!"
+
+She's not wrong. The lat pulldown looks like butterfly wings when you do it right.
+
+**Bicep Curls:** I set the attachment point lower since she's shorter than me. She couldn't reach it at the normal height.
+
+Underhand grip, curl toward her ears. Ten reps. She crushed it.
+
+The beautiful part: she didn't need the weight. The movement itself was challenging enough for her little arms.
+
+**Chest Press:** This one scared her a little. She was "scared" to try. I told her we'd do one rep and see how it felt.
+
+She did three. Then five. Then ten.
+
+She didn't want to stop.
+
+## The Safety Setup
+
+Here's exactly how I set this up:
+
+1. **Weight turned OFF.** Not just low — off. The machine still has some resistance, but nothing that could hurt her.
+2. **I'm right next to her.** Every single rep. I didn't look away once.
+3. **Proper form first.** I showed her the movement before she did it. Foot placement, hand position, the whole thing.
+4. **She picked the reps.** I asked her: "Do you want to do 10, 12, or 13 reps?" She picked 10. That gave her ownership of the workout.
+
+## What She Learned
+
+By the end, Lily understood what I do every day. She saw the numbers on the screen. She felt her muscles working. She got tired — and proud of it.
+
+She also learned something else: fitness is fun. It's not punishment. It's not suffering. It's something you do with your dad.
+
+My four-year-old? She's already asking when it's her turn. She has 2-pound dumbbells that she got for her birthday. She practices lifting them overhead.
+
+## The Younger One's Setup
+
+My four-year-old uses 2-pound dumbbells. She can't lift them all the way overhead yet — but she's working on it.
+
+Kids develop at different rates. My job isn't to push them. It's to give them the tools and let them explore.
+
+The dumbbells were a birthday gift from me. My wife laughed. Every kid at the party tried to use them. Mission accomplished.
+
+## Why Machine Training Is Safer for Kids
+
+Free weights are dangerous for kids. Not because the weights are heavy — because they don't have the coordination to control them safely.
+
+A dumbbell can fall on a foot. A barbell can roll onto fingers. A loaded cable machine? The worst case is the weight doesn't move.
+
+The Speediance's weight-off mode takes this to the extreme. There's literally nothing to drop. Nothing to pinch. Nothing to fall.
+
+Just movement.
+
+That's what kids need.
+
+## The Bigger Picture
+
+I'm not training my kids to be athletes. I'm not pushing them toward competitions. I'm not making them lift heavy.
+
+I'm showing them that moving their body is normal. It's part of life. It's something families do together.
+
+My wife does jiu-jitsu now. She's a white belt — just started. She uses the Tonal I still have mounted in our hallway for cable work to strengthen her shoulders. The kids watch all of it.
+
+They see their parents working out. They see us sweating, pushing, improving. They're absorbing it.
+
+## What I'd Do Differently
+
+Looking back at the video, I noticed some things I'd change:
+
+My nephew was also in the video doing exercises. He had the ring on his finger — which limits grip strength. I didn't catch it in the moment, but I'd make sure he took it off.
+
+Also: I was explaining the movements to Lily while trying to count her reps. I missed a few. Next time, I'd have my wife help so I could focus on coaching.
+
+## The Takeaway
+
+You don't need a gym membership for your kids. You don't need expensive equipment. You don't need a program.
+
+You need to let them move. You need to make it fun. You need to be there.
+
+The Speediance makes it easy because the weight-off feature is so safe. But honestly? You could do this with a playground. Monkey bars. Rope climbs. Rock walls.
+
+Anything that gets them pulling, pushing, and moving.
+
+Lily asked me when we can do it again.
+
+That's the win.
+"
+  }
+
 ];
