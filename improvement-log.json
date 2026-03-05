@@ -20,13 +20,7 @@
         "src/pages/blog/index.astro"
       ],
       "commit": "b7e0e6e",
-      "sections": [
-        "Added readTime() function that calculates words/200 for minutes",
-        "Reading time displayed on featured post (e.g., '5 min read')",
-        "Reading time displayed on grid posts",
-        "Styled as muted text-xs pill between date and title"
-      ],
-      "notes": "Vision subagent completed after multiple Clarity/Spark/MiniMax timeouts. Build: 256 pages."
+      "notes": "Added readTime() function that calculates words/200 for minutes. Reading time displayed on featured post and grid posts. Styled as muted text-xs pill."
     },
     {
       "timestamp": "2026-03-04T17:35:00-05:00",
@@ -36,21 +30,7 @@
         "src/data/mock.js"
       ],
       "commit": "2ef55b9",
-      "transcript_video_id": "tRnUgneY8AU",
-      "slug": "speediance-eccentric-mode-deep-dive",
-      "notes": "Unused transcript from 2025-09-30. Explains eccentric mode benefits, joint protection, and training philosophy."
-    },
-    {
-      "timestamp": "2026-03-04T17:35:00-05:00",
-      "idea": "New blog post: Speediance Sequence button workout hack",
-      "category": "Content - Blog Post",
-      "files_changed": [
-        "src/data/mock.js"
-      ],
-      "commit": "2ef55b9",
-      "transcript_video_id": "_1_Z9BD7M2E",
-      "slug": "speediance-sequence-button-workout-hack",
-      "notes": "Unused transcript from 2025-10-03. Explains Sequence button usage and Stamina mode workflow for building workouts fast."
+      "notes": "Unused transcript from 2025-09-30. Explains eccentric mode benefits."
     },
     {
       "timestamp": "2026-03-04T18:25:00-05:00",
@@ -61,22 +41,17 @@
         "src/pages/index.astro"
       ],
       "commit": "867e772",
-      "stats": {
-        "totalLbsLifted": 1296447,
-        "totalMilesRun": 265.6,
-        "totalWorkouts": 238
-      },
-      "notes": "Created stats.js to calculate totals from real JSON data. Updated homepage to show dynamic stats: \ud83c\udfcb\ufe0f Total Lbs Lifted, \ud83c\udfc3 Total Miles Run, \ud83d\udcaa Total Workouts."
+      "notes": "Created stats.js with totals: 1,296,447 lbs lifted, 265.6 miles run, 238 workouts."
     },
     {
       "timestamp": "2026-03-04T20:22:00-05:00",
-      "idea": "Speediance stats page with real training data (1.29M lbs, 125 workouts)",
+      "idea": "Speediance stats page with real training data",
       "category": "UX Enhancement - Data Pages",
       "files_changed": [
         "src/pages/speediance.astro"
       ],
       "commit": "14d15ea",
-      "notes": "New /speediance page with hero section, 6 stat cards (total volume, workouts, hours, avg session, best session, calories), monthly volume chart, donut chart for workout types, exercise PRs, and recent sessions. Data from speediance_dashboard_data.json. Build passes (263 pages)."
+      "notes": "New /speediance page with hero, 6 stat cards, monthly volume chart, donut chart, exercise PRs, recent sessions. Build passes."
     },
     {
       "timestamp": "2026-03-04T21:22:00-05:00",
@@ -86,7 +61,7 @@
         "src/pages/faq.astro"
       ],
       "commit": "055e77c",
-      "notes": "Added FAQPage schema with 15 Q&As from 4 categories (Training Philosophy, Gear & Equipment, Weight & Nutrition, About This Site). Google can now display FAQ rich snippets in search results. Build passes (274 pages)."
+      "notes": "Added FAQPage schema with 15 Q&As. Build passes."
     },
     {
       "timestamp": "2026-03-04T22:34:00-05:00",
@@ -98,7 +73,7 @@
         "src/pages/blog/[slug].astro"
       ],
       "commit": "e8a8c8b",
-      "notes": "Added Person schema to About page with name, jobTitle, url, knowsAbout (Speediance, BJJ, Garmin, WHOOP, 8Sleep, Running), award (242\u2192188 lb transformation). Added Author schema to blog posts. Added Organization schema for site authority. Spark subagent completed after Clarity timeout. Build passes (263 pages)."
+      "notes": "Added Person schema to About page, Author schema to blog posts, Organization schema. Build passes."
     },
     {
       "timestamp": "2026-03-04T23:38:00-05:00",
@@ -108,7 +83,7 @@
         "src/pages/blog/[slug].astro"
       ],
       "commit": "8d62329",
-      "notes": "Added related posts section after prev/next navigation. Shows 3 related posts matching by category or tags, filled with recent posts if needed. Cards display thumbnail, title, category badge, date, and reading time. Spark subagent completed. Build passes (263 pages)."
+      "notes": "Added related posts section with 3 related posts matching by category/tags. Build passes."
     },
     {
       "timestamp": "2026-03-05T00:42:00-05:00",
@@ -118,7 +93,7 @@
         "src/components/VideoGrid.jsx"
       ],
       "commit": "bcee222",
-      "notes": "Added search input with 300ms debounce, filters videos by title/description, shows result count, clear button to reset. Spark subagent completed after Clarity timeout. Build passes (265 pages)."
+      "notes": "Added search input with 300ms debounce, filters videos by title/description. Build passes."
     },
     {
       "timestamp": "2026-03-05T03:47:00-05:00",
@@ -128,21 +103,20 @@
         "src/pages/about.astro"
       ],
       "commit": "e5691eb",
-      "notes": "Added BJJ journey section with Toby's transformation story (242→188 lbs fat loss, 205→218 lbs muscle building), BJJ training background, and links to BJJ-related content. Dark theme matches existing site. Vision subagent completed after Clarity/Spark/MiniMax/Pulse rate limits. Build passes (266 pages)."
-    }
-  ],
-{
+      "notes": "Added BJJ journey section with transformation story. Build passes."
+    },
+    {
       "timestamp": "2026-03-05T04:45:00-05:00",
-      "idea": "WHOOP recovery stats page with real data (charts, HRV trends, breakdown)",
+      "idea": "WHOOP recovery stats page with real data",
       "category": "UX Enhancement - Data Pages",
       "files_changed": [
         "src/data/whoop.js",
         "src/pages/whoop.astro"
       ],
       "commit": "5d465c2",
-      "notes": "Created whoop.js data module processing whoop_v2_latest.json. Updated whoop.astro with: hero section, 6 stat cards (Avg Recovery, HRV, RHR, Sleep Perf, Days Tracked, Latest), recovery trend SVG chart, HRV trend SVG chart, recovery breakdown donut chart (Green/Yellow/Red), recent 10 days table. Build passes (266 pages). MiniMax subagent completed after Clarity/Spark timeouts."
+      "notes": "Created whoop.js data module. Updated whoop.astro with hero, 6 stat cards, recovery trend chart, HRV chart, donut chart, recent days table. Build passes."
     }
   ],
   "in_progress": null,
-  "notes": "\n2026-03-04: Added 2 new blog posts:\n- speediance-2s-1rm-exposed (from 2025-11-21 transcript)\n- mike-israetel-black-belt-controversy (from 2025-11-13 transcript)\n2026-03-04 (9:41 PM): Added 2 new blog posts:\n- speediance-partner-mode-v3-removed (from 2026-01-24 transcript wMT8i8E14NU)\n- speediance-spotter-modes-drop-sets (from 2025-09-20 transcript pMdn1a5EA1s)\n2026-03-04 (11:42 PM): Added 2 new blog posts:\n- speediance-2s-vs-original-real-user-review (from 2025-11-07 transcript J3W59IR2Las)\n- speediance-lat-pulldown-260lbs-test (from 2025-09-06 transcript NKY4uXpFTns)"
+  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed."
 }
