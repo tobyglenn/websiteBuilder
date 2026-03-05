@@ -467,93 +467,81 @@ const profilePageSchema = {
     </section>
 
     {/* BJJ Journey Section */}
-    <section class="py-16 border-t border-neutral-900">
+    <section class="py-16 border-t border-neutral-900 bg-neutral-950">
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center">My BJJ Journey</h2>
-          
-          {/* BJJ Comparison Photo */}
-          <div class="mb-12">
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
-              <img 
-                src="/images/about/bjj_comparison.jpg" 
-                alt="BJJ Comparison: Year 1 (170lbs) vs Year 2 (185lbs) with 4 stripes"
-                class="w-full object-contain aspect-video bg-neutral-950"
-              />
-              <div class="p-6">
-                <p class="text-center text-neutral-300 text-lg">
-                  <strong>185lbs Year 2 BJJ</strong> — <strong>Right 170lbs Year 1 BJJ</strong><br/> 
-                  <span class="text-neutral-500">All four stripes, About a year and a half in the gym</span>
-                </p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 text-center">My BJJ Journey</h2>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            As a brown belt BJJ practitioner, the mat is where I reset. Training out of a dedicated BJJ gym means 3-4 classes a week, regular rolling sessions, and a circuit of positional drilling that keeps the game sharp even when the rest of life is busy. Those classes are a ritual — technique, live sparring, and cleaning up mistakes with training partners who expect the work.
+          </p>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            The story that brought me here started in 2023 with a 242→188 lb cut that leaned heavily on jiu-jitsu, WHOOP recovery signals, and calculated caloric control. Since then the focus has flipped: I spent 2024 and 2025 rebuilding strength and muscle, climbing from 205 to 218 lbs while still showing up for the mat and letting BJJ keep my conditioning honest.
+          </p>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            Competition has been a compass. At brown belt I earned third place at a regional tournament with a reverse triangle finish that reminded me grit beats perfection. That night is logged in detail in my <a href="/blog/speediance-customization-why-it-breaks-settings" class="text-blue-500 hover:text-cyan-400 font-semibold">tournament recap</a>, and the lessons from that scramble still shape how I stack strength work with rolling.
+          </p>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            The mat never stops teaching me. For more context on how I pair this journey with broader BJJ commentary, read the <a href="/blog/mike-israetel-bjj-black-belt-defence" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science take on belt culture</a> or trace how my OpenClaw BJJ buddy project ties training data into every report (<a href="/blog/openclaw-automation" class="text-blue-500 hover:text-cyan-400 font-semibold">BJJ automation build log</a>).
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">2023 Fat Loss</span>
+              <p class="text-3xl font-black text-white mt-3">242→188 lbs</p>
+              <p class="text-neutral-400 text-sm mt-2">Lean, disciplined, and jiu-jitsu fueled. WHOOP recovery kept the deficit honest.</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">Current Build</span>
+              <p class="text-3xl font-black text-white mt-3">205→218 lbs</p>
+              <p class="text-neutral-400 text-sm mt-2">Muscle gain phase that still honors BJJ volume — strength training, running, and rolling in harmony.</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">Weekly Mat Time</span>
+              <p class="text-3xl font-black text-white mt-3">3-4 classes</p>
+              <p class="text-neutral-400 text-sm mt-2">Technique rounds, structured drills, and open-mat rolling with partners who keep each session honest.</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">Competition</span>
+              <p class="text-3xl font-black text-white mt-3">Brown belt</p>
+              <p class="text-neutral-400 text-sm mt-2">Tournaments, ranking matches, and the humility of overtime bouts that remind me to keep evolving.</p>
+            </div>
+          </div>
+
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mt-10">
+            <div class="flex items-center justify-between text-xs text-neutral-500 uppercase tracking-widest">
+              <span>Belt &amp; Mat Timeline</span>
+              <span class="text-blue-500">Still climbing</span>
+            </div>
+            <div class="grid mt-6 gap-4 md:grid-cols-4">
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Foundation</p>
+                <p class="text-base font-semibold text-white mt-3">White belt</p>
+                <p class="text-neutral-400 text-sm mt-1">Installed the basics with hourly guard retention drills at the gym.</p>
+              </div>
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Momentum</p>
+                <p class="text-base font-semibold text-white mt-3">Blue → Purple</p>
+                <p class="text-neutral-400 text-sm mt-1">Built pressure passing and entered the tournament circuit to test what stuck.</p>
+              </div>
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Recognition</p>
+                <p class="text-base font-semibold text-white mt-3">Purple → Brown</p>
+                <p class="text-neutral-400 text-sm mt-1">Earned the brown belt, third-place finish, and a reverse triangle that still lives in the logs.</p>
+              </div>
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Daily grind</p>
+                <p class="text-base font-semibold text-white mt-3">Brown belt now</p>
+                <p class="text-neutral-400 text-sm mt-1">Each week balances technique, conditioning, and recovery — the gym, the mat, and WHOOP all in sync.</p>
               </div>
             </div>
           </div>
 
-          {/* BJJ Day Photos Gallery */}
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
-              <img 
-                src="/images/about/bjj_day1.jpg" 
-                alt="BJJ Day 1: Belt cutting ceremony"
-                class="w-full object-contain aspect-video bg-neutral-950"
-              />
-              <div class="p-4">
-                <p class="text-center text-neutral-300">BJJ Day 1: Belt cutting ceremony, multiple people at academy</p>
-              </div>
-            </div>
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
-              <img 
-                src="/images/about/bjj_day2.jpg" 
-                alt="BJJ Day 2: Two men posing with medals"
-                class="w-full object-contain aspect-video bg-neutral-950"
-              />
-              <div class="p-4">
-                <p class="text-center text-neutral-300">BJJ Day 2: Two men posing with medals at a tournament</p>
-              </div>
-            </div>
-            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
-              <img 
-                src="/images/about/bjj_day4.jpg" 
-                alt="BJJ Day 4: Sparring/grappling scene"
-                class="w-full object-contain aspect-video bg-neutral-950"
-              />
-              <div class="p-4">
-                <p class="text-center text-neutral-300">BJJ Day 4: Sparring/grappling scene</p>
-              </div>
-            </div>
-          </div>
-
-          {/* BJJ Journey Details */}
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mt-8">
-            <h3 class="text-2xl font-bold text-white mb-6 text-center text-blue-400">My Jiu-Jitsu Path</h3>
-            <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
-              <p>
-                My journey into Brazilian Jiu-Jitsu began as more than just a sport; it was a fundamental pillar in a much larger transformation. After dropping from <strong class="text-white">242 lbs to 188 lbs in 2023</strong> through dedicated fitness tech integration, I recognized the need for a dynamic, mentally engaging discipline to cement those gains and continue building. BJJ became that anchor, providing both intense physical conditioning and a profound mental challenge.
-              </p>
-              <p>
-                Training seriously as a <strong class="text-white">brown belt</strong>, I'm at the gym multiple times a week, engaging in regular rolling sessions that push both my physical limits and my strategic thinking. The mat is where theory meets reality, and every session is a lesson in patience, perseverance, and problem-solving under pressure. It's a constant process of growth, embracing the reality that true mastery is an endless pursuit.
-              </p>
-              <p>
-                My weight journey continued post-cut, evolving into a focused muscle-building phase. From that 188 lb low, I've intentionally climbed back to <strong class="text-white">205-218 lbs</strong>, a testament to the combined strength training, diligent nutrition, and the intense physical demands of BJJ. This isn't just about weight; it's about composition, resilience, and the functional strength that grappling demands.
-              </p>
-              <p>
-                Competition has been a vital part of my development. Stepping onto the mat under tournament conditions, whether in Gi or No-Gi, provides invaluable feedback that daily training can't replicate. It's where you truly test your techniques, your conditioning, and your mental fortitude. Each competition, regardless of outcome, illuminates areas for improvement and fuels the drive for continuous refinement.
-              </p>
-              <p>
-                As a brown belt, I understand the responsibility that comes with the rank, and the vast ocean of knowledge still to explore. This martial art is about far more than submissions; it's about self-discovery, community, and the relentless pursuit of improvement both on and off the mat.
-              </p>
-              <div class="pt-4 text-center">
-                <a href="/blog?tag=bjj" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group">
-                  Read my BJJ insights on the blog
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
+          <p class="text-neutral-500 text-sm mt-6 text-center">
+            Dive deeper into the journey with the <a href="/blog/mike-israetel-bjj-black-belt-defence" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science belt debate</a> or the <a href="/blog/openclaw-automation" class="text-blue-500 hover:text-cyan-400 font-semibold">OpenClaw BJJ automation build log</a>.
+          </p>
         </div>
       </div>
     </section>
-
     {/* Personal Lifestyle Section */}
     <section class="py-16 border-t border-neutral-900">
       <div class="container mx-auto px-4">
@@ -580,6 +568,154 @@ const profilePageSchema = {
               <div class="p-4">
                 <p class="text-center text-neutral-300">Solo selfie: Dragon Ball Z shirt, smiling, outdoor with painted rabbit sculpture</p>
               </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* BJJ Weight Transformation Timeline */}
+    <section class="py-16 border-t border-neutral-900 bg-neutral-950">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">BJJ + Transformation</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">How BJJ Fueled My Transformation</h2>
+          
+          {/* Weight Journey Stats */}
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+              <div class="text-4xl font-bold text-white mb-2">242 lbs</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Starting Weight (2023)</div>
+              <div class="text-xs text-neutral-600 mt-2">Heavy, out of shape</div>
+            </div>
+            <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6 text-center">
+              <div class="text-4xl font-bold text-blue-500 mb-2">188 lbs</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Lowest Weight (Jan 2024)</div>
+              <div class="text-xs text-neutral-600 mt-2">54 lbs lost — BJJ accelerated fat loss</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+              <div class="text-4xl font-bold text-white mb-2">218 lbs</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Current Weight (2026)</div>
+              <div class="text-xs text-neutral-600 mt-2">+30 lbs muscle — stronger than ever</div>
+            </div>
+          </div>
+
+          {/* Belt Progression Timeline */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mb-10">
+            <h3 class="text-xl font-bold text-white mb-6 text-center">Belt Progression Timeline</h3>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+              {/* White Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-white border-4 border-neutral-300 flex items-center justify-center mb-3">
+                  <span class="text-neutral-800 font-bold text-xs">WHT</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">White Belt</div>
+                  <div class="text-neutral-500 text-sm">Started BJJ</div>
+                  <div class="text-blue-400 text-xs mt-1">2022</div>
+                </div>
+              </div>
+              
+              {/* Arrow */}
+              <div class="hidden md:block text-neutral-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+
+              {/* Blue Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-blue-600 border-4 border-blue-400 flex items-center justify-center mb-3">
+                  <span class="text-white font-bold text-xs">BLU</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">Blue Belt</div>
+                  <div class="text-neutral-500 text-sm">First stripe earned</div>
+                  <div class="text-blue-400 text-xs mt-1">2023</div>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div class="hidden md:block text-neutral-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+
+              {/* Purple Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-purple-600 border-4 border-purple-400 flex items-center justify-center mb-3">
+                  <span class="text-white font-bold text-xs">PRP</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">Purple Belt</div>
+                  <div class="text-neutral-500 text-sm">Competition ready</div>
+                  <div class="text-blue-400 text-xs mt-1">2024</div>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div class="hidden md:block text-neutral-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+
+              {/* Brown Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-amber-700 border-4 border-amber-500 flex items-center justify-center mb-3">
+                  <span class="text-white font-bold text-xs">BRN</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">Brown Belt</div>
+                  <div class="text-neutral-500 text-sm">Current rank</div>
+                  <div class="text-blue-400 text-xs mt-1">2025-Present</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* BJJ Journey Narrative */}
+          <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
+            <p>
+              <strong class="text-white">BJJ wasn't just part of my transformation — it was the catalyst.</strong> 
+              When I started training jiu-jitsu in 2022, I was 242 pounds and honestly in the worst shape of my life. 
+              But something clicked on the mat. The technical nature of BJJ — solving positional puzzles, 
+              against opponents who don't care about your excuses — changed how I approached fitness entirely.
+            </p>
+            <p>
+              The weight loss happened faster than I expected. Between training 3-4x per week, the consistent 
+              caloric deficit tracked via Cronometer, and the mental clarity that comes from regular mat time, 
+              I dropped from 242 to 188 pounds by January 2024. That's not just cardio — that's the compound 
+              effect of consistency, competition (I competed at both Gi and No-Gi), and having a community 
+              that held me accountable.
+            </p>
+            <p>
+              Now at <strong class="text-white">218 pounds</strong> in 2026, I'm in the muscle-building phase. 
+              The difference this time: I train smarter. WHOOP recovery scores tell me when to push and when to rest. 
+              My BJJ training has evolved from "survive every round" to "dominate positions." I've competed at brown belt 
+              in both Gi and No-Gi, and the drive to keep improving keeps me showing up at 6:30 AM — even when the 
+              bed is warm and the mat is cold.
+            </p>
+            <p>
+              BJJ taught me that progress isn't linear. There will be plateaus, injuries, and rounds where you get submitted 
+              by someone who trained for half as long. That's the point. The mat doesn't care about your excuses. 
+              Neither do I. That's why I document everything — the lifts, the runs, the rolls, the data. 
+              Because what gets measured gets managed.
+            </p>
+          </div>
+
+          {/* BJJ Stats Grid */}
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">3-4x</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Sessions/Week</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">Brown</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Current Belt</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">Gi + No-Gi</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Competition</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">4+</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Stripes Earned</div>
             </div>
           </div>
         </div>
