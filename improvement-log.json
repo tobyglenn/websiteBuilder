@@ -2,6 +2,14 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-04T19:24:00-05:00",
+      "idea": "Running stats page with real Garmin data (monthly chart, heatmap, PRs)",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": ["src/data/running.js", "src/pages/running.astro"],
+      "commit": "676f79b",
+      "notes": "Already implemented in prior run. Verified build passes (271 pages). Running page includes: 265 miles, 111 runs, monthly mileage SVG chart, activity heatmap, pace PRs by distance, recent runs with HR zones, gear section."
+    },
+    {
       "timestamp": "2026-03-04T16:25:00-05:00",
       "idea": "Add estimated reading time to blog post cards",
       "category": "UX Enhancement - Blog",
