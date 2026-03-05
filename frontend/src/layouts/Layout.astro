@@ -156,11 +156,58 @@ const organizationSchema = {
   ]
 };
 
-// Build BreadcrumbList schema if breadcrumbs provided
-const breadcrumbSchema = breadcrumbs && breadcrumbs.length > 0 ? {
+const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
+
+const staticBreadcrumbNameMap: Record<string, string> = {
+  running: 'Running',
+  speediance: 'Speediance',
+  whoop: 'WHOOP',
+  sleep: 'Sleep',
+  blog: 'Blog',
+  videos: 'Videos',
+  video: 'Videos',
+  about: 'About',
+  gear: 'Gear',
+  pr: 'PR Board',
+  transformation: 'Transformation',
+  training: 'Training',
+};
+
+const toTitleCase = (segment: string) => segment
+  .split('-')
+  .filter(Boolean)
+  .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+  .join(' ');
+
+const inferredBreadcrumbs: Array<{ name: string; url: string }> = [{ name: 'Home', url: '/' }];
+
+if (pathSegments.length > 0) {
+  let runningPath = '';
+
+  for (const [index, segment] of pathSegments.entries()) {
+    runningPath += `/${segment}`;
+
+    let name = staticBreadcrumbNameMap[segment] || toTitleCase(segment);
+
+    if (index === 1 && pathSegments[0] === 'blog') {
+      name = title.split('|')[0]?.trim() || name;
+    }
+
+    if (index === 1 && pathSegments[0] === 'video') {
+      name = title.split('|')[0]?.trim() || name;
+      inferredBreadcrumbs[1] = { name: 'Videos', url: '/videos' };
+    }
+
+    inferredBreadcrumbs.push({ name, url: runningPath });
+  }
+}
+
+const finalBreadcrumbs = breadcrumbs && breadcrumbs.length > 0 ? breadcrumbs : inferredBreadcrumbs;
+
+const breadcrumbSchema = finalBreadcrumbs.length > 0 ? {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
-  "itemListElement": breadcrumbs.map((crumb, index) => ({
+  "itemListElement": finalBreadcrumbs.map((crumb, index) => ({
     "@type": "ListItem",
     "position": index + 1,
     "name": crumb.name,
