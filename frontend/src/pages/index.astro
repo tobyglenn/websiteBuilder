@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.jsx';
 import Newsletter from '../components/Newsletter.jsx';
+import WorkoutHeatmap from '../components/WorkoutHeatmap.jsx';
 import { BLOG_POSTS } from '../data/mock.js';
 import videosData from '../data/videos.json';
 import { Play, ArrowRight, Clock, Eye, Video } from 'lucide-react';
@@ -91,6 +92,12 @@ const webPageSchema = {
 					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Workouts</div>
 				</div>
 			</div>
+		</div>
+	</section>
+
+	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<WorkoutHeatmap client:load />
 		</div>
 	</section>
 
