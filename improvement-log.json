@@ -215,6 +215,16 @@
       ],
       "commit": "ebff441",
       "notes": "Added new blog post from transcript 2025-09-01. Covers the essential Unlimited Sets setting (Settings > Training Preferences), why it should be on by default, eccentric mode differences vs Tonal, and how to set up warm-up sets using Stamina mode vs working sets with Gain Muscle. Build passes (287 pages)."
+    },
+    {
+      "timestamp": "2026-03-05T20:13:00-05:00",
+      "idea": "PR Board page with real Speediance data (25 personal records)",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/pages/prs.astro"
+      ],
+      "commit": "3d9cb9e",
+      "notes": "PR Board page from prior run. Features: Hall of Fame top 5 PRs, all PRs organized by muscle group (Back & Lats, Chest & Triceps, Legs & Glutes, Core & Arms), 25 total PRs totaling 3,700+ lbs. Includes JSON-LD schema. Build passes (270 pages)."
     }
   ],
   "in_progress": null,
