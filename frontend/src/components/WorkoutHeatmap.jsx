@@ -1,8 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import speedianceData from '../data/speediance_dashboard_data.json';
 import garminData from '../data/garmin_all_activities.json';
-
-const DAY_MS = 24 * 60 * 60 * 1000;
 
 function toLocalDateKey(rawDate) {
   if (!rawDate) return null;
@@ -18,9 +16,61 @@ function getColorClass(count) {
   return 'bg-green-500';
 }
 
+function calculateStreaks(sortedDates) {
+  if (sortedDates.length === 0) return { current: 0, longest: 0, totalActive: 0 };
+  
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  
+  const totalActive = sortedDates.length;
+  
+  // Calculate current streak
+  let currentStreak = 0;
+  const mostRecent = new Date(sortedDates[sortedDates.length - 1]);
+  mostRecent.setHours(0, 0, 0, 0);
+  
+  const daysSinceLast = Math.floor((today - mostRecent) / (1000 * 60 * 60 * 24));
+  
+  if (daysSinceLast <= 1) {
+    let checkDate = new Date(mostRecent);
+    for (let i = sortedDates.length - 1; i >= 0; i--) {
+      const workoutDate = new Date(sortedDates[i]);
+      workoutDate.setHours(0, 0, 0, 0);
+      const diff = Math.floor((checkDate - workoutDate) / (1000 * 60 * 60 * 24));
+      if (diff <= 1) {
+        currentStreak++;
+        checkDate = new Date(workoutDate);
+        checkDate.setDate(checkDate.getDate() - 1);
+      } else {
+        break;
+      }
+    }
+  }
+  
+  // Calculate longest streak
+  let longestStreak = 1;
+  let streak = 1;
+  for (let i = 1; i < sortedDates.length; i++) {
+    const prev = new Date(sortedDates[i - 1]);
+    const curr = new Date(sortedDates[i]);
+    prev.setHours(0, 0, 0, 0);
+    curr.setHours(0, 0, 0, 0);
+    const diff = Math.floor((curr - prev) / (1000 * 60 * 60 * 24));
+    if (diff === 1) {
+      streak++;
+      longestStreak = Math.max(longestStreak, streak);
+    } else if (diff > 1) {
+      streak = 1;
+    }
+  }
+  
+  return { current: currentStreak, longest: longestStreak, totalActive };
+}
+
 export default function WorkoutHeatmap() {
-  const { weeks, monthLabels } = useMemo(() => {
+  const { weeks, monthLabels, stats } = useMemo(() => {
     const counts = new Map();
+    const allDates = [];
 
     const speedianceDates = speedianceData?.dashboardData?.allSessions?.map((s) => s?.date) ?? [];
     const garminDates = garminData?.activities?.map((a) => a?.date) ?? [];
@@ -29,7 +79,13 @@ export default function WorkoutHeatmap() {
       const key = toLocalDateKey(date);
       if (!key) return;
       counts.set(key, (counts.get(key) ?? 0) + 1);
+      if (!allDates.includes(key)) {
+        allDates.push(key);
+      }
     });
+
+    allDates.sort();
+    const stats = calculateStreaks(allDates);
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -70,72 +126,92 @@ export default function WorkoutHeatmap() {
       }
     });
 
-    return { weeks: weeksData, monthLabels: labels };
+    return { weeks: weeksData, monthLabels: labels, stats };
   }, []);
 
   return (
-    <div className="bg-neutral-900 rounded-lg border border-neutral-800 p-4 md:p-6">
-      <div className="mb-6">
-        <h3 className="text-2xl md:text-3xl font-bold text-white">Training Consistency</h3>
-        <p className="text-neutral-400 mt-2 text-sm md:text-base">
-          Last 52 weeks of workouts and runs (Speediance + Garmin).
-        </p>
-      </div>
-
-      <div className="overflow-x-auto">
-        <div className="min-w-max">
-          <div className="flex mb-2 ml-8 h-4 text-xs text-neutral-500 relative">
-            {monthLabels.map((month) => (
-              <span
-                key={`${month.label}-${month.weekIndex}`}
-                className="absolute"
-                style={{ left: `${month.weekIndex * 14}px` }}
-              >
-                {month.label}
-              </span>
-            ))}
+    <section className="py-16 bg-neutral-950 border-t border-neutral-800">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-10">
+          <span className="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Track Your Progress</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">Training Consistency</h2>
+          <p className="text-neutral-500 mt-3 max-w-xl mx-auto">
+            A year of training activity from Speediance workouts and Garmin runs.
+          </p>
+        </div>
+        
+        {/* Summary Stats */}
+        <div className="grid grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto">
+          <div className="bg-neutral-900 rounded-lg p-4 border border-neutral-800 text-center">
+            <div className="text-2xl md:text-3xl font-bold text-green-400">{stats.totalActive}</div>
+            <div className="text-xs md:text-sm font-semibold text-neutral-400 uppercase tracking-wide">Active Days</div>
           </div>
-
-          <div className="flex gap-2">
-            <div className="grid grid-rows-7 h-[98px] text-xs text-neutral-500">
-              <span className="h-[14px] leading-[14px]">Sun</span>
-              <span className="h-[14px] leading-[14px]"></span>
-              <span className="h-[14px] leading-[14px]">Tue</span>
-              <span className="h-[14px] leading-[14px]"></span>
-              <span className="h-[14px] leading-[14px]">Thu</span>
-              <span className="h-[14px] leading-[14px]"></span>
-              <span className="h-[14px] leading-[14px]">Sat</span>
+          <div className="bg-neutral-900 rounded-lg p-4 border border-neutral-800 text-center">
+            <div className="text-2xl md:text-3xl font-bold text-green-400">{stats.current}</div>
+            <div className="text-xs md:text-sm font-semibold text-neutral-400 uppercase tracking-wide">Current Streak</div>
+          </div>
+          <div className="bg-neutral-900 rounded-lg p-4 border border-neutral-800 text-center">
+            <div className="text-2xl md:text-3xl font-bold text-green-400">{stats.longest}</div>
+            <div className="text-xs md:text-sm font-semibold text-neutral-400 uppercase tracking-wide">Longest Streak</div>
+          </div>
+        </div>
+        
+        {/* Heatmap */}
+        <div className="bg-neutral-900 rounded-lg p-4 md:p-6 border border-neutral-800 overflow-x-auto">
+          <div className="min-w-max">
+            <div className="flex mb-2 ml-8 h-4 text-xs text-neutral-500 relative">
+              {monthLabels.map((month) => (
+                <span
+                  key={`${month.label}-${month.weekIndex}`}
+                  className="absolute"
+                  style={{ left: `${month.weekIndex * 14}px` }}
+                >
+                  {month.label}
+                </span>
+              ))}
             </div>
 
-            <div className="grid grid-rows-7 grid-flow-col gap-0.5">
-              {weeks.flat().map((day) => {
-                const tooltip = `${day.count} session${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString('en-US', {
-                  weekday: 'short',
-                  month: 'short',
-                  day: 'numeric',
-                  year: 'numeric',
-                })}`;
+            <div className="flex gap-2">
+              <div className="grid grid-rows-7 h-[98px] text-xs text-neutral-500">
+                <span className="h-[14px] leading-[14px]">Sun</span>
+                <span className="h-[14px] leading-[14px]"></span>
+                <span className="h-[14px] leading-[14px]">Tue</span>
+                <span className="h-[14px] leading-[14px]"></span>
+                <span className="h-[14px] leading-[14px]">Thu</span>
+                <span className="h-[14px] leading-[14px]"></span>
+                <span className="h-[14px] leading-[14px]">Sat</span>
+              </div>
 
-                return (
-                  <div
-                    key={day.key + day.date.getTime()}
-                    title={tooltip}
-                    className={`w-3 h-3 rounded-sm ${getColorClass(day.count)} hover:ring-1 hover:ring-white/40 transition`}
-                  />
-                );
-              })}
+              <div className="grid grid-rows-7 grid-flow-col gap-0.5">
+                {weeks.flat().map((day) => {
+                  const tooltip = `${day.count} session${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString('en-US', {
+                    weekday: 'short',
+                    month: 'short',
+                    day: 'numeric',
+                    year: 'numeric',
+                  })}`;
+
+                  return (
+                    <div
+                      key={day.key + day.date.getTime()}
+                      title={tooltip}
+                      className={`w-3 h-3 rounded-sm ${getColorClass(day.count)} hover:ring-1 hover:ring-white/40 transition`}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
 
-          <div className="flex items-center justify-end gap-2 mt-4 text-xs text-neutral-500">
-            <span>Less</span>
-            <div className="w-3 h-3 rounded-sm bg-neutral-800" title="0 sessions" />
-            <div className="w-3 h-3 rounded-sm bg-green-600" title="1-2 sessions" />
-            <div className="w-3 h-3 rounded-sm bg-green-500" title="3+ sessions" />
-            <span>More</span>
+            <div className="flex items-center justify-end gap-2 mt-4 text-xs text-neutral-500">
+              <span>Less</span>
+              <div className="w-3 h-3 rounded-sm bg-neutral-800" title="0 sessions" />
+              <div className="w-3 h-3 rounded-sm bg-green-600" title="1-2 sessions" />
+              <div className="w-3 h-3 rounded-sm bg-green-500" title="3+ sessions" />
+              <span>More</span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
