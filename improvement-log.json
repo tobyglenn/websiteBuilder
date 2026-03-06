@@ -356,6 +356,16 @@
       ],
       "commit": "f1fb262",
       "notes": "Created new /training page with 7-day schedule (Mon-Sun) based on Toby's 'Running > Lifting > BJJ' philosophy. Includes: hero section, weekly schedule grid with primary focus and exercises per day, training philosophy section, weekly stats (6 workouts/week, 1 rest day), and JSON-LD Course schema for SEO. Build passes (285 pages)."
+    },
+    {
+      "timestamp": "2026-03-06T13:20:00-05:00",
+      "idea": "Add 'Most Popular' sort option to Videos page",
+      "category": "UX Enhancement - Videos",
+      "files_changed": [
+        "src/components/VideoGrid.jsx"
+      ],
+      "commit": "9880db2",
+      "notes": "Added 'Most Popular' sort option to VideoGrid component. Users can now sort videos by view count (highest first) in addition to date and duration. Build passes (285 pages)."
     }
   ],
   "in_progress": null,
