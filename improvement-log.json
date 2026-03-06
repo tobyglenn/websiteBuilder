@@ -227,16 +227,22 @@
       "notes": "PR Board page from prior run. Features: Hall of Fame top 5 PRs, all PRs organized by muscle group (Back & Lats, Chest & Triceps, Legs & Glutes, Core & Arms), 25 total PRs totaling 3,700+ lbs. Includes JSON-LD schema. Build passes (270 pages)."
     }
     {
-      "timestamp": "2026-03-05T21:20:00-05:00",
-      "idea": "Training Log page with workout frequency heatmap",
-      "category": "UX Enhancement - Data Pages",
+      "timestamp": "2026-03-05T22:15:00-05:00",
+      "idea": "New blog post: Is Tonal a Scam? My Honest Review After 9 Million Pounds",
+      "category": "Content - Blog Post",
       "files_changed": [
-        "src/lib/trainingHeatmap.js",
-        "src/pages/training-log.astro",
-        "src/components/Header.jsx"
+        "src/data/mock.js"
       ],
-      "commit": "b23d041",
-      "notes": "New /training-log page using unified_training_timeline.json. GitHub-style heatmap showing workout days, streak stats (current/longest), total workout days, this year count, monthly bar chart. Nav link added. Build passes (287 pages)."
+      "commit": "815dee6",
+      "notes": "Added new blog post from transcript 2025-08-26. Covers Toby's experience with Tonal - device is great (9M lbs lifted), company is awful (membership price hikes, terrible support, buyback program insult, membership lockout). Build passes (275 pages)."
+    },
+    {
+      "timestamp": "2026-03-05T23:13:00-05:00",
+      "idea": "Add Recent Activity feed to homepage (subagent failed)",
+      "category": "No Changes - Subagent Errors",
+      "files_changed": [],
+      "commit": "none",
+      "notes": "Attempted to add Recent Activity section showing latest Garmin runs, Speediance workouts, WHOOP recovery. Clarity and MiniMax subagents encountered connection errors/timeouts. Site is well-improved with 22+ features already."
     }
   ],
   "in_progress": null,
