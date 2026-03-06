@@ -1,152 +1,200 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const pageTitle = 'Training Week — TobyOnFitnessTech';
-const pageDescription = 'A realistic 7-day training schedule built around Toby’s philosophy: Running > Lifting > BJJ, with full-body (minus legs) strength focus and recovery balance.';
-
+// Weekly training schedule - full body minus legs, prioritized: Running > Lifting > BJJ
 const weeklySchedule = [
   {
-    day: 'Monday',
-    focus: 'Easy Run + Upper Push',
-    exercises: ['30–40 min easy run (Zone 2)', 'Chest press', 'Overhead press', 'Triceps extensions'],
+    day: "Monday",
+    focus: "Running + Lifting",
+    icon: "🏃",
+    exercises: ["5K easy run", "Bench Press", "Lat Pulldown", "Overhead Press", "Barbell Row"],
+    priority: 1
   },
   {
-    day: 'Tuesday',
-    focus: 'BJJ Technique + Pull',
-    exercises: ['BJJ drilling / positional rounds', 'Lat pulldown', 'Seated row', 'Face pulls'],
+    day: "Tuesday",
+    focus: "BJJ",
+    icon: "🥋",
+    exercises: ["Gi drilling", "Sparring rounds", "positional work"],
+    priority: 3
   },
   {
-    day: 'Wednesday',
-    focus: 'Quality Run + Core',
-    exercises: ['Intervals or tempo run', 'Planks + dead bugs', 'Anti-rotation press', 'Mobility work'],
+    day: "Wednesday",
+    focus: "Running + Lifting",
+    icon: "🏃",
+    exercises: ["6K tempo run", "Deadlift", "Hip Thrust", "Pull-ups", "Face Pulls"],
+    priority: 1
   },
   {
-    day: 'Thursday',
-    focus: 'Full Body (Minus Legs) Strength',
-    exercises: ['Bench press', 'Bent-over row', 'Shoulder raises', 'Biceps + triceps superset'],
+    day: "Thursday",
+    focus: "Active Recovery",
+    icon: "🔄",
+    exercises: ["Easy 3K jog", "mobility work", "stretching"],
+    priority: 0
   },
   {
-    day: 'Friday',
-    focus: 'Longer Run + Recovery',
-    exercises: ['Steady endurance run', 'Breathwork', 'Stretching + foam roll', 'Light mobility'],
+    day: "Friday",
+    focus: "Running + Lifting",
+    icon: "🏃",
+    exercises: ["Interval speedwork", "Incline Bench", "Lat Pulldown", "Bicep Curls", "Tricep Extensions"],
+    priority: 1
   },
   {
-    day: 'Saturday',
-    focus: 'BJJ Open Mat + Accessories',
-    exercises: ['Live rolls / situational rounds', 'Rear delt work', 'Core finisher', 'Grip / carry work'],
+    day: "Saturday",
+    focus: "BJJ",
+    icon: "🥋",
+    exercises: ["Open mat", "technical drilling", "live rolling"],
+    priority: 3
   },
   {
-    day: 'Sunday',
-    focus: 'Rest / Active Recovery',
-    exercises: ['Walk + sunlight', 'Mobility flow', 'Optional easy spin', 'Early sleep focus'],
-  },
+    day: "Sunday",
+    focus: "Rest",
+    icon: "😴",
+    exercises: ["Rest day", "sleep recovery", "light walking"],
+    priority: 0
+  }
 ];
 
-const workoutsPerWeek = 6;
-const restDays = 1;
+const stats = {
+  workoutsPerWeek: 6,
+  restDays: 1,
+  runningDays: 4,
+  liftingDays: 3,
+  bjjDays: 2
+};
+
+const pageTitle = "Training Week";
+const pageDescription = "A typical training week: running, full-body lifting (minus legs), and BJJ. My prioritized approach to fitness: Running > Lifting > BJJ.";
 
 const courseSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Course',
-  name: 'Training Week',
-  description:
-    'A weekly hybrid training approach prioritizing running first, lifting second, and Brazilian Jiu-Jitsu third with full-body (minus legs) strength sessions.',
-  provider: {
-    '@type': 'Organization',
-    name: 'TobyOnFitnessTech',
-    url: 'https://tobyonfitnesstech.com',
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Toby's Training Week",
+  "description": "A weekly training program combining running, full-body lifting, and Brazilian Jiu-Jitsu.",
+  "provider": {
+    "@type": "Person",
+    "name": "Toby"
   },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "https://schema.org/OfflineMode",
+    "courseWorkload": "P6D"
+  }
 };
 ---
 
-<Layout
-  title={pageTitle}
-  description={pageDescription}
-  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Training Week', url: '/training' }]}
->
-  <main class="min-h-screen bg-neutral-950 text-white">
-    <section class="pt-32 pb-14 md:pt-40 md:pb-20 border-b border-neutral-900">
-      <div class="container mx-auto px-4">
-        <p class="text-xs font-bold tracking-widest uppercase text-blue-400 mb-4">WEEKLY PLAN</p>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-5">Training Week</h1>
-        <p class="text-lg md:text-xl text-neutral-300 max-w-3xl leading-relaxed">
-          A practical weekly split built around what matters most: run performance first, upper-body-focused
-          strength second, and BJJ third—while protecting recovery.
-        </p>
-      </div>
+<Layout title={pageTitle} description={pageDescription} jsonLd={courseSchema}>
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    {/* Hero Section */}
+    <section class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Training Week</h1>
+      <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
+        A typical week balancing my three pillars: running, full-body lifting (minus legs), and BJJ.
+        Everything's prioritized: <span class="text-blue-400 font-semibold">Running &gt; Lifting &gt; BJJ</span>
+      </p>
     </section>
 
-    <section class="py-14 md:py-16 border-b border-neutral-900">
-      <div class="container mx-auto px-4">
-        <div class="flex items-end justify-between gap-4 mb-6">
-          <div>
-            <h2 class="text-2xl md:text-3xl font-bold">Mon–Sun Schedule</h2>
-            <p class="text-sm text-neutral-400 mt-2">Full body minus legs, with running as the anchor.</p>
-          </div>
+    {/* Stats Overview */}
+    <section class="mb-12">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
+          <div class="text-sm text-neutral-400">Workouts/Week</div>
         </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-          {weeklySchedule.map((item) => (
-            <article class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 hover:border-blue-500/40 transition-colors">
-              <div class="flex items-center justify-between mb-3">
-                <h3 class="text-lg font-bold text-white">{item.day}</h3>
-                <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-blue-500/15 text-blue-300 border border-blue-500/30">
-                  Primary Focus
-                </span>
-              </div>
-              <p class="text-blue-300 font-medium mb-4">{item.focus}</p>
-              <ul class="space-y-2">
-                {item.exercises.map((exercise) => (
-                  <li class="text-sm text-neutral-300 flex items-start gap-2">
-                    <span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0"></span>
-                    <span>{exercise}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
+          <div class="text-sm text-neutral-400">Rest Days</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-green-400 mb-1">{stats.runningDays}</div>
+          <div class="text-sm text-neutral-400">Running Days</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-purple-400 mb-1">{stats.liftingDays}</div>
+          <div class="text-sm text-neutral-400">Lifting Days</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-orange-400 mb-1">{stats.bjjDays}</div>
+          <div class="text-sm text-neutral-400">BJJ Days</div>
         </div>
       </div>
     </section>
 
-    <section class="py-14 md:py-16 border-b border-neutral-900">
-      <div class="container mx-auto px-4">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-7">
-            <p class="text-xs font-bold tracking-widest uppercase text-blue-400 mb-3">Training Philosophy</p>
-            <h2 class="text-2xl md:text-3xl font-bold mb-4">Running &gt; Lifting &gt; BJJ</h2>
-            <p class="text-neutral-300 leading-relaxed mb-4">
-              The week is intentionally ordered by priority. Running quality and consistency drive the plan,
-              lifting supports performance and durability, and BJJ rounds out skill and conditioning without
-              compromising recovery.
-            </p>
-            <p class="text-neutral-400 text-sm leading-relaxed">
-              Strength sessions are full body with an upper-body bias (minus dedicated leg days), using movements
-              commonly tracked in Speediance by muscle group—push, pull, shoulders, arms, and core accessories.
-            </p>
-          </div>
-
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-7">
-            <p class="text-xs font-bold tracking-widest uppercase text-blue-400 mb-4">Weekly Stats</p>
-            <div class="space-y-4">
-              <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
-                <span class="text-neutral-400">Workouts / Week</span>
-                <span class="text-2xl font-black text-blue-300">{workoutsPerWeek}</span>
-              </div>
-              <div class="flex items-center justify-between border-b border-neutral-800 pb-3">
-                <span class="text-neutral-400">Rest Days</span>
-                <span class="text-2xl font-black text-blue-300">{restDays}</span>
-              </div>
-              <div class="flex items-center justify-between">
-                <span class="text-neutral-400">Priority Order</span>
-                <span class="text-sm font-semibold text-white">Run → Lift → BJJ</span>
-              </div>
+    {/* Weekly Schedule Grid */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span>📅</span> Weekly Schedule
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+        {weeklySchedule.map((day) => (
+          <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+            day.priority === 0 
+              ? 'border-neutral-800 opacity-70' 
+              : day.priority === 1 
+                ? 'border-blue-500/30 hover:border-blue-500/60' 
+                : day.priority === 2 
+                  ? 'border-purple-500/30 hover:border-purple-500/60'
+                  : 'border-orange-500/30 hover:border-orange-500/60'
+          }`}>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl">{day.icon}</span>
+              <h3 class="text-lg font-bold text-white">{day.day}</h3>
             </div>
+            <div class={`text-sm font-semibold mb-3 ${
+              day.priority === 1 ? 'text-blue-400' : 
+              day.priority === 2 ? 'text-purple-400' : 
+              day.priority === 3 ? 'text-orange-400' : 'text-neutral-500'
+            }`}>
+              {day.focus}
+            </div>
+            <ul class="space-y-1">
+              {day.exercises.map((ex) => (
+                <li class="text-sm text-neutral-400 flex items-start gap-2">
+                  <span class="text-neutral-600 mt-1">•</span>
+                  <span>{ex}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Training Philosophy */}
+    <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+      <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+        <span>🧠</span> Training Philosophy
+      </h2>
+      <div class="space-y-4">
+        <p class="text-neutral-300 text-lg">
+          My training is organized by priority: <span class="text-blue-400 font-bold">Running &gt; Lifting &gt; BJJ</span>
+        </p>
+        <div class="grid md:grid-cols-3 gap-6 mt-6">
+          <div class="bg-neutral-950 rounded-xl p-5 border border-blue-500/20">
+            <div class="text-3xl mb-2">🏆</div>
+            <h3 class="text-blue-400 font-bold mb-2">#1 Running</h3>
+            <p class="text-neutral-400 text-sm">
+              Cardio is the foundation. Whether it's easy miles, tempo runs, or intervals, running comes first. 
+              A strong aerobic base supports everything else.
+            </p>
+          </div>
+          <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
+            <div class="text-3xl mb-2">💪</div>
+            <h3 class="text-purple-400 font-bold mb-2">#2 Lifting</h3>
+            <p class="text-neutral-400 text-sm">
+              Full-body sessions minus legs (Speediance handles the heavy compounds). 
+              Focus on pressing, pulling, and hypertrophy. Three days per week.
+            </p>
+          </div>
+          <div class="bg-neutral-950 rounded-xl p-5 border border-orange-500/20">
+            <div class="text-3xl mb-2">🥋</div>
+            <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
+            <p class="text-neutral-400 text-sm">
+              Two days per week for technique and rolling. Jiu-Jitsu keeps me humble and provides 
+              excellent anaerobic conditioning and skill work.
+            </p>
           </div>
         </div>
       </div>
     </section>
   </main>
-
-  <script type="application/ld+json" set:html={JSON.stringify(courseSchema)} />
 </Layout>

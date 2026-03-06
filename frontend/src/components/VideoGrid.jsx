@@ -27,6 +27,7 @@ const SORT_OPTIONS = [
   { id: 'oldest', name: 'Oldest First' },
   { id: 'shortest', name: 'Shortest First' },
   { id: 'longest', name: 'Longest First' },
+  { id: 'popular', name: 'Most Popular' },
 ];
 
 function parseDuration(value) {
@@ -211,6 +212,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
       if (sortBy === 'oldest') return a.dateObj - b.dateObj;
       if (sortBy === 'shortest') return a.durationSec - b.durationSec;
       if (sortBy === 'longest') return b.durationSec - a.durationSec;
+      if (sortBy === 'popular') return b.viewCount - a.viewCount;
       return 0;
     });
 
