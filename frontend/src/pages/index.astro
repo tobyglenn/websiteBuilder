@@ -28,7 +28,9 @@ function formatViews(count) {
   return count + ' views';
 }
 
-const recentPosts = BLOG_POSTS.slice(0, 3);
+const recentPosts = [...BLOG_POSTS]
+  .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  .slice(0, 3);
 
 const formattedLifetimeStats = {
   lbsLifted: new Intl.NumberFormat('en-US').format(lifetimeStats.totalLbsLifted),
@@ -99,6 +101,55 @@ const webPageSchema = {
 	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<WorkoutHeatmap client:load />
+		</div>
+	</section>
+
+	{/* Latest from the Blog */}
+	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+				<div>
+					<span class="text-blue-400 font-bold uppercase tracking-widest text-sm mb-2 block">Latest from the Blog</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Fresh Analysis & Reviews</h2>
+					<p class="text-neutral-400 mt-3 max-w-2xl">The newest posts on fitness tech, training trends, and what the data actually says.</p>
+				</div>
+				<a href="/blog" class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:border-blue-500/50 hover:text-blue-400 transition-colors">
+					View All Posts <ArrowRight size={16} />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				{recentPosts.map((post) => (
+					<a href={`/blog/${post.slug}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
+						{post.image && (
+						<div class="aspect-video overflow-hidden bg-neutral-950">
+							<img
+								src={post.image}
+								alt={post.title}
+								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+								loading="lazy"
+							/>
+						</div>
+						)}
+						<div class="p-5">
+							<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide bg-blue-500/10 text-blue-400 border border-blue-500/20">
+								{post.category}
+							</span>
+							<h3 class="mt-3 text-lg font-bold text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-2">
+								{post.title}
+							</h3>
+							<div class="mt-2 text-xs text-neutral-500 flex items-center gap-2">
+								<span>{new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+								<span>•</span>
+								<span>{post.readTime}</span>
+							</div>
+							<p class="mt-3 text-sm text-neutral-400 leading-relaxed">
+								{post.excerpt.length > 100 ? `${post.excerpt.slice(0, 100)}...` : post.excerpt}
+							</p>
+						</div>
+					</a>
+				))}
+			</div>
 		</div>
 	</section>
 
