@@ -387,6 +387,16 @@
       "commit": "051c4a1",
       "notes": "Added 'Latest from the Blog' section to homepage. Shows 3 most recent blog posts sorted by date (newest first), with clickable cards linking to /blog/[slug]. Includes thumbnail, category badge, title, date, read time, and truncated excerpt. Dark theme styling, 'View All Posts' button linking to /blog. Build passes (286 pages)."
     }
+{
+      "timestamp": "2026-03-06T17:18:00-05:00",
+      "idea": "Add category filtering to blog index page",
+      "category": "UX Enhancement - Blog",
+      "files_changed": [
+        "src/pages/blog/index.astro"
+      ],
+      "commit": "e31481e",
+      "notes": "Added category filter buttons to blog index page. Categories: All, Speediance, BJJ, Wearables, Training, Field Reports, The Long Game. Instant client-side filtering with active category highlighted in blue. Build passes (299 pages)."
+    }
   ],
   "in_progress": null,
   "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages).\n2026-03-06 (7:15 AM): Added new blog post 'Speediance vs Tonal: The Warranty Debate Uncovered' from transcript 2025-09-14. Build passes (284 pages). Attempted equipment comparison page but subagents had connectivity issues.\n2026-03-06 (9:15 AM): Attempted two improvements: (1) Workout frequency heatmap component for homepage using real Speediance + Garmin data, (2) New blog post from transcript 2025-09-20 on Spotter Modes. Multiple subagents tried (Clarity, Spark, MiniMax, Sage) - all reported completion but no files were actually modified. Subagent system appears to have tool execution issues. No changes made to site. Build passes (no changes)."
