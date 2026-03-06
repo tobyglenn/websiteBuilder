@@ -35,6 +35,81 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    title: "Is Tonal a Scam? My Honest Review After 9 Million Pounds",
+    slug: "is-tonal-a-scam-honest-review",
+    excerpt: "Tonal the device helped me transform my body and lift over 9 million pounds. Tonal the company? Price hikes, terrible support, and membership lockouts make it one of the worst ownership experiences I've had.",
+    category: "Reviews",
+    tags: ["Tonal", "Smart Gym", "Home Gym", "Review", "Honest Review"],
+    published: "2025-08-26",
+    featured: false,
+    content: `I wanted to make this one plain and simple: Tonal the machine is incredible. Tonal the company is awful. Both can be true, and after lifting over 9 million pounds on this thing, I think I've earned the right to say it directly.
+
+## The Transformation Was Real
+
+I used Tonal for the strength training side of a massive body transformation. I went from over 250 pounds down to around 180 at one point, and now I sit around 195-196. The device played a huge role in that.
+
+Before turning off membership, my profile showed roughly 8,008,844 pounds lifted. Total lifted is now over 9 million pounds. So when I say the hardware works, I mean it. This wasn't a casual toy in my house - this was my primary training tool for years.
+
+## Tonal the Device Is Phenomenal
+
+Let's give credit where it's due: the training experience is excellent when everything is working. Dynamic weight, eccentric modes, progression logic, and safety features made a real difference for me.
+
+I do jiu-jitsu, run, and lift. Before Tonal, I was constantly tweaking something in a traditional home gym, especially when pushing near failure. Tonal reduced that injury pattern for me because of the way resistance disengages and adapts. The product itself absolutely delivers.
+
+## Tonal the Company Is the Problem
+
+Now the ugly part. Ownership experience with Tonal has been one of the worst I've had with any expensive product.
+
+- I paid over $5,000 for the machine
+- I paid $63/month membership (after increases)
+- Support still felt hostile and low-trust
+
+A major example: my bar control module started failing shortly after warranty. It worked inconsistently - sometimes not disengaging when expected. That's a safety issue. I contacted support expecting basic goodwill replacement for what is essentially a small Bluetooth controller. They wanted $60-$80.
+
+I declined. About a month later, after a software update, it started working again. No acknowledgment, no ownership, no follow-up saying, "our bad." That's Tonal in a nutshell: blame the user first, fix quietly later.
+
+Then there's the membership pricing story. Tonal framed increases as roughly $10/month. In reality, with added tax, many users felt closer to $14-$15 monthly increase. It's the pattern that matters: messaging that sounds clean in marketing but feels very different on your bill.
+
+## The Buyback Program Felt Like an Insult
+
+The Tonal buyback was marketed like customer care. The math said otherwise. They offered up to $1,000, but couldn't be combined with active promos. At launch they were already discounting new units by $500, which effectively made some trade-ins feel like a $500 credit on a machine people paid around $5,000 for - while still paying ongoing membership.
+
+That's why I called it a stealback, not a buyback.
+
+## What Happens When You Cancel Membership (This Is the Part They Don't Market)
+
+This is where things go from annoying to unacceptable.
+
+When membership is off, the machine becomes intentionally crippled:
+
+- Main interface actions route you toward reactivation
+- The lower UI controls I used for years get moved
+- A giant reactivate prompt takes over prime screen space
+- Tracking and smart functionality drop off a cliff
+
+You keep basically the most stripped-down custom lifting interface: manual weight adjustments with limited accessory options. No real smart progression workflow. No meaningful movement tracking like paid mode. It's a $5,000+ machine turned into a glorified cable unit with a giant ad asking you to pay again.
+
+For me, that's the core trust violation. If someone buys expensive hardware, baseline usability should remain respectful even without subscription.
+
+## More Friction: Parts, Service, and Moves
+
+I also have a frayed cord. Replacement quote was over $300, and it isn't user-friendly to replace. My wife won't even use the machine now because she doesn't trust that cable.
+
+I moved this unit myself between houses because I'd seen too many bad relocation stories, including expensive official moves that took weeks and were installed wrong.
+
+At every stage - support, parts, policy, communication - Tonal feels optimized for extraction, not customer loyalty.
+
+## Final Verdict
+
+Tonal is not a scam in the sense that the hardware doesn't work. It does work, and it helped transform my body.
+
+But if you're asking, "Is Tonal a scam?" I understand why people feel that way once they deal with the company. The gap between product quality and company behavior is massive.
+
+My honest take: amazing machine, awful company, and not a brand I trust anymore. If you think there's even a chance you'll cancel membership someday, think very carefully before buying in.
+
+You're not just buying hardware. You're buying into the company behind it. And that part has been dreadful.`
+  },
+  {
     title: "Speediance Unlimited Sets: The Setting You Must Change",
     slug: "speediance-unlimited-sets-setting",
     excerpt: "The default Speediance setting is wrong. Here's why Unlimited Sets should be on and how it fixes your progressive overload.",
