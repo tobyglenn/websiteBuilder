@@ -38,17 +38,17 @@ export const BLOG_POSTS = [
     slug: "the-dangers-of-lifting-alone-near-death-bench-press-story",
     title: "The Lift That Almost Killed Me: Why I Stopped Benching Alone",
     excerpt: "One failed bench rep bent my bar nearly in half and could have ended far worse. This is the real story, the safety lesson, and why training alone with free weights deserves more respect.",
-    content: `<p>I used to prefer training alone, and for a long time I accepted the tradeoff: no spotter. That decision eventually caught up with me in a way I still think about.</p>
+    content: `<p>I prefer to train alone, and for a long time I accepted the tradeoff that comes with that: no spotter. I gave up the safety net because I liked training solo.</p>
 
-<p>On one bench session, I had a lot of weight on the bar and hit a point where I couldn't control it. I dropped the weight, got my head out of the way in time, and the bar crashed into the safety catch. The impact bent the bar almost in half. It was one of those moments where you instantly realize how close you were to a catastrophic outcome.</p>
+<p>Then I had a bench press rep go very wrong. I had a lot of weight on the bar, lost control, and dropped it. I got my head out of the way just in time, and the bar caught on a safety catch—but the impact bent the bar almost in half.</p>
 
-<p>That experience changed how I think about risk in lifting. Free weights are effective, and I still respect them, but they can become dangerous fast when you're pushing heavy loads without a spotter. We've all seen videos where the bar rolls onto someone's neck during bench—those aren't just scary clips, they're examples of how quickly things can turn fatal.</p>
+<p>That moment drove home how dangerous free weights can be when you're lifting heavy alone. You see clips online of bars rolling onto people's necks during bench, and it's easy to scroll past them. But those are real failure scenarios, and they can be fatal.</p>
 
-<p>I also had another bench attempt in the past where I failed a rep and couldn't re-rack. The bar ended up on my stomach, and I had to fight my way out of it. Even when you survive those moments, they leave a message: training alone requires a different level of safety planning than most people give it.</p>
+<p>I've also had another failure where I couldn't re-rack the bar and it ended up on my stomach. I had to tilt and dump the weight to get out. I got through both incidents, but both made the same point clear: if you train alone, you have to plan for failure, not just for perfect reps.</p>
 
-<p>My takeaway now is simple: if you're lifting heavy alone, build your setup around failure, not success. Use safeties correctly, avoid ego loading, and be honest about fatigue. Better yet, use equipment that can safely disengage resistance when you hit failure.</p>
+<p>My takeaway is simple: respect heavy benching, use safeties correctly, and don't rely on luck. If you're going to lift alone, set everything up so a failed rep doesn't become a life-or-death event.</p>
 
-<p>You can absolutely train hard and still train smart. The goal isn't just to get stronger this week—it's to still be healthy enough to train next year.</p>`,
+<p>You can still train hard and make progress—but staying alive and uninjured is the first priority.</p>`,
     category: "Training Tips",
     tags: ["Bench Press", "Safety", "Training Alone", "Free Weights", "Spotter", "Home Gym"],
     author: "Toby",
