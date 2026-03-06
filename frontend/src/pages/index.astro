@@ -7,6 +7,7 @@ import videosData from '../data/videos.json';
 import { Play, ArrowRight, Clock, Eye, Video } from 'lucide-react';
 import { trainingStreak, lastWorkoutData, thisWeekVolume, thisMonthMiles } from '../lib/trainingStats.js';
 import { lifetimeStats } from '../data/stats.js';
+import { recentActivity } from '../data/recentActivity.js';
 
 const lastWorkout = lastWorkoutData;
 
@@ -198,6 +199,64 @@ const webPageSchema = {
 			</div>
 		</div>
 	</section>
+	{/* Recent Activity Section */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Recent Activity</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Recent Activity</h2>
+				<p class="text-neutral-400 mt-3 max-w-xl mx-auto">Latest from training</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				{recentActivity.map((item) => (
+					<div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all">
+						<div class="flex items-start justify-between gap-4">
+							<div>
+								<div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">{item.date}</div>
+								<h3 class="text-white font-bold text-lg">{item.title}</h3>
+								<p class="text-neutral-400 text-sm mt-1">{item.subtitle}</p>
+							</div>
+							<div class="text-2xl" aria-hidden="true">
+								{item.type === 'run' ? '🏃‍♂️' : item.type === 'workout' ? '🏋️' : '😴'}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* Recent Activity Section */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Live Data</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Recent Activity</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Your latest workouts, runs, and recovery scores from your devices.</p>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+				{recentActivity.map(activity => (
+					<div class="bg-neutral-900 rounded-lg p-5 border border-neutral-800 hover:border-blue-500/50 transition-all">
+						<div class="flex items-center gap-2 mb-3">
+							<span class="text-2xl">
+								{activity.type === 'run' ? '🏃‍♂️' : activity.type === 'workout' ? '🏋️' : '😴'}
+							</span>
+							<span class="text-xs font-bold text-neutral-500 uppercase tracking-wider">
+								{activity.type}
+							</span>
+						</div>
+						<h3 class="font-bold text-white text-sm mb-1">{activity.title}</h3>
+						<p class="text-xs text-neutral-400 mb-2">{activity.subtitle}</p>
+						<div class="text-xs text-neutral-600">
+							{new Date(activity.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
 	{/* Recent Videos Section */}
 	<section class="py-16 bg-neutral-950">
 		<div class="container mx-auto px-4">
