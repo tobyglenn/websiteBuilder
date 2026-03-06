@@ -156,6 +156,9 @@ const articleJsonLd = {
   image={post.image}
   ogType="article"
   jsonLd={faqSchema ? [articleJsonLd, faqSchema] : articleJsonLd}
+  publishedTime={post.published_at}
+  modifiedTime={post.published_at}
+  author="Toby Glenn Peters"
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Blog", url: "/blog" },

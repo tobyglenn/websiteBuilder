@@ -17,6 +17,9 @@ interface Props {
   episodeSlug?: string;
   breadcrumbs?: Array<{ name: string; url: string }>;
   noindex?: boolean;
+  publishedTime?: string;
+  modifiedTime?: string;
+  author?: string;
 }
 
 const { 
@@ -30,7 +33,14 @@ const {
   episodeSlug,
   breadcrumbs,
   noindex = false,
+  publishedTime,
+  modifiedTime,
+  author,
 } = Astro.props;
+
+// Twitter handles
+const twitterSite = "@tobyonfitness";
+const twitterCreator = "@tobyglenn";
 
 // Default description constant for SEO fallback
 const DEFAULT_DESCRIPTION = "Independent fitness technology reviews, analysis, and deep dives on Speediance, Tonal, Garmin, WHOOP, running, and home gym training.";
@@ -257,9 +267,16 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
       }}
       extend={{
         meta: [
+          { name: "twitter:site", content: twitterSite },
+          { name: "twitter:creator", content: twitterCreator },
           { name: "twitter:title", content: title },
           { name: "twitter:description", content: seoDescription },
           { name: "twitter:image", content: resolvedImage },
+          ...(ogType === "article" ? [
+            { name: "article:published_time", content: publishedTime || "" },
+            { name: "article:modified_time", content: modifiedTime || publishedTime || "" },
+            { name: "article:author", content: author || "Toby Glenn Peters" },
+          ] : []),
           { name: "author", content: "Toby Glenn Peters" },
           { name: "robots", content: noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
           { name: "ai-content-type", content: "educational" },
