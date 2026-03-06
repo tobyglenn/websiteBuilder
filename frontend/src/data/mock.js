@@ -35,6 +35,31 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    slug: "the-dangers-of-lifting-alone-near-death-bench-press-story",
+    title: "The Lift That Almost Killed Me: Why I Stopped Benching Alone",
+    excerpt: "One failed bench rep bent my bar nearly in half and could have ended far worse. This is the real story, the safety lesson, and why training alone with free weights deserves more respect.",
+    content: `<p>I used to prefer training alone, and for a long time I accepted the tradeoff: no spotter. That decision eventually caught up with me in a way I still think about.</p>
+
+<p>On one bench session, I had a lot of weight on the bar and hit a point where I couldn't control it. I dropped the weight, got my head out of the way in time, and the bar crashed into the safety catch. The impact bent the bar almost in half. It was one of those moments where you instantly realize how close you were to a catastrophic outcome.</p>
+
+<p>That experience changed how I think about risk in lifting. Free weights are effective, and I still respect them, but they can become dangerous fast when you're pushing heavy loads without a spotter. We've all seen videos where the bar rolls onto someone's neck during bench—those aren't just scary clips, they're examples of how quickly things can turn fatal.</p>
+
+<p>I also had another bench attempt in the past where I failed a rep and couldn't re-rack. The bar ended up on my stomach, and I had to fight my way out of it. Even when you survive those moments, they leave a message: training alone requires a different level of safety planning than most people give it.</p>
+
+<p>My takeaway now is simple: if you're lifting heavy alone, build your setup around failure, not success. Use safeties correctly, avoid ego loading, and be honest about fatigue. Better yet, use equipment that can safely disengage resistance when you hit failure.</p>
+
+<p>You can absolutely train hard and still train smart. The goal isn't just to get stronger this week—it's to still be healthy enough to train next year.</p>`,
+    category: "Training Tips",
+    tags: ["Bench Press", "Safety", "Training Alone", "Free Weights", "Spotter", "Home Gym"],
+    author: "Toby",
+    published_at: "2026-01-15",
+    date: "2026-01-15",
+    featured: false,
+    readTime: 2,
+    image: "https://i.ytimg.com/vi/5Qn_7kTJgfQ/hqdefault.jpg"
+  },
+
+  {
     slug: "full-body-minus-legs-current-training-split-explained",
     title: "Full Body Minus Legs: My Current Training Split Explained",
     excerpt: "After years of Push Pull Legs and full body workouts, I landed on a full body minus legs approach that fits my life. Here's why it works, when I switch to bro splits, and what I learned from the Lunar Challenge.",
