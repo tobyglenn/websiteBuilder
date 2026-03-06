@@ -368,14 +368,14 @@
       "notes": "Added 'Most Popular' sort option to VideoGrid component. Users can now sort videos by view count (highest first) in addition to date and duration. Build passes (285 pages)."
     },
     {
-      "timestamp": "2026-03-06T14:15:00-05:00",
-      "idea": "Add featured videos section to homepage with real YouTube data",
-      "category": "UX Enhancement - Homepage",
+      "timestamp": "2026-03-06T15:15:00-05:00",
+      "idea": "Add new blog post: Speediance Spotter Modes Explained (2025-09-20 transcript)",
+      "category": "Content - Blog Post",
       "files_changed": [
-        "src/pages/index.astro"
+        "src/data/mock.js"
       ],
-      "commit": "b68cd2a",
-      "notes": "Added Featured Videos section to homepage showing 4 videos with view counts. Imports from youtube.js data, displays thumbnail, title, duration badge, and formatted view count. Responsive grid (1/2/4 columns). Build passes."
+      "commit": "4b5d7e4",
+      "notes": "Added new blog post from transcript 2025-09-20. Covers Spotter Mode 1 vs 2 differences, Assist 2 for drop sets, safety tips (face machine, bring yourself to attachments), why machines are safer than free weights when training alone, Unlimited Sets recommendation. Category: Speediance. Build passes."
     }
   ],
   "in_progress": null,
