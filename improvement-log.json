@@ -325,6 +325,17 @@
       ],
       "commit": "2337a69",
       "notes": "Expanded existing Whoop vs Garmin blog post with full transcript content (1638 words, 9 min read). Covers Whoop 5 size comparison, Garmin Forerunner 265S, device longevity, notification experience, and BJJ wearable considerations. Build passes (285 pages)."
+    },
+    {
+      "timestamp": "2026-03-06T10:20:00-05:00",
+      "idea": "Add workout frequency heatmap to homepage with real Speediance + Garmin data",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/components/WorkoutHeatmap.jsx",
+        "src/pages/index.astro"
+      ],
+      "commit": "909de7a",
+      "notes": "Created WorkoutHeatmap React component that combines data from Speediance and Garmin. Displays GitHub-style 52-week heatmap with color intensity for workout count. Shows total active days, current streak, longest streak stats. Tooltips on hover show date and session count. Build passes (297 pages)."
     }
   ],
   "in_progress": null,
