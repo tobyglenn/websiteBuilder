@@ -237,12 +237,14 @@
       "notes": "Added new blog post from transcript 2025-08-26. Covers Toby's experience with Tonal - device is great (9M lbs lifted), company is awful (membership price hikes, terrible support, buyback program insult, membership lockout). Build passes (275 pages)."
     },
     {
-      "timestamp": "2026-03-05T23:13:00-05:00",
-      "idea": "Add Recent Activity feed to homepage (subagent failed)",
-      "category": "No Changes - Subagent Errors",
-      "files_changed": [],
-      "commit": "none",
-      "notes": "Attempted to add Recent Activity section showing latest Garmin runs, Speediance workouts, WHOOP recovery. Clarity and MiniMax subagents encountered connection errors/timeouts. Site is well-improved with 22+ features already."
+      "timestamp": "2026-03-06T00:15:00-05:00",
+      "idea": "New blog post: Speediance 2S First Look - $5,000 Honest Review",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "c6adbf3",
+      "notes": "Added new blog post from transcript 2025-08-28. Title: 'I Spent $5,000 On the Speediance 2S. Here's What Nobody Tells You.' Covers nearly silent standby mode vs original, extra 40 pounds of resistance feeling like 60, unfiltered first look after getting both machines home. Build passes (272 pages)."
     }
   ],
   "in_progress": null,
