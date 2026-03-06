@@ -1,0 +1,338 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Speediance Smart Home Gym",
+    "description": "AI-powered smart home gym with 220 lbs cable resistance, no subscription required. Freestanding design.",
+    "brand": { "@type": "Brand", "name": "Speediance" },
+    "offers": {
+      "@type": "Offer",
+      "price": "1995",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Tonal Smart Home Gym",
+    "description": "Digital weight smart home gym requiring wall mount and monthly subscription coaching.",
+    "brand": { "@type": "Brand", "name": "Tonal" },
+    "offers": {
+      "@type": "Offer",
+      "price": "2495",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  }
+];
+---
+
+<Layout
+  title="Speediance vs Tonal: My Honest Comparison After 10M+ Pounds"
+  description="I've lifted 9M+ lbs on Tonal and 1.29M+ lbs on Speediance. Here's my honest side-by-side comparison after years with both smart home gyms."
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "Speediance vs Tonal", url: "/compare" }]}
+  jsonLd={jsonLd}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* Hero */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Equipment Comparison · Real Data, No Sponsorship</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            Speediance vs Tonal:<br />
+            <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              My Honest Comparison After 10M+ Pounds
+            </span>
+          </h1>
+          <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            I lifted 9M+ pounds on Tonal over several years before switching to Speediance. Now at 1.29M+ lbs on Speediance, I have a real opinion. Here's the full breakdown — no affiliate bias, just data.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 border border-neutral-700/50 text-neutral-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-neutral-400 inline-block"></span>
+              9M+ lbs on Tonal
+            </div>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-900/20 border border-blue-500/30 text-blue-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span>
+              1.29M+ lbs on Speediance
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Comparison Table */}
+    <section class="py-16 bg-neutral-900/50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2 text-center">Feature Comparison</h2>
+        <p class="text-neutral-400 text-center mb-10">Side-by-side specs from someone who's used both</p>
+
+        {/* Mobile: stacked cards */}
+        <div class="md:hidden space-y-4 mb-8">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-blue-400">Speediance</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">Price:</span> $1,995 one-time</li>
+              <li><span class="text-neutral-500">Membership:</span> <span class="text-green-400">Not required ✓</span></li>
+              <li><span class="text-neutral-500">Resistance:</span> Up to 220 lbs (cable)</li>
+              <li><span class="text-neutral-500">Installation:</span> Freestanding</li>
+              <li><span class="text-neutral-500">Warranty:</span> 2 years</li>
+              <li><span class="text-neutral-500">Smart Coaching:</span> AI adaptive</li>
+              <li><span class="text-neutral-500">Offline Use:</span> <span class="text-green-400">Yes ✓</span></li>
+              <li><span class="text-neutral-500">Price Hikes:</span> <span class="text-green-400">None ✓</span></li>
+            </ul>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-neutral-300">Tonal</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">Price:</span> $2,495 + $39/mo</li>
+              <li><span class="text-neutral-500">Membership:</span> <span class="text-red-400">Required ✗</span></li>
+              <li><span class="text-neutral-500">Resistance:</span> Up to 200 lbs (digital)</li>
+              <li><span class="text-neutral-500">Installation:</span> Wall-mount required</li>
+              <li><span class="text-neutral-500">Warranty:</span> 1 year</li>
+              <li><span class="text-neutral-500">Smart Coaching:</span> Tonal coaches</li>
+              <li><span class="text-neutral-500">Offline Use:</span> <span class="text-red-400">Limited ✗</span></li>
+              <li><span class="text-neutral-500">Price Hikes:</span> <span class="text-red-400">Experienced ✗</span></li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Desktop: table */}
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800">
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium w-1/3">Feature</th>
+                <th class="text-center py-3 px-4 text-blue-400 font-bold w-1/3">Speediance</th>
+                <th class="text-center py-3 px-4 text-neutral-300 font-bold w-1/3">Tonal</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-800">
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Price</td>
+                <td class="py-3 px-4 text-center text-green-400 font-medium">$1,995 one-time</td>
+                <td class="py-3 px-4 text-center text-red-400">$2,495 + $39/mo</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Membership Required</td>
+                <td class="py-3 px-4 text-center text-green-400">No ✓</td>
+                <td class="py-3 px-4 text-center text-red-400">Yes ✗</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Max Resistance</td>
+                <td class="py-3 px-4 text-center text-green-400">220 lbs (cable)</td>
+                <td class="py-3 px-4 text-center text-neutral-300">200 lbs (digital)</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Installation</td>
+                <td class="py-3 px-4 text-center text-green-400">Freestanding ✓</td>
+                <td class="py-3 px-4 text-center text-red-400">Wall-mount ✗</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Warranty</td>
+                <td class="py-3 px-4 text-center text-green-400">2 years</td>
+                <td class="py-3 px-4 text-center text-red-400">1 year</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Smart Coaching</td>
+                <td class="py-3 px-4 text-center text-neutral-300">AI adaptive</td>
+                <td class="py-3 px-4 text-center text-neutral-300">Tonal coaches</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Cable System</td>
+                <td class="py-3 px-4 text-center text-neutral-300">Dual cables</td>
+                <td class="py-3 px-4 text-center text-neutral-300">Dual arms</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Offline Use</td>
+                <td class="py-3 px-4 text-center text-green-400">Yes ✓</td>
+                <td class="py-3 px-4 text-center text-red-400">Limited ✗</td>
+              </tr>
+              <tr class="hover:bg-neutral-900/50 transition-colors">
+                <td class="py-3 px-4 text-neutral-400">Price Hikes</td>
+                <td class="py-3 px-4 text-center text-green-400">None ✓</td>
+                <td class="py-3 px-4 text-center text-red-400">Experienced ✗</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* My Experience */}
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2">My Experience</h2>
+        <p class="text-neutral-400 mb-10">Real numbers from real workouts — no guessing</p>
+        <div class="grid md:grid-cols-2 gap-6">
+
+          {/* Tonal */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center font-bold text-neutral-300">T</div>
+              <div>
+                <h3 class="font-bold text-lg">Tonal</h3>
+                <p class="text-xs text-neutral-500">The Pioneer · Member until 2025</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-neutral-800/60 rounded-xl p-3">
+                <div class="text-2xl font-bold text-white">9M+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">lbs lifted</div>
+              </div>
+              <div class="bg-neutral-800/60 rounded-xl p-3">
+                <div class="text-2xl font-bold text-white">$2,495</div>
+                <div class="text-xs text-neutral-500 mt-0.5">upfront cost</div>
+              </div>
+              <div class="bg-neutral-800/60 rounded-xl p-3">
+                <div class="text-2xl font-bold text-red-400">$39/mo</div>
+                <div class="text-xs text-neutral-500 mt-0.5">membership fee</div>
+              </div>
+              <div class="bg-neutral-800/60 rounded-xl p-3">
+                <div class="text-2xl font-bold text-neutral-400">↑</div>
+                <div class="text-xs text-neutral-500 mt-0.5">price hikes hit</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Tonal was my first smart home gym and it changed everything. I was a consistent user for years, building real strength and tracking every rep. But the subscription never sat right — and when prices crept up, I started looking for alternatives.
+            </p>
+          </div>
+
+          {/* Speediance */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center font-bold text-blue-400">S</div>
+              <div>
+                <h3 class="font-bold text-lg">Speediance</h3>
+                <div class="flex items-center gap-2">
+                  <p class="text-xs text-neutral-500">Since July 2025</p>
+                  <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Current Setup</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-300">1.29M+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">lbs lifted</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-green-400">$1,995</div>
+                <div class="text-xs text-neutral-500 mt-0.5">one-time cost</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-green-400">$0/mo</div>
+                <div class="text-xs text-neutral-500 mt-0.5">no subscription</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-400">220 lbs</div>
+                <div class="text-xs text-neutral-500 mt-0.5">max resistance</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Switching to Speediance removed the subscription anxiety. The freestanding design meant no wall drilling, and the 220 lbs of cable resistance covers everything I need. The AI mode adapts in real-time — something Tonal couldn't match.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* Pros & Cons */}
+    <section class="py-16 bg-neutral-900/50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10">Pros & Cons</h2>
+        <div class="grid md:grid-cols-2 gap-6">
+
+          {/* Speediance */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-blue-400">Speediance</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
+              <ul class="space-y-2">
+                {["No subscription fees — ever", "Freestanding, no wall drilling", "Higher max resistance (220 lbs)", "Real-time AI weight adaptation", "One-time cost pays for itself in ~2 years vs Tonal"].map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
+              <ul class="space-y-2">
+                {["Newer brand — smaller content library", "App still maturing vs established competitors"].map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Tonal */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-neutral-300">Tonal</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
+              <ul class="space-y-2">
+                {["Established brand with huge content library", "Excellent coaching quality", "Sleek wall-mount design", "Strong community and class variety"].map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
+              <ul class="space-y-2">
+                {["$39/mo subscription required — ongoing cost forever", "Wall installation required (drilling, mounting)", "Price increases experienced over time", "Lower max resistance (200 lbs)"].map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* Recommendation */}
+    <section class="py-16">
+      <div class="container mx-auto px-4 max-w-3xl">
+        <div class="bg-neutral-900 border border-blue-500/20 rounded-2xl p-8">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">My Bottom Line</p>
+          <h2 class="text-3xl font-bold mb-5">The Verdict</h2>
+          <p class="text-neutral-300 leading-relaxed mb-4">
+            If you're starting fresh and want to avoid ongoing subscription costs, <strong class="text-white">Speediance wins on value</strong>. The $1,995 one-time price vs $2,495 + $39/month means Speediance pays for itself compared to Tonal after about 2 years — and after that, every month is savings.
+          </p>
+          <p class="text-neutral-300 leading-relaxed mb-4">
+            With no wall installation required and 220 lbs of resistance, it's the smarter buy for most home gym setups. The AI adaptation is genuinely impressive — it adjusts resistance mid-set in ways Tonal simply can't.
+          </p>
+          <p class="text-neutral-400 leading-relaxed mb-8">
+            That said, Tonal's content library and coaching quality are exceptional. If you're committed to using it daily and don't mind the ongoing subscription, the experience is polished. I just wasn't willing to keep paying forever.
+          </p>
+          <a
+            href="/speediance"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors"
+          >
+            See My Speediance Journey →
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
