@@ -62,6 +62,49 @@ export const BLOG_POSTS = [
     readTime: 3
   },
   {
+    slug: "how-one-month-of-no-training-aged-my-body",
+    title: "How One Month of No Training 'Aged' My Body",
+    excerpt: "WHOOP's health age metric gave me a shocking reality check after a month of vacations and zero training. I'd managed to get my WHOOP age younger than my actual age last year—but one month of detraining reversed all of that progress and then some.",
+    content: `<p>I've been wearing my WHOOP for 18 months now, and there's one feature that keeps me coming back: the health age algorithm. WHOOP doesn't just track your recovery and strain—they've built a metric that translates all that data into an "age" that represents how well your body is performing relative to what it should be doing.</p>
+
+<p>Some people complain that it's a gimmick. "It shouldn't be an age," they say. But I think it's genius—it's just an easy, relatable way to understand whether you're trending in the right direction or drifting backward. And right now? I'm drifting backward in a way I didn't expect.</p>
+
+<p>Last year, I had gotten my WHOOP age down to where it was younger than my actual age. That felt incredible. Years of consistent training, good sleep, and intentional recovery had paid off. My body was performing like it was younger than the number of birthdays I'd celebrated.</p>
+
+<p>Then came the vacations.</p>
+
+<p>One month. No training. Just relaxing, eating, and enjoying time off. Sounds innocent enough, right? But WHOOP doesn't lie, and the data told a brutal story: my health age is now older than my actual age.</p>
+
+<p>That's the thing about fitness that nobody talks about enough—it's not a destination you reach and then maintain effortlessly. It's a use-it-or-lose-it proposition, and the losses happen faster than you think.</p>
+
+<h2>The Math of Detraining</h2>
+
+<p>Here's what I learned from this experiment in inactivity: your body adapts incredibly quickly to reduced demand. Within just a few weeks of no structured training, you start losing the cardiovascular efficiency, muscular endurance, and recovery capacity that took months or years to build.</p>
+
+<p>WHOOP captures this through heart rate variability (HRV), resting heart rate, and a handful of other biomarkers that collectively determine your "health age." When you're training consistently, your HRV goes up, your resting heart rate tends to drop, and your body shows signs of being younger than its years. When you stop? All those metrics start moving in the wrong direction.</p>
+
+<p>I didn't feel terrible during that month off. I wasn't injured, I wasn't sick. But apparently, my body was aging me from the inside out.</p>
+
+<h2>What This Taught Me</h2>
+
+<p>I've always believed that rest and recovery are essential parts of training. And they are. But there's a difference between intentional deload weeks and complete training cessation. This experience showed me exactly where that line is—and how easy it is to cross it without realizing.</p>
+
+<p>The solution isn't to never take time off. Life happens, vacations happen, sometimes your body needs a break. But the lesson here is that "taking time off" shouldn't mean "stop everything completely." Even minimal maintenance work—light movement, brief workouts, basic mobility—seems to be enough to keep the aging process at bay.</p>
+
+<p>Now I'm playing catch-up. I'm back to training, slowly rebuilding what I lost. And I'm watching my WHOOP health age like a hawk, waiting for it to trend back in the right direction. It's already starting to improve, which is encouraging—but it's a stark reminder that fitness is a daily practice, not a one-time achievement.</p>
+
+<p>If you're wearing a WHOOP or similar tracker, pay attention to that health age metric. It's not just a number—it's a reflection of the choices you're making every day. And if you see it starting to creep up, that's your body telling you something.</p>
+
+<p>Listen to it.</p>`,
+    category: "The Long Game",
+    tags: ["whoop", "recovery", "aging", "detraining", "training"],
+    author: "Toby",
+    published_at: "2026-01-29",
+    date: "2026-01-29",
+    featured: false,
+    readTime: 4
+  },
+  {
     slug: "the-dangers-of-lifting-alone-near-death-bench-press-story",
     title: "The Lift That Almost Killed Me: Why I Stopped Benching Alone",
     excerpt: "One failed bench rep bent my bar nearly in half and could have ended far worse. This is the real story, the safety lesson, and why training alone with free weights deserves more respect.",
