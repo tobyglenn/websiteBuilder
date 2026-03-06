@@ -386,8 +386,8 @@
       ],
       "commit": "051c4a1",
       "notes": "Added 'Latest from the Blog' section to homepage. Shows 3 most recent blog posts sorted by date (newest first), with clickable cards linking to /blog/[slug]. Includes thumbnail, category badge, title, date, read time, and truncated excerpt. Dark theme styling, 'View All Posts' button linking to /blog. Build passes (286 pages)."
-    }
-{
+    },
+    {
       "timestamp": "2026-03-06T17:18:00-05:00",
       "idea": "Add category filtering to blog index page",
       "category": "UX Enhancement - Blog",
@@ -396,6 +396,17 @@
       ],
       "commit": "e31481e",
       "notes": "Added category filter buttons to blog index page. Categories: All, Speediance, BJJ, Wearables, Training, Field Reports, The Long Game. Instant client-side filtering with active category highlighted in blue. Build passes (299 pages)."
+    },
+    {
+      "timestamp": "2026-03-06T18:15:00-05:00",
+      "idea": "Add This Week in Training widget to homepage with real Garmin + Speediance data",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/components/ThisWeekWidget.jsx",
+        "src/pages/index.astro"
+      ],
+      "commit": "98250cf",
+      "notes": "Created ThisWeekWidget React component that shows this week's workouts, miles run, and lbs lifted compared to last week. Uses real Garmin and Speediance data. Displays weekly progress with green/red comparison arrows. Widget appears below workout heatmap on homepage. Build passes (286 pages)."
     }
   ],
   "in_progress": null,
