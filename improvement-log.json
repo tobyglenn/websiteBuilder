@@ -225,7 +225,7 @@
       ],
       "commit": "3d9cb9e",
       "notes": "PR Board page from prior run. Features: Hall of Fame top 5 PRs, all PRs organized by muscle group (Back & Lats, Chest & Triceps, Legs & Glutes, Core & Arms), 25 total PRs totaling 3,700+ lbs. Includes JSON-LD schema. Build passes (270 pages)."
-    }
+    },
     {
       "timestamp": "2026-03-05T22:15:00-05:00",
       "idea": "New blog post: Is Tonal a Scam? My Honest Review After 9 Million Pounds",
@@ -245,7 +245,7 @@
       ],
       "commit": "c6adbf3",
       "notes": "Added new blog post from transcript 2025-08-28. Title: 'I Spent $5,000 On the Speediance 2S. Here's What Nobody Tells You.' Covers nearly silent standby mode vs original, extra 40 pounds of resistance feeling like 60, unfiltered first look after getting both machines home. Build passes (272 pages)."
-    }
+    },
     {
       "timestamp": "2026-03-06T01:15:00-05:00",
       "idea": "New blog post: Why Running Might Have Saved My Life",
@@ -255,7 +255,7 @@
       ],
       "commit": "c2f9d3f",
       "notes": "Added new blog post from transcript 2026-01-28. Covers Toby's hospitalization, cardiovascular health assessment, running data (111 runs, 265 miles), cardio philosophy, and gratitude for building cardiovascular reserve. Category: The Long Game. Build passes (272 pages)."
-    }
+    },
     {
       "timestamp": "2026-03-06T02:15:00-05:00",
       "idea": "New blog post: Full Body Minus Legs - My Current Training Split Explained",
@@ -265,8 +265,8 @@
       ],
       "commit": "2af7316",
       "notes": "Added new blog post from transcript 2026-01-18. Covers Toby's journey from PPL to full body minus legs training split, the Lunar Challenge that forced a switch to bro split, training philosophy, safety of machines vs free weights, and current priorities (running > lifting > BJJ). Category: Training Tips. Build passes (278 pages)."
-    }
-{
+    },
+    {
       "timestamp": "2026-03-06T03:15:00-05:00",
       "idea": "New blog post: The Dangers of Lifting Alone - A Near-Death Bench Press Story",
       "category": "Content - Blog Post",
@@ -285,8 +285,8 @@
       ],
       "commit": "cefc059",
       "notes": "Added new blog post from transcript 2026-01-30. Covers Toby's current fitness priorities: 1) Running (#1 - training for Lucky Charm 4-mile race), 2) Lifting (#2), 3) Jiu-jitsu (#3). Category: The Long Game. Build passes (293 pages)."
-    }
-{
+    },
+    {
       "timestamp": "2026-03-06T05:15:00-05:00",
       "idea": "New blog post: How One Month of No Training 'Aged' My Body",
       "category": "Content - Blog Post",
@@ -305,8 +305,18 @@
       ],
       "commit": "08f5001",
       "notes": "Added new blog post from transcript 2025-11-27. Covers a BJJ near-miss where a larger partner nearly dropped weight on Toby's neck during rolling, the risks of neck submissions, and safety lessons from the experience. Category: Training Tips. Build passes (279 pages)."
+    },
+    {
+      "timestamp": "2026-03-06T07:15:00-05:00",
+      "idea": "New blog post: Speediance vs Tonal warranty comparison (from transcript 2025-09-14)",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "068dd88",
+      "notes": "Added new blog post from unused transcript. Covers warranty support differences between Speediance and Tonal when out of warranty. Build passes (284 pages)."
     }
   ],
   "in_progress": null,
-  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages)."
+  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages).\n2026-03-06 (7:15 AM): Added new blog post 'Speediance vs Tonal: The Warranty Debate Uncovered' from transcript 2025-09-14. Build passes (284 pages). Attempted equipment comparison page but subagents had connectivity issues."
 }
