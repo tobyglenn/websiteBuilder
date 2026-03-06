@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
+import { ViewTransitions } from 'astro:transitions';
 import LanguageSwitcher from '../components/LanguageSwitcher.jsx';
 import LangDetect from '../components/LangDetect.astro';
 
@@ -302,6 +303,8 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     />
     
     <LangDetect />
+    
+    <ViewTransitions />
     
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
