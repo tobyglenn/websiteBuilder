@@ -51,6 +51,84 @@ export const CHANNEL_ID = videosData.channelId || "UCmSwMp2gPo5PGl32d4oCu-Q";
 export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
+
+  {
+    id: "speediance-spotter-modes-explained",
+    title: "Speediance Spotter Modes Explained: How to Safely Do Drop Sets & Avoid Injury",
+    slug: "speediance-spotter-modes-explained",
+    excerpt: "Spotter Mode 1 and Spotter Mode 2 are not the same thing. Here’s how I use Assist 2 for safer drop sets, why I avoid Assist 1, and the safety habits that matter most when lifting alone.",
+    content: `I wanted to make this post because I kept seeing confusion around Speediance spotter modes, especially from people trying to do drop sets with the ring dial. I also saw a safety story that could have ended badly, and honestly, it reminded me how important setup habits are when you train alone.
+
+## Spotter Mode 1 vs Spotter Mode 2 (Assist 1 vs Assist 2)
+
+These two modes are very different in real use.
+
+Assist 2 (Spotter Mode 2) behaves like what most people expect from a digital spotter. When I start failing, it progressively drops weight and lets me keep working. If I hold at failure, it keeps bringing weight down toward minimum. That means it can act like a real safety net and a true drop-set tool.
+
+Assist 1 (Spotter Mode 1) did not behave that way for me. It lowered weight too slowly, sometimes barely helped, and didn’t give me the kind of bailout I’d trust if something goes wrong. In practice, it felt like the worst of both worlds: still fatiguing, not enough assistance, and not the safety behavior I actually want.
+
+If you’re using a spotter mode on Speediance, my recommendation is simple: use Assist 2.
+
+## Can You Use Assist 2 for Drop Sets? Yes.
+
+Short answer: yes, and it’s better than manually spinning the ring mid-set.
+
+With Assist 2, once the rep starts breaking down, the machine lowers the load automatically. Then your next reps continue from that lower point. If you hold longer, it keeps stepping down. That is basically what most people want from drop sets: keep tension high while reducing load as fatigue climbs.
+
+Could you still do manual ring-based drops? Sure. I just think it’s an inferior workflow. It’s clunkier, harder to execute cleanly under fatigue, and gives you one more thing to think about when you should be focused on form and safety.
+
+## Why I Personally Don’t Use Drop Sets Often
+
+I’m not anti-drop set. I’m just honest about tradeoffs.
+
+For me, drop sets create a huge fatigue cost and a bigger motivation cost. If a training method makes me dread the workout, I’m less likely to stay consistent. And consistency beats theoretical optimization every time.
+
+I’d rather run a progressive overload structure I can execute week after week than chase a 5–10% theoretical hypertrophy edge and burn out mentally.
+
+## Safety Lesson #1: Face the Machine Whenever You Can
+
+This one is non-negotiable for me on movements where orientation is optional (like squats or overhead pressing setups): face the machine.
+
+Why? Because you want immediate access to shutoff methods: ring/handle button and on-screen stop. If something feels wrong at max effort, reaction time matters.
+
+A lot of demo videos show athletes facing away so the camera can see form better. That’s a production choice, not always the safest choice for solo lifting.
+
+## Safety Lesson #2: Bring Yourself to the Attachment (Not the Reverse)
+
+When attaching bars or handles, I bring myself down to the machine and clip in low and controlled. I do not pull the cable/attachment up toward my face and then clip.
+
+That sounds small until you realize how easy it is to bump a button and activate tension at the wrong moment. If you’re holding an attachment near your face and it engages, that can go bad fast.
+
+My rule is simple: keep attachments planted and controlled, clip in with your body close to the machine, and avoid any setup that puts your face in the line of fire.
+
+## Why I Say Machines Are Safer Than Free Weights (When You’re Alone)
+
+I know this is controversial, but I’ll say it clearly: if you’re lifting alone with no human spotter, these machines are safer than free weights.
+
+I’ve lived the downside. I once had 350 lbs on my back doing squats alone in my basement. I missed the rerack position, dumped the weight, and ended up snapping equipment. I got out without catastrophic injury, but it was close enough to leave an impression.
+
+Could free weights be safer with two competent human spotters? Sure. But that’s not how most solo home lifters train. Most people are alone. In that scenario, digital safeties, fast shutoff options, and assist logic are a major upgrade.
+
+## Unlimited Sets: Turn It On
+
+One setting I strongly recommend is Unlimited Sets. I keep it on so I get that small extra window to squeeze out reps and let the machine behavior work with me instead of cutting the set too aggressively.
+
+Combined with smart load-off behavior and Assist 2 when needed, it gives me a safer and more useful training flow.
+
+## My Bottom Line
+
+If you want drop sets on Speediance, use Assist 2.
+
+If you care about safety lifting alone, face the machine when possible, keep ring/handles accessible for emergency shutoff, and attach equipment by bringing yourself to the machine—not bringing cables to your face.
+
+And for me personally? I still don’t use spotter modes or drop sets in most day-to-day training. My default is controlled progressive overload with automation doing the boring math. That keeps me consistent, keeps me safer, and keeps me training long term.`,
+    category: "Speediance",
+    tags: ["speediance", "spotter-modes", "safety", "drop-sets"],
+    publishedAt: "2025-09-20",
+    date: "2025-09-20",
+    readTime: 9,
+    author: "Toby Peters"
+  },
   {
     slug: "the-submission-that-could-have-ended-everything",
     title: "The Submission That Could Have Ended Everything",
@@ -967,4 +1045,86 @@ You're not just buying hardware. You're buying into the company behind it. And t
     featured: false,
     readTime: 1
   },
+  {
+    id: "speediance-spotter-modes-explained",
+    slug: "speediance-spotter-modes-explained",
+    title: "Speediance Spotter Modes Explained: How to Safely Do Drop Sets & Avoid Injury",
+    excerpt: "Spotter Mode 1 vs Spotter Mode 2 work completely differently - and using the wrong one for drop sets is a recipe for disaster. Here's what you need to know before trying this at home.",
+    content: `<p>Someone asked me about doing drop sets on the Speediance, and it inspired me to actually test out the spotter modes properly. Here's what I found - because these two modes are not created equal, and using the wrong one could actually get you hurt.</p>
+
+<h2>Spotter Mode 1 vs Spotter Mode 2: They're Not the Same</h2>
+
+<p>First things first: Spotter Mode 1 (Assist 1) and Spotter Mode 2 (Assist 2) work completely differently. This isn't a minor setting difference - it's two fundamentally different mechanisms.</p>
+
+<p><strong>Spotter Mode 1</strong> is basically a limited assist. It helps you push through sticking points but doesn't dynamically adjust the weight as you fatigue. If you're doing drop sets expecting the machine to lower the weight as you fail - Spotter Mode 1 won't do that. It doesn't lower the weight fast enough to be useful for true drop sets.</p>
+
+<p><strong>Spotter Mode 2</strong> is where the magic happens for drop sets. As you're holding the weight and struggling, it progressively drops the resistance. You hold it at the bottom, it lowers. You hold it longer, it lowers more. It creates a true drop set experience where the machine automatically reduces weight as you approach failure.</p>
+
+<h2>How to Actually Do Drop Sets on Speediance</h2>
+
+<p>Here's the setup: choose your exercise (I used shoulder press for demo), set your target weight, and turn on Spotter Mode 2. Start your set. As you rep through and hit failure, the machine takes over.</p>
+
+<p>What happens is pretty cool: you'll be repping along, weight gets heavy, you hold it at the bottom - and the machine drops you down to a lighter weight. You keep going. It drops you again. You're essentially doing a continuous set with decreasing resistance.</p>
+
+<p>It works. I proved it on camera. But here's the thing - I don't use this in my regular training. Let me tell you why.</p>
+
+<h2>Why I Don't Do Drop Sets (And Why You Might Want to Reconsider Too)</h2>
+
+<p>I've tried drop sets. I did them on Tonal when they introduced them about six months before I switched to Speediance. Here's what I learned:</p>
+
+<p><strong>The fatigue cost is massive.</strong> I'm talking 5-10% more hypertrophy gain, but at what cost? After doing drop sets, I was less inspired to workout the next day. The systemic fatigue was real. And if that makes me less consistent, it's not a net benefit.</p>
+
+<p><strong>You can't track them.</strong> Here's what really bothered me - when I finished the workout and checked the log, there's no record of when the weight dropped. You get total volume, but you can't analyze what happened during those drop moments. That data matters to me.</p>
+
+<p><strong>It feels like failing.</strong> Maybe this is just mental, but watching the weight drop and feeling myself get weaker mid-set didn't feel good. I train because I like the progression - watching the numbers go up, not down. Drop sets feel like the opposite of that.</p>
+
+<p>My philosophy: I prefer progressive overload through the machine's automation. The Speediance already handles weight increases intelligently through the dynamic modes. I don't need to artificially create failure - the machine is designed to push me appropriately.</p>
+
+<h2>The Safety Stuff Nobody Talks About</h2>
+
+<p>Now here's where this gets important. Someone online told me free weights are safer than the Speediance. They were wrong - but they made some mistakes that could have gotten them hurt. Let me share what I learned from that conversation.</p>
+
+<p><strong>Always face the machine.</strong> Every demo video shows the trainer facing away from the machine. That's because they're shooting with one camera and need to show the movement. But for your training? Face the machine. There's a big button you can hit to turn the weight off instantly. If you're facing away, you can't reach it.</p>
+
+<p><strong>Bring yourself to the attachment, not the attachment to you.</strong> When setting up for exercises like barbell rows or bench press, I kneel down and bring the bar to me. I've seen people do it the other way - pick up the attachment, bring it up to their body - and that's how you can accidentally hit the activation button and have 260 pounds smacking you in the face.</p>
+
+<p><strong>Use the ring or handles for emergency shutoff.</strong> The ring clip on the barbell isn't just for adjusting weight mid-set - it's your emergency off switch. If something goes wrong, you can hit that ring and kill the weight instantly. Same with the Bluetooth handles - they have buttons right on them.</p>
+
+<p><strong>The button on the screen works too.</strong> Worst case, you can always hit the screen. The machine is designed with multiple ways to stop. Use them all.</p>
+
+<h2>The Story That Made Me Switch to Machines</h2>
+
+<p>I mentioned this in the video, but it's worth repeating: I nearly got seriously hurt with free weights.</p>
+
+<p>I was doing quarter squats with 350 pounds. No spotter. No safety catches properly set. Just me in my basement on a weekend.</p>
+
+<p>I went to rerack the weight, missed the left pin, clipped it, and the whole thing came down. The safety catches caught it - but the force of 350 pounds coming down snapped the bar and broke the catch. My neck was inches away.</p>
+
+<p>I was 220-230 pounds at the time, strong enough to push the weight forward and escape. But I could have easily been seriously injured. That's the thing about free weights - when things go wrong, they go wrong fast. There's no software limit, no automatic shutoff, no gradual resistance drop.</p>
+
+<p>With the Speediance, if I can't finish a rep, I let go and the weight stops. There's no 350 pounds crushing me. There's no bar falling on my neck. That's the real value of these machines when you train alone.</p>
+
+<h2>My Actual Settings</h2>
+
+<p>If you're going to experiment with spotter modes, here's what I recommend:</p>
+
+<p><strong>Unlimited Sets</strong> - I keep this turned ON. It means the machine doesn't auto-increment weight just because I did extra reps. I control when I'm ready to progress. This is the setting that keeps the machine from getting too aggressive with weight increases.</p>
+
+<p><strong>1RM settings</strong> - I have mine set to "both sides jointly using the latest 1RM." This keeps left and right arms matched and prevents the machine from surprising you with different weights on each side.</p>
+
+<h2>The Bottom Line</h2>
+
+<p>Can you do drop sets on the Speediance? Yes - with Spotter Mode 2. It works.</p>
+
+<p>Should you do them? That's your call. For me, the fatigue cost isn't worth it. I'd rather let the machine handle progressive overload the way it was designed to - gradually, intelligently, and without making me feel like I'm failing mid-set.</p>
+
+<p>And if you're worried about safety? The Speediance is infinitely safer than free weights when you're training alone. Face the machine. Use the emergency shutoffs. Bring yourself to the attachment. And respect the weight - these machines can still do serious damage if you treat them like toys.</p>
+
+<p>Train smart.</p>`,
+    category: "Speediance",
+    tags: ["speediance", "spotter-modes", "safety", "drop-sets"],
+    publishedAt: "2025-09-20",
+    readTime: 9,
+    author: "Toby Peters"
+  }
 ];
