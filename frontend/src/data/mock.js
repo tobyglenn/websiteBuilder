@@ -35,6 +35,33 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    slug: "the-submission-that-could-have-ended-everything",
+    title: "The Submission That Could Have Ended Everything",
+    excerpt: "I love aggressive submissions, but one neck-first setup can turn a roll into a catastrophic injury in a split second. Here's why this is one BJJ risk I think people underestimate.",
+    content: `<p>There are certain submission setups in jiu-jitsu that I still believe in - but I also understand they carry real danger if your partner reacts the wrong way.</p>
+
+<p>In this case, the risk is obvious: I’m putting almost all of my weight onto my neck while trying to finish. If someone much bigger decides to drop down and drive forward, that force can go straight through my cervical spine.</p>
+
+<p>That’s not a minor tweak. That’s a potential neck break. A catastrophic injury. The kind that can end training for a long time - or worse.</p>
+
+<p>I’ve had moments where I had just enough time to bail out by shooting my head underneath my opponent’s legs to avoid getting crushed. One of those was against a white belt who dropped hard and fast without control. I escaped mostly because he was slow enough for me to react.</p>
+
+<p>Against a faster upper belt - purple, brown, black - I may not get that same window. And that’s the point: danger in BJJ isn’t only about bad technique. It’s also about timing, bodyweight differences, and how your training partner chooses to apply pressure.</p>
+
+<h2>My Safety Rule Here</h2>
+
+<p>If a submission setup requires me to stack my neck and gamble on reaction speed, I treat it as a calculated risk - not a default option. I’ll still attack, but I do it with clear awareness of what could happen if the position collapses.</p>
+
+<p>I’d rather tap, reset, and train tomorrow than win one exchange and pay for it with my spine.</p>
+
+<p>Train hard. But protect your neck like your future depends on it - because in this sport, it does.</p>`,
+    category: "Training Tips",
+    date: "2025-11-27",
+    author: "Toby Peters",
+    tags: ["BJJ", "Jiu-Jitsu", "Safety", "Injuries"],
+    readTime: 3
+  },
+  {
     slug: "my-top-3-fitness-priorities-for-2026",
     title: "My Top 3 Fitness Priorities for 2026",
     excerpt: "Running, lifting, and jiu-jitsu - but not in that order. Here's how I prioritize my training based on my current goals and why the hierarchy shifts throughout the year.",
