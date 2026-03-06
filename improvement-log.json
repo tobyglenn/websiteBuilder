@@ -366,6 +366,16 @@
       ],
       "commit": "9880db2",
       "notes": "Added 'Most Popular' sort option to VideoGrid component. Users can now sort videos by view count (highest first) in addition to date and duration. Build passes (285 pages)."
+    },
+    {
+      "timestamp": "2026-03-06T14:15:00-05:00",
+      "idea": "Add featured videos section to homepage with real YouTube data",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/pages/index.astro"
+      ],
+      "commit": "b68cd2a",
+      "notes": "Added Featured Videos section to homepage showing 4 videos with view counts. Imports from youtube.js data, displays thumbnail, title, duration badge, and formatted view count. Responsive grid (1/2/4 columns). Build passes."
     }
   ],
   "in_progress": null,
