@@ -65,12 +65,12 @@ const itemListSchema = {
 
 const CATEGORIES = [
   'All',
+  'Speediance',
+  'BJJ',
+  'Wearables',
+  'Training',
   'Field Reports',
-  'The Numbers',
-  'Build Logs',
-  'Mat Science',
   'The Long Game',
-  'Signal vs. Noise',
 ];
 
 const featuredPost = filteredPosts[0];
@@ -126,13 +126,12 @@ const description = "Independent analysis of fitness technology. Real data. No a
           </button>
         </div>
       </div>
-      <div class="flex flex-wrap gap-2 justify-center">
+      <div class="flex flex-wrap gap-2 justify-center" id="category-filters">
         {CATEGORIES.map(cat => {
-          const href = cat === 'All' ? '/blog' : `/blog?category=${encodeURIComponent(cat)}`;
           const isActive = activeCategory === cat;
           return (
-            <a
-              href={href}
+            <button
+              type="button"
               data-cat-btn={cat}
               class={[
                 'px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 whitespace-nowrap',
@@ -142,7 +141,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
               ].join(' ')}
             >
               {cat}
-            </a>
+            </button>
           );
         })}
       </div>
@@ -322,36 +321,31 @@ const description = "Independent analysis of fitness technology. Real data. No a
   </div>
 
   <script>
-    function applyFilter() {
-      const params = new URLSearchParams(window.location.search);
-      const active = params.get('category') || 'All';
+    function applyFilter(activeCategory = 'All') {
       const searchTerm = (document.getElementById('blog-search')?.value || '').toLowerCase().trim();
 
       const leadSection = document.getElementById('lead-section');
       const allGridSection = document.getElementById('all-grid-section');
 
-      if (active === 'All' && !searchTerm) {
-        // Restore normal layout
+      if (activeCategory === 'All' && !searchTerm) {
         if (leadSection) leadSection.style.display = '';
         if (allGridSection) allGridSection.style.display = '';
         document.querySelectorAll('[data-post-card]').forEach(c => c.style.display = '');
       } else {
-        // Hide lead layout entirely, filter grid cards
         if (leadSection) leadSection.style.display = 'none';
         if (allGridSection) allGridSection.style.display = '';
-        
+
         document.querySelectorAll('[data-post-card]').forEach(card => {
-          const categoryMatch = active === 'All' || card.getAttribute('data-category') === active;
+          const categoryMatch = activeCategory === 'All' || card.getAttribute('data-category') === activeCategory;
           const title = card.getAttribute('data-title') || '';
           const searchMatch = !searchTerm || title.includes(searchTerm);
           card.style.display = (categoryMatch && searchMatch) ? '' : 'none';
         });
       }
 
-      // Update button active states
       document.querySelectorAll('[data-cat-btn]').forEach(btn => {
         const cat = btn.getAttribute('data-cat-btn');
-        if (cat === active) {
+        if (cat === activeCategory) {
           btn.classList.add('bg-blue-600', 'text-white', 'shadow-md', 'shadow-blue-900/40');
           btn.classList.remove('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
         } else {
@@ -361,30 +355,39 @@ const description = "Independent analysis of fitness technology. Real data. No a
       });
     }
 
-    // Search input handler
+    const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
+    let activeCategory = '{activeCategory}';
+
+    document.querySelectorAll('[data-cat-btn]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const selected = btn.getAttribute('data-cat-btn') || 'All';
+        activeCategory = categories.includes(selected) ? selected : 'All';
+        applyFilter(activeCategory);
+      });
+    });
+
     const searchInput = document.getElementById('blog-search');
     const clearBtn = document.getElementById('clear-search');
-    
+
     if (searchInput) {
       searchInput.addEventListener('input', () => {
         const hasValue = searchInput.value.length > 0;
         if (clearBtn) clearBtn.classList.toggle('hidden', !hasValue);
-        applyFilter();
+        applyFilter(activeCategory);
       });
     }
-    
+
     if (clearBtn) {
       clearBtn.addEventListener('click', () => {
         if (searchInput) {
           searchInput.value = '';
           clearBtn.classList.add('hidden');
           searchInput.focus();
-          applyFilter();
+          applyFilter(activeCategory);
         }
       });
     }
 
-    applyFilter();
-    window.addEventListener('popstate', applyFilter);
+    applyFilter(activeCategory);
   </script>
 </Layout>

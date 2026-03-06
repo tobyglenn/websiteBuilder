@@ -346,8 +346,8 @@
       ],
       "commit": "9f8571b",
       "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242→188→218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
-    }
-{
+    },
+    {
       "timestamp": "2026-03-06T12:15:00-05:00",
       "idea": "Add Training Week page with 7-day schedule and philosophy section",
       "category": "UX Enhancement - Content Pages",
@@ -376,6 +376,16 @@
       ],
       "commit": "4b5d7e4",
       "notes": "Added new blog post from transcript 2025-09-20. Covers Spotter Mode 1 vs 2 differences, Assist 2 for drop sets, safety tips (face machine, bring yourself to attachments), why machines are safer than free weights when training alone, Unlimited Sets recommendation. Category: Speediance. Build passes."
+    },
+    {
+      "timestamp": "2026-03-06T16:15:00-05:00",
+      "idea": "Add Latest from Blog section to homepage below workout heatmap",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/pages/index.astro"
+      ],
+      "commit": "051c4a1",
+      "notes": "Added 'Latest from the Blog' section to homepage. Shows 3 most recent blog posts sorted by date (newest first), with clickable cards linking to /blog/[slug]. Includes thumbnail, category badge, title, date, read time, and truncated excerpt. Dark theme styling, 'View All Posts' button linking to /blog. Build passes (286 pages)."
     }
   ],
   "in_progress": null,
