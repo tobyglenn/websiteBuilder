@@ -5,6 +5,7 @@ import Newsletter from '../components/Newsletter.jsx';
 import WorkoutHeatmap from '../components/WorkoutHeatmap.jsx';
 import { BLOG_POSTS } from '../data/mock.js';
 import videosData from '../data/videos.json';
+import { videos as youtube } from '../data/youtube.js';
 import { Play, ArrowRight, Clock, Eye, Video } from 'lucide-react';
 import { trainingStreak, lastWorkoutData, thisWeekVolume, thisMonthMiles } from '../lib/trainingStats.js';
 import { lifetimeStats } from '../data/stats.js';
@@ -443,6 +444,35 @@ const webPageSchema = {
 				</a>
 			</div>
 		</div>
+	</section>
+	{/* Featured Videos Section */}
+	<section class="py-20 bg-neutral-950 border-t border-neutral-800">
+	  <div class="container mx-auto px-4">
+	    <div class="flex items-end justify-between mb-10">
+	      <div>
+	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch</span>
+	        <h2 class="text-3xl md:text-4xl font-bold text-white">Featured Videos</h2>
+	      </div>
+	      <a href="/videos" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
+	        View All Videos <ArrowRight size={18} />
+	      </a>
+	    </div>
+	    
+	    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+	      {youtube.slice(0,4).filter(v => v.viewCount > 0).map((video) => (
+	        <a href={`/video/${video.id}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:border-neutral-700">
+	          <div class="aspect-video relative overflow-hidden bg-neutral-950">
+	            <img src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} class="w-full h-full object-cover" loading="lazy" />
+	            {video.duration_formatted && <span class="absolute bottom-2 right-2 bg-black/75 text-white text-xs px-2 py-1 rounded">{video.duration_formatted}</span>}
+	          </div>
+	          <div class="p-4">
+	            <h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-blue-400">{video.title}</h3>
+	            <p class="text-neutral-500 text-xs mt-2">{video.viewCount ? (video.viewCount >= 1000 ? (video.viewCount/1000).toFixed(1) + 'K' : video.viewCount) + ' views' : ''}</p>
+	          </div>
+	        </a>
+	      ))}
+	    </div>
+	  </div>
 	</section>
 	<Newsletter client:visible />
 
