@@ -35,6 +35,33 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    slug: "my-top-3-fitness-priorities-for-2026",
+    title: "My Top 3 Fitness Priorities for 2026",
+    excerpt: "Running, lifting, and jiu-jitsu - but not in that order. Here's how I prioritize my training based on my current goals and why the hierarchy shifts throughout the year.",
+    content: `<p>I always set up a structured list of what are my primary objectives. So sometimes it's jiu-jitsu is at the top of the list. Sometimes, obviously, lifting and losing weight in 2023 was the top of the list. And I didn't do any running and I didn't do almost any jiu-jitsu.</p>
+
+<p>In fact, I almost took the entire winter off. Like, I was gone. I may have showed up once every two weeks and I honestly I did terribly when I showed up so I might as well have not been there.</p>
+
+<p>Now the priority is running is number one, even over the jiu-jitsu. So it's going to be running, and then it's going to be probably lifting, and then jiu-jitsu comes in at number three, but it's a close third to the lifting.</p>
+
+<p>Right now I'm starting the preparation for the Lucky Charm race here locally, which is like a four mile race, which is not far, but for the deconditioning, for the ankle injury, for the fact that I haven't really run seriously in years, to get back into it and start training for that is actually my primary objective.</p>
+
+<p>What I've realized is some of my jiu-jitsu training sessions - I came back last Friday to jiu-jitsu and I wear a Whoop and it shows me the heart rate strain of the jiu-jitsu sessions. And that actually registered as one of my hardest runs and it thrashed me to be able to do my run for that day.</p>
+
+<p>So I have to be cognizant of jiu-jitsu. It does not really interfere with my strength training very often. Every now and then it will. I'll have a particularly strength-based jiu-jitsu training day and you'll know because you can barely move your arms after it.</p>
+
+<p>That was a strength-based jiu-jitsu training day. And they happen every now and then, but they're pretty rare. I would say one in 10 training sessions are like that. It's more likely to get the cardiovascular strain that I got on Friday than the strength-based training.</p>
+
+<p>That's my hierarchy right now. Running is #1, lifting is #2, and jiu-jitsu is #3 - but it's a close third.</p>`,
+    category: "The Long Game",
+    tags: ["priorities", "2026", "training", "fitness"],
+    author: "Toby",
+    published_at: "2026-01-30",
+    date: "2026-01-30",
+    featured: false,
+    readTime: 3
+  },
+  {
     slug: "the-dangers-of-lifting-alone-near-death-bench-press-story",
     title: "The Lift That Almost Killed Me: Why I Stopped Benching Alone",
     excerpt: "One failed bench rep bent my bar nearly in half and could have ended far worse. This is the real story, the safety lesson, and why training alone with free weights deserves more respect.",
