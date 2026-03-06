@@ -195,6 +195,16 @@
       "files_changed": [],
       "commit": "none",
       "notes": "Attempted to expand 8Sleep data (only 13 records available) and add new blog post from transcripts. Subagents completed but did not make file changes. Site is in good shape with 17+ improvements already completed."
+    },
+    {
+      "timestamp": "2026-03-05T18:15:00-05:00",
+      "idea": "Add new blog post: Extreme Weight Loss - The Honest Truth About My Transformation",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "39f63ac",
+      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242→188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
     }
   ],
   "in_progress": null,
