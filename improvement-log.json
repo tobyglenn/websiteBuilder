@@ -336,6 +336,16 @@
       ],
       "commit": "909de7a",
       "notes": "Created WorkoutHeatmap React component that combines data from Speediance and Garmin. Displays GitHub-style 52-week heatmap with color intensity for workout count. Shows total active days, current streak, longest streak stats. Tooltips on hover show date and session count. Build passes (297 pages)."
+    },
+    {
+      "timestamp": "2026-03-06T11:20:00-05:00",
+      "idea": "Add milestone timeline page with real fitness data",
+      "category": "UX Enhancement - Content Pages",
+      "files_changed": [
+        "src/pages/timeline.astro"
+      ],
+      "commit": "9f8571b",
+      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242→188→218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
     }
   ],
   "in_progress": null,
