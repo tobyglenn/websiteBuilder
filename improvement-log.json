@@ -286,6 +286,16 @@
       "commit": "cefc059",
       "notes": "Added new blog post from transcript 2026-01-30. Covers Toby's current fitness priorities: 1) Running (#1 - training for Lucky Charm 4-mile race), 2) Lifting (#2), 3) Jiu-jitsu (#3). Category: The Long Game. Build passes (293 pages)."
     }
+{
+      "timestamp": "2026-03-06T05:15:00-05:00",
+      "idea": "New blog post: How One Month of No Training 'Aged' My Body",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "6aaaa1c",
+      "notes": "Added new blog post from transcript 2026-01-29. Covers WHOOP's health age metric, Toby's journey getting younger than his actual age through training, and how one month of vacations/detraining aged him beyond his actual age. Category: The Long Game. Build passes (281 pages)."
+    }
   ],
   "in_progress": null,
   "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages)."
