@@ -2,248 +2,363 @@
 import Layout from '../layouts/Layout.astro';
 
 const pageTitle = "Speediance ROI Calculator";
-const pageDescription =
-  "Calculate how much you can save by owning a Speediance home gym compared to paying for a traditional gym membership.";
+const pageDescription = "Calculate how much you can save with a Speediance home gym vs. a traditional gym membership. See your break-even point and start saving today.";
 
 const webPageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
+  "@id": "https://tobyonfitnesstech.com/roi/#webpage",
   "name": pageTitle,
   "description": pageDescription,
-  "url": "https://tobyonfitnesstech.com/roi"
+  "url": "https://tobyonfitnesstech.com/roi",
+  "isPartOf": {
+    "@id": "https://tobyonfitnesstech.com/#website"
+  }
 };
 
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  name: "Speediance Home Gym",
-  category: "Home Gym Equipment",
-  brand: {
+  "name": "Speediance Home Gym",
+  "description": "AI-powered smart home gym with digital weight resistance, live coaching, and comprehensive workout tracking.",
+  "brand": {
     "@type": "Brand",
-    name: "Speediance"
+    "name": "Speediance"
   },
-  description: "AI-powered all-in-one home gym with compact footprint and connected membership.",
-  offers: {
+  "offers": {
     "@type": "Offer",
-    priceCurrency: "USD",
-    price: "4995",
-    availability: "https://schema.org/InStock"
+    "price": "4995",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
   }
 };
 ---
 
 <Layout 
-  title={pageTitle}
+  title={`${pageTitle} | Toby on Fitness Tech`}
   description={pageDescription}
   jsonLd={[webPageSchema, productSchema]}
 >
-      <section class="rounded-2xl border border-blue-500/20 bg-neutral-900/70 p-8 shadow-2xl shadow-blue-500/5">
-        <p class="mb-3 inline-flex rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-blue-300">
-          Financial Planning Tool
-        </p>
-        <h1 class="text-3xl font-bold leading-tight text-white sm:text-5xl">Speediance ROI Calculator</h1>
-        <p class="mt-4 max-w-2xl text-base text-neutral-300 sm:text-lg">
-          See the long-term cost difference between investing in a Speediance home gym and paying for a
-          traditional gym membership.
-        </p>
-      </section>
+  {/* Hero Section */}
+  <section class="py-20 bg-neutral-950 border-b border-neutral-800">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Speediance ROI Calculator</h1>
+      <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
+        Discover how much you can save by switching to a Speediance home gym. 
+        Compare costs against traditional gym memberships and see your break-even point.
+      </p>
+    </div>
+  </section>
 
-      <section class="mt-8 grid gap-6 lg:grid-cols-2">
-        <div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-          <h2 class="text-xl font-semibold text-white">Calculator Inputs</h2>
-          <form id="roi-form" class="mt-6 space-y-5" onsubmit="return false;">
-            <div>
-              <label for="purchasePrice" class="mb-2 block text-sm font-medium text-neutral-300">Speediance purchase price ($)</label>
-              <input
-                id="purchasePrice"
-                type="number"
-                min="0"
-                step="1"
-                value="4995"
-                class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-              />
-            </div>
-
-            <div>
-              <label for="membershipFee" class="mb-2 block text-sm font-medium text-neutral-300">Monthly membership fee ($/month)</label>
-              <input
-                id="membershipFee"
-                type="number"
-                min="0"
-                step="1"
-                value="39"
-                class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-              />
-            </div>
-
-            <div>
-              <label for="gymCost" class="mb-2 block text-sm font-medium text-neutral-300">Traditional gym monthly cost ($/month)</label>
-              <input
-                id="gymCost"
-                type="number"
-                min="0"
-                step="1"
-                value="150"
-                class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
-              />
-            </div>
-
-            <div>
-              <label for="years" class="mb-2 block text-sm font-medium text-neutral-300">Years of ownership: <span id="yearsValue" class="text-blue-300">5</span></label>
-              <input
-                id="years"
-                type="range"
-                min="1"
-                max="10"
-                step="1"
-                value="5"
-                class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-700 accent-blue-500"
-              />
-            </div>
-
-            <button
-              id="calculateBtn"
-              type="button"
-              class="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-neutral-900"
-            >
-              Calculate ROI
-            </button>
-          </form>
-        </div>
-
-        <div class="rounded-2xl border border-blue-500/20 bg-gradient-to-b from-neutral-900 to-neutral-950 p-6">
-          <h2 class="text-xl font-semibold text-white">Your Results</h2>
-          <p class="mt-2 text-sm text-neutral-400">Estimated over <span id="resultYears">5</span> years</p>
-
-          <div class="mt-6 rounded-xl border border-blue-500/30 bg-blue-500/10 p-5">
-            <p class="text-sm uppercase tracking-wider text-blue-200">Projected savings</p>
-            <p id="savingsDisplay" class="mt-2 text-4xl font-extrabold text-blue-300">$0</p>
-          </div>
-
-          <div class="mt-6 space-y-3 text-sm text-neutral-200">
-            <div class="flex items-center justify-between rounded-lg bg-neutral-900/80 px-4 py-3">
-              <span>Total cost with Speediance</span>
-              <strong id="speedianceCost">$0</strong>
-            </div>
-            <div class="flex items-center justify-between rounded-lg bg-neutral-900/80 px-4 py-3">
-              <span>Total cost with traditional gym</span>
-              <strong id="gymTotalCost">$0</strong>
-            </div>
-            <div class="flex items-center justify-between rounded-lg bg-neutral-900/80 px-4 py-3">
-              <span>Break-even point</span>
-              <strong id="breakEven">—</strong>
-            </div>
-          </div>
-
-          <div class="mt-6">
-            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-neutral-400">Cost comparison</h3>
-            <div class="space-y-3">
+  {/* Calculator Section */}
+  <section class="py-16 bg-neutral-900">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Input Form */}
+          <div class="bg-neutral-950 rounded-xl p-6 md:p-8 border border-neutral-800">
+            <h2 class="text-2xl font-bold text-white mb-6">Calculate Your Savings</h2>
+            
+            <div class="space-y-6">
+              {/* Speediance Price */}
               <div>
-                <div class="mb-1 flex justify-between text-xs text-neutral-400">
-                  <span>Speediance</span>
-                  <span id="speedianceBarLabel">$0</span>
-                </div>
-                <div class="h-3 w-full overflow-hidden rounded-full bg-neutral-800">
-                  <div id="speedianceBar" class="h-full rounded-full bg-blue-500" style="width: 0%"></div>
+                <label for="speediancePrice" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  Speediance Purchase Price
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">$</span>
+                  <input 
+                    type="number" 
+                    id="speediancePrice" 
+                    value="4995" 
+                    min="0"
+                    step="100"
+                    class="w-full bg-neutral-900 border border-neutral-700 rounded-lg py-3 pl-8 pr-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  />
                 </div>
               </div>
+
+              {/* Monthly Membership */}
               <div>
-                <div class="mb-1 flex justify-between text-xs text-neutral-400">
-                  <span>Traditional gym</span>
-                  <span id="gymBarLabel">$0</span>
+                <label for="monthlyMembership" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  Speediance Monthly Membership
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">$</span>
+                  <input 
+                    type="number" 
+                    id="monthlyMembership" 
+                    value="39" 
+                    min="0"
+                    step="1"
+                    class="w-full bg-neutral-900 border border-neutral-700 rounded-lg py-3 pl-8 pr-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  />
                 </div>
-                <div class="h-3 w-full overflow-hidden rounded-full bg-neutral-800">
-                  <div id="gymBar" class="h-full rounded-full bg-sky-300" style="width: 0%"></div>
+                <p class="text-xs text-neutral-500 mt-1">Speediance app subscription (optional but recommended)</p>
+              </div>
+
+              {/* Traditional Gym Cost */}
+              <div>
+                <label for="gymCost" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  Traditional Gym Monthly Cost
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">$</span>
+                  <input 
+                    type="number" 
+                    id="gymCost" 
+                    value="150" 
+                    min="0"
+                    step="5"
+                    class="w-full bg-neutral-900 border border-neutral-700 rounded-lg py-3 pl-8 pr-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  />
+                </div>
+                <p class="text-xs text-neutral-500 mt-1">Average gym membership + extras (parking, supplements, etc.)</p>
+              </div>
+
+              {/* Years Slider */}
+              <div>
+                <label for="yearsSlider" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  Years of Ownership: <span id="yearsDisplay" class="text-blue-400">5</span> years
+                </label>
+                <input 
+                  type="range" 
+                  id="yearsSlider" 
+                  min="1" 
+                  max="10" 
+                  value="5"
+                  class="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                />
+                <div class="flex justify-between text-xs text-neutral-500 mt-1">
+                  <span>1 year</span>
+                  <span>10 years</span>
+                </div>
+              </div>
+
+              {/* Calculate Button */}
+              <button 
+                id="calculateBtn"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+              >
+                Calculate Savings
+              </button>
+            </div>
+          </div>
+
+          {/* Results Display */}
+          <div id="resultsSection" class="bg-neutral-950 rounded-xl p-6 md:p-8 border border-neutral-800 hidden">
+            <h2 class="text-2xl font-bold text-white mb-6">Your Results</h2>
+
+            {/* Big Savings Number */}
+            <div class="text-center mb-8">
+              <p class="text-neutral-400 text-sm uppercase tracking-wide mb-2">Total Savings</p>
+              <p id="totalSavings" class="text-5xl md:text-6xl font-bold text-green-400">$0</p>
+            </div>
+
+            {/* Cost Breakdown */}
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                <span class="text-neutral-400">Speediance Total Cost</span>
+                <span id="speedianceTotal" class="text-white font-semibold">$0</span>
+              </div>
+              <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                <span class="text-neutral-400">Traditional Gym Total Cost</span>
+                <span id="gymTotal" class="text-white font-semibold">$0</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span class="text-neutral-400">Your Savings</span>
+                <span id="savingsAmount" class="text-green-400 font-bold">$0</span>
+              </div>
+            </div>
+
+            {/* Break-even Point */}
+            <div class="bg-blue-900/30 border border-blue-800 rounded-lg p-4 mb-8">
+              <p class="text-blue-300 text-sm font-semibold mb-1">Break-even Point</p>
+              <p id="breakEvenText" class="text-white text-lg">Calculating...</p>
+            </div>
+
+            {/* Comparison Chart */}
+            <div class="mb-6">
+              <h3 class="text-white font-semibold mb-4">Cost Comparison</h3>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-neutral-400">Speediance</span>
+                    <span id="chartSpeediance" class="text-white">$0</span>
+                  </div>
+                  <div class="h-6 bg-neutral-800 rounded-full overflow-hidden">
+                    <div id="barSpeediance" class="h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-neutral-400">Traditional Gym</span>
+                    <span id="chartGym" class="text-white">$0</span>
+                  </div>
+                  <div class="h-6 bg-neutral-800 rounded-full overflow-hidden">
+                    <div id="barGym" class="h-full bg-orange-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Initial State - Results Hidden */}
+          <div id="initialState" class="bg-neutral-950 rounded-xl p-6 md:p-8 border border-neutral-800 lg:flex lg:items-center lg:justify-center">
+            <div class="text-center">
+              <div class="text-6xl mb-4">💰</div>
+              <p class="text-neutral-400">Enter your values and click calculate to see your savings</p>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
-      <section class="mt-8 rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
-        <h2 class="text-2xl font-bold text-white">Why the Speediance makes financial sense</h2>
-        <ul class="mt-4 space-y-3 text-neutral-300">
-          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>One-time equipment purchase can offset years of recurring gym fees.</span></li>
-          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>Lower monthly connected membership compared to many premium gym plans.</span></li>
-          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>No commuting costs, parking fees, or time loss getting to and from the gym.</span></li>
-          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>Household members can share the equipment, improving long-term value per user.</span></li>
-        </ul>
-      </section>
-    </main>
+  {/* Why Speediance Makes Financial Sense */}
+  <section class="py-16 bg-neutral-950 border-t border-neutral-800">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Why Speediance Makes Financial Sense</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">🏠</div>
+            <h3 class="text-white font-bold text-lg mb-2">No Commute Costs</h3>
+            <p class="text-neutral-400 text-sm">Save on gas, parking, and the time value of working out at home. Average gym-goers spend $15-25/month just getting to the gym.</p>
+          </div>
 
-    <script>
-      const purchasePriceInput = document.getElementById('purchasePrice');
-      const membershipFeeInput = document.getElementById('membershipFee');
-      const gymCostInput = document.getElementById('gymCost');
-      const yearsInput = document.getElementById('years');
-      const yearsValue = document.getElementById('yearsValue');
-      const resultYears = document.getElementById('resultYears');
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">⏰</div>
+            <h3 class="text-white font-bold text-lg mb-2">24/7 Accessibility</h3>
+            <p class="text-neutral-400 text-sm">Train whenever you want without worrying about gym hours. No more missed workouts due to schedule conflicts.</p>
+          </div>
 
-      const savingsDisplay = document.getElementById('savingsDisplay');
-      const speedianceCost = document.getElementById('speedianceCost');
-      const gymTotalCost = document.getElementById('gymTotalCost');
-      const breakEven = document.getElementById('breakEven');
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">📉</div>
+            <h3 class="text-white font-bold text-lg mb-2">No Hidden Fees</h3>
+            <p class="text-neutral-400 text-sm">No initiation fees, annual contracts, or sudden price hikes. Your cost is predictable year after year.</p>
+          </div>
 
-      const speedianceBar = document.getElementById('speedianceBar');
-      const gymBar = document.getElementById('gymBar');
-      const speedianceBarLabel = document.getElementById('speedianceBarLabel');
-      const gymBarLabel = document.getElementById('gymBarLabel');
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">👨‍👩‍👧‍👦</div>
+            <h3 class="text-white font-bold text-lg mb-2">Whole Family Can Use It</h3>
+            <p class="text-neutral-400 text-sm">One purchase serves the entire household. Compare $4,995 one-time to $150×12×5years for a family of 4.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-      const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-        maximumFractionDigits: 0,
-      });
-
-      function toNumber(value) {
-        const parsed = Number(value);
-        return Number.isFinite(parsed) ? parsed : 0;
-      }
-
-      function calculateROI() {
-        const purchasePrice = toNumber(purchasePriceInput.value);
-        const monthlyMembership = toNumber(membershipFeeInput.value);
-        const monthlyGymCost = toNumber(gymCostInput.value);
-        const years = toNumber(yearsInput.value);
-
-        yearsValue.textContent = String(years);
-        resultYears.textContent = String(years);
-
-        const speedianceTotal = purchasePrice + monthlyMembership * 12 * years;
-        const gymTotal = monthlyGymCost * 12 * years;
-        const savings = gymTotal - speedianceTotal;
-
-        savingsDisplay.textContent = formatter.format(savings);
-        savingsDisplay.classList.toggle('text-red-300', savings < 0);
-        savingsDisplay.classList.toggle('text-blue-300', savings >= 0);
-
-        speedianceCost.textContent = formatter.format(speedianceTotal);
-        gymTotalCost.textContent = formatter.format(gymTotal);
-
-        const monthlySavings = monthlyGymCost - monthlyMembership;
-        if (monthlySavings > 0) {
-          const breakEvenMonths = purchasePrice / monthlySavings;
-          breakEven.textContent = `${Math.ceil(breakEvenMonths)} months`;
-        } else {
-          breakEven.textContent = 'No break-even';
-        }
-
-        const maxCost = Math.max(speedianceTotal, gymTotal, 1);
-        speedianceBar.style.width = `${(speedianceTotal / maxCost) * 100}%`;
-        gymBar.style.width = `${(gymTotal / maxCost) * 100}%`;
-
-        speedianceBarLabel.textContent = formatter.format(speedianceTotal);
-        gymBarLabel.textContent = formatter.format(gymTotal);
-      }
-
-      document.getElementById('calculateBtn')?.addEventListener('click', calculateROI);
-      yearsInput?.addEventListener('input', calculateROI);
-      purchasePriceInput?.addEventListener('input', calculateROI);
-      membershipFeeInput?.addEventListener('input', calculateROI);
-      gymCostInput?.addEventListener('input', calculateROI);
-
-      calculateROI();
-    </script>
-  </main>
+  {/* CTA Section */}
+  <section class="py-16 bg-neutral-900">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">Ready to Start Saving?</h2>
+      <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+        Join thousands of users who have switched to Speediance and never looked back.
+      </p>
+      <a 
+        href="/speediance" 
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+      >
+        Learn More About Speediance
+      </a>
+    </div>
+  </section>
 </Layout>
+
+<script>
+  // DOM Elements
+  const speediancePriceInput = document.getElementById('speediancePrice') as HTMLInputElement;
+  const monthlyMembershipInput = document.getElementById('monthlyMembership') as HTMLInputElement;
+  const gymCostInput = document.getElementById('gymCost') as HTMLInputElement;
+  const yearsSlider = document.getElementById('yearsSlider') as HTMLInputElement;
+  const yearsDisplay = document.getElementById('yearsDisplay') as HTMLSpanElement;
+  const calculateBtn = document.getElementById('calculateBtn') as HTMLButtonElement;
+  const resultsSection = document.getElementById('resultsSection') as HTMLDivElement;
+  const initialState = document.getElementById('initialState') as HTMLDivElement;
+
+  // Result elements
+  const totalSavings = document.getElementById('totalSavings') as HTMLParagraphElement;
+  const speedianceTotal = document.getElementById('speedianceTotal') as HTMLParagraphElement;
+  const gymTotal = document.getElementById('gymTotal') as HTMLParagraphElement;
+  const savingsAmount = document.getElementById('savingsAmount') as HTMLParagraphElement;
+  const breakEvenText = document.getElementById('breakEvenText') as HTMLParagraphElement;
+  const barSpeediance = document.getElementById('barSpeediance') as HTMLDivElement;
+  const barGym = document.getElementById('barGym') as HTMLDivElement;
+  const chartSpeediance = document.getElementById('chartSpeediance') as HTMLSpanElement;
+  const chartGym = document.getElementById('chartGym') as HTMLSpanElement;
+
+  // Format currency
+  function formatCurrency(amount: number): string {
+    return '$' + amount.toLocaleString('en-US');
+  }
+
+  // Calculate savings
+  function calculate() {
+    const speediancePrice = parseFloat(speediancePriceInput.value) || 0;
+    const monthlyMembership = parseFloat(monthlyMembershipInput.value) || 0;
+    const gymCost = parseFloat(gymCostInput.value) || 0;
+    const years = parseInt(yearsSlider.value) || 5;
+
+    // Calculate totals
+    const speedianceTotalCost = speediancePrice + (monthlyMembership * 12 * years);
+    const gymTotalCost = gymCost * 12 * years;
+    const savings = gymTotalCost - speedianceTotalCost;
+
+    // Calculate break-even (months until Speediance pays for itself)
+    // Break-even = Speediance Price / (Gym Monthly Cost - Speediance Monthly Membership)
+    const monthlyDifference = gymCost - monthlyMembership;
+    let breakEvenMonths = 0;
+    if (monthlyDifference > 0) {
+      breakEvenMonths = Math.ceil(speediancePrice / monthlyDifference);
+    }
+
+    // Update UI
+    totalSavings.textContent = formatCurrency(Math.max(0, savings));
+    speedianceTotal.textContent = formatCurrency(speedianceTotalCost);
+    gymTotal.textContent = formatCurrency(gymTotalCost);
+    savingsAmount.textContent = formatCurrency(Math.max(0, savings));
+
+    // Break-even text
+    if (monthlyDifference <= 0) {
+      breakEvenText.textContent = "Speediance pays for itself immediately (membership costs more than gym)";
+    } else if (breakEvenMonths <= 12) {
+      breakEvenText.textContent = `${breakEvenMonths} months until Speediance pays for itself`;
+    } else {
+      const breakEvenYears = (breakEvenMonths / 12).toFixed(1);
+      breakEvenText.textContent = `${breakEvenMonths} months (~${breakEvenYears} years) until Speediance pays for itself`;
+    }
+
+    // Update chart bars
+    const maxCost = Math.max(speedianceTotalCost, gymTotalCost);
+    if (maxCost > 0) {
+      barSpeediance.style.width = `${(speedianceTotalCost / maxCost) * 100}%`;
+      barGym.style.width = `${(gymTotalCost / maxCost) * 100}%`;
+    }
+
+    chartSpeediance.textContent = formatCurrency(speedianceTotalCost);
+    chartGym.textContent = formatCurrency(gymTotalCost);
+
+    // Show results
+    resultsSection.classList.remove('hidden');
+    initialState.classList.add('hidden');
+  }
+
+  // Update years display when slider changes
+  yearsSlider.addEventListener('input', () => {
+    yearsDisplay.textContent = yearsSlider.value;
+  });
+
+  // Calculate on button click
+  calculateBtn.addEventListener('click', calculate);
+
+  // Auto-calculate on Enter key in inputs
+  [speediancePriceInput, monthlyMembershipInput, gymCostInput].forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        calculate();
+      }
+    });
+  });
+</script>

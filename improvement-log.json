@@ -470,6 +470,16 @@
       ],
       "commit": "96996b9",
       "notes": "Created LatestActivity React component that combines Garmin and Speediance data to show the most recent fitness activity. Displays activity type icon, name, date/time, key stats (distance/pace for runs, volume for lifting), and links to appropriate stats page. Dark theme styling. Build passes (306 pages)."
+    },
+    {
+      "timestamp": "2026-03-07T10:20:00-05:00",
+      "idea": "Add Speediance ROI Calculator page - calculates savings vs traditional gym membership",
+      "category": "UX Enhancement - Content Pages",
+      "files_changed": [
+        "src/pages/roi.astro"
+      ],
+      "commit": "a635ac5",
+      "notes": "Created new /roi page with interactive calculator. Inputs: Speediance price ($4,995), membership ($39/mo), gym cost ($150/mo), years slider. Outputs: savings, breakdown, break-even point, CSS bar chart. Includes Product JSON-LD schema. Uses Layout component for consistent nav. Build passes (307 pages)."
     }
   ],
   "in_progress": null,
