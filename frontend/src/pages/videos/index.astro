@@ -8,20 +8,58 @@ const description = "Browse all 104 videos covering Speediance reviews, BJJ comm
 
 const siteUrl = "https://tobyonfitnesstech.com";
 
-// Filter videos for playlists
-function filterVideos(keywords: string[]) {
-  return VIDEOS.filter(video => {
-    const searchText = `${video.title} ${video.description}`.toLowerCase();
-    return keywords.some(keyword => searchText.includes(keyword.toLowerCase()));
-  }).slice(0, 10);
-}
-
-const playlists = {
-  speediance: filterVideos(['speediance', 'tonal']),
-  bjj: filterVideos(['bjj', 'jiu-jitsu', 'jiu jitsu', 'jujitsu']),
-  running: filterVideos(['running', 'run', 'cardio', 'marathon', '5k', '10k']),
-  techAI: filterVideos(['ai', 'openclaw', 'automation', 'chatgpt', 'claude', 'tech']),
-};
+const featuredPlaylists = [
+  {
+    name: 'Speediance Reviews',
+    videoIds: [
+      '0C8mQoV-Xpg',
+      'xFknwPPhVnI',
+      'ZbEstduW90I',
+      '-BuRtR6WNOc',
+      'cN4YyRwoxXc',
+      'J3W59IR2Las',
+      '4-7j_oSvKl0',
+      'pMdn1a5EA1s',
+    ],
+  },
+  {
+    name: 'BJJ Journey',
+    videoIds: [
+      'DvBzOcR-RXo',
+      'apsAL3x_V3k',
+      'i-smBia0MqM',
+      'jJaNCOC7nSA',
+      'NzCIufyEsvQ',
+      '43K_tPvN5Lg',
+      'gy3-0I5d2Lw',
+      'dG8GPamRHmA',
+    ],
+  },
+  {
+    name: 'Running & Cardio',
+    videoIds: [
+      'ucYb0Bg4XrA',
+      'j9wXzLW5hJQ',
+      '_3KuRk6Mobo',
+      'uDbTWHWFnvs',
+      'LZDxBscLnPY',
+    ],
+  },
+  {
+    name: 'Tech & AI',
+    videoIds: [
+      '_43qCeKVCNw',
+      'MsdQU6uuHaE',
+      'xFknwPPhVnI',
+      '0C8mQoV-Xpg',
+    ],
+  },
+].map((playlist) => ({
+  ...playlist,
+  videos: playlist.videoIds
+    .map((id) => VIDEOS.find((video: { id: string }) => video.id === id))
+    .filter(Boolean),
+}));
 
 // Build CollectionPage + ItemList schema for the top videos
 // Use top 20 by view count for itemListElement (keeps payload size reasonable)
@@ -103,6 +141,42 @@ const videosCollectionSchema = {
         </p>
       </div>
     </section>
+    
+    <!-- Featured Playlists -->
+    <section class="py-8 px-4">
+      <div class="container mx-auto max-w-6xl">
+        <h2 class="text-2xl font-bold text-white mb-6">Featured Playlists</h2>
+
+        {featuredPlaylists.map((playlist) => (
+          <div class="mb-8">
+            <h3 class="text-lg text-neutral-300 mb-3">{playlist.name}</h3>
+            <div class="flex gap-3 overflow-x-auto scroll-smooth pb-2">
+              {playlist.videos.map((video: { id: string; title: string; thumbnail?: string; duration_formatted?: string }) => (
+                <a
+                  href={`/video/${video.id}`}
+                  class="flex-shrink-0 w-[160px] bg-neutral-900 rounded-lg overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all"
+                >
+                  <div class="relative w-[160px] h-[90px]">
+                    <img
+                      src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+                      alt={video.title}
+                      class="w-full h-full object-cover"
+                    />
+                    {video.duration_formatted && (
+                      <span class="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded">
+                        {video.duration_formatted}
+                      </span>
+                    )}
+                  </div>
+                  <p class="text-xs text-white px-2 py-2 truncate">{video.title}</p>
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+    
     <!-- Grid -->
     <div class="container mx-auto px-4 py-10">
       <VideoGrid client:load showFilters={true} videos={VIDEOS} />
