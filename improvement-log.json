@@ -520,6 +520,16 @@
       "notes": "Attempted with Clarity (connection error), Spark (429), MiniMax (no response), Sage (400), Vision (broke homepage). All subagents failed. Committed pending prior changes instead."
     },
     {
+      "timestamp": "2026-03-07T13:20:00-05:00",
+      "idea": "Add new BJJ blog post: Is Mike Israetel Really a Legit BJJ Black Belt?",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "c1d9cd4",
+      "notes": "Added new BJJ blog post from unused transcript 2025-11-13. Toby (brown belt) gives his take on the Mike Israetel black belt controversy - explains why the internet criticism is unfair, shares his experience seeing Mike compete as a brown belt, and discusses the difference between black belt level and world champion level. Category: BJJ. Build passes (309 pages)."
+    },
+    {
       "timestamp": "2026-03-07T09:15:00-05:00",
       "idea": "Add Related Videos section to video/[id].astro pages",
       "category": "UX Enhancement - Videos",

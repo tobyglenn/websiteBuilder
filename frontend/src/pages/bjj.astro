@@ -14,97 +14,106 @@ const bjjPosts = BLOG_POSTS.filter(post => {
     tags.some(tag => tag === 'bjj' || tag === 'jiu-jitsu' || tag === 'jiu jitsu') ||
     title.includes('bjj') || title.includes('jiu-jitsu') || title.includes('jiu jitsu') ||
     excerpt.includes('bjj') || excerpt.includes('jiu-jitsu') || excerpt.includes('jiu jitsu');
-}).slice(0, 3);
+}).slice(0, 6);
+
+const totalBjjPosts = BLOG_POSTS.filter(post => {
+  const category = post.category?.toLowerCase() || '';
+  const tags = post.tags?.map(t => t.toLowerCase()) || [];
+  const title = post.title?.toLowerCase() || '';
+  const excerpt = post.excerpt?.toLowerCase() || '';
+  
+  return category === 'bjj' || 
+    tags.some(tag => tag === 'bjj' || tag === 'jiu-jitsu' || tag === 'jiu jitsu') ||
+    title.includes('bjj') || title.includes('jiu-jitsu') || title.includes('jiu jitsu') ||
+    excerpt.includes('bjj') || excerpt.includes('jiu-jitsu') || excerpt.includes('jiu jitsu');
+}).length;
 
 // BJJ Stats
 const stats = {
-  sessions: 60,
-  rank: "Blue Belt",
-  competitions: 2,
-  startedYear: 2023
+  rank: "Brown Belt",
+  startedYear: 2023,
+  competitions: 1,
+  bjjDaysPerWeek: "2-3"
 };
 
-// Journey timeline data
+// Journey timeline data from /about page
 const journeyTimeline = [
   {
     year: "2023",
     title: "Started BJJ Journey",
-    description: "Began training Brazilian Jiu-Jitsu, immediately hooked by the technical complexity and problem-solving aspect of the art.",
+    description: "Began Brazilian Jiu-Jitsu as part of a 242→188 lb transformation. Used BJJ as both a physical outlet and mental anchor during the weight loss journey.",
     highlight: true
   },
   {
-    year: "2023-2024",
+    year: "2023",
     title: "White Belt",
     description: "Learned fundamentals, positional hierarchy, and basic submissions. Focused on survival and getting comfortable guard.",
     highlight: false
   },
   {
     year: "2024",
-    title: "First Competition",
-    description: "Entered first tournament at white belt. Gained invaluable experience testing skills against unfamiliar opponents.",
+    title: "Blue Belt",
+    description: "Promoted to blue belt. Started developing more sophisticated guard game and began regular competition.",
     highlight: false
   },
   {
-    year: "2024",
-    title: "Promoted to Blue Belt",
-    description: "Recognized for consistent training and technical progress. Started developing more sophisticated guard game.",
-    highlight: true
+    year: "2024-2025",
+    title: "Purple Belt",
+    description: "Intermediate belt phase. Continued refining techniques while balancing with strength training.",
+    highlight: false
   },
   {
     year: "2025",
-    title: "Second Competition",
-    description: "Competed at blue belt level, facing higher-ranked competitors. Continued to refine offensive and defensive repertoire.",
-    highlight: false
+    title: "Promoted to Brown Belt",
+    description: "Earned the brown belt at a regional tournament with a third-place finish and a reverse triangle submission.",
+    highlight: true
   },
   {
     year: "Present",
-    title: "Blue Belt - Current",
-    description: "Training consistently, ~60 sessions in. Focused on building a complete game with emphasis on guard retention and submissions.",
+    title: "Brown Belt - Current",
+    description: "Training 2-3x per week at a dedicated BJJ gym. Focus on guard retention, submissions, and maintaining conditioning while building strength.",
     highlight: true
   }
 ];
 
-// Lessons learned data
-const lessonsLearned = [
+// BJJ Philosophy
+const philosophy = [
   {
-    icon: "🧠",
-    title: "Technical Over Athletic",
-    description: "BJJ rewards technique over brute strength. Even as a larger practitioner, proper leverage and positioning beat power every time."
-  },
-  {
-    icon: "😤",
-    title: "Humility Is Essential",
-    description: "Getting submitted by smaller, faster training partners teaches you to check your ego at the door. Everyone taps."
-  },
-  {
-    icon: "⏳",
-    title: "Patience Pays Off",
-    description: "Rushing leads to mistakes. BJJ taught me to stay calm under pressure and wait for the right opportunity to attack."
+    icon: "🛡️",
+    title: "Safety First",
+    description: "I prioritize injury prevention over winning rolls. BJJ is a lifelong practice—protecting yourself and training partners comes before any submission."
   },
   {
     icon: "🔄",
     title: "Process Over Results",
-    description: "Focusing on improvement rather than winning rolls leads to faster progress. The belt comes as a byproduct of dedication."
+    description: "Focusing on improvement rather than winning rolls leads to faster progress. The belt comes as a byproduct of dedication to the craft."
   },
   {
-    icon: "💪",
-    title: "Physical Intelligence",
-    description: "BJJ heightened body awareness dramatically. Understanding weight distribution, balance, and leverage translates to other activities."
+    icon: "⏳",
+    title: "Longevity Mindset",
+    description: "Training smart today means training for decades to come. I modify intensity based on recovery and listen to my WHOOP data."
   },
   {
-    icon: "🤝",
-    title: "Community Matters",
-    description: "Training partners become collaborators in growth. The BJJ community supports each other's development rather than competing against it."
+    icon: "🧠",
+    title: "Technical Over Athletic",
+    description: "BJJ rewards technique over brute strength. Even as a larger practitioner, proper leverage and positioning beat power every time."
   }
+];
+
+// Notable moments
+const notableMoments = [
+  { year: "2023", event: "Started BJJ - 242 lbs" },
+  { year: "2023", event: "54 lb transformation complete - 188 lbs" },
+  { year: "2025", event: "Brown belt promotion" },
+  { year: "2025", event: "3rd place regional tournament - reverse triangle" }
 ];
 
 // JSON-LD Schema
 const webPageSchema = {
   "@context": "https://schema.org",
-  "@type": "WebPage",
-  "@id": "https://tobyonfitnesstech.com/bjj/#webpage",
+  "@type": "CollectionPage",
   "name": "Brazilian Jiu-Jitsu - Toby on Fitness Tech",
-  "description": "Follow Toby's BJJ journey: started in 2023, blue belt, competed twice, ~60 training sessions. Training philosophy, lessons learned, and progression.",
+  "description": "Follow Toby's BJJ journey: started in 2023, brown belt, competed at regional tournaments, training 2-3x per week. Training philosophy, lessons learned, and progression.",
   "url": "https://tobyonfitnesstech.com/bjj",
   "inLanguage": "en",
   "isPartOf": {
@@ -113,14 +122,15 @@ const webPageSchema = {
   "about": {
     "@type": "Person",
     "name": "Toby Peters",
-    "description": "Blue belt in Brazilian Jiu-Jitsu, training since 2023"
-  }
+    "description": "Brown belt in Brazilian Jiu-Jitsu, training since 2023"
+  },
+  "keywords": "BJJ, Brazilian Jiu-Jitsu, jiu-jitsu, brown belt, grappling, martial arts, training, competition"
 };
 ---
 
 <Layout
-  title="Brazilian Jiu-Jitsu - Blue Belt Journey | Toby on Fitness Tech"
-  description="Follow Toby's BJJ journey: started in 2023, blue belt, competed twice, ~60 training sessions. Training philosophy, lessons learned, and progression."
+  title="Brazilian Jiu-Jitsu - Brown Belt Journey | Toby on Fitness Tech"
+  description="Follow Toby's BJJ journey: started in 2023, brown belt, competed at regional tournaments, training 2-3x per week. Training philosophy, lessons learned, and progression."
   jsonLd={webPageSchema}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
@@ -137,24 +147,33 @@ const webPageSchema = {
             <span class="text-blue-500">Jiu-Jitsu</span>
           </h2>
           <p class="text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl">
-            Started in 2023. Blue belt. Competed twice. 
-            ~60 training sessions in. The technical journey of leveraging technique over raw strength.
+            Started in 2023. Brown belt. Competed at regional tournaments.
+            The technical journey of leveraging technique over raw strength, with a focus on safety and longevity.
           </p>
+
+          {/* Belt Display */}
+          <div class="flex items-center gap-3 mb-8">
+            <div class="text-4xl">🥋</div>
+            <div>
+              <div class="text-2xl font-bold text-white">{stats.rank}</div>
+              <div class="text-sm text-neutral-400">Current Rank</div>
+            </div>
+          </div>
 
           {/* Stat pills */}
           <div class="flex flex-wrap gap-3">
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
               <span class="w-3 h-3 rounded-full bg-blue-500 inline-block flex-shrink-0"></span>
-              <span class="text-sm font-semibold text-white">Blue Belt</span>
+              <span class="text-sm font-semibold text-white">{stats.rank}</span>
             </div>
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
-              <span class="text-sm font-semibold text-white">Started 2023</span>
+              <span class="text-sm font-semibold text-white">Started {stats.startedYear}</span>
             </div>
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
-              <span class="text-sm font-semibold text-white">2 Competitions</span>
+              <span class="text-sm font-semibold text-white">{stats.competitions} Competition</span>
             </div>
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
-              <span class="text-sm font-semibold text-white">Gi & No-Gi</span>
+              <span class="text-sm font-semibold text-white">{stats.bjjDaysPerWeek}x / week</span>
             </div>
           </div>
         </div>
@@ -166,20 +185,37 @@ const webPageSchema = {
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-colors text-center">
-            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">~60</div>
-            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">BJJ Sessions</div>
+            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">{stats.rank}</div>
+            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Current Belt</div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-colors text-center">
-            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">Blue</div>
-            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Belt Rank</div>
+            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">{stats.startedYear}</div>
+            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Training Since</div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-colors text-center">
-            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">2</div>
-            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Competitions</div>
+            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">{totalBjjPosts}</div>
+            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">BJJ Posts</div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-colors text-center">
-            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">2023</div>
-            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Since</div>
+            <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">3rd</div>
+            <div class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Best Finish</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Notable Moments ───────────────────────────────────────────────────── */}
+    <section class="py-12 bg-neutral-900/20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Notable Moments</p>
+          <div class="flex flex-wrap gap-4">
+            {notableMoments.map(moment => (
+              <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
+                <span class="text-xs font-bold text-blue-400">{moment.year}</span>
+                <span class="text-sm text-neutral-300">{moment.event}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -226,19 +262,64 @@ const webPageSchema = {
       </div>
     </section>
 
-    {/* ── Lessons Learned Section ─────────────────────────────────────────── */}
+    {/* ── Training Schedule ────────────────────────────────────────────────── */}
     <section class="py-16 md:py-20 bg-neutral-900/40 border-y border-neutral-800">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
-          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">What BJJ Taught Me</p>
-          <h2 class="text-3xl md:text-4xl font-bold mb-10">Lessons Learned</h2>
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Training</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">BJJ Training Schedule</h2>
+          <p class="text-neutral-400 mb-8 leading-relaxed max-w-2xl">
+            I train BJJ 2-3 times per week at a dedicated BJJ gym. Each session includes technique work, positional drilling, and live sparring (rolling). 
+            My training is prioritized third in my fitness hierarchy: <span class="text-blue-400 font-semibold">Running &gt; Lifting &gt; BJJ</span>
+          </p>
+          
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+              <div>
+                <div class="text-2xl font-bold text-blue-400">2-3x</div>
+                <div class="text-sm text-neutral-400">per week</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-blue-400">Gi & No-Gi</div>
+                <div class="text-sm text-neutral-400">styles</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-blue-400">Technique</div>
+                <div class="text-sm text-neutral-400">+ Rolling</div>
+              </div>
+              <div>
+                <div class="text-2xl font-bold text-blue-400">~60+</div>
+                <div class="text-sm text-neutral-400">sessions</div>
+              </div>
+            </div>
+          </div>
 
-          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {lessonsLearned.map(lesson => (
+          <div class="mt-6 text-center">
+            <a 
+              href="/training" 
+              class="inline-flex items-center gap-2 text-sm text-blue-500 hover:text-blue-400 transition-colors font-medium"
+            >
+              View Full Training Week
+              <ArrowRight size={16} />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── BJJ Philosophy Section ────────────────────────────────────────────── */}
+    <section class="py-16 md:py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Philosophy</p>
+          <h2 class="text-3xl md:text-4xl font-bold mb-10">Approach to Jiu-Jitsu</h2>
+
+          <div class="grid md:grid-cols-2 gap-4">
+            {philosophy.map(item => (
               <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-blue-500/40 transition-colors">
-                <div class="text-3xl mb-4">{lesson.icon}</div>
-                <h3 class="font-bold text-white mb-3">{lesson.title}</h3>
-                <p class="text-sm text-neutral-400 leading-relaxed">{lesson.description}</p>
+                <div class="text-3xl mb-4">{item.icon}</div>
+                <h3 class="font-bold text-white mb-3">{item.title}</h3>
+                <p class="text-sm text-neutral-400 leading-relaxed">{item.description}</p>
               </div>
             ))}
           </div>
@@ -248,13 +329,13 @@ const webPageSchema = {
 
     {/* ── Related Blog Posts ───────────────────────────────────────────────── */}
     {bjjPosts.length > 0 && (
-      <section class="py-16 md:py-20">
+      <section class="py-16 md:py-20 bg-neutral-900/40 border-y border-neutral-800">
         <div class="container mx-auto px-4">
           <div class="max-w-4xl mx-auto">
             <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Read More</p>
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Related Blog Posts</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Featured BJJ Posts</h2>
             <p class="text-neutral-400 mb-10 max-w-xl">
-              Thoughts on BJJ training, technique, and the martial arts journey.
+              Thoughts on BJJ training, technique, safety, and the martial arts journey.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -272,7 +353,7 @@ const webPageSchema = {
                   )}
                   <div class="p-5">
                     <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                      {post.category}
+                      {post.category || 'BJJ'}
                     </span>
                     <h3 class="mt-3 text-lg font-bold text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-2">
                       {post.title}
@@ -308,14 +389,14 @@ const webPageSchema = {
       </section>
     )}
 
-    {/* ── CTA Section ──────────────────────────────────────────────────────── */}
+    {/* ── Resources Section ────────────────────────────────────────────────── */}
     <section class="py-16 md:py-20">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Continue Exploring</p>
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">More Training Content</h2>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Related Pages</h2>
           <p class="text-neutral-400 mb-8 leading-relaxed max-w-xl mx-auto">
-            Explore the full training dashboard, running stats, lifting data, and fitness tech reviews.
+            Explore the full training dashboard, timeline, and other fitness content.
           </p>
           <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a
@@ -325,16 +406,22 @@ const webPageSchema = {
               Training Dashboard
             </a>
             <a
+              href="/timeline"
+              class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl font-semibold transition-colors text-sm border border-neutral-700"
+            >
+              Timeline
+            </a>
+            <a
               href="/running"
               class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl font-semibold transition-colors text-sm border border-neutral-700"
             >
               Running Stats
             </a>
             <a
-              href="/blog"
+              href="/whoop"
               class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl font-semibold transition-colors text-sm border border-neutral-700"
             >
-              Blog
+              WHOOP Data
             </a>
           </div>
         </div>
