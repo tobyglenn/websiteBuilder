@@ -51,7 +51,6 @@ export const CHANNEL_ID = videosData.channelId || "UCmSwMp2gPo5PGl32d4oCu-Q";
 export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
-
   {
     title: "Is 40lbs Really 40lbs? The Truth About Speediance Weight Calibration",
     slug: "is-40lbs-really-40lbs-speediance-calibration",
@@ -1454,6 +1453,21 @@ You're not just buying hardware. You're buying into the company behind it. And t
     date: "2025-09-06",
     author: "Toby Peters",
     readTime: 8,
+    featured: false
+  },
+  {
+    title: "The Secret BJJ Grading Game: Why Some People Get Promoted Faster Than Others",
+    slug: "bjj-grading-game-promotions",
+    excerpt: "Ever wonder why some BJJ students fly through belt promotions while others seem stuck for years? Toby breaks down the unspoken rules of Jiu-Jitsu grading, from gym politics to competitor advantages, and shares his own experience getting promoted at a slower pace.",
+    content: `<p>And there are schools like this where timing grade matters more than anything else and not being on the wrong end of ticking off the gym owner, right? So don't tick off the gym owner. Spend your time in grade and you get your next belt, right? Um I happen to tend to be one who ticks off the gym owner. [laughter] So, you know, so I'm I I'm some sometimes I get promoted a little slower than I I would otherwise, but you know, I I can be vocal and rude. Um, so that just is what it is.</p>
+
+<p>And I can tell you from getting the coach against his coach, that doesn't seem to be the case with that guy. You know, he brought a competitor who was really talented at blue belt. So, if that's one of his blue belts and at that time Mike Isertel was one of his brown belt, you know, I really question this whole logic that he is an upper level blue belt. But you could say that if you take the wrong footage of any of us at Brown Black Belt, you could make the claim that we're upper level blue belt. Like on our worst days.</p>`,
+    category: "BJJ",
+    tags: ["BJJ", "Jiu-Jitsu", "Grappling", "Martial Arts"],
+    date: "2025-12-02",
+    readTime: 1,
+    author: "Toby Peters",
+    image: "https://i.ytimg.com/vi/ZDFIR8qJyH0/hqdefault.jpg",
     featured: false
   }
 ];

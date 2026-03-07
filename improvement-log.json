@@ -480,10 +480,29 @@
       ],
       "commit": "a635ac5",
       "notes": "Created new /roi page with interactive calculator. Inputs: Speediance price ($4,995), membership ($39/mo), gym cost ($150/mo), years slider. Outputs: savings, breakdown, break-even point, CSS bar chart. Includes Product JSON-LD schema. Uses Layout component for consistent nav. Build passes (307 pages)."
+    },
+    {
+      "timestamp": "2026-03-07T11:20:00-05:00",
+      "idea": "Add Fitness Age page with real WHOOP + Garmin data",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/fitnessAge.js",
+        "src/pages/fitness-age.astro"
+      ],
+      "commit": "f7f8611",
+      "notes": "Created new /fitness-age page with interactive fitness age calculator. Uses real WHOOP data (HRV, RHR, recovery scores) and Garmin running data to calculate fitness age. Shows 6 stat cards (Avg HRV, Resting HR, Recovery Score, Weekly Workouts, Running Miles, Cardio Score). Includes methodology explanation and comparison to actual age. Dark theme matching site. Build passes (292 pages)."
     }
   ],
   "in_progress": null,
   "attempted": [
+    {
+      "timestamp": "2026-03-07T12:15:00-05:00",
+      "idea": "Add new BJJ blog post: The Secret BJJ Grading Game",
+      "category": "Content - Blog Post",
+      "files_changed": [],
+      "commit": "none",
+      "notes": "Attempted to add new BJJ blog post from transcript 2025-12-02. Tried all subagents (Clarity, MiniMax, Spark, Sage, Vision, Gemma, Pulse, Pulse-Lite) - all failed with various errors (429 rate limits, 400/404 errors, model unavailability). Subagent infrastructure appears to have systemic issues. Site has 45+ improvements already completed and is in good shape."
+    },
     {
       "timestamp": "2026-03-06T19:15:00-05:00",
       "idea": "Add Featured Video Playlists to Videos page",
