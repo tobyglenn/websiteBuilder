@@ -246,6 +246,14 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
     
+    <!-- Preconnect to external domains for faster connection -->
+    <link rel="preconnect" href="https://www.youtube.com" />
+    <link rel="preconnect" href="https://www.instagram.com" />
+    <link rel="preconnect" href="https://x.com" />
+    <link rel="dns-prefetch" href="https://www.youtube.com" />
+    <link rel="dns-prefetch" href="https://www.instagram.com" />
+    <link rel="dns-prefetch" href="https://x.com" />
+    
     <SEO 
       title={seoTitle}
       description={seoDescription}
