@@ -53,6 +53,49 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 export const BLOG_POSTS = [
 
   {
+    slug: "i-pulled-260-pounds-on-the-speediance-2s-did-it-break",
+    title: "I Pulled 260 Pounds on the Speediance 2S - Did It Break?",
+    excerpt: "I was browsing the Speediance community and saw someone say lat pulldowns felt wobbly on the original Gym Monster. That sent me down a rabbit hole to test",
+    content: `<p>I was browsing the Speediance community, especially the Facebook group, and saw someone post that lat pulldowns on the original Gym Monster felt wobbly. That immediately made me want to test something extreme on the 2S: max lat pulldown at the full 260 lbs.</p>
+
+<p>Up to this point, I had never even tried to do a full-weight lat pulldown on this machine. On Tonal, at 185 lbs bodyweight, I could get pulled up by 200 lbs of resistance. On the Speediance 2S, because of cable angles, I suspected it might still pull me up—or at least make full reps very hard at max load.</p>
+
+<p>First step was setup. I brought the arms up to L0 and checked the locking points. One thing that can create wobble is not centering and locking those arm positions correctly. I made that mistake when I first got a Gym Monster. If you lock at the edge instead of center, it can feel unstable. Surface also matters: carpet introduces more movement than tile or concrete.</p>
+
+<p>I was still in my 30-day return window, so I decided to run a ridiculous real-world stress test. If this destroyed the machine, at least I’d learn something quickly. To counter getting yanked upward, I used a weighted vest. At lighter bodyweight (like when I was 185), weighted vests were essential for heavy pulling work where the machine could otherwise lift me instead of me lifting the machine.</p>
+
+<p>I loaded the first vest and went into free lift with 130 lbs per side (260 total). I had never attempted this before. The result: I could only get the cables about halfway down before being pulled up. But what shocked me most was this—there was basically no wobble at all. No major shake, no scary frame movement.</p>
+
+<p>That meant one thing: I needed more bodyweight, not less machine load. So I grabbed a second heavier vest and came back. I weighed in around 242–243 lbs with one vest and then stacked even more load with the second vest to push close to 300 lbs total system weight on my body.</p>
+
+<p>With both vests on, I tried again at 260 lbs. This time I managed to complete the pull to the full range at least once, though it was brutally hard. My muscles were shaking, but the machine still didn’t show the kind of wobble people warned about.</p>
+
+<p>I also demonstrated straight-up getting pulled up the wall at max resistance without enough counterweight. That alone answered the “is it really 260 lbs?” question for me. At my current bodyweight around 200+, the machine could still lift me if I locked in and resisted the pull.</p>
+
+<p>The key takeaway from that part of the test: yes, the resistance feels real, and yes, this machine can absolutely move you if you underestimate full load pulling.</p>
+
+<p>I also touched on smart handle behavior. If you use smart handles, turn and connect them before starting your free lift session. If you start first and then connect, there’s a small delay and workflow friction while waiting for sync.</p>
+
+<p>After the max test, I walked through some practical setup tips from my first week with the 2S and moving workouts over from Tonal. One common mistake I’ve seen: skipping the strength assessment and manually entering weights too early. If you do that, recommendations can be way off—either too low or weirdly inconsistent.</p>
+
+<p>For warm-up logic, I found stamina mode with high rep targets worked surprisingly well. I experimented with using 20RM/13-rep style settings for warm-up sets, then different targets for working sets. The machine recalculated better once I used it consistently and let it adapt instead of forcing everything manually.</p>
+
+<p>I also found a one-rep-max settings detail that matters for unilateral work. If left/right are tracked separately in a way that overestimates one side, you can get odd load prescriptions. I prefer settings that keep both sides unified under safer progression logic so one strong-side performance doesn’t overdrive the weaker side.</p>
+
+<p>Bottom line from this experiment: I expected wobble and frame instability, especially on carpet, and got the opposite. Under extreme load, the machine felt more planted than I expected. The limiting factor was me—bodyweight, leverage, and pure pulling strength—not obvious structural instability in the 2S.</p>
+
+<p>And honestly, this was one of the most fun tests I’ve done on any smart gym device. It was absurd, overkill, and probably not something most people should replicate. But as a stress test, it told me a lot about what this machine can handle.</p>
+
+<p>If you want me to run the same max-pulldown test on the original Gym Monster downstairs (220 lb model), that’s a separate video I can do. But from what I saw here, the Speediance 2S handled this challenge better than I expected.</p>`,
+    date: "2025-09-06",
+    category: "Speediance",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800",
+    tags: ["Speediance", "2S", "review", "strength"],
+    readTime: 24,
+    author: "Toby Peters"
+  },
+
+  {
     title: "Transform Your Life in Just One Winter",
     slug: "transform-your-life-in-just-one-winter",
     published_at: "2025-10-08",
@@ -1285,6 +1328,46 @@ You're not just buying hardware. You're buying into the company behind it. And t
     category: "BJJ",
     tags: ["BJJ", "Mike Israetel"],
     date: "2025-11-13"
-  }
+  },
+  {
+    id: "speediance-2s-260-lb-lat-pulldown",
+    slug: "speediance-2s-260-lb-lat-pulldown",
+    title: "I Pulled 260 Pounds on the Speediance 2S - Did It Break?",
+    excerpt: "Toby tests the Speediance 2S at its maximum 260 lb capacity to see if the machine can handle the weight - and discovers something surprising.",
+    content: `<p>I was browsing the Speediance Facebook community when I saw someone post that their lat pulldowns felt wobbly on the original Gym Monster. That got my brain turning - especially because the 2S is capable of 260 lbs. I'd never tried to do a lat pulldown at full weight. At 185 lbs, the Tonal could pull me up because it's capable of 200 lbs of resistance. But this machine, because of the angles, probably wouldn't pull me up even at 260 lbs - or would it?</p>
 
+<p>First things first - if you're going to lift heavy like this, wear a rash guard. When you're pulling heavy weight from the machine and you're light, the handles can snap back. I learned this the hard way when I was at 185 lbs doing heavy strength training.</p>
+
+<p>The solution? A weighted vest. I preloaded the back of my weighted vest with weights, then loaded the front while wearing it. It gets heavy trying to preload everything before putting it on.</p>
+
+<p>I set the machine to 130 lbs per side - 260 lbs total. I'd never attempted this before. I had no idea if I could actually pull that weight down.</p>
+
+<p><strong>The first attempt:</strong> I needed more weight. The weighted vest wasn't heavy enough. I could get the cables to come halfway down with all my weight coming up and going against the wall. But what shocked me - no wobble at all. Not even a little. That was impressive.</p>
+
+<p>At 200 lbs with the weight on, the machine just pulled me up. I could literally do pull-ups on it. My knees were touching the wall, the wall wasn't holding any of my weight, and the machine didn't budge an inch. Anyone who questions whether this is truly 260 lbs - there's no question.</p>
+
+<p><strong>Weighing in:</strong> I stepped on my cheap Amazon scale (which connects to my phone via Bluetooth and charts into Whoop and Apple Health). I weighed in at 242 lbs with the weighted vest. The machine was set to 260 total - 130% of my body weight. And I could barely get these things to budge. That's pulling down as hard as I could with my knees on the wall for leverage. Without the vest, the machine just pulled me up. It didn't even budge the cords. Pretty wild.</p>
+
+<p><strong>Attempt number two:</strong> I found my second weighted vest and tried again. I put on weighted vest number one at full weight - putting me at 243 lbs. Still not enough. Then I added the second weighted vest. This is strictly informational purposes only - I don't recommend wearing two weighted vests and applying a bunch of weight. But this time, I had enough weight to at least hold me down.</p>
+
+<p>Result: I got it down to about my shoulders. This is extremely heavy. I counted two reps - the first one got me about halfway down, the second time I got the whole way down and heard a ding. The answer is yes - if you have enough weight on your body, this thing will actually work.</p>
+
+<p><strong>Most importantly - no wobble.</strong> For that person who said it wobbled, I don't know if that's one of the improvements with the 2S, but this thing didn't shake at all. My muscles were completely shaking though. That's impressive. I mean, that gives you an idea of what this machine is capable of.</p>
+
+<p>What blows my mind - there's no give in the cables. No wobbliness in the machine. I was fully expecting it to wobble like heck. I was expecting a lot of give. When the machine pulled me up at 200 lbs, I could feel there's no give. It's like having a squat rack in terms of its abilities.</p>
+
+<p>Compare this to the Tonal - whenever I had that thing at max weight, the fans kicked on and it sounded like a jet airplane taking off. This thing doesn't even seem like it's trying. The fans didn't even kick on.</p>
+
+<p><strong>The bottom line:</strong> This machine handled 260 lbs effortlessly. It's still in the warranty window and it looks like it's actually designed to do this - which blows my mind. I have a feeling there's nothing you could ask me to do on this thing that would really break it. Anything I'm capable of doing, the machine can handle.</p>
+
+<p>Deadlifts at full weight? Seemed effortless for the machine - way more effortful for me. I can't believe with the cables up this high that those cables don't wobble. Absolutely no wobble in the machine at max weight.</p>
+
+<p>If you want to see me attempt the same thing on the original Gym Monster downstairs, let me know in the comments. But I can tell you - if it handled that effortlessly, I'm confident this machine is built to last.</p>`,
+    category: "Speediance",
+    tags: ["Speediance", "2S", "review", "strength", "lat pulldown"],
+    date: "2025-09-06",
+    author: "Toby Peters",
+    readTime: 8,
+    featured: false
+  }
 ];
