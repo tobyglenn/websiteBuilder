@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = 'Contact | Website Builder';
+const pageDescription = 'Get in touch for collaborations, questions, or project inquiries.';
+
+const contactSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: 'Get in Touch',
+  description: pageDescription,
+  url: 'https://example.com/contact',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'Website Builder',
+    email: 'hello@example.com',
+    sameAs: ['https://www.youtube.com/@example'],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Remote',
+      addressCountry: 'US'
+    }
+  }
+};
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(contactSchema)} />
+  </Fragment>
+
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="mx-auto max-w-5xl px-6 py-20 md:py-28">
+      <h1 class="text-4xl font-bold tracking-tight md:text-5xl">Get in Touch</h1>
+      <p class="mt-4 max-w-2xl text-neutral-300">
+        Have a question, idea, or project in mind? Reach out through any method below or send a message directly.
+      </p>
+    </section>
+
+    <section class="mx-auto grid max-w-5xl gap-6 px-6 pb-14 md:grid-cols-3">
+      <article class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6">
+        <h2 class="text-lg font-semibold text-[#3b82f6]">Email</h2>
+        <p class="mt-2 text-neutral-300">Best for project inquiries and collaborations.</p>
+        <a href="mailto:hello@example.com" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
+          hello@example.com
+        </a>
+      </article>
+
+      <article class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6">
+        <h2 class="text-lg font-semibold text-[#3b82f6]">YouTube</h2>
+        <p class="mt-2 text-neutral-300">Watch tutorials, updates, and behind-the-scenes content.</p>
+        <a href="https://www.youtube.com/@example" target="_blank" rel="noreferrer" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
+          youtube.com/@example
+        </a>
+      </article>
+
+      <article class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6">
+        <h2 class="text-lg font-semibold text-[#3b82f6]">Location</h2>
+        <p class="mt-2 text-neutral-300">Based remotely, available for global projects.</p>
+        <p class="mt-4 text-white">New York, USA</p>
+      </article>
+    </section>
+
+    <section class="mx-auto max-w-3xl px-6 pb-24">
+      <div class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6 md:p-8">
+        <h2 class="text-2xl font-semibold">Send a Message</h2>
+        <p class="mt-2 text-neutral-300">I usually reply within 1-2 business days.</p>
+
+        <form id="contact-form" class="mt-8 space-y-5">
+          <div>
+            <label for="name" class="mb-2 block text-sm font-medium text-neutral-200">Name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-[#3b82f6] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/40"
+              placeholder="Your name"
+            />
+          </div>
+
+          <div>
+            <label for="email" class="mb-2 block text-sm font-medium text-neutral-200">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-[#3b82f6] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/40"
+              placeholder="you@example.com"
+            />
+          </div>
+
+          <div>
+            <label for="message" class="mb-2 block text-sm font-medium text-neutral-200">Message</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-[#3b82f6] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/40"
+              placeholder="How can I help?"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="inline-flex items-center rounded-xl bg-[#3b82f6] px-5 py-3 font-medium text-white transition hover:bg-[#2563eb] focus:outline-none focus:ring-2 focus:ring-[#3b82f6]/60"
+          >
+            Send Message
+          </button>
+
+          <p id="form-success" class="hidden rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-emerald-300">
+            Thanks! Your message has been submitted successfully.
+          </p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+
+    form?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      form.reset();
+      success?.classList.remove('hidden');
+    });
+  </script>
+</Layout>

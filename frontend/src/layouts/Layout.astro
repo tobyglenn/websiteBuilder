@@ -184,23 +184,6 @@ const siteNavigationSchema = {
   ]
 };
 
-// SiteNavigationElement — defines the main site navigation for search engines
-const siteNavigationSchema = {
-  "@context": "https://schema.org",
-  "@type": "SiteNavigationElement",
-  "name": "Main Navigation",
-  "description": "Primary navigation menu for Toby on Fitness Tech",
-  "mainEntityOfPage": siteUrl,
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "url": siteUrl },
-    { "@type": "ListItem", "position": 2, "name": "Videos", "url": `${siteUrl}/videos` },
-    { "@type": "ListItem", "position": 3, "name": "Podcasts", "url": `${siteUrl}/podcasts` },
-    { "@type": "ListItem", "position": 4, "name": "Blog", "url": `${siteUrl}/blog` },
-    { "@type": "ListItem", "position": 5, "name": "Gear", "url": `${siteUrl}/gear` },
-    { "@type": "ListItem", "position": 6, "name": "About", "url": `${siteUrl}/about` }
-  ]
-};
-
 const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
 
 const staticBreadcrumbNameMap: Record<string, string> = {

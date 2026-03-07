@@ -63,6 +63,7 @@ export default function Header() {
     { name: 'BJJ', href: '/bjj', icon: '🥋' },
     { name: 'Day in a Week', href: '/day', icon: '📅' },
     { name: 'Gear', href: '/gear', icon: '🛠' },
+    { name: 'Contact', href: '/contact', icon: '📧' },
   ];
 
   return (
