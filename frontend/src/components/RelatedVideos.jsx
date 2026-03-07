@@ -13,7 +13,9 @@ export default function RelatedVideos({ currentId, videos }) {
           <div className="aspect-video relative overflow-hidden">
             <img 
               src={video.thumbnail} 
-              alt={video.title} 
+              alt={video.title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
             />
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">

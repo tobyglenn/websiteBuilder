@@ -146,6 +146,8 @@ relatedVideos = relatedVideos.slice(0, 8);
                 src={video.thumbnail}
                 alt={video.title}
                 class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-60 transition-opacity duration-300"
+                loading="lazy"
+                decoding="async"
               />
               {/* Dark overlay */}
               <div class="absolute inset-0 bg-black/40 group-hover:bg-black/50 transition-colors" />

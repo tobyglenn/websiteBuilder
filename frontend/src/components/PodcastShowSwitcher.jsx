@@ -20,6 +20,8 @@ function EpisodeCard({ ep }) {
           src={ep.coverImage}
           alt={`Episode ${ep.episodeNum} cover art`}
           className="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 border border-neutral-700"
+          loading="lazy"
+          decoding="async"
           onError={e => { e.currentTarget.style.display = 'none'; }}
         />
         <div className="flex flex-col justify-center min-w-0">
@@ -82,6 +84,8 @@ function FitnessEpisodeCard({ ep }) {
           src={ep.coverImage}
           alt="Toby on Fitness Tech"
           className="w-20 h-20 rounded-xl object-cover shrink-0 border border-neutral-700"
+          loading="lazy"
+          decoding="async"
           onError={e => { e.currentTarget.style.display = 'none'; }}
         />
         <div className="flex flex-col justify-center min-w-0">
