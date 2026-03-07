@@ -2,6 +2,17 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-07T01:15:00-05:00",
+      "idea": "Privacy Policy and Terms of Service pages",
+      "category": "Legal Pages",
+      "files_changed": [
+        "src/pages/privacy.astro",
+        "src/pages/terms.astro"
+      ],
+      "commit": "existing",
+      "notes": "Verified Privacy Policy and Terms of Service pages exist and build correctly. Pages include proper Layout, dark theme styling, meta descriptions, and content about data collection (WHOOP, Garmin, 8Sleep, Speediance, OpenClaw). Build passes (287 pages)."
+    },
+    {
       "timestamp": "2026-03-05T09:15:00-05:00",
       "idea": "Add social sharing buttons to blog post pages",
       "category": "UX Enhancement - Blog",
