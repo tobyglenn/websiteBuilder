@@ -30,6 +30,13 @@ const SORT_OPTIONS = [
   { id: 'popular', name: 'Most Popular' },
 ];
 
+const DURATION_FILTERS = [
+  { id: 'all', name: 'All' },
+  { id: 'short', name: 'Short (<5 min)' },
+  { id: 'medium', name: 'Medium (5-15 min)' },
+  { id: 'long', name: 'Long (15+ min)' },
+];
+
 function parseDuration(value) {
   if (!value) return 0;
 
@@ -134,6 +141,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
   const sourceVideos = videos || allVideos;
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
+  const [durationFilter, setDurationFilter] = useState('all');
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -221,6 +229,15 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
       });
     }
 
+    // Duration filter (seconds)
+    if (durationFilter === 'short') {
+      result = result.filter(v => v.durationSec > 0 && v.durationSec < 300);
+    } else if (durationFilter === 'medium') {
+      result = result.filter(v => v.durationSec >= 300 && v.durationSec < 900);
+    } else if (durationFilter === 'long') {
+      result = result.filter(v => v.durationSec >= 900);
+    }
+
     // Sort
     result = result.sort((a, b) => {
       if (sortBy === 'newest') return b.dateObj - a.dateObj;
@@ -233,7 +250,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
 
     if (limit) return result.slice(0, limit);
     return result;
-  }, [processedVideos, selectedCategory, sortBy, searchQuery, limit]);
+  }, [processedVideos, selectedCategory, sortBy, durationFilter, searchQuery, limit]);
 
   return (
     <div className="space-y-6">
@@ -299,6 +316,26 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                   <SortDesc size={14} />
                 </div>
               </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2">
+              {DURATION_FILTERS.map(filter => (
+                <button
+                  key={filter.id}
+                  type="button"
+                  onClick={() => setDurationFilter(filter.id)}
+                  className={`px-3 py-2 rounded-lg text-sm border transition-colors ${
+                    durationFilter === filter.id
+                      ? 'bg-[#3b82f6] border-[#3b82f6] text-white'
+                      : 'bg-neutral-900 border-neutral-800 text-neutral-300 hover:text-white hover:border-neutral-600'
+                  }`}
+                >
+                  {filter.name}
+                </button>
+              ))}
+            </div>
+
+            <div className="text-xs text-neutral-500 text-right">
             </div>
 
             <div className="text-xs text-neutral-500 text-right">

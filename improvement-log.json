@@ -502,6 +502,18 @@
       "commit": "f7f8611",
       "notes": "Created new /fitness-age page with interactive fitness age calculator. Uses real WHOOP data (HRV, RHR, recovery scores) and Garmin running data to calculate fitness age. Shows 6 stat cards (Avg HRV, Resting HR, Recovery Score, Weekly Workouts, Running Miles, Cardio Score). Includes methodology explanation and comparison to actual age. Dark theme matching site. Build passes (292 pages)."
     }
+{
+      "timestamp": "2026-03-07T16:20:00-05:00",
+      "idea": "Add 2026 Yearly Goals widget to homepage with progress tracking",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/components/YearlyGoals.jsx",
+        "src/data/2026Goals.js",
+        "src/pages/index.astro"
+      ],
+      "commit": "9f225d4",
+      "notes": "Created YearlyGoals React component showing 2026 fitness goals with progress bars. Goals: 365 miles run (52 mi/365 = 14%), 500K lbs lifted (108K/500K = 22%), 200 workouts (42/200 = 21%), 100 BJJ sessions (Coming Soon). Dark theme matching site. Displays below Lifetime Stats on homepage. Build passes (293 pages)."
+    }
   ],
   "in_progress": null,
   "attempted": [
