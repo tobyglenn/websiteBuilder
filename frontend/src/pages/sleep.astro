@@ -1,223 +1,176 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { RECENT_NIGHTS, INSIGHTS, TOTAL_NIGHTS, AVG_SLEEP_SCORE, AVG_HOURS, AVG_HRV } from '../data/sleep.js';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import { Moon, Activity, Clock, Heart, Waves, BedDouble } from 'lucide-react';
+import {
+  getEightSleepData,
+  LAST_30_NIGHTS,
+  RECENT_NIGHTS,
+  AVG_SLEEP_SCORE,
+  AVG_SLEEP_QUALITY,
+  AVG_HOURS_SLEPT,
+  AVG_HRV,
+  AVG_HEART_RATE,
+  TOTAL_NIGHTS_TRACKED,
+  LATEST_SLEEP_SCORE,
+} from '../data/eightsleep.js';
 
-function testChart(data) {
-  const PAD = { l: 50, r: 20, t: 20, b: 40 };
-  const cw = 780 - PAD.l - PAD.r;
-  const ch = 200 - PAD.t - PAD.b;
-  const n = data.length;
-  if (n === 0) return '';
-  
-  const maxS = 100;
-  const minS = 0;
-  const range = maxS - minS;
-  
-  const points = data.map((d, i) => {
-    const x = PAD.l + (i / (n - 1)) * cw;
-    const y = PAD.t + ch - ((d.score - minS) / range) * ch;
+const sleepData = getEightSleepData();
+
+const chartWidth = 760;
+const chartHeight = 240;
+const chartPadding = 32;
+
+function linePoints(data, key, maxVal = 100) {
+  if (!data.length) return '';
+  if (data.length === 1) {
+    const x = chartPadding;
+    const y = chartHeight - chartPadding - ((data[0][key] ?? 0) / maxVal) * (chartHeight - chartPadding * 2);
     return `${x},${y}`;
-  }).join(' ');
-  
-  return `<svg viewBox="0 0 780 200">
-    <polyline points="${points}" fill="none" stroke="#3b82f6" stroke-width="2" />
-  </svg>`;
+  }
+
+  return data
+    .map((d, i) => {
+      const x = chartPadding + (i / (data.length - 1)) * (chartWidth - chartPadding * 2);
+      const y = chartHeight - chartPadding - ((d[key] ?? 0) / maxVal) * (chartHeight - chartPadding * 2);
+      return `${x},${y}`;
+    })
+    .join(' ');
 }
 
-function hoursChart(data) {
-  const PAD = { l: 50, r: 20, t: 10, b: 30 };
-  const cw = 780 - PAD.l - PAD.r;
-  const ch = 120 - PAD.t - PAD.b;
-  const n = data.length;
-  if (n === 0) return '';
-  
-  const maxH = Math.max(...data.map(d => d.hours), 8);
-  const bw = cw / n;
-  const gap = bw * 0.15;
-  
-  const bars = data.map((d, i) => {
-    const x = PAD.l + i * bw + gap;
-    const w = bw - gap * 2;
-    const h = (d.hours / maxH) * ch;
-    const y = PAD.t + ch - h;
-    return `<rect x="${x}" y="${y}" width="${w}" height="${h}" class="fill-emerald-500" rx="2" />`;
-  }).join('');
-  
-  return `<svg viewBox="0 0 780 120">${bars}</svg>`;
-}
-
-function qualityDonut(W=160, H=160) {
-  const cx = W / 2;
-  const cy = H / 2;
-  const r = 50;
-  const stroke = 12;
-  
-  const stages = [
-    { pct: 20, color: '#8b5cf6', label: 'Deep' },
-    { pct: 55, color: '#3b82f6', label: 'Light' },
-    { pct: 22, color: '#06b6d4', label: 'REM' },
-    { pct: 3, color: '#ef4444', label: 'Awake' },
-  ];
-  
-  let offset = 0;
-  const segments = stages.map(s => {
-    const len = (s.pct / 100) * 2 * Math.PI * r;
-    const seg = `<circle 
-      cx="${cx}" cy="${cy}" r="${r}" 
-      fill="none" stroke="${s.color}" stroke-width="${stroke}"
-      stroke-dasharray="${len} ${2 * Math.PI * r - len}"
-      stroke-dashoffset="${-offset}"
-      transform="rotate(-90 ${cx} ${cy})"
-    />`;
-    offset += len;
-    return seg;
-  }).join('');
-  
-  const legend = stages.map(s => `
-    <div class="flex items-center gap-2">
-      <div class="w-3 h-3 rounded-full" style="background: ${s.color}"></div>
-      <span class="text-xs text-neutral-400">${s.label} ${s.pct}%</span>
-    </div>
-  `).join('');
-  
-  return { svg: `<svg viewBox="0 0 ${W} ${H}">${segments}</svg>`, legend };
-}
-
-const chart = testChart(RECENT_NIGHTS);
-const hoursSvg = hoursChart(RECENT_NIGHTS);
-const { svg: qualitySvg, legend: qualityLegend } = qualityDonut();
+const trendScorePoints = linePoints(LAST_30_NIGHTS, 'sleepScore', 100);
+const qualityPoints = linePoints(LAST_30_NIGHTS, 'sleepQuality', 100);
+const durationPoints = linePoints(LAST_30_NIGHTS, 'hoursSlept', 10);
 ---
-<Layout title="Sleep & Recovery Data | TobyOnFitnessTech" description="Toby's 8Sleep recovery data — sleep scores, hours, HRV, and trends from 1,500+ nights tracked. See how recovery impacts training." jsonLd={{
-    "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Sleep & Recovery Data",
-    "description": "Sleep scores, hours, and stages from 8Sleep data, with insights and recent nights.",
-    "author": { "@type": "Person", "name": "Toby Glenn Peters" },
-    "datePublished": "2026-03-04",
-    "url": "https://tobyonfitnesstech.com/sleep"
-  }}>
-  <main class="bg-neutral-950 min-h-screen">
-    <section class="py-10">
-      <div class="text-center">
-        <h1 class="text-4xl font-bold text-white">Sleep & Recovery Data</h1>
-        <div class="flex justify-center gap-3 mt-4">
-          <span class="px-4 py-2 bg-neutral-900 rounded-full text-white text-sm">
-            <span class="text-blue-400 font-semibold">{AVG_SLEEP_SCORE}</span>
-            <span class="text-neutral-500"> avg score</span>
+
+<Layout
+  title="Sleep Analytics | TobyOnFitnessTech"
+  description="Real 8Sleep analytics: sleep scores, sleep quality, duration, HRV, and heart rate trends from Toby's historical sleep data."
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Sleep Analytics', url: '/sleep' }]}
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: '8Sleep Pod',
+    description: 'Sleep analytics dashboard based on historical 8Sleep data including sleep score, quality, duration, HRV, and heart rate trends.',
+    brand: { '@type': 'Brand', name: '8Sleep' },
+    category: 'Sleep Technology',
+    url: 'https://tobyonfitnesstech.com/sleep',
+  }}
+>
+  <Header client:load />
+
+  <main class="bg-neutral-950 min-h-screen text-white pb-20">
+    <section class="pt-24 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
+            <Moon class="w-4 h-4" />
+            8Sleep Data
           </span>
-          <span class="px-4 py-2 bg-neutral-900 rounded-full text-white text-sm">
-            <span class="text-emerald-400 font-semibold">{AVG_HOURS}h</span>
-            <span class="text-neutral-500"> avg sleep</span>
-          </span>
+          <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS_TRACKED} nights tracked</span>
         </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Sleep Analytics</h1>
+        <p class="text-lg text-neutral-400 max-w-2xl">
+          Historical 8Sleep metrics with score, quality, duration, HRV, and heart-rate trends from real nightly data.
+        </p>
       </div>
     </section>
-    <section class="py-8 border-t border-neutral-900">
-      <div class="max-w-5xl mx-auto px-4">
-        <h2 class="text-xl font-semibold text-white mb-6">Sleep Score Trend</h2>
-        <div class="bg-neutral-900 rounded-xl p-6">
-          <div class="text-center">
-            <Fragment set:html={chart} />
-          </div>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Activity class="w-4 h-4" />Avg Sleep Score</div>
+          <div class="text-3xl font-bold text-white">{AVG_SLEEP_SCORE}<span class="text-lg text-neutral-500">/100</span></div>
         </div>
-      </div>
-    </section>
-    <section class="py-8 border-t border-neutral-900">
-      <div class="max-w-5xl mx-auto px-4">
-        <div class="grid md:grid-cols-2 gap-6">
-          <div>
-            <h2 class="text-xl font-semibold text-white mb-4">Hours Slept</h2>
-            <div class="bg-neutral-900 rounded-xl p-6">
-              <div class="text-center">
-                <Fragment set:html={hoursSvg} />
-              </div>
-            </div>
-          </div>
-          <div>
-            <h2 class="text-xl font-semibold text-white mb-4">Sleep Stages</h2>
-            <div class="bg-neutral-900 rounded-xl p-6">
-              <div class="flex flex-col md:flex-row items-center gap-6">
-                <Fragment set:html={qualitySvg} />
-                <div class="flex flex-col gap-2">
-                  <Fragment set:html={qualityLegend} />
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Waves class="w-4 h-4" />Avg Sleep Quality</div>
+          <div class="text-3xl font-bold text-white">{AVG_SLEEP_QUALITY}<span class="text-lg text-neutral-500">/100</span></div>
         </div>
-      </div>
-    </section>
-    <section class="py-8 border-t border-neutral-900">
-      <div class="max-w-5xl mx-auto px-4">
-        <h2 class="text-xl font-semibold text-white mb-6">Key Insights</h2>
-        <ul class="space-y-3">
-          {INSIGHTS.map(insight => (
-            <li class="flex items-start gap-3">
-              <span class="text-blue-400 mt-1">▸</span>
-              <span class="text-neutral-300">{insight}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-    <section class="py-8 border-t border-neutral-900">
-      <div class="max-w-5xl mx-auto px-4">
-        <h2 class="text-xl font-semibold text-white mb-6">Recent Nights</h2>
-        <div class="bg-neutral-900 rounded-xl overflow-hidden">
-          <div class="hidden md:block overflow-x-auto">
-            <table class="w-full">
-              <thead>
-                <tr class="border-b border-neutral-800">
-                  <th class="text-left py-3 px-4 text-neutral-500 text-sm font-medium">Date</th>
-                  <th class="text-left py-3 px-4 text-neutral-500 text-sm font-medium">Score</th>
-                </tr>
-              </thead>
-              <tbody>
-                {RECENT_NIGHTS.map(night => (
-                  <tr class="border-b border-neutral-800/50">
-                    <td class="py-3 px-4 text-white">{night.date}</td>
-                    <td class="py-3 px-4">
-                      <span class={`px-2 py-1 rounded text-sm font-medium ${
-                        night.score >= 80 ? 'bg-emerald-500/20 text-emerald-400' :
-                        night.score >= 60 ? 'bg-yellow-500/20 text-yellow-400' :
-                        'bg-red-500/20 text-red-400'
-                      }`}>
-                        {night.score}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Clock class="w-4 h-4" />Avg Hours</div>
+          <div class="text-3xl font-bold text-white">{AVG_HOURS_SLEPT}<span class="text-lg text-neutral-500">h</span></div>
+        </div>
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Heart class="w-4 h-4" />Avg HRV</div>
+          <div class="text-3xl font-bold text-white">{AVG_HRV}<span class="text-lg text-neutral-500">ms</span></div>
+        </div>
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Heart class="w-4 h-4" />Avg Heart Rate</div>
+          <div class="text-3xl font-bold text-white">{AVG_HEART_RATE}<span class="text-lg text-neutral-500">bpm</span></div>
+        </div>
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><BedDouble class="w-4 h-4" />Total Nights</div>
+          <div class="text-3xl font-bold text-blue-400">{TOTAL_NIGHTS_TRACKED}</div>
+          <div class="text-xs text-neutral-500 mt-1">Latest score: {LATEST_SLEEP_SCORE}</div>
         </div>
       </div>
     </section>
 
-    <!-- CTA -->
-    <section class="py-12 border-t border-neutral-900">
-      <div class="max-w-5xl mx-auto px-4 text-center">
-        <h2 class="text-2xl font-bold text-white mb-4">See How I Train</h2>
-        <p class="text-neutral-400 mb-6">Combine sleep data with training volume for optimal recovery.</p>
-        <div class="flex flex-wrap justify-center gap-4">
-          <a href="/day" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition">
-            A Day in the Data
-          </a>
-          <a href="/training" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition">
-            Training Trends
-          </a>
-          <a href="/blog" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition">
-            Read the Blog
-          </a>
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold mb-5">Sleep Score Trend (Last 30 Days)</h2>
+          {LAST_30_NIGHTS.length > 0 ? (
+            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto">
+              <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+              <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+              <polyline points={trendScorePoints} fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              {LAST_30_NIGHTS.map((d, i) => {
+                const x = chartPadding + (i / Math.max(LAST_30_NIGHTS.length - 1, 1)) * (chartWidth - chartPadding * 2);
+                const y = chartHeight - chartPadding - ((d.sleepScore ?? 0) / 100) * (chartHeight - chartPadding * 2);
+                return <circle cx={x} cy={y} r="2.5" fill="#3B82F6" />;
+              })}
+            </svg>
+          ) : <p class="text-neutral-400">No data available.</p>}
+        </div>
+
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold mb-5">Sleep Quality vs Duration</h2>
+          {LAST_30_NIGHTS.length > 0 ? (
+            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto">
+              <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+              <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+              <polyline points={qualityPoints} fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+              <polyline points={durationPoints} fill="none" stroke="#22D3EE" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round" />
+              <text x={chartWidth - 170} y={chartPadding + 2} fill="#60A5FA" font-size="11">Sleep Quality</text>
+              <text x={chartWidth - 170} y={chartPadding + 18} fill="#22D3EE" font-size="11">Duration (hours)</text>
+            </svg>
+          ) : <p class="text-neutral-400">No data available.</p>}
         </div>
       </div>
     </section>
-    
-    <!-- Last updated -->
-    <section class="py-6 border-t border-neutral-900">
-      <div class="max-w-5xl mx-auto px-4 text-center">
-        <p class="text-neutral-500 text-sm">Data last updated: February 20, 2026</p>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+        <h2 class="text-xl font-bold mb-6">Recent Nights</h2>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800 text-neutral-400">
+                <th class="text-left py-2 px-2">Date</th>
+                <th class="text-left py-2 px-2">Score</th>
+                <th class="text-left py-2 px-2">Quality</th>
+                <th class="text-left py-2 px-2">Hours</th>
+                <th class="text-left py-2 px-2">HRV</th>
+              </tr>
+            </thead>
+            <tbody>
+              {RECENT_NIGHTS.map((n) => (
+                <tr class="border-b border-neutral-800/60">
+                  <td class="py-2 px-2">{new Date(n.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
+                  <td class="py-2 px-2 text-blue-400 font-semibold">{n.sleepScore ?? '—'}</td>
+                  <td class="py-2 px-2">{n.sleepQuality ?? '—'}</td>
+                  <td class="py-2 px-2">{n.hoursSlept != null ? `${n.hoursSlept.toFixed(2)}h` : '—'}</td>
+                  <td class="py-2 px-2">{n.hrv != null ? `${n.hrv.toFixed(1)} ms` : '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </section>
   </main>
+
+  <Footer />
 </Layout>
