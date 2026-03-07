@@ -1,63 +1,113 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import videosData from '../data/videos.json';
+
+const videos = videosData.videos ?? [];
+const latestVideo = videos[0] ?? null;
+const fallbackVideoId = 'LZDxBscLnPY';
+const featuredVideoId = latestVideo?.id || fallbackVideoId;
+const featuredTitle = latestVideo?.title || 'Latest Upload from Toby on Fitness Tech';
+const recentVideos = videos.slice(0, 6);
 ---
 
 <Layout 
   title="Live Streams - Toby on Fitness Tech"
-  description="Live streams coming soon. Subscribe to YouTube for notifications on Speediance workouts, BJJ commentary, and fitness tech Q&A."
+  description="Watch the latest Toby on Fitness Tech YouTube content and subscribe for upcoming live streams on Speediance workouts, BJJ commentary, and fitness tech Q&A."
 >
-  <div class="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 py-24">
-    <div class="max-w-2xl mx-auto">
-      
-      <div class="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold mb-6">
-        <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
-        Coming Soon
-      </div>
+  <section class="px-4 py-10 md:py-14">
+    <div class="max-w-6xl mx-auto">
+      <nav class="text-sm text-neutral-400 mb-6" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+          <li aria-hidden="true" class="text-neutral-600">/</li>
+          <li class="text-white font-medium" aria-current="page">Live</li>
+        </ol>
+      </nav>
 
-      <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-        Live Streams
-      </h1>
-
-      <p class="text-xl text-neutral-400 mb-4 leading-relaxed">
-        Live streams are coming to TobyOnFitnessTech. Real-time Speediance workouts, BJJ match commentary, and live Q&amp;A on fitness tech.
-      </p>
-
-      <p class="text-neutral-500 mb-10">
-        Subscribe to YouTube and hit the notification bell so you never miss a stream.
-      </p>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a 
-          href="https://www.youtube.com/@tobyonfitness?sub_confirmation=1"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-3 px-8 py-4 bg-red-600 hover:bg-red-700 text-white font-bold rounded-full transition-all hover:scale-105"
-        >
-          Subscribe on YouTube
-        </a>
-        <a 
-          href="/videos"
-          class="inline-flex items-center gap-2 px-8 py-4 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-700 rounded-full transition-all font-medium"
-        >
-          Watch Past Videos →
-        </a>
-      </div>
-
-      <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-        <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
-          <h3 class="font-bold text-white mb-2">Speediance Live Workouts</h3>
-          <p class="text-sm text-neutral-400">Real training sessions with live commentary on weights, form, and machine behavior.</p>
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">Live & Latest</h1>
+          <p class="text-neutral-400 max-w-2xl">
+            No live streams yet, but you can watch the newest upload right here and catch recent videos from the channel.
+          </p>
         </div>
-        <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
-          <h3 class="font-bold text-white mb-2">BJJ Match Commentary</h3>
-          <p class="text-sm text-neutral-400">Breaking down high-level grappling matches and competition footage as it happens.</p>
-        </div>
-        <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
-          <h3 class="font-bold text-white mb-2">Fitness Tech Q&amp;A</h3>
-          <p class="text-sm text-neutral-400">Live answers to your questions about wearables, training data, and gear recommendations.</p>
+        <div class="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold w-fit">
+          <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+          Live Streams Coming Soon
         </div>
       </div>
 
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-4">
+          <div class="relative aspect-video rounded-2xl overflow-hidden border border-neutral-800 bg-black">
+            <iframe
+              class="w-full h-full"
+              src={`https://www.youtube.com/embed/${featuredVideoId}`}
+              title={featuredTitle}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-5">
+            <p class="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">Latest Upload</p>
+            <h2 class="text-xl md:text-2xl text-white font-bold leading-tight">{featuredTitle}</h2>
+            {latestVideo?.description && (
+              <p class="text-neutral-400 mt-3 line-clamp-4">{latestVideo.description}</p>
+            )}
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a
+                href={`https://www.youtube.com/watch?v=${featuredVideoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
+              >
+                Watch on YouTube
+              </a>
+              <a
+                href="https://www.youtube.com/@tobyonfitness?sub_confirmation=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-500 text-white font-semibold transition-colors"
+              >
+                Subscribe
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="space-y-4">
+          <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
+            <h3 class="text-white font-bold text-lg mb-1">Recent Videos</h3>
+            <p class="text-sm text-neutral-400 mb-4">Fresh content from Toby on Fitness Tech.</p>
+            <ul class="space-y-3">
+              {recentVideos.map((video) => (
+                <li>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex gap-3 p-2 rounded-lg hover:bg-neutral-800/70 transition-colors"
+                  >
+                    <img
+                      src={video.thumbnail}
+                      alt={video.title}
+                      loading="lazy"
+                      class="w-24 h-14 object-cover rounded-md border border-neutral-700"
+                    />
+                    <div>
+                      <p class="text-sm text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-2">{video.title}</p>
+                      <p class="text-xs text-neutral-500 mt-1">{video.duration_formatted || video.duration || 'Video'}</p>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
     </div>
-  </div>
+  </section>
 </Layout>
