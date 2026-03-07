@@ -438,7 +438,7 @@
       ],
       "commit": "93cf471",
       "notes": "Added new blog post from unused transcript 2025-09-06. Toby tests the Speediance 2S at max 260 lb capacity to see if it breaks - discovers the machine is rock solid with no wobble, pulls him up at 200 lbs effortlessly. Great comparison to Tonal. Category: Speediance. Build passes (291 pages)."
-    }
+    },
     {
       "timestamp": "2026-03-07T06:20:00-05:00",
       "idea": "Add new blog post: Is 40lbs Really 40lbs? The Truth About Speediance Weight Calibration (2025-09-11 transcript)",
@@ -459,6 +459,17 @@
       ],
       "commit": "59023e2",
       "notes": "Fixed RSS feed with robust post filtering, added RSS link tag to Layout head. Feed includes all blog posts with title, description, pubDate, categories. Build passes (290 pages)."
+    },
+    {
+      "timestamp": "2026-03-07T08:20:00-05:00",
+      "idea": "Add LatestActivity component to homepage - shows most recent workout/run",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/components/LatestActivity.jsx",
+        "src/pages/index.astro"
+      ],
+      "commit": "96996b9",
+      "notes": "Created LatestActivity React component that combines Garmin and Speediance data to show the most recent fitness activity. Displays activity type icon, name, date/time, key stats (distance/pace for runs, volume for lifting), and links to appropriate stats page. Dark theme styling. Build passes (306 pages)."
     }
   ],
   "in_progress": null,
