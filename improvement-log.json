@@ -2,32 +2,21 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
-      "timestamp": "2026-03-07T02:20:00-05:00",
-      "idea": "Add Contact page with form and update sitemap with BJJ page",
-      "category": "UX Enhancement - Content Pages",
+      "timestamp": "2026-03-05T09:15:00-05:00",
+      "idea": "Add social sharing buttons to blog post pages",
+      "category": "UX Enhancement - Blog",
       "files_changed": [
-        "src/pages/contact.astro",
-        "src/components/Header.jsx",
-        "public/sitemap.xml"
+        "src/components/ShareButtons.jsx",
+        "src/pages/blog/[slug].astro"
       ],
-      "commit": "877ba32",
-      "notes": "Created new /contact page with hero section, contact method cards (email, YouTube, location), simple contact form with success message, and JSON-LD schema. Added Contact link to navigation dropdown. Added /bjj and /contact to sitemap.xml. Build passes (301 pages)."
+      "commit": "c7893f5",
+      "notes": "Added ShareButtons component with Twitter, Facebook, LinkedIn, and Copy Link buttons. Integrated into blog post pages below title. Build passes (267 pages)."
     },
     {
-      "timestamp": "2026-03-07T03:20:00-05:00",
-      "idea": "Add 8Sleep data page with real sleep analytics",
+      "timestamp": "2026-03-04T19:24:00-05:00",
+      "idea": "Running stats page with real Garmin data (monthly chart, heatmap, PRs)",
       "category": "UX Enhancement - Data Pages",
       "files_changed": [
-        "src/data/eightsleep.js",
-        "src/pages/sleep.astro",
-        "src/components/Header.jsx",
-        "public/sitemap.xml"
-      ],
-      "commit": "269d3a9",
-      "notes": "Created new /sleep page with real 8Sleep data. Includes hero section, stat cards (avg sleep score, quality, hours, HRV, heart rate, total nights), sleep score trend chart, monthly averages, recent nights table, and JSON-LD Product schema. Added Sleep link to navigation dropdown. Build passes (301 pages)."
-    }
-  ],
-  "in_progress": null,
         "src/data/running.js",
         "src/pages/running.astro"
       ],
@@ -215,7 +204,7 @@
         "src/data/mock.js"
       ],
       "commit": "39f63ac",
-      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242\u2192188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
+      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242→188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
     },
     {
       "timestamp": "2026-03-05T19:17:00-05:00",
@@ -356,7 +345,7 @@
         "src/pages/timeline.astro"
       ],
       "commit": "9f8571b",
-      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242\u2192188\u2192218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
+      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242→188→218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
     },
     {
       "timestamp": "2026-03-06T12:15:00-05:00",
@@ -431,14 +420,14 @@
       "notes": "Committed pending changes from prior runs. sitemap.xml and robots.txt already existed. Video playlists feature added. Build passes (286 pages). Attempted new testimonial section but all subagents failed (Clarity connection error, Spark/MiniMax 429 rate limits)."
     },
     {
-      "timestamp": "2026-03-07T00:15:00-05:00",
-      "idea": "Add new blog post: Is Mike Israetel a Legit BJJ Black Belt? (2025-11-13 transcript)",
+      "timestamp": "2026-03-07T04:20:00-05:00",
+      "idea": "Add new blog post: Transform Your Life in Just One Winter (2025-10-08 transcript)",
       "category": "Content - Blog Post",
       "files_changed": [
         "src/data/mock.js"
       ],
-      "commit": "bf2761b",
-      "notes": "Added new blog post from unused transcript 2025-11-13. Covers Toby's experience seeing Mike Israetel at a competition, BJJ belt controversy, and critique of Greg Ducet and Ariel Helwani comments. Category: BJJ. Build passes (287 pages)."
+      "commit": "43cb8c2",
+      "notes": "Added new blog post from unused transcript 2025-10-08. Covers Toby's transformation story - one winter of sacrifice (work, walk, lift) to go from being unable to run with his kids to having no limits. Category: The Long Game. Build passes (302 pages)."
     }
   ],
   "in_progress": null,
@@ -458,14 +447,6 @@
       "files_changed": [],
       "commit": "none",
       "notes": "Attempted with Clarity (connection error), Spark (429), MiniMax (no response), Sage (400), Vision (broke homepage). All subagents failed. Committed pending prior changes instead."
-    },
-    {
-      "timestamp": "2026-03-06T23:15:00-05:00",
-      "idea": "Add new blog post: Is Mike Israetel a Legit BJJ Black Belt? (2025-11-13 transcript)",
-      "category": "Content - Blog Post",
-      "files_changed": [],
-      "commit": "none",
-      "notes": "This was eventually completed in the next run with Spark subagent."
     }
   ],
   "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages).\n2026-03-06 (7:15 AM): Added new blog post 'Speediance vs Tonal: The Warranty Debate Uncovered' from transcript 2025-09-14. Build passes (284 pages). Attempted equipment comparison page but subagents had connectivity issues.\n2026-03-06 (9:15 AM): Attempted two improvements: (1) Workout frequency heatmap component for homepage using real Speediance + Garmin data, (2) New blog post from transcript 2025-09-20 on Spotter Modes. Multiple subagents tried (Clarity, Spark, MiniMax, Sage) - all reported completion but no files were actually modified. Subagent system appears to have tool execution issues. No changes made to site. Build passes (no changes)."
