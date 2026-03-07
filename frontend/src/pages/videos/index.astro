@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import VideoGrid from '../../components/VideoGrid.jsx';
+import { Play } from 'lucide-react';
 import { VIDEOS } from '../../data/mock.js';
 
 const title = "All Videos - Toby on Fitness Tech";
@@ -8,58 +9,73 @@ const description = "Browse all 104 videos covering Speediance reviews, BJJ comm
 
 const siteUrl = "https://tobyonfitnesstech.com";
 
-const featuredPlaylists = [
+// Define playlists based on keywords
+const PLAYLIST_DEFINITIONS = [
   {
+    id: 'speediance-reviews',
     name: 'Speediance Reviews',
-    videoIds: [
-      '0C8mQoV-Xpg',
-      'xFknwPPhVnI',
-      'ZbEstduW90I',
-      '-BuRtR6WNOc',
-      'cN4YyRwoxXc',
-      'J3W59IR2Las',
-      '4-7j_oSvKl0',
-      'pMdn1a5EA1s',
-    ],
+    description: 'In-depth reviews and comparisons of Speediance home gym equipment',
+    keywords: ['speediance', 'speediance 2s', 'speediance vs', 'tonal', 'gym monster', 'home gym'],
   },
   {
-    name: 'BJJ Journey',
-    videoIds: [
-      'DvBzOcR-RXo',
-      'apsAL3x_V3k',
-      'i-smBia0MqM',
-      'jJaNCOC7nSA',
-      'NzCIufyEsvQ',
-      '43K_tPvN5Lg',
-      'gy3-0I5d2Lw',
-      'dG8GPamRHmA',
-    ],
+    id: 'bjj-training',
+    name: 'BJJ Training',
+    description: 'Brazilian Jiu-Jitsu training, technique breakdowns, and competition prep',
+    keywords: ['bjj', 'jiu-jitsu', 'submission', 'grappling', 'mat', 'black belt'],
   },
   {
-    name: 'Running & Cardio',
-    videoIds: [
-      'ucYb0Bg4XrA',
-      'j9wXzLW5hJQ',
-      '_3KuRk6Mobo',
-      'uDbTWHWFnvs',
-      'LZDxBscLnPY',
-    ],
+    id: 'openclaw-tutorials',
+    name: 'OpenClaw Tutorials',
+    description: 'OpenClaw AI assistant setup, tutorials, and automation guides',
+    keywords: ['openclaw', 'ai assistant', 'automation', 'tutorial'],
   },
   {
-    name: 'Tech & AI',
-    videoIds: [
-      '_43qCeKVCNw',
-      'MsdQU6uuHaE',
-      'xFknwPPhVnI',
-      '0C8mQoV-Xpg',
-    ],
+    id: 'training-tips',
+    name: 'Training Tips',
+    description: 'General fitness advice, workout tips, and lifting guidance',
+    keywords: ['training', 'workout', 'lifting', 'strength', 'fitness'],
   },
-].map((playlist) => ({
-  ...playlist,
-  videos: playlist.videoIds
-    .map((id) => VIDEOS.find((video: { id: string }) => video.id === id))
-    .filter(Boolean),
-}));
+  {
+    id: 'live-sessions',
+    name: 'Live Sessions',
+    description: 'Live stream archives and real-time training sessions',
+    keywords: ['live', 'livestream'],
+    isLive: true,
+  },
+  {
+    id: 'field-reports',
+    name: 'Field Reports',
+    description: 'Real-world training updates, progress reports, and journey logs',
+    keywords: ['field report', 'progress', 'update', 'journey', 'transformation'],
+  },
+];
+
+// Build playlists by filtering videos based on keywords
+function buildPlaylists(videos) {
+  return PLAYLIST_DEFINITIONS.map(playlistDef => {
+    const matchedVideos = videos.filter(video => {
+      // Check for live videos
+      if (playlistDef.isLive) {
+        return video.is_live === true || video.is_short === 'LIVE';
+      }
+      
+      // Check keywords in title and description
+      const searchText = `${video.title || ''} ${video.description || ''}`.toLowerCase();
+      return playlistDef.keywords.some(keyword => searchText.includes(keyword.toLowerCase()));
+    });
+
+    return {
+      id: playlistDef.id,
+      name: playlistDef.name,
+      description: playlistDef.description,
+      videoCount: matchedVideos.length,
+      thumbnail: matchedVideos[0]?.thumbnail || null,
+      videos: matchedVideos.slice(0, 8), // Limit to 8 videos per playlist
+    };
+  }).filter(p => p.videoCount > 0); // Only show playlists with videos
+}
+
+const featuredPlaylists = buildPlaylists(VIDEOS);
 
 // Build CollectionPage + ItemList schema for the top videos
 // Use top 20 by view count for itemListElement (keeps payload size reasonable)
@@ -143,37 +159,55 @@ const videosCollectionSchema = {
     </section>
     
     <!-- Featured Playlists -->
-    <section class="py-8 px-4">
+    <section class="py-8 px-4 bg-neutral-900/30">
       <div class="container mx-auto max-w-6xl">
         <h2 class="text-2xl font-bold text-white mb-6">Featured Playlists</h2>
 
-        {featuredPlaylists.map((playlist) => (
-          <div class="mb-8">
-            <h3 class="text-lg text-neutral-300 mb-3">{playlist.name}</h3>
-            <div class="flex gap-3 overflow-x-auto scroll-smooth pb-2">
-              {playlist.videos.map((video: { id: string; title: string; thumbnail?: string; duration_formatted?: string }) => (
-                <a
-                  href={`/video/${video.id}`}
-                  class="flex-shrink-0 w-[160px] bg-neutral-900 rounded-lg overflow-hidden hover:ring-2 hover:ring-blue-500 transition-all"
-                >
-                  <div class="relative w-[160px] h-[90px]">
-                    <img
-                      src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
-                      alt={video.title}
-                      class="w-full h-full object-cover"
-                    />
-                    {video.duration_formatted && (
-                      <span class="absolute bottom-1 right-1 bg-black/80 text-white text-xs px-1.5 py-0.5 rounded">
-                        {video.duration_formatted}
-                      </span>
-                    )}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {featuredPlaylists.map((playlist) => (
+            <a
+              href={`/videos?playlist=${playlist.id}`}
+              class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl hover:border-blue-500/50"
+            >
+              <!-- Thumbnail -->
+              <div class="aspect-video relative overflow-hidden bg-neutral-950">
+                {playlist.thumbnail ? (
+                  <img
+                    src={playlist.thumbnail}
+                    alt={playlist.name}
+                    class="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-105"
+                  />
+                ) : (
+                  <div class="w-full h-full bg-neutral-800 flex items-center justify-center">
+                    <Play className="w-10 h-10 text-neutral-600" />
                   </div>
-                  <p class="text-xs text-white px-2 py-2 truncate">{video.title}</p>
-                </a>
-              ))}
-            </div>
-          </div>
-        ))}
+                )}
+                <!-- Video Count Badge -->
+                <div class="absolute top-3 right-3 bg-black/75 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                  <Play size={12} className="fill-white" />
+                  {playlist.videoCount}
+                </div>
+                <!-- Gradient Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+              </div>
+
+              <!-- Content -->
+              <div class="p-4">
+                <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
+                  {playlist.name}
+                </h3>
+                <p class="text-sm text-neutral-400 line-clamp-2">
+                  {playlist.description}
+                </p>
+                <div class="mt-3 flex items-center text-xs text-neutral-500">
+                  <span class="text-blue-400 font-medium">{playlist.videoCount} videos</span>
+                  <span class="mx-2">•</span>
+                  <span>Tap to browse</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
     

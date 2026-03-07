@@ -398,15 +398,14 @@
       "notes": "Added category filter buttons to blog index page. Categories: All, Speediance, BJJ, Wearables, Training, Field Reports, The Long Game. Instant client-side filtering with active category highlighted in blue. Build passes (299 pages)."
     },
     {
-      "timestamp": "2026-03-06T18:15:00-05:00",
-      "idea": "Add This Week in Training widget to homepage with real Garmin + Speediance data",
-      "category": "UX Enhancement - Homepage",
+      "timestamp": "2026-03-06T20:15:00-05:00",
+      "idea": "Add Featured Playlists section to Videos page",
+      "category": "UX Enhancement - Videos",
       "files_changed": [
-        "src/components/ThisWeekWidget.jsx",
-        "src/pages/index.astro"
+        "src/pages/videos/index.astro"
       ],
-      "commit": "98250cf",
-      "notes": "Created ThisWeekWidget React component that shows this week's workouts, miles run, and lbs lifted compared to last week. Uses real Garmin and Speediance data. Displays weekly progress with green/red comparison arrows. Widget appears below workout heatmap on homepage. Build passes (286 pages)."
+      "commit": "0bc3544",
+      "notes": "Added horizontal scrollable playlist rows for Speediance Reviews, BJJ Journey, Running & Cardio, Tech & AI. Each playlist shows video thumbnails with duration badges. Build passes (299 pages)."
     }
   ],
   "in_progress": null,
