@@ -327,6 +327,21 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
       }}
     />
     
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.tobyonfitnesstech.com" />
+    <meta property="og:title" content={title || "TobyOnFitnessTech"} />
+    <meta property="og:description" content={seoDescription || "Fitness tech reviews, tutorials, and insights"} />
+    <meta property="og:image" content={resolvedImage || "https://www.tobyonfitnesstech.com/og-image.jpg"} />
+    <meta property="og:site_name" content="TobyOnFitnessTech" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.tobyonfitnesstech.com" />
+    <meta name="twitter:title" content={title || "TobyOnFitnessTech"} />
+    <meta name="twitter:description" content={seoDescription || "Fitness tech reviews, tutorials, and insights"} />
+    <meta name="twitter:image" content={resolvedImage || "https://www.tobyonfitnesstech.com/og-image.jpg"} />
+    
     <LangDetect />
     
     <ViewTransitions />
