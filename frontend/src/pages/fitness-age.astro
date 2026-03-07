@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import { HeartPulse, Activity, Gauge, CalendarCheck2, Route, Zap, ArrowDown, ArrowUp, Equal } from 'lucide-react';
+import { FITNESS_AGE_DATA } from '../data/fitnessAge.js';
+
+const {
+  fitnessAge,
+  actualAge,
+  ageDelta,
+  avgHRV,
+  avgRHR,
+  avgRecovery,
+  weeklyWorkouts,
+  runningMiles,
+  cardioScore,
+  workoutConsistency,
+  compositeScore,
+  avgPaceMinPerMile,
+  dataWindows,
+} = FITNESS_AGE_DATA;
+
+const deltaLabel = ageDelta > 0 ? 'younger' : ageDelta < 0 ? 'older' : 'same';
+const deltaAbs = Math.abs(ageDelta);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Fitness Age Calculator',
+  description:
+    'A fitness age estimate using WHOOP recovery trends and Garmin running volume, weighted across HRV, resting heart rate, consistency, and cardio output.',
+  totalTime: 'P1D',
+  tool: [
+    { '@type': 'HowToTool', name: 'WHOOP Recovery Data' },
+    { '@type': 'HowToTool', name: 'Garmin Activity History' },
+  ],
+  step: [
+    { '@type': 'HowToStep', name: 'Compute baseline recovery metrics', text: 'Calculate average HRV, resting heart rate, and recovery score from WHOOP records.' },
+    { '@type': 'HowToStep', name: 'Measure training consistency', text: 'Estimate percent of active days from WHOOP workouts over the recent window.' },
+    { '@type': 'HowToStep', name: 'Evaluate cardiovascular load', text: 'Use Garmin running miles and run frequency to create a cardio score.' },
+    { '@type': 'HowToStep', name: 'Generate fitness age', text: 'Blend weighted scores and map the result to an age delta against chronological age.' },
+  ],
+};
+---
+
+<Layout
+  title="Fitness Age Calculator | TobyOnFitnessTech"
+  description="See Toby's calculated fitness age using real WHOOP recovery and Garmin running data, including HRV, resting heart rate, consistency, and cardio score."
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Fitness Age', url: '/fitness-age' }]}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <Header client:load />
+
+  <main class="bg-neutral-950 min-h-screen text-white pb-20">
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <span class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-blue-500/20 text-blue-400 mb-4">
+          <Gauge class="w-4 h-4" />
+          Data-Driven Longevity Metric
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-3">Fitness Age</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl">
+          A blended estimate of biological fitness based on recovery physiology and cardio training load.
+        </p>
+
+        <div class="mt-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p class="text-neutral-400 text-sm uppercase tracking-wide">Calculated Fitness Age</p>
+            <p class="text-6xl font-extrabold text-blue-400 leading-none mt-2">{fitnessAge}</p>
+          </div>
+          <div class="text-neutral-300">
+            <p class="text-sm">Actual age: <span class="text-white font-semibold">{actualAge}</span></p>
+            <p class="mt-1 text-lg font-semibold flex items-center gap-2">
+              {ageDelta > 0 ? <ArrowDown class="w-5 h-5 text-green-400" /> : ageDelta < 0 ? <ArrowUp class="w-5 h-5 text-yellow-400" /> : <Equal class="w-5 h-5 text-blue-400" />}
+              {deltaAbs} years {deltaLabel}
+            </p>
+            <p class="text-neutral-500 text-sm mt-1">Composite score: {compositeScore}/100</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><HeartPulse class="w-4 h-4" /> Avg HRV</p>
+          <p class="text-3xl font-bold mt-2">{avgHRV}<span class="text-neutral-500 text-lg"> ms</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Activity class="w-4 h-4" /> Resting HR</p>
+          <p class="text-3xl font-bold mt-2">{avgRHR}<span class="text-neutral-500 text-lg"> bpm</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Zap class="w-4 h-4" /> Recovery Score</p>
+          <p class="text-3xl font-bold mt-2">{avgRecovery}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><CalendarCheck2 class="w-4 h-4" /> Weekly Workouts</p>
+          <p class="text-3xl font-bold mt-2">{weeklyWorkouts}</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Route class="w-4 h-4" /> Running Miles</p>
+          <p class="text-3xl font-bold mt-2">{runningMiles}<span class="text-neutral-500 text-lg"> /12wk</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Gauge class="w-4 h-4" /> Cardio Score</p>
+          <p class="text-3xl font-bold mt-2 text-blue-400">{cardioScore}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">How It’s Calculated</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-2">Inputs and windows</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>WHOOP recovery window: {dataWindows.whoopDays} days</li>
+              <li>Garmin running window: {dataWindows.runningDays} days</li>
+              <li>Workout consistency: {workoutConsistency}% of days active</li>
+              <li>Average pace: {avgPaceMinPerMile > 0 ? `${avgPaceMinPerMile} min/mi` : 'N/A'}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-2">Weighting model</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>HRV score (30%): higher is better vs age norms</li>
+              <li>Resting HR score (25%): lower is better vs age norms</li>
+              <li>Workout consistency (20%): frequent training boosts score</li>
+              <li>Cardio volume (15%): more running miles improves score</li>
+              <li>WHOOP recovery quality (10%): recovery trend stability</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto bg-gradient-to-r from-blue-900/25 to-sky-900/20 border border-blue-800/30 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-3">Fitness Age vs Actual Age</h2>
+        <p class="text-neutral-300 max-w-3xl">
+          With an actual age in the 40s, current recovery and cardio trends indicate a physiological profile that trends
+          <span class="text-blue-400 font-semibold"> {deltaAbs} years {deltaLabel}</span> than chronological age.
+          This estimate updates as WHOOP and Garmin data evolve.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
