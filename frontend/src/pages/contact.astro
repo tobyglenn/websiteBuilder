@@ -1,23 +1,30 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const pageTitle = 'Contact | Website Builder';
-const pageDescription = 'Get in touch for collaborations, questions, or project inquiries.';
+const pageTitle = 'Contact | TobyOnFitnessTech';
+const pageDescription = 'Get in touch for collaborations, questions, sponsorships, or project inquiries about fitness tech, home gym equipment, or training advice.';
+
+const siteUrl = 'https://tobyonfitnesstech.com';
 
 const contactSchema = {
   '@context': 'https://schema.org',
   '@type': 'ContactPage',
   name: 'Get in Touch',
   description: pageDescription,
-  url: 'https://example.com/contact',
+  url: `${siteUrl}/contact`,
   mainEntity: {
-    '@type': 'Organization',
-    name: 'Website Builder',
-    email: 'hello@example.com',
-    sameAs: ['https://www.youtube.com/@example'],
+    '@type': 'Person',
+    name: 'Toby Peters',
+    email: 'toby@tobyonfitnesstech.com',
+    url: siteUrl,
+    sameAs: [
+      'https://www.youtube.com/@tobyonfitness',
+      'https://www.instagram.com/tobyonfitness',
+      'https://twitter.com/tobyonfitness'
+    ],
     address: {
       '@type': 'PostalAddress',
-      addressLocality: 'Remote',
+      addressLocality: 'New York',
       addressCountry: 'US'
     }
   }
@@ -40,24 +47,26 @@ const contactSchema = {
     <section class="mx-auto grid max-w-5xl gap-6 px-6 pb-14 md:grid-cols-3">
       <article class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6">
         <h2 class="text-lg font-semibold text-[#3b82f6]">Email</h2>
-        <p class="mt-2 text-neutral-300">Best for project inquiries and collaborations.</p>
-        <a href="mailto:hello@example.com" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
-          hello@example.com
+        <p class="mt-2 text-neutral-300">Best for project inquiries, sponsorships, and collaborations.</p>
+        <a href="mailto:toby@tobyonfitnesstech.com" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
+          toby@tobyonfitnesstech.com
         </a>
       </article>
 
       <article class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6">
         <h2 class="text-lg font-semibold text-[#3b82f6]">YouTube</h2>
-        <p class="mt-2 text-neutral-300">Watch tutorials, updates, and behind-the-scenes content.</p>
-        <a href="https://www.youtube.com/@example" target="_blank" rel="noreferrer" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
-          youtube.com/@example
+        <p class="mt-2 text-neutral-300">Watch tutorials, equipment reviews, and behind-the-scenes content.</p>
+        <a href="https://www.youtube.com/@tobyonfitness" target="_blank" rel="noreferrer" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
+          youtube.com/@tobyonfitness
         </a>
       </article>
 
       <article class="rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6">
-        <h2 class="text-lg font-semibold text-[#3b82f6]">Location</h2>
-        <p class="mt-2 text-neutral-300">Based remotely, available for global projects.</p>
-        <p class="mt-4 text-white">New York, USA</p>
+        <h2 class="text-lg font-semibold text-[#3b82f6]">Instagram</h2>
+        <p class="mt-2 text-neutral-300">Follow my fitness journey with daily training updates.</p>
+        <a href="https://www.instagram.com/tobyonfitness" target="_blank" rel="noreferrer" class="mt-4 inline-block text-white underline decoration-[#3b82f6] underline-offset-4 hover:text-[#93c5fd]">
+          instagram.com/@tobyonfitness
+        </a>
       </article>
     </section>
 
