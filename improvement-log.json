@@ -12,6 +12,19 @@
       ],
       "commit": "877ba32",
       "notes": "Created new /contact page with hero section, contact method cards (email, YouTube, location), simple contact form with success message, and JSON-LD schema. Added Contact link to navigation dropdown. Added /bjj and /contact to sitemap.xml. Build passes (301 pages)."
+    },
+    {
+      "timestamp": "2026-03-07T03:20:00-05:00",
+      "idea": "Add 8Sleep data page with real sleep analytics",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/eightsleep.js",
+        "src/pages/sleep.astro",
+        "src/components/Header.jsx",
+        "public/sitemap.xml"
+      ],
+      "commit": "269d3a9",
+      "notes": "Created new /sleep page with real 8Sleep data. Includes hero section, stat cards (avg sleep score, quality, hours, HRV, heart rate, total nights), sleep score trend chart, monthly averages, recent nights table, and JSON-LD Product schema. Added Sleep link to navigation dropdown. Build passes (301 pages)."
     }
   ],
   "in_progress": null,
