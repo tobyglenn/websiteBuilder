@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const pageTitle = "Speediance ROI Calculator";
+const pageDescription =
+  "Calculate how much you can save by owning a Speediance home gym compared to paying for a traditional gym membership.";
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": "https://tobyonfitnesstech.com/roi"
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: "Speediance Home Gym",
+  category: "Home Gym Equipment",
+  brand: {
+    "@type": "Brand",
+    name: "Speediance"
+  },
+  description: "AI-powered all-in-one home gym with compact footprint and connected membership.",
+  offers: {
+    "@type": "Offer",
+    priceCurrency: "USD",
+    price: "4995",
+    availability: "https://schema.org/InStock"
+  }
+};
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  jsonLd={[webPageSchema, productSchema]}
+>
+      <section class="rounded-2xl border border-blue-500/20 bg-neutral-900/70 p-8 shadow-2xl shadow-blue-500/5">
+        <p class="mb-3 inline-flex rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-xs font-semibold uppercase tracking-widest text-blue-300">
+          Financial Planning Tool
+        </p>
+        <h1 class="text-3xl font-bold leading-tight text-white sm:text-5xl">Speediance ROI Calculator</h1>
+        <p class="mt-4 max-w-2xl text-base text-neutral-300 sm:text-lg">
+          See the long-term cost difference between investing in a Speediance home gym and paying for a
+          traditional gym membership.
+        </p>
+      </section>
+
+      <section class="mt-8 grid gap-6 lg:grid-cols-2">
+        <div class="rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+          <h2 class="text-xl font-semibold text-white">Calculator Inputs</h2>
+          <form id="roi-form" class="mt-6 space-y-5" onsubmit="return false;">
+            <div>
+              <label for="purchasePrice" class="mb-2 block text-sm font-medium text-neutral-300">Speediance purchase price ($)</label>
+              <input
+                id="purchasePrice"
+                type="number"
+                min="0"
+                step="1"
+                value="4995"
+                class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+              />
+            </div>
+
+            <div>
+              <label for="membershipFee" class="mb-2 block text-sm font-medium text-neutral-300">Monthly membership fee ($/month)</label>
+              <input
+                id="membershipFee"
+                type="number"
+                min="0"
+                step="1"
+                value="39"
+                class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+              />
+            </div>
+
+            <div>
+              <label for="gymCost" class="mb-2 block text-sm font-medium text-neutral-300">Traditional gym monthly cost ($/month)</label>
+              <input
+                id="gymCost"
+                type="number"
+                min="0"
+                step="1"
+                value="150"
+                class="w-full rounded-xl border border-neutral-700 bg-neutral-950 px-4 py-3 text-white placeholder:text-neutral-500 focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-500/40"
+              />
+            </div>
+
+            <div>
+              <label for="years" class="mb-2 block text-sm font-medium text-neutral-300">Years of ownership: <span id="yearsValue" class="text-blue-300">5</span></label>
+              <input
+                id="years"
+                type="range"
+                min="1"
+                max="10"
+                step="1"
+                value="5"
+                class="h-2 w-full cursor-pointer appearance-none rounded-lg bg-neutral-700 accent-blue-500"
+              />
+            </div>
+
+            <button
+              id="calculateBtn"
+              type="button"
+              class="w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-neutral-900"
+            >
+              Calculate ROI
+            </button>
+          </form>
+        </div>
+
+        <div class="rounded-2xl border border-blue-500/20 bg-gradient-to-b from-neutral-900 to-neutral-950 p-6">
+          <h2 class="text-xl font-semibold text-white">Your Results</h2>
+          <p class="mt-2 text-sm text-neutral-400">Estimated over <span id="resultYears">5</span> years</p>
+
+          <div class="mt-6 rounded-xl border border-blue-500/30 bg-blue-500/10 p-5">
+            <p class="text-sm uppercase tracking-wider text-blue-200">Projected savings</p>
+            <p id="savingsDisplay" class="mt-2 text-4xl font-extrabold text-blue-300">$0</p>
+          </div>
+
+          <div class="mt-6 space-y-3 text-sm text-neutral-200">
+            <div class="flex items-center justify-between rounded-lg bg-neutral-900/80 px-4 py-3">
+              <span>Total cost with Speediance</span>
+              <strong id="speedianceCost">$0</strong>
+            </div>
+            <div class="flex items-center justify-between rounded-lg bg-neutral-900/80 px-4 py-3">
+              <span>Total cost with traditional gym</span>
+              <strong id="gymTotalCost">$0</strong>
+            </div>
+            <div class="flex items-center justify-between rounded-lg bg-neutral-900/80 px-4 py-3">
+              <span>Break-even point</span>
+              <strong id="breakEven">—</strong>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <h3 class="mb-3 text-sm font-semibold uppercase tracking-wider text-neutral-400">Cost comparison</h3>
+            <div class="space-y-3">
+              <div>
+                <div class="mb-1 flex justify-between text-xs text-neutral-400">
+                  <span>Speediance</span>
+                  <span id="speedianceBarLabel">$0</span>
+                </div>
+                <div class="h-3 w-full overflow-hidden rounded-full bg-neutral-800">
+                  <div id="speedianceBar" class="h-full rounded-full bg-blue-500" style="width: 0%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="mb-1 flex justify-between text-xs text-neutral-400">
+                  <span>Traditional gym</span>
+                  <span id="gymBarLabel">$0</span>
+                </div>
+                <div class="h-3 w-full overflow-hidden rounded-full bg-neutral-800">
+                  <div id="gymBar" class="h-full rounded-full bg-sky-300" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mt-8 rounded-2xl border border-neutral-800 bg-neutral-900 p-6">
+        <h2 class="text-2xl font-bold text-white">Why the Speediance makes financial sense</h2>
+        <ul class="mt-4 space-y-3 text-neutral-300">
+          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>One-time equipment purchase can offset years of recurring gym fees.</span></li>
+          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>Lower monthly connected membership compared to many premium gym plans.</span></li>
+          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>No commuting costs, parking fees, or time loss getting to and from the gym.</span></li>
+          <li class="flex gap-3"><span class="mt-1 text-blue-400">•</span><span>Household members can share the equipment, improving long-term value per user.</span></li>
+        </ul>
+      </section>
+    </main>
+
+    <script>
+      const purchasePriceInput = document.getElementById('purchasePrice');
+      const membershipFeeInput = document.getElementById('membershipFee');
+      const gymCostInput = document.getElementById('gymCost');
+      const yearsInput = document.getElementById('years');
+      const yearsValue = document.getElementById('yearsValue');
+      const resultYears = document.getElementById('resultYears');
+
+      const savingsDisplay = document.getElementById('savingsDisplay');
+      const speedianceCost = document.getElementById('speedianceCost');
+      const gymTotalCost = document.getElementById('gymTotalCost');
+      const breakEven = document.getElementById('breakEven');
+
+      const speedianceBar = document.getElementById('speedianceBar');
+      const gymBar = document.getElementById('gymBar');
+      const speedianceBarLabel = document.getElementById('speedianceBarLabel');
+      const gymBarLabel = document.getElementById('gymBarLabel');
+
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+        maximumFractionDigits: 0,
+      });
+
+      function toNumber(value) {
+        const parsed = Number(value);
+        return Number.isFinite(parsed) ? parsed : 0;
+      }
+
+      function calculateROI() {
+        const purchasePrice = toNumber(purchasePriceInput.value);
+        const monthlyMembership = toNumber(membershipFeeInput.value);
+        const monthlyGymCost = toNumber(gymCostInput.value);
+        const years = toNumber(yearsInput.value);
+
+        yearsValue.textContent = String(years);
+        resultYears.textContent = String(years);
+
+        const speedianceTotal = purchasePrice + monthlyMembership * 12 * years;
+        const gymTotal = monthlyGymCost * 12 * years;
+        const savings = gymTotal - speedianceTotal;
+
+        savingsDisplay.textContent = formatter.format(savings);
+        savingsDisplay.classList.toggle('text-red-300', savings < 0);
+        savingsDisplay.classList.toggle('text-blue-300', savings >= 0);
+
+        speedianceCost.textContent = formatter.format(speedianceTotal);
+        gymTotalCost.textContent = formatter.format(gymTotal);
+
+        const monthlySavings = monthlyGymCost - monthlyMembership;
+        if (monthlySavings > 0) {
+          const breakEvenMonths = purchasePrice / monthlySavings;
+          breakEven.textContent = `${Math.ceil(breakEvenMonths)} months`;
+        } else {
+          breakEven.textContent = 'No break-even';
+        }
+
+        const maxCost = Math.max(speedianceTotal, gymTotal, 1);
+        speedianceBar.style.width = `${(speedianceTotal / maxCost) * 100}%`;
+        gymBar.style.width = `${(gymTotal / maxCost) * 100}%`;
+
+        speedianceBarLabel.textContent = formatter.format(speedianceTotal);
+        gymBarLabel.textContent = formatter.format(gymTotal);
+      }
+
+      document.getElementById('calculateBtn')?.addEventListener('click', calculateROI);
+      yearsInput?.addEventListener('input', calculateROI);
+      purchasePriceInput?.addEventListener('input', calculateROI);
+      membershipFeeInput?.addEventListener('input', calculateROI);
+      gymCostInput?.addEventListener('input', calculateROI);
+
+      calculateROI();
+    </script>
+  </main>
+</Layout>
