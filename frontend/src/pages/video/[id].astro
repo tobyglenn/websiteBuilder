@@ -66,6 +66,18 @@ if (video.view_count && video.view_count > 0) {
   };
 }
 
+function formatViews(count) {
+  const num = Number(count);
+  if (!Number.isFinite(num) || num <= 0) return '0 views';
+
+  if (num >= 1000000) return `${(num / 1000000).toFixed(1).replace(/\.0$/, '')}M views`;
+  if (num >= 1000) return `${(num / 1000).toFixed(1).replace(/\.0$/, '')}K views`;
+
+  return `${num.toLocaleString()} views`;
+}
+
+const normalizedViewCount = Number(video.viewCount ?? video.view_count ?? video.views ?? 0);
+
 // Resolve transcript content
 let transcriptContent = null;
 if (video.transcript_file) {
@@ -186,9 +198,7 @@ relatedVideos = relatedVideos.slice(0, 8);
           
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 pb-4 mb-6">
             <div class="flex items-center gap-4 text-sm text-neutral-400">
-                {video.views && video.views !== '0' && (
-                  <span class="flex items-center gap-1"><Eye size={16} /> {parseInt(video.views).toLocaleString()} views</span>
-                )}
+                <span class="flex items-center gap-1 text-neutral-300"><Eye size={16} /> {formatViews(normalizedViewCount)}</span>
                 <span class="flex items-center gap-1"><Calendar size={16} /> {video.published_at}</span>
             </div>
             

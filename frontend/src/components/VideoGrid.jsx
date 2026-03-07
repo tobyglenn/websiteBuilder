@@ -115,6 +115,21 @@ function isLiveVideo(video) {
   return Boolean(video.is_live) || String(video.duration_formatted || video.duration || '').trim().toUpperCase() === 'LIVE';
 }
 
+function formatViews(count) {
+  const num = Number(count);
+  if (!Number.isFinite(num) || num <= 0) return '0 views';
+
+  if (num >= 1000000) {
+    return `${(num / 1000000).toFixed(1).replace(/\.0$/, '')}M views`;
+  }
+
+  if (num >= 1000) {
+    return `${(num / 1000).toFixed(1).replace(/\.0$/, '')}K views`;
+  }
+
+  return `${num.toLocaleString()} views`;
+}
+
 export default function VideoGrid({ limit, showFilters = true, videos }) {
   const sourceVideos = videos || allVideos;
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -388,12 +403,10 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                   </h3>
                   <div className="flex items-center justify-between text-xs text-neutral-500">
                     <span>{video.published_at}</span>
-                    {video.viewCount > 0 && (
-                      <div className="flex items-center space-x-1 text-neutral-400 text-xs">
-                        <Eye size={12} className="stroke-current" />
-                        <span>{formatViews(video.viewCount)}</span>
-                      </div>
-                    )}
+                    <div className="flex items-center space-x-1 text-neutral-400 text-xs">
+                      <Eye size={12} className="stroke-current" />
+                      <span>{formatViews(video.viewCount)}</span>
+                    </div>
                   </div>
                 </div>
               </a>
@@ -405,18 +418,3 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
   );
 }
 
-// Format view counts (e.g., 1200 -> 1.2K, 1500000 -> 1.5M)
-function formatViews(count) {
-  const num = Number(count);
-  if (isNaN(num)) return '';
-
-  if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1).replace(/\.0$/, '')}M`;
-  }
-
-  if (num >= 1000) {
-    return `${(num / 1000).toFixed(1).replace(/\.0$/, '')}K`;
-  }
-
-  return num.toString();
-}
