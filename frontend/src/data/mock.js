@@ -53,6 +53,74 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 export const BLOG_POSTS = [
 
   {
+    slug: "speediance-2s-max-lat-pulldown-260lbs",
+    title: "I Pulled 260 Pounds on the Speediance 2S - Did It Break?",
+    excerpt: "I pushed the Speediance 2S to its absolute limits with a 260 lb lat pulldown test. Would the machine hold up or snap? The results shocked me.",
+    content: `<p>I was browsing the Speediance Facebook group when I saw someone post something really interesting - they were trying to do lat pulldowns on the original Gym Monster and it felt kind of wobbly. That got my brain turning to shoot a video because the 2S is capable of 260 lbs, and I never even thought to try to do a lat pulldown at the full weight.</p>
+
+<p>I can tell you at 185 lbs, I was able to have the Tonal pull me up because it's capable of 200 lbs of resistance. This machine, because of the angles, would probably not allow me to pull it down even at 260 lbs - it would pull me up instead.</p>
+
+<p>First things first, if you're going to do something like this where you're lifting heavy, I'm actually going to put a rash guard on. When you're lifting anything above your natural weight or if you're pulling out from the machine and you're light - this is something I experienced when I was 185 lbs. Right now I'm walking around at 200 lbs, so I don't quite have that problem as much.</p>
+
+<p>The solution to this is a weighted vest. I preloaded the back of the vest weights, but to try to preload it gets pretty heavy the front weights before you put the thing on. It's just easier to put it on first, then load the front weights if you're going to load the maximum amount.</p>
+
+<p>Now I have the machine at 130 lbs per side, which would be 260 lbs total. I have no idea if I'm actually capable of doing that. We're going to see A) is the machine wobbly whenever I go to do this, and B) can I actually pull that weight down?</p>
+
+<p>The answer to that is I need more weight. I could get the cables to come halfway down with all of my weight coming up and going the whole way against the wall. What I was actually shocked about, though - not wobbly in any respect. There was no wobble, no give to this device. That is a lot of weight.</p>
+
+<p>I can tell you that I could barely get these things to budge. And that's pulling down as hard as I can while kind of having the knees on the wall to get a little bit of leverage. And with it not on, the machine just pulls me up. It doesn't even budge the cords, which is pretty wild.</p>
+
+<p>When I turn this thing on and I hold on and I pull up, I can actually do pull-ups on this thing. My knees are touching the wall, the wall's not holding any of my weight. This machine is not budging. I'm literally doing pull-ups on the thing.</p>
+
+<p>At 200 lbs, I don't even move these. I weigh about 240-243 lbs with the weighted vest. This thing's set to 260 total. So it's 130 per side. And the question of whether it's 260 lbs - yeah, I mean, I could barely get these things to budge.</p>
+
+<p>So I'm back with my second weighted vest. I tried again with both weighted vests on. By the way, I don't recommend doing this - wearing two weighted vests and applying a whole bunch of weight to the weighted vest. This is strictly for informational purposes only.</p>
+
+<p>I can tell you this wasn't enough weight. I don't know what would be. So we're going to go here, throw all this weight in there. This should be enough weight to at least hold me down.</p>
+
+<p>I did count that as a rep. Technically I counted two reps, but the first one I was about right here. The second one I did get the whole way down and hurt the thing. The answer is yes - if you have enough weight on your body, this thing will actually work. And by the way, there's no wobble. So for that person who said it had wobble, I don't know if that's one of the improvements with the 2S, but that thing didn't shake at all.</p>
+
+<p>My muscles were completely shaking though. So that is impressive. I mean, that gives you an idea of what this machine's capable of. I've gotten a lot stronger in four years to be able to even pull that. But you can see how complicated it was for me to get to be able to pull - I had to put on two weighted vests. That's probably an extra 100 pounds of weight on me. So I had to get my weight up to nearly 300 lbs to be able to try to pull these things down.</p>
+
+<p>What blows my mind is there's no give in the cables. There was no wobbliness in the machine. I'm just blown away. I was fully expecting this thing to wobble like heck. I was expecting a lot of wobble and a lot of give. When the machine pulled me up at 200 lbs, I could feel there's no give. It's like having a squat rack in terms of its abilities.</p>
+
+<p>Now I don't know if that's specific to the 2S. That's where, you know, fire beware. I can run the same test on the one downstairs if people want to see it.</p>
+
+<p>In terms of my experiences with the 2S so far, I've had it for a week. I converted over one of my full Tonal workouts onto the Speediance. I'm absolutely loving it so far.</p>
+
+<p>This machine - I am blown away. That didn't budge at all. And this is on carpet. Like, this machine didn't budge at all. Even the Tonal feels sketchy when you're pulling on the machine - it feels like those arms are going to snap. This I didn't feel anything.</p>
+
+<p>What blew my mind, I'll show you one more time because it just blows my mind. So one more time at 130 lbs per side. Let me see if I can do it. I want to hit my screen. If I try to do it this way, because I'm going to be too close to the screen.</p>
+
+<p>So if I'm down here, I turn the weight on, try to hold it as long as I can. There I go, I go for a ride. Literally, I'm going for a ride up my wall. That's just awesome. I mean, I'm 200 lbs right now. I'm almost 205 after eating breakfast. Unbelievable that this thing just pulled me up the wall.</p>
+
+<p>I didn't think it would do that. You know, I knew the Tonal could do it at 185 lbs. And at 200 lbs, the Tonal didn't do that. So at 200 lbs, the Tonal would lift me up an inch or so and then drop me back down - it couldn't pick me the whole way up. This thing is just picking me up like I'm a baby.</p>
+
+<p>Let me show you one more time because it's just so freaking cool. And you know, it's still in the warranty window and it looks like it's not going to break it at all. Looks like it's actually designed to do this, which blows my mind.</p>
+
+<p>I was really expecting this thing to wobble. Whenever I saw the person say that it shakes and wobbles, I was expecting a lot of wobble. And I was sure not expecting it to just yank me off the ground, you know, because I could forget that I can hold my own weight.</p>
+
+<p>The reason why it's yanking me off the ground like that is I can hold my own weight and lock my arms in here and not have them bend as it's pulling up on me. So it's just yanking me up with ease. Like it doesn't even look like the fans are kicking on. There's no struggle.</p>
+
+<p>This machine, when I had that thing at max weight, those fans kicked on and it sounded like a jet airplane taking off. No criticism - you know, I had this weighted vest on at full weight. And you know what I mean, it's sounding like a jet engine as I'm trying to pull down.</p>
+
+<p>But yeah, the fans would kick on like crazy. This thing doesn't even seem like it was straining.</p>
+
+<p>Thank you for your time today. Like and subscribe if you have any other questions. If you want to see a video of me attempting the same thing on the original Gym Monster that's downstairs, I can do that for you. If you have anything else you want to see me do on the machine, it is ridiculous. Have me do it now while I'm still in the 30-day warranty period.</p>
+
+<p>But I can tell you, if it handled that as effortlessly as it just did, I have a feeling there's nothing you could ask me to do on this thing that would really break it. Anything that I'm capable of doing, of course - you know, I'm not going to be able to do bicep curls at the full weight, right? Like, I'm not that strong. But anything I can do, because deadlifts, I already did at the full weight. And it also seemed effortless for the machine, way more effortful for me than the machine.</p>
+
+<p>I cannot believe with the cables up this high that those cables don't wobble. Absolutely no wobble in the machine at all.</p>`,
+    date: "2025-09-06",
+    category: "Speediance",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800",
+    tags: ["Speediance", "2S", "review", "strength"],
+    readTime: 13,
+    author: "Toby Peters",
+    featured: false
+  },
+
+  {
     slug: "i-pulled-260-pounds-on-the-speediance-2s-did-it-break",
     title: "I Pulled 260 Pounds on the Speediance 2S - Did It Break?",
     excerpt: "I was browsing the Speediance community and saw someone say lat pulldowns felt wobbly on the original Gym Monster. That sent me down a rabbit hole to test",
