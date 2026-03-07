@@ -5,6 +5,7 @@ import Newsletter from '../components/Newsletter.jsx';
 import WorkoutHeatmap from '../components/WorkoutHeatmap.jsx';
 import ThisWeekWidget from '../components/ThisWeekWidget.jsx';
 import LatestActivity from '../components/LatestActivity.jsx';
+import YearlyGoals from '../components/YearlyGoals.jsx';
 import { BLOG_POSTS } from '../data/mock.js';
 import videosData from '../data/videos.json';
 import { videos as youtube } from '../data/youtube.js';
@@ -99,6 +100,8 @@ const webPageSchema = {
 			</div>
 		</div>
 	</section>
+
+	<YearlyGoals client:visible />
 
 	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
