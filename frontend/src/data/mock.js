@@ -53,6 +53,24 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 export const BLOG_POSTS = [
 
   {
+    title: "Is 40lbs Really 40lbs? The Truth About Speediance Weight Calibration",
+    slug: "is-40lbs-really-40lbs-speediance-calibration",
+    date: "2025-09-11",
+    category: "Speediance",
+    excerpt: "A direct side-by-side feel test suggests Speediance’s 40 lb setting tracks closer to dumbbell reality, while Tonal’s 40 lb can feel dramatically heavier due to calibration differences.",
+    content: `<p>The Speediance seems a little closer actually, which might make sense because their original range was 0 to 220 and that’s actually their 0 to 220 is actually Tonal’s 0 to 200.</p>
+
+<p>I would imagine they’re similar-ish weights. So their weight is actually closer to what 40 lb would feel like with a dumbbell, right? If you’re bicep curling, that 40 lbs is similar-ish to a 40 lb dumbbell.</p>
+
+<p>But Tonal’s 40 lb felt like 60 lb. It felt super heavy.</p>`,
+    image: "/images/speediance-2s.jpg",
+    readTime: 1,
+    tags: ["Speediance", "calibration", "strength training", "home gym"],
+    author: "Toby Peters",
+    featured: false
+  },
+
+  {
     slug: "speediance-2s-max-lat-pulldown-260lbs",
     title: "I Pulled 260 Pounds on the Speediance 2S - Did It Break?",
     excerpt: "I pushed the Speediance 2S to its absolute limits with a 260 lb lat pulldown test. Would the machine hold up or snap? The results shocked me.",
