@@ -8,6 +8,21 @@ const description = "Browse all 104 videos covering Speediance reviews, BJJ comm
 
 const siteUrl = "https://tobyonfitnesstech.com";
 
+// Filter videos for playlists
+function filterVideos(keywords: string[]) {
+  return VIDEOS.filter(video => {
+    const searchText = `${video.title} ${video.description}`.toLowerCase();
+    return keywords.some(keyword => searchText.includes(keyword.toLowerCase()));
+  }).slice(0, 10);
+}
+
+const playlists = {
+  speediance: filterVideos(['speediance', 'tonal']),
+  bjj: filterVideos(['bjj', 'jiu-jitsu', 'jiu jitsu', 'jujitsu']),
+  running: filterVideos(['running', 'run', 'cardio', 'marathon', '5k', '10k']),
+  techAI: filterVideos(['ai', 'openclaw', 'automation', 'chatgpt', 'claude', 'tech']),
+};
+
 // Build CollectionPage + ItemList schema for the top videos
 // Use top 20 by view count for itemListElement (keeps payload size reasonable)
 const topVideos = [...VIDEOS]
