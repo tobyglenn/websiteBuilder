@@ -53,6 +53,17 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 export const BLOG_POSTS = [
 
   {
+    title: "Transform Your Life in Just One Winter",
+    slug: "transform-your-life-in-just-one-winter",
+    published_at: "2025-10-08",
+    date: "2025-10-08",
+    category: "The Long Game",
+    excerpt: "One winter of sacrifice. A lifetime of capability. Here's how I went from being unable to run with my kids to having no limits.",
+    image: "/images/default-blog.jpg",
+    tags: ["transformation", "motivation", "fitness", "running"],
+    content: "One of the things that I strive for in life is trying to make improvements upon what I've already done and trying to adjust things going forward to have better outcomes with minimal risk. Nothing is no risk, and every medication has its own risks.\n\nFor me, I wanted to be the person I used to be, and I wanted to do it in one winter. I achieved that. I can now do anything I want. I can run with my kids. I can chase after them. I can do all the things I wanted to do by sacrificing one winter and sacrificing majorly to make this happen.\n\nAll I did was work, walk, and lift. That's it. The amount of time spent with my family over that winter was minimal. But I knew if I did that, I would now be able to spend so much more time with them on the other side of that sacrifice."
+  },
+  {
     slug: "the-submission-that-could-have-ended-everything",
     title: "The Submission That Could Have Ended Everything",
     excerpt: "I love aggressive submissions, but one neck-first setup can turn a roll into a catastrophic injury in a split second. Here's why this is one BJJ risk I think people underestimate.",
