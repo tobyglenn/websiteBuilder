@@ -448,6 +448,17 @@
       ],
       "commit": "8e60254",
       "notes": "Added new blog post from unused transcript 2025-09-11. Covers Speediance weight calibration - 40 lbs feels like 40 lbs (closer to dumbbells) while Tonal's 40 lbs felt like 60 lbs. Unique comparison topic not covered before. Category: Speediance. Build passes (306 pages)."
+    },
+    {
+      "timestamp": "2026-03-07T07:20:00-05:00",
+      "idea": "Add RSS feed for blog at /rss.xml",
+      "category": "SEO Enhancement",
+      "files_changed": [
+        "src/pages/rss.xml.ts",
+        "src/layouts/Layout.astro"
+      ],
+      "commit": "59023e2",
+      "notes": "Fixed RSS feed with robust post filtering, added RSS link tag to Layout head. Feed includes all blog posts with title, description, pubDate, categories. Build passes (290 pages)."
     }
   ],
   "in_progress": null,

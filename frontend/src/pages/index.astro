@@ -4,6 +4,7 @@ import Hero from '../components/Hero.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import WorkoutHeatmap from '../components/WorkoutHeatmap.jsx';
 import ThisWeekWidget from '../components/ThisWeekWidget.jsx';
+import LatestActivity from '../components/LatestActivity.jsx';
 import { BLOG_POSTS } from '../data/mock.js';
 import videosData from '../data/videos.json';
 import { videos as youtube } from '../data/youtube.js';
@@ -154,6 +155,8 @@ const webPageSchema = {
 			</div>
 		</div>
 	</section>
+
+	<LatestActivity client:load />
 
 	{/* YouTube Social Proof Section */}
 	<section class="py-12 bg-neutral-950 border-t border-neutral-900">
