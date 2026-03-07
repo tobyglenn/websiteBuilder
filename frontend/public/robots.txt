@@ -1,2 +1,30 @@
+# TobyOnFitnessTech.com Robots.txt
+# Optimized for search engine crawlers
+
 User-agent: *
+Allow: /
+
+# Sitemaps
 Sitemap: https://tobyonfitnesstech.com/sitemap.xml
+Sitemap: https://tobyonfitnesstech.com/sitemap-index.xml
+
+# Crawl-delay (for respectful crawling)
+Crawl-delay: 1
+
+# Disallow private/admin paths (if any exist)
+Disallow: /api/
+Disallow: /admin/
+Disallow: /*?utm_*
+Disallow: /*?ref=
+
+# Image sitemaps (when implemented)
+# Sitemap: https://tobyonfitnesstech.com/images-sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: GPTBot
+Allow: /

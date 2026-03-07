@@ -2,32 +2,19 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
-      "timestamp": "2026-03-07T01:15:00-05:00",
-      "idea": "Privacy Policy and Terms of Service pages",
-      "category": "Legal Pages",
+      "timestamp": "2026-03-07T02:20:00-05:00",
+      "idea": "Add Contact page with form and update sitemap with BJJ page",
+      "category": "UX Enhancement - Content Pages",
       "files_changed": [
-        "src/pages/privacy.astro",
-        "src/pages/terms.astro"
+        "src/pages/contact.astro",
+        "src/components/Header.jsx",
+        "public/sitemap.xml"
       ],
-      "commit": "existing",
-      "notes": "Verified Privacy Policy and Terms of Service pages exist and build correctly. Pages include proper Layout, dark theme styling, meta descriptions, and content about data collection (WHOOP, Garmin, 8Sleep, Speediance, OpenClaw). Build passes (287 pages)."
-    },
-    {
-      "timestamp": "2026-03-05T09:15:00-05:00",
-      "idea": "Add social sharing buttons to blog post pages",
-      "category": "UX Enhancement - Blog",
-      "files_changed": [
-        "src/components/ShareButtons.jsx",
-        "src/pages/blog/[slug].astro"
-      ],
-      "commit": "c7893f5",
-      "notes": "Added ShareButtons component with Twitter, Facebook, LinkedIn, and Copy Link buttons. Integrated into blog post pages below title. Build passes (267 pages)."
-    },
-    {
-      "timestamp": "2026-03-04T19:24:00-05:00",
-      "idea": "Running stats page with real Garmin data (monthly chart, heatmap, PRs)",
-      "category": "UX Enhancement - Data Pages",
-      "files_changed": [
+      "commit": "877ba32",
+      "notes": "Created new /contact page with hero section, contact method cards (email, YouTube, location), simple contact form with success message, and JSON-LD schema. Added Contact link to navigation dropdown. Added /bjj and /contact to sitemap.xml. Build passes (301 pages)."
+    }
+  ],
+  "in_progress": null,
         "src/data/running.js",
         "src/pages/running.astro"
       ],

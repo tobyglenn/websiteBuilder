@@ -338,6 +338,17 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     
     <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "TobyOnFitnessTech",
+      "url": "https://www.tobyonfitnesstech.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://www.tobyonfitnesstech.com/search?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    })} />
   </head>
   <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
     <div data-pagefind-ignore>
