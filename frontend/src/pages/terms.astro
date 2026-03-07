@@ -1,82 +1,100 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const updated = "February 2026";
+
+const updated = 'March 2026';
+
+const termsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://tobyonfitnesstech.com/terms#webpage',
+  name: 'Terms of Service | Toby on Fitness Tech',
+  description:
+    'Terms of Service for Toby on Fitness Tech covering acceptable use, ownership, disclaimers, and limitations of liability.',
+  url: 'https://tobyonfitnesstech.com/terms',
+  inLanguage: 'en',
+  isPartOf: {
+    '@id': 'https://tobyonfitnesstech.com/#website',
+  },
+  about: {
+    '@id': 'https://tobyonfitnesstech.com/#organization',
+  },
+  author: {
+    '@id': 'https://tobyonfitnesstech.com/#toby',
+  },
+};
 ---
 
-<Layout 
-  title="Terms of Service - Toby on Fitness Tech"
-  description="Terms of Service for TobyOnFitnessTech.com — the rules governing use of our fitness tech reviews, videos, and content."
+<Layout
+  title="Terms of Service | Toby on Fitness Tech"
+  description="Review the Terms of Service for TobyOnFitnessTech, including usage rules, content ownership, fitness disclaimers, and liability limits."
+  jsonLd={termsSchema}
 >
-  <div class="container mx-auto px-4 py-16 max-w-3xl">
-    <div class="mb-12 pb-8 border-b border-neutral-800">
-      <h1 class="text-4xl font-bold text-white mb-3">Terms of Service</h1>
-      <p class="text-neutral-500 text-sm">Last updated: {updated}</p>
+  <section class="bg-neutral-950 text-white border-b border-neutral-800">
+    <div class="container mx-auto max-w-4xl px-4 py-16 md:py-20">
+      <p class="text-blue-400 font-semibold uppercase tracking-wider text-sm">Legal</p>
+      <h1 class="mt-3 text-4xl md:text-5xl font-bold">Terms of Service</h1>
+      <p class="mt-4 text-neutral-400 max-w-3xl">
+        These terms govern use of TobyOnFitnessTech, including website content, data-driven analysis,
+        and fitness technology commentary.
+      </p>
+      <p class="mt-3 text-sm text-neutral-500">Last updated: {updated}</p>
     </div>
+  </section>
 
-    <div class="space-y-8 text-neutral-300">
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">About This Site</h2>
-        <p class="leading-relaxed">
-          TobyOnFitnessTech ("the site," "we," "us") is a personal blog dedicated to independent reviews and commentary on fitness technology, training methodology, and related topics. By accessing or using this site, you agree to these Terms of Service.
+  <section class="bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto max-w-4xl px-4 py-12 md:py-16 space-y-10 leading-relaxed">
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">1. Acceptance of Terms</h2>
+        <p class="mt-4">
+          By accessing or using TobyOnFitnessTech, you agree to be bound by these Terms of Service and
+          applicable laws. If you do not agree, please discontinue use of the site.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Content and Opinions</h2>
-        <p class="leading-relaxed">
-          All content on this site — including video reviews, blog posts, and commentary — represents the personal opinions and experiences of the author. Content is provided for informational and entertainment purposes only.
-        </p>
-        <p class="mt-4 leading-relaxed">
-          Nothing on this site constitutes medical, nutritional, or professional fitness advice. Consult a qualified professional before making changes to your exercise or diet regimen.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">2. User Responsibilities</h2>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>Use the website lawfully and respectfully.</li>
+          <li>Do not attempt to disrupt site operation or access restricted systems.</li>
+          <li>Do not copy, scrape, or republish content in a misleading or abusive way.</li>
+          <li>Evaluate fitness and product information independently before acting on it.</li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">3. Content Ownership</h2>
+        <p class="mt-4">
+          Unless otherwise noted, all original content on TobyOnFitnessTech — including written analysis,
+          videos, graphics, and branded materials — is owned by Toby Glenn Peters. You may link to content,
+          but you may not reproduce substantial portions without prior written permission.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">No Warranties</h2>
-        <p class="leading-relaxed">
-          This site is provided "as is" without warranties of any kind, express or implied. We make no representations about the accuracy, completeness, or suitability of any content. We are not liable for any damages arising from your use of this site or reliance on its content.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">4. Fitness and Medical Disclaimer</h2>
+        <p class="mt-4">
+          Content on this site is for informational and educational purposes only. It is not medical,
+          diagnostic, or therapeutic advice. Always consult qualified healthcare or fitness professionals
+          before starting or changing any training, recovery, nutrition, or health program.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Affiliate Links</h2>
-        <p class="leading-relaxed">
-          This site contains affiliate links. If you click a link and make a purchase, we may earn a commission at no additional cost to you. See our <a href="/affiliate" class="text-blue-400 hover:text-blue-300">Affiliate Disclosure</a> for full details. Affiliate relationships do not influence our editorial opinions — products are reviewed independently.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">5. Limitation of Liability</h2>
+        <p class="mt-4">
+          To the fullest extent permitted by law, TobyOnFitnessTech and its operator are not liable for
+          indirect, incidental, special, or consequential damages resulting from your use of the site,
+          reliance on its content, or inability to access services.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Intellectual Property</h2>
-        <p class="leading-relaxed">
-          All original content on this site (written text, video content, graphics) is owned by Toby Glenn Peters unless otherwise noted. You may share links to content on this site but may not reproduce full articles or videos without permission.
-        </p>
-        <p class="mt-4 leading-relaxed">
-          Third-party product names, trademarks, and logos referenced in reviews belong to their respective owners. Their inclusion does not imply endorsement.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">6. Contact Information</h2>
+        <p class="mt-4">
+          Questions about these terms can be sent to
+          <a href="mailto:toby@tobyonfitness.tech" class="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline">toby@tobyonfitness.tech</a>.
         </p>
       </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">External Links</h2>
-        <p class="leading-relaxed">
-          This site links to external websites including YouTube, manufacturer sites, and retailers. We are not responsible for the content or privacy practices of those sites.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Changes to These Terms</h2>
-        <p class="leading-relaxed">
-          We may update these terms from time to time. Continued use of the site after changes constitutes acceptance of the updated terms.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Contact</h2>
-        <p class="leading-relaxed">
-          Questions? Email <a href="mailto:admin@tobyonfitnesstech.com" class="text-blue-400 hover:text-blue-300">admin@tobyonfitnesstech.com</a>.
-        </p>
-      </section>
-
     </div>
-  </div>
+  </section>
 </Layout>

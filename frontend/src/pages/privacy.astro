@@ -1,85 +1,120 @@
 ---
 import Layout from '../layouts/Layout.astro';
-const updated = "February 2026";
+
+const updated = 'March 2026';
+
+const privacySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://tobyonfitnesstech.com/privacy#webpage',
+  name: 'Privacy Policy | Toby on Fitness Tech',
+  description:
+    'Privacy Policy for Toby on Fitness Tech, including wearable data sources, automation workflows, and how data is used and stored.',
+  url: 'https://tobyonfitnesstech.com/privacy',
+  inLanguage: 'en',
+  isPartOf: {
+    '@id': 'https://tobyonfitnesstech.com/#website',
+  },
+  about: {
+    '@id': 'https://tobyonfitnesstech.com/#organization',
+  },
+  author: {
+    '@id': 'https://tobyonfitnesstech.com/#toby',
+  },
+};
 ---
 
-<Layout 
-  title="Privacy Policy - Toby on Fitness Tech"
-  description="Privacy Policy for TobyOnFitnessTech.com — how we handle your data."
+<Layout
+  title="Privacy Policy | Toby on Fitness Tech"
+  description="Read how TobyOnFitnessTech handles data from WHOOP, Garmin, 8Sleep, Speediance, and OpenClaw workflows for fitness tracking and AI-powered reporting."
+  jsonLd={privacySchema}
 >
-  <div class="container mx-auto px-4 py-16 max-w-3xl">
-    <div class="mb-12 pb-8 border-b border-neutral-800">
-      <h1 class="text-4xl font-bold text-white mb-3">Privacy Policy</h1>
-      <p class="text-neutral-500 text-sm">Last updated: {updated}</p>
+  <section class="bg-neutral-950 text-white border-b border-neutral-800">
+    <div class="container mx-auto max-w-4xl px-4 py-16 md:py-20">
+      <p class="text-blue-400 font-semibold uppercase tracking-wider text-sm">Legal</p>
+      <h1 class="mt-3 text-4xl md:text-5xl font-bold">Privacy Policy</h1>
+      <p class="mt-4 text-neutral-400 max-w-3xl">
+        TobyOnFitnessTech documents real-world fitness training, wearable data, and automation workflows.
+        This policy explains what data is used, how it is processed, and how it is protected.
+      </p>
+      <p class="mt-3 text-sm text-neutral-500">Last updated: {updated}</p>
     </div>
+  </section>
 
-    <div class="prose prose-invert prose-lg max-w-none space-y-8 text-neutral-300">
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Overview</h2>
-        <p>
-          TobyOnFitnessTech ("the site") is a personal fitness technology review blog operated by Toby Glenn Peters. This policy explains what limited data is collected when you use this site and how it is handled.
+  <section class="bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto max-w-4xl px-4 py-12 md:py-16 space-y-10 leading-relaxed">
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">1. Introduction</h2>
+        <p class="mt-4">
+          TobyOnFitnessTech is a personal website operated by Toby Glenn Peters. The site focuses on
+          fitness technology, including wearable metrics, training logs, and automated summaries powered
+          by OpenClaw. We collect and process only the data needed to run the site, generate personal
+          performance insights, and publish educational fitness content.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Information We Collect</h2>
-        <h3 class="text-lg font-semibold text-white mb-2">Newsletter Sign-up</h3>
-        <p>
-          If you subscribe to the newsletter, we collect your email address. This is the only personal data we actively collect. Your email is used solely to send you updates from TobyOnFitnessTech. We do not sell, rent, or share your email address with third parties.
-        </p>
-        <h3 class="text-lg font-semibold text-white mb-2 mt-6">Website Analytics</h3>
-        <p>
-          This site may use standard server-side analytics (page views, referrers, device type). No personally identifiable information is collected in this process.
-        </p>
-        <h3 class="text-lg font-semibold text-white mb-2 mt-6">Cookies</h3>
-        <p>
-          This site does not use tracking cookies. The only cookies that may be set are those required for basic site functionality. No advertising cookies are used.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">2. Data We Collect</h2>
+        <p class="mt-4">Data may include the following categories from connected tools and services:</p>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>
+            <span class="font-semibold text-white">WHOOP:</span> recovery scores, strain, sleep metrics,
+            resting heart rate, and heart-rate variability trends.
+          </li>
+          <li>
+            <span class="font-semibold text-white">Garmin:</span> activities, distance, pace, heart rate,
+            training load, and workout summaries.
+          </li>
+          <li>
+            <span class="font-semibold text-white">8Sleep:</span> sleep duration, sleep staging,
+            temperature-related sleep insights, and overnight recovery context.
+          </li>
+          <li>
+            <span class="font-semibold text-white">Speediance:</span> workout sessions, exercise logs,
+            reps, sets, resistance, and volume totals.
+          </li>
+          <li>
+            <span class="font-semibold text-white">OpenClaw automation:</span> metadata used to generate
+            morning and nightly fitness reports, workflow timestamps, and summarized performance outputs.
+          </li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">3. How Data Is Used</h2>
+        <p class="mt-4">Collected data is used for the following purposes:</p>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>Personal fitness tracking and longitudinal trend analysis.</li>
+          <li>AI-powered performance reports and training summaries.</li>
+          <li>Morning readiness and nightly recap reports generated through automation workflows.</li>
+          <li>Educational content and product analysis shared on TobyOnFitnessTech.</li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">4. Data Storage and Retention</h2>
+        <p class="mt-4">
+          Data may be stored in local systems (including personal logs and project files) and in selected
+          cloud services used for sync, backup, and automation execution. We retain data only as long as
+          needed for ongoing tracking, reporting, and site operations.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">YouTube Embeds</h2>
-        <p>
-          This site embeds videos from YouTube. When you play an embedded video, YouTube (Google) may collect data including your IP address, browser information, and viewing activity according to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300">Google's Privacy Policy</a>. We have no control over YouTube's data collection. You can avoid this by watching videos directly on YouTube.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">5. Cookies and Analytics</h2>
+        <p class="mt-4">
+          TobyOnFitnessTech uses minimal cookies. We do not use invasive ad-tech tracking. Any analytics
+          are lightweight and intended only to understand overall site performance and readership trends.
         </p>
       </section>
 
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Affiliate Links</h2>
-        <p>
-          This site contains affiliate links (see our <a href="/affiliate" class="text-blue-400 hover:text-blue-300">Affiliate Disclosure</a>). Clicking these links and making purchases may set cookies on your browser from third-party retailers. Those cookies are governed by those retailers' privacy policies.
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">6. Contact</h2>
+        <p class="mt-4">
+          For privacy-related questions, corrections, or requests, email
+          <a href="mailto:toby@tobyonfitness.tech" class="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline">toby@tobyonfitness.tech</a>.
         </p>
       </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Data Retention</h2>
-        <p>
-          Newsletter email addresses are retained until you unsubscribe. To unsubscribe or request deletion of your email, contact us at the address below.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Your Rights</h2>
-        <p>
-          You may request access to, correction of, or deletion of any personal data we hold about you by contacting us at <a href="mailto:admin@tobyonfitnesstech.com" class="text-blue-400 hover:text-blue-300">admin@tobyonfitnesstech.com</a>.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Changes to This Policy</h2>
-        <p>
-          We may update this policy occasionally. Changes will be noted by updating the "Last updated" date above.
-        </p>
-      </section>
-
-      <section>
-        <h2 class="text-2xl font-bold text-white mb-4">Contact</h2>
-        <p>
-          Questions about this privacy policy? Email <a href="mailto:admin@tobyonfitnesstech.com" class="text-blue-400 hover:text-blue-300">admin@tobyonfitnesstech.com</a>.
-        </p>
-      </section>
-
     </div>
-  </div>
+  </section>
 </Layout>
