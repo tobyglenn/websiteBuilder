@@ -503,14 +503,14 @@
       "notes": "Created new /fitness-age page with interactive fitness age calculator. Uses real WHOOP data (HRV, RHR, recovery scores) and Garmin running data to calculate fitness age. Shows 6 stat cards (Avg HRV, Resting HR, Recovery Score, Weekly Workouts, Running Miles, Cardio Score). Includes methodology explanation and comparison to actual age. Dark theme matching site. Build passes (292 pages)."
     },
     {
-      "timestamp": "2026-03-07T17:23:00-05:00",
-      "idea": "Add video duration filter to Videos page (Short <5min, Medium 5-15min, Long 15+min)",
-      "category": "UX Enhancement - Videos",
+      "timestamp": "2026-03-07T21:15:00-05:00",
+      "idea": "Add Traditional Gym to comparison page - now compares Speediance vs Tonal vs Traditional Gym",
+      "category": "UX Enhancement - Content Pages",
       "files_changed": [
-        "src/components/VideoGrid.jsx"
+        "src/pages/compare.astro"
       ],
-      "commit": "da4eb10",
-      "notes": "Added duration filter buttons to VideoGrid component. Filters: All, Short (<5 min), Medium (5-15 min), Long (15+ min). Uses parseDuration function to handle ISO 8601 and HH:MM:SS formats. Styled with blue accent for active filter. Build passes (293 pages)."
+      "commit": "0cf1698",
+      "notes": "Updated existing compare.astro page (was Speediance vs Tonal only) to include Traditional Gym as third option. Added Traditional Gym column to comparison table, new experience card, pros/cons section, updated verdict, added JSON-LD schema. Build passes (293 pages)."
     }
   ],
   "in_progress": null,
