@@ -52,6 +52,60 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    id: "2026-01-27_speediance_v3_software_review",
+    slug: "speediance-v3-software-review",
+    title: "Speediance V3 Software Is Here — But Is It Good?",
+    excerpt: "The V3 software update removed partner mode from Freelift, introduced a dead button on Toby's 2S, and changed the UX. Here's what's better, what's broken, and who Speediance is actually not for.",
+    content: `<h2>The V3 Rollout Was A Mess</h2>
+<p>Speediance shipped V3 software and it was rough. They removed partner mode from Freelift, shipped a broken UI, and added a Safety Start button to my screen that literally did nothing because the firmware wasn't ready for my unit.</p>
+<p>I sat with a non-functional feature button for weeks.</p>
+<p>This is the problem with being an early adopter of firmware-driven fitness equipment. You get features when they ship, not when they work.</p>
+
+<h2>Partner Mode: Gone (For Now)</h2>
+<p>The biggest complaint: they removed partner mode from Freelift. This was the feature that made Speediance unique - the dual motors meant you could do individual movements on individual rails at different velocities. That's something Tonal can't do.</p>
+<p>In V3, it's gone from Freelift. Partner mode still exists in the regular workout flow - you can select it when starting any workout. But the Freelift implementation, where you'd set up custom partner workouts, is broken.</p>
+<p>Speediance has announced they're bringing it back. I'm waiting.</p>
+
+<h2>The UX Changes: Better Looking, Worse Using</h2>
+<p>They re-designed the interface to match the UX of other screens. What that means: all the buttons moved from the top of the screen to the bottom. The idea was consistency across every mode.</p>
+<p>The problem: there's now a button on my screen that switches between barbell and dumbbell modes - but it doesn't work in Freelift. It's just... there. Clickable, but doing nothing.</p>
+<p>They also made it much easier to max out eccentric mode. That was time-consuming in V2.x - you had to scroll through the wheel repeatedly. In V3, you just drag it to max. That's a genuine improvement.</p>
+
+<h2>The Safety Start Problem</h2>
+<p>Safety Start locks the cable at a specific length so it won't retract further. The intent: prevent the cable from pulling you into the machine on movements like cable flies.</p>
+<p>The problem: it also slows down the retraction speed across the entire machine. Not just when Safety Start is active. Always.</p>
+<p>I noticed it the day I got the new firmware. When I bring a cable back toward the machine, it moves noticeably more slowly. The cord literally folds into itself during transitions. That's cable wear waiting to happen.</p>
+<p>My theory: Safety Start was designed for the Pilates feature they're building. It has nothing to do with safety. They should have called it something else - because real safety features should come to all hardware, not just new models.</p>
+
+<h2>What They Got Right</h2>
+<p>Pop-up ads are gone. Before V3, every time you started the device, you'd get hit with ads for Workout Plus and other stuff you didn't want. Those don't appear anymore.</p>
+<p>They listen. It's not like they don't care - they absolutely do. The problem is they ship features before they're ready, and early users like me get stuck with broken buttons.</p>
+
+<h2>The Family Workout Plus Lie</h2>
+<p>You pay $25 a year for Family Workout Plus. The marketing shows a kid, mom, and dad all working out together.</p>
+<p>You can't do that.</p>
+<p>You can't do custom workouts together. You can't do partner workouts. It's literally just a rebranded individual account with extra profiles. You're paying $25 to create additional user accounts - not to workout as a family.</p>
+<p>If they took my goals and my wife's goals, merged them, and created a hybridized workout we could do together - that would be worth $25. But that's not what it does.</p>
+
+<h2>Who This Device Is Not For</h2>
+<p>I need to be honest about this: if your wife wants a female coach, this device might not work for her.</p>
+<p>The only female coach with most videos available speaks Spanish. Unless your wife speaks Spanish, she's stuck with the male English coaches. This comes up constantly in the Speediance community.</p>
+<p>If your wife specifically wants a female-led guided experience, Tonal is still the answer. The video production quality on Tonal is significantly higher because they invested millions in studios. Speediance is catching up, but they're not there yet.</p>
+
+<h2>The Bottom Line</h2>
+<p>I've lifted over 1,143,000 pounds on these machines. The hardware is great. The software is still maturing.</p>
+<p>V3 is an upgrade in UX but a step back in features. They removed something unique to their platform (partner mode in Freelift) and replaced it with UI changes nobody asked for.</p>
+<p>The good news: they're bringing partner mode back. The bad news: it should never have been removed in the first place.</p>
+<p>If you're considering Speediance, understand what you're getting: excellent hardware with active firmware development. That means features ship before they're perfect, and you'll occasionally get a button on your screen that does nothing.</p>
+<p>After a million pounds, I'm still on it every day. That's the real verdict.</p>`,
+    category: "Speediance",
+    tags: ["Speediance", "V3", "Software", "Review", "smart gym"],
+    date: "2026-01-27",
+    author: "Toby Peters",
+    readTime: 8,
+    featured: false
+  },
+  {
     id: "2026-01-24_Speediance_Broke_Partner_Mode_The_Lost_Free_Lift_Feature_Demo_With_My_Daughter",
     slug: "speediance-broke-partner-mode-lost-free-lift-feature",
     title: "Speediance Broke Partner Mode?! The Lost Free Lift Feature Demo With My Daughter",
@@ -1627,5 +1681,114 @@ You're not just buying hardware. You're buying into the company behind it. And t
     tags: ["transformation", "setbacks", "injury", "cruise", "reality check", "accountability"],
     author: "Toby",
     featured: false
+  },
+  {
+    id: "speediance-broke-partner-mode-lost-freelift-feature-demo-daughter",
+    slug: "speediance-broke-partner-mode-lost-freelift-feature-demo-daughter",
+    title: "Speediance Broke Partner Mode?! The \"Lost\" Free Lift Feature Demo With My Daughter",
+    excerpt: "Speediance accidentally removed one of their most impressive features — a freelift partner mode with independent weight tracking per side that was in all their early demos. My daughter Lily and I demo it on V2 software before it's gone forever.",
+    date: "2026-01-24",
+    category: "Speediance",
+    tags: ["speediance", "partner mode", "freelift", "v2 vs v3", "demo", "family", "tonal comparison"],
+    author: "Toby Peters",
+    readTime: 10,
+    featured: false,
+    content: `<p>Let me introduce you to a feature that Speediance showed off in every single one of their early demo videos — and then accidentally deleted.</p>
+
+<p>I'm going to be upfront: this is one of those "you have to see it to believe it" situations. The feature I'm talking about is partner mode inside Freelift. Not the partner mode that's still in the V3 software (that one's inside structured workouts), but the specific freelift version — the one where two people can lift independently, at completely different weights, at the exact same time. That feature is gone in V3. And today my daughter Lily and I are demoing it on my original Gym Monster downstairs, which still runs V2 software.</p>
+
+<h2>First, Let's Clear Up the Misinformation</h2>
+
+<p>There's a lot of confusion online right now about what happened with partner mode. I've seen posts saying all partner mode is gone in V3. That's wrong.</p>
+
+<p>Here's what's actually true:</p>
+
+<ul>
+<li><strong>Partner mode inside structured workouts</strong> — still there in V3. You go into any workout, click partner instead of solo, both users log in, and you track stats independently. That exists. That works.</li>
+<li><strong>Partner mode inside Freelift</strong> — gone in V3. This is the feature I'm demoing today.</li>
+</ul>
+
+<p>The freelift version is the more interesting one. And ironically, it's the one they removed.</p>
+
+<h2>Why This Feature Was In All Their Early Videos</h2>
+
+<p>The reason Speediance demoed freelift partner mode in every early video isn't because they were showing off a gimmick. It's because this is something the Tonal physically cannot do.</p>
+
+<p>The Speediance has two independent motors — one controlling each side of the machine. In a normal workout, those motors sync up so both sides deliver the same weight. But in freelift partner mode, you can decouple them. My side runs at 44 lbs. Lily's side runs at 8 lbs. We're both pulling, both accumulating reps, at completely different resistances, simultaneously.</p>
+
+<p>Tonal can't do that. It has one motor controlling both cables. The weight is always the same on both sides. If Lily and I were going to use a Tonal together, we'd have to agree on a single weight and take turns. On the Speediance in freelift partner mode? We're literally working out at the same time with different loads.</p>
+
+<p>That's why it was in every early demo. It was a genuine differentiator. A feature they could point to and say "Tonal can't do this." And then they accidentally removed it when they rewrote the software for V3.</p>
+
+<h2>The Demo: Lily vs. Dad</h2>
+
+<p>Here's how the V2 freelift partner mode actually works: you go into Freelift, hit the partner button on the main screen, and immediately the display splits into two columns — one for each side. No login required. The second person shows up as a guest, meaning their reps and volume show in the workout report but don't count against any stored user profile.</p>
+
+<p>Lily is 8 lbs. I cranked my side up to 44 lbs. We both started pulling.</p>
+
+<p>The rep counter is per-side. My green line on the graph, her yellow line on the graph, both going up at the same time. At one point she had 15 reps at 8 lbs and I had 11 reps at 44 lbs. She was winning. She announced it. Loudly.</p>
+
+<p>The visual on the screen during this mode is genuinely cool — you can see both wave patterns overlapping. Lily described it as "making knots" with the lines. She's not wrong.</p>
+
+<h2>But Here's the Honest Assessment: It Was Already Broken</h2>
+
+<p>I said this online and I'll say it again here: the V2 freelift partner mode was cool in concept and a mess in execution. Several things just didn't work right.</p>
+
+<p><strong>The Bluetooth handles couldn't control individual sides.</strong> In theory, the smart handles are labeled left and right. But when you tried to turn on one side in partner mode, it turned both on. You couldn't independently activate Lily's side at 8 lbs while my side stayed off. That's a fundamental limitation — the feature that would make the mode actually safe and practical just didn't work.</p>
+
+<p><strong>No user login for the second person.</strong> The guest profile tracks reps and volume in the session report, but it doesn't count against any real account. So if your wife is your workout partner and you want her lifts counted toward her profile, forget it. That option doesn't exist in V2 freelift partner mode. Everything goes to the report, and the report belongs to whoever is logged into the machine.</p>
+
+<p><strong>Barbell mode doesn't work with partner on.</strong> If you switch to barbell while partner is active, the button grays out and doesn't tell you why. The reason is obvious when you think about it — you can't have independent motor loads when both cables are attached to the same bar — but the software doesn't explain this. It just silently stops you.</p>
+
+<p><strong>Volume gets mixed up.</strong> Because Lily wasn't logged in as a separate user, all of her reps counted toward my volume total. By the end of the session, my freelift volume was completely meaningless as a personal metric. There's no way to separate it after the fact. That's a real problem if you care about progressive overload — which I do, obsessively.</p>
+
+<p>When I switched out of partner mode to demonstrate barbell, the display went back to single-screen. Now there was one weight setting, one rep counter, no distinction between what I did and what Lily did. Everything merged. If we'd been doing real working sets that mattered, the data would be garbage.</p>
+
+<h2>The Rep Count at the End</h2>
+
+<p>At the end of the session, the machine showed the totals. I'd lifted something like 1,500 lbs. Lily had lifted 312 lbs. She'd lifted more weight than she could count to. She was extremely proud of this.</p>
+
+<p>The thing is, none of that was properly tracked. Her 312 lbs of volume was folded into the freelift report under my account, with no way to separate it out. If I wanted to use this data to track my own training, it was now corrupted. That's the core problem with the V2 implementation.</p>
+
+<h2>Assist Mode 2: The Actually Useful Hidden Feature</h2>
+
+<p>While we had the machine set up, I wanted to show Lily the assist modes — specifically Assist Mode 2, which is the one I think should be on by default for most users.</p>
+
+<p>Here's how it works: if you're mid-rep and the machine detects you're not going to be able to complete the movement at the current weight, it automatically drops the resistance so you can finish the rep. Think of it as an automatic drop set. It's designed for safety — the machine keeps the load manageable rather than letting you fail dangerously mid-pull.</p>
+
+<p>I set up a barbell lat pulldown for Lily at 24 lbs. She pulled it partially down, the machine sensed she was struggling, and dropped the weight so she could complete the rep. The automatic adjustment is seamless — you can feel it change, and on the graph you can see the resistance step down mid-rep.</p>
+
+<p>My opinion on this: it's genuinely the best safety feature on the device. But the implementation has a problem — in V2, turning Assist Mode 2 on during a custom workout doesn't save. Every time you restart the workout, you have to turn it back on manually. It should default to on at the system level, or at minimum remember the setting per workout.</p>
+
+<p>I personally don't use it. The reason is that I'm usually training to failure intentionally — I want to know where my rep limit actually is, not have the machine step in and assist me through the last rep. If the weight drops mid-rep, I don't know whether I actually completed that rep or whether the machine cheated for me. For progressive overload purposes, that rep counts differently in my head.</p>
+
+<p>But for most users, especially anyone newer to this kind of training, or anyone using the machine for general fitness rather than progressive overload optimization? Assist Mode 2 should probably be on all the time.</p>
+
+<h2>Why Freelift Partner Mode Matters Going Forward</h2>
+
+<p>The community has been told this feature is coming back in a future V3 update. One Speediance rep who's active in the community alluded to it being an oversight, not a deliberate removal. I believe that. The feature was in every early demo. It's a differentiator. They wouldn't intentionally delete something they'd built their marketing around.</p>
+
+<p>But here's my concern: if they bring it back and it looks like V2's version — same guest profile limitations, same inability to independently control the Bluetooth handles, same volume contamination — it will have solved nothing. The feature was already barely functional before they removed it.</p>
+
+<p>What I'd actually want when they bring it back:</p>
+
+<ul>
+<li>Ability to log in a second user (not just a guest profile) so their reps count against their actual account</li>
+<li>Per-side activation that works with smart handles — turning one side on shouldn't activate the other</li>
+<li>Separate volume tracking in the workout report that doesn't contaminate the primary user's data</li>
+<li>Partner mode inside custom workouts, not just freelift — the most-requested feature in the community for the past two years</li>
+</ul>
+
+<p>That last one is the real ask. Tonal has had dual-user tracking in custom workouts since launch. The fact that Speediance still doesn't is, in my opinion, the biggest gap between the two machines from a household usability standpoint. My wife and I have workouts together. Right now, everything counts toward one account or the other, and whoever's "playing guest" loses all their data. That's not acceptable in 2026 for a machine at this price point.</p>
+
+<h2>The Lily Verdict</h2>
+
+<p>At the end of the session I asked Lily what she thought. She counted her reps. She tried multiple exercises. She figured out the color coding on the graph (green is mine, yellow is hers). She described the overlapping lines as making knots. She declared she was winning every time her rep count was higher than mine.</p>
+
+<p>And then I asked her why daddy doesn't actually use this mode in real workouts. She thought about it, then said: progressive overload. No way to measure it properly. You can't track the lifts individually, you can't separate the users, and whatever data comes out of the session is too polluted to be actionable.</p>
+
+<p>She's 100% right. The mode is fun to play in. It's cool to show off. But as an actual training tool, in V2, it's not usable. The best case scenario is that Speediance takes their time, does it right, and brings it back in V3 with actual user separation — not just a cosmetic version that checks the "partner mode is back" box.</p>
+
+<p>Until then, we've got this V2 machine downstairs and a record of what it was supposed to be. Lily's 312 lbs of volume may not be in anyone's official training log, but she definitely won the rep count. I'm not disputing it.</p>`
   }
 ];
