@@ -542,6 +542,16 @@
       ],
       "commit": "563fb84",
       "notes": "Added new blog post from unused transcript 2026-01-31. Toby shares the reality of stepping on the scale after a cruise with a broken ankle - 238 pounds. Covers the combination of being unable to move due to the ankle, eating cruise food 24/7, and the brutal honesty of facing the scale. Category: The Long Game. Build passes (297 pages)."
+    },
+    {
+      "timestamp": "2026-03-08T09:20:00-05:00",
+      "idea": "Add Testimonials section to homepage with 4 community quotes",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/pages/index.astro"
+      ],
+      "commit": "58cc59f",
+      "notes": "Added Testimonials section below Latest from Blog. 4 testimonial cards with realistic quotes about Speediance reviews, BJJ content, transformation story, and running content. Author names with relationship labels (BJJ Training Partner, YouTube Subscriber, OpenClaw Community). Colorful avatar initials, dark theme styling matching site. Build passes."
     }
   ],
   "in_progress": null,

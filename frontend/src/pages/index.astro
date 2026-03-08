@@ -245,6 +245,37 @@ const webPageSchema = {
 		</div>
 	</section>
 
+	{/* Latest Videos Section */}
+	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="flex items-end justify-between mb-10">
+				<div>
+					<span class="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-2 block">YouTube</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Latest Videos</h2>
+				</div>
+				<a href="/videos" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
+					View All Videos <ArrowRight size={18} />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				{allVideos.filter(v => !v.is_live).slice(0, 4).map((video) => (
+					<a href={`/video/${video.id}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all">
+						<div class="aspect-video relative overflow-hidden">
+							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+							{video.duration_formatted && (
+								<span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded">{video.duration_formatted}</span>
+							)}
+						</div>
+						<div class="p-4">
+							<h3 class="font-semibold text-white text-sm group-hover:text-cyan-400 transition-colors line-clamp-2">{video.title}</h3>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
 	<LatestActivity client:load />
 
 	{/* YouTube Social Proof Section */}
