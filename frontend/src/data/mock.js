@@ -1555,5 +1555,45 @@ You're not just buying hardware. You're buying into the company behind it. And t
     tags: ["Garmin", "wearables", "running", "tech"],
     author: "Toby Peters",
     featured: false
+  },
+  {
+    slug: "238-lbs-broken-ankle-post-cruise",
+    title: "I Was 238 lbs With a Broken Ankle: The Post-Cruise Reality Check",
+    date: "2026-03-08",
+    category: "The Long Game",
+    excerpt: "A brutally honest look at what happens when you combine a cruise, a broken ankle, and zero ability to move. Sometimes the hard truths hit hardest when you're standing still.",
+    content: `<p>I stepped on the scale after the cruise and saw 238 pounds staring back at me. That's the number. No hiding from it, no context that makes it better. Just 238 pounds on a body that used to hover around 185-190.</p>
+
+<p>But here's the thing that makes this moment even more complicated: I wasn't just dealing with the aftermath of a week of unlimited buffets and ship-side ice cream. I was also dealing with a broken ankle. Not a sprain, not a tweak—a broken ankle that required a boot, then a brace, and left me essentially immobile for the entire trip.</p>
+
+<p>The cruise was already planned. The broken ankle happened just before. My doctor told me I couldn't put any weight on it, couldn't walk, couldn't do anything that would stress that injury. So there I was, stuck on a ship with no ability to move, watching everything I'd worked so hard to build slowly undo itself.</p>
+
+<p>You know what's funny? I actually thought I could manage it. I told myself I'd be careful with portions, I'd skip the dessert station, I'd find some way to stay active even with a broken ankle. Maybe I'd walk the deck a few times, do some light movements in my cabin, just keep something going.</p>
+
+<p>That lasted about as long as it takes to smell the first pizza station on the Lido Deck.</p>
+
+<p>The truth is, when you can't walk, you can't do anything. I couldn't take the stairs—I had to use the elevator every single time. I couldn't explore the ship, couldn't find incidental movement, couldn't offset any of the calories coming in. All I could do was sit there and eat.</p>
+
+<p>And eat I did. The cruise food is designed to be irresistible. It's engineered to make you want more—those endless buffets, the late-night pizza, the 24-hour room service. When you're stuck in a lounge chair with your leg elevated and nothing else to do, food becomes entertainment. It's not even that you're hungry. It's that there's nothing else happening.</p>
+
+<p>I ate garbage food 24/7 that week. I'm not proud of it, but I'm also not going to pretend it didn't happen. That's not who I am. I believe in being honest about the process, even when the process includes weeks like this.</p>
+
+<p>The worst part? I couldn't even burn any of it off. My body was in recovery mode, trying to heal a fracture, and I was piling more and more fuel into the fire. The math was brutal and completely one-sided.</p>
+
+<p>But here's where it could have been so much worse: I wasn't alone on that cruise. I was with family and close friends—people who made that week actually enjoyable despite everything. They kept my spirits up when I was frustrated about the ankle. They made sure I wasn't stuck in my cabin feeling sorry for myself. They made sure I had help getting around, help getting food, help with everything.</p>
+
+<p>Without them, that trip would have been a complete disaster. Isolation would have made the situation so much harder to handle. But surrounded by people I love, even a week of eating poorly and being inactive became something I could get through.</p>
+
+<p>Now I'm back home, working on getting back to where I was. The ankle is healing—slowly, but it's getting there. The weight will come off. I've done it before, and I'll do it again.</p>
+
+<p>But this week was a hard reset on expectations. It reminded me that fitness isn't just about what you do in the gym. It's about what you do every single day. One week of completely letting go can set you back months. And when you add injury on top of that, the math gets even uglier.</p>
+
+<p>The lesson here isn't complicated: the stakes are always higher than they feel in the moment. That cruise seemed like a fun break—a reward for months of hard work. And it was fun, don't get me wrong. But the cost was higher than I planned for, and I have to own that.</p>
+
+<p>Now it's time to rebuild. Again.</p>`,
+    readTime: 4,
+    tags: ["transformation", "setbacks", "injury", "cruise", "reality check", "accountability"],
+    author: "Toby",
+    featured: false
   }
 ];
