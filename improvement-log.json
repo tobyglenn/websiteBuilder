@@ -646,6 +646,19 @@
       ],
       "commit": "a0d8a0c",
       "notes": "Created TrainingFocus React component showing current training focus (Running), weekly session counts (3 runs, 2 workouts, 1 BJJ), and Tobys philosophy Running greater than Lifting greater than BJJ. Uses Activity, Dumbbell, and Trophy icons. Added to homepage below Hero section. Build passes (314 pages)."
+    },
+    {
+      "timestamp": "2026-03-08T07:20:00-05:00",
+      "idea": "Add custom global site search with blog + video indexing",
+      "category": "UX Enhancement - Search",
+      "files_changed": [
+        "src/components/Search.jsx",
+        "src/components/SearchButton.jsx",
+        "src/components/SearchModal.jsx",
+        "src/components/Header.jsx"
+      ],
+      "commit": "7168de7",
+      "notes": "Created custom search component that indexes blog posts from mock.js and videos from videos.json. Features: Cmd/Ctrl+K shortcut, real-time search with 200ms debounce, grouped results (Blog Posts + Videos), up to 5 results per type, dark theme matching site. Build passes (314 pages + Pagefind)."
     }
   ],
   "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages).\n2026-03-06 (7:15 AM): Added new blog post 'Speediance vs Tonal: The Warranty Debate Uncovered' from transcript 2025-09-14. Build passes (284 pages). Attempted equipment comparison page but subagents had connectivity issues.\n2026-03-06 (9:15 AM): Attempted two improvements: (1) Workout frequency heatmap component for homepage using real Speediance + Garmin data, (2) New blog post from transcript 2025-09-20 on Spotter Modes. Multiple subagents tried (Clarity, Spark, MiniMax, Sage) - all reported completion but no files were actually modified. Subagent system appears to have tool execution issues. No changes made to site. Build passes (no changes).\n2026-03-08 (3:15 AM): Attempted to add BJJ Grading Game blog post from transcript 2025-12-02. Content was already present from prior run (c1d9cd4). Subagent ran successfully but found no changes needed. Build passes (296 pages). Site already has 50+ improvements."}
