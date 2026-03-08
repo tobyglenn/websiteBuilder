@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.jsx';
+import TrainingFocus from '../components/TrainingFocus.jsx';
 import Newsletter from '../components/Newsletter.jsx';
 import WorkoutHeatmap from '../components/WorkoutHeatmap.jsx';
 import ThisWeekWidget from '../components/ThisWeekWidget.jsx';
@@ -90,6 +91,7 @@ const webPageSchema = {
 >
 	
 	<Hero client:load />
+	<TrainingFocus client:load />
 
 	{/* Lifetime Stats Section */}
 	<section class="py-16 bg-neutral-950 border-y border-neutral-800">
