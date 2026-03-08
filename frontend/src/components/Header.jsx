@@ -44,6 +44,7 @@ export default function Header() {
     { name: 'Blog & Articles', href: '/blog', hasDropdown: true },
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
+    { name: 'Calculator', href: '/calculator' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
   ];
@@ -180,6 +181,7 @@ export default function Header() {
               {[
                 { name: 'Home', href: '/' },
                 { name: 'Videos', href: '/videos' },
+                { name: 'Calculator', href: '/calculator' },
                 { name: 'About', href: '/about' },
                 { name: 'FAQ', href: '/faq' },
               ].map((link) => (
