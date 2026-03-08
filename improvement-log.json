@@ -547,12 +547,15 @@
   "in_progress": null,
   "attempted": [
     {
-      "timestamp": "2026-03-08T08:16:00-05:00",
+      "timestamp": "2026-03-08T08:20:00-05:00",
       "idea": "Add Training Streak Leaderboard page with real Speediance + Garmin data",
       "category": "UX Enhancement - Data Pages",
-      "files_changed": [],
-      "commit": "none",
-      "notes": "Attempted to create /streaks page with workout streaks, achievements, GitHub-style heatmap. Tried 8 subagents: Clarity (404 model unavailable), MiniMax (session incomplete), Spark (429 rate limit), Sage (400 error), Vision (400 error, made some progress exploring directory), Pulse (empty session), Gemma (400 error), Pulse-Lite (empty session). All subagents failed due to systemic API/connectivity issues. Site has 54+ improvements already completed and is in good shape."
+      "files_changed": [
+        "src/data/streaks.js",
+        "src/pages/streaks.astro"
+      ],
+      "commit": "1a85ee7",
+      "notes": "Created new /streaks page with workout streak analysis. Data module combines Speediance (125 workouts) + Garmin (111 runs) dates. Shows current streak, longest streak, total active days, GitHub-style 52-week heatmap, achievements badges, weekly consistency, and recent streak history. Fixed data structure bugs in generated code. Dark theme matching site. Build passes (299 pages)."
     },
     {
       "timestamp": "2026-03-08T00:15:00-05:00",
