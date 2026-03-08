@@ -52,6 +52,38 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    id: "2026-01-24_Speediance_Broke_Partner_Mode_The_Lost_Free_Lift_Feature_Demo_With_My_Daughter",
+    slug: "speediance-broke-partner-mode-lost-free-lift-feature",
+    title: "Speediance Broke Partner Mode?! The Lost Free Lift Feature Demo With My Daughter",
+    excerpt: "Toby demos the lost Freelift Partner Mode feature with his daughter Lily - a feature that was in all original Speediance demos but got removed in V3. See why this is something Tonal can't do.",
+    content: `<p>Hey, welcome back to Toby on Fitness Tech! I'm Toby, and this is my awesome daughter, Lily. We wanted to show you something really cool on the Speediance before it's gone. See, I've got the V2 software version of the Speediance downstairs and the V3 upstairs. Today, we're diving into a feature that actually got removed when I upgraded to V3, but word on the street (and from a Speediance rep!) is that it was a mistake and it'll be coming back. We're talking about 'Partner Mode within Freelift'.</p>
+
+<h2>Partner Mode: V2 vs. V3 Software</h2>
+<p>Now, there's a bit of confusion out there. Some folks think all partner mode is gone in V3, but that's not true. There's a partner mode you can find inside specific workouts, which lets you log in two different users and tracks their individual stats. That's still there in V3. But the real gem, the one that got removed, is the Freelift Partner Mode. This is the superior one if you just want to jump in and track volume without logging in, and frankly, it's what truly sets Speediance apart in a unique way.</p>
+
+<h2>The "Lost" Free Lift Feature: Why it Matters (and Tonal Can't Do It)</h2>
+<p>The kicker? This Freelift Partner Mode was in all of Speediance's original demos! It was a core selling point that mysteriously disappeared. Why was it so important? Because it's something the Tonal, a major competitor, simply can't do. Speediance has two independent motors inside that can track resistance and reps separately for each side. This means two people can lift at the same time, each with their own weight, and the machine tracks it all independently.</p>
+
+<h2>Demo with Lily: Independent Weight Tracking in Action</h2>
+<p>So, Lily and I went into Freelift on the V2 software. When I clicked 'partner,' it didn't require any login – super convenient for a quick joint workout. We set her up with 8 lbs and me with 44 lbs (daddy's trying to catch up!). As we pulled, you could see our reps counting individually on the screen – my green line and her yellow line. We were both working out at the same time, seeing our progress unfold. It's a pretty neat visual, almost like our lines are trying to make knots, as Lily said!</p>
+
+<h2>Limitations of V2 Partner Mode</h2>
+<p>As cool as this mode is, even in V2 it wasn't perfect. For one, the Bluetooth handles weren't really designed for it, and it didn't track individual exercises or log stats against specific user accounts – only in the general workout report. And if you tried to use barbell mode with partner mode on, it just disabled the button without much explanation, because you can't use the two motors independently with a barbell. What this means is that while the capability is incredible (two independent motors!), the implementation in V2 was already a bit broken and pretty useless for serious, progressive training, as it didn't track your specific lifts.</p>
+
+<h2>Assist Mode 2: A Hidden Gem for Drop Sets</h2>
+<p>While we were in Freelift, we also played around with Assist Mode 2. This is actually a fantastic safety feature, especially for drop sets. If you're struggling mid-rep, the machine will intelligently drop the weight to help you complete the movement. In my opinion, this should be defaulted to 'on' and saved in custom workouts, but it's not. Personally, I don't use it because I prefer to push to true failure, but for many, it's a game-changer.</p>
+
+<h2>My Take: A Flawed but Unique Feature</h2>
+<p>So, what's the deal? The Freelift Partner Mode highlights Speediance's unique hardware advantage – those independent motors are powerful. But its implementation in V2 was clumsy, not tracking progress effectively, and its removal in V3 makes it a non-factor for now. For me, the biggest issue is the inability to track progressive overload. If it's not counting towards my individual stats, it's hard to make consistent progress. That said, it's a super fun way to goof off and get a quick workout with someone, especially with your kid! Lily and I had a blast, and she even beat me on reps (probably because I was talking too much). Hopefully, Speediance brings it back improved in a future V3 update, making it truly useful for serious training.</p>`,
+    category: "Speediance",
+    tags: ["speediance", "partner mode", "v2 vs v3", "freelift", "family workout"],
+    date: "2026-01-24",
+    author: "Toby Peters",
+    readTime: 5,
+    featured: false
+  },
+
+  {
     title: "How I Built My AI Fitness Assistant with OpenClaw",
     slug: "how-i-built-my-ai-fitness-assistant-with-openclaw",
     date: "2026-02-18",
@@ -130,12 +162,12 @@ export const BLOG_POSTS = [
     slug: "is-40lbs-really-40lbs-speediance-calibration",
     date: "2025-09-11",
     category: "Speediance",
-    excerpt: "A direct side-by-side feel test suggests Speediance’s 40 lb setting tracks closer to dumbbell reality, while Tonal’s 40 lb can feel dramatically heavier due to calibration differences.",
-    content: `<p>The Speediance seems a little closer actually, which might make sense because their original range was 0 to 220 and that’s actually their 0 to 220 is actually Tonal’s 0 to 200.</p>
+    excerpt: "A direct side-by-side feel test suggests Speediance's 40 lb setting tracks closer to dumbbell reality, while Tonal's 40 lb can feel dramatically heavier due to calibration differences.",
+    content: `<p>The Speediance seems a little closer actually, which might make sense because their original range was 0 to 220 and that's actually their 0 to 220 is actually Tonal's 0 to 200.</p>
 
-<p>I would imagine they’re similar-ish weights. So their weight is actually closer to what 40 lb would feel like with a dumbbell, right? If you’re bicep curling, that 40 lbs is similar-ish to a 40 lb dumbbell.</p>
+<p>I would imagine they're similar-ish weights. So their weight is actually closer to what 40 lb would feel like with a dumbbell, right? If you're bicep curling, that 40 lbs is similar-ish to a 40 lb dumbbell.</p>
 
-<p>But Tonal’s 40 lb felt like 60 lb. It felt super heavy.</p>`,
+<p>But Tonal's 40 lb felt like 60 lb. It felt super heavy.</p>`,
     image: "/images/speediance-2s.jpg",
     readTime: 1,
     tags: ["Speediance", "calibration", "strength training", "home gym"],
@@ -217,35 +249,35 @@ export const BLOG_POSTS = [
     excerpt: "I was browsing the Speediance community and saw someone say lat pulldowns felt wobbly on the original Gym Monster. That sent me down a rabbit hole to test",
     content: `<p>I was browsing the Speediance community, especially the Facebook group, and saw someone post that lat pulldowns on the original Gym Monster felt wobbly. That immediately made me want to test something extreme on the 2S: max lat pulldown at the full 260 lbs.</p>
 
-<p>Up to this point, I had never even tried to do a full-weight lat pulldown on this machine. On Tonal, at 185 lbs bodyweight, I could get pulled up by 200 lbs of resistance. On the Speediance 2S, because of cable angles, I suspected it might still pull me up—or at least make full reps very hard at max load.</p>
+<p>Up to this point, I had never even tried to do a full-weight lat pulldown on this machine. On Tonal, at 185 lbs bodyweight, I could get pulled up by 200 lbs of resistance. On the Speediance 2S, because of cable angles, I suspected it might still pull me up-or at least make full reps very hard at max load.</p>
 
 <p>First step was setup. I brought the arms up to L0 and checked the locking points. One thing that can create wobble is not centering and locking those arm positions correctly. I made that mistake when I first got a Gym Monster. If you lock at the edge instead of center, it can feel unstable. Surface also matters: carpet introduces more movement than tile or concrete.</p>
 
-<p>I was still in my 30-day return window, so I decided to run a ridiculous real-world stress test. If this destroyed the machine, at least I’d learn something quickly. To counter getting yanked upward, I used a weighted vest. At lighter bodyweight (like when I was 185), weighted vests were essential for heavy pulling work where the machine could otherwise lift me instead of me lifting the machine.</p>
+<p>I was still in my 30-day return window, so I decided to run a ridiculous real-world stress test. If this destroyed the machine, at least I'd learn something quickly. To counter getting yanked upward, I used a weighted vest. At lighter bodyweight (like when I was 185), weighted vests were essential for heavy pulling work where the machine could otherwise lift me instead of me lifting the machine.</p>
 
-<p>I loaded the first vest and went into free lift with 130 lbs per side (260 total). I had never attempted this before. The result: I could only get the cables about halfway down before being pulled up. But what shocked me most was this—there was basically no wobble at all. No major shake, no scary frame movement.</p>
+<p>I loaded the first vest and went into free lift with 130 lbs per side (260 total). I had never attempted this before. The result: I could only get the cables about halfway down before being pulled up. But what shocked me most was this-there was basically no wobble at all. No major shake, no scary frame movement.</p>
 
-<p>That meant one thing: I needed more bodyweight, not less machine load. So I grabbed a second heavier vest and came back. I weighed in around 242–243 lbs with one vest and then stacked even more load with the second vest to push close to 300 lbs total system weight on my body.</p>
+<p>That meant one thing: I needed more bodyweight, not less machine load. So I grabbed a second heavier vest and came back. I weighed in around 242-243 lbs with one vest and then stacked even more load with the second vest to push close to 300 lbs total system weight on my body.</p>
 
-<p>With both vests on, I tried again at 260 lbs. This time I managed to complete the pull to the full range at least once, though it was brutally hard. My muscles were shaking, but the machine still didn’t show the kind of wobble people warned about.</p>
+<p>With both vests on, I tried again at 260 lbs. This time I managed to complete the pull to the full range at least once, though it was brutally hard. My muscles were shaking, but the machine still didn't show the kind of wobble people warned about.</p>
 
-<p>I also demonstrated straight-up getting pulled up the wall at max resistance without enough counterweight. That alone answered the “is it really 260 lbs?” question for me. At my current bodyweight around 200+, the machine could still lift me if I locked in and resisted the pull.</p>
+<p>I also demonstrated straight-up getting pulled up the wall at max resistance without enough counterweight. That alone answered the "is it really 260 lbs?" question for me. At my current bodyweight around 200+, the machine could still lift me if I locked in and resisted the pull.</p>
 
 <p>The key takeaway from that part of the test: yes, the resistance feels real, and yes, this machine can absolutely move you if you underestimate full load pulling.</p>
 
-<p>I also touched on smart handle behavior. If you use smart handles, turn and connect them before starting your free lift session. If you start first and then connect, there’s a small delay and workflow friction while waiting for sync.</p>
+<p>I also touched on smart handle behavior. If you use smart handles, turn and connect them before starting your free lift session. If you start first and then connect, there's a small delay and workflow friction while waiting for sync.</p>
 
-<p>After the max test, I walked through some practical setup tips from my first week with the 2S and moving workouts over from Tonal. One common mistake I’ve seen: skipping the strength assessment and manually entering weights too early. If you do that, recommendations can be way off—either too low or weirdly inconsistent.</p>
+<p>After the max test, I walked through some practical setup tips from my first week with the 2S and moving workouts over from Tonal. One common mistake I've seen: skipping the strength assessment and manually entering weights too early. If you do that, recommendations can be way off-either too low or weirdly inconsistent.</p>
 
 <p>For warm-up logic, I found stamina mode with high rep targets worked surprisingly well. I experimented with using 20RM/13-rep style settings for warm-up sets, then different targets for working sets. The machine recalculated better once I used it consistently and let it adapt instead of forcing everything manually.</p>
 
-<p>I also found a one-rep-max settings detail that matters for unilateral work. If left/right are tracked separately in a way that overestimates one side, you can get odd load prescriptions. I prefer settings that keep both sides unified under safer progression logic so one strong-side performance doesn’t overdrive the weaker side.</p>
+<p>I also found a one-rep-max settings detail that matters for unilateral work. If left/right are tracked separately in a way that overestimates one side, you can get odd load prescriptions. I prefer settings that keep both sides unified under safer progression logic so one strong-side performance doesn't overdrive the weaker side.</p>
 
-<p>Bottom line from this experiment: I expected wobble and frame instability, especially on carpet, and got the opposite. Under extreme load, the machine felt more planted than I expected. The limiting factor was me—bodyweight, leverage, and pure pulling strength—not obvious structural instability in the 2S.</p>
+<p>Bottom line from this experiment: I expected wobble and frame instability, especially on carpet, and got the opposite. Under extreme load, the machine felt more planted than I expected. The limiting factor was me-bodyweight, leverage, and pure pulling strength-not obvious structural instability in the 2S.</p>
 
-<p>And honestly, this was one of the most fun tests I’ve done on any smart gym device. It was absurd, overkill, and probably not something most people should replicate. But as a stress test, it told me a lot about what this machine can handle.</p>
+<p>And honestly, this was one of the most fun tests I've done on any smart gym device. It was absurd, overkill, and probably not something most people should replicate. But as a stress test, it told me a lot about what this machine can handle.</p>
 
-<p>If you want me to run the same max-pulldown test on the original Gym Monster downstairs (220 lb model), that’s a separate video I can do. But from what I saw here, the Speediance 2S handled this challenge better than I expected.</p>`,
+<p>If you want me to run the same max-pulldown test on the original Gym Monster downstairs (220 lb model), that's a separate video I can do. But from what I saw here, the Speediance 2S handled this challenge better than I expected.</p>`,
     date: "2025-09-06",
     category: "Speediance",
     image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800",
@@ -271,19 +303,19 @@ export const BLOG_POSTS = [
     excerpt: "I love aggressive submissions, but one neck-first setup can turn a roll into a catastrophic injury in a split second. Here's why this is one BJJ risk I think people underestimate.",
     content: `<p>There are certain submission setups in jiu-jitsu that I still believe in - but I also understand they carry real danger if your partner reacts the wrong way.</p>
 
-<p>In this case, the risk is obvious: I’m putting almost all of my weight onto my neck while trying to finish. If someone much bigger decides to drop down and drive forward, that force can go straight through my cervical spine.</p>
+<p>In this case, the risk is obvious: I'm putting almost all of my weight onto my neck while trying to finish. If someone much bigger decides to drop down and drive forward, that force can go straight through my cervical spine.</p>
 
-<p>That’s not a minor tweak. That’s a potential neck break. A catastrophic injury. The kind that can end training for a long time - or worse.</p>
+<p>That's not a minor tweak. That's a potential neck break. A catastrophic injury. The kind that can end training for a long time - or worse.</p>
 
-<p>I’ve had moments where I had just enough time to bail out by shooting my head underneath my opponent’s legs to avoid getting crushed. One of those was against a white belt who dropped hard and fast without control. I escaped mostly because he was slow enough for me to react.</p>
+<p>I've had moments where I had just enough time to bail out by shooting my head underneath my opponent's legs to avoid getting crushed. One of those was against a white belt who dropped hard and fast without control. I escaped mostly because he was slow enough for me to react.</p>
 
-<p>Against a faster upper belt - purple, brown, black - I may not get that same window. And that’s the point: danger in BJJ isn’t only about bad technique. It’s also about timing, bodyweight differences, and how your training partner chooses to apply pressure.</p>
+<p>Against a faster upper belt - purple, brown, black - I may not get that same window. And that's the point: danger in BJJ isn't only about bad technique. It's also about timing, bodyweight differences, and how your training partner chooses to apply pressure.</p>
 
 <h2>My Safety Rule Here</h2>
 
-<p>If a submission setup requires me to stack my neck and gamble on reaction speed, I treat it as a calculated risk - not a default option. I’ll still attack, but I do it with clear awareness of what could happen if the position collapses.</p>
+<p>If a submission setup requires me to stack my neck and gamble on reaction speed, I treat it as a calculated risk - not a default option. I'll still attack, but I do it with clear awareness of what could happen if the position collapses.</p>
 
-<p>I’d rather tap, reset, and train tomorrow than win one exchange and pay for it with my spine.</p>
+<p>I'd rather tap, reset, and train tomorrow than win one exchange and pay for it with my spine.</p>
 
 <p>Train hard. But protect your neck like your future depends on it - because in this sport, it does.</p>`,
     category: "Training Tips",
@@ -322,10 +354,10 @@ export const BLOG_POSTS = [
   {
     slug: "how-one-month-of-no-training-aged-my-body",
     title: "How One Month of No Training 'Aged' My Body",
-    excerpt: "WHOOP's health age metric gave me a shocking reality check after a month of vacations and zero training. I'd managed to get my WHOOP age younger than my actual age last year—but one month of detraining reversed all of that progress and then some.",
-    content: `<p>I've been wearing my WHOOP for 18 months now, and there's one feature that keeps me coming back: the health age algorithm. WHOOP doesn't just track your recovery and strain—they've built a metric that translates all that data into an "age" that represents how well your body is performing relative to what it should be doing.</p>
+    excerpt: "WHOOP's health age metric gave me a shocking reality check after a month of vacations and zero training. I'd managed to get my WHOOP age younger than my actual age last year-but one month of detraining reversed all of that progress and then some.",
+    content: `<p>I've been wearing my WHOOP for 18 months now, and there's one feature that keeps me coming back: the health age algorithm. WHOOP doesn't just track your recovery and strain-they've built a metric that translates all that data into an "age" that represents how well your body is performing relative to what it should be doing.</p>
 
-<p>Some people complain that it's a gimmick. "It shouldn't be an age," they say. But I think it's genius—it's just an easy, relatable way to understand whether you're trending in the right direction or drifting backward. And right now? I'm drifting backward in a way I didn't expect.</p>
+<p>Some people complain that it's a gimmick. "It shouldn't be an age," they say. But I think it's genius-it's just an easy, relatable way to understand whether you're trending in the right direction or drifting backward. And right now? I'm drifting backward in a way I didn't expect.</p>
 
 <p>Last year, I had gotten my WHOOP age down to where it was younger than my actual age. That felt incredible. Years of consistent training, good sleep, and intentional recovery had paid off. My body was performing like it was younger than the number of birthdays I'd celebrated.</p>
 
@@ -333,7 +365,7 @@ export const BLOG_POSTS = [
 
 <p>One month. No training. Just relaxing, eating, and enjoying time off. Sounds innocent enough, right? But WHOOP doesn't lie, and the data told a brutal story: my health age is now older than my actual age.</p>
 
-<p>That's the thing about fitness that nobody talks about enough—it's not a destination you reach and then maintain effortlessly. It's a use-it-or-lose-it proposition, and the losses happen faster than you think.</p>
+<p>That's the thing about fitness that nobody talks about enough-it's not a destination you reach and then maintain effortlessly. It's a use-it-or-lose-it proposition, and the losses happen faster than you think.</p>
 
 <h2>The Math of Detraining</h2>
 
@@ -345,13 +377,13 @@ export const BLOG_POSTS = [
 
 <h2>What This Taught Me</h2>
 
-<p>I've always believed that rest and recovery are essential parts of training. And they are. But there's a difference between intentional deload weeks and complete training cessation. This experience showed me exactly where that line is—and how easy it is to cross it without realizing.</p>
+<p>I've always believed that rest and recovery are essential parts of training. And they are. But there's a difference between intentional deload weeks and complete training cessation. This experience showed me exactly where that line is-and how easy it is to cross it without realizing.</p>
 
-<p>The solution isn't to never take time off. Life happens, vacations happen, sometimes your body needs a break. But the lesson here is that "taking time off" shouldn't mean "stop everything completely." Even minimal maintenance work—light movement, brief workouts, basic mobility—seems to be enough to keep the aging process at bay.</p>
+<p>The solution isn't to never take time off. Life happens, vacations happen, sometimes your body needs a break. But the lesson here is that "taking time off" shouldn't mean "stop everything completely." Even minimal maintenance work-light movement, brief workouts, basic mobility-seems to be enough to keep the aging process at bay.</p>
 
-<p>Now I'm playing catch-up. I'm back to training, slowly rebuilding what I lost. And I'm watching my WHOOP health age like a hawk, waiting for it to trend back in the right direction. It's already starting to improve, which is encouraging—but it's a stark reminder that fitness is a daily practice, not a one-time achievement.</p>
+<p>Now I'm playing catch-up. I'm back to training, slowly rebuilding what I lost. And I'm watching my WHOOP health age like a hawk, waiting for it to trend back in the right direction. It's already starting to improve, which is encouraging-but it's a stark reminder that fitness is a daily practice, not a one-time achievement.</p>
 
-<p>If you're wearing a WHOOP or similar tracker, pay attention to that health age metric. It's not just a number—it's a reflection of the choices you're making every day. And if you see it starting to creep up, that's your body telling you something.</p>
+<p>If you're wearing a WHOOP or similar tracker, pay attention to that health age metric. It's not just a number-it's a reflection of the choices you're making every day. And if you see it starting to creep up, that's your body telling you something.</p>
 
 <p>Listen to it.</p>`,
     category: "The Long Game",
@@ -366,19 +398,19 @@ export const BLOG_POSTS = [
     slug: "submission-that-could-have-ended-everything",
     title: "The Submission That Could Have Ended Everything",
     excerpt: "A near-miss with a neck submission in BJJ revealed a terrifying reality: sometimes the risk isn't the technique itself, but what happens when your opponent's weight comes down on the wrong part of your body at the wrong moment.",
-    content: `<p>In Brazilian Jiu-Jitsu, we talk a lot about submissions—the chokes, the armbars, the leg locks. We study the mechanics, the angles, the grip fighting. But there's a darker side to submission defense that doesn't get discussed enough: the moments where the danger isn't just about tapping out, it's about something far worse happening.</p>
+    content: `<p>In Brazilian Jiu-Jitsu, we talk a lot about submissions-the chokes, the armbars, the leg locks. We study the mechanics, the angles, the grip fighting. But there's a darker side to submission defense that doesn't get discussed enough: the moments where the danger isn't just about tapping out, it's about something far worse happening.</p>
 
 <h2>The Weight Problem</h2>
 
 <p>I've been thinking a lot about this lately, and I'll be direct: I take risks in my jiu-jitsu. I go for submissions that put me in vulnerable positions, and I accept that sometimes those positions could end very badly for me.</p>
 
-<p>Here's the thing about certain submissions—specifically the ones where you put your whole body weight onto your neck. When you're trying to hit that oma plata or that guillotine, you're essentially trusting that your opponent is going to react the right way. You're trusting that when they feel the submission coming on, they'll tap or they'll respond in a manner that doesn't involve dropping their full weight down and forward onto your cervical spine.</p>
+<p>Here's the thing about certain submissions-specifically the ones where you put your whole body weight onto your neck. When you're trying to hit that oma plata or that guillotine, you're essentially trusting that your opponent is going to react the right way. You're trusting that when they feel the submission coming on, they'll tap or they'll respond in a manner that doesn't involve dropping their full weight down and forward onto your cervical spine.</p>
 
 <p>That's a big trust to place in someone you might not know that well.</p>
 
 <h2>The White Belt Incident</h2>
 
-<p>I actually had to deal with this exact scenario at white belt. Someone decided they were going to drop all their weight down on me, and I realized what was happening with enough time to do something about it—thankfully.</p>
+<p>I actually had to deal with this exact scenario at white belt. Someone decided they were going to drop all their weight down on me, and I realized what was happening with enough time to do something about it-thankfully.</p>
 
 <p>What did I do? I shot my head underneath their legs. I literally swam my head under their legs to avoid getting my spine busted in half, to avoid getting my neck shattered. It wasn't a technical escape. It was a desperate survival move because I could feel that weight coming down and I knew I didn't have time to wait for them to figure it out.</p>
 
@@ -388,7 +420,7 @@ export const BLOG_POSTS = [
 
 <p>I can't imagine that same scenario with someone at brown belt, black belt, or even upper purple belt. Those guys are fast. They don't give you time to think. They don't give you time to react.</p>
 
-<p>When someone of that skill level feels a submission coming on and decides they're going to power through it—to drop their weight down and try to escape—that's when things can go really wrong, really fast.</p>
+<p>When someone of that skill level feels a submission coming on and decides they're going to power through it-to drop their weight down and try to escape-that's when things can go really wrong, really fast.</p>
 
 <p>That's the reality of training jiu-jitsu at a high level. The risk isn't always about whether you can tap in time. Sometimes the risk is about what happens in that split second before either person knows what's going on.</p>
 
@@ -406,7 +438,7 @@ export const BLOG_POSTS = [
 
 <p>Because at the end of the day, jiu-jitsu is a combat sport. You're dealing with another person's body, another person's weight, another person's reflexes. You can control your own technique, but you can't always control what they do in response.</p>
 
-<p>The submission that could have ended everything? It didn't end everything for me. But it opened my eyes to the fact that sometimes the line between a great roll and a life-changing injury is measured in milliseconds—and that's not something you can always control with technique alone.</p>
+<p>The submission that could have ended everything? It didn't end everything for me. But it opened my eyes to the fact that sometimes the line between a great roll and a life-changing injury is measured in milliseconds-and that's not something you can always control with technique alone.</p>
 
 <p>Train smart. Know your training partners. And respect the danger, even when you're going for the win.</p>`,
     category: "Training Tips",
@@ -424,7 +456,7 @@ export const BLOG_POSTS = [
     excerpt: "One failed bench rep bent my bar nearly in half and could have ended far worse. This is the real story, the safety lesson, and why training alone with free weights deserves more respect.",
     content: `<p>I prefer to train alone, and for a long time I accepted the tradeoff that comes with that: no spotter. I gave up the safety net because I liked training solo.</p>
 
-<p>Then I had a bench press rep go very wrong. I had a lot of weight on the bar, lost control, and dropped it. I got my head out of the way just in time, and the bar caught on a safety catch—but the impact bent the bar almost in half.</p>
+<p>Then I had a bench press rep go very wrong. I had a lot of weight on the bar, lost control, and dropped it. I got my head out of the way just in time, and the bar caught on a safety catch-but the impact bent the bar almost in half.</p>
 
 <p>That moment drove home how dangerous free weights can be when you're lifting heavy alone. You see clips online of bars rolling onto people's necks during bench, and it's easy to scroll past them. But those are real failure scenarios, and they can be fatal.</p>
 
@@ -432,7 +464,7 @@ export const BLOG_POSTS = [
 
 <p>My takeaway is simple: respect heavy benching, use safeties correctly, and don't rely on luck. If you're going to lift alone, set everything up so a failed rep doesn't become a life-or-death event.</p>
 
-<p>You can still train hard and make progress—but staying alive and uninjured is the first priority.</p>`,
+<p>You can still train hard and make progress-but staying alive and uninjured is the first priority.</p>`,
     category: "Training Tips",
     tags: ["Bench Press", "Safety", "Training Alone", "Free Weights", "Spotter", "Home Gym"],
     author: "Toby",
@@ -459,7 +491,7 @@ export const BLOG_POSTS = [
     slug: "post-cruise-reality-broken-ankle-238",
     title: "Post-Cruise Reality: 238 lbs, a Broken Ankle, and a Hard Truth",
     excerpt: "A candid snapshot from a brutal stretch: post-cruise, injured, immobile, and heavier than expected. This is what that moment taught me about context, setbacks, and staying honest about the process.",
-    content: `<p>I captured my post-cruise photo at 238 lbs right after that trip. And to be fair, that was also with a broken ankle, first in a boot and then in a brace.</p><p>I was on a cruise, eating garbage food basically 24/7, and I couldn’t walk much at all. I had to take the elevator everywhere—which I hate doing.</p><p>Thankfully, I was there with family and close friends, and that made a huge difference. Without them, that stretch would have been a lot harder to get through.</p>`,
+    content: `<p>I captured my post-cruise photo at 238 lbs right after that trip. And to be fair, that was also with a broken ankle, first in a boot and then in a brace.</p><p>I was on a cruise, eating garbage food basically 24/7, and I couldn't walk much at all. I had to take the elevator everywhere-which I hate doing.</p><p>Thankfully, I was there with family and close friends, and that made a huge difference. Without them, that stretch would have been a lot harder to get through.</p>`,
     category: "The Long Game",
     tags: ["transformation", "setbacks", "injury", "mindset", "reality check"],
     author: "Toby",
@@ -471,8 +503,8 @@ export const BLOG_POSTS = [
   {
     slug: "why-running-might-have-saved-my-life",
     title: "Why Running Might Have Saved My Life",
-    excerpt: "When I was hospitalized, I became convinced my years of running may have been the reason I avoided emergency surgery or worse. This is a brutally honest look at why cardio still matters—even if physique culture often downplays it.",
-    content: `<p>You know, the fact that I'm 99% sure that when I was hospitalized I didn't die or have to have emergency surgery was because of all of those years of running—that I had built a stronger heart over all of those years, right?</p><p>And I'm very thankful for all the running I did.</p><p>I don't think it's optional. I think it's equally as important as strength training. Except let's be realistic: you can do no cardio and have an amazing physique, but that doesn't mean you're building the kind of resilience that might save your life when things go sideways.</p>`,
+    excerpt: "When I was hospitalized, I became convinced my years of running may have been the reason I avoided emergency surgery or worse. This is a brutally honest look at why cardio still matters-even if physique culture often downplays it.",
+    content: `<p>You know, the fact that I'm 99% sure that when I was hospitalized I didn't die or have to have emergency surgery was because of all of those years of running-that I had built a stronger heart over all of those years, right?</p><p>And I'm very thankful for all the running I did.</p><p>I don't think it's optional. I think it's equally as important as strength training. Except let's be realistic: you can do no cardio and have an amazing physique, but that doesn't mean you're building the kind of resilience that might save your life when things go sideways.</p>`,
     category: "Field Reports",
     tags: ["running", "garmin", "health"],
     author: "Toby Peters",
@@ -1564,7 +1596,7 @@ You're not just buying hardware. You're buying into the company behind it. And t
     excerpt: "A brutally honest look at what happens when you combine a cruise, a broken ankle, and zero ability to move. Sometimes the hard truths hit hardest when you're standing still.",
     content: `<p>I stepped on the scale after the cruise and saw 238 pounds staring back at me. That's the number. No hiding from it, no context that makes it better. Just 238 pounds on a body that used to hover around 185-190.</p>
 
-<p>But here's the thing that makes this moment even more complicated: I wasn't just dealing with the aftermath of a week of unlimited buffets and ship-side ice cream. I was also dealing with a broken ankle. Not a sprain, not a tweak—a broken ankle that required a boot, then a brace, and left me essentially immobile for the entire trip.</p>
+<p>But here's the thing that makes this moment even more complicated: I wasn't just dealing with the aftermath of a week of unlimited buffets and ship-side ice cream. I was also dealing with a broken ankle. Not a sprain, not a tweak-a broken ankle that required a boot, then a brace, and left me essentially immobile for the entire trip.</p>
 
 <p>The cruise was already planned. The broken ankle happened just before. My doctor told me I couldn't put any weight on it, couldn't walk, couldn't do anything that would stress that injury. So there I was, stuck on a ship with no ability to move, watching everything I'd worked so hard to build slowly undo itself.</p>
 
@@ -1572,23 +1604,23 @@ You're not just buying hardware. You're buying into the company behind it. And t
 
 <p>That lasted about as long as it takes to smell the first pizza station on the Lido Deck.</p>
 
-<p>The truth is, when you can't walk, you can't do anything. I couldn't take the stairs—I had to use the elevator every single time. I couldn't explore the ship, couldn't find incidental movement, couldn't offset any of the calories coming in. All I could do was sit there and eat.</p>
+<p>The truth is, when you can't walk, you can't do anything. I couldn't take the stairs-I had to use the elevator every single time. I couldn't explore the ship, couldn't find incidental movement, couldn't offset any of the calories coming in. All I could do was sit there and eat.</p>
 
-<p>And eat I did. The cruise food is designed to be irresistible. It's engineered to make you want more—those endless buffets, the late-night pizza, the 24-hour room service. When you're stuck in a lounge chair with your leg elevated and nothing else to do, food becomes entertainment. It's not even that you're hungry. It's that there's nothing else happening.</p>
+<p>And eat I did. The cruise food is designed to be irresistible. It's engineered to make you want more-those endless buffets, the late-night pizza, the 24-hour room service. When you're stuck in a lounge chair with your leg elevated and nothing else to do, food becomes entertainment. It's not even that you're hungry. It's that there's nothing else happening.</p>
 
 <p>I ate garbage food 24/7 that week. I'm not proud of it, but I'm also not going to pretend it didn't happen. That's not who I am. I believe in being honest about the process, even when the process includes weeks like this.</p>
 
 <p>The worst part? I couldn't even burn any of it off. My body was in recovery mode, trying to heal a fracture, and I was piling more and more fuel into the fire. The math was brutal and completely one-sided.</p>
 
-<p>But here's where it could have been so much worse: I wasn't alone on that cruise. I was with family and close friends—people who made that week actually enjoyable despite everything. They kept my spirits up when I was frustrated about the ankle. They made sure I wasn't stuck in my cabin feeling sorry for myself. They made sure I had help getting around, help getting food, help with everything.</p>
+<p>But here's where it could have been so much worse: I wasn't alone on that cruise. I was with family and close friends-people who made that week actually enjoyable despite everything. They kept my spirits up when I was frustrated about the ankle. They made sure I wasn't stuck in my cabin feeling sorry for myself. They made sure I had help getting around, help getting food, help with everything.</p>
 
 <p>Without them, that trip would have been a complete disaster. Isolation would have made the situation so much harder to handle. But surrounded by people I love, even a week of eating poorly and being inactive became something I could get through.</p>
 
-<p>Now I'm back home, working on getting back to where I was. The ankle is healing—slowly, but it's getting there. The weight will come off. I've done it before, and I'll do it again.</p>
+<p>Now I'm back home, working on getting back to where I was. The ankle is healing-slowly, but it's getting there. The weight will come off. I've done it before, and I'll do it again.</p>
 
 <p>But this week was a hard reset on expectations. It reminded me that fitness isn't just about what you do in the gym. It's about what you do every single day. One week of completely letting go can set you back months. And when you add injury on top of that, the math gets even uglier.</p>
 
-<p>The lesson here isn't complicated: the stakes are always higher than they feel in the moment. That cruise seemed like a fun break—a reward for months of hard work. And it was fun, don't get me wrong. But the cost was higher than I planned for, and I have to own that.</p>
+<p>The lesson here isn't complicated: the stakes are always higher than they feel in the moment. That cruise seemed like a fun break-a reward for months of hard work. And it was fun, don't get me wrong. But the cost was higher than I planned for, and I have to own that.</p>
 
 <p>Now it's time to rebuild. Again.</p>`,
     readTime: 4,

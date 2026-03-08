@@ -544,14 +544,15 @@
       "notes": "Added new blog post from unused transcript 2026-01-31. Toby shares the reality of stepping on the scale after a cruise with a broken ankle - 238 pounds. Covers the combination of being unable to move due to the ankle, eating cruise food 24/7, and the brutal honesty of facing the scale. Category: The Long Game. Build passes (297 pages)."
     },
     {
-      "timestamp": "2026-03-08T09:20:00-05:00",
-      "idea": "Add Testimonials section to homepage with 4 community quotes",
+      "timestamp": "2026-03-08T12:17:00-05:00",
+      "idea": "Add Weekly Progress Comparison Widget to homepage",
       "category": "UX Enhancement - Homepage",
       "files_changed": [
+        "src/data/weeklyProgress.js",
         "src/pages/index.astro"
       ],
-      "commit": "58cc59f",
-      "notes": "Added Testimonials section below Latest from Blog. 4 testimonial cards with realistic quotes about Speediance reviews, BJJ content, transformation story, and running content. Author names with relationship labels (BJJ Training Partner, YouTube Subscriber, OpenClaw Community). Colorful avatar initials, dark theme styling matching site. Build passes."
+      "commit": "e84c8b1",
+      "notes": "Created weeklyProgress.js data module that calculates this week vs last week stats from Speediance and Garmin data. Added 'This Week vs Last Week' section to homepage with 4 comparison cards: Workouts, Runs, Volume (lbs), and Miles. Shows this week's numbers vs last week's numbers for each metric. Build passes (315 pages)."
     }
   ],
   "in_progress": null,
