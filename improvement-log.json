@@ -554,6 +554,17 @@
       "commit": "e84c8b1",
       "notes": "Created weeklyProgress.js data module that calculates this week vs last week stats from Speediance and Garmin data. Added 'This Week vs Last Week' section to homepage with 4 comparison cards: Workouts, Runs, Volume (lbs), and Miles. Shows this week's numbers vs last week's numbers for each metric. Build passes (315 pages)."
     }
+    {
+      "timestamp": "2026-03-08T15:17:00-05:00",
+      "idea": "Add Progress Photos Gallery page with transformation timeline",
+      "category": "UX Enhancement - Content Pages",
+      "files_changed": [
+        "src/pages/progress.astro",
+        "src/components/Header.jsx"
+      ],
+      "commit": "6d4ad35",
+      "notes": "Created new /progress page with transformation journey gallery. Shows weight timeline (242→188→218), progress photo grid with placeholder images, before/after comparison section, and Toby's transformation quote. Added Progress link to main navigation. Uses dark theme matching site. Build passes (319 pages)."
+    }
   ],
   "in_progress": null,
   "attempted": [

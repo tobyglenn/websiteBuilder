@@ -45,6 +45,7 @@ export default function Header() {
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
     { name: 'Calculator', href: '/calculator' },
+    { name: '1RM', href: '/1rm-calculator' },
     { name: 'Progress', href: '/progress' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
@@ -183,6 +184,7 @@ export default function Header() {
                 { name: 'Home', href: '/' },
                 { name: 'Videos', href: '/videos' },
                 { name: 'Calculator', href: '/calculator' },
+                { name: '1RM', href: '/1rm-calculator' },
                 { name: 'About', href: '/about' },
                 { name: 'FAQ', href: '/faq' },
               ].map((link) => (
