@@ -1543,5 +1543,17 @@ You're not just buying hardware. You're buying into the company behind it. And t
     author: "Toby Peters",
     image: "https://i.ytimg.com/vi/ZDFIR8qJyH0/hqdefault.jpg",
     featured: false
+  },
+  {
+    title: "Why I Use Garmin Even Though Its Metrics Are Questionable",
+    slug: "why-i-use-garmin-even-though-its-metrics-are-questionable",
+    date: "2026-01-27",
+    category: "Wearables",
+    excerpt: "Toby breaks down why he sticks with Garmin for running despite questioning its metrics - covering the hardware, ecosystem, and the features that actually matter to him.",
+    content: `<p>And then the Garmin, I just for me it's the best of breed. And by the way, I've had all these things, right? So, um, not all of the different running based things, but I've had pretty much all of the smart watches, right? And I have all the smartwatch features turned off on the Garmin. So, realize I I realized I don't like smart watches. Um, and and so, and I don't use any of its sleep tracking stuff. Uh, I do use its I don't use its body battery other than to other than to its body battery is only ever used if it suggests some ridiculous run and I look down and the body battery says almost zero and then it's like you're you're not doing that run Toby. In fact, you're not running at all.</p>`,
+    readTime: 1,
+    tags: ["Garmin", "wearables", "running", "tech"],
+    author: "Toby Peters",
+    featured: false
   }
 ];

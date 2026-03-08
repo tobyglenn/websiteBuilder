@@ -1,0 +1,629 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const garminRuns = 111;
+const garminMiles = 265.1;
+const garminAvgPace = 15.21;
+
+const whoopAvgRecovery = 54.9;
+const whoopAvgHRV = 36.6;
+const whoopAvgRHR = 66.6;
+
+const jsonLdProducts = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "WHOOP 4.0",
+    "description": "24/7 fitness and health tracker with continuous heart rate monitoring, HRV, sleep tracking, and recovery insights.",
+    "brand": { "@type": "Brand", "name": "WHOOP" },
+    "offers": {
+      "@type": "Offer",
+      "price": "239",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.2",
+      "reviewCount": "15000"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Garmin Fenix 7",
+    "description": "Premium multisport GPS watch with advanced training features, mapping, and 24/7 health monitoring.",
+    "brand": { "@type": "Brand", "name": "Garmin" },
+    "offers": {
+      "@type": "Offer",
+      "price": "599",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "reviewCount": "8000"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Apple Watch Ultra 2",
+    "description": "Premium GPS + Cellular smartwatch with advanced health sensors, dual speakers, and precision GPS.",
+    "brand": { "@type": "Brand", "name": "Apple" },
+    "offers": {
+      "@type": "Offer",
+      "price": "799",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "12000"
+    }
+  }
+];
+
+const comparisonFeatures = [
+  { feature: "Cost", whoop: "$239", garmin: "$599", apple: "$799" },
+  { feature: "Subscription", whoop: "$239/yr (optional)", garmin: "None", apple: "None" },
+  { feature: "Battery Life", whoop: "5 days", garmin: "18-22 days", apple: "36 hours" },
+  { feature: "Display", whoop: "None (LED only)", garmin: "1.3\" color MIP", apple: "1.9\" OLED" },
+  { feature: "Heart Rate", whoop: "✓ Continuous", garmin: "✓ Continuous", apple: "✓ Continuous" },
+  { feature: "HRV", whoop: "✓ Yes (RMSSD)", garmin: "✓ Yes", apple: "✓ Yes" },
+  { feature: "GPS", whoop: "✗ No (phone required)", garmin: "✓ Dual-band", apple: "✓ Dual-band" },
+  { feature: "SpO2", whoop: "✓ Yes", garmin: "✓ Yes", apple: "✓ Yes" },
+  { feature: "Skin Temp", whoop: "✓ Yes", garmin: "✓ Yes", apple: "✓ Yes" },
+  { feature: "Sleep Tracking", whoop: "Excellent", garmin: "Good", apple: "Good" },
+  { feature: "Recovery Tracking", whoop: "Excellent (recovery score)", garmin: "Good (HRV/HR)", apple: "Basic (HR only)" },
+  { feature: "Activity Tracking", whoop: "Workout detection", garmin: "100+ sports", apple: "100+ sports" },
+  { feature: "Workout App", whoop: "Basic", garmin: "Excellent (Connect)", apple: "Excellent (Fitness+)" },
+  { feature: "Smartphone Required", whoop: "Yes (setup/sync)", garmin: "No (standalone)", apple: "Yes (iPhone)" },
+  { feature: "Water Resistance", whoop: "IP68 (shower OK)", garmin: "10 ATM (100m)", apple: "10 ATM (100m)" },
+];
+
+const whoopPros = [
+  "Continuous HRV and recovery scoring",
+  "Best-in-class sleep tracking",
+  "Subtle band design (no screen distraction)",
+  "Excellent for understanding strain vs recovery",
+  "Annual subscription ($239/yr) is optional after first year",
+  "Lightweight (24g) - forget you're wearing it"
+];
+
+const whoopCons = [
+  "No built-in GPS - need phone for distance tracking",
+  "No display - must check phone for quick stats",
+  "Less intuitive app than Garmin/Apple",
+  "Subscription required after first year if you want recovery data",
+  "Limited sports modes compared to Garmin"
+];
+
+const garminPros = [
+  "Best-in-class GPS accuracy",
+  "Incredible battery life (weeks, not days)",
+  "Huge sports database (100+ activities)",
+  "Standalone - doesn't need phone for tracking",
+  "Excellent Connect app with detailed analytics",
+  "Topo maps and navigation features",
+  "No subscription required"
+];
+
+const garminCons = [
+  "Higher upfront cost ($599+)",
+  "Bulkier case - less of a 'wearable' feel",
+  "Steeper learning curve with all features",
+  "UI/UX feels dated compared to Apple",
+  "Sleep tracking not as detailed as WHOOP"
+];
+
+const applePros = [
+  "Best overall ecosystem integration",
+  "Stunning OLED display",
+  "Cellular option for independence from phone",
+  "Excellent health features with FDA clearance",
+  "Great for everyday wear (not just fitness)",
+  "Apple Fitness+ integration",
+  "Siri integration"
+];
+
+const appleCons = [
+  "Battery life is limiting (36 hours)",
+  "Requires daily charging",
+  "Expensive ($799+)",
+  "Only works with iPhone",
+  "Recovery features less advanced than WHOOP",
+  "Not ideal for multi-day activities"
+];
+---
+
+<Layout
+  title="WHOOP vs Garmin vs Apple Watch | Toby on Fitness Trackers"
+  description="Honest comparison of WHOOP, Garmin Fenix, and Apple Watch based on real data: 111 runs on Garmin, 1500+ days on WHOOP."
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "Compare", url: "/compare" }]}
+  jsonLd={jsonLdProducts}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* Hero */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Fitness Tracker Comparison · Real Data</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            WHOOP vs Garmin<br />
+            <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              vs Apple Watch
+            </span>
+          </h1>
+          <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            I've tracked <strong class="text-white">111 runs</strong> with Garmin and worn WHOOP for <strong class="text-blue-400">1500+ days</strong>. Here's my honest three-way comparison — no affiliate bias, just data from years of real use.
+          </p>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 border border-neutral-700/50 text-neutral-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-neutral-400 inline-block"></span>
+              111 runs on Garmin
+            </div>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-purple-900/20 border border-purple-500/30 text-purple-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-purple-400 inline-block"></span>
+              1500+ days on WHOOP
+            </div>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-900/20 border border-green-500/30 text-green-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+              Apple Watch daily
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Comparison Table */}
+    <section class="py-16 bg-neutral-900/50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2 text-center">Feature Comparison</h2>
+        <p class="text-neutral-400 text-center mb-10">Side-by-side specs from someone who's used all three</p>
+
+        {/* Mobile: stacked cards */}
+        <div class="md:hidden space-y-4 mb-8">
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-purple-400">WHOOP 4.0</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">Cost:</span> $239 + optional $239/yr</li>
+              <li><span class="text-neutral-500">Battery:</span> 5 days</li>
+              <li><span class="text-neutral-500">Display:</span> None (LED)</li>
+              <li><span class="text-neutral-500">HR/HRV:</span> <span class="text-green-400">✓ Continuous</span></li>
+              <li><span class="text-neutral-500">GPS:</span> <span class="text-red-400">✗ Phone required</span></li>
+              <li><span class="text-neutral-500">Sleep:</span> <span class="text-green-400">Excellent</span></li>
+              <li><span class="text-neutral-500">Recovery:</span> <span class="text-green-400">Best in class</span></li>
+            </ul>
+          </div>
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-green-400">Garmin Fenix 7</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">Cost:</span> $599</li>
+              <li><span class="text-neutral-500">Battery:</span> 18-22 days</li>
+              <li><span class="text-neutral-500">Display:</span> 1.3" color MIP</li>
+              <li><span class="text-neutral-500">HR/HRV:</span> <span class="text-green-400">✓ Continuous</span></li>
+              <li><span class="text-neutral-500">GPS:</span> <span class="text-green-400">✓ Dual-band</span></li>
+              <li><span class="text-neutral-500">Sleep:</span> Good</li>
+              <li><span class="text-neutral-500">Recovery:</span> Good (HRV/HR)</li>
+            </ul>
+          </div>
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-blue-400">Apple Watch Ultra 2</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">Cost:</span> $799</li>
+              <li><span class="text-neutral-500">Battery:</span> 36 hours</li>
+              <li><span class="text-neutral-500">Display:</span> 1.9" OLED</li>
+              <li><span class="text-neutral-500">HR/HRV:</span> <span class="text-green-400">✓ Continuous</span></li>
+              <li><span class="text-neutral-500">GPS:</span> <span class="text-green-400">✓ Dual-band</span></li>
+              <li><span class="text-neutral-500">Sleep:</span> Good</li>
+              <li><span class="text-neutral-500">Recovery:</span> Basic (HR only)</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Desktop: table */}
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800">
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium w-1/4">Feature</th>
+                <th class="text-center py-3 px-4 text-purple-400 font-bold w-1/4">WHOOP 4.0</th>
+                <th class="text-center py-3 px-4 text-green-400 font-bold w-1/4">Garmin Fenix 7</th>
+                <th class="text-center py-3 px-4 text-blue-400 font-bold w-1/4">Apple Watch Ultra 2</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-800">
+              {comparisonFeatures.map((row, index) => (
+                <tr class={`hover:bg-neutral-900/50 transition-colors ${index % 2 === 0 ? 'bg-neutral-900/30' : ''}`}>
+                  <td class="py-3 px-4 text-neutral-400">{row.feature}</td>
+                  <td class="py-3 px-4 text-center text-purple-300">{row.whoop}</td>
+                  <td class="py-3 px-4 text-center text-green-300">{row.garmin}</td>
+                  <td class="py-3 px-4 text-center text-blue-300">{row.apple}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* My Experience */}
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2">My Experience</h2>
+        <p class="text-neutral-400 mb-10">Real numbers from real tracking — no guessing</p>
+        <div class="grid md:grid-cols-3 gap-6">
+
+          {/* WHOOP */}
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-purple-900/40 flex items-center justify-center font-bold text-purple-400">W</div>
+              <div>
+                <h3 class="font-bold text-lg">WHOOP 4.0</h3>
+                <div class="flex items-center gap-2">
+                  <p class="text-xs text-neutral-500">Since 2022</p>
+                  <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/30">Daily Wear</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-purple-300">{whoopAvgRecovery.toFixed(0)}%</div>
+                <div class="text-xs text-neutral-500 mt-0.5">avg recovery</div>
+              </div>
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-green-400">{whoopAvgHRV.toFixed(1)}ms</div>
+                <div class="text-xs text-neutral-500 mt-0.5">avg HRV</div>
+              </div>
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-purple-400">{whoopAvgRHR.toFixed(0)} bpm</div>
+                <div class="text-xs text-neutral-500 mt-0.5">avg RHR</div>
+              </div>
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-white">1500+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">days tracked</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              WHOOP is my go-to for understanding recovery. The recovery score tells me whether to push hard or take it easy. The sleep tracking is unmatched — it knows when I'm undertrained before I do. The lack of GPS doesn't bother me since I use Garmin for running.
+            </p>
+          </div>
+
+          {/* Garmin */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-green-900/30 flex items-center justify-center font-bold text-green-400">G</div>
+              <div>
+                <h3 class="font-bold text-lg">Garmin Fenix 7</h3>
+                <p class="text-xs text-neutral-500">Running & cycling</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-300">{garminRuns}</div>
+                <div class="text-xs text-neutral-500 mt-0.5">total runs</div>
+              </div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-400">{garminMiles.toFixed(0)} mi</div>
+                <div class="text-xs text-neutral-500 mt-0.5">total distance</div>
+              </div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-white">{garminAvgPace.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 mt-0.5">avg min/mile</div>
+              </div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-400">GPS</div>
+                <div class="text-xs text-neutral-500 mt-0.5">dual-band</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Garmin is my workhorse for outdoor activities. The GPS is bulletproof — never loses signal, even in dense tree cover. Battery life is insane; I can do a 50-mile ultramarathon without worry. The Connect app gives me every metric I could want, even if the UI feels a bit dated.
+            </p>
+          </div>
+
+          {/* Apple Watch */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-blue-900/30 flex items-center justify-center font-bold text-blue-400">A</div>
+              <div>
+                <h3 class="font-bold text-lg">Apple Watch Ultra 2</h3>
+                <p class="text-xs text-neutral-500">Everyday & workouts</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-300">36 hrs</div>
+                <div class="text-xs text-neutral-500 mt-0.5">battery life</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-green-400">1.9"</div>
+                <div class="text-xs text-neutral-500 mt-0.5">display size</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-400">100+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">workout types</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-white">$799</div>
+                <div class="text-xs text-neutral-500 mt-0.5">price</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Apple Watch is my daily driver for non-running days. The display is gorgeous, notifications are seamless, and the ecosystem is unbeatable if you're in Apple land. But the battery life is a real limitation — I charge it daily. For serious athletes wanting battery, look elsewhere.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* Pros & Cons */}
+    <section class="py-16 bg-neutral-900/50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">Pros & Cons</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+
+          {/* WHOOP */}
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-purple-400">WHOOP 4.0</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
+              <ul class="space-y-2">
+                {whoopPros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
+              <ul class="space-y-2">
+                {whoopCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Garmin */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-green-400">Garmin Fenix 7</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
+              <ul class="space-y-2">
+                {garminPros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
+              <ul class="space-y-2">
+                {garminCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Apple Watch */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-blue-400">Apple Watch Ultra 2</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
+              <ul class="space-y-2">
+                {applePros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
+              <ul class="space-y-2">
+                {appleCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* Best For */}
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">Which One is Right For You?</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          
+          {/* WHOOP */}
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-purple-900/40 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🎯</span>
+            </div>
+            <h3 class="font-bold text-xl mb-3 text-purple-400">Choose WHOOP if...</h3>
+            <ul class="space-y-3 text-left">
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                Recovery optimization is your #1 priority
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                You want to understand strain vs recovery
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                You prefer a subtle band (no bulky watch)
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                You already have a GPS watch for outdoor activities
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                You track sleep quality more than workout metrics
+              </li>
+            </ul>
+          </div>
+
+          {/* Garmin */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🏃</span>
+            </div>
+            <h3 class="font-bold text-xl mb-3 text-green-400">Choose Garmin if...</h3>
+            <ul class="space-y-3 text-left">
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                You run/cycle outdoors and need reliable GPS
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                Battery life matters (multi-day events)
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                You want detailed workout analytics
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                You prefer no subscription fees
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                You need navigation/mapping features
+              </li>
+            </ul>
+          </div>
+
+          {/* Apple Watch */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-blue-900/30 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">⌚</span>
+            </div>
+            <h3 class="font-bold text-xl mb-3 text-blue-400">Choose Apple Watch if...</h3>
+            <ul class="space-y-3 text-left">
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                You're already in the Apple ecosystem
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                You want the best smartwatch experience
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                Notifications and Siri are important to you
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                You don't mind daily charging
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                You want cellular independence from phone
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* My Setup */}
+    <section class="py-16 bg-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2 text-center">My Current Setup</h2>
+        <p class="text-neutral-400 text-center mb-10">This is what works for me — your mileage may vary</p>
+        
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+            <div class="flex items-center justify-center gap-8 mb-6">
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-purple-900/40 flex items-center justify-center mx-auto mb-2">
+                  <span class="text-2xl">💜</span>
+                </div>
+                <p class="font-bold text-purple-400">WHOOP</p>
+                <p class="text-xs text-neutral-500">24/7 Recovery</p>
+              </div>
+              <div class="text-3xl text-neutral-600">+</div>
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-green-900/30 flex items-center justify-center mx-auto mb-2">
+                  <span class="text-2xl">🏃</span>
+                </div>
+                <p class="font-bold text-green-400">Garmin</p>
+                <p class="text-xs text-neutral-500">Running & Cycling</p>
+              </div>
+              <div class="text-3xl text-neutral-600">+</div>
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-900/30 flex items-center justify-center mx-auto mb-2">
+                  <span class="text-2xl">🍎</span>
+                </div>
+                <p class="font-bold text-blue-400">Apple</p>
+                <p class="text-xs text-neutral-500">Daily Life</p>
+              </div>
+            </div>
+            <p class="text-neutral-300 text-center leading-relaxed">
+              I wear WHOOP 24/7 for recovery and sleep tracking. When I go for a run, I grab my Garmin Fenix 7 for GPS tracking. Apple Watch handles my everyday notifications and non-running workouts. It's more gear than most people need, but each device excels at its specific role.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <section class="py-16">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Choose?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          Check out the ROI calculator to see exactly how much you'd save, or browse my detailed gear reviews.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a 
+            href="/roi" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+          >
+            ROI Calculator
+          </a>
+          <a 
+            href="/gear" 
+            class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
+          >
+            Gear Reviews
+          </a>
+          <a 
+            href="/compare" 
+            class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
+          >
+            Gym Comparison
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
