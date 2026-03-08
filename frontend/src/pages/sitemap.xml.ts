@@ -20,6 +20,7 @@ export async function GET() {
     { loc: '/day', changefreq: 'weekly', priority: 0.7 },
     { loc: '/start-here', changefreq: 'monthly', priority: 0.7 },
     { loc: '/calculator', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/fitness-age', changefreq: 'monthly', priority: 0.7 },
     { loc: '/roi', changefreq: 'monthly', priority: 0.6 },
     { loc: '/compare', changefreq: 'monthly', priority: 0.6 },
     { loc: '/compare-trackers', changefreq: 'monthly', priority: 0.6 },

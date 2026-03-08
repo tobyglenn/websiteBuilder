@@ -105,6 +105,7 @@ export default function Footer() {
               <li><a href="/transformation" className="hover:text-blue-400 transition-colors">Weight Journey</a></li>
               <li><a href="/prs" className="hover:text-blue-400 transition-colors">PR Board</a></li>
               <li><a href="/whoop" className="hover:text-blue-400 transition-colors">Recovery</a></li>
+              <li><a href="/fitness-age" className="hover:text-blue-400 transition-colors">Fitness Age</a></li>
             </ul>
           </div>
 

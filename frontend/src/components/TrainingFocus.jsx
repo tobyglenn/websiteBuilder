@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Run, Dumbbell, Trophy } from 'lucide-react';
+import { Activity, Dumbbell, Trophy } from 'lucide-react';
 import speedianceData from '../data/speediance_dashboard_data.json';
 import garminData from '../data/garmin_all_activities.json';
 import whoopData from '../data/whoop_v2_latest.json';
@@ -74,13 +74,13 @@ const TrainingFocus = () => {
   const getFocusIcon = () => {
     switch (focusData.focus) {
       case 'Running':
-        return <Run className="w-8 h-8 text-blue-400" />;
+        return <Activity className="w-8 h-8 text-blue-400" />;
       case 'Lifting':
         return <Dumbbell className="w-8 h-8 text-blue-400" />;
       case 'BJJ':
         return <Trophy className="w-8 h-8 text-blue-400" />;
       default:
-        return <Run className="w-8 h-8 text-blue-400" />;
+        return <Activity className="w-8 h-8 text-blue-400" />;
     }
   };
 

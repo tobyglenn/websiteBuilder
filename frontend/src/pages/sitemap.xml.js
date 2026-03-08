@@ -76,6 +76,7 @@ const staticPages = [
   { path: '/sleep', changefreq: 'weekly', priority: 0.7, lastmod: new Date().toISOString().slice(0,10) },
   { path: '/day', changefreq: 'weekly', priority: 0.6, lastmod: new Date().toISOString().slice(0,10) },
   { path: '/start-here', changefreq: 'monthly', priority: 0.8, lastmod: '2026-02-25' },
+  { path: '/fitness-age', changefreq: 'monthly', priority: 0.7, lastmod: '2026-03-08' },
   { path: '/live', changefreq: 'weekly', priority: 0.6, lastmod: '2026-02-24' },
   { path: '/search', changefreq: 'monthly', priority: 0.5, lastmod: '2026-02-01' },
   { path: '/affiliate', changefreq: 'monthly', priority: 0.4, lastmod: '2026-02-01' },

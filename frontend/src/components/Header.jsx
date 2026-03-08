@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
-import SearchModal from './SearchModal.jsx';
+import Search from './Search.jsx';
 import LanguageSwitcher from './LanguageSwitcher.tsx';
 
 export default function Header() {
@@ -148,7 +148,7 @@ export default function Header() {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
-            <SearchModal />
+            <Search />
             {isPodcastPage && <LanguageSwitcher />}
           </div>
 
@@ -245,7 +245,7 @@ export default function Header() {
 
             {/* Search at bottom */}
             <div className="mt-auto pt-6">
-              <SearchModal close={() => setIsMenuOpen(false)} />
+              <Search />
             </div>
           </div>
         </div>
