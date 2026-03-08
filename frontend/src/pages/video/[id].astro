@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import VideoPlayer from '../../components/VideoPlayer.jsx';
 import RelatedVideos from '../../components/RelatedVideos.jsx';
 import { VIDEOS } from '../../data/mock.js';
-import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText } from 'lucide-react';
+import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText, ListVideo } from 'lucide-react';
+import { parseVideoChapters } from '../../lib/videoChapters';
 
 // Load all transcript files at build time
 const transcriptFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true });
@@ -16,6 +17,7 @@ export function getStaticPaths() {
 }
 
 const { video } = Astro.props;
+const chapters = parseVideoChapters(video.full_description || video.description || '');
 
 const siteUrl = "https://tobyonfitnesstech.com";
 
@@ -188,9 +190,119 @@ relatedVideos = relatedVideos.slice(0, 8);
             })();
           </script>
         ) : (
-          <VideoPlayer client:visible videoId={video.id} />
+          <div id="video-player-wrapper" class="relative">
+            <VideoPlayer client:visible videoId={video.id} />
+          </div>
+        )}
+
+        {chapters.length > 0 && (
+          <section class="bg-neutral-950 border border-neutral-800 rounded-xl p-4 md:p-5">
+            <h2 class="text-base md:text-lg font-semibold text-white mb-3">Chapters</h2>
+            <ul class="space-y-1.5">
+              {chapters.map((chapter) => (
+                <li>
+                  <a
+                    href={`#t=${chapter.seconds}s`}
+                    class="chapter-link flex items-center gap-3 rounded-lg px-3 py-2 bg-neutral-900 text-white hover:bg-neutral-800 transition-colors"
+                    data-seconds={chapter.seconds}
+                    aria-label={`Jump to ${chapter.time} - ${chapter.title}`}
+                  >
+                    <span class="text-sm font-mono text-blue-400 min-w-14">{chapter.time}</span>
+                    <span class="text-sm text-neutral-300 group-hover:text-white">{chapter.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        <script is:inline>
+          (function () {
+            function updateEmbedTimestamp(seconds) {
+              var wrapper = document.getElementById('video-player-wrapper');
+              if (!wrapper) return;
+
+              var iframe = wrapper.querySelector('iframe');
+              if (!iframe) return;
+
+              var src = iframe.getAttribute('src') || '';
+              if (!src) return;
+
+              var cleanSrc = src.replace(/[#?]t=\d+s?/g, '').replace(/#t=\d+s?/g, '');
+              var separator = cleanSrc.indexOf('?') === -1 ? '?' : '&';
+              iframe.setAttribute('src', cleanSrc + separator + 'start=' + seconds + '#t=' + seconds + 's');
+            }
+
+            document.addEventListener('click', function (event) {
+              var link = event.target.closest('.chapter-link');
+              if (!link) return;
+
+              event.preventDefault();
+
+              var seconds = Number(link.getAttribute('data-seconds') || '0');
+              if (!Number.isFinite(seconds)) return;
+
+              var wrapper = document.getElementById('video-player-wrapper');
+              if (wrapper) {
+                wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+
+              updateEmbedTimestamp(seconds);
+            });
+          })();
+        </script>
+
+        {/* Video Chapters */}
+        {chapters.length > 0 && (
+          <div class="mt-6 bg-neutral-900/50 p-6 rounded-xl border border-neutral-800">
+            <h3 class="font-semibold mb-3 flex items-center gap-2 text-neutral-200">
+              <ListVideo size={20} /> Video Chapters
+            </h3>
+            <ul class="space-y-2">
+              {chapters.map(chapter => (
+                <li>
+                  <a
+                    href={`#t=${chapter.time}s`}
+                    class="flex items-center gap-2 text-blue-400 hover:text-blue-300 transition-colors group"
+                  >
+                    <span class="text-neutral-400 group-hover:text-neutral-300 font-mono text-sm">{chapter.timestamp}</span>
+                    <span class="text-neutral-300 group-hover:text-white leading-snug">{chapter.title}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         )}
         
+        {/* Chapters Section */}
+        {chapters.length > 0 && (
+          <div class="bg-neutral-900/50 rounded-xl border border-neutral-800 p-5">
+            <h3 class="flex items-center gap-2 font-semibold text-neutral-200 mb-3">
+              <ListVideo size={16} />
+              Chapters
+            </h3>
+            <ol class="space-y-1">
+              {chapters.map((ch) => (
+                <li>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id}&t=${ch.seconds}s`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm hover:bg-neutral-800/70 transition-colors group"
+                  >
+                    <span class="font-mono text-xs text-blue-400 w-12 flex-shrink-0 group-hover:text-blue-300 transition-colors">
+                      {ch.time}
+                    </span>
+                    <span class="text-neutral-300 group-hover:text-white transition-colors line-clamp-1">
+                      {ch.title}
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+
         {/* Video Title & Meta */}
         <div>
           <h1 class="text-2xl md:text-3xl font-bold mb-4 leading-tight">{video.title}</h1>
