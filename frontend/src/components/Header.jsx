@@ -45,6 +45,7 @@ export default function Header() {
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
     { name: 'Calculator', href: '/calculator' },
+    { name: 'Progress', href: '/progress' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
   ];

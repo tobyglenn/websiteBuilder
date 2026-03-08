@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="My Transformation Journey | TobyOnFitnessTech">
+  <div class="max-w-6xl mx-auto px-4 py-12">
+    <header class="text-center mb-12">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">My Transformation Journey</h1>
+      <p class="text-xl text-gray-400">From 242 lbs to building muscle at 218 lbs</p>
+    </header>
+
+    <div class="bg-neutral-900 rounded-2xl p-8 mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">Weight Journey</h2>
+      <div class="flex flex-wrap justify-center gap-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-500">242</div>
+          <div class="text-gray-400">Starting Weight</div>
+          <div class="text-sm text-gray-500">2023</div>
+        </div>
+        <div class="text-3xl text-gray-600 self-center">→</div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-green-500">188</div>
+          <div class="text-gray-400">Lowest Weight</div>
+          <div class="text-sm text-gray-500">After Transformation</div>
+        </div>
+        <div class="text-3xl text-gray-600 self-center">→</div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-blue-500">218</div>
+          <div class="text-gray-400">Current Weight</div>
+          <div class="text-sm text-gray-500">2026 - Muscle Building</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-neutral-900 rounded-2xl p-8 mb-12">
+      <h2 class="text-2xl font-bold text-white mb-6">Progress Gallery</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-neutral-800 rounded-xl overflow-hidden">
+          <img src="https://picsum.photos/seed/progress1/400/500" alt="Progress photo 1" class="w-full h-64 object-cover" />
+          <div class="p-4">
+            <div class="text-white font-semibold">Starting Point</div>
+            <div class="text-gray-400 text-sm">242 lbs - 2023</div>
+          </div>
+        </div>
+        <div class="bg-neutral-800 rounded-xl overflow-hidden">
+          <img src="https://picsum.photos/seed/progress2/400/500" alt="Progress photo 2" class="w-full h-64 object-cover" />
+          <div class="p-4">
+            <div class="text-white font-semibold">Transformation Complete</div>
+            <div class="text-gray-400 text-sm">188 lbs - 2024</div>
+          </div>
+        </div>
+        <div class="bg-neutral-800 rounded-xl overflow-hidden">
+          <img src="https://picsum.photos/seed/progress3/400/500" alt="Progress photo 3" class="w-full h-64 object-cover" />
+          <div class="p-4">
+            <div class="text-white font-semibold">Current - Building Muscle</div>
+            <div class="text-gray-400 text-sm">218 lbs - 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-neutral-900 rounded-2xl p-8 text-center">
+      <blockquote class="text-xl text-gray-300 italic mb-4">
+        "One winter of sacrifice to go from unable to run with my kids to having no limits"
+      </blockquote>
+      <p class="text-gray-400">- Toby</p>
+    </div>
+  </div>
+</Layout>
