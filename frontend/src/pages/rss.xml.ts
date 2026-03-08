@@ -1,6 +1,6 @@
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { BLOG_POSTS } from '../data/mock.js';
+import { BLOG_POSTS, VIDEOS } from '../data/mock.js';
 
 export async function GET(context: APIContext) {
   const siteUrl = 'https://tobyonfitnesstech.com';
@@ -10,7 +10,7 @@ export async function GET(context: APIContext) {
     return post != null && typeof post === 'object' && typeof post.title === 'string' && typeof post.slug === 'string';
   });
 
-  const items = validPosts.map((post) => {
+  const blogItems = validPosts.map((post) => {
     const postDate = post.date || (post as any).publishedAt || (post as any).published_at || '2025-01-01';
     return {
       title: post.title,
@@ -21,11 +21,34 @@ export async function GET(context: APIContext) {
     };
   });
 
+  // Add video items - handle any edge cases
+  let videoItems: any[] = [];
+  try {
+    if (VIDEOS && Array.isArray(VIDEOS)) {
+      videoItems = VIDEOS
+        .filter((v) => v && v.id && v.title)
+        .map((video) => ({
+          title: `[Video] ${video.title}`,
+          pubDate: new Date(video.published_at || '2025-01-01'),
+          description: video.description?.slice(0, 300) || video.title,
+          link: `/video/${video.id}/`,
+          categories: ['Video'] as const,
+        }));
+    }
+  } catch (e) {
+    console.error('Error processing videos for RSS:', e);
+  }
+
+  // Combine and sort all items
+  const allItems = [...blogItems, ...videoItems].sort((a, b) => 
+    b.pubDate.getTime() - a.pubDate.getTime()
+  );
+
   return rss({
     title: 'Toby on Fitness Tech',
-    description: 'Independent fitness tech reviews from a real athlete. Speediance, Tonal, Whoop, Garmin, BJJ, and transformation data.',
+    description: 'Independent fitness tech reviews, videos, and podcasts from a real athlete.',
     site: siteUrl,
-    items: items,
+    items: allItems,
     customData: `<language>en-us</language>`,
   });
 }

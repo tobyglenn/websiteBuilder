@@ -2,171 +2,326 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
-import { Moon, Activity, Clock, Heart, Waves, BedDouble } from 'lucide-react';
+import { Moon, Heart, Activity, Thermometer, Clock, TrendingUp } from 'lucide-react';
 import {
-  getEightSleepData,
-  LAST_30_NIGHTS,
-  RECENT_NIGHTS,
-  AVG_SLEEP_SCORE,
-  AVG_SLEEP_QUALITY,
-  AVG_HOURS_SLEPT,
-  AVG_HRV,
-  AVG_HEART_RATE,
-  TOTAL_NIGHTS_TRACKED,
-  LATEST_SLEEP_SCORE,
-} from '../data/eightsleep.js';
+  currentData,
+  RECENT_SLEEP,
+  TREND_DATA,
+  SLEEP_STAGES,
+  LAST_SYNCED,
+  TOTAL_NIGHTS,
+  avgSleepScore,
+  avgHRV,
+  avgHeartRate,
+  avgTimeSlept,
+  avgSleepQuality,
+} from '../data/sleep.js';
 
-const sleepData = getEightSleepData();
+// Chart dimensions
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = 30;
 
-const chartWidth = 760;
-const chartHeight = 240;
-const chartPadding = 32;
-
-function linePoints(data, key, maxVal = 100) {
-  if (!data.length) return '';
-  if (data.length === 1) {
-    const x = chartPadding;
-    const y = chartHeight - chartPadding - ((data[0][key] ?? 0) / maxVal) * (chartHeight - chartPadding * 2);
-    return `${x},${y}`;
-  }
-
-  return data
+// Generate trend line SVG points
+function generateTrendLine(data, valueKey, maxVal = 100) {
+  if (!data.length || data.every(d => !d[valueKey] || d[valueKey] === 0)) return '';
+  const validData = data.filter(d => d[valueKey] > 0);
+  if (validData.length < 2) return '';
+  return validData
     .map((d, i) => {
-      const x = chartPadding + (i / (data.length - 1)) * (chartWidth - chartPadding * 2);
-      const y = chartHeight - chartPadding - ((d[key] ?? 0) / maxVal) * (chartHeight - chartPadding * 2);
+      const x = chartPadding + (i / (validData.length - 1)) * (chartWidth - 2 * chartPadding);
+      const y = chartHeight - chartPadding - (d[valueKey] / maxVal) * (chartHeight - 2 * chartPadding);
       return `${x},${y}`;
     })
     .join(' ');
 }
 
-const trendScorePoints = linePoints(LAST_30_NIGHTS, 'sleepScore', 100);
-const qualityPoints = linePoints(LAST_30_NIGHTS, 'sleepQuality', 100);
-const durationPoints = linePoints(LAST_30_NIGHTS, 'hoursSlept', 10);
+const sleepScorePoints = generateTrendLine(TREND_DATA, 'sleep_score', 100);
+
+// Sleep stage bar chart calculations
+const stageColors = {
+  deep: '#8B5CF6',
+  rem: '#3B82F6',
+  light: '#10B981',
+  awake: '#EF4444',
+};
+
+const stages = [
+  { name: 'Deep', hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
+  { name: 'REM', hours: SLEEP_STAGES.rem.hours, pct: SLEEP_STAGES.rem.pct, color: stageColors.rem },
+  { name: 'Light', hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
+  { name: 'Awake', hours: SLEEP_STAGES.awake.hours, pct: SLEEP_STAGES.awake.pct, color: stageColors.awake },
+];
+
+const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
+
+// JSON-LD schema for 8Sleep Pod 3
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "8Sleep Pod 3",
+  "description": "Advanced smart mattress with active temperature regulation, sleep tracking, and wellness monitoring.",
+  "brand": {
+    "@type": "Brand",
+    "name": "8Sleep"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "2847"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "2495",
+    "availability": "https://schema.org/InStock"
+  },
+  "category": "Smart Mattress",
+  "keywords": "8Sleep, Pod 3, smart mattress, sleep tracker, temperature regulation"
+};
 ---
 
-<Layout
-  title="Sleep Analytics | TobyOnFitnessTech"
-  description="Real 8Sleep analytics: sleep scores, sleep quality, duration, HRV, and heart rate trends from Toby's historical sleep data."
-  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Sleep Analytics', url: '/sleep' }]}
-  jsonLd={{
-    '@context': 'https://schema.org',
-    '@type': 'Product',
-    name: '8Sleep Pod',
-    description: 'Sleep analytics dashboard based on historical 8Sleep data including sleep score, quality, duration, HRV, and heart rate trends.',
-    brand: { '@type': 'Brand', name: '8Sleep' },
-    category: 'Sleep Technology',
-    url: 'https://tobyonfitnesstech.com/sleep',
-  }}
+<Layout 
+  title="8Sleep Data | TobyOnFitnessTech"
+  description="Real sleep data from my 8Sleep Pod 3 — sleep scores, HRV, sleep stages, and temperature tracking. See how I optimize recovery through sleep."
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "Sleep Data", url: "/sleep" }]}
+  jsonLd={jsonLd}
 >
   <Header client:load />
-
-  <main class="bg-neutral-950 min-h-screen text-white pb-20">
-    <section class="pt-24 pb-10 px-4">
+  
+  <main class="bg-neutral-950 min-h-screen pb-20">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-10 px-4">
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-3 mb-4">
           <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
             <Moon class="w-4 h-4" />
-            8Sleep Data
+            Sleep Data
           </span>
-          <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS_TRACKED} nights tracked</span>
+          <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS} nights tracked</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Sleep Analytics</h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Sleep Stats</h1>
         <p class="text-lg text-neutral-400 max-w-2xl">
-          Historical 8Sleep metrics with score, quality, duration, HRV, and heart-rate trends from real nightly data.
+          Real sleep data from my 8Sleep Pod 3 — sleep scores, HRV, sleep stages breakdown, and temperature tracking.
         </p>
       </div>
     </section>
 
+    <!-- Stats Grid - 6 cards -->
     <section class="px-4 pb-10">
-      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Activity class="w-4 h-4" />Avg Sleep Score</div>
-          <div class="text-3xl font-bold text-white">{AVG_SLEEP_SCORE}<span class="text-lg text-neutral-500">/100</span></div>
-        </div>
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Waves class="w-4 h-4" />Avg Sleep Quality</div>
-          <div class="text-3xl font-bold text-white">{AVG_SLEEP_QUALITY}<span class="text-lg text-neutral-500">/100</span></div>
-        </div>
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Clock class="w-4 h-4" />Avg Hours</div>
-          <div class="text-3xl font-bold text-white">{AVG_HOURS_SLEPT}<span class="text-lg text-neutral-500">h</span></div>
-        </div>
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Heart class="w-4 h-4" />Avg HRV</div>
-          <div class="text-3xl font-bold text-white">{AVG_HRV}<span class="text-lg text-neutral-500">ms</span></div>
-        </div>
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><Heart class="w-4 h-4" />Avg Heart Rate</div>
-          <div class="text-3xl font-bold text-white">{AVG_HEART_RATE}<span class="text-lg text-neutral-500">bpm</span></div>
-        </div>
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2"><BedDouble class="w-4 h-4" />Total Nights</div>
-          <div class="text-3xl font-bold text-blue-400">{TOTAL_NIGHTS_TRACKED}</div>
-          <div class="text-xs text-neutral-500 mt-1">Latest score: {LATEST_SLEEP_SCORE}</div>
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Moon class="w-4 h-4" />
+              Sleep Score
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.sleep_score}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Activity class="w-4 h-4" />
+              Sleep Quality
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.sleep_quality_score}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Heart class="w-4 h-4" />
+              Avg HRV
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHRV}<span class="text-lg text-neutral-500">ms</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <TrendingUp class="w-4 h-4" />
+              Avg Heart Rate
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHeartRate}<span class="text-lg text-neutral-500">bpm</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Clock class="w-4 h-4" />
+              Avg Time Asleep
+            </div>
+            <div class="text-3xl font-bold text-white">{avgTimeSlept}<span class="text-lg text-neutral-500">hrs</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Thermometer class="w-4 h-4" />
+              Bed Temp
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.bed_temp}<span class="text-lg text-neutral-500">°C</span></div>
+          </div>
         </div>
       </div>
     </section>
 
+    <!-- Sleep Stages Breakdown -->
     <section class="px-4 pb-10">
-      <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-6">
+      <div class="max-w-6xl mx-auto">
         <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <h2 class="text-xl font-bold mb-5">Sleep Score Trend (Last 30 Days)</h2>
-          {LAST_30_NIGHTS.length > 0 ? (
-            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto">
-              <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
-              <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
-              <polyline points={trendScorePoints} fill="none" stroke="#3B82F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
-              {LAST_30_NIGHTS.map((d, i) => {
-                const x = chartPadding + (i / Math.max(LAST_30_NIGHTS.length - 1, 1)) * (chartWidth - chartPadding * 2);
-                const y = chartHeight - chartPadding - ((d.sleepScore ?? 0) / 100) * (chartHeight - chartPadding * 2);
-                return <circle cx={x} cy={y} r="2.5" fill="#3B82F6" />;
-              })}
-            </svg>
-          ) : <p class="text-neutral-400">No data available.</p>}
-        </div>
-
-        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <h2 class="text-xl font-bold mb-5">Sleep Quality vs Duration</h2>
-          {LAST_30_NIGHTS.length > 0 ? (
-            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto">
-              <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
-              <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
-              <polyline points={qualityPoints} fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-              <polyline points={durationPoints} fill="none" stroke="#22D3EE" stroke-width="2" stroke-dasharray="4 4" stroke-linecap="round" stroke-linejoin="round" />
-              <text x={chartWidth - 170} y={chartPadding + 2} fill="#60A5FA" font-size="11">Sleep Quality</text>
-              <text x={chartWidth - 170} y={chartPadding + 18} fill="#22D3EE" font-size="11">Duration (hours)</text>
-            </svg>
-          ) : <p class="text-neutral-400">No data available.</p>}
-        </div>
-      </div>
-    </section>
-
-    <section class="px-4 pb-10">
-      <div class="max-w-6xl mx-auto bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-        <h2 class="text-xl font-bold mb-6">Recent Nights</h2>
-        <div class="overflow-x-auto">
-          <table class="w-full text-sm">
-            <thead>
-              <tr class="border-b border-neutral-800 text-neutral-400">
-                <th class="text-left py-2 px-2">Date</th>
-                <th class="text-left py-2 px-2">Score</th>
-                <th class="text-left py-2 px-2">Quality</th>
-                <th class="text-left py-2 px-2">Hours</th>
-                <th class="text-left py-2 px-2">HRV</th>
-              </tr>
-            </thead>
-            <tbody>
-              {RECENT_NIGHTS.map((n) => (
-                <tr class="border-b border-neutral-800/60">
-                  <td class="py-2 px-2">{new Date(n.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</td>
-                  <td class="py-2 px-2 text-blue-400 font-semibold">{n.sleepScore ?? '—'}</td>
-                  <td class="py-2 px-2">{n.sleepQuality ?? '—'}</td>
-                  <td class="py-2 px-2">{n.hoursSlept != null ? `${n.hoursSlept.toFixed(2)}h` : '—'}</td>
-                  <td class="py-2 px-2">{n.hrv != null ? `${n.hrv.toFixed(1)} ms` : '—'}</td>
-                </tr>
+          <h2 class="text-xl font-bold text-white mb-6">Sleep Stages Breakdown</h2>
+          
+          <!-- Stacked bar chart -->
+          <div class="mb-6">
+            <div class="flex h-8 rounded-lg overflow-hidden">
+              {stages.map((stage) => (
+                <div 
+                  class={`transition-all duration-500`}
+                  style={`width: ${totalPct > 0 ? (parseFloat(stage.pct) / totalPct) * 100 : 0}%; background-color: ${stage.color};`}
+                  title={`${stage.name}: ${stage.hours}h (${stage.pct}%)`}
+                />
               ))}
-            </tbody>
-          </table>
+            </div>
+          </div>
+
+          <!-- Legend with details -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stages.map((stage) => (
+              <div class="flex items-center gap-3">
+                <div class={`w-3 h-3 rounded-full`} style={`background-color: ${stage.color};`}></div>
+                <div>
+                  <div class="text-white font-medium">{stage.name}</div>
+                  <div class="text-neutral-400 text-sm">{stage.hours}h ({stage.pct}%)</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historical Trend Chart -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Sleep Score Trend</h2>
+          {sleepScorePoints ? (
+            <div class="overflow-x-auto">
+              <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
+                <!-- Grid -->
+                <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                
+                <!-- Y-axis labels -->
+                <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
+                
+                <!-- Line -->
+                <polyline
+                  points={sleepScorePoints}
+                  fill="none"
+                  stroke="#3B82F6"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                
+                <!-- Data points -->
+                {TREND_DATA.filter(d => d.sleep_score > 0).map((d, i) => {
+                  const validData = TREND_DATA.filter(d => d.sleep_score > 0);
+                  const x = chartPadding + (i / (validData.length - 1)) * (chartWidth - 2 * chartPadding);
+                  const y = chartHeight - chartPadding - (d.sleep_score / 100) * (chartHeight - 2 * chartPadding);
+                  return (
+                    <circle cx={x} cy={y} r="3" fill="#3B82F6" />
+                  );
+                })}
+              </svg>
+            </div>
+          ) : (
+            <p class="text-neutral-400">No sleep score data available</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Sleep Table -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Recent Sleep (Last 7 Days)</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-neutral-400 text-sm border-b border-neutral-800">
+                  <th class="text-left py-2 px-2">Date</th>
+                  <th class="text-left py-2 px-2">Sleep Score</th>
+                  <th class="text-left py-2 px-2">Quality</th>
+                  <th class="text-left py-2 px-2">HRV</th>
+                  <th class="text-left py-2 px-2">HR</th>
+                  <th class="text-left py-2 px-2">Time Asleep</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RECENT_SLEEP.map((row) => (
+                  <tr class="border-b border-neutral-800/50">
+                    <td class="py-2 px-2 text-white text-sm">
+                      {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </td>
+                    <td class="py-2 px-2">
+                      {row.sleep_score > 0 ? (
+                        <span class={`px-2 py-0.5 rounded text-sm font-medium ${
+                          row.sleep_score >= 67 ? 'text-green-400 bg-green-400/10' : 
+                          row.sleep_score >= 34 ? 'text-yellow-400 bg-yellow-400/10' : 
+                          'text-red-400 bg-red-400/10'
+                        }`}>
+                          {row.sleep_score}
+                        </span>
+                      ) : (
+                        <span class="text-neutral-500 text-sm">-</span>
+                      )}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.sleep_quality_score ? row.sleep_quality_score : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.current_hrv ? `${row.current_hrv} ms` : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.current_heart_rate ? `${row.current_heart_rate} bpm` : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.time_slept_hours ? `${row.time_slept_hours} hrs` : '-'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-8 border border-purple-800/30">
+          <h2 class="text-2xl font-bold text-white mb-4">Track Your Sleep</h2>
+          <p class="text-neutral-400 mb-6">
+            See how 8Sleep data integrates with my broader fitness ecosystem.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/whoop" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+              WHOOP Data
+            </a>
+            <a href="/training" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              Training Overview
+            </a>
+            <a href="/day" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              A Day in the Data
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-2 text-neutral-500 text-sm">
+          <Clock class="w-4 h-4" />
+          <span>Last synced: {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : 'N/A'}</span>
         </div>
       </div>
     </section>
