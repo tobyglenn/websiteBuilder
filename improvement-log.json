@@ -532,8 +532,8 @@
       ],
       "commit": "0cf1698",
       "notes": "Updated existing compare.astro page (was Speediance vs Tonal only) to include Traditional Gym as third option. Added Traditional Gym column to comparison table, new experience card, pros/cons section, updated verdict, added JSON-LD schema. Build passes (293 pages)."
-    }
-{
+    },
+    {
       "timestamp": "2026-03-08T04:15:00-05:00",
       "idea": "Add new blog post: I Was 238 lbs With a Broken Ankle: The Post-Cruise Reality Check",
       "category": "Content - Blog Post",
@@ -635,7 +635,17 @@
       ],
       "commit": "a092fd9",
       "notes": "Created new /calculator page with TDEE and macro calculator. Uses Mifflin-St Jeor equation, activity level multipliers, goal-based calorie adjustments (Cut/Maintain/Bulk). Shows protein/fat/carbs breakdown. Includes FAQPage JSON-LD schema. Build passes (298 pages)."
+    },
+    {
+      "timestamp": "2026-03-08T06:20:00-05:00",
+      "idea": "Add Training Focus widget to homepage",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/components/TrainingFocus.jsx",
+        "src/pages/index.astro"
+      ],
+      "commit": "a0d8a0c",
+      "notes": "Created TrainingFocus React component showing current training focus (Running), weekly session counts (3 runs, 2 workouts, 1 BJJ), and Tobys philosophy Running greater than Lifting greater than BJJ. Uses Activity, Dumbbell, and Trophy icons. Added to homepage below Hero section. Build passes (314 pages)."
     }
   ],
-  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages).\n2026-03-06 (7:15 AM): Added new blog post 'Speediance vs Tonal: The Warranty Debate Uncovered' from transcript 2025-09-14. Build passes (284 pages). Attempted equipment comparison page but subagents had connectivity issues.\n2026-03-06 (9:15 AM): Attempted two improvements: (1) Workout frequency heatmap component for homepage using real Speediance + Garmin data, (2) New blog post from transcript 2025-09-20 on Spotter Modes. Multiple subagents tried (Clarity, Spark, MiniMax, Sage) - all reported completion but no files were actually modified. Subagent system appears to have tool execution issues. No changes made to site. Build passes (no changes).\n2026-03-08 (3:15 AM): Attempted to add BJJ Grading Game blog post from transcript 2025-12-02. Content was already present from prior run (c1d9cd4). Subagent ran successfully but found no changes needed. Build passes (296 pages). Site already has 50+ improvements.
-}
+  "notes": "2026-03-05 (5:45 AM): No new improvement implemented this cycle. Category filtering on videos page was already implemented (VideoGrid.jsx has categories: All, Speediance, BJJ, Wearables, OpenClaw, Training, Shorts). Attempted to add new blog post from unused transcript but subagent had file editing issues. Sleep page with 8Sleep data already exists. Site is in good shape with 11 improvements already completed.\n2026-03-05 (6:00 AM): Added new blog post 'Lily Lifts: My Daughter's First Workout on the Speediance' from transcript 2025-09-23. Published 2025-09-23. Category: Field Reports. BUT this post had a syntax error (raw newlines in content string) that broke the build.\n2026-03-05 (6:50 AM): Fixed broken build by removing the malformed Lily Lifts blog post. VideoObject JSON-LD schema was already implemented in prior runs (verified video/[id].astro and videos/index.astro both have proper VideoObject schemas). Build passes (279 pages).\n2026-03-06 (7:15 AM): Added new blog post 'Speediance vs Tonal: The Warranty Debate Uncovered' from transcript 2025-09-14. Build passes (284 pages). Attempted equipment comparison page but subagents had connectivity issues.\n2026-03-06 (9:15 AM): Attempted two improvements: (1) Workout frequency heatmap component for homepage using real Speediance + Garmin data, (2) New blog post from transcript 2025-09-20 on Spotter Modes. Multiple subagents tried (Clarity, Spark, MiniMax, Sage) - all reported completion but no files were actually modified. Subagent system appears to have tool execution issues. No changes made to site. Build passes (no changes).\n2026-03-08 (3:15 AM): Attempted to add BJJ Grading Game blog post from transcript 2025-12-02. Content was already present from prior run (c1d9cd4). Subagent ran successfully but found no changes needed. Build passes (296 pages). Site already has 50+ improvements."}
