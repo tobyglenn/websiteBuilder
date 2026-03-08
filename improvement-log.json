@@ -1,6 +1,16 @@
 {
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
+    "timestamp": "2026-03-07T23:17:00-05:00",
+      "idea": "Add Sleep Stats page with real 8Sleep data",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/eightsleep.js",
+        "src/pages/sleep.astro"
+      ],
+      "commit": "2b8428c",
+      "notes": "Created new /sleep page with 8Sleep analytics. Added 6 stat cards (avg sleep score, quality, hours, HRV, heart rate, total nights), SVG trend charts for sleep score and quality vs duration, recent nights table. Uses real data from eight_sleep_latest.json. JSON-LD Product schema for 8Sleep Pod. Navigation already includes Sleep link. Build passes (310 pages)."
+    },
     {
       "timestamp": "2026-03-07T15:15:00-05:00",
       "idea": "Improve Live page with YouTube embed and recent videos",
