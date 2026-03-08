@@ -503,6 +503,16 @@
       "notes": "Created new /fitness-age page with interactive fitness age calculator. Uses real WHOOP data (HRV, RHR, recovery scores) and Garmin running data to calculate fitness age. Shows 6 stat cards (Avg HRV, Resting HR, Recovery Score, Weekly Workouts, Running Miles, Cardio Score). Includes methodology explanation and comparison to actual age. Dark theme matching site. Build passes (292 pages)."
     },
     {
+      "timestamp": "2026-03-07T22:15:00-05:00",
+      "idea": "Add new blog post: How I Built My AI Fitness Assistant with OpenClaw",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "b6bf388",
+      "notes": "Added new blog post from transcript 2026-02-18. Covers Toby's OpenClaw setup - morning/nightly fitness reports, Mac Mini hardware, free LLM stack (Miniax $10 plan recommended), agent swarm approach, building BJJ tracker app, comparison to internet revolution. Category: Field Reports. Build passes (294 pages)."
+    },
+    {
       "timestamp": "2026-03-07T21:15:00-05:00",
       "idea": "Add Traditional Gym to comparison page - now compares Speediance vs Tonal vs Traditional Gym",
       "category": "UX Enhancement - Content Pages",
@@ -576,7 +586,7 @@
       ],
       "commit": "cb04c79",
       "notes": "Created new /contact page with hero section, contact info cards (email, YouTube, Instagram), contact form with validation, JSON-LD schema for SEO. Uses real contact info: toby@tobyonfitnesstech.com, @tobyonfitness on YouTube/Instagram/Twitter. Build passes (293 pages)."
-    }
+    },
     {
       "timestamp": "2026-03-07T19:20:00-05:00",
       "idea": "Add YouTube channel stats section to homepage",
