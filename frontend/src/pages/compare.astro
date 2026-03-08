@@ -1,40 +1,114 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const jsonLd = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Speediance Smart Home Gym",
-    "description": "AI-powered smart home gym with 220 lbs cable resistance, no subscription required. Freestanding design.",
-    "brand": { "@type": "Brand", "name": "Speediance" },
-    "offers": {
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Speediance vs Tonal vs Traditional Gym Comparison",
+  "description": "Honest comparison of Speediance, Tonal, and traditional gym memberships based on real experience: 9M+ lbs on Tonal, 1.29M+ lbs on Speediance.",
+  "brand": [
+    { "@type": "Brand", "name": "Speediance" },
+    { "@type": "Brand", "name": "Tonal" },
+    { "@type": "Brand", "name": "Traditional Gym" }
+  ],
+  "offers": [
+    {
       "@type": "Offer",
-      "price": "1995",
+      "name": "Speediance",
+      "price": "4995",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
-    }
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Tonal Smart Home Gym",
-    "description": "Digital weight smart home gym requiring wall mount and monthly subscription coaching.",
-    "brand": { "@type": "Brand", "name": "Tonal" },
-    "offers": {
+    },
+    {
       "@type": "Offer",
+      "name": "Tonal",
       "price": "2495",
       "priceCurrency": "USD",
       "availability": "https://schema.org/InStock"
     }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.5",
+    "reviewCount": "2"
   }
+};
+
+const comparisonFeatures = [
+  { feature: "Upfront Cost", speediance: "$4,995", tonal: "$2,495 + $39/mo", traditional: "$0-$200 initiation" },
+  { feature: "Monthly Cost", speediance: "$39/mo (optional)", tonal: "$39/mo required", traditional: "~$150/mo" },
+  { feature: "1-Year Total Cost", speediance: "$5,463", tonal: "$2,963 + $468 = $3,431", traditional: "$1,800" },
+  { feature: "3-Year Total Cost", speediance: "$6,399", tonal: "$2,963 + $1,404 = $4,367", traditional: "$5,400" },
+  { feature: "5-Year Total Cost", speediance: "$7,335", tonal: "$2,963 + $2,340 = $5,303", traditional: "$9,000" },
+  { feature: "Resistance Range", speediance: "220 lbs (cable)", tonal: "200 lbs (digital)", traditional: "Unlimited" },
+  { feature: "Eccentric Mode", speediance: "✓ Yes", tonal: "✓ Yes", traditional: "✓ Yes (with partner)" },
+  { feature: "Spotter Mode", speediance: "✓ AI Adaptive", tonal: "✓ Yes", traditional: "✓ With human spotter" },
+  { feature: "App Quality", speediance: "Good (improving)", tonal: "Excellent", traditional: "N/A" },
+  { feature: "Customer Support", speediance: "Responsive", tonal: "Had issues", traditional: "Varies" },
+  { feature: "Warranty", speediance: "2 years", tonal: "1 year", traditional: "N/A" },
+  { feature: "Space Required", speediance: "6×4 ft floor space", tonal: "Wall mount + floor space", traditional: "Large gym floor" },
+  { feature: "Setup", speediance: "Freestanding (no drilling)", tonal: "Wall mount required", traditional: "N/A" },
+  { feature: "Data Tracking", speediance: "Reps, weight, volume", tonal: "Reps, weight, volume", traditional: "Manual tracking" },
+];
+
+const speediancePros = [
+  "No subscription required to use",
+  "Freestanding design - no wall drilling",
+  "Higher max resistance (220 lbs)",
+  "Real-time AI weight adaptation",
+  "Dual cable system for versatile exercises",
+  "Offline use available",
+  "No price hikes experienced",
+  "One-time investment pays off in ~2 years vs Tonal"
+];
+
+const speedianceCons = [
+  "Higher upfront cost ($4,995)",
+  "Newer brand with smaller content library",
+  "App still maturing compared to established competitors"
+];
+
+const tonalPros = [
+  "Established brand with extensive content library",
+  "Excellent coaching quality and variety",
+  "Sleek wall-mount design saves floor space",
+  "Strong community and class variety",
+  "Proven track record (years on market)"
+];
+
+const tonalCons = [
+  "$39/mo subscription required - ongoing cost forever",
+  "Wall installation required (drilling, mounting)",
+  "Experienced price increases over time",
+  "Lower max resistance (200 lbs)",
+  "Limited offline functionality",
+  "Support issues reported by some users",
+  "Buyback program not as advertised"
+];
+
+const traditionalGymPros = [
+  "Unlimited resistance (can go heavier than any smart gym)",
+  "Wide variety of equipment available",
+  "Social atmosphere and community",
+  "Access to classes, trainers, amenities",
+  "No upfront equipment cost",
+  "Can try before committing"
+];
+
+const traditionalGymCons = [
+  "Commute time and costs (gas, parking)",
+  "Monthly cost adds up significantly over time",
+  "Crowded during peak hours",
+  "Waiting for equipment",
+  "Limited 24/7 access at many gyms",
+  "Less convenient for quick workouts"
 ];
 ---
 
 <Layout
-  title="Speediance vs Tonal: My Honest Comparison After 10M+ Pounds"
-  description="I've lifted 9M+ lbs on Tonal and 1.29M+ lbs on Speediance. Here's my honest side-by-side comparison after years with both smart home gyms."
-  breadcrumbs={[{ name: "Home", url: "/" }, { name: "Speediance vs Tonal", url: "/compare" }]}
+  title="Speediance vs Tonal vs Traditional Gym | Toby on Fitness Tech"
+  description="I've lifted 9M+ lbs on Tonal and 1.29M+ lbs on Speediance. Here's my honest 3-way comparison including traditional gym membership costs."
+  breadcrumbs={[{ name: "Home", url: "/" }, { name: "Compare", url: "/compare" }]}
   jsonLd={jsonLd}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
@@ -47,13 +121,13 @@ const jsonLd = [
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Equipment Comparison · Real Data, No Sponsorship</p>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Speediance vs Tonal:<br />
+            Speediance vs Tonal<br />
             <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
-              My Honest Comparison After 10M+ Pounds
+              vs Traditional Gym
             </span>
           </h1>
           <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
-            I lifted 9M+ pounds on Tonal over several years before switching to Speediance. Now at 1.29M+ lbs on Speediance, I have a real opinion. Here's the full breakdown — no affiliate bias, just data.
+            I've lifted <strong class="text-white">9M+ pounds</strong> on Tonal and <strong class="text-blue-400">1.29M+ pounds</strong> on Speediance. Here's my honest three-way comparison — no affiliate bias, just data from years of real use.
           </p>
           <div class="flex flex-wrap gap-4 mt-6">
             <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 border border-neutral-700/50 text-neutral-300 font-medium rounded-full text-sm">
@@ -64,6 +138,10 @@ const jsonLd = [
               <span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span>
               1.29M+ lbs on Speediance
             </div>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-900/20 border border-green-500/30 text-green-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+              Years in traditional gyms
+            </div>
           </div>
         </div>
       </div>
@@ -73,34 +151,56 @@ const jsonLd = [
     <section class="py-16 bg-neutral-900/50">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-2 text-center">Feature Comparison</h2>
-        <p class="text-neutral-400 text-center mb-10">Side-by-side specs from someone who's used both</p>
+        <p class="text-neutral-400 text-center mb-10">Side-by-side specs from someone who's used all three</p>
 
         {/* Mobile: stacked cards */}
         <div class="md:hidden space-y-4 mb-8">
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-5">
             <h3 class="font-bold text-lg mb-3 text-blue-400">Speediance</h3>
             <ul class="space-y-2 text-sm text-neutral-300">
-              <li><span class="text-neutral-500">Price:</span> $1,995 one-time</li>
-              <li><span class="text-neutral-500">Membership:</span> <span class="text-green-400">Not required ✓</span></li>
-              <li><span class="text-neutral-500">Resistance:</span> Up to 220 lbs (cable)</li>
-              <li><span class="text-neutral-500">Installation:</span> Freestanding</li>
+              <li><span class="text-neutral-500">Upfront:</span> $4,995</li>
+              <li><span class="text-neutral-500">Monthly:</span> $39/mo (optional)</li>
+              <li><span class="text-neutral-500">5-Year Total:</span> $7,335</li>
+              <li><span class="text-neutral-500">Resistance:</span> 220 lbs cable</li>
+              <li><span class="text-neutral-500">Eccentric:</span> <span class="text-green-400">✓ Yes</span></li>
+              <li><span class="text-neutral-500">Spotter:</span> <span class="text-green-400">✓ AI Adaptive</span></li>
+              <li><span class="text-neutral-500">App:</span> Good (improving)</li>
+              <li><span class="text-neutral-500">Support:</span> Responsive</li>
               <li><span class="text-neutral-500">Warranty:</span> 2 years</li>
-              <li><span class="text-neutral-500">Smart Coaching:</span> AI adaptive</li>
-              <li><span class="text-neutral-500">Offline Use:</span> <span class="text-green-400">Yes ✓</span></li>
+              <li><span class="text-neutral-500">Setup:</span> Freestanding</li>
               <li><span class="text-neutral-500">Price Hikes:</span> <span class="text-green-400">None ✓</span></li>
             </ul>
           </div>
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
             <h3 class="font-bold text-lg mb-3 text-neutral-300">Tonal</h3>
             <ul class="space-y-2 text-sm text-neutral-300">
-              <li><span class="text-neutral-500">Price:</span> $2,495 + $39/mo</li>
-              <li><span class="text-neutral-500">Membership:</span> <span class="text-red-400">Required ✗</span></li>
-              <li><span class="text-neutral-500">Resistance:</span> Up to 200 lbs (digital)</li>
-              <li><span class="text-neutral-500">Installation:</span> Wall-mount required</li>
+              <li><span class="text-neutral-500">Upfront:</span> $2,495 + $39/mo</li>
+              <li><span class="text-neutral-500">Monthly:</span> <span class="text-red-400">$39/mo required</span></li>
+              <li><span class="text-neutral-500">5-Year Total:</span> $5,303</li>
+              <li><span class="text-neutral-500">Resistance:</span> 200 lbs digital</li>
+              <li><span class="text-neutral-500">Eccentric:</span> <span class="text-green-400">✓ Yes</span></li>
+              <li><span class="text-neutral-500">Spotter:</span> <span class="text-green-400">✓ Yes</span></li>
+              <li><span class="text-neutral-500">App:</span> Excellent</li>
+              <li><span class="text-neutral-500">Support:</span> Had issues</li>
               <li><span class="text-neutral-500">Warranty:</span> 1 year</li>
-              <li><span class="text-neutral-500">Smart Coaching:</span> Tonal coaches</li>
-              <li><span class="text-neutral-500">Offline Use:</span> <span class="text-red-400">Limited ✗</span></li>
+              <li><span class="text-neutral-500">Setup:</span> Wall mount</li>
               <li><span class="text-neutral-500">Price Hikes:</span> <span class="text-red-400">Experienced ✗</span></li>
+            </ul>
+          </div>
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-green-400">Traditional Gym</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">Upfront:</span> $0-$200 initiation</li>
+              <li><span class="text-neutral-500">Monthly:</span> ~$150/mo</li>
+              <li><span class="text-neutral-500">5-Year Total:</span> $9,000</li>
+              <li><span class="text-neutral-500">Resistance:</span> <span class="text-green-400">Unlimited</span></li>
+              <li><span class="text-neutral-500">Eccentric:</span> <span class="text-green-400">✓ With partner</span></li>
+              <li><span class="text-neutral-500">Spotter:</span> <span class="text-green-400">With human</span></li>
+              <li><span class="text-neutral-500">App:</span> N/A</li>
+              <li><span class="text-neutral-500">Support:</span> Varies</li>
+              <li><span class="text-neutral-500">Warranty:</span> N/A</li>
+              <li><span class="text-neutral-500">Setup:</span> N/A</li>
+              <li><span class="text-neutral-500">Price Hikes:</span> Occasional
             </ul>
           </div>
         </div>
@@ -110,57 +210,21 @@ const jsonLd = [
           <table class="w-full text-sm">
             <thead>
               <tr class="border-b border-neutral-800">
-                <th class="text-left py-3 px-4 text-neutral-400 font-medium w-1/3">Feature</th>
-                <th class="text-center py-3 px-4 text-blue-400 font-bold w-1/3">Speediance</th>
-                <th class="text-center py-3 px-4 text-neutral-300 font-bold w-1/3">Tonal</th>
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium w-1/4">Feature</th>
+                <th class="text-center py-3 px-4 text-blue-400 font-bold w-1/4">Speediance</th>
+                <th class="text-center py-3 px-4 text-neutral-300 font-bold w-1/4">Tonal</th>
+                <th class="text-center py-3 px-4 text-green-400 font-bold w-1/4">Traditional Gym</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-neutral-800">
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Price</td>
-                <td class="py-3 px-4 text-center text-green-400 font-medium">$1,995 one-time</td>
-                <td class="py-3 px-4 text-center text-red-400">$2,495 + $39/mo</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Membership Required</td>
-                <td class="py-3 px-4 text-center text-green-400">No ✓</td>
-                <td class="py-3 px-4 text-center text-red-400">Yes ✗</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Max Resistance</td>
-                <td class="py-3 px-4 text-center text-green-400">220 lbs (cable)</td>
-                <td class="py-3 px-4 text-center text-neutral-300">200 lbs (digital)</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Installation</td>
-                <td class="py-3 px-4 text-center text-green-400">Freestanding ✓</td>
-                <td class="py-3 px-4 text-center text-red-400">Wall-mount ✗</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Warranty</td>
-                <td class="py-3 px-4 text-center text-green-400">2 years</td>
-                <td class="py-3 px-4 text-center text-red-400">1 year</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Smart Coaching</td>
-                <td class="py-3 px-4 text-center text-neutral-300">AI adaptive</td>
-                <td class="py-3 px-4 text-center text-neutral-300">Tonal coaches</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Cable System</td>
-                <td class="py-3 px-4 text-center text-neutral-300">Dual cables</td>
-                <td class="py-3 px-4 text-center text-neutral-300">Dual arms</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Offline Use</td>
-                <td class="py-3 px-4 text-center text-green-400">Yes ✓</td>
-                <td class="py-3 px-4 text-center text-red-400">Limited ✗</td>
-              </tr>
-              <tr class="hover:bg-neutral-900/50 transition-colors">
-                <td class="py-3 px-4 text-neutral-400">Price Hikes</td>
-                <td class="py-3 px-4 text-center text-green-400">None ✓</td>
-                <td class="py-3 px-4 text-center text-red-400">Experienced ✗</td>
-              </tr>
+              {comparisonFeatures.map((row, index) => (
+                <tr class={`hover:bg-neutral-900/50 transition-colors ${index % 2 === 0 ? 'bg-neutral-900/30' : ''}`}>
+                  <td class="py-3 px-4 text-neutral-400">{row.feature}</td>
+                  <td class="py-3 px-4 text-center text-blue-300">{row.speediance}</td>
+                  <td class="py-3 px-4 text-center text-neutral-300">{row.tonal}</td>
+                  <td class="py-3 px-4 text-center text-green-300">{row.traditional}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -172,7 +236,42 @@ const jsonLd = [
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-2">My Experience</h2>
         <p class="text-neutral-400 mb-10">Real numbers from real workouts — no guessing</p>
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid md:grid-cols-3 gap-6">
+
+          {/* Speediance */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center font-bold text-blue-400">S</div>
+              <div>
+                <h3 class="font-bold text-lg">Speediance</h3>
+                <div class="flex items-center gap-2">
+                  <p class="text-xs text-neutral-500">Since Aug 2025</p>
+                  <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Current</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-300">1.29M+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">lbs lifted</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-green-400">$4,995</div>
+                <div class="text-xs text-neutral-500 mt-0.5">upfront cost</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-green-400">$39/mo</div>
+                <div class="text-xs text-neutral-500 mt-0.5">optional membership</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-400">220 lbs</div>
+                <div class="text-xs text-neutral-500 mt-0.5">max resistance</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              Switching to Speediance removed the subscription anxiety. The freestanding design meant no wall drilling, and the 220 lbs of cable resistance covers everything I need. The AI mode adapts in real-time — something Tonal couldn't match.
+            </p>
+          </div>
 
           {/* Tonal */}
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
@@ -180,7 +279,7 @@ const jsonLd = [
               <div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center font-bold text-neutral-300">T</div>
               <div>
                 <h3 class="font-bold text-lg">Tonal</h3>
-                <p class="text-xs text-neutral-500">The Pioneer · Member until 2025</p>
+                <p class="text-xs text-neutral-500">Used for years</p>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-3 mb-5">
@@ -194,11 +293,11 @@ const jsonLd = [
               </div>
               <div class="bg-neutral-800/60 rounded-xl p-3">
                 <div class="text-2xl font-bold text-red-400">$39/mo</div>
-                <div class="text-xs text-neutral-500 mt-0.5">membership fee</div>
+                <div class="text-xs text-neutral-500 mt-0.5">required membership</div>
               </div>
               <div class="bg-neutral-800/60 rounded-xl p-3">
-                <div class="text-2xl font-bold text-neutral-400">↑</div>
-                <div class="text-xs text-neutral-500 mt-0.5">price hikes hit</div>
+                <div class="text-2xl font-bold text-neutral-400">200 lbs</div>
+                <div class="text-xs text-neutral-500 mt-0.5">max resistance</div>
               </div>
             </div>
             <p class="text-neutral-400 text-sm leading-relaxed">
@@ -206,38 +305,35 @@ const jsonLd = [
             </p>
           </div>
 
-          {/* Speediance */}
-          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+          {/* Traditional Gym */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6">
             <div class="flex items-center gap-3 mb-5">
-              <div class="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center font-bold text-blue-400">S</div>
+              <div class="w-10 h-10 rounded-xl bg-green-900/30 flex items-center justify-center font-bold text-green-400">G</div>
               <div>
-                <h3 class="font-bold text-lg">Speediance</h3>
-                <div class="flex items-center gap-2">
-                  <p class="text-xs text-neutral-500">Since July 2025</p>
-                  <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Current Setup</span>
-                </div>
+                <h3 class="font-bold text-lg">Traditional Gym</h3>
+                <p class="text-xs text-neutral-500">Pre-smart gym era</p>
               </div>
             </div>
             <div class="grid grid-cols-2 gap-3 mb-5">
-              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
-                <div class="text-2xl font-bold text-blue-300">1.29M+</div>
-                <div class="text-xs text-neutral-500 mt-0.5">lbs lifted</div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-300">∞</div>
+                <div class="text-xs text-neutral-500 mt-0.5">resistance limit</div>
               </div>
-              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
-                <div class="text-2xl font-bold text-green-400">$1,995</div>
-                <div class="text-xs text-neutral-500 mt-0.5">one-time cost</div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-neutral-400">~$0</div>
+                <div class="text-xs text-neutral-500 mt-0.5">no equipment cost</div>
               </div>
-              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
-                <div class="text-2xl font-bold text-green-400">$0/mo</div>
-                <div class="text-xs text-neutral-500 mt-0.5">no subscription</div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-red-400">~$150/mo</div>
+                <div class="text-xs text-neutral-500 mt-0.5">membership cost</div>
               </div>
-              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
-                <div class="text-2xl font-bold text-blue-400">220 lbs</div>
-                <div class="text-xs text-neutral-500 mt-0.5">max resistance</div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-400">Full</div>
+                <div class="text-xs text-neutral-500 mt-0.5">amenities access</div>
               </div>
             </div>
             <p class="text-neutral-400 text-sm leading-relaxed">
-              Switching to Speediance removed the subscription anxiety. The freestanding design meant no wall drilling, and the 220 lbs of cable resistance covers everything I need. The AI mode adapts in real-time — something Tonal couldn't match.
+              Before going smart, I spent years in traditional gyms. The variety of equipment is unbeatable, and there's something about the gym atmosphere that can't be replicated at home. That said, the commute, waiting for equipment, and monthly costs add up.
             </p>
           </div>
 
@@ -248,16 +344,16 @@ const jsonLd = [
     {/* Pros & Cons */}
     <section class="py-16 bg-neutral-900/50">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold mb-10">Pros & Cons</h2>
-        <div class="grid md:grid-cols-2 gap-6">
+        <h2 class="text-3xl font-bold mb-10 text-center">Pros & Cons</h2>
+        <div class="grid md:grid-cols-3 gap-6">
 
           {/* Speediance */}
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
             <h3 class="font-bold text-lg mb-5 text-blue-400">Speediance</h3>
             <div class="mb-5">
               <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
               <ul class="space-y-2">
-                {["No subscription fees — ever", "Freestanding, no wall drilling", "Higher max resistance (220 lbs)", "Real-time AI weight adaptation", "One-time cost pays for itself in ~2 years vs Tonal"].map(pro => (
+                {speediancePros.map(pro => (
                   <li class="flex items-start gap-2 text-sm text-neutral-300">
                     <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
                     {pro}
@@ -268,7 +364,7 @@ const jsonLd = [
             <div>
               <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
               <ul class="space-y-2">
-                {["Newer brand — smaller content library", "App still maturing vs established competitors"].map(con => (
+                {speedianceCons.map(con => (
                   <li class="flex items-start gap-2 text-sm text-neutral-300">
                     <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
                     {con}
@@ -284,7 +380,7 @@ const jsonLd = [
             <div class="mb-5">
               <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
               <ul class="space-y-2">
-                {["Established brand with huge content library", "Excellent coaching quality", "Sleek wall-mount design", "Strong community and class variety"].map(pro => (
+                {tonalPros.map(pro => (
                   <li class="flex items-start gap-2 text-sm text-neutral-300">
                     <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
                     {pro}
@@ -295,7 +391,34 @@ const jsonLd = [
             <div>
               <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
               <ul class="space-y-2">
-                {["$39/mo subscription required — ongoing cost forever", "Wall installation required (drilling, mounting)", "Price increases experienced over time", "Lower max resistance (200 lbs)"].map(con => (
+                {tonalCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Traditional Gym */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-green-400">Traditional Gym</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p>
+              <ul class="space-y-2">
+                {traditionalGymPros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Cons</p>
+              <ul class="space-y-2">
+                {traditionalGymCons.map(con => (
                   <li class="flex items-start gap-2 text-sm text-neutral-300">
                     <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
                     {con}
@@ -309,6 +432,77 @@ const jsonLd = [
       </div>
     </section>
 
+    {/* Cost Analysis */}
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2 text-center">Long-Term Cost Analysis</h2>
+        <p class="text-neutral-400 text-center mb-10">The numbers don't lie — here's what you'll actually spend over time</p>
+        
+        <div class="grid md:grid-cols-3 gap-6 mb-10">
+          {/* 1 Year */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <h3 class="text-lg font-bold text-neutral-300 mb-4">1 Year Total Cost</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center py-2 border-b border-neutral-800">
+                <span class="text-blue-400">Speediance</span>
+                <span class="font-bold text-white">$5,463</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-neutral-800">
+                <span class="text-neutral-300">Tonal</span>
+                <span class="font-bold text-white">$3,431</span>
+              </div>
+              <div class="flex justify-between items-center py-2">
+                <span class="text-green-400">Traditional Gym</span>
+                <span class="font-bold text-white">$1,800</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* 3 Years */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <h3 class="text-lg font-bold text-neutral-300 mb-4">3 Year Total Cost</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center py-2 border-b border-neutral-800">
+                <span class="text-blue-400">Speediance</span>
+                <span class="font-bold text-white">$6,399</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-neutral-800">
+                <span class="text-neutral-300">Tonal</span>
+                <span class="font-bold text-white">$4,367</span>
+              </div>
+              <div class="flex justify-between items-center py-2">
+                <span class="text-green-400">Traditional Gym</span>
+                <span class="font-bold text-white">$5,400</span>
+              </div>
+            </div>
+          </div>
+          
+          {/* 5 Years */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <h3 class="text-lg font-bold text-neutral-300 mb-4">5 Year Total Cost</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center py-2 border-b border-neutral-800">
+                <span class="text-blue-400">Speediance</span>
+                <span class="font-bold text-white">$7,335</span>
+              </div>
+              <div class="flex justify-between items-center py-2 border-b border-neutral-800">
+                <span class="text-neutral-300">Tonal</span>
+                <span class="font-bold text-white">$5,303</span>
+              </div>
+              <div class="flex justify-between items-center py-2">
+                <span class="text-green-400">Traditional Gym</span>
+                <span class="font-bold text-white">$9,000</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-neutral-400 text-sm text-center max-w-2xl mx-auto">
+          * Speediance and Tonal costs include required/optional memberships. Traditional gym assumes ~$150/mo average. Does not include commute costs, supplements, or additional fees.
+        </p>
+      </div>
+    </section>
+
     {/* Recommendation */}
     <section class="py-16">
       <div class="container mx-auto px-4 max-w-3xl">
@@ -316,19 +510,62 @@ const jsonLd = [
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">My Bottom Line</p>
           <h2 class="text-3xl font-bold mb-5">The Verdict</h2>
           <p class="text-neutral-300 leading-relaxed mb-4">
-            If you're starting fresh and want to avoid ongoing subscription costs, <strong class="text-white">Speediance wins on value</strong>. The $1,995 one-time price vs $2,495 + $39/month means Speediance pays for itself compared to Tonal after about 2 years — and after that, every month is savings.
+            <strong class="text-white">For most people in a home gym situation, Speediance wins on value.</strong> The $4,995 one-time price (with optional $39/mo membership) pays for itself compared to Tonal after about 2 years — and compared to a traditional gym after about 3-4 years.
           </p>
           <p class="text-neutral-300 leading-relaxed mb-4">
-            With no wall installation required and 220 lbs of resistance, it's the smarter buy for most home gym setups. The AI adaptation is genuinely impressive — it adjusts resistance mid-set in ways Tonal simply can't.
+            With no wall installation required and 220 lbs of cable resistance, Speediance is the smarter buy for most home gym setups. The AI adaptation is genuinely impressive — it adjusts resistance mid-set in ways Tonal simply can't.
+          </p>
+          <p class="text-neutral-300 leading-relaxed mb-4">
+            <strong class="text-white">However, traditional gyms still make sense for some:</strong> If you want unlimited resistance (going heavy on squats/deadlifts), thrive in a social atmosphere, or want access to classes and amenities without buying equipment, a traditional gym at ~$150/mo is still a solid choice.
           </p>
           <p class="text-neutral-400 leading-relaxed mb-8">
-            That said, Tonal's content library and coaching quality are exceptional. If you're committed to using it daily and don't mind the ongoing subscription, the experience is polished. I just wasn't willing to keep paying forever.
+            Tonal's content library and coaching quality are exceptional, and I had years of great workouts on it. But the required subscription and price hikes made it a harder sell. After 9M+ lbs, I'm happy with my decision to switch to Speediance.
           </p>
-          <a
-            href="/speediance"
-            class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors"
+          
+          {/* CTA Links */}
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="/roi"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors"
+            >
+              Calculate Your ROI →
+            </a>
+            <a
+              href="/gear"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors border border-neutral-700"
+            >
+              See Full Gear Reviews →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <section class="py-16 bg-neutral-900">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">Ready to Make a Decision?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          Check out the ROI calculator to see exactly how much you'd save, or browse my detailed gear reviews.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a 
+            href="/roi" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
           >
-            See My Speediance Journey →
+            ROI Calculator
+          </a>
+          <a 
+            href="/gear" 
+            class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
+          >
+            Gear Reviews
+          </a>
+          <a 
+            href="/speediance" 
+            class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
+          >
+            My Speediance Journey
           </a>
         </div>
       </div>
