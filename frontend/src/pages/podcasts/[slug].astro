@@ -66,6 +66,7 @@ export async function getStaticPaths() {
     // Format date
     const dateObj = new Date(pubDate);
     const formattedDate = isNaN(dateObj.getTime()) ? pubDate : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    const isoDate = isNaN(dateObj.getTime()) ? pubDate : dateObj.toISOString();
 
     // Fetch .md content
     let rawMd = '';
@@ -171,6 +172,7 @@ export async function getStaticPaths() {
           title,
           description,
           date: formattedDate,
+          isoDate,
           duration,
           audioUrl,
           mdUrl: transcriptSourceUrl,
@@ -201,13 +203,17 @@ export async function getStaticPaths() {
       const pubDateRaw = extractTag(item, 'pubDate');
       const dateObj = new Date(pubDateRaw);
       const date = isNaN(dateObj.getTime()) ? pubDateRaw : dateObj.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+      const isoDate = isNaN(dateObj.getTime()) ? pubDateRaw : dateObj.toISOString();
       const audioUrl = extractAttr(item, 'enclosure', 'url');
       const duration = extractTag(item, 'itunes:duration');
+      // Extract season info if available
+      const seasonMatch = item.match(/<itunes:season>(\d+)<\/itunes:season>/);
+      const season = seasonMatch ? parseInt(seasonMatch[1]) : null;
       toftEpisodes.push({
         params: { slug },
         props: {
           episode: {
-            slug, isToft: true, index, title, description, date, duration, audioUrl,
+            slug, isToft: true, index, title, description, date, isoDate, duration, season, audioUrl,
             coverImage: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg',
             videoId: TOFT_VIDEOS[index] ?? null,
             showNotesHtml,
@@ -234,17 +240,29 @@ const { episode } = Astro.props;
     "@type": "PodcastEpisode",
     "name": episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`,
     "description": episode.description,
-    "datePublished": episode.date,
+    "datePublished": episode.isoDate || episode.date,
     "duration": episode.duration,
     "image": episode.coverImage,
+    "url": `https://tobyonfitnesstech.com/podcasts/${episode.slug}`,
+    "contentUrl": episode.audioUrl,
+    "podcastSeries": {
+      "@type": "PodcastSeries",
+      "name": "Toby on Fitness Tech",
+      "url": "https://tobyonfitnesstech.com/podcasts"
+    },
     "partOfSeries": {
       "@type": "PodcastSeries",
       "name": "Toby on Fitness Tech",
-      "url": "https://tobyonfitnesstech.com/podcasts/"
+      "url": "https://tobyonfitnesstech.com/podcasts"
     },
+    ...(episode.season ? {
+      "partOfSeason": {
+        "@type": "PodcastSeason",
+        "seasonNumber": episode.season,
+        "url": `https://tobyonfitnesstech.com/podcasts?season=${episode.season}`
+      }
+    } : {}),
     "episodeNumber": episode.isToft ? undefined : episode.number,
-    "url": `https://tobyonfitnesstech.com/podcasts/${episode.slug}`,
-    "contentUrl": episode.audioUrl,
     ...(episode.videoId ? { "video": { "@type": "VideoObject", "embedUrl": `https://www.youtube.com/embed/${episode.videoId}`, "url": `https://www.youtube.com/watch?v=${episode.videoId}` } } : {}),
     "inLanguage": "en",
     "author": {
