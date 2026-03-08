@@ -566,6 +566,18 @@
       "notes": "Created new /progress page with transformation journey gallery. Shows weight timeline (242→188→218), progress photo grid with placeholder images, before/after comparison section, and Toby's transformation quote. Added Progress link to main navigation. Uses dark theme matching site. Build passes (319 pages)."
     }
   ],
+{
+      "timestamp": "2026-03-08T16:17:00-05:00",
+      "idea": "Add 1RM Calculator page with Speediance exercise presets",
+      "category": "UX Enhancement - Content Pages",
+      "files_changed": [
+        "src/pages/1rm-calculator.astro",
+        "src/components/Header.jsx"
+      ],
+      "commit": "fbf62e0",
+      "notes": "Created new /1rm-calculator page with Epley and Brzycki 1RM formulas. Exercise dropdown populated from Speediance PR data. Shows percentage breakdown table (100%-70%). Added FAQPage JSON-LD schema for SEO. Added 1RM link to navigation. Build passes (303 pages)."
+    }
+  ],
   "in_progress": null,
   "attempted": [
     {

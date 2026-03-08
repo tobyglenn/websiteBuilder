@@ -65,6 +65,7 @@ export default function Header() {
     { name: 'Training Log', href: '/training-log', icon: '📈' },
     { name: 'BJJ', href: '/bjj', icon: '🥋' },
     { name: 'Day in a Week', href: '/day', icon: '📅' },
+    { name: 'Year Review', href: '/year-in-review', icon: '📊' },
     { name: 'Gear', href: '/gear', icon: '🛠' },
     { name: 'Contact', href: '/contact', icon: '📧' },
   ];

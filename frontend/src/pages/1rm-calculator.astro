@@ -1,362 +1,303 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const exercisePRs = {
-  "Standing Barbell Triceps Push Down": { best1RM: 170, workout: "Arms Barbell" },
-  "Incline Barbell High Cable Biceps Curl": { best1RM: 74, workout: "Arms Barbell" },
-  "Supine Barbell High Cable Biceps Curl": { best1RM: 90, workout: "Arms Barbell" },
-  "Supine Barbell Biceps Curl": { best1RM: 90, workout: "Arms Barbell" },
-  "Supine Barbell Overhand Biceps Curl": { best1RM: 72, workout: "Arms Barbell" },
-  "Standing Barbell Overhead Triceps Extension": { best1RM: 94, workout: "Arms Barbell" },
-  "Standing Barbell Reverse-Grip Overhead Tricep Extension": { best1RM: 60, workout: "Arms Barbell" },
-  "Table Top Barbell Triceps Extension": { best1RM: 78, workout: "Arms Barbell" },
-  "Kneeling Dual-Handle Lat Pulldown": { best1RM: 125, workout: "Warrior 2" },
-  "Kneeling Dual-Handle High to Low Chest Fly": { best1RM: 50, workout: "Warrior 2" },
-  "Kneeling Dual-Handle Underhand Lat Pulldown": { best1RM: 80, workout: "Warrior 2" },
-  "HandsWU-1": { best1RM: 80, workout: "Warrior 2" },
-  "Standing Alternating Chest Press": { best1RM: 53, workout: "Warrior 2" },
-  "Dual Handle Alternating Bench Press": { best1RM: 92, workout: "Warrior 2" },
-  "Supine Dual-Handle Chest Fly": { best1RM: 46, workout: "Warrior 2" },
-  "Seated Dual-Handle Front Raise": { best1RM: 36, workout: "Warrior 2" },
-  "Seated Dual-Handle Lateral Raise": { best1RM: 36, workout: "Warrior 2" },
-  "Seated Dual-Handle Shoulder Press": { best1RM: 44, workout: "Warrior 2" },
-  "Dual-Handle Calf Raise": { best1RM: 93, workout: "Warrior 2" },
-  "Half-Kneeling Face Pull": { best1RM: 103, workout: "Warrior 4 (rope)" },
-  "Kneeling Tricep Rope Lat Pulldown": { best1RM: 76, workout: "Warrior 4 (rope)" },
-  "Incline Tricep Rope Straight Arm Pushdown": { best1RM: 82, workout: "Warrior 4 (rope)" },
-  "Seated Tricep Rope Crunch": { best1RM: 46, workout: "Warrior 4 (rope)" },
-  "Standing High Cable Biceps Curl with Rope Attachment": { best1RM: 70, workout: "Warrior 4 (rope)" },
-  "Standing High Cable Tricep Rope Curl": { best1RM: 63, workout: "Warrior 4 (rope)" },
-  "Standing Tricep Rope Face Pull (Rear Delts)": { best1RM: 63, workout: "Warrior 4 (rope)" },
-  "Standing Tricep Rope Row": { best1RM: 62, workout: "Warrior 4 (rope)" },
-  "Standing Tricep Rope Overhead Triceps Extension (Main Frame)": { best1RM: 80, workout: "Warrior 4 (rope)" },
-  "Standing Tricep Rope Shrug": { best1RM: 80, workout: "Warrior 4 (rope)" },
-  "Standing Tricep Rope Upright Row": { best1RM: 50, workout: "Warrior 4 (rope)" },
-  "Tricep Rope Romanian Deadlift": { best1RM: 120, workout: "Warrior 4 (rope)" },
-  "Y-Front Raise": { best1RM: 44, workout: "Warrior 4 (rope)" },
-  "Standing Tricep Rope Hammer Curl": { best1RM: 70, workout: "Warrior 4 (rope)" },
-  "Tricep Rope Bent-Over Row": { best1RM: 92, workout: "Warrior 4 (rope)" },
-  "Seated Tricep Rope Overhead Extension": { best1RM: 38, workout: "Warrior 4 (rope)" },
-  "Standing Dual-Handle High-to-Low Chest Press": { best1RM: 46, workout: "pulldown" },
-  "Barbell Deadlift": { best1RM: 388, workout: "Leg Day" },
-  "Barbell Stiff-Leg Deadlift": { best1RM: 140, workout: "Leg Day" },
-  "Barbell Hip Thrust": { best1RM: 240, workout: "Leg Day" },
-  "Kneeling Barbell Lat Pulldown": { best1RM: 294, workout: "Back Barbell" },
-  "Kneeling Barbell Reverse-Grip Lat Pulldown": { best1RM: 280, workout: "Back Barbell" },
-  "Seated Barbell Lat Pulldown": { best1RM: 192, workout: "Back Barbell" },
-  "Seated Barbell Reverse-Grip Lat Pulldown": { best1RM: 248, workout: "Back Barbell" },
-  "Seated Barbell Wide Reverse-Grip Lat Pulldown": { best1RM: 106, workout: "Back Barbell" },
-  "Incline Barbell Straight Arm Pushdown": { best1RM: 168, workout: "Back Barbell" },
-  "Seated Barbell Row": { best1RM: 192, workout: "Back Barbell" },
-  "Seated Barbell Reverse-Grip Row": { best1RM: 170, workout: "Back Barbell" },
-  "Seated Barbell Wide Row": { best1RM: 202, workout: "Back Barbell" },
-  "Barbell Bent Over Row": { best1RM: 198, workout: "Back Barbell" },
-  "Bent-Over Reverse-Grip Barbell Row": { best1RM: 126, workout: "Back Barbell" },
-  "Standing Dual-Handle Biceps Curl": { best1RM: 45, workout: "Warrior 1" },
-  "Standing Dual-Handle Neutral-Grip Front Raise": { best1RM: 42, workout: "Warrior 1" },
-  "Standing Dual-Handle Lateral Raise": { best1RM: 39, workout: "Warrior 1" },
-  "Seated Double-Handle Biceps Curl": { best1RM: 67, workout: "Warrior 1" },
-  "Incline Dual-Handle Chest Fly (Floor)": { best1RM: 49, workout: "Warrior 1" },
-  "Bent-Over Dual-Handle Reverse Fly": { best1RM: 25, workout: "Warrior 1" },
-  "Kneeling Dual-Handle High-to-Low Chest Press": { best1RM: 64, workout: "Chest handles" },
-  "Standing Dual-Handle High-to-Low Chest Fly": { best1RM: 53, workout: "Chest handles" },
-  "Seated Dual-Handle High-to-Low Chest Fly": { best1RM: 52, workout: "Chest handles" },
-  "Incline Dual-Handle High-to-Low Chest Fly": { best1RM: 55, workout: "Chest handles" },
-  "Standing Dual-Handle Low-to-High Chest Press": { best1RM: 54, workout: "Chest handles" },
-  "Supine Dual-Handle Twist Fly": { best1RM: 54, workout: "Chest handles" },
-  "Dual-Handle Reverse Grip Bench Press": { best1RM: 52, workout: "Chest handles" },
-  "Supine Narrow-Grip Dual-Handle Chest Press": { best1RM: 53, workout: "Chest handles" },
-  "Standing Dual-Handle High Cable Curl": { best1RM: 43, workout: "Warrior 1" },
-  "Supine Dual-Handle Reverse Fly": { best1RM: 61, workout: "Warrior 1" },
-  "Seated Dual-Handle Wide Row": { best1RM: 110, workout: "Warrior 1" },
-  "Dual-Handle Bench Press": { best1RM: 90, workout: "Warrior 1" },
-  "Seated Dual-Handle Arnold Press": { best1RM: 56, workout: "Warrior 1" },
-  "Standing Dual-Handle Low-to-High Chest Fly": { best1RM: 48, workout: "Warrior 1" },
-  "Incline Barbell Close-Grip Chest Press": { best1RM: 125, workout: "Warrior 3 (bar)" },
-  "Incline Barbell Bench Press": { best1RM: 185, workout: "Warrior 3 (bar)" },
-  "Barbell Reverse Grip Bench Press": { best1RM: 101, workout: "Warrior 3 (bar)" },
-  "Barbell Bench Press": { best1RM: 232, workout: "Warrior 3 (bar)" },
-  "Seated Barbell Z Press": { best1RM: 70, workout: "Warrior 3 (bar)" },
-  "Bent-Over Barbell Wide Row": { best1RM: 91, workout: "Warrior 3 (bar)" },
-  "Standing Barbell Calf Raise": { best1RM: 54, workout: "Warrior 3 (bar)" },
-  "Standing Barbell Front Raise": { best1RM: 54, workout: "Warrior 3 (bar)" }
-};
+const exercises = [
+  {"name":"Barbell Deadlift","best1RM":388,"workout":"Leg Day"},
+  {"name":"Kneeling Barbell Lat Pulldown","best1RM":294,"workout":"Back Barbell"},
+  {"name":"Kneeling Barbell Reverse-Grip Lat Pulldown","best1RM":280,"workout":"Back Barbell"},
+  {"name":"Seated Barbell Reverse-Grip Lat Pulldown","best1RM":248,"workout":"Back Barbell"},
+  {"name":"Barbell Hip Thrust","best1RM":240,"workout":"Leg Day"},
+  {"name":"Barbell Bench Press","best1RM":232,"workout":"Warrior 3 (bar)"},
+  {"name":"Seated Barbell Wide Row","best1RM":202,"workout":"Back Barbell"},
+  {"name":"Barbell Bent Over Row","best1RM":198,"workout":"Back Barbell"},
+  {"name":"Seated Barbell Lat Pulldown","best1RM":192,"workout":"Back Barbell"},
+  {"name":"Seated Barbell Row","best1RM":192,"workout":"Back Barbell"},
+  {"name":"Incline Barbell Bench Press","best1RM":185,"workout":"Warrior 3 (bar)"},
+  {"name":"Standing Barbell Triceps Push Down","best1RM":170,"workout":"Arms Barbell"},
+  {"name":"Seated Barbell Reverse-Grip Row","best1RM":170,"workout":"Back Barbell"},
+  {"name":"Incline Barbell Straight Arm Pushdown","best1RM":168,"workout":"Back Barbell"},
+  {"name":"Barbell Stiff-Leg Deadlift","best1RM":140,"workout":"Leg Day"},
+  {"name":"Bent-Over Reverse-Grip Barbell Row","best1RM":126,"workout":"Back Barbell"},
+  {"name":"Kneeling Dual-Handle Lat Pulldown","best1RM":125,"workout":"Warrior 2"},
+  {"name":"Incline Barbell Close-Grip Chest Press","best1RM":125,"workout":"Warrior 3 (bar)"},
+  {"name":"Tricep Rope Romanian Deadlift","best1RM":120,"workout":"Warrior 4 (rope)"},
+  {"name":"Seated Dual-Handle Wide Row","best1RM":110,"workout":"Warrior 1"},
+  {"name":"Seated Barbell Wide Reverse-Grip Lat Pulldown","best1RM":106,"workout":"Back Barbell"},
+  {"name":"Half-Kneeling Face Pull","best1RM":103,"workout":"Warrior 4 (rope)"},
+  {"name":"Barbell Reverse Grip Bench Press","best1RM":101,"workout":"Warrior 3 (bar)"},
+  {"name":"Standing Barbell Overhead Triceps Extension","best1RM":94,"workout":"Arms Barbell"},
+  {"name":"Dual-Handle Calf Raise","best1RM":93,"workout":"Warrior 2"},
+  {"name":"Dual Handle Alternating Bench Press","best1RM":92,"workout":"Warrior 2"},
+  {"name":"Tricep Rope Bent-Over Row","best1RM":92,"workout":"Warrior 4 (rope)"},
+  {"name":"Bent-Over Barbell Wide Row","best1RM":91,"workout":"Warrior 3 (bar)"},
+  {"name":"Supine Barbell Biceps Curl","best1RM":90,"workout":"Arms Barbell"},
+  {"name":"Dual-Handle Bench Press","best1RM":90,"workout":"Warrior 1"},
+  {"name":"Kneeling Dual-Handle Underhand Lat Pulldown","best1RM":80,"workout":"Warrior 2"},
+  {"name":"Standing Tricep Rope Overhead Triceps Extension","best1RM":80,"workout":"Warrior 4 (rope)"},
+  {"name":"Standing Tricep Rope Shrug","best1RM":80,"workout":"Warrior 4 (rope)"},
+  {"name":"Table Top Barbell Triceps Extension","best1RM":78,"workout":"Arms Barbell"},
+  {"name":"Kneeling Tricep Rope Lat Pulldown","best1RM":76,"workout":"Warrior 4 (rope)"},
+  {"name":"Incline Barbell High Cable Biceps Curl","best1RM":74,"workout":"Arms Barbell"},
+  {"name":"Incline Barbell Reverse-Grip Biceps Curl","best1RM":70,"workout":"Arms Barbell"},
+  {"name":"Standing Barbell Reverse-Grip Overhead Tricep Extension","best1RM":70,"workout":"Arms Barbell"},
+  {"name":"Barbell Squat","best1RM":68,"workout":"Leg Day"},
+  {"name":"Tricep Rope Straight Arm Pushdown","best1RM":65,"workout":"Warrior 4 (rope)"},
+  {"name":"Incline Dual-Handle Close-Grip Chest Press","best1RM":62,"workout":"Warrior 2"},
+  {"name":"Incline Barbell Chest Fly","best1RM":60,"workout":"Warrior 3 (bar)"},
+  {"name":"Kneeling Dual-Handle High to Low Chest Fly","best1RM":57,"workout":"Warrior 2"},
+  {"name":"Incline Tricep Rope Straight Arm Pushdown","best1RM":55,"workout":"Warrior 4 (rope)"},
+  {"name":"Barbell Romanian Deadlift","best1RM":52,"workout":"Leg Day"},
+  {"name":"Tricep Rope Curl","best1RM":50,"workout":"Warrior 4 (rope)"},
+  {"name":"Seated Barbell Curl","best1RM":48,"workout":"Arms Barbell"},
+  {"name":"Tricep Rope Chest Fly","best1RM":44,"workout":"Warrior 4 (rope)"},
+  {"name":"Kneeling Dual-Handle High Row","best1RM":44,"workout":"Warrior 2"},
+  {"name":"Seated Dual-Handle Low Row","best1RM":42,"workout":"Warrior 1"},
+  {"name":"Incline Barbell Biceps Curl","best1RM":40,"workout":"Arms Barbell"},
+  {"name":"Kneeling Dual-Handle Low to High Chest Fly","best1RM":40,"workout":"Warrior 2"},
+  {"name":"Seated Dual-Handle Chest Press","best1RM":40,"workout":"Warrior 1"},
+  {"name":"Kneeling Dual-Handle Biceps Curl","best1RM":38,"workout":"Warrior 2"},
+  {"name":"Seated Dual-Handle High Row","best1RM":35,"workout":"Warrior 1"},
+  {"name":"Barbell Lateral Raise","best1RM":32,"workout":"Warrior 3 (bar)"},
+  {"name":"Tricep Rope Bent-Over Triceps Extension","best1RM":30,"workout":"Warrior 4 (rope)"},
+  {"name":"Incline Tricep Rope Chest Fly","best1RM":30,"workout":"Warrior 4 (rope)"},
+  {"name":"Tricep Rope Lateral Raise","best1RM":28,"workout":"Warrior 4 (rope)"},
+  {"name":"Kneeling Dual-Handle Reverse Curl","best1RM":24,"workout":"Warrior 2"},
+  {"name":"Standing Tricep Rope Biceps Curl","best1RM":22,"workout":"Warrior 4 (rope)"}
+];
 
-const exercises = Object.keys(exercisePRs).sort();
+const workoutCategories = [
+  "Leg Day",
+  "Back Barbell",
+  "Warrior 3 (bar)",
+  "Warrior 1",
+  "Warrior 2",
+  "Warrior 4 (rope)",
+  "Arms Barbell"
+];
 
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is a One Rep Max (1RM)?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "A One Rep Max (1RM) is the maximum amount of weight you can lift for a single repetition with proper form. It's used to measure strength and calculate training loads for different rep ranges."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How accurate is the 1RM calculator?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The calculator uses two scientifically-validated formulas (Epley and Brzycki) and averages them for more accuracy. These formulas are most accurate for rep ranges of 1-10. Higher rep ranges may yield less precise estimates."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What rep range gives the most accurate 1RM estimate?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Rep ranges of 2-5 reps give the most accurate 1RM estimates. The fewer reps performed, the more accurate the calculation. Estimates become less reliable above 10 reps."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How often should I test my 1RM?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Testing your 1RM every 4-6 weeks is recommended for intermediate lifters, while advanced lifters may go 8-12 weeks between tests. Always ensure you're fully recovered and have mastered proper form before attempting a true 1RM."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What's the difference between Epley and Brzycki formulas?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Epley formula (weight × (1 + reps/30)) tends to be more accurate for higher rep sets, while Brzycki (weight × 36/(37-reps)) is often more accurate for lower rep sets. This calculator averages both for the most reliable estimate."
-      }
-    }
-  ]
-};
+const exercisesByCategory = {};
+workoutCategories.forEach(cat => {
+  exercisesByCategory[cat] = exercises.filter(e => e.workout === cat);
+});
 ---
 
-<Layout 
-  title="1RM Calculator | Toby on Fitness Tech"
-  description="Calculate your one rep max (1RM) using Epley and Brzycki formulas. Based on your Speediance workout data for personalized estimates."
-  jsonLd={jsonLd}
->
-  <!-- Hero Section -->
-  <section class="relative py-20 px-4 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-b from-blue-900/20 via-neutral-950 to-neutral-950"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-500/10 via-transparent to-transparent"></div>
-    
-    <div class="relative container mx-auto max-w-4xl text-center">
-      <h1 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white via-blue-100 to-blue-300 bg-clip-text text-transparent">
-        1RM Calculator
-      </h1>
-      <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
-        Calculate your one rep max using Epley and Brzycki formulas. 
-        Based on your Speediance PRs for personalized estimates.
-      </p>
-    </div>
-  </section>
+<Layout title="1RM Calculator | TobyOnFitnessTech">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a one-rep max (1RM) calculator?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A one-rep max calculator estimates the maximum weight you can lift for a single repetition based on the weight and number of reps you've performed. It uses formulas like Epley and Brzycki to project your 1RM from submaximal lifts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which 1RM formula is most accurate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The Epley and Brzycki formulas are both widely used and generally accurate for rep ranges of 1-10. The average of both formulas often provides the most reliable estimate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How should I use my 1RM for training?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Once you know your estimated 1RM, you can calculate training percentages. For strength, train at 70-85% of your 1RM. For power, use 50-70%. Always round down slightly for safety and ensure proper form."
+          }
+        }
+      ]
+    }
+  </script>
 
-  <!-- Calculator Section -->
-  <section class="px-4 pb-20">
-    <div class="container mx-auto max-w-2xl">
-      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-8 shadow-2xl shadow-black/40">
-        <!-- Exercise Selector -->
+  <main class="min-h-screen bg-neutral-950 py-12 px-4">
+    <div class="max-w-3xl mx-auto">
+      <!-- Hero -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">1RM Calculator</h1>
+        <p class="text-xl text-neutral-400">Estimate your one-rep max from any set</p>
+      </div>
+
+      <!-- Calculator Card -->
+      <div class="bg-neutral-900 rounded-2xl p-6 md:p-8 shadow-xl">
+        <!-- Exercise Dropdown -->
         <div class="mb-6">
-          <label for="exercise" class="block text-sm font-medium text-neutral-300 mb-2">
-            Select Exercise
-          </label>
-          <select 
-            id="exercise" 
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          <label for="exercise" class="block text-sm font-medium text-neutral-300 mb-2">Exercise</label>
+          <select
+            id="exercise"
+            class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           >
-            <option value="">-- Select an exercise --</option>
-            {exercises.map((exercise) => (
-              <option value={exercise} data-pr={exercisePRs[exercise].best1RM}>
-                {exercise} ({exercisePRs[exercise].best1RM} lbs PR)
-              </option>
+            <option value="">Custom (enter weight manually)</option>
+            {workoutCategories.map(category => (
+              <optgroup label={category}>
+                {exercisesByCategory[category].map(ex => (
+                  <option value={JSON.stringify(ex)}>{ex.name} ({ex.best1RM} lbs)</option>
+                ))}
+              </optgroup>
             ))}
           </select>
         </div>
 
-        <!-- PR Display -->
-        <div id="pr-display" class="mb-6 p-4 bg-blue-500/10 border border-blue-500/20 rounded-xl hidden">
-          <p class="text-sm text-blue-400 mb-1">Your PR for this exercise</p>
-          <p class="text-2xl font-bold text-white"><span id="pr-value">0</span> lbs</p>
-        </div>
-
-        <!-- Weight Input -->
-        <div class="mb-6">
-          <label for="weight" class="block text-sm font-medium text-neutral-300 mb-2">
-            Weight (lbs)
-          </label>
-          <input 
-            type="number" 
-            id="weight" 
-            placeholder="Enter weight lifted"
-            min="0"
-            step="0.5"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-          />
-        </div>
-
-        <!-- Reps Input -->
-        <div class="mb-6">
-          <label for="reps" class="block text-sm font-medium text-neutral-300 mb-2">
-            Reps (1-15)
-          </label>
-          <input 
-            type="number" 
-            id="reps" 
-            placeholder="Enter reps performed"
-            min="1"
-            max="15"
-            class="w-full bg-neutral-800 border border-neutral-700 rounded-xl px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-          />
+        <!-- Weight and Reps Inputs -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label for="weight" class="block text-sm font-medium text-neutral-300 mb-2">Weight (lbs)</label>
+            <input
+              type="number"
+              id="weight"
+              min="1"
+              placeholder="Enter weight"
+              class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
+          <div>
+            <label for="reps" class="block text-sm font-medium text-neutral-300 mb-2">Reps (1-15)</label>
+            <input
+              type="number"
+              id="reps"
+              min="1"
+              max="15"
+              placeholder="Enter reps"
+              class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+          </div>
         </div>
 
         <!-- Calculate Button -->
-        <button 
+        <button
           id="calculate-btn"
-          class="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white font-semibold py-3 px-6 rounded-xl transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-blue-500/25"
+          class="w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
         >
           Calculate 1RM
         </button>
 
-        <!-- Results -->
-        <div id="results" class="mt-8 hidden">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <!-- Epley Result -->
-            <div class="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 text-center">
+        <!-- Results Section -->
+        <div id="results" class="hidden mt-8 pt-8 border-t border-neutral-700">
+          <!-- Formula Results -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-neutral-800 rounded-xl p-4 text-center">
               <p class="text-sm text-neutral-400 mb-1">Epley Formula</p>
-              <p id="epley-result" class="text-2xl font-bold text-blue-400">0</p>
+              <p id="epley-result" class="text-2xl font-bold text-white">0</p>
               <p class="text-xs text-neutral-500">lbs</p>
             </div>
-
-            <!-- Brzycki Result -->
-            <div class="bg-neutral-800/50 border border-neutral-700 rounded-xl p-4 text-center">
+            <div class="bg-neutral-800 rounded-xl p-4 text-center">
               <p class="text-sm text-neutral-400 mb-1">Brzycki Formula</p>
-              <p id="brzycki-result" class="text-2xl font-bold text-purple-400">0</p>
+              <p id="brzycki-result" class="text-2xl font-bold text-white">0</p>
               <p class="text-xs text-neutral-500">lbs</p>
             </div>
-
-            <!-- Average Result -->
-            <div class="bg-neutral-800/50 border border-blue-500/30 rounded-xl p-4 text-center">
-              <p class="text-sm text-neutral-400 mb-1">Average</p>
-              <p id="average-result" class="text-3xl font-bold text-white">0</p>
-              <p class="text-xs text-neutral-500">lbs</p>
+            <div class="bg-blue-500/20 rounded-xl p-4 text-center border border-blue-500/30">
+              <p class="text-sm text-blue-300 mb-1">Average</p>
+              <p id="average-result" class="text-2xl font-bold text-blue-400">0</p>
+              <p class="text-xs text-blue-300/70">lbs</p>
             </div>
           </div>
 
-          <!-- Percentage Table -->
-          <div class="bg-neutral-800/30 border border-neutral-700 rounded-xl p-4">
-            <h3 class="text-lg font-semibold text-white mb-4">Training Percentages</h3>
-            <div class="overflow-x-auto">
-              <table class="w-full text-sm">
-                <thead>
-                  <tr class="text-neutral-400 border-b border-neutral-700">
-                    <th class="text-left py-2 px-2">% of 1RM</th>
-                    <th class="text-right py-2 px-2">Weight</th>
-                    <th class="text-right py-2 px-2">Best For</th>
-                  </tr>
-                </thead>
-                <tbody id="percentage-table" class="text-neutral-300">
-                </tbody>
-              </table>
+          <!-- Percentage Breakdown -->
+          <div>
+            <h3 class="text-lg font-semibold text-white mb-4">Percentage Breakdown</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">100%</p>
+                <p id="pct-100" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">95%</p>
+                <p id="pct-95" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">90%</p>
+                <p id="pct-90" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">85%</p>
+                <p id="pct-85" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">80%</p>
+                <p id="pct-80" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">75%</p>
+                <p id="pct-75" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                <p class="text-xs text-neutral-400 mb-1">70%</p>
+                <p id="pct-70" class="text-lg font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Formula Info -->
-        <div class="mt-6 p-4 bg-neutral-800/30 border border-neutral-700 rounded-xl">
-          <h4 class="text-sm font-medium text-neutral-300 mb-2">Formulas Used</h4>
-          <div class="text-xs text-neutral-500 space-y-1">
-            <p><span class="text-blue-400">Epley:</span> 1RM = weight × (1 + reps/30)</p>
-            <p><span class="text-purple-400">Brzycki:</span> 1RM = weight × 36 / (37 - reps)</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </main>
 </Layout>
 
 <script>
   const exerciseSelect = document.getElementById('exercise') as HTMLSelectElement;
   const weightInput = document.getElementById('weight') as HTMLInputElement;
   const repsInput = document.getElementById('reps') as HTMLInputElement;
-  const calculateBtn = document.getElementById('calculate-btn')!;
-  const resultsDiv = document.getElementById('results')!;
-  const prDisplay = document.getElementById('pr-display')!;
-  const prValue = document.getElementById('pr-value')!;
+  const calculateBtn = document.getElementById('calculate-btn');
+  const resultsSection = document.getElementById('results');
 
-  const epleyResult = document.getElementById('epley-result')!;
-  const brzyckiResult = document.getElementById('brzycki-result')!;
-  const averageResult = document.getElementById('average-result')!;
-  const percentageTable = document.getElementById('percentage-table')!;
-
-  const percentages = [100, 95, 90, 85, 80, 75, 70];
-
-  // Handle exercise selection to show PR
-  exerciseSelect.addEventListener('change', () => {
-    const selectedOption = exerciseSelect.options[exerciseSelect.selectedIndex];
-    const pr = selectedOption.dataset.pr;
-    
-    if (pr && parseFloat(pr) > 0) {
-      prValue.textContent = pr;
-      prDisplay.classList.remove('hidden');
-      
-      // Also pre-fill weight with PR if no weight entered
-      if (!weightInput.value) {
-        weightInput.value = pr;
-      }
-    } else {
-      prDisplay.classList.add('hidden');
+  // Exercise dropdown handler - pre-fill weight
+  exerciseSelect?.addEventListener('change', () => {
+    const selectedValue = exerciseSelect.value;
+    if (selectedValue) {
+      const exercise = JSON.parse(selectedValue);
+      weightInput.value = exercise.best1RM.toString();
     }
   });
 
-  calculateBtn.addEventListener('click', () => {
+  // Calculate button handler
+  calculateBtn?.addEventListener('click', () => {
     const weight = parseFloat(weightInput.value);
     const reps = parseInt(repsInput.value);
 
-    if (!weight || !reps || reps < 1 || reps > 15) {
-      alert('Please enter a valid weight and reps (1-15)');
+    if (!weight || weight < 1 || !reps || reps < 1 || reps > 15) {
+      alert('Please enter valid weight (min 1) and reps (1-15)');
       return;
     }
 
     // Epley formula: weight × (1 + reps/30)
     const epley = weight * (1 + reps / 30);
 
-    // Brzycki formula: weight × 36 / (37 - reps)
+    // Brzycki formula: weight × (36 / (37 - reps))
     const brzycki = weight * (36 / (37 - reps));
 
     // Average
     const average = (epley + brzycki) / 2;
 
-    // Display results
-    epleyResult.textContent = Math.round(epley).toString();
-    brzyckiResult.textContent = Math.round(brzycki).toString();
-    averageResult.textContent = Math.round(average).toString();
+    // Update results
+    const epleyResult = document.getElementById('epley-result');
+    const brzyckiResult = document.getElementById('brzycki-result');
+    const averageResult = document.getElementById('average-result');
 
-    // Build percentage table
-    let tableHTML = '';
+    if (epleyResult) epleyResult.textContent = Math.round(epley).toString();
+    if (brzyckiResult) brzyckiResult.textContent = Math.round(brzycki).toString();
+    if (averageResult) averageResult.textContent = Math.round(average).toString();
+
+    // Update percentage breakdown
+    const percentages = [100, 95, 90, 85, 80, 75, 70];
     percentages.forEach(pct => {
-      const pctWeight = Math.round(average * (pct / 100));
-      let bestFor = '';
-      
-      if (pct === 100) bestFor = '1RM test';
-      else if (pct >= 95) bestFor = 'Peaking';
-      else if (pct >= 90) bestFor = 'Strength';
-      else if (pct >= 85) bestFor = 'Strength/Hypertrophy';
-      else if (pct >= 80) bestFor = 'Hypertrophy';
-      else if (pct >= 75) bestFor = 'Hypertrophy/Endurance';
-      else bestFor = 'Endurance';
-
-      tableHTML += `
-        <tr class="border-b border-neutral-700/50">
-          <td class="py-2 px-2 text-blue-400 font-medium">${pct}%</td>
-          <td class="py-2 px-2 text-right font-semibold">${pctWeight} lbs</td>
-          <td class="py-2 px-2 text-right text-neutral-400">${bestFor}</td>
-        </tr>
-      `;
+      const element = document.getElementById(`pct-${pct}`);
+      if (element) {
+        element.textContent = Math.round(average * (pct / 100)).toString();
+      }
     });
 
-    percentageTable.innerHTML = tableHTML;
-    resultsDiv.classList.remove('hidden');
+    // Show results
+    resultsSection?.classList.remove('hidden');
   });
 </script>
