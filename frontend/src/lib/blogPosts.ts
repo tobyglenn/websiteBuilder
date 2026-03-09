@@ -1,4 +1,3 @@
-import { existsSync } from 'node:fs';
 import { BLOG_POSTS as FALLBACK_BLOG_POSTS } from '../data/mock.js';
 
 export type BlogPost = {
@@ -117,11 +116,8 @@ function imageExists(imagePath: string): boolean {
     return false;
   }
 
-  try {
-    return existsSync(new URL(`../../public${imagePath}`, import.meta.url));
-  } catch {
-    return false;
-  }
+  // Assume paths starting with '/' that passed the check above exist in public/
+  return true;
 }
 
 function defaultCoverImage(slug: string, title: string, category: string): string {
