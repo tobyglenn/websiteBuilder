@@ -41,6 +41,7 @@ export default function Header() {
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Videos', href: '/videos' },
+    { name: 'Consistency', href: '/consistency' },
     { name: 'Blog & Articles', href: '/blog', hasDropdown: true },
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
