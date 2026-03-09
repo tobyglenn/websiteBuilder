@@ -633,16 +633,15 @@
       "notes": "Added new blog post from transcript 2025-11-29. Covers Toby's competition return after having his second child, losing to a blue belt in overtime, then hitting a reverse triangle for third place. Discusses what competition means for black belt promotions and why the belt doesn't tell the whole story. Category: BJJ. Build passes (313 pages)."
     },
     {
-      "timestamp": "2026-03-09T08:20:00-05:00",
-      "idea": "Add TDEE & Macro Calculator page with Mifflin-St Jeor formulas",
-      "category": "UX Enhancement - Content Pages",
+      "timestamp": "2026-03-09T10:20:00-05:00",
+      "idea": "Add Testimonials section to homepage with social proof",
+      "category": "UX Enhancement - Homepage",
       "files_changed": [
-        "src/components/TDEECalculator.jsx",
-        "src/pages/calculators.astro",
-        "src/components/Header.jsx"
+        "src/components/Testimonials.jsx",
+        "src/pages/index.astro"
       ],
-      "commit": "e89abca",
-      "notes": "Created new /calculators page with interactive TDEE and macro calculator. Uses Mifflin-St Jeor equation for BMR, activity multipliers for TDEE, goal-based calorie adjustments (-500 to +500), and macro splits (40/30/30 for fat loss, 30/40/30 for bulking). Includes gender toggle, age/height/weight inputs, activity level dropdown, goal dropdown, results with visual macro bars. FAQPage JSON-LD schema for SEO. Added Calculators link to navigation. Build passes (328 pages)."
+      "commit": "7468707",
+      "notes": "Created new Testimonials component with 7 testimonial cards in responsive grid (3 columns desktop, 1 mobile). Uses real quotes from YouTube viewers/comments about Toby's content. Integrated into homepage below Latest from Blog section. Dark theme matching site. Build passes (312 pages)."
     }
   ],
   "in_progress": null,
