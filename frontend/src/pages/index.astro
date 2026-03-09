@@ -276,6 +276,25 @@ const webPageSchema = {
 		</div>
 	</section>
 
+	<!-- Featured Video Section -->
+	<section class="py-16 bg-neutral-900">
+	  <div class="max-w-4xl mx-auto px-4">
+	    <h2 class="text-2xl font-bold mb-6 text-white">Featured Video</h2>
+	    <div class="aspect-video rounded-xl overflow-hidden bg-neutral-800">
+	      <iframe 
+	        class="w-full h-full" 
+	        src="https://www.youtube.com/embed/0C8mQoV-Xpg" 
+	        title="Speediance V3.1 Progressive Overload Review"
+	        frameborder="0" 
+	        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+	        allowfullscreen>
+	      </iframe>
+	    </div>
+	    <p class="mt-4 text-neutral-400">Speediance Fixed Progressive Overload (Mostly) — V3.1 Update Review</p>
+	    <a href="/videos" class="inline-block mt-2 text-blue-400 hover:text-blue-300">View all videos →</a>
+	  </div>
+	</section>
+
 	<NewsletterSignup client:visible />
 
 	{/* Latest Videos Section */}
@@ -738,5 +757,16 @@ const webPageSchema = {
 	  </div>
 	</section>
 	<Newsletter client:visible />
+
+	{/* Featured Video Section */}
+	<section class="py-12 bg-neutral-900">
+		<div class="max-w-4xl mx-auto px-4">
+			<h2 class="text-2xl font-bold mb-6">Featured Video</h2>
+			<div class="aspect-video rounded-lg overflow-hidden">
+				<iframe class="w-full h-full" src="https://www.youtube.com/embed/ucYb0Bg4XrA" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<p class="mt-3 text-neutral-400">Why Running Might Have Saved My Life</p>
+		</div>
+	</section>
 
 </Layout>

@@ -52,6 +52,72 @@ export const FETCHED_AT = videosData.fetchedAt || "2026-02-18T20:50Z";
 
 export const BLOG_POSTS = [
   {
+    id: "2026-01-14_training_split",
+    slug: "build-your-best-training-split",
+    title: "Build Your Best Training Split: Arnold Blueprint vs PPL vs Full Body vs Bro Split",
+    excerpt: "After years of trying every split imaginable, here's what actually works—from the grueling Arnold Blueprint that built my physique to the full-body workouts I do today. The answer might surprise you.",
+    content: `<p>I've been asked about training splits more times than I can count. "What split do you use?" "PPL or full body?" "Should I do bro split?" The thing is, there's no single right answer—and that's exactly what took me years to figure out.</p>
+
+<p>The training that built the physique I have today is completely different from what I do now. And understanding why that shift happened changed how I approach lifting forever.</p>
+
+<h2>The Arnold Blueprint: How I Built My Physique</h2>
+
+<p>In 2023, when I was transforming from morbidly obese to fit—doing it in just six months—I used the Arnold Blueprint workouts, modified for smart gyms like Tonal and now Speediance.</p>
+
+<p>These weren't casual workouts. We're talking Push Pull Legs (PPL) with 6, 12, 15, and 25 rep sets. Four months of that intensity, followed by two more months dropping the 25-rep sets. Almost every workout hit, except leg days—those were the first to get skipped.</p>
+
+<p>Why so many reps? I was in a massive calorie deficit while trying to preserve muscle mass. The high-rep schemes kept my body burning fuel without eating into muscle tissue. It was grueling, but it worked.</p>
+
+<p>The Arnold Blueprint split breaks down into specific workout days—push exercises Monday and Thursday, pull exercises Tuesday, legs Wednesday and Saturday. Each day has those structured blocks where weight drops as reps climb. The machine handles everything automatically—something you lose when switching to traditional gyms.</p>
+
+<h2>Why I Switched to Full Body Minus Legs</h2>
+
+<p>After building that physique, I faced a different problem: where do I go from here?</p>
+
+<p>The answer became full body minus legs workouts—single, comprehensive sessions I could repeat with different variations. I took all my favorite lifts from the Arnold workouts, added some experimental movements, and created something that worked for my current life situation.</p>
+
+<p>Here's the key insight: if I added legs to those workouts, I probably wouldn't do them. Too time-consuming, too exhausting. So I cut legs out entirely and built around eight to nine exercises per session—one warm-up set and one working set to failure for each movement.</p>
+
+<p>The efficiency payoff was massive. Instead of spreading volume across six days, I could hit the machine two to four times per week and get everything done. No daily lifting. No living in the gym. Just focused sessions that respected my schedule as a father with two young kids.</p>
+
+<h2>The Bro Split Experiment</h2>
+
+<p>Then came the Speediance Lunar Challenge—work out every day for a month.</p>
+
+<p>My full body approach couldn't handle that volume. Three days in, I was toast. So I switched to bro split for the first time: dedicated arm days, chest days, back days. Each muscle group got its own session.</p>
+
+<p>The results were eye-opening. My biceps exploded—ten arm exercises in a single session will do that. But the moment the challenge ended, I dropped it. Bro split requires too many gym visits. It demands daily lifting, and that's not sustainable for most people with real lives.</p>
+
+<h2>The Real Answer: It Depends</h2>
+
+<p>Here's what I learned after all these years of experimenting:</p>
+
+<p><strong>If you're building a physique from scratch</strong>—like I was in 2023—PPL (Push Pull Legs) works. The Arnold Blueprint proves it. You're in the gym almost every day anyway, so spreading volume makes sense.</p>
+
+<p><strong>If you want to maintain</strong> and have limited time, full body minus legs is the play. Two to four sessions per week, everything hit in one go, done.</p>
+
+<p><strong>If you're training every single day</strong> (like for a challenge), bro split can work—but only if you can sustain the frequency. Most people can't.</p>
+
+<h2>The Split That Matters Most</h2>
+
+<p>Here's what nobody talks about: the split between training and recovery changes throughout the year.</p>
+
+<p>Right now, running is my priority—over lifting, over jiu-jitsu. I'm training for a four-mile race. That means my training split reflects that hierarchy: running first, lifting second, jiu-jitsu third (though it's a close third).</p>
+
+<p>Two years ago, it was the opposite. Lifting and weight loss dominated everything. I didn't run at all. Jiu-jitsu almost disappeared.</p>
+
+<p>The best training split is the one that fits your life <em>today</em>—and that changes as your goals evolve.</p>
+
+<p>That's the honest truth about splits. There's no magic program. There's only what works for you, right now, given where you are and what you want to accomplish.</p>`,
+    category: "Training Tips",
+    tags: ["training", "workout", "split", "PPL", "full body", "bro split"],
+    date: "2026-01-14",
+    author: "Toby Peters",
+    readTime: 7,
+    featured: false,
+    image: "https://i.ytimg.com/vi/JxRdaMTOOHo/maxresdefault.jpg"
+  },
+  {
     id: "2026-01-27_speediance_v3_software_review",
     slug: "speediance-v3-software-review",
     title: "Speediance V3 Software Is Here — But Is It Good?",
