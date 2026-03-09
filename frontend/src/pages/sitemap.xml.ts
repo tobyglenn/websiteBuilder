@@ -2,7 +2,8 @@ export async function GET() {
   const site = 'https://www.tobyonfitnesstech.com';
   
   // Import data for dynamic pages
-  const { BLOG_POSTS, VIDEOS } = await import('../data/mock.js');
+  const { VIDEOS } = await import('../data/mock.js');
+  const { CANONICAL_BLOG_POSTS } = await import('../lib/blogPosts');
   const { gearItems } = await import('../data/gearItems.ts');
   
   // Main static pages
@@ -28,7 +29,7 @@ export async function GET() {
   ];
 
   // Blog posts
-  const blogPages = (BLOG_POSTS || []).map((post: { slug?: string }) => ({
+  const blogPages = (CANONICAL_BLOG_POSTS || []).map((post: { slug?: string }) => ({
     loc: `/blog/${post.slug}`,
     changefreq: 'weekly',
     priority: 0.7

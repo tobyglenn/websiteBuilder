@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Search, X, FileText, Video, Clock } from 'lucide-react';
-import { BLOG_POSTS } from '../data/mock.js';
+import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 import videosData from '../data/videos.json';
 
 // Flatten videos from the JSON structure
@@ -32,7 +32,7 @@ function searchContent(query) {
   const lowerQuery = query.toLowerCase().trim();
   
   // Search blog posts
-  const blogResults = BLOG_POSTS.filter(post => {
+  const blogResults = CANONICAL_BLOG_POSTS.filter(post => {
     const titleMatch = post.title?.toLowerCase().includes(lowerQuery);
     const excerptMatch = post.excerpt?.toLowerCase().includes(lowerQuery);
     const categoryMatch = post.category?.toLowerCase().includes(lowerQuery);
@@ -213,7 +213,7 @@ export default function SearchModal({ isOpen, onClose }) {
                           <div className="flex items-center gap-2 mt-2 text-xs text-neutral-600">
                             <span className="bg-neutral-800 px-2 py-0.5 rounded">{post.category}</span>
                             <span>•</span>
-                            <span>{post.date}</span>
+                            <span>{post.published_at || 'Undated'}</span>
                           </div>
                         </div>
                       </a>

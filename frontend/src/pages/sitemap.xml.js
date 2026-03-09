@@ -1,4 +1,5 @@
-import { VIDEOS, BLOG_POSTS } from '../data/mock.js';
+import { VIDEOS } from '../data/mock.js';
+import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 
 const SITE_URL = 'https://tobyonfitnesstech.com';
 
@@ -136,7 +137,7 @@ export async function GET() {
     ...translatedPages.map(urlEntry),
     ...GEAR_SLUGS.map(gearEntry),
     ...VIDEOS.map(videoEntry),
-    ...BLOG_POSTS.map(blogEntry),
+    ...CANONICAL_BLOG_POSTS.map(blogEntry),
     ...podcastEpisodes.map(urlEntry),
   ].join('\n');
 

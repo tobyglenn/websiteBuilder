@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { marked } from 'marked';
-import { BLOG_POSTS } from '../../lib/blogPosts';
+import { BLOG_POSTS, BLOG_REDIRECTS } from '../../lib/blogPosts';
 import ShareButtons from '../../components/ShareButtons.jsx';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
@@ -18,6 +18,11 @@ export function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const redirectSlug = BLOG_REDIRECTS[post.slug];
+
+if (redirectSlug) {
+  return Astro.redirect(`/blog/${redirectSlug}`, 301);
+}
 
 // Sort posts by date (newest first) for navigation
 const sortedPosts = [...BLOG_POSTS].sort((a, b) => 
