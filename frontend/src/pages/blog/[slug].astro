@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { BLOG_POSTS } from '../../data/mock.js';
+import { marked } from 'marked';
+import { BLOG_POSTS } from '../../lib/blogPosts';
 import ShareButtons from '../../components/ShareButtons.jsx';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
@@ -106,6 +107,7 @@ function extractFAQSchema(content: string): object | null {
 const faqSchema = extractFAQSchema(post.content || '');
 
 const wordCount = (post.content || '').split(/\s+/).filter(Boolean).length;
+const articleHtml = marked.parse(post.content || '');
 
 const authorSchema = {
   "@type": "Person",
@@ -183,6 +185,12 @@ const articleJsonLd = {
         <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
           {post.title}
         </h1>
+
+        {post.excerpt && (
+          <p class="max-w-3xl text-lg md:text-xl leading-relaxed text-neutral-300 mb-8">
+            {post.excerpt}
+          </p>
+        )}
         
         <div class="flex items-center gap-6 text-sm text-neutral-400 border-t border-neutral-800 pt-6">
             <div class="flex items-center gap-2">
@@ -203,20 +211,12 @@ const articleJsonLd = {
 
     {/* Content */}
     <div class="container mx-auto px-4 py-12 max-w-3xl">
-      <div class="prose prose-invert prose-lg max-w-none prose-headings:font-bold prose-headings:text-white prose-p:text-neutral-300 prose-a:text-blue-400 hover:prose-a:text-blue-300 prose-strong:text-white prose-ul:text-neutral-300 prose-li:marker:text-blue-500">
-        {/* Simulating Markdown Content Rendering */}
-        {post.content.split('\n').map((line, index) => {
-            if (line.trim().startsWith('##')) {
-                return <h2 key={index} class="text-2xl font-bold mt-12 mb-6 text-white border-l-4 border-blue-500 pl-4">{line.replace('##', '').trim()}</h2>;
-            }
-            if (line.trim().startsWith('#')) {
-                return <h2 key={index} class="text-3xl font-bold mt-12 mb-6 text-white">{line.replace('#', '').trim()}</h2>;
-            }
-            if (line.trim().length > 0) {
-                return <p key={index} class="mb-6 leading-relaxed text-neutral-300">{line}</p>;
-            }
-            return null;
-        })}
+      <div class="markdown-shell rounded-3xl border border-neutral-800 bg-neutral-900/55 px-6 py-8 md:px-10 md:py-10 shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
+        <div
+          class="markdown-article"
+          set:html={articleHtml}
+        >
+        </div>
       </div>
       
       {/* Footer / Tags */}
@@ -298,3 +298,157 @@ const articleJsonLd = {
     </div>
   </article>
 </Layout>
+
+<style is:global>
+  .markdown-article > h1:first-child {
+    display: none;
+  }
+
+  .markdown-article {
+    color: rgb(212 212 216);
+    font-size: 1.075rem;
+    line-height: 1.9;
+  }
+
+  .markdown-article > p:first-of-type {
+    color: rgb(229 229 229);
+    font-size: 1.18rem;
+    line-height: 1.95;
+    padding-left: 1rem;
+    border-left: 3px solid rgb(59 130 246);
+    margin-bottom: 2.25rem;
+  }
+
+  .markdown-article p {
+    margin: 0 0 1.35rem;
+    color: rgb(212 212 216);
+  }
+
+  .markdown-article h2 {
+    margin: 3.25rem 0 1.25rem;
+    padding-left: 1rem;
+    border-left: 4px solid rgb(59 130 246);
+    color: rgb(255 255 255);
+    font-size: 1.9rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+
+  .markdown-article h3 {
+    margin: 2.1rem 0 1rem;
+    color: rgb(191 219 254);
+    font-size: 1.35rem;
+    line-height: 1.35;
+    font-weight: 700;
+  }
+
+  .markdown-article h4,
+  .markdown-article h5,
+  .markdown-article h6 {
+    margin: 1.8rem 0 0.8rem;
+    color: rgb(229 231 235);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .markdown-article ul,
+  .markdown-article ol {
+    margin: 0 0 1.6rem 0;
+    padding-left: 1.35rem;
+  }
+
+  .markdown-article li {
+    margin-bottom: 0.65rem;
+    padding-left: 0.2rem;
+    color: rgb(212 212 216);
+  }
+
+  .markdown-article li::marker {
+    color: rgb(96 165 250);
+  }
+
+  .markdown-article strong {
+    color: rgb(255 255 255);
+    font-weight: 700;
+  }
+
+  .markdown-article em {
+    color: rgb(229 231 235);
+  }
+
+  .markdown-article a {
+    color: rgb(96 165 250);
+    text-decoration: underline;
+    text-decoration-color: rgba(96, 165, 250, 0.35);
+    text-underline-offset: 0.22em;
+    transition: color 160ms ease, text-decoration-color 160ms ease;
+  }
+
+  .markdown-article a:hover {
+    color: rgb(191 219 254);
+    text-decoration-color: rgba(191, 219, 254, 0.7);
+  }
+
+  .markdown-article blockquote {
+    margin: 2rem 0;
+    padding: 1rem 1.2rem;
+    border-left: 4px solid rgb(59 130 246);
+    background: rgba(15, 23, 42, 0.55);
+    color: rgb(229 231 235);
+    font-style: italic;
+  }
+
+  .markdown-article hr {
+    margin: 2.5rem 0;
+    border: 0;
+    border-top: 1px solid rgba(82, 82, 91, 0.5);
+  }
+
+  .markdown-article code {
+    font-size: 0.92em;
+    color: rgb(224 231 255);
+    background: rgba(15, 23, 42, 0.75);
+    border: 1px solid rgba(59, 130, 246, 0.18);
+    border-radius: 0.45rem;
+    padding: 0.12rem 0.38rem;
+  }
+
+  .markdown-article pre {
+    margin: 1.8rem 0;
+    padding: 1rem 1.1rem;
+    overflow-x: auto;
+    border-radius: 1rem;
+    border: 1px solid rgba(63, 63, 70, 0.8);
+    background: rgba(10, 10, 10, 0.8);
+  }
+
+  .markdown-article pre code {
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .markdown-article {
+      font-size: 1rem;
+      line-height: 1.8;
+    }
+
+    .markdown-article > p:first-of-type {
+      font-size: 1.08rem;
+      margin-bottom: 1.8rem;
+    }
+
+    .markdown-article h2 {
+      font-size: 1.55rem;
+      margin-top: 2.6rem;
+    }
+
+    .markdown-article h3 {
+      font-size: 1.2rem;
+    }
+  }
+</style>

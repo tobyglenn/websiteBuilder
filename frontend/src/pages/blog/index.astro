@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { BLOG_POSTS } from '../../data/mock.js';
+import { BLOG_POSTS } from '../../lib/blogPosts';
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
@@ -11,7 +11,18 @@ const siteUrl = "https://tobyonfitnesstech.com";
 
 // Read category from URL and set activeCategory
 const urlCategory = Astro.url.searchParams.get('category');
-const activeCategory = urlCategory || 'All';
+const CATEGORY_OPTIONS = [
+  'All',
+  'Speediance',
+  'BJJ',
+  'Wearables',
+  'Training',
+  'Field Reports',
+  'The Long Game',
+];
+const activeCategory = CATEGORY_OPTIONS.includes(String(urlCategory || ''))
+  ? String(urlCategory)
+  : 'All';
 
 // Sort posts by date descending
 const sortedPosts = [...BLOG_POSTS].sort((a, b) =>
@@ -63,15 +74,7 @@ const itemListSchema = {
   }))
 };
 
-const CATEGORIES = [
-  'All',
-  'Speediance',
-  'BJJ',
-  'Wearables',
-  'Training',
-  'Field Reports',
-  'The Long Game',
-];
+const CATEGORIES = CATEGORY_OPTIONS;
 
 const featuredPost = filteredPosts[0];
 const sidebarPosts = filteredPosts.slice(1, 5);
@@ -324,6 +327,14 @@ const description = "Independent analysis of fitness technology. Real data. No a
   </div>
 
   <script>
+    function updateCategoryUrl(category) {
+      const nextCategory = categories.includes(category) ? category : 'All';
+      const url = new URL(window.location.href);
+      url.searchParams.set('category', nextCategory);
+      url.hash = 'category-filters';
+      window.history.replaceState({}, '', url);
+    }
+
     function applyFilter(activeCategory = 'All') {
       const searchTerm = (document.getElementById('blog-search')?.value || '').toLowerCase().trim();
 
@@ -391,12 +402,15 @@ const description = "Independent analysis of fitness technology. Real data. No a
     }
 
     const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
-    let activeCategory = '{activeCategory}';
+    const initialUrl = new URL(window.location.href);
+    const initialCategory = initialUrl.searchParams.get('category');
+    let activeCategory = categories.includes(initialCategory) ? initialCategory : '{activeCategory}';
 
     document.querySelectorAll('[data-cat-btn]').forEach(btn => {
       btn.addEventListener('click', () => {
         const selected = btn.getAttribute('data-cat-btn') || 'All';
         activeCategory = categories.includes(selected) ? selected : 'All';
+        updateCategoryUrl(activeCategory);
         applyFilter(activeCategory);
       });
     });
@@ -430,6 +444,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
       });
     }
 
+    updateCategoryUrl(activeCategory);
     applyFilter(activeCategory);
   </script>
 </Layout>

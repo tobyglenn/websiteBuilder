@@ -1,4 +1,5 @@
 ---
+layout: "../../layouts/MarkdownBlogPostLayout.astro"
 title: "Gym Monster 2 vs Original: Should You Upgrade?"
 date: 2026-03-09
 description: "A comprehensive comparison between the Speediance Gym Monster 2 and the original model. Explore the real hardware differences, software tradeoffs, and whether the upgrade is worth the price."
@@ -34,11 +35,6 @@ Compared with the current Gym Monster 2 spec sheet, the original gives you fewer
 
 Speediance’s own comparison page is more conservative than a lot of reseller summaries or AI-generated comparisons. It says both machines share the same core features, workouts, training modes, movements, and data center, with the Gym Monster 2 adding a set of specific hardware refinements rather than reinventing the whole platform.
 
-### The Display: More Nuanced Than the Marketing Spin
-The display story is not the clean “old small screen vs new giant screen” upgrade path that some summaries make it sound like. Speediance’s current product pages list the Gym Monster 2 with a **21.5-inch 1080p touchscreen**, while the broader Gym Monster lineup has also been sold in both **21.5-inch and 32-inch 1080p** configurations depending on the package.
-
-That means screen size alone is not a reliable reason to upgrade. If you are comparing a smaller original bundle to a larger newer bundle, yes, the display can feel meaningfully different. But it is not accurate to frame the Gym Monster 2 as a universal jump to a 32-inch 4K panel. The more defensible hardware story is improved packaging, revised ergonomics, and better overall polish rather than a blanket display revolution.
-
 ### The Hardware Delta Is Real, But Narrower Than It Looks
 The cleanest official comparison is this:
 
@@ -53,7 +49,7 @@ That is enough to make the Gym Monster 2 the more polished machine. What it does
 
 ## AI and Form Tracking: Promise vs Reality
 
-This is where a lot of Gym Monster 2 discussion gets fuzzy. Speediance absolutely markets AI-driven training features, but the current official product pages do not substantiate the very specific story this draft previously told about a built-in depth-sensing camera, real-time skeletal mapping, and fully realized on-screen form correction.
+This is where a lot of Gym Monster 2 discussion gets fuzzy. Speediance absolutely markets AI-driven training features, but there is no camera on either device and their current plan is to release this the same way Tonal did through using your phone's camera to give vision to the device, which is buggy and takes a considerable amount of setup, as you can see with Tonal and Tempo.
 
 The safer framing is this: the Gym Monster 2 is the newer platform, so it is the better bet if you care about future software updates and premium feature rollouts. That does **not** mean you should buy it assuming you are already getting Tonal-style computer-vision coaching today. If form correction is your primary buying reason, you should evaluate demonstrated behavior on the shipped machine, not the most optimistic interpretation of marketing copy.
 
