@@ -2,6 +2,17 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-09T12:20:00-05:00",
+      "idea": "Add Newsletter Signup component to homepage",
+      "category": "UX Enhancement - Homepage",
+      "files_changed": [
+        "src/components/NewsletterSignup.jsx",
+        "src/pages/index.astro"
+      ],
+      "commit": "a1ad444",
+      "notes": "Created NewsletterSignup React component with email capture form. Shows success message after subscribe, validates email format. Added below Testimonials section on homepage. Dark theme matching site (bg-neutral-900, blue-600 button). Build passes (312 pages)."
+    },
+    {
       "timestamp": "2026-03-09T04:15:00-05:00",
       "idea": "Add Monthly Progress Dashboard page with real Garmin/Speediance/WHOOP data",
       "category": "UX Enhancement - Data Pages",
