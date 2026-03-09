@@ -33,8 +33,8 @@ const SORT_OPTIONS = [
 const DURATION_FILTERS = [
   { id: 'all', name: 'All' },
   { id: 'short', name: 'Short (<5 min)' },
-  { id: 'medium', name: 'Medium (5-15 min)' },
-  { id: 'long', name: 'Long (15+ min)' },
+  { id: 'medium', name: 'Medium (5-20 min)' },
+  { id: 'long', name: 'Long (20+ min)' },
 ];
 
 function parseDuration(value) {
