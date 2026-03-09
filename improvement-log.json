@@ -2,6 +2,18 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-09T03:15:00-05:00",
+      "idea": "Add Exercise Library page with real Speediance data",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/exercises.js",
+        "src/pages/exercises.astro",
+        "src/components/Header.jsx"
+      ],
+      "commit": "f22770e",
+      "notes": "Created new /exercises page with all Speediance exercises. Data module extracts unique exercises from workout history and maps to muscle groups. Page includes hero, filter buttons by muscle group, exercise cards with PR weights, client-side filtering, FAQPage JSON-LD schema. Added Exercises link to navigation. Build passes (324 pages)."
+    },
+    {
       "timestamp": "2026-03-07T23:17:00-05:00",
       "idea": "Add Sleep Stats page with real 8Sleep data",
       "category": "UX Enhancement - Data Pages",
