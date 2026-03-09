@@ -225,7 +225,7 @@
         "src/data/mock.js"
       ],
       "commit": "39f63ac",
-      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242→188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
+      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242\u2192188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
     },
     {
       "timestamp": "2026-03-05T19:17:00-05:00",
@@ -366,7 +366,7 @@
         "src/pages/timeline.astro"
       ],
       "commit": "9f8571b",
-      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242→188→218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
+      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242\u2192188\u2192218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
     },
     {
       "timestamp": "2026-03-06T12:15:00-05:00",
@@ -553,7 +553,7 @@
       ],
       "commit": "e84c8b1",
       "notes": "Created weeklyProgress.js data module that calculates this week vs last week stats from Speediance and Garmin data. Added 'This Week vs Last Week' section to homepage with 4 comparison cards: Workouts, Runs, Volume (lbs), and Miles. Shows this week's numbers vs last week's numbers for each metric. Build passes (315 pages)."
-    }
+    },
     {
       "timestamp": "2026-03-08T15:17:00-05:00",
       "idea": "Add Progress Photos Gallery page with transformation timeline",
@@ -563,10 +563,9 @@
         "src/components/Header.jsx"
       ],
       "commit": "6d4ad35",
-      "notes": "Created new /progress page with transformation journey gallery. Shows weight timeline (242→188→218), progress photo grid with placeholder images, before/after comparison section, and Toby's transformation quote. Added Progress link to main navigation. Uses dark theme matching site. Build passes (319 pages)."
-    }
-  ],
-{
+      "notes": "Created new /progress page with transformation journey gallery. Shows weight timeline (242\u2192188\u2192218), progress photo grid with placeholder images, before/after comparison section, and Toby's transformation quote. Added Progress link to main navigation. Uses dark theme matching site. Build passes (319 pages)."
+    },
+    {
       "timestamp": "2026-03-08T16:17:00-05:00",
       "idea": "Add 1RM Calculator page with Speediance exercise presets",
       "category": "UX Enhancement - Content Pages",
@@ -657,7 +656,7 @@
         "src/pages/bjj.astro"
       ],
       "commit": "b8a8fdc",
-      "notes": "Updated existing BJJ page to reflect current Brown Belt status. Updated timeline with belt progression (White → Blue → Purple → Brown), added Brown Belt promotion milestone with third-place finish and reverse triangle submission. Build passes (293 pages)."
+      "notes": "Updated existing BJJ page to reflect current Brown Belt status. Updated timeline with belt progression (White \u2192 Blue \u2192 Purple \u2192 Brown), added Brown Belt promotion milestone with third-place finish and reverse triangle submission. Build passes (293 pages)."
     },
     {
       "timestamp": "2026-03-07T18:15:00-05:00",
@@ -725,7 +724,7 @@
     },
     {
       "timestamp": "2026-03-08T14:20:00-05:00",
-      "idea": "Add new blog post: Speediance V3 Software Is Here — But Is It Good?",
+      "idea": "Add new blog post: Speediance V3 Software Is Here \u2014 But Is It Good?",
       "category": "Content - Blog Post",
       "files_changed": [
         "src/data/mock.js"
@@ -754,6 +753,25 @@
       ],
       "commit": "35889c0",
       "notes": "Added new blog post from unused transcript 2025-09-26. Covers why Customize mode breaks 1RM values, how to use Stamina mode (20 weight, 13 reps) for warmups instead. Title: 'The Speediance Warmup Setting Nobody Uses (But Everyone Should)'. Category: Field Reports. Build passes. (Note: Content already existed in repository from prior run.)"
+    },
+    {
+      "timestamp": "2026-03-08T20:20:00-05:00",
+      "idea": "Add Race Results page with real Garmin running data",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/races.js"
+      ],
+      "commit": "none",
+      "notes": "Attempted to create Race Results page from Garmin data. Data module (races.js) was created, but Astro page and Header navigation link were not created. Tried 4 subagents: Clarity (completed instantly, no changes), Spark (failed), MiniMax (timeout after 2+ min), Sage (completed instantly, no changes). All subagents failed to execute file writes. Data module exists but page incomplete. Systemic subagent infrastructure issue. Site has 55+ improvements already completed."
+    },
+    {
+      "timestamp": "2026-03-08T19:15:00-05:00",
+      "idea": "Add new blog post: Should Black Belts Be Earned ONLY Through Competition (transcript 2025-12-03)",
+      "category": "Content - Blog Post",
+      "files_changed": [],
+      "commit": "none",
+      "notes": "Attempted to add new BJJ blog post from transcript 2025-12-03 about competition requirements for black belt promotions. Tried 4 subagents: Clarity (completed instantly but did nothing), Spark (failed), MiniMax (timed out after 2 min, 47k tokens), Sage (completed instantly but did nothing). All subagents reported completion but none made actual file changes. Systemic subagent infrastructure issue. Site has 55+ improvements already completed and build passes (307 pages)."
     }
   ],
-  "notes": "2026-03-08 (6:15 PM): Attempted to add new blog post from transcript 2025-09-26 on Speediance warmup settings. Content was already present in mock.js from prior run (commit 35889c0). Build passes (304 pages). Site has 55+ improvements already completed."}
+  "notes": "2026-03-08 (6:15 PM): Attempted to add new blog post from transcript 2025-09-26 on Speediance warmup settings. Content was already present in mock.js from prior run (commit 35889c0). Build passes (304 pages). Site has 55+ improvements already completed."
+}

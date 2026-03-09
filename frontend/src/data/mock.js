@@ -1790,5 +1790,29 @@ You're not just buying hardware. You're buying into the company behind it. And t
 <p>She's 100% right. The mode is fun to play in. It's cool to show off. But as an actual training tool, in V2, it's not usable. The best case scenario is that Speediance takes their time, does it right, and brings it back in V3 with actual user separation — not just a cosmetic version that checks the "partner mode is back" box.</p>
 
 <p>Until then, we've got this V2 machine downstairs and a record of what it was supposed to be. Lily's 312 lbs of volume may not be in anyone's official training log, but she definitely won the rep count. I'm not disputing it.</p>`
+  },
+  {
+    id: "should-black-belts-require-competition",
+    slug: "should-black-belts-require-competition",
+    title: "Should Black Belts Be Earned ONLY Through Competition? My Unfiltered Take",
+    excerpt: "Toby weighs in on whether competition should be mandatory for black belt promotions in BJJ, defending Mike Israetel's belt while calling out critics who've never rolled.",
+    content: `<p>I might stand a chance of lasting a lot longer against someone who's a lot smaller, who is going to have a harder time taking me down. But even like the Tacket brothers, right? I mean, they're going to be able to launch me to the floor pretty quickly and I'm not going to be able to defend myself against them very long, most likely if they're in competition mode.</p>
+
+<p>So, I just wanted to give you guys that realization that I don't think the criticism of Mike Israetel on his black belt is fair. And I feel personally that Ariel Helwani and Greg Doucette really need to do some jiu-jitsu before they do that level of criticism.</p>
+
+<p>Although the criticism of the promotion timeline in general is more accurate — the only other person that we know of that did that in three years is BJ Penn, and he's a prodigy. He's a world champion, right?</p>
+
+<p>And I do think if you're going to get a black belt that quickly, or a black belt in general, you should have to compete. Like I said, if I had lost every match in that competition, there's no way I could ever be handed a black belt and accept it until I go and rectify that. And even now, I would like to have a better showing at a competition.</p>
+
+<p>For sure that wasn't my best — I just felt that I could have done a lot more had I had a full training camp going into it.</p>`,
+    category: "BJJ",
+    tags: ["BJJ", "jiu-jitsu", "black belt", "competition", "promotions"],
+    date: "2025-12-03",
+    author: "Toby Peters",
+    readTime: 2,
+    featured: false,
+    videoId: "CvOTYwkVHAc",
+    youtubeUrl: "https://www.youtube.com/watch?v=CvOTYwkVHAc",
+    thumbnail: "https://i.ytimg.com/vi/CvOTYwkVHAc/hqdefault.jpg"
   }
 ];
