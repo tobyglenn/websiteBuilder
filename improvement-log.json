@@ -661,6 +661,16 @@
       "files_changed": [],
       "commit": "none",
       "notes": "Attempted to add view count display to video cards but found it's already implemented in VideoGrid.jsx (formatViews function with Eye icon, line 445). View counts display correctly on video cards throughout the site. Build passes (312 pages). Site is comprehensive with 55+ improvements already completed."
+    },
+    {
+      "timestamp": "2026-03-09T13:15:00-05:00",
+      "idea": "Add video duration filter to Videos page (short/medium/long)",
+      "category": "UX Enhancement - Videos",
+      "files_changed": [
+        "src/components/VideoGrid.jsx"
+      ],
+      "commit": "c44df4b",
+      "notes": "Updated duration filter labels to match filter logic: Short (<5 min), Medium (5-20 min), Long (20+ min). Filter logic already existed in component. Videos can now be filtered by duration category. Works with existing search and sort. Build passes (312 pages)."
     }
   ],
   "in_progress": null,

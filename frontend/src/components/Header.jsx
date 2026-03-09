@@ -49,6 +49,7 @@ export default function Header() {
     { name: '1RM', href: '/1rm-calculator' },
     { name: 'Exercises', href: '/exercises' },
     { name: 'Progress', href: '/progress' },
+    { name: 'HR Zones', href: '/hr-zones' },
     { name: 'Nutrition', href: '/nutrition' },
     { name: 'Monthly', href: '/monthly' },
     { name: 'About', href: '/about' },
@@ -193,6 +194,7 @@ export default function Header() {
                 { name: 'Calculator', href: '/calculator' },
                 { name: 'Calculators', href: '/calculators' },
                 { name: '1RM', href: '/1rm-calculator' },
+                { name: 'HR Zones', href: '/hr-zones' },
                 { name: 'About', href: '/about' },
                 { name: 'FAQ', href: '/faq' },
               ].map((link) => (

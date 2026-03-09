@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { hrZones } from '../data/hrZones.js';
+
+const zones = [
+  { name: 'Zone 1 - Recovery', color: '#60a5fa', key: 'z1', desc: '50-60% Max HR - Very light effort, recovery' },
+  { name: 'Zone 2 - Aerobic', color: '#3b82f6', key: 'z2', desc: '60-70% Max HR - Light effort, fat burning, base building' },
+  { name: 'Zone 3 - Tempo', color: '#2563eb', key: 'z3', desc: '70-80% Max HR - Moderate effort, aerobic endurance' },
+  { name: 'Zone 4 - Threshold', color: '#1d4ed8', key: 'z4', desc: '80-90% Max HR - Hard effort, lactate threshold' },
+  { name: 'Zone 5 - Maximum', color: '#1e40af', key: 'z5', desc: '90-100% Max HR - Maximum effort, sprinting' },
+];
+---
+
+<Layout title="Heart Rate Zone Analysis | TobyOnFitnessTech">
+  <section class="bg-neutral-950 text-white py-16 px-4 text-center">
+    <h1 class="text-4xl md:text-5xl font-bold">Heart Rate Zone Analysis</h1>
+    <p class="mt-4 text-lg text-blue-400 max-w-2xl mx-auto">Track your running intensity distribution from {hrZones.totalRuns} Garmin activities</p>
+  </section>
+
+  <!-- Summary Stats -->
+  <section class="max-w-6xl mx-auto py-8 px-4">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-neutral-900 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-blue-500">{hrZones.totalRuns}</div>
+        <div class="text-gray-400 text-sm mt-1">Total Runs</div>
+      </div>
+      <div class="bg-neutral-900 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-blue-500">{hrZones.avgHR}</div>
+        <div class="text-gray-400 text-sm mt-1">Avg HR (bpm)</div>
+      </div>
+      <div class="bg-neutral-900 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-blue-500">{hrZones.totalHours}</div>
+        <div class="text-gray-400 text-sm mt-1">Hours in Zones</div>
+      </div>
+      <div class="bg-neutral-900 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-blue-500">{hrZones.avgDistance.toFixed(1)}</div>
+        <div class="text-gray-400 text-sm mt-1">Avg Distance (km)</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Zone Distribution -->
+  <section class="max-w-4xl mx-auto py-8 px-4">
+    <h2 class="text-2xl font-bold mb-6 text-white">Zone Distribution</h2>
+    <div class="space-y-4">
+      {zones.map((zone, i) => {
+        const pct = hrZones.zonePercentages[zone.key];
+        const mins = hrZones.totalTimeInMinutes[zone.key];
+        return (
+          <div class="bg-neutral-900 rounded-lg p-4">
+            <div class="flex justify-between items-center mb-2">
+              <div>
+                <span class="font-semibold text-white">{zone.name}</span>
+                <p class="text-gray-500 text-xs">{zone.desc}</p>
+              </div>
+              <div class="text-right">
+                <span class="text-xl font-bold" style={`color: ${zone.color}`}>{pct}%</span>
+                <p class="text-gray-500 text-xs">{mins} min</p>
+              </div>
+            </div>
+            <div class="h-3 bg-neutral-800 rounded-full overflow-hidden">
+              <div class="h-full rounded-full transition-all" style={`width: ${pct}%; background-color: ${zone.color}`}></div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </section>
+
+  <!-- Recent Runs -->
+  <section class="max-w-6xl mx-auto py-8 px-4">
+    <h2 class="text-2xl font-bold mb-6 text-white">Recent Runs</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full divide-y divide-neutral-800 text-sm">
+        <thead class="bg-neutral-900">
+          <tr>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Date</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Distance</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Avg HR</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Z1</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Z2</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Z3</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Z4</th>
+            <th class="px-4 py-3 text-left text-gray-400 font-medium">Z5</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-neutral-800">
+          {hrZones.recentRuns.map((run) => (
+            <tr class="hover:bg-neutral-900">
+              <td class="px-4 py-3 text-white">{run.date?.slice(0, 10)}</td>
+              <td class="px-4 py-3 text-white">{run.distance?.toFixed(1)} km</td>
+              <td class="px-4 py-3 text-white">{run.avgHR} bpm</td>
+              <td class="px-4 py-3 text-blue-400">{run.z1}m</td>
+              <td class="px-4 py-3 text-blue-400">{run.z2}m</td>
+              <td class="px-4 py-3 text-blue-400">{run.z3}m</td>
+              <td class="px-4 py-3 text-blue-400">{run.z4}m</td>
+              <td class="px-4 py-3 text-blue-400">{run.z5}m</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <script type="application/ld+json">
+    {JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question","name":"What are heart rate zones?","acceptedAnswer":{"@type": "Answer","text":"Heart rate zones are ranges that indicate training intensity, from recovery (Zone 1) to maximum effort (Zone 5)."}},
+        {"@type": "Question","name":"How is this data calculated?","acceptedAnswer":{"@type": "Answer","text":"Data is aggregated from Garmin activities, summing seconds spent in each HR zone and computing percentages."}},
+        {"@type": "Question","name":"What do the zones mean?","acceptedAnswer":{"@type": "Answer","text":"Zone 1 is recovery (50-60% max HR), Zone 2 is aerobic (60-70%), Zone 3 is tempo (70-80%), Zone 4 is threshold (80-90%), Zone 5 is maximum (90-100%)."}}
+      ]
+    })}
+  </script>
+</Layout>
