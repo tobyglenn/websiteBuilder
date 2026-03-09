@@ -2,6 +2,16 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-09T17:15:00-05:00",
+      "idea": "Add debounced search to blog index page",
+      "category": "UX Enhancement - Blog",
+      "files_changed": [
+        "src/pages/blog/index.astro"
+      ],
+      "commit": "cd27dce",
+      "notes": "Added 300ms debounce to existing blog search functionality. Search was already implemented (input field + filtering by title/excerpt/category), but debounce improves performance. Minor style tweak (bg-neutral-800, placeholder-gray-400). Build passes (315 pages)."
+    },
+    {
       "timestamp": "2026-03-09T16:22:00-05:00",
       "idea": "Add Training Consistency Analysis page with streaks, weekly charts, day-of-week distribution",
       "category": "UX Enhancement - Data Pages",

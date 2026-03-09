@@ -1,7 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { weightData, getStats } from '../data/weight.js';
 
 const siteUrl = "https://tobyonfitnesstech.com";
+
+// Weight chart
+const weightStats = getStats();
+const chartWidth = 600;
+const chartHeight = 260;
+const wPadding = 44;
+const weights = weightData.map(d => d.weight);
+const minW = Math.min(...weights) - 10;
+const maxW = Math.max(...weights) + 10;
+const wRange = maxW - minW;
+const wPoints = weightData.map((d, i) => {
+  const x = wPadding + (i / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+  const y = chartHeight - wPadding - ((d.weight - minW) / wRange) * (chartHeight - 2 * wPadding);
+  return `${x},${y}`;
+}).join(' ');
 
 // ProfilePage JSON-LD — about page structured data for E-E-A-T signals
 const profilePageSchema = {
@@ -215,6 +231,78 @@ const profilePageSchema = {
                 Calculate Your Fitness Age
               </a>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Weight Journey Chart */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold text-white mb-8 text-center">Weight Journey</h2>
+
+          {/* Stat cards */}
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Starting</p>
+              <p class="text-3xl font-bold text-white">{weightStats.start} lbs</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Lowest</p>
+              <p class="text-3xl font-bold text-green-400">{weightStats.lowest} lbs</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Current</p>
+              <p class="text-3xl font-bold text-blue-400">{weightStats.current} lbs</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Change</p>
+              <p class={`text-3xl font-bold ${weightStats.totalChange < 0 ? 'text-green-400' : 'text-purple-400'}`}>
+                {weightStats.totalChange > 0 ? '+' : ''}{weightStats.totalChange} lbs
+              </p>
+            </div>
+          </div>
+
+          {/* SVG chart */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-white mb-4">Weight Over Time</h3>
+            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="wGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3b82f6" />
+                  <stop offset="100%" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+              {[0, 0.25, 0.5, 0.75, 1].map((ratio) => {
+                const y = wPadding + ratio * (chartHeight - 2 * wPadding);
+                const w = Math.round(maxW - ratio * wRange);
+                return (
+                  <g>
+                    <line x1={wPadding} y1={y} x2={chartWidth - wPadding} y2={y} stroke="#262626" stroke-width="1" stroke-dasharray="4" />
+                    <text x={wPadding - 6} y={y + 4} text-anchor="end" fill="#525252" font-size="11">{w}</text>
+                  </g>
+                );
+              })}
+              {weightData.filter((_, i) => i % 2 === 0).map((d, i) => {
+                const x = wPadding + ((i * 2) / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+                const label = new Date(d.date).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                return <text x={x} y={chartHeight - 8} text-anchor="middle" fill="#525252" font-size="10">{label}</text>;
+              })}
+              <polyline points={wPoints} fill="none" stroke="url(#wGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              {weightData.map((d, i) => {
+                const x = wPadding + (i / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+                const y = chartHeight - wPadding - ((d.weight - minW) / wRange) * (chartHeight - 2 * wPadding);
+                return <circle cx={x} cy={y} r="5" fill="#3b82f6" stroke="#171717" stroke-width="2" />;
+              })}
+            </svg>
+          </div>
+
+          {/* Narrative */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 mt-6 space-y-4 text-neutral-300 leading-relaxed">
+            <p><strong class="text-white">242 → 188:</strong> From January 2023 to March 2024, I dropped 54 lbs using pharmaceutical support (GLP-1, TRT, Anavar), aggressive calorie restriction, and high-volume training. The focus: get lean, build the habit, prove to myself I could do it.</p>
+            <p><strong class="text-white">188 → 218:</strong> After hitting 188 lbs, I pivoted to building. Ate more, prioritized protein and progressive overload on the Speediance, and added BJJ. The scale went up 30 lbs — and I'm stronger, more conditioned, and more capable than ever.</p>
+            <p><strong class="text-white">The lesson:</strong> The scale is a tool, not a judge. Each phase had purpose. The transformation isn't over — it's just entered a new chapter.</p>
           </div>
         </div>
       </div>

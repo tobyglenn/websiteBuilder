@@ -59,9 +59,12 @@ const rawData = [
   { date: '2026-03-01', calories: 519.00, protein: 75.90, carbs: 17.20, fat: 17.50, water: 356.47 },
 ];
 
+// Days with < 500 calories are considered "not tracked" (partial logging)
+const UNTRACKED_THRESHOLD = 500;
+
 // Calculate aggregate statistics
 function calculateStats() {
-  const validData = rawData.filter(d => d.calories > 0);
+  const validData = rawData.filter(d => d.calories >= UNTRACKED_THRESHOLD);
   
   if (validData.length === 0) {
     return {
@@ -102,7 +105,7 @@ function calculateMonthlyTrends() {
   const monthlyData = {};
   
   rawData.forEach(d => {
-    if (d.calories > 0) {
+    if (d.calories >= UNTRACKED_THRESHOLD) {
       const month = d.date.substring(0, 7); // YYYY-MM
       if (!monthlyData[month]) {
         monthlyData[month] = { calories: 0, protein: 0, carbs: 0, fat: 0, count: 0 };
@@ -127,12 +130,12 @@ function calculateMonthlyTrends() {
     .sort((a, b) => a.month.localeCompare(b.month));
 }
 
-// Get recent records (last 10)
+// Get recent records (last 10), including untracked days marked accordingly
 function getRecentRecords(limit = 10) {
   return [...rawData]
-    .filter(d => d.calories > 0)
     .sort((a, b) => b.date.localeCompare(a.date))
-    .slice(0, limit);
+    .slice(0, limit)
+    .map(d => ({ ...d, tracked: d.calories >= UNTRACKED_THRESHOLD }));
 }
 
 // Export stats

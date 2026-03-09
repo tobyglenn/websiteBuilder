@@ -220,13 +220,19 @@ const jsonLd = {
                 {RECENT_RECORDS.map((r, i) => (
                   <tr class={i % 2 === 0 ? 'bg-neutral-900' : 'bg-neutral-800/40'}>
                     <td class="px-4 py-2.5 text-neutral-300">{r.date}</td>
-                    <td class="px-4 py-2.5 text-right text-blue-400 font-medium">{Math.round(r.calories).toLocaleString()}</td>
-                    <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.protein)}g</td>
-                    <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.carbs)}g</td>
-                    <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.fat)}g</td>
-                    <td class="px-4 py-2.5 text-right text-neutral-500">
-                      {r.water > 0 ? `${(r.water / 1000).toFixed(2)}L` : '—'}
-                    </td>
+                    {r.tracked ? (
+                      <>
+                        <td class="px-4 py-2.5 text-right text-blue-400 font-medium">{Math.round(r.calories).toLocaleString()}</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.protein)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.carbs)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.fat)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-500">
+                          {r.water > 0 ? `${(r.water / 1000).toFixed(2)}L` : '—'}
+                        </td>
+                      </>
+                    ) : (
+                      <td colspan="5" class="px-4 py-2.5 text-center text-neutral-600 italic text-xs">Not tracked</td>
+                    )}
                   </tr>
                 ))}
               </tbody>

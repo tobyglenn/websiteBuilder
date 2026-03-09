@@ -10,6 +10,7 @@ export default function Header() {
   const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
   const [isPodcastDropdownOpen, setIsPodcastDropdownOpen] = useState(false);
   const [isDesktopBlogOpen, setIsDesktopBlogOpen] = useState(false);
+  const blogDropdownRef = React.useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,6 +22,16 @@ export default function Header() {
 
   useEffect(() => {
     setPathname(window.location.pathname);
+  }, []);
+
+  useEffect(() => {
+    const close = (e) => {
+      if (blogDropdownRef.current && !blogDropdownRef.current.contains(e.target)) {
+        setIsDesktopBlogOpen(false);
+      }
+    };
+    document.addEventListener('click', close);
+    return () => document.removeEventListener('click', close);
   }, []);
 
   // Detect locale from current path
@@ -37,23 +48,14 @@ export default function Header() {
   // Only show language switcher on pages that have translations
   const isPodcastPage = /\/podcasts\/(openclaw|episode-\d+)/.test(pathname);
 
-  // New 6-item nav structure
+  // Nav structure
   const navLinks = [
     { name: 'Home', href: '/' },
     { name: 'Videos', href: '/videos' },
-    { name: 'Consistency', href: '/consistency' },
     { name: 'Blog & Articles', href: '/blog', hasDropdown: true },
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
-    { name: 'Calculator', href: '/calculator' },
     { name: 'Calculators', href: '/calculators' },
-    { name: '1RM', href: '/1rm-calculator' },
-    { name: 'Exercises', href: '/exercises' },
-    { name: 'Progress', href: '/progress' },
-    { name: 'Weight', href: '/weight' },
-    { name: 'HR Zones', href: '/hr-zones' },
-    { name: 'Nutrition', href: '/nutrition' },
-    { name: 'Monthly', href: '/monthly' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
   ];
@@ -62,6 +64,9 @@ export default function Header() {
   const subNavItems = [
     { name: 'Start Here', href: '/start-here', icon: '🚀' },
     { name: 'All Articles', href: '/blog', icon: '📰' },
+    { name: 'Nutrition', href: '/nutrition', icon: '🥗' },
+    { name: 'Consistency', href: '/blog/consistency', icon: '📅' },
+    { name: 'Exercises', href: '/blog/exercises', icon: '💪' },
     { name: 'Transformation', href: '/transformation', icon: '🏆' },
     { name: 'PR Board', href: '/prs', icon: '🥇' },
     { name: 'Running', href: '/running', icon: '⏱' },
@@ -101,11 +106,12 @@ export default function Header() {
                   <div
                     key={link.name}
                     className="relative"
+                    ref={blogDropdownRef}
                     onMouseEnter={() => setIsDesktopBlogOpen(true)}
                     onMouseLeave={() => setIsDesktopBlogOpen(false)}
                   >
-                    <a
-                      href={link.href}
+                    <button
+                      onClick={() => setIsDesktopBlogOpen(o => !o)}
                       className={`text-sm font-medium transition-colors flex items-center gap-1 ${
                         pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/')
                           ? 'text-white border-b border-blue-500 pb-0.5'
@@ -117,7 +123,7 @@ export default function Header() {
                         size={14}
                         className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`}
                       />
-                    </a>
+                    </button>
                     {isDesktopBlogOpen && (
                       <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 z-[200] pt-2">
                         <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
@@ -193,11 +199,8 @@ export default function Header() {
               {[
                 { name: 'Home', href: '/' },
                 { name: 'Videos', href: '/videos' },
-                { name: 'Calculator', href: '/calculator' },
                 { name: 'Calculators', href: '/calculators' },
-                { name: '1RM', href: '/1rm-calculator' },
                 { name: 'HR Zones', href: '/hr-zones' },
-                { name: 'Weight', href: '/weight' },
                 { name: 'About', href: '/about' },
                 { name: 'FAQ', href: '/faq' },
               ].map((link) => (

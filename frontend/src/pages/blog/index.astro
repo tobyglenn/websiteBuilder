@@ -159,6 +159,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
           data-category={featuredPost.category}
           data-post-card
           data-title={featuredPost.title.toLowerCase()}
+          data-excerpt={featuredPost.excerpt?.toLowerCase() || ''}
         >
           <a href={`/blog/${featuredPost.slug}`} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
             <div class="absolute inset-0 z-0 bg-neutral-800" />
@@ -219,6 +220,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
                 data-category={post.category}
                 data-post-card
                 data-title={post.title.toLowerCase()}
+                data-excerpt={post.excerpt?.toLowerCase() || ''}
               >
                 <a href={`/blog/${post.slug}`} class="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden relative bg-neutral-800">
                   {post.image && (
@@ -273,6 +275,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
               data-category={post.category}
               data-post-card
               data-title={post.title.toLowerCase()}
+              data-excerpt={post.excerpt?.toLowerCase() || ''}
             >
               <a href={`/blog/${post.slug}`} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
                 <div class="absolute inset-0 z-0 bg-neutral-800" />
@@ -326,21 +329,35 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
       const leadSection = document.getElementById('lead-section');
       const allGridSection = document.getElementById('all-grid-section');
+      const noResultsMsg = document.getElementById('no-results-message');
 
       if (activeCategory === 'All' && !searchTerm) {
         if (leadSection) leadSection.style.display = '';
         if (allGridSection) allGridSection.style.display = '';
+        if (noResultsMsg) noResultsMsg.style.display = 'none';
         document.querySelectorAll('[data-post-card]').forEach(c => c.style.display = '');
       } else {
         if (leadSection) leadSection.style.display = 'none';
         if (allGridSection) allGridSection.style.display = '';
 
+        let visibleCount = 0;
         document.querySelectorAll('[data-post-card]').forEach(card => {
           const categoryMatch = activeCategory === 'All' || card.getAttribute('data-category') === activeCategory;
           const title = card.getAttribute('data-title') || '';
-          const searchMatch = !searchTerm || title.includes(searchTerm);
-          card.style.display = (categoryMatch && searchMatch) ? '' : 'none';
+          const excerpt = card.getAttribute('data-excerpt') || '';
+          const searchMatch = !searchTerm || title.includes(searchTerm) || excerpt.includes(searchTerm);
+          
+          if (categoryMatch && searchMatch) {
+            card.style.display = '';
+            visibleCount++;
+          } else {
+            card.style.display = 'none';
+          }
         });
+
+        if (noResultsMsg) {
+          noResultsMsg.style.display = visibleCount === 0 ? '' : 'none';
+        }
       }
 
       document.querySelectorAll('[data-cat-btn]').forEach(btn => {
@@ -353,6 +370,24 @@ const description = "Independent analysis of fitness technology. Real data. No a
           btn.classList.add('bg-neutral-800', 'text-neutral-400', 'hover:bg-neutral-700', 'hover:text-white', 'border', 'border-neutral-700');
         }
       });
+    }
+
+    // Add no-results message element
+    const noResultsHtml = `
+      <div id="no-results-message" class="hidden text-center py-16">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-neutral-800 mb-4">
+          <svg class="w-8 h-8 text-neutral-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-bold text-white mb-2">No results found</h3>
+        <p class="text-neutral-400">Try adjusting your search or category filter</p>
+      </div>
+    `;
+
+    const gridSection = document.getElementById('all-grid-section');
+    if (gridSection) {
+      gridSection.insertAdjacentHTML('afterend', noResultsHtml);
     }
 
     const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
