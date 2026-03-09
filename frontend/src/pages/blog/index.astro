@@ -113,7 +113,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
             type="text"
             id="blog-search"
             placeholder="Search posts..."
-            class="w-full bg-neutral-900 border border-neutral-700 text-white placeholder-neutral-500 px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+            class="w-full bg-neutral-800 border border-neutral-700 text-white placeholder-gray-400 px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
           <button
             id="clear-search"
@@ -370,11 +370,18 @@ const description = "Independent analysis of fitness technology. Real data. No a
     const clearBtn = document.getElementById('clear-search');
 
     if (searchInput) {
-      searchInput.addEventListener('input', () => {
+      let debounceTimer;
+    const debounce = (func, delay) => {
+      return (...args) => {
+        clearTimeout(debounceTimer);
+        debounceTimer = setTimeout(() => func.apply(this, args), delay);
+      };
+    };
+    searchInput.addEventListener('input', debounce(() => {
         const hasValue = searchInput.value.length > 0;
         if (clearBtn) clearBtn.classList.toggle('hidden', !hasValue);
         applyFilter(activeCategory);
-      });
+      }, 300));
     }
 
     if (clearBtn) {
