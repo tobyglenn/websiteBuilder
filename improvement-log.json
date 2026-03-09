@@ -620,7 +620,17 @@
         "src/components/Header.jsx"
       ],
       "commit": "f60c888",
-      "notes": "Completed the Nutrition Stats page that was started in a prior run. Created /nutrition page using existing data module. Shows avg calories, protein, carbs, fat, water, 53 days tracked, and monthly trend charts. Added FAQPage JSON-LD schema for SEO. Added Nutrition link to navigation. Build passes (312 pages)."
+      "notes": "Completed the Nutrition Stats page that was started in a prior run. Created /nutrition page with existing data module. Shows avg calories, protein, carbs, fat, water, 53 days tracked, and monthly trend charts. Added FAQPage JSON-LD schema for SEO. Added Nutrition link to navigation. Build passes (312 pages)."
+    },
+    {
+      "timestamp": "2026-03-09T07:15:00-05:00",
+      "idea": "Add new BJJ blog post: Black Belt on the Line - Did This Submission Save His Rank?",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "cc2cc79",
+      "notes": "Added new blog post from transcript 2025-11-29. Covers Toby's competition return after having his second child, losing to a blue belt in overtime, then hitting a reverse triangle for third place. Discusses what competition means for black belt promotions and why the belt doesn't tell the whole story. Category: BJJ. Build passes (313 pages)."
     }
   ],
   "in_progress": null,

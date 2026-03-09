@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TDEECalculator from '../components/TDEECalculator.jsx';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is TDEE?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TDEE (Total Daily Energy Expenditure) is the total number of calories you burn in a day. It includes your BMR (Basal Metabolic Rate) plus all activity calories."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is BMR calculated?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This calculator uses the Mifflin-St Jeor equation, widely considered the most accurate formula for estimating BMR. It takes into account your gender, weight, height, and age."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the macro ratios used?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For fat loss/maintenance: 35% protein, 30% carbs, 35% fat. For bulking: 30% protein, 40% carbs, 30% fat. These ratios can be adjusted based on your specific goals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How accurate is this calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Mifflin-St Jeor equation is approximately 90% accurate for most people. However, individual metabolism varies. Start with these numbers and adjust based on actual weight changes over 2-3 weeks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I eat back exercise calories?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The activity multipliers already include exercise. If you do significant additional exercise, consider a slightly higher activity level or add 100-200 calories as needed."
+      }
+    }
+  ]
+};
+---
+
+<Layout 
+  title="TDEE & Macro Calculator | Toby on Fitness Tech"
+  description="Calculate your total daily energy expenditure and macronutrient needs. Perfect for fat loss, muscle gain, or maintenance."
+  jsonLd={faqSchema}
+>
+  <div class="min-h-screen bg-neutral-950 text-white py-12 px-4">
+    <div class="max-w-2xl mx-auto">
+      <h1 class="text-3xl md:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent">
+        TDEE & Macro Calculator
+      </h1>
+      <p class="text-neutral-400 text-center mb-8">
+        Calculate your daily calorie needs and macronutrient breakdown
+      </p>
+
+      <TDEECalculator client:load />
+
+      <div class="mt-8 text-center">
+        <a href="/1rm-calculator" class="text-blue-400 hover:text-blue-300 text-sm underline underline-offset-4">
+          Calculate Your 1RM →
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
