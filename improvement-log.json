@@ -575,6 +575,17 @@
       ],
       "commit": "fbf62e0",
       "notes": "Created new /1rm-calculator page with Epley and Brzycki 1RM formulas. Exercise dropdown populated from Speediance PR data. Shows percentage breakdown table (100%-70%). Added FAQPage JSON-LD schema for SEO. Added 1RM link to navigation. Build passes (303 pages)."
+    },
+    {
+      "timestamp": "2026-03-08T21:20:00-05:00",
+      "idea": "Complete Race Results page with Garmin data - PRs by distance, race history table",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/races.js",
+        "src/pages/races.astro"
+      ],
+      "commit": "66602cb",
+      "notes": "Completed the Race Results page that was attempted but incomplete. Created races.astro page using existing races.js data module. Shows: hero section, stats summary (total races by distance), PRs by distance category (5K, 10K, Half Marathon, Marathon) with fastest pace, race history table with date/name/distance/time/pace/HR/type. Includes FAQPage JSON-LD schema. Navigation already had Races link. Build passes (323 pages)."
     }
   ],
   "in_progress": null,
