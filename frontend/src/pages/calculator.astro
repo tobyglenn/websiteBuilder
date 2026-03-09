@@ -1,42 +1,18 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const faqSchema = {
+const howToSchema = {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What is the Mifflin-St Jeor equation?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "The Mifflin-St Jeor equation is considered the most accurate formula for estimating basal metabolic rate (BMR). It takes into account weight, height, age, and gender to calculate how many calories your body burns at rest."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What is TDEE?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "TDEE (Total Daily Energy Expenditure) is the total number of calories you burn in a day. It's calculated by multiplying your BMR by your activity level multiplier."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How do I choose between Cut, Maintain, or Bulk?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Choose 'Cut' to lose fat (20% calorie deficit), 'Maintain' to stay the same weight, or 'Bulk' to build muscle (10% calorie surplus). Your goal depends on your current body composition and fitness objectives."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "How much protein do I need?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For muscle building and fat loss, aim for 0.8-1g of protein per pound of body weight (1.6-2.2g per kg). This calculator uses higher protein for cutting phases to preserve muscle mass."
-      }
-    }
+  "@type": "HowTo",
+  "name": "How to Calculate Your Daily Calories and Macros",
+  "step": [
+    {"@type": "HowToStep", "name": "Select gender", "text": "Choose male or female - this affects the BMR calculation"},
+    {"@type": "HowToStep", "name": "Enter age", "text": "Input your age in years"},
+    {"@type": "HowToStep", "name": "Enter height", "text": "Input your height in centimeters"},
+    {"@type": "HowToStep", "name": "Enter weight", "text": "Input your weight in pounds"},
+    {"@type": "HowToStep", "name": "Select activity level", "text": "Choose your activity level from sedentary to extra active"},
+    {"@type": "HowToStep", "name": "Choose goal", "text": "Select Cut (lose fat), Maintain, or Bulk (build muscle)"},
+    {"@type": "HowToStep", "name": "Calculate", "text": "Click the button to see your daily calorie target and macro breakdown"}
   ]
 };
 ---
@@ -44,7 +20,7 @@ const faqSchema = {
 <Layout 
   title="Calorie & Macro Calculator | Toby on Fitness Tech"
   description="Calculate your daily calorie needs and macronutrient breakdown using the Mifflin-St Jeor equation. Perfect for cutting, maintaining, or bulking."
-  jsonLd={faqSchema}
+  jsonLd={howToSchema}
 >
   <div class="min-h-screen bg-neutral-950 text-white py-12 px-4">
     <div class="max-w-2xl mx-auto">

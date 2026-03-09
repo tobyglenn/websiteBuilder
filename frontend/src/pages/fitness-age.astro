@@ -48,8 +48,8 @@ const jsonLd = {
   title="Fitness Age Calculator | TobyOnFitnessTech"
   description="See Toby's calculated fitness age using real WHOOP recovery and Garmin running data, including HRV, resting heart rate, consistency, and cardio score."
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Fitness Age', url: '/fitness-age' }]}
+  jsonLd={jsonLd}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <Header client:load />
 
   <main class="bg-neutral-950 min-h-screen text-white pb-20">

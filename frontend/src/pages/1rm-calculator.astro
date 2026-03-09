@@ -79,9 +79,22 @@ const exercisesByCategory = {};
 workoutCategories.forEach(cat => {
   exercisesByCategory[cat] = exercises.filter(e => e.workout === cat);
 });
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "How to Calculate Your One Rep Max",
+  "step": [
+    {"@type": "HowToStep", "name": "Select exercise", "text": "Choose an exercise from the dropdown or select Custom to enter your own weight"},
+    {"@type": "HowToStep", "name": "Enter weight", "text": "Enter the weight you can lift in pounds"},
+    {"@type": "HowToStep", "name": "Enter reps", "text": "Enter the number of repetitions you can perform (1-15)"},
+    {"@type": "HowToStep", "name": "Calculate", "text": "Click Calculate to see your estimated 1RM using Epley and Brzycki formulas"},
+    {"@type": "HowToStep", "name": "View results", "text": "See your 1RM estimate and percentage breakdowns for training"}
+  ]
+};
 ---
 
-<Layout title="1RM Calculator | TobyOnFitnessTech">
+<Layout title="1RM Calculator | TobyOnFitnessTech" jsonLd={howToSchema}>
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
