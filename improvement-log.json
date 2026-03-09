@@ -260,7 +260,7 @@
         "src/data/mock.js"
       ],
       "commit": "39f63ac",
-      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242\u2192188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
+      "notes": "Added new transformation blog post from transcript 2025-10-07. Covers 242→188 lb weight loss journey, medical protocol (TRT, GLP-1, Anavar), caloric intake (800-1200 cal), exercise (10K-20K steps, 30-50K lbs lifting), and honest discussion about pharmaceutical assistance. Build passes (270 pages)."
     },
     {
       "timestamp": "2026-03-05T19:17:00-05:00",
@@ -401,7 +401,7 @@
         "src/pages/timeline.astro"
       ],
       "commit": "9f8571b",
-      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242\u2192188\u2192218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
+      "notes": "Created new /timeline page with visual milestone timeline showing weight journey (242→188→218), lifting milestones (100K to 1.29M lbs), running milestones (first 5K to 265 miles), BJJ belt progression, and training streaks. Dark theme, vertical timeline with alternating cards, category color coding. Build passes (285 pages)."
     },
     {
       "timestamp": "2026-03-06T12:15:00-05:00",
@@ -598,7 +598,7 @@
         "src/components/Header.jsx"
       ],
       "commit": "6d4ad35",
-      "notes": "Created new /progress page with transformation journey gallery. Shows weight timeline (242\u2192188\u2192218), progress photo grid with placeholder images, before/after comparison section, and Toby's transformation quote. Added Progress link to main navigation. Uses dark theme matching site. Build passes (319 pages)."
+      "notes": "Created new /progress page with transformation journey gallery. Shows weight timeline (242→188→218), progress photo grid with placeholder images, before/after comparison section, and Toby's transformation quote. Added Progress link to main navigation. Uses dark theme matching site. Build passes (319 pages)."
     },
     {
       "timestamp": "2026-03-08T16:17:00-05:00",
@@ -671,6 +671,18 @@
       ],
       "commit": "c44df4b",
       "notes": "Updated duration filter labels to match filter logic: Short (<5 min), Medium (5-20 min), Long (20+ min). Filter logic already existed in component. Videos can now be filtered by duration category. Works with existing search and sort. Build passes (312 pages)."
+    },
+    {
+      "timestamp": "2026-03-09T14:27:15.926Z",
+      "idea": "Add Heart Rate Zone Analysis page with real Garmin data",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/hrZones.js",
+        "src/pages/hr-zones.astro",
+        "src/components/Header.jsx"
+      ],
+      "commit": "ef2b529",
+      "notes": "Created new /hr-zones page analyzing heart rate zone distribution from 111 Garmin runs. Shows zone distribution bars (Zone 1-5 with percentages), summary stats (total runs, avg HR, hours in zones), recent runs table with per-zone breakdown. Data module processes garmin_all_activities.json. Added HR Zones link to navigation. FAQPage JSON-LD schema for SEO. Build passes (313 pages)."
     }
   ],
   "in_progress": null,
