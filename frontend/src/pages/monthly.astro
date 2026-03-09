@@ -1,0 +1,216 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAvailableYears, getMonthlyDataForYear, formatMonthDisplay } from '../data/monthly.js';
+
+const availableYears = getAvailableYears();
+const currentYear = availableYears[0] || '2025';
+
+// Get data for all years and embed
+const allData = {};
+availableYears.forEach(year => {
+  allData[year] = getMonthlyDataForYear(year);
+});
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{
+    "@type": "Question",
+    "name": "What fitness data is tracked on this monthly dashboard?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "This dashboard aggregates running data from Garmin, strength training from Speediance, and recovery metrics from WHOOP, organized by month."
+    }
+  }, {
+    "@type": "Question",
+    "name": "How is monthly progress calculated?",
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Monthly totals are calculated by summing all activities within each month. Running distance is in miles, workout duration in hours, weight lifted in pounds, and recovery scores are monthly averages."
+    }
+  }]
+};
+---
+
+<Layout 
+  title="Monthly Progress Dashboard | TobyOnFitnessTech"
+  description="Track your monthly fitness progress across Garmin, Speediance, and WHOOP"
+  jsonLd={jsonLd}
+>
+  <div class="max-w-7xl mx-auto px-4 py-8 pt-24">
+    <header class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Monthly Progress Dashboard</h1>
+      <p class="text-xl text-gray-400">Aggregated fitness data from Garmin, Speediance & WHOOP</p>
+    </header>
+
+    <!-- Year Selector -->
+    <div id="year-selector" class="flex justify-center gap-2 mb-8 flex-wrap"></div>
+
+    <!-- Stats Grid -->
+    <div id="monthly-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+  </div>
+</Layout>
+
+<script define:vars={{ availableYears, currentYear, allData }}>
+  // Month display helper
+  function formatMonth(monthKey) {
+    if (!monthKey) return '';
+    const [year, month] = monthKey.split('-');
+    const date = new Date(year, parseInt(month) - 1);
+    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  }
+
+  // Current selected year
+  let selectedYear = currentYear;
+
+  // Render year selector buttons
+  function renderYearSelector() {
+    const container = document.getElementById('year-selector');
+    if (!container) return;
+    
+    container.innerHTML = availableYears.map(year => `
+      <button
+        data-year="${year}"
+        class="year-btn px-4 py-2 rounded-lg font-medium transition-all ${
+          year === selectedYear 
+            ? 'bg-blue-500 text-white' 
+            : 'bg-neutral-800 text-gray-300 hover:bg-neutral-700'
+        }"
+      >
+        ${year}
+      </button>
+    `).join('');
+
+    // Add click handlers
+    container.querySelectorAll('.year-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        selectedYear = btn.dataset.year;
+        
+        // Update active state
+        container.querySelectorAll('.year-btn').forEach(b => {
+          b.classList.remove('bg-blue-500', 'text-white');
+          b.classList.add('bg-neutral-800', 'text-gray-300');
+        });
+        btn.classList.remove('bg-neutral-800', 'text-gray-300');
+        btn.classList.add('bg-blue-500', 'text-white');
+        
+        // Render data for selected year
+        renderMonthlyGrid(allData[selectedYear] || []);
+      });
+    });
+  }
+
+  // Render monthly cards
+  function renderMonthlyGrid(months) {
+    const container = document.getElementById('monthly-grid');
+    if (!container) return;
+
+    if (!months || months.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-12">
+          <p class="text-gray-400 text-lg">No data available for this year.</p>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = months.map(item => {
+      const g = item.garmin || {};
+      const s = item.speediance || {};
+      const w = item.whoop || {};
+      
+      const hasGarmin = g.activityCount > 0;
+      const hasSpeediance = s.workoutCount > 0;
+      const hasWhoop = w.daysCount > 0;
+      
+      return `
+        <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/30 transition-colors">
+          <h3 class="text-lg font-bold text-white mb-4 border-b border-neutral-800 pb-2">
+            ${formatMonth(item.month)}
+          </h3>
+          
+          <!-- Garmin Running Stats -->
+          <div class="mb-4">
+            <div class="text-xs text-blue-400 font-semibold uppercase tracking-wide mb-2">🏃 Running (Garmin)</div>
+            ${hasGarmin ? `
+              <div class="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <span class="text-gray-500">Distance:</span>
+                  <span class="text-white ml-1">${g.totalDistanceMiles || 0} mi</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Time:</span>
+                  <span class="text-white ml-1">${g.totalDurationHours || 0} hrs</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Avg HR:</span>
+                  <span class="text-white ml-1">${g.avgHeartRate || 0}</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Activities:</span>
+                  <span class="text-white ml-1">${g.activityCount}</span>
+                </div>
+              </div>
+            ` : '<div class="text-gray-600 text-sm">No runs this month</div>'}
+          </div>
+          
+          <!-- Speediance Strength Stats -->
+          <div class="mb-4">
+            <div class="text-xs text-green-400 font-semibold uppercase tracking-wide mb-2">💪 Strength (Speediance)</div>
+            ${hasSpeediance ? `
+              <div class="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <span class="text-gray-500">Weight:</span>
+                  <span class="text-white ml-1">${parseInt(s.totalWeightLiftedLbs || 0).toLocaleString()} lbs</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Time:</span>
+                  <span class="text-white ml-1">${s.totalDurationHours || 0} hrs</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Workouts:</span>
+                  <span class="text-white ml-1">${s.workoutCount}</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Calories:</span>
+                  <span class="text-white ml-1">${s.totalCalories || 0}</span>
+                </div>
+              </div>
+            ` : '<div class="text-gray-600 text-sm">No workouts this month</div>'}
+          </div>
+          
+          <!-- WHOOP Recovery Stats -->
+          <div>
+            <div class="text-xs text-purple-400 font-semibold uppercase tracking-wide mb-2">💓 Recovery (WHOOP)</div>
+            ${hasWhoop ? `
+              <div class="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <span class="text-gray-500">Recovery:</span>
+                  <span class="text-white ml-1">${w.avgRecovery || 0}%</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">Sleep Perf:</span>
+                  <span class="text-white ml-1">${w.avgSleepPerformance || 0}%</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">HRV:</span>
+                  <span class="text-white ml-1">${w.avgHrv || 0} ms</span>
+                </div>
+                <div>
+                  <span class="text-gray-500">RHR:</span>
+                  <span class="text-white ml-1">${w.avgRestingHr || 0} bpm</span>
+                </div>
+              </div>
+            ` : '<div class="text-gray-600 text-sm">No WHOOP data this month</div>'}
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  // Initialize on load
+  document.addEventListener('DOMContentLoaded', () => {
+    renderYearSelector();
+    renderMonthlyGrid(allData[selectedYear] || []);
+  });
+</script>

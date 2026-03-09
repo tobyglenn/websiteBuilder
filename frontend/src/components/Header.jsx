@@ -48,6 +48,7 @@ export default function Header() {
     { name: '1RM', href: '/1rm-calculator' },
     { name: 'Exercises', href: '/exercises' },
     { name: 'Progress', href: '/progress' },
+    { name: 'Monthly', href: '/monthly' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
   ];
