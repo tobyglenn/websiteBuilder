@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import garminData from '/Users/tobyglennpeters/clawd/data/garmin_all_activities.json';
-import speedianceData from '/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json';
+import garminData from '../data/garmin_all_activities.json';
+import speedianceData from '../data/speediance_dashboard_data.json';
 
 // Get Monday of the current week (March 2, 2026)
 function getWeekBounds(date) {

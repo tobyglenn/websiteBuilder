@@ -1,16 +1,9 @@
-import fs from 'fs';
+import garminRaw from './garmin_all_activities.json';
+import speedianceRaw from './speediance_dashboard_data.json';
+import whoopRaw from './whoop_v2_latest.json';
 
-const GARMIN_PATH = '/Users/tobyglennpeters/clawd/data/garmin_all_activities.json';
-const SPEEDIANCE_PATH = '/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json';
-const WHOOP_PATH = '/Users/tobyglennpeters/clawd/data/whoop_v2_latest.json';
-
-function loadJson(filePath) {
-  try {
-    return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  } catch (e) {
-    console.error('Error loading', filePath, e.message);
-    return null;
-  }
+function loadJson(data) {
+  return data ?? null;
 }
 
 function toDate(value) {
@@ -47,7 +40,7 @@ function formatDuration(minutes) {
 export function getRecentActivity() {
   const items = [];
 
-  const garmin = loadJson(GARMIN_PATH);
+  const garmin = loadJson(garminRaw);
   (garmin?.activities || [])
     .filter((activity) => String(activity.activityType || activity.activity_type || '').toLowerCase().includes('running'))
     .forEach((activity) => {
@@ -64,7 +57,7 @@ export function getRecentActivity() {
       });
     });
 
-  const speediance = loadJson(SPEEDIANCE_PATH);
+  const speediance = loadJson(speedianceRaw);
   (speediance?.allSessions || speediance?.workouts || [])
     .forEach((session) => {
       const dateObj = toDate(session.date);
@@ -80,7 +73,7 @@ export function getRecentActivity() {
       });
     });
 
-  const whoop = loadJson(WHOOP_PATH);
+  const whoop = loadJson(whoopRaw);
   const whoopRecoveryRecords = Array.isArray(whoop?.recovery)
     ? whoop.recovery
     : whoop?.recovery?.records || whoop?.recovery?.data || whoop?.recovery?.items || [];

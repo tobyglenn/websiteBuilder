@@ -1,10 +1,4 @@
-import { readFileSync } from 'fs';
-import { resolve } from 'path';
-
-// ─── Load unified training timeline ──────────────────────────────────────────
-const UNIFIED_DATA = JSON.parse(
-  readFileSync(resolve('/Users/tobyglennpeters/clawd/data/unified_training_timeline.json'), 'utf-8')
-);
+import UNIFIED_DATA from '../data/unified_training_timeline.json';
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 function hasWorkout(dayData) {

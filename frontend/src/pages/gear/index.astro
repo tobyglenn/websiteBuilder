@@ -1,17 +1,19 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { currentGearItems, replacedGearItems } from '../../data/gearItems';
-import fs from 'fs';
-import path from 'path';
+import speedianceJson from '../../data/speediance_dashboard_data.json';
+import garminJson from '../../data/garmin_all_activities.json';
+import whoopJson from '../../data/whoop_v2_latest.json';
+import csvRawImport from '../../data/eight_sleep_historical.csv?raw';
 
-// Load data using absolute paths (safe for Astro SSG)
+// Load data from bundled files
 let speedianceStats = { totalVolume: 0, totalWorkouts: 0 };
 let garminStats = { totalMiles: '0', totalRuns: 0 };
 let avgRecovery = 0, avgHRV = 0, avgRHR = 0;
 let avgSleepScore = 0, avgSleepHours = 0;
 
 try {
-  const speedianceData = JSON.parse(fs.readFileSync('/Users/tobyglennpeters/clawd/data/speediance_dashboard_data.json', 'utf-8'));
+  const speedianceData: any = speedianceJson;
   speedianceStats = {
     totalVolume: speedianceData.totalVolumeLbs || 0,
     totalWorkouts: speedianceData.totalWorkouts || 0,
@@ -19,27 +21,23 @@ try {
 } catch (e) {}
 
 try {
-  const garminData = JSON.parse(fs.readFileSync('/Users/tobyglennpeters/clawd/data/garmin_all_activities.json', 'utf-8'));
-  const garminActivities = garminData.activities || garminData || [];
+  const garminActivities: any[] = (garminJson as any).activities || garminJson || [];
   const totalMiles = garminActivities.reduce((sum: number, a: any) => sum + (a.distance_miles || a.distance || 0), 0);
   const totalRuns = garminActivities.filter((a: any) => (a.activityType || a.type || '').toLowerCase().includes('run')).length;
   garminStats = { totalMiles: totalMiles.toFixed(1), totalRuns };
 } catch (e) {}
 
 try {
-  const whoopDir = '/Users/tobyglennpeters/clawd/data/whoop';
-  const whoopFiles = fs.readdirSync(whoopDir).filter(f => f.endsWith('.json')).slice(0, 30);
+  const whoopData: any = whoopJson;
+  const recoveries: any[] = whoopData?.recoveries || whoopData?.data || [];
   const scores: number[] = [], hrvs: number[] = [], rhrs: number[] = [];
-  for (const f of whoopFiles) {
-    try {
-      const d = JSON.parse(fs.readFileSync(path.join(whoopDir, f), 'utf-8'));
-      const score = d.score?.recovery_score ?? d.recovery_score ?? d.score;
-      const hrv = d.score?.hrv_rmssd_milli ?? d.hrv_rmssd_milli;
-      const rhr = d.score?.resting_heart_rate ?? d.resting_heart_rate;
-      if (typeof score === 'number') scores.push(score > 1 ? score : score * 100);
-      if (typeof hrv === 'number') hrvs.push(hrv);
-      if (typeof rhr === 'number') rhrs.push(rhr);
-    } catch (e) {}
+  for (const d of recoveries.slice(0, 30)) {
+    const score = d.score?.recovery_score ?? d.recovery_score ?? d.score;
+    const hrv = d.score?.hrv_rmssd_milli ?? d.hrv_rmssd_milli;
+    const rhr = d.score?.resting_heart_rate ?? d.resting_heart_rate;
+    if (typeof score === 'number') scores.push(score > 1 ? score : score * 100);
+    if (typeof hrv === 'number') hrvs.push(hrv);
+    if (typeof rhr === 'number') rhrs.push(rhr);
   }
   if (scores.length) avgRecovery = scores.reduce((a, b) => a + b, 0) / scores.length;
   if (hrvs.length) avgHRV = hrvs.reduce((a, b) => a + b, 0) / hrvs.length;
@@ -47,7 +45,7 @@ try {
 } catch (e) {}
 
 try {
-  const csvRaw = fs.readFileSync('/Users/tobyglennpeters/clawd/data/eight_sleep_historical.csv', 'utf-8');
+  const csvRaw = csvRawImport;
   // Try JSON first (file may actually be JSON despite .csv extension)
   let records: any[] = [];
   try { records = JSON.parse(csvRaw); } catch {

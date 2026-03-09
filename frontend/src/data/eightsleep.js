@@ -1,7 +1,4 @@
-import fs from 'fs';
-
-const csvPath = '/Users/tobyglennpeters/clawd/data/eight_sleep_historical.csv';
-const csvContent = fs.readFileSync(csvPath, 'utf-8');
+import csvContent from './eight_sleep_historical.csv?raw';
 const rawData = JSON.parse(csvContent);
 
 const toNumber = (v) => {
