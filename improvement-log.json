@@ -665,6 +665,15 @@
       "commit": "7468707",
       "notes": "Created new Testimonials component with 7 testimonial cards in responsive grid (3 columns desktop, 1 mobile). Uses real quotes from YouTube viewers/comments about Toby's content. Integrated into homepage below Latest from Blog section. Dark theme matching site. Build passes (312 pages)."
     },
+    "timestamp": "2026-03-09T14:15:00-05:00",
+      "idea": "Add new blog post: Build Your Best Training Split - Arnold Blueprint vs PPL vs Full Body vs Bro Split",
+      "category": "Content - Blog Post",
+      "files_changed": [
+        "src/data/mock.js"
+      ],
+      "commit": "25c0502",
+      "notes": "Added new blog post from transcript 2026-01-14. Covers Toby's journey through different training splits - Arnold Blueprint PPL that built his physique, switching to full body minus legs for maintenance, bro split experiment during Lunar Challenge, and why the best split depends on your current goals and life situation. Category: Training Tips. Build passes (311 pages)."
+    },
     {
       "timestamp": "2026-03-09T11:15:00-05:00",
       "idea": "Add view count display to video cards (attempted)",
