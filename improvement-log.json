@@ -2,8 +2,18 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
-      "timestamp": "2026-03-09T12:20:00-05:00",
-      "idea": "Add Newsletter Signup component to homepage",
+      "timestamp": "2026-03-09T15:27:00-05:00",
+      "idea": "Add Weight Journey page with body weight tracking chart",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/weight.js",
+        "src/pages/weight.astro",
+        "src/components/Header.jsx"
+      ],
+      "commit": "f89d0bd",
+      "notes": "Created new /weight page with body weight tracking. Data module includes weight journey entries (242→188→218 transformation). Page features: hero section, 4 stat cards (Starting 242 lbs, Lowest 188 lbs, Current 218 lbs, Change -24 lbs), SVG line chart showing weight over time, recent weigh-ins table, transformation story context. Added FAQPage JSON-LD schema. Added Weight link to navigation. Build passes (331 pages)."
+    }
+  ],
       "category": "UX Enhancement - Homepage",
       "files_changed": [
         "src/components/NewsletterSignup.jsx",
