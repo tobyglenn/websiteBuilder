@@ -62,6 +62,7 @@ export default function Header() {
     { name: 'Transformation', href: '/transformation', icon: '🏆' },
     { name: 'PR Board', href: '/prs', icon: '🥇' },
     { name: 'Running', href: '/running', icon: '⏱' },
+    { name: 'Heart Rate', href: '/heart-rate', icon: '💓' },
     { name: 'Races', href: '/races', icon: '🏃' },
     { name: 'Speediance', href: '/speediance', icon: '💪' },
     { name: 'Sleep', href: '/sleep', icon: '😴' },
