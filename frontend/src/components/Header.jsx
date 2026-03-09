@@ -46,6 +46,7 @@ export default function Header() {
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
     { name: 'Calculator', href: '/calculator' },
     { name: '1RM', href: '/1rm-calculator' },
+    { name: 'Exercises', href: '/exercises' },
     { name: 'Progress', href: '/progress' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
