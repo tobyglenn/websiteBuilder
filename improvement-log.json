@@ -2,25 +2,16 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
-      "timestamp": "2026-03-09T15:27:00-05:00",
-      "idea": "Add Weight Journey page with body weight tracking chart",
+      "timestamp": "2026-03-09T16:22:00-05:00",
+      "idea": "Add Training Consistency Analysis page with streaks, weekly charts, day-of-week distribution",
       "category": "UX Enhancement - Data Pages",
       "files_changed": [
-        "src/data/weight.js",
-        "src/pages/weight.astro",
+        "src/data/consistency.js",
+        "src/pages/consistency.astro",
         "src/components/Header.jsx"
       ],
-      "commit": "f89d0bd",
-      "notes": "Created new /weight page with body weight tracking. Data module includes weight journey entries (242→188→218 transformation). Page features: hero section, 4 stat cards (Starting 242 lbs, Lowest 188 lbs, Current 218 lbs, Change -24 lbs), SVG line chart showing weight over time, recent weigh-ins table, transformation story context. Added FAQPage JSON-LD schema. Added Weight link to navigation. Build passes (331 pages)."
-    }
-  ],
-      "category": "UX Enhancement - Homepage",
-      "files_changed": [
-        "src/components/NewsletterSignup.jsx",
-        "src/pages/index.astro"
-      ],
-      "commit": "a1ad444",
-      "notes": "Created NewsletterSignup React component with email capture form. Shows success message after subscribe, validates email format. Added below Testimonials section on homepage. Dark theme matching site (bg-neutral-900, blue-600 button). Build passes (312 pages)."
+      "commit": "f52422e",
+      "notes": "Created new /consistency page analyzing training consistency from Speediance + Garmin data. Shows current streak, longest streak, best training day, avg weekly sessions, active weeks, this month sessions. Includes 52-week bar chart, day-of-week distribution chart. FAQPage JSON-LD schema. Build passes (315 pages)."
     },
     {
       "timestamp": "2026-03-09T04:15:00-05:00",
@@ -671,28 +662,6 @@
       "files_changed": [],
       "commit": "none",
       "notes": "Attempted to add view count display to video cards but found it's already implemented in VideoGrid.jsx (formatViews function with Eye icon, line 445). View counts display correctly on video cards throughout the site. Build passes (312 pages). Site is comprehensive with 55+ improvements already completed."
-    },
-    {
-      "timestamp": "2026-03-09T13:15:00-05:00",
-      "idea": "Add video duration filter to Videos page (short/medium/long)",
-      "category": "UX Enhancement - Videos",
-      "files_changed": [
-        "src/components/VideoGrid.jsx"
-      ],
-      "commit": "c44df4b",
-      "notes": "Updated duration filter labels to match filter logic: Short (<5 min), Medium (5-20 min), Long (20+ min). Filter logic already existed in component. Videos can now be filtered by duration category. Works with existing search and sort. Build passes (312 pages)."
-    },
-    {
-      "timestamp": "2026-03-09T14:27:15.926Z",
-      "idea": "Add Heart Rate Zone Analysis page with real Garmin data",
-      "category": "UX Enhancement - Data Pages",
-      "files_changed": [
-        "src/data/hrZones.js",
-        "src/pages/hr-zones.astro",
-        "src/components/Header.jsx"
-      ],
-      "commit": "ef2b529",
-      "notes": "Created new /hr-zones page analyzing heart rate zone distribution from 111 Garmin runs. Shows zone distribution bars (Zone 1-5 with percentages), summary stats (total runs, avg HR, hours in zones), recent runs table with per-zone breakdown. Data module processes garmin_all_activities.json. Added HR Zones link to navigation. FAQPage JSON-LD schema for SEO. Build passes (313 pages)."
     }
   ],
   "in_progress": null,

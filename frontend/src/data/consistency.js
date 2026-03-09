@@ -1,8 +1,24 @@
 // Load and process Speediance + Garmin data for consistency analysis
+// Data is imported directly from JSON files in the same data directory
+
 import speedianceData from './speediance_dashboard_data.json';
 import garminData from './garmin_all_activities.json';
 
-const speedianceWorkouts = speedianceData.workouts || [];
+// Get all Speediance workout dates
+const speedianceWorkouts = [];
+if (speedianceData.workoutTypes) {
+  Object.values(speedianceData.workoutTypes).forEach(workoutType => {
+    if (workoutType.sessions) {
+      workoutType.sessions.forEach(session => {
+        if (session.date) {
+          speedianceWorkouts.push({ date: session.date });
+        }
+      });
+    }
+  });
+}
+
+// Get all Garmin activity dates  
 const garminActivities = garminData.activities || [];
 
 // Combine all training dates (workouts + runs)
@@ -13,28 +29,29 @@ speedianceWorkouts.forEach(w => {
 });
 
 garminActivities.forEach(a => {
-  if (a.startTime) {
-    const date = a.startTime.split('T')[0];
+  if (a.date) {
+    trainingDates.add(a.date);
+  } else if (a.startTimeLocal) {
+    // Some activities use startTimeLocal instead of date
+    const date = a.startTimeLocal.split(' ')[0];
     trainingDates.add(date);
   }
 });
 
 const sortedDates = Array.from(trainingDates).sort();
 
-// Calculate streaks - count consecutive weeks with at least 1 training day
+// Calculate streaks
 let currentStreak = 0;
 let longestStreak = 0;
 let tempStreak = 0;
-let lastWeek = null;
+let lastDate = null;
+
+const oneDay = 24 * 60 * 60 * 1000;
 
 sortedDates.forEach(date => {
-  const d = new Date(date);
-  const startOfYear = new Date(d.getFullYear(), 0, 1);
-  const days = Math.floor((d - startOfYear) / (24 * 60 * 60 * 1000));
-  const week = Math.floor(days / 7);
-  
-  if (lastWeek !== null) {
-    if (week === lastWeek + 1 || (lastWeek === 51 && week === 0)) {
+  if (lastDate) {
+    const diff = (new Date(date) - new Date(lastDate)) / oneDay;
+    if (diff <= 7) {
       tempStreak++;
     } else {
       if (tempStreak > longestStreak) longestStreak = tempStreak;
@@ -43,16 +60,15 @@ sortedDates.forEach(date => {
   } else {
     tempStreak = 1;
   }
-  lastWeek = week;
+  lastDate = date;
 });
 
 if (tempStreak > longestStreak) longestStreak = tempStreak;
-currentStreak = tempStreak;
 
 // Calculate day of week distribution
 const dayOfWeekCounts = [0, 0, 0, 0, 0, 0, 0]; // Sun-Sat
 sortedDates.forEach(date => {
-  const day = new Date(date + 'T00:00:00').getDay();
+  const day = new Date(date).getDay();
   dayOfWeekCounts[day]++;
 });
 
@@ -67,7 +83,7 @@ for (let i = 51; i >= 0; i--) {
   
   let count = 0;
   sortedDates.forEach(d => {
-    const dDate = new Date(d + 'T00:00:00');
+    const dDate = new Date(d);
     if (dDate >= weekStart && dDate <= weekEnd) count++;
   });
   
@@ -88,7 +104,7 @@ sortedDates.forEach(date => {
 // Stats
 const totalTrainingDays = sortedDates.length;
 const uniqueWeeks = new Set(sortedDates.map(d => {
-  const date = new Date(d + 'T00:00:00');
+  const date = new Date(d);
   const startOfYear = new Date(date.getFullYear(), 0, 1);
   const days = Math.floor((date - startOfYear) / (24 * 60 * 60 * 1000));
   return Math.floor(days / 7);
@@ -105,11 +121,12 @@ const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 const bestDayIndex = dayOfWeekCounts.indexOf(Math.max(...dayOfWeekCounts));
 const bestDay = days[bestDayIndex];
 
-export function getConsistencyData() {
+// Export the data
+export const getConsistencyData = () => {
   return {
     totalTrainingDays,
     longestStreak,
-    currentStreak,
+    currentStreak: tempStreak,
     bestDay,
     thisMonth,
     dayOfWeekCounts,
@@ -119,4 +136,4 @@ export function getConsistencyData() {
     totalWeeks: uniqueWeeks,
     recentDates: sortedDates.slice(-30)
   };
-}
+};
