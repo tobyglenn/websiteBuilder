@@ -6,8 +6,8 @@ const availableYears = getAvailableYears();
 const currentYear = availableYears[0] || '2025';
 
 // Get data for all years and embed
-const allData = {};
-availableYears.forEach(year => {
+const allData: Record<string, unknown> = {};
+availableYears.forEach((year: string) => {
   allData[year] = getMonthlyDataForYear(year);
 });
 
