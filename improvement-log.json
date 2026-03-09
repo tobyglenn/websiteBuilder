@@ -2,6 +2,18 @@
   "started": "2026-02-19T22:09:00-05:00",
   "completed": [
     {
+      "timestamp": "2026-03-09T04:15:00-05:00",
+      "idea": "Add Monthly Progress Dashboard page with real Garmin/Speediance/WHOOP data",
+      "category": "UX Enhancement - Data Pages",
+      "files_changed": [
+        "src/data/monthly.js",
+        "src/pages/monthly.astro",
+        "src/components/Header.jsx"
+      ],
+      "commit": "b80012d",
+      "notes": "Created new /monthly page with monthly progress tracking. Data module processes Garmin runs, Speediance workouts, and WHOOP recovery data grouped by month (2024-2026). Page includes year selector (2024/2025/2026), monthly stats grid showing workouts, runs, volume, miles, avg recovery, avg sleep score. Uses dark theme matching site. FAQPage JSON-LD schema. Added Monthly link to navigation. Build passes (311 pages)."
+    },
+    {
       "timestamp": "2026-03-09T03:15:00-05:00",
       "idea": "Add Exercise Library page with real Speediance data",
       "category": "UX Enhancement - Data Pages",
