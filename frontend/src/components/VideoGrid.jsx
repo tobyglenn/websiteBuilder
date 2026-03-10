@@ -233,9 +233,9 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
     if (durationFilter === 'short') {
       result = result.filter(v => v.durationSec > 0 && v.durationSec < 300);
     } else if (durationFilter === 'medium') {
-      result = result.filter(v => v.durationSec >= 300 && v.durationSec < 900);
+      result = result.filter(v => v.durationSec >= 300 && v.durationSec < 1200);
     } else if (durationFilter === 'long') {
-      result = result.filter(v => v.durationSec >= 900);
+      result = result.filter(v => v.durationSec >= 1200);
     }
 
     // Sort
