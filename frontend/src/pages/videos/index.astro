@@ -158,59 +158,6 @@ const videosCollectionSchema = {
       </div>
     </section>
     
-    <!-- Featured Playlists -->
-    <section class="py-8 px-4 bg-neutral-900/30">
-      <div class="container mx-auto max-w-6xl">
-        <h2 class="text-2xl font-bold text-white mb-6">Featured Playlists</h2>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {featuredPlaylists.map((playlist) => (
-            <a
-              href={`/videos?playlist=${playlist.id}`}
-              class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl hover:border-blue-500/50"
-            >
-              <!-- Thumbnail -->
-              <div class="aspect-video relative overflow-hidden bg-neutral-950">
-                {playlist.thumbnail ? (
-                  <img
-                    src={playlist.thumbnail}
-                    alt={playlist.name}
-                    class="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-105"
-                  />
-                ) : (
-                  <div class="w-full h-full bg-neutral-800 flex items-center justify-center">
-                    <Play className="w-10 h-10 text-neutral-600" />
-                  </div>
-                )}
-                <!-- Video Count Badge -->
-                <div class="absolute top-3 right-3 bg-black/75 backdrop-blur-sm text-white text-xs font-semibold px-2.5 py-1 rounded-full flex items-center gap-1.5">
-                  <Play size={12} className="fill-white" />
-                  {playlist.videoCount}
-                </div>
-                <!-- Gradient Overlay -->
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-              </div>
-
-              <!-- Content -->
-              <div class="p-4">
-                <h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors mb-2">
-                  {playlist.name}
-                </h3>
-                <p class="text-sm text-neutral-400 line-clamp-2">
-                  {playlist.description}
-                </p>
-                <div class="mt-3 flex items-center text-xs text-neutral-500">
-                  <span class="text-blue-400 font-medium">{playlist.videoCount} videos</span>
-                  <span class="mx-2">•</span>
-                  <span>Tap to browse</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-    
     <!-- Grid -->
     <div class="container mx-auto px-4 py-10">
       <VideoGrid client:load showFilters={true} videos={VIDEOS} />
