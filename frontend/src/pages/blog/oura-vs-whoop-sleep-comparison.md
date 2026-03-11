@@ -98,6 +98,6 @@ After 60 days of wearing both devices 24/7, here is the breakdown of who should 
 4. If you can afford to pay for new hardware every year and also pay a membership to use the hardware you are paying for.
 5. You already use a dedicated fitness watch (like a Garmin or Apple Watch) for tracking active workouts and just need a superior sleep tracker to complement it.
 
-For my specific use case—balancing heavy lifting on the Speediance and jiu-jitsu—the Oura Ring ended up being the more frictionless experience. While I miss explicitly tracking the strain of my jiu-jitsu rolls with the WHOOP, the comfort of the ring at night and the undeniable accuracy of Oura's morning recovery metrics make it the superior dedicated sleep tracker in 2025. 
+For my specific use case—balancing heavy lifting on the Speediance and jiu-jitsu—the Oura Ring ended up being dead in the water and an expensive fashion piece. While I miss explicitly tracking the strain of my jiu-jitsu rolls with the WHOOP, WHOOP is also getting much better at tracking lifts even without using their Strength Trainer feature. With Oura Ring, I was so dissatisfied with the battery life and warranty changes that I wouldn't recommend it to anyone going forward.
 
-The WHOOP 5’s questionable hardware redesign and the "smaller" marketing spin left a sour taste, reinforcing that sometimes, the simplest form factor (a ring) is the best solution for capturing the complex metrics of human sleep.
+The WHOOP 5’s questionable hardware redesign and the "smaller" marketing spin still left a sour taste, but Oura’s battery life and warranty changes were worse enough for me that I would rather deal with WHOOP’s flaws than recommend the ring going forward.
