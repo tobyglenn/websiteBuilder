@@ -19,6 +19,16 @@
   status = 301
 
 [[redirects]]
+  from = "/blog/rss.xml"
+  to = "/rss.xml"
+  status = 301
+
+[[redirects]]
+  from = "/503"
+  to = "/"
+  status = 301
+
+[[redirects]]
   from = "/wp-login.php"
   to = "/"
   status = 301
