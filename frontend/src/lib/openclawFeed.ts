@@ -95,6 +95,7 @@ export function englishTranscriptCandidates(episodeNum: number): string[] {
   const ep = String(episodeNum).padStart(3, "0");
   const paths: string[] = [];
 
+  // Legacy / special-case filenames
   if (episodeNum === 1) {
     paths.push("episode_001_full_v2.md", "episode_001_script.md", "episode_001.md");
   }
@@ -102,13 +103,25 @@ export function englishTranscriptCandidates(episodeNum: number): string[] {
     paths.push("episode_004_transcript.md", "episode_004.md");
   }
 
+  // Newer episodes store transcripts under /episodes/
+  paths.push(`episodes/episode_${ep}_transcript.md`);
+
+  // Fallback: some episodes have transcript embedded in episode_XXX.md
   paths.push(`episode_${ep}.md`);
+
   return [...new Set(paths)].map(normalizeRepoTextPath);
 }
 
 export function englishShowNotesCandidates(episodeNum: number): string[] {
   const ep = String(episodeNum).padStart(3, "0");
-  const paths: string[] = [`show_notes_episode_${ep}.md`];
+  const paths: string[] = [];
+
+  // Preferred show notes filename (if present)
+  paths.push(`show_notes_episode_${ep}.md`);
+
+  // Fallback: many episodes use episode_XXX.md as show notes
+  paths.push(`episode_${ep}.md`);
+
   return [...new Set(paths)].map(normalizeRepoTextPath);
 }
 
