@@ -2,6 +2,25 @@
   command = "npm run build"
   publish = "dist"
 
+# Force canonical: non-www HTTPS (fixes Google Search Console redirect warnings)
+[[redirects]]
+  from = "https://www.tobyonfitnesstech.com/*"
+  to = "https://tobyonfitnesstech.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://www.tobyonfitnesstech.com/*"
+  to = "https://tobyonfitnesstech.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://tobyonfitnesstech.com/*"
+  to = "https://tobyonfitnesstech.com/:splat"
+  status = 301
+  force = true
+
 # WordPress artifact redirects (301 permanent)
 [[redirects]]
   from = "/comments/feed/"

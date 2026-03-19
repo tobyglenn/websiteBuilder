@@ -12,6 +12,8 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
+  trailingSlash: 'always',
+
   integrations: [react(), sitemap()],
 
   i18n: {
