@@ -53,8 +53,8 @@ export default function Header() {
     { name: 'Home', href: '/' },
     { name: 'Videos', href: '/videos' },
     { name: 'Blog & Articles', href: '/blog', hasDropdown: true },
-    { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw` },
-    { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech` },
+    { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw/` },
+    { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech/` },
     { name: 'Calculators', href: '/calculators' },
     { name: 'About', href: '/about' },
     { name: 'FAQ', href: '/faq' },
@@ -252,10 +252,10 @@ export default function Header() {
               </button>
               {isPodcastDropdownOpen && (
                 <div className="border-t border-neutral-800 px-4 py-3 space-y-2">
-                  <a href={`${podcastBase}/podcasts/openclaw`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                  <a href={`${podcastBase}/podcasts/openclaw/`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
                     🎙️ OpenClaw Daily
                   </a>
-                  <a href={`${podcastBase}/podcasts/fitness-tech`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                  <a href={`${podcastBase}/podcasts/fitness-tech/`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
                     💪 Fitness Tech Podcast
                   </a>
                 </div>
