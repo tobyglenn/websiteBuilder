@@ -21,6 +21,37 @@
   status = 301
   force = true
 
+# Duplicate blog post redirects (301 permanent — same content, different slug)
+[[redirects]]
+  from = "/blog/running-might-have-saved-my-life/"
+  to = "/blog/why-running-might-have-saved-my-life/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/running-might-have-saved-my-life"
+  to = "/blog/why-running-might-have-saved-my-life/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/submission-that-could-have-ended-everything/"
+  to = "/blog/the-submission-that-could-have-ended-everything/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/submission-that-could-have-ended-everything"
+  to = "/blog/the-submission-that-could-have-ended-everything/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/speediance-broke-partner-mode-lost-free-lift-feature/"
+  to = "/blog/speediance-broke-partner-mode-lost-freelift-feature-demo-daughter/"
+  status = 301
+
+[[redirects]]
+  from = "/blog/speediance-broke-partner-mode-lost-free-lift-feature"
+  to = "/blog/speediance-broke-partner-mode-lost-freelift-feature-demo-daughter/"
+  status = 301
+
 # WordPress artifact redirects (301 permanent)
 [[redirects]]
   from = "/comments/feed/"
