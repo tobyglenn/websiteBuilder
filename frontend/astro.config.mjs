@@ -12,7 +12,7 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
 
   integrations: [react(), sitemap()],
 
