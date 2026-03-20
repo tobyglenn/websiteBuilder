@@ -307,7 +307,7 @@ const webPageSchema = {
 
           <div class="mt-6 text-center">
             <a 
-              href="/training" 
+              href="/training/" 
               class="inline-flex items-center gap-2 text-sm text-blue-500 hover:text-blue-400 transition-colors font-medium"
             >
               View Full Training Week
@@ -351,7 +351,7 @@ const webPageSchema = {
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {bjjPosts.map((post) => (
-                <a href={`/blog/${post.slug}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
+                <a href={`/blog/${post.slug}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
                   {post.image && (
                     <div class="aspect-video overflow-hidden bg-neutral-950">
                       <img
@@ -384,7 +384,7 @@ const webPageSchema = {
 
             <div class="mt-8 text-center">
               <a 
-                href="/blog" 
+                href="/blog/" 
                 class="inline-flex items-center gap-2 text-sm text-blue-500 hover:text-blue-400 transition-colors font-medium"
               >
                 View All Blog Posts
@@ -407,25 +407,25 @@ const webPageSchema = {
           </p>
           <div class="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href="/training"
+              href="/training/"
               class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-colors text-sm"
             >
               Training Dashboard
             </a>
             <a
-              href="/timeline"
+              href="/timeline/"
               class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl font-semibold transition-colors text-sm border border-neutral-700"
             >
               Timeline
             </a>
             <a
-              href="/running"
+              href="/running/"
               class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl font-semibold transition-colors text-sm border border-neutral-700"
             >
               Running Stats
             </a>
             <a
-              href="/whoop"
+              href="/whoop/"
               class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-xl font-semibold transition-colors text-sm border border-neutral-700"
             >
               WHOOP Data

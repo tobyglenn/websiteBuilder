@@ -372,7 +372,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
             return (
               <a
                 key={video.id}
-                href={`/video/${video.id}`}
+                href={`/video/${video.id}/`}
                 className="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl hover:border-neutral-700"
               >
                 {/* Thumbnail Container */}

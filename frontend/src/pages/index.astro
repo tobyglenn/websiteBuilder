@@ -178,14 +178,14 @@ const webPageSchema = {
 					<h2 class="text-3xl md:text-4xl font-bold text-white">Fresh Analysis & Reviews</h2>
 					<p class="text-neutral-400 mt-3 max-w-2xl">The newest posts on fitness tech, training trends, and what the data actually says.</p>
 				</div>
-				<a href="/blog" class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:border-blue-500/50 hover:text-blue-400 transition-colors">
+				<a href="/blog/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:border-blue-500/50 hover:text-blue-400 transition-colors">
 					View All Posts <ArrowRight size={16} />
 				</a>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 				{recentPosts.map((post) => (
-					<a href={`/blog/${post.slug}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
+					<a href={`/blog/${post.slug}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
 						{post.image && (
 						<div class="aspect-video overflow-hidden bg-neutral-950">
 							<img
@@ -302,7 +302,7 @@ const webPageSchema = {
 	      </iframe>
 	    </div>
 	    <p class="mt-4 text-neutral-400">Speediance Fixed Progressive Overload (Mostly) — V3.1 Update Review</p>
-	    <a href="/videos" class="inline-block mt-2 text-blue-400 hover:text-blue-300">View all videos →</a>
+	    <a href="/videos/" class="inline-block mt-2 text-blue-400 hover:text-blue-300">View all videos →</a>
 	  </div>
 	</section>
 
@@ -316,14 +316,14 @@ const webPageSchema = {
 					<span class="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-2 block">YouTube</span>
 					<h2 class="text-3xl md:text-4xl font-bold text-white">Latest Videos</h2>
 				</div>
-				<a href="/videos" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
+				<a href="/videos/" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
 					View All Videos <ArrowRight size={18} />
 				</a>
 			</div>
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
 				{allVideos.filter(v => !v.is_live).slice(0, 4).map((video) => (
-					<a href={`/video/${video.id}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all">
+					<a href={`/video/${video.id}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all">
 						<div class="aspect-video relative overflow-hidden">
 							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
 							{video.duration_formatted && (
@@ -446,7 +446,7 @@ const webPageSchema = {
 			</div>
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 				{popularVideos.map(video => (
-					<a href={`/video/${video.id}`} class="group block bg-neutral-950 rounded-xl overflow-hidden border border-neutral-800 hover:border-blue-500/50 transition-all">
+					<a href={`/video/${video.id}/`} class="group block bg-neutral-950 rounded-xl overflow-hidden border border-neutral-800 hover:border-blue-500/50 transition-all">
 						<div class="aspect-video relative overflow-hidden">
 							<img
 								src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
@@ -568,14 +568,14 @@ const webPageSchema = {
 						Fresh from the lab. In-depth testing and honest reviews.
 					</p>
 				</div>
-				<a href="/videos" class="hidden md:flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors group">
+				<a href="/videos/" class="hidden md:flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors group">
 					View All Videos <ArrowRight size={18} class="group-hover:translate-x-1 transition-transform" />
 				</a>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 				{recentVideos.map((video) => (
-					<a href={video.is_live ? `https://www.youtube.com/live/${video.id}` : `/video/${video.id}`} target={video.is_live ? '_blank' : '_self'} class="group block relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10">
+					<a href={video.is_live ? `https://www.youtube.com/live/${video.id}` : `/video/${video.id}/`} target={video.is_live ? '_blank' : '_self'} class="group block relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10">
 						<div class="aspect-video relative overflow-hidden">
 							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
 							<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
@@ -620,7 +620,7 @@ const webPageSchema = {
 			</div>
 			
 			<div class="mt-12 text-center md:hidden">
-				<a href="/videos" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors">
+				<a href="/videos/" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors">
 					View All Videos <ArrowRight size={16} />
 				</a>
 			</div>
@@ -635,7 +635,7 @@ const webPageSchema = {
 					<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Analysis Log</span>
 					<h2 class="text-3xl md:text-4xl font-bold text-white">Written Reviews</h2>
 				</div>
-				<a href="/blog" class="hidden md:flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group text-sm font-medium">
+				<a href="/blog/" class="hidden md:flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group text-sm font-medium">
 					Read More Analysis <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
 				</a>
 			</div>
@@ -645,12 +645,12 @@ const webPageSchema = {
 					<article class="flex flex-col group border-l-2 border-neutral-800 pl-6 hover:border-blue-500 transition-colors py-2">
 						<span class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">{post.category}</span>
 						<h3 class="text-xl font-bold text-white mb-3 leading-tight group-hover:text-blue-400 transition-colors">
-							<a href={`/blog/${post.slug}`}>{post.title}</a>
+							<a href={`/blog/${post.slug}/`}>{post.title}</a>
 						</h3>
 						<p class="text-neutral-400 text-sm line-clamp-3 mb-4 leading-relaxed flex-grow">
 							{post.excerpt}
 						</p>
-						<a href={`/blog/${post.slug}`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
+						<a href={`/blog/${post.slug}/`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
 							Read Article <ArrowRight size={14} class="group-hover/link:translate-x-1 transition-transform" />
 						</a>
 					</article>
@@ -670,67 +670,67 @@ const webPageSchema = {
 			
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 				{/* Running */}
-				<a href="/running" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/running/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🏃</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Running</h3>
 					<p class="text-xs text-neutral-500">265 miles · 111 runs</p>
 				</a>
 				{/* Speediance */}
-				<a href="/speediance" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/speediance/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🏋️</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lifting</h3>
 					<p class="text-xs text-neutral-500">1.29M lbs · 125 workouts</p>
 				</a>
 				{/* Sleep */}
-				<a href="/sleep" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/sleep/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">😴</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Sleep</h3>
 					<p class="text-xs text-neutral-500">Avg 68 score · 8 nights</p>
 				</a>
 				{/* WHOOP */}
-				<a href="/whoop" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-red-500/50 transition-all group">
+				<a href="/whoop/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-red-500/50 transition-all group">
 					<div class="text-2xl mb-3">💪</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-red-400 transition-colors">WHOOP</h3>
 					<p class="text-xs text-neutral-500">Recovery · HRV · Strain</p>
 				</a>
 				{/* Transformation */}
-				<a href="/transformation" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/transformation/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">📈</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Transformation</h3>
 					<p class="text-xs text-neutral-500">242 → 188 → 218 lbs</p>
 				</a>
 				{/* Training */}
-				<a href="/training" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/training/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🎯</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Training</h3>
 					<p class="text-xs text-neutral-500">Volume trends · PRs</p>
 				</a>
 				{/* BJJ */}
-				<a href="/bjj" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/bjj/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🥋</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">BJJ</h3>
 					<p class="text-xs text-neutral-500">Brown belt · 10+ years</p>
 				</a>
 				{/* Gear */}
-				<a href="/gear" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/gear/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">⚙️</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Gear</h3>
 					<p class="text-xs text-neutral-500">What I actually use</p>
 				</a>
 				{/* PR Board */}
-				<a href="/prs" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-yellow-500/50 transition-all group">
+				<a href="/prs/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-yellow-500/50 transition-all group">
 					<div class="text-2xl mb-3">🥇</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-yellow-400 transition-colors">PR Board</h3>
 					<p class="text-xs text-neutral-500">388 lb deadlift · 25 PRs</p>
 				</a>
 				{/* A Day in the Data */}
-				<a href="/day" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/day/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">📅</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">A Day in the Data</h3>
 					<p class="text-xs text-neutral-500">24h of tracking</p>
 				</a>
 				{/* FAQ */}
-				<a href="/faq" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/faq/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">❓</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">FAQ</h3>
 					<p class="text-xs text-neutral-500">Common questions on training, gear, and site operations</p>
@@ -746,14 +746,14 @@ const webPageSchema = {
 	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch</span>
 	        <h2 class="text-3xl md:text-4xl font-bold text-white">Featured Videos</h2>
 	      </div>
-	      <a href="/videos" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
+	      <a href="/videos/" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
 	        View All Videos <ArrowRight size={18} />
 	      </a>
 	    </div>
 	    
 	    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 	      {youtube.slice(0,4).filter(v => v.viewCount > 0).map((video) => (
-	        <a href={`/video/${video.id}`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:border-neutral-700">
+	        <a href={`/video/${video.id}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:border-neutral-700">
 	          <div class="aspect-video relative overflow-hidden bg-neutral-950">
 	            <img src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} class="w-full h-full object-cover" loading="lazy" />
 	            {video.duration_formatted && <span class="absolute bottom-2 right-2 bg-black/75 text-white text-xs px-2 py-1 rounded">{video.duration_formatted}</span>}

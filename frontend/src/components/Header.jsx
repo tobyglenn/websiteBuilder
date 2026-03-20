@@ -51,37 +51,37 @@ export default function Header() {
   // Nav structure
   const navLinks = [
     { name: 'Home', href: '/' },
-    { name: 'Videos', href: '/videos' },
-    { name: 'Blog & Articles', href: '/blog', hasDropdown: true },
+    { name: 'Videos', href: '/videos/' },
+    { name: 'Blog & Articles', href: '/blog/', hasDropdown: true },
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw/` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech/` },
-    { name: 'Calculators', href: '/calculators' },
-    { name: 'About', href: '/about' },
-    { name: 'FAQ', href: '/faq' },
+    { name: 'Calculators', href: '/calculators/' },
+    { name: 'About', href: '/about/' },
+    { name: 'FAQ', href: '/faq/' },
   ];
 
   // Blog dropdown items with icons
   const subNavItems = [
-    { name: 'Start Here', href: '/start-here', icon: '🚀' },
-    { name: 'All Articles', href: '/blog', icon: '📰' },
-    { name: 'Nutrition', href: '/nutrition', icon: '🥗' },
-    { name: 'Consistency', href: '/blog/consistency', icon: '📅' },
-    { name: 'Exercises', href: '/blog/exercises', icon: '💪' },
-    { name: 'Transformation', href: '/transformation', icon: '🏆' },
-    { name: 'PR Board', href: '/prs', icon: '🥇' },
-    { name: 'Running', href: '/running', icon: '⏱' },
-    { name: 'Heart Rate', href: '/heart-rate', icon: '💓' },
-    { name: 'Races', href: '/races', icon: '🏃' },
-    { name: 'Speediance', href: '/speediance', icon: '💪' },
-    { name: 'Sleep', href: '/sleep', icon: '😴' },
-    { name: 'WHOOP', href: '/whoop', icon: '💓' },
-    { name: 'Training', href: '/training', icon: '🏋️' },
-    { name: 'Training Log', href: '/training-log', icon: '📈' },
-    { name: 'BJJ', href: '/bjj', icon: '🥋' },
-    { name: 'Day in a Week', href: '/day', icon: '📅' },
-    { name: 'Year Review', href: '/year-in-review', icon: '📊' },
-    { name: 'Gear', href: '/gear', icon: '🛠' },
-    { name: 'Contact', href: '/contact', icon: '📧' },
+    { name: 'Start Here', href: '/start-here/', icon: '🚀' },
+    { name: 'All Articles', href: '/blog/', icon: '📰' },
+    { name: 'Nutrition', href: '/nutrition/', icon: '🥗' },
+    { name: 'Consistency', href: '/blog/consistency/', icon: '📅' },
+    { name: 'Exercises', href: '/blog/exercises/', icon: '💪' },
+    { name: 'Transformation', href: '/transformation/', icon: '🏆' },
+    { name: 'PR Board', href: '/prs/', icon: '🥇' },
+    { name: 'Running', href: '/running/', icon: '⏱' },
+    { name: 'Heart Rate', href: '/heart-rate/', icon: '💓' },
+    { name: 'Races', href: '/races/', icon: '🏃' },
+    { name: 'Speediance', href: '/speediance/', icon: '💪' },
+    { name: 'Sleep', href: '/sleep/', icon: '😴' },
+    { name: 'WHOOP', href: '/whoop/', icon: '💓' },
+    { name: 'Training', href: '/training/', icon: '🏋️' },
+    { name: 'Training Log', href: '/training-log/', icon: '📈' },
+    { name: 'BJJ', href: '/bjj/', icon: '🥋' },
+    { name: 'Day in a Week', href: '/day/', icon: '📅' },
+    { name: 'Year Review', href: '/year-in-review/', icon: '📊' },
+    { name: 'Gear', href: '/gear/', icon: '🛠' },
+    { name: 'Contact', href: '/contact/', icon: '📧' },
   ];
 
   return (
@@ -198,11 +198,11 @@ export default function Header() {
             <nav className="flex flex-col space-y-1 mb-6">
               {[
                 { name: 'Home', href: '/' },
-                { name: 'Videos', href: '/videos' },
-                { name: 'Calculators', href: '/calculators' },
-                { name: 'HR Zones', href: '/hr-zones' },
-                { name: 'About', href: '/about' },
-                { name: 'FAQ', href: '/faq' },
+                { name: 'Videos', href: '/videos/' },
+                { name: 'Calculators', href: '/calculators/' },
+                { name: 'HR Zones', href: '/hr-zones/' },
+                { name: 'About', href: '/about/' },
+                { name: 'FAQ', href: '/faq/' },
               ].map((link) => (
                 <a
                   key={link.href}

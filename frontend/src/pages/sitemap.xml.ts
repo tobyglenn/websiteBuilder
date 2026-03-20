@@ -30,21 +30,21 @@ export async function GET() {
 
   // Blog posts
   const blogPages = (CANONICAL_BLOG_POSTS || []).map((post: { slug?: string }) => ({
-    loc: `/blog/${post.slug}`,
+    loc: `/blog/${post.slug}/`,
     changefreq: 'weekly',
     priority: 0.7
   }));
 
   // Videos
   const videoPages = (VIDEOS || []).map((video: { id?: string | number }) => ({
-    loc: `/video/${video.id}`,
+    loc: `/video/${video.id}/`,
     changefreq: 'weekly',
     priority: 0.7
   }));
 
   // Gear items
   const gearPages = (gearItems || []).map((item: { slug?: string }) => ({
-    loc: `/gear/${item.slug}`,
+    loc: `/gear/${item.slug}/`,
     changefreq: 'monthly',
     priority: 0.7
   }));

@@ -54,13 +54,13 @@ const productJsonLd = {
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Gear', url: '/gear' },
-    { name: item.name, url: `/gear/${item.slug}` }
+    { name: item.name, url: `/gear/${item.slug}/` }
   ]}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
     <section class="pt-32 pb-10 border-b border-neutral-900/80">
       <div class="container mx-auto px-4 max-w-4xl">
-        <a href="/gear" class="inline-flex items-center text-sm text-blue-300 hover:text-blue-200 mb-6">← Back to gear list</a>
+        <a href="/gear/" class="inline-flex items-center text-sm text-blue-300 hover:text-blue-200 mb-6">← Back to gear list</a>
 
         <div class="flex flex-wrap items-center gap-2 mb-3">
           <span class="text-xs text-neutral-400">{item.categoryEmoji} {item.category}</span>

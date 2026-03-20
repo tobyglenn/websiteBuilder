@@ -9,7 +9,7 @@ export default function RelatedVideos({ currentId, videos }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       {related.map((video) => (
-        <a key={video.id} href={`/video/${video.id}`} className="group block bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
+        <a key={video.id} href={`/video/${video.id}/`} className="group block bg-neutral-900 rounded-lg overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all">
           <div className="aspect-video relative overflow-hidden">
             <img 
               src={video.thumbnail} 

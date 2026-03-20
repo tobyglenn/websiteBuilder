@@ -9,7 +9,7 @@ export default function Hero() {
   const pillars = [
     { icon: Dumbbell, name: 'Speediance User', description: '1,000,000+ lbs lifted. The definitive independent Speediance resource.', href: '/videos?category=speediance' },
     { icon: Users, name: 'BJJ Insight', description: 'Thoughtful commentary on grappling culture and match analysis.', href: '/videos?category=bjj' },
-    { icon: TrendingDown, name: 'Transformation', description: '242 → 188 lbs. Real numbers, documented progress.', href: '/about' }
+    { icon: TrendingDown, name: 'Transformation', description: '242 → 188 lbs. Real numbers, documented progress.', href: '/about/' }
   ];
 
   return (
@@ -45,10 +45,10 @@ export default function Hero() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-            <a href={`/video/${featuredVideo?.id}`} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50">
+            <a href={`/video/${featuredVideo?.id}/`} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50">
               <Play size={20} fill="currentColor" /> Watch Latest
             </a>
-            <a href="/about" className="px-8 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 rounded-full transition-all hover:border-neutral-600 font-medium flex items-center gap-2">
+            <a href="/about/" className="px-8 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 rounded-full transition-all hover:border-neutral-600 font-medium flex items-center gap-2">
               About Me <ArrowRight size={16} />
             </a>
           </div>
@@ -56,7 +56,7 @@ export default function Hero() {
 
         {/* Featured Video Card */}
         {featuredVideo && (
-            <a href={`/video/${featuredVideo.id}`} className="flex-1 w-full max-w-xl relative group block">
+            <a href={`/video/${featuredVideo.id}/`} className="flex-1 w-full max-w-xl relative group block">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
             <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800">
                 <img src={featuredVideo.thumbnail} alt={featuredVideo.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" loading="lazy" />

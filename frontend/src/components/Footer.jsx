@@ -85,11 +85,11 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Content</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
-              <li><a href="/videos" className="hover:text-blue-400 transition-colors">Video Reviews</a></li>
-              <li><a href="/blog" className="hover:text-blue-400 transition-colors">Written Analysis</a></li>
-              <li><a href="/live" className="hover:text-blue-400 transition-colors">Live Streams</a></li>
-              <li><a href="/podcasts" className="hover:text-blue-400 transition-colors">Podcasts</a></li>
-              <li><a href="/gear" className="hover:text-blue-400 transition-colors">My Gear</a></li>
+              <li><a href="/videos/" className="hover:text-blue-400 transition-colors">Video Reviews</a></li>
+              <li><a href="/blog/" className="hover:text-blue-400 transition-colors">Written Analysis</a></li>
+              <li><a href="/live/" className="hover:text-blue-400 transition-colors">Live Streams</a></li>
+              <li><a href="/podcasts/" className="hover:text-blue-400 transition-colors">Podcasts</a></li>
+              <li><a href="/gear/" className="hover:text-blue-400 transition-colors">My Gear</a></li>
             </ul>
           </div>
 
@@ -97,15 +97,15 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Data Pages</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
-              <li><a href="/running" className="hover:text-blue-400 transition-colors">Running Log</a></li>
-              <li><a href="/speediance" className="hover:text-blue-400 transition-colors">Lifting Stats</a></li>
-              <li><a href="/sleep" className="hover:text-blue-400 transition-colors">Sleep Data</a></li>
-              <li><a href="/training" className="hover:text-blue-400 transition-colors">Training Trends</a></li>
-              <li><a href="/bjj" className="hover:text-blue-400 transition-colors">BJJ Journey</a></li>
-              <li><a href="/transformation" className="hover:text-blue-400 transition-colors">Weight Journey</a></li>
-              <li><a href="/prs" className="hover:text-blue-400 transition-colors">PR Board</a></li>
-              <li><a href="/whoop" className="hover:text-blue-400 transition-colors">Recovery</a></li>
-              <li><a href="/fitness-age" className="hover:text-blue-400 transition-colors">Fitness Age</a></li>
+              <li><a href="/running/" className="hover:text-blue-400 transition-colors">Running Log</a></li>
+              <li><a href="/speediance/" className="hover:text-blue-400 transition-colors">Lifting Stats</a></li>
+              <li><a href="/sleep/" className="hover:text-blue-400 transition-colors">Sleep Data</a></li>
+              <li><a href="/training/" className="hover:text-blue-400 transition-colors">Training Trends</a></li>
+              <li><a href="/bjj/" className="hover:text-blue-400 transition-colors">BJJ Journey</a></li>
+              <li><a href="/transformation/" className="hover:text-blue-400 transition-colors">Weight Journey</a></li>
+              <li><a href="/prs/" className="hover:text-blue-400 transition-colors">PR Board</a></li>
+              <li><a href="/whoop/" className="hover:text-blue-400 transition-colors">Recovery</a></li>
+              <li><a href="/fitness-age/" className="hover:text-blue-400 transition-colors">Fitness Age</a></li>
             </ul>
           </div>
 
@@ -113,9 +113,9 @@ export default function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
-              <li><a href="/privacy" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="/terms" className="hover:text-blue-400 transition-colors">Terms of Service</a></li>
-              <li><a href="/affiliate" className="hover:text-blue-400 transition-colors">Affiliate Disclosure</a></li>
+              <li><a href="/privacy/" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms/" className="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+              <li><a href="/affiliate/" className="hover:text-blue-400 transition-colors">Affiliate Disclosure</a></li>
             </ul>
           </div>
         </div>

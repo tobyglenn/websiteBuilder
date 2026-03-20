@@ -199,7 +199,7 @@ export default function SearchModal({ isOpen, onClose }) {
                     {results.blogPosts.map((post) => (
                       <a
                         key={post.slug}
-                        href={`/blog/${post.slug}`}
+                        href={`/blog/${post.slug}/`}
                         onClick={handleResultClick}
                         className="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800 transition-colors group"
                       >
@@ -233,7 +233,7 @@ export default function SearchModal({ isOpen, onClose }) {
                     {results.videos.map((video) => (
                       <a
                         key={video.id}
-                        href={`/video/${video.id}`}
+                        href={`/video/${video.id}/`}
                         onClick={handleResultClick}
                         className="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800 transition-colors group"
                       >
