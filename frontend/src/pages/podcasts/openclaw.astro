@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import LanguageSwitcher from '../../components/LanguageSwitcher.tsx';
 
 import PodcastSubscribeButtons from '../../components/PodcastSubscribeButtons.jsx';
 import {
@@ -98,7 +99,7 @@ try {
 
     <!-- Language Switcher -->
     <div class="flex justify-center mb-6">
-
+      <LanguageSwitcher client:load currentLang="en" />
     </div>
 
     <!-- Hosts badge -->
