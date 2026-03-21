@@ -71,6 +71,10 @@ try {
     const duration = extractTag(item, 'itunes:duration');
     const spotifyUrl = extractTag(item, 'link');
 
+    // Per-episode thumbnail: try itunes:image href, fall back to channel cover
+    const itunesImageMatch = item.match(/<itunes:image[^>]+href="([^"]+)"/i);
+    const coverImage = itunesImageMatch ? itunesImageMatch[1].trim() : FITNESS_COVER;
+
     fitnessEpisodes.push({
       index: idx + 1,
       title,
@@ -79,7 +83,7 @@ try {
       audioUrl,
       duration,
       spotifyUrl,
-      coverImage: FITNESS_COVER,
+      coverImage,
     });
   });
 } catch (err) {
@@ -102,6 +106,15 @@ try {
         Real-world breakdowns of training, nutrition, recovery, and the tech behind
         better results. No fluff, just what works.
       </p>
+    </div>
+
+    <!-- Show icon -->
+    <div class="flex justify-center mb-6">
+      <img
+        src={FITNESS_COVER}
+        alt="Toby on Fitness Tech Podcast"
+        class="w-32 h-32 rounded-2xl object-cover border border-neutral-700 shadow-lg"
+      />
     </div>
 
     <!-- Subscribe Buttons -->
@@ -129,11 +142,6 @@ try {
         {fitnessEpisodes.map((ep) => (
           <article class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:shadow-xl hover:shadow-green-400/5 hover:border-neutral-700 transition-all">
             <div class="flex gap-4 mb-4">
-              <img
-                src={ep.coverImage}
-                alt={ep.title}
-                class="w-20 h-20 rounded-xl object-cover shrink-0 border border-neutral-700"
-              />
               <div class="flex flex-col justify-center min-w-0">
                 <span class="bg-green-400/10 text-green-400 text-xs font-bold px-2 py-0.5 rounded-full self-start mb-2">
                   💪 Fitness Tech
