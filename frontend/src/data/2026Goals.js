@@ -3,7 +3,7 @@
 // Running: 31 runs, 60.9 miles
 // Lifting: 30 sessions, 327,780 lbs
 // Workouts: 61 total (31 runs + 30 lifting sessions)
-// BJJ: Coming Soon (no data)
+// BJJ: sourced from WHOOP workouts (sport_id: 98, jiu-jitsu)
 
 export const goals2026 = {
   running: {
@@ -26,10 +26,10 @@ export const goals2026 = {
   },
   bjj: {
     icon: '🥋',
-    current: 0,
+    current: 6,
     target: 100,
     unit: 'sessions',
-    comingSoon: true
+    comingSoon: false
   }
 };
 

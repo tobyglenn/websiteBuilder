@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import garminData from '../data/garmin_all_activities.json';
 import speedianceData from '../data/speediance_dashboard_data.json';
 
-// Get Monday of the current week (March 2, 2026)
+// Get Monday of the current week
 function getWeekBounds(date) {
   const d = new Date(date);
   const day = d.getDay();
@@ -207,7 +207,12 @@ export default function ThisWeekWidget() {
 
         {/* Week Range Display */}
         <div className="text-center mt-6 text-sm text-neutral-500">
-          This Week: March 2-8, 2026
+          {(() => {
+            const now = new Date();
+            const { monday, sunday } = getWeekBounds(now);
+            const fmt = (d) => d.toLocaleDateString('en-US', { month: 'long', day: 'numeric' });
+            return `This Week: ${fmt(monday)}–${fmt(sunday)}, ${sunday.getFullYear()}`;
+          })()}
         </div>
       </div>
     </section>

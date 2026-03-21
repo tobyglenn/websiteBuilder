@@ -154,4 +154,10 @@ export const bjjStats = {
   trainingPartners: ['purple belts', 'brown belts', 'black belts'],
   grappleStyle: 'Gi & No-Gi',
   yearsTraining: '10+',
+  // WHOOP-tracked data (sport_id: 98, jiu-jitsu)
+  trainingSessionsLogged: 242,
+  totalMatHours: 165.7,
+  avgStrain: 10.2,
+  avgHeartRate: 139,
+  lastSession: '2026-02-11',
 };

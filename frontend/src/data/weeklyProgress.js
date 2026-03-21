@@ -1,5 +1,6 @@
 import speedianceData from './speediance_dashboard_data.json';
 import garminData from './garmin_all_activities.json';
+import whoopData from './whoop_v2_latest.json';
 
 function getWeekStart(date) {
   const d = new Date(date);
@@ -55,11 +56,26 @@ const lastWeekVolume = speedianceLastWeek.reduce((sum, s) => sum + (s.totalCapac
 const thisWeekMiles = garminThisWeek.reduce((sum, a) => sum + (a.distance_miles || a.distance || 0), 0);
 const lastWeekMiles = garminLastWeek.reduce((sum, a) => sum + (a.distance_miles || a.distance || 0), 0);
 
+// BJJ sessions from WHOOP (sport_id 98 = jiu-jitsu)
+const whoopWorkouts = (whoopData?.workouts?.records) || [];
+const bjjSessions = whoopWorkouts.filter(w => w.sport_id === 98);
+
+const bjjThisWeek = bjjSessions.filter(w => {
+  const date = new Date(w.start);
+  return date >= thisWeekStart && date <= thisWeekEnd;
+});
+
+const bjjLastWeek = bjjSessions.filter(w => {
+  const date = new Date(w.start);
+  return date >= lastWeekStart && date <= lastWeekEnd;
+});
+
 export const weeklyProgress = {
   workouts: { thisWeek: speedianceThisWeek.length, lastWeek: speedianceLastWeek.length },
   runs: { thisWeek: garminThisWeek.length, lastWeek: garminLastWeek.length },
   volume: { thisWeek: Math.round(thisWeekVolume), lastWeek: Math.round(lastWeekVolume) },
-  miles: { thisWeek: parseFloat(thisWeekMiles.toFixed(1)), lastWeek: parseFloat(lastWeekMiles.toFixed(1)) }
+  miles: { thisWeek: parseFloat(thisWeekMiles.toFixed(1)), lastWeek: parseFloat(lastWeekMiles.toFixed(1)) },
+  bjj: { thisWeek: bjjThisWeek.length, lastWeek: bjjLastWeek.length },
 };
 
 export default weeklyProgress;

@@ -13,10 +13,8 @@ const TrainingFocus = () => {
   });
 
   useEffect(() => {
-    // Use a reference date (latest date in data + 1 day for "today")
-    const garminEndDate = new Date(garminData.date_range?.end || '2026-02-19');
-    const refDate = new Date(garminEndDate);
-    refDate.setDate(refDate.getDate() + 1); // Day after latest data
+    // Use today as the reference date (not the last data date)
+    const refDate = new Date();
     
     const sevenDaysAgo = new Date(refDate);
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -53,14 +51,17 @@ const TrainingFocus = () => {
       BJJ: bjjSessions.length,
     };
 
-    // Priority order: Running > Lifting > BJJ
+    // Pick whatever had the most sessions; BJJ beats ties with Running
     let focus = 'Running';
-    if (counts.Lifting > counts.Running && counts.Lifting >= counts.BJJ) {
+    const maxCount = Math.max(counts.Running, counts.Lifting, counts.BJJ);
+    if (maxCount === 0) {
+      focus = 'Running'; // Default when no data
+    } else if (counts.Lifting === maxCount) {
       focus = 'Lifting';
-    } else if (counts.BJJ > counts.Running && counts.BJJ > counts.Lifting) {
+    } else if (counts.BJJ === maxCount) {
       focus = 'BJJ';
-    } else if (counts.Running === 0 && counts.Lifting === 0 && counts.BJJ === 0) {
-      focus = 'Running'; // Default
+    } else {
+      focus = 'Running';
     }
 
     setFocusData({
