@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import Search from './Search.jsx';
-import LanguageSwitcher from './LanguageSwitcher.tsx';
+
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -167,7 +167,7 @@ export default function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
             <Search />
-            {isPodcastPage && <LanguageSwitcher />}
+
           </div>
 
           {/* Mobile Menu Button */}
