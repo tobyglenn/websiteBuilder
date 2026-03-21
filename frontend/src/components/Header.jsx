@@ -55,7 +55,7 @@ export default function Header() {
     { name: 'Blog & Articles', href: '/blog/', hasDropdown: true },
     { name: pn.openclaw, href: `${podcastBase}/podcasts/openclaw/` },
     { name: pn.fitness, href: `${podcastBase}/podcasts/fitness-tech/` },
-    { name: 'Calculators', href: '/calculators/' },
+    { name: 'Games', href: '/games/' },
     { name: 'About', href: '/about/' },
     { name: 'FAQ', href: '/faq/' },
   ];
@@ -82,6 +82,7 @@ export default function Header() {
     { name: 'Year Review', href: '/year-in-review/', icon: '📊' },
     { name: 'Gear', href: '/gear/', icon: '🛠' },
     { name: 'Contact', href: '/contact/', icon: '📧' },
+    { name: 'HR Zones', href: '/hr-zones/', icon: '📊' },
   ];
 
   return (
@@ -199,8 +200,7 @@ export default function Header() {
               {[
                 { name: 'Home', href: '/' },
                 { name: 'Videos', href: '/videos/' },
-                { name: 'Calculators', href: '/calculators/' },
-                { name: 'HR Zones', href: '/hr-zones/' },
+                { name: 'Games', href: '/games/' },
                 { name: 'About', href: '/about/' },
                 { name: 'FAQ', href: '/faq/' },
               ].map((link) => (
