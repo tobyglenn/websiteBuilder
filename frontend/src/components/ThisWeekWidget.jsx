@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import garminData from '../data/garmin_all_activities.json';
 import speedianceData from '../data/speediance_dashboard_data.json';
+import whoopData from '../data/whoop_v2_latest.json';
 
 // Get Monday of the current week
 function getWeekBounds(date) {
@@ -41,7 +42,7 @@ function getAllSpeedianceSessions(data) {
   return sessions;
 }
 
-function calculateWeekStats(garminActivities, speedianceSessions, weekStart, weekEnd) {
+function calculateWeekStats(garminActivities, speedianceSessions, whoopWorkouts, weekStart, weekEnd) {
   let workouts = 0;
   let miles = 0;
   let volume = 0;
@@ -61,6 +62,14 @@ function calculateWeekStats(garminActivities, speedianceSessions, weekStart, wee
     if (sessionDate && sessionDate >= weekStart && sessionDate <= weekEnd) {
       workouts++;
       volume += session.totalCapacity || 0;
+    }
+  });
+
+  // Count WHOOP workouts in this week (BJJ, other sports not tracked by Garmin/Speediance)
+  whoopWorkouts.forEach((workout) => {
+    const workoutDate = workout.start ? new Date(workout.start) : null;
+    if (workoutDate && workoutDate >= weekStart && workoutDate <= weekEnd) {
+      workouts++;
     }
   });
 
@@ -85,7 +94,7 @@ function getComparisonText(current, previous) {
 
 export default function ThisWeekWidget() {
   const stats = useMemo(() => {
-    const now = new Date('2026-03-06'); // Current date from context
+    const now = new Date();
     const { monday: thisWeekStart, sunday: thisWeekEnd } = getWeekBounds(now);
     
     // Last week bounds
@@ -97,10 +106,12 @@ export default function ThisWeekWidget() {
 
     const garminActivities = garminData?.activities || [];
     const speedianceSessions = getAllSpeedianceSessions(speedianceData);
+    const whoopWorkouts = whoopData?.workouts?.records || [];
 
     const thisWeek = calculateWeekStats(
       garminActivities,
       speedianceSessions,
+      whoopWorkouts,
       thisWeekStart,
       thisWeekEnd
     );
@@ -108,6 +119,7 @@ export default function ThisWeekWidget() {
     const lastWeek = calculateWeekStats(
       garminActivities,
       speedianceSessions,
+      whoopWorkouts,
       lastWeekStart,
       lastWeekEnd
     );
