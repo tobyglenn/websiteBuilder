@@ -30,8 +30,8 @@ const speedSessions = collectSpeedSessions();
 // Build a Set of dates (ISO string) for quick lookup
 const speedDateSet = new Set(speedSessions.map(s => s.date));
 
-// Compute training streak up to today (2026-03-04) in UTC
-const today = new Date('2026-03-04T00:00:00Z');
+// Compute training streak up to today (dynamic — uses current date at build time)
+const today = new Date();
 let streak = 0;
 for (let d = new Date(today); ; d.setUTCDate(d.getUTCDate() - 1)) {
   const iso = d.toISOString().slice(0, 10);
