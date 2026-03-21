@@ -7,7 +7,6 @@ import WorkoutHeatmap from '../components/WorkoutHeatmap.jsx';
 import ThisWeekWidget from '../components/ThisWeekWidget.jsx';
 import LatestActivity from '../components/LatestActivity.jsx';
 import YearlyGoals from '../components/YearlyGoals.jsx';
-import Testimonials from '../components/Testimonials.jsx';
 import NewsletterSignup from '../components/NewsletterSignup.jsx';
 import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 import videosData from '../data/videos.json';
@@ -223,74 +222,6 @@ const webPageSchema = {
 		</div>
 	</section>
 
-	{/* Testimonials Section */}
-	<section id="testimonials" class="py-16 bg-neutral-950 border-t border-neutral-800">
-		<div class="container mx-auto px-4">
-			<div class="text-center mb-10">
-				<span class="text-blue-400 font-bold uppercase tracking-widest text-sm mb-2 block">Community Voices</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">What People Are Saying</h2>
-				<p class="text-neutral-400 mt-3 max-w-xl mx-auto">Feedback from the community I've been lucky enough to build.</p>
-			</div>
-
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-				{/* Testimonial 1 */}
-				<div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-all">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center text-white font-bold text-sm">
-							MR
-						</div>
-						<div>
-							<div class="text-white font-semibold">Mike R.</div>
-							<div class="text-neutral-500 text-xs">BJJ Training Partner</div>
-						</div>
-					</div>
-					<p class="text-neutral-300 text-sm leading-relaxed">"Your BJJ content is incredibly helpful. The technique breakdowns have improved my game significantly."</p>
-				</div>
-
-				{/* Testimonial 2 */}
-				<div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-all">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-10 h-10 rounded-full bg-green-600 flex items-center justify-center text-white font-bold text-sm">
-							SK
-						</div>
-						<div>
-							<div class="text-white font-semibold">Sarah K.</div>
-							<div class="text-neutral-500 text-xs">YouTube Subscriber</div>
-						</div>
-					</div>
-					<p class="text-neutral-300 text-sm leading-relaxed">"Your Speediance reviews helped me choose the right home gym. Finally pulled the trigger after months of research!"</p>
-				</div>
-
-				{/* Testimonial 3 */}
-				<div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-all">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold text-sm">
-							JT
-						</div>
-						<div>
-							<div class="text-white font-semibold">James T.</div>
-							<div class="text-neutral-500 text-xs">OpenClaw Community</div>
-						</div>
-					</div>
-					<p class="text-neutral-300 text-sm leading-relaxed">"Your transformation story inspired me to get serious about fitness. The data-driven approach keeps me accountable."</p>
-				</div>
-
-				{/* Testimonial 4 */}
-				<div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800 hover:border-blue-500/50 transition-all">
-					<div class="flex items-center gap-3 mb-4">
-						<div class="w-10 h-10 rounded-full bg-orange-600 flex items-center justify-center text-white font-bold text-sm">
-							AL
-						</div>
-						<div>
-							<div class="text-white font-semibold">Amanda L.</div>
-							<div class="text-neutral-500 text-xs">YouTube Subscriber</div>
-						</div>
-					</div>
-					<p class="text-neutral-300 text-sm leading-relaxed">"The running content motivated me to start. Been following your training guides and just finished my first 5K!"</p>
-				</div>
-			</div>
-		</div>
-	</section>
 
 	<!-- Featured Video Section -->
 	<section id="featured-video" class="py-16 bg-neutral-900">
