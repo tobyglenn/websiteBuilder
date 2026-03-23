@@ -1,5 +1,4 @@
 ---
-// TODO(de): EXO translation API unavailable during overnight build; localized key UI strings added, long-form body content still partly English.
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/Hero.jsx';
 import TrainingFocus from '../../components/TrainingFocus.jsx';
@@ -20,13 +19,13 @@ import weeklyProgress from '../../data/weeklyProgress.js';
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
-  return `${Math.max(1, Math.round(words / 200))} min read`;
+  return `${Math.max(1, Math.round(words / 200))} Min. Lesezeit`;
 }
 
 function formatBlogDate(value) {
   const timestamp = Date.parse(value || '');
-  if (Number.isNaN(timestamp)) return 'Undated';
-  return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+  if (Number.isNaN(timestamp)) return 'Ohne Datum';
+  return new Date(timestamp).toLocaleDateString('de-DE', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 const lastWorkout = lastWorkoutData;
@@ -42,10 +41,10 @@ const channelLatestVideo = [...allVideos]
   .filter(v => v.publishedAt)
   .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())[0];
 const channelLatestDate = channelLatestVideo
-  ? new Date(channelLatestVideo.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-  : 'N/A';
+  ? new Date(channelLatestVideo.publishedAt).toLocaleDateString('de-DE', { month: 'short', day: 'numeric', year: 'numeric' })
+  : 'k. A.';
 const channelTotalViewsFormatted = channelTotalViews >= 1000
-  ? (channelTotalViews / 1000).toFixed(1) + 'K'
+  ? (channelTotalViews / 1000).toFixed(1) + ' Tsd.'
   : channelTotalViews.toString();
 
 const popularVideos = [...allVideos]
@@ -56,9 +55,9 @@ const popularVideos = [...allVideos]
 const recentVideos = allVideos.filter(v => !v.is_live).slice(0, 3);
 
 function formatViews(count) {
-  if (!count) return '0 views';
-  if (count >= 1000) return (count / 1000).toFixed(1) + 'K views';
-  return count + ' views';
+  if (!count) return '0 Aufrufe';
+  if (count >= 1000) return (count / 1000).toFixed(1) + ' Tsd. Aufrufe';
+  return count + ' Aufrufe';
 }
 
 const recentPosts = [...CANONICAL_BLOG_POSTS]
@@ -66,22 +65,22 @@ const recentPosts = [...CANONICAL_BLOG_POSTS]
   .slice(0, 3);
 
 const formattedLifetimeStats = {
-  lbsLifted: new Intl.NumberFormat('en-US').format(lifetimeStats.totalLbsLifted),
-  milesRun: new Intl.NumberFormat('en-US', {
+  lbsLifted: new Intl.NumberFormat('de-DE').format(lifetimeStats.totalLbsLifted),
+  milesRun: new Intl.NumberFormat('de-DE', {
     minimumFractionDigits: 1,
     maximumFractionDigits: 1,
   }).format(lifetimeStats.totalMilesRun),
-  workouts: new Intl.NumberFormat('en-US').format(lifetimeStats.totalWorkouts),
+  workouts: new Intl.NumberFormat('de-DE').format(lifetimeStats.totalWorkouts),
 };
 
 const webPageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "@id": "https://tobyonfitnesstech.com/#webpage-home",
+  "@id": "https://tobyonfitnesstech.com/de/#webpage-home",
   "name": "Toby on Fitness Tech - Startseite",
-  "description": "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.",
-  "url": "https://tobyonfitnesstech.com",
-  "inLanguage": "en",
+  "description": "Unabhängige Tests von Fitness-Technologie: Speediance, Tonal, Whoop, Garmin und mehr. Echte Daten von einem echten Athleten.",
+  "url": "https://tobyonfitnesstech.com/de/",
+  "inLanguage": "de",
   "primaryImageOfPage": {
     "@type": "ImageObject",
     "url": "https://tobyonfitnesstech.com/images/og-home.jpg"
@@ -99,8 +98,8 @@ const webPageSchema = {
 ---
 
 <Layout 
-  title="Toby on Fitness Tech - Reviews, Analysis, & Live Streams"
-  description="Independent fitness tech reviews from a real athlete. Speediance vs Tonal, Whoop vs Garmin, BJJ commentary, and transformation data. No fluff, just real numbers."
+  title="Toby on Fitness Tech - Tests, Analysen & Livestreams"
+  description="Unabhängige Tests zu Fitness-Technologie von einem echten Athleten. Speediance vs. Tonal, Whoop vs. Garmin, BJJ-Kommentare und Transformationsdaten. Kein Füllmaterial, nur echte Zahlen."
   jsonLd={webPageSchema}
 >
 	
@@ -109,32 +108,32 @@ const webPageSchema = {
 
 	<section id="this-week" class="py-12 bg-neutral-950">
   <div class="max-w-6xl mx-auto px-4">
-    <h2 class="text-2xl font-bold text-white mb-8">This Week vs Last Week</h2>
+    <h2 class="text-2xl font-bold text-white mb-8">Diese Woche vs. letzte Woche</h2>
     <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
       <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
         <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🏋️</span><span class="text-neutral-400 text-sm">Workouts</span></div>
         <div class="text-3xl font-bold text-white">{weeklyProgress.workouts.thisWeek}</div>
-        <div class="text-sm text-neutral-500">vs {weeklyProgress.workouts.lastWeek} last week</div>
+        <div class="text-sm text-neutral-500">vs. {weeklyProgress.workouts.lastWeek} letzte Woche</div>
       </div>
       <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🏃</span><span class="text-neutral-400 text-sm">Runs</span></div>
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🏃</span><span class="text-neutral-400 text-sm">Läufe</span></div>
         <div class="text-3xl font-bold text-white">{weeklyProgress.runs.thisWeek}</div>
-        <div class="text-sm text-neutral-500">vs {weeklyProgress.runs.lastWeek} last week</div>
+        <div class="text-sm text-neutral-500">vs. {weeklyProgress.runs.lastWeek} letzte Woche</div>
       </div>
       <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">💪</span><span class="text-neutral-400 text-sm">Volume</span></div>
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">💪</span><span class="text-neutral-400 text-sm">Volumen</span></div>
         <div class="text-3xl font-bold text-white">{weeklyProgress.volume.thisWeek.toLocaleString()}</div>
-        <div class="text-sm text-neutral-500">vs {weeklyProgress.volume.lastWeek.toLocaleString()} lbs</div>
+        <div class="text-sm text-neutral-500">vs. {weeklyProgress.volume.lastWeek.toLocaleString()} lbs</div>
       </div>
       <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
-        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🗺️</span><span class="text-neutral-400 text-sm">Miles</span></div>
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🗺️</span><span class="text-neutral-400 text-sm">Meilen</span></div>
         <div class="text-3xl font-bold text-white">{weeklyProgress.miles.thisWeek}</div>
-        <div class="text-sm text-neutral-500">vs {weeklyProgress.miles.lastWeek} mi</div>
+        <div class="text-sm text-neutral-500">vs. {weeklyProgress.miles.lastWeek} mi</div>
       </div>
       <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
         <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🥋</span><span class="text-neutral-400 text-sm">BJJ</span></div>
         <div class="text-3xl font-bold text-white">{weeklyProgress.bjj.thisWeek}</div>
-        <div class="text-sm text-neutral-500">vs {weeklyProgress.bjj.lastWeek} last week</div>
+        <div class="text-sm text-neutral-500">vs. {weeklyProgress.bjj.lastWeek} letzte Woche</div>
       </div>
     </div>
   </div>
@@ -144,22 +143,22 @@ const webPageSchema = {
 	<section id="lifetime-stats" class="py-16 bg-neutral-950 border-y border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
-				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Lifetime Totals</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">Real Data. Real Results.</h2>
-				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">A lifetime summary of every tracked session and run.</p>
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Gesamtsumme</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Echte Daten. Echte Ergebnisse.</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Eine Gesamtübersicht über jede erfasste Einheit und jeden Lauf.</p>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
 				<div class="bg-neutral-900 rounded-lg p-8 border border-neutral-800">
 					<div class="text-4xl font-bold text-blue-400">🏋️ {formattedLifetimeStats.lbsLifted}</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Lbs Lifted</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Insgesamt gehobene lbs</div>
 				</div>
 				<div class="bg-neutral-900 rounded-lg p-8 border border-neutral-800">
 					<div class="text-4xl font-bold text-blue-400">🏃 {formattedLifetimeStats.milesRun}</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Miles Run</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Insgesamt gelaufene Meilen</div>
 				</div>
 				<div class="bg-neutral-900 rounded-lg p-8 border border-neutral-800">
 					<div class="text-4xl font-bold text-blue-400">💪 {formattedLifetimeStats.workouts}</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Workouts</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Workouts insgesamt</div>
 				</div>
 			</div>
 		</div>
@@ -174,16 +173,16 @@ const webPageSchema = {
 		</div>
 	</section>
 
-	{/* Neu aus dem Blog */}
+	{/* Latest from the Blog */}
 	<section id="blog" class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
 				<div>
-					<span class="text-blue-400 font-bold uppercase tracking-widest text-sm mb-2 block">Neu aus dem Blog</span>
-					<h2 class="text-3xl md:text-4xl font-bold text-white">Frische Analysen & Reviews</h2>
-					<p class="text-neutral-400 mt-3 max-w-2xl">The newest posts on fitness tech, training trends, and what the data actually says.</p>
+					<span class="text-blue-400 font-bold uppercase tracking-widest text-sm mb-2 block">Neu im Blog</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Aktuelle Analysen & Tests</h2>
+					<p class="text-neutral-400 mt-3 max-w-2xl">Die neuesten Beiträge zu Fitness-Technologie, Trainingstrends und dem, was die Daten tatsächlich sagen.</p>
 				</div>
-				<a href="/blog/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:border-blue-500/50 hover:text-blue-400 transition-colors">
+				<a href="/de/blog/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:border-blue-500/50 hover:text-blue-400 transition-colors">
 					Alle Beiträge ansehen <ArrowRight size={16} />
 				</a>
 			</div>
@@ -224,28 +223,28 @@ const webPageSchema = {
 	</section>
 
 
-	<!-- Ausgewähltes Video Section -->
+	<!-- Featured Video Section -->
 	<section id="featured-video" class="py-16 bg-neutral-900">
 	  <div class="max-w-4xl mx-auto px-4">
-	    <h2 class="text-2xl font-bold mb-6 text-white">Ausgewähltes Video</h2>
+	    <h2 class="text-2xl font-bold mb-6 text-white">Vorgestelltes Video</h2>
 	    <div class="aspect-video rounded-xl overflow-hidden bg-neutral-800">
 	      <iframe 
 	        class="w-full h-full" 
 	        src="https://www.youtube.com/embed/0C8mQoV-Xpg" 
-	        title="Speediance V3.1 Progressive Overload Review"
+	        title="Speediance V3.1 Test zu progressiver Überlastung"
 	        frameborder="0" 
 	        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
 	        allowfullscreen>
 	      </iframe>
 	    </div>
-	    <p class="mt-4 text-neutral-400">Speediance Fixed Progressive Overload (Mostly) — V3.1 Update Review</p>
-	    <a href="/videos/" class="inline-block mt-2 text-blue-400 hover:text-blue-300">View all videos →</a>
+	    <p class="mt-4 text-neutral-400">Speediance hat die progressive Überlastung (größtenteils) behoben — Test des V3.1-Updates</p>
+	    <a href="/de/videos/" class="inline-block mt-2 text-blue-400 hover:text-blue-300">Alle Videos ansehen →</a>
 	  </div>
 	</section>
 
 	<NewsletterSignup client:visible />
 
-	{/* Neueste Videos Section */}
+	{/* Latest Videos Section */}
 	<section id="latest-videos" class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="flex items-end justify-between mb-10">
@@ -253,7 +252,7 @@ const webPageSchema = {
 					<span class="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-2 block">YouTube</span>
 					<h2 class="text-3xl md:text-4xl font-bold text-white">Neueste Videos</h2>
 				</div>
-				<a href="/videos/" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
+				<a href="/de/videos/" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
 					Alle Videos ansehen <ArrowRight size={18} />
 				</a>
 			</div>
@@ -289,19 +288,19 @@ const webPageSchema = {
 						</div>
 						<div>
 							<div class="text-white font-bold text-lg">Toby on Fitness</div>
-							<div class="text-neutral-500 text-sm">YouTube Channel</div>
+							<div class="text-neutral-500 text-sm">YouTube-Kanal</div>
 						</div>
 					</div>
 					
 					<div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
 						<div class="text-center">
 							<div class="text-2xl md:text-3xl font-black text-white">1.2K</div>
-							<div class="text-xs text-neutral-500 uppercase tracking-wide">Subscribers</div>
+							<div class="text-xs text-neutral-500 uppercase tracking-wide">Abonnenten</div>
 						</div>
 						<div class="h-10 w-px bg-neutral-700 hidden md:block"></div>
 						<div class="text-center">
 							<div class="text-2xl md:text-3xl font-black text-white">9.9K</div>
-							<div class="text-xs text-neutral-500 uppercase tracking-wide">Total Views</div>
+							<div class="text-xs text-neutral-500 uppercase tracking-wide">Gesamtaufrufe</div>
 						</div>
 						<div class="h-10 w-px bg-neutral-700 hidden md:block"></div>
 						<div class="text-center">
@@ -312,7 +311,7 @@ const webPageSchema = {
 
 					<a href="https://youtube.com/@tobyonfitness" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors text-sm">
 						<svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-						Subscribe
+						Abonnieren
 					</a>
 				</div>
 			</div>
@@ -323,9 +322,9 @@ const webPageSchema = {
 	<section id="channel-stats" class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
-				<span class="text-red-500 font-bold uppercase tracking-widest text-sm mb-2 block">Channel Stats</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">By the Numbers</h2>
-				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Real production metrics from the YouTube channel — no filler, just output.</p>
+				<span class="text-red-500 font-bold uppercase tracking-widest text-sm mb-2 block">Kanalstatistiken</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Die Zahlen</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Echte Produktionskennzahlen vom YouTube-Kanal — kein Füllmaterial, nur Output.</p>
 			</div>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
 				{/* Total Videos */}
@@ -336,7 +335,7 @@ const webPageSchema = {
 						</svg>
 					</div>
 					<div class="text-3xl md:text-4xl font-black text-white mb-2 group-hover:text-red-400 transition-colors">{channelTotalVideos}</div>
-					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Total Videos</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Videos insgesamt</div>
 				</div>
 				{/* Total Views */}
 				<div class="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 hover:border-blue-500/40 transition-all group text-center">
@@ -347,7 +346,7 @@ const webPageSchema = {
 						</svg>
 					</div>
 					<div class="text-3xl md:text-4xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{channelTotalViewsFormatted}</div>
-					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Total Views</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Aufrufe insgesamt</div>
 				</div>
 				{/* Shorts */}
 				<div class="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 hover:border-purple-500/40 transition-all group text-center">
@@ -367,7 +366,7 @@ const webPageSchema = {
 						</svg>
 					</div>
 					<div class="text-lg md:text-xl font-black text-white mb-2 group-hover:text-green-400 transition-colors leading-tight">{channelLatestDate}</div>
-					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Latest Upload</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Letzter Upload</div>
 				</div>
 			</div>
 		</div>
@@ -377,9 +376,9 @@ const webPageSchema = {
 	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
-				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch Next</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">Most Popular Videos</h2>
-				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Top videos by views from the channel.</p>
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Als Nächstes ansehen</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Beliebteste Videos</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Top-Videos des Kanals nach Aufrufen.</p>
 			</div>
 			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 				{popularVideos.map(video => (
@@ -399,7 +398,7 @@ const webPageSchema = {
 							<h3 class="font-semibold text-white text-sm mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">{video.title}</h3>
 							<div class="flex items-center justify-between text-xs text-neutral-500">
 								<span>{formatViews(video.viewCount)}</span>
-								<span>{video.publishedAt ? new Date(video.publishedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : ''}</span>
+								<span>{video.publishedAt ? new Date(video.publishedAt).toLocaleDateString('de-DE', {month:'short', day:'numeric', year:'numeric'}) : ''}</span>
 							</div>
 						</div>
 					</a>
@@ -412,27 +411,27 @@ const webPageSchema = {
 	<section id="training-activity" class="py-20 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">
-				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Training Activity</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">Today's Stats</h2>
-				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Live snapshot of your recent training.</p>
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Trainingsaktivität</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Heutige Werte</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Live-Snapshot Ihres aktuellen Trainings.</p>
 			</div>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
 				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
-					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{trainingStreak} days</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Training Streak</div>
+					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{trainingStreak} Tage</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Trainingsserie</div>
 				</div>
 				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
-					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{lastWorkout?.date ?? 'N/A'}</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Last Workout</div>
+					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{lastWorkout?.date ?? 'k. A.'}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Letztes Workout</div>
 					<div class="text-xs text-neutral-600 mt-2">{lastWorkout?.type ?? ''}</div>
 				</div>
 				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{thisWeekVolume}</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">This Week (lbs)</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Diese Woche (lbs)</div>
 				</div>
 				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{thisMonthMiles}</div>
-					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">This Month (miles)</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Dieser Monat (Meilen)</div>
 				</div>
 			</div>
 		</div>
@@ -441,9 +440,9 @@ const webPageSchema = {
 	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
-				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Recent Activity</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">Recent Activity</h2>
-				<p class="text-neutral-400 mt-3 max-w-xl mx-auto">Latest from training</p>
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Aktuelle Aktivität</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Aktuelle Aktivität</h2>
+				<p class="text-neutral-400 mt-3 max-w-xl mx-auto">Neueste Trainingsdaten</p>
 			</div>
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
@@ -469,9 +468,9 @@ const webPageSchema = {
 	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
-				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Live Data</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">Recent Activity</h2>
-				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Your latest workouts, runs, and recovery scores from your devices.</p>
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Live-Daten</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Aktuelle Aktivität</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Ihre neuesten Workouts, Läufe und Erholungswerte von Ihren Geräten.</p>
 			</div>
 			<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
 				{recentActivity.map(activity => (
@@ -487,7 +486,7 @@ const webPageSchema = {
 						<h3 class="font-bold text-white text-sm mb-1">{activity.title}</h3>
 						<p class="text-xs text-neutral-400 mb-2">{activity.subtitle}</p>
 						<div class="text-xs text-neutral-600">
-							{new Date(activity.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+							{new Date(activity.date).toLocaleDateString('de-DE', { month: 'short', day: 'numeric', year: 'numeric' })}
 						</div>
 					</div>
 				))}
@@ -500,12 +499,12 @@ const webPageSchema = {
 		<div class="container mx-auto px-4">
 			<div class="flex items-end justify-between mb-12 border-b border-neutral-900 pb-8">
 				<div>
-					<h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">Latest Uploads</h2>
+					<h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">Neueste Uploads</h2>
 					<p class="text-neutral-500 max-w-2xl">
-						Fresh from the lab. In-depth testing and honest reviews.
+						Frisch aus dem Labor. Detaillierte Tests und ehrliche Reviews.
 					</p>
 				</div>
-				<a href="/videos/" class="hidden md:flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors group">
+				<a href="/de/videos/" class="hidden md:flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors group">
 					Alle Videos ansehen <ArrowRight size={18} class="group-hover:translate-x-1 transition-transform" />
 				</a>
 			</div>
@@ -537,11 +536,11 @@ const webPageSchema = {
 						<div class="p-6">
 							<div class="flex items-center justify-between text-xs text-neutral-500 mb-3 font-medium uppercase tracking-wider">
 								{video.is_live ? (
-									<span class="flex items-center gap-1 text-red-400 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block"></span> LIVE NOW</span>
+									<span class="flex items-center gap-1 text-red-400 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block"></span> JETZT LIVE</span>
 								) : (
-									<span>{video.viewCount?.toLocaleString() ?? 0} views</span>
+									<span>{video.viewCount?.toLocaleString() ?? 0} Aufrufe</span>
 								)}
-								<span>{new Date(video.publishedAt).toLocaleDateString()}</span>
+								<span>{new Date(video.publishedAt).toLocaleDateString('de-DE')}</span>
 							</div>
 							
 							<h3 class="text-lg font-bold text-white mb-3 line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors">
@@ -557,7 +556,7 @@ const webPageSchema = {
 			</div>
 			
 			<div class="mt-12 text-center md:hidden">
-				<a href="/videos/" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors">
+				<a href="/de/videos/" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors">
 					Alle Videos ansehen <ArrowRight size={16} />
 				</a>
 			</div>
@@ -569,11 +568,11 @@ const webPageSchema = {
 		<div class="container mx-auto px-4">
 			<div class="flex items-end justify-between mb-12">
 				<div>
-					<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Analysis Log</span>
-					<h2 class="text-3xl md:text-4xl font-bold text-white">Written Reviews</h2>
+					<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Das Analyseprotokoll</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Geschriebene Reviews</h2>
 				</div>
-				<a href="/blog/" class="hidden md:flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group text-sm font-medium">
-					Read More Analysis <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
+				<a href="/de/blog/" class="hidden md:flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group text-sm font-medium">
+					Mehr Analysen lesen <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
 				</a>
 			</div>
 
@@ -588,7 +587,7 @@ const webPageSchema = {
 							{post.excerpt}
 						</p>
 						<a href={`/blog/${post.slug}/`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
-							Read Article <ArrowRight size={14} class="group-hover/link:translate-x-1 transition-transform" />
+							Artikel lesen <ArrowRight size={14} class="group-hover/link:translate-x-1 transition-transform" />
 						</a>
 					</article>
 				))}
@@ -600,90 +599,90 @@ const webPageSchema = {
 	<section id="data-deep-dive" class="py-20 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">
-				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Dive Deeper</span>
-				<h2 class="text-3xl md:text-4xl font-bold text-white">Your Data, Decoded.</h2>
-				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Every workout, every mile, every sleep score — tracked and analyzed.</p>
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Tiefer eintauchen</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Ihre Daten, entschlüsselt.</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Jedes Workout, jede Meile, jeder Schlafwert — erfasst und analysiert.</p>
 			</div>
 			
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 				{/* Running */}
-				<a href="/running/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/running/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🏃</div>
-					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Running</h3>
-					<p class="text-xs text-neutral-500">265 miles · 111 runs</p>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Laufen</h3>
+					<p class="text-xs text-neutral-500">265 Meilen · 111 Läufe</p>
 				</a>
 				{/* Speediance */}
-				<a href="/speediance/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/speediance/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🏋️</div>
-					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lifting</h3>
-					<p class="text-xs text-neutral-500">1.29M lbs · 125 workouts</p>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Krafttraining</h3>
+					<p class="text-xs text-neutral-500">1,29 Mio. lbs · 125 Workouts</p>
 				</a>
 				{/* Sleep */}
-				<a href="/sleep/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/sleep/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">😴</div>
-					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Sleep</h3>
-					<p class="text-xs text-neutral-500">Avg 68 score · 8 nights</p>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Schlaf</h3>
+					<p class="text-xs text-neutral-500">Ø 68 Punkte · 8 Nächte</p>
 				</a>
 				{/* WHOOP */}
-				<a href="/whoop/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-red-500/50 transition-all group">
+				<a href="/de/whoop/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-red-500/50 transition-all group">
 					<div class="text-2xl mb-3">💪</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-red-400 transition-colors">WHOOP</h3>
-					<p class="text-xs text-neutral-500">Recovery · HRV · Strain</p>
+					<p class="text-xs text-neutral-500">Erholung · HRV · Belastung</p>
 				</a>
 				{/* Transformation */}
-				<a href="/transformation/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/transformation/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">📈</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Transformation</h3>
 					<p class="text-xs text-neutral-500">242 → 188 → 218 lbs</p>
 				</a>
 				{/* Training */}
-				<a href="/training/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/training/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🎯</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Training</h3>
-					<p class="text-xs text-neutral-500">Volume trends · PRs</p>
+					<p class="text-xs text-neutral-500">Volumentrends · PRs</p>
 				</a>
 				{/* BJJ */}
-				<a href="/bjj/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/bjj/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🥋</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">BJJ</h3>
-					<p class="text-xs text-neutral-500">Brown belt · 10+ years</p>
+					<p class="text-xs text-neutral-500">Braungurt · über 10 Jahre</p>
 				</a>
 				{/* Gear */}
-				<a href="/gear/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/gear/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">⚙️</div>
-					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Gear</h3>
-					<p class="text-xs text-neutral-500">What I actually use</p>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Ausrüstung</h3>
+					<p class="text-xs text-neutral-500">Was ich tatsächlich nutze</p>
 				</a>
 				{/* PR Board */}
-				<a href="/prs/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-yellow-500/50 transition-all group">
+				<a href="/de/prs/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-yellow-500/50 transition-all group">
 					<div class="text-2xl mb-3">🥇</div>
-					<h3 class="font-bold text-white mb-1 group-hover:text-yellow-400 transition-colors">PR Board</h3>
-					<p class="text-xs text-neutral-500">388 lb deadlift · 25 PRs</p>
+					<h3 class="font-bold text-white mb-1 group-hover:text-yellow-400 transition-colors">PR-Board</h3>
+					<p class="text-xs text-neutral-500">388-lb-Deadlift · 25 PRs</p>
 				</a>
 				{/* A Day in the Data */}
-				<a href="/day/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/day/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">📅</div>
-					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">A Day in the Data</h3>
-					<p class="text-xs text-neutral-500">24h of tracking</p>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Ein Tag in den Daten</h3>
+					<p class="text-xs text-neutral-500">24 h Tracking</p>
 				</a>
 				{/* FAQ */}
-				<a href="/faq/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+				<a href="/de/faq/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">❓</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">FAQ</h3>
-					<p class="text-xs text-neutral-500">Common questions on training, gear, and site operations</p>
+					<p class="text-xs text-neutral-500">Häufige Fragen zu Training, Ausrüstung und dem Betrieb der Website</p>
 				</a>
 			</div>
 		</div>
 	</section>
-	{/* Ausgewähltes Videos Section */}
+	{/* Featured Videos Section */}
 	<section class="py-20 bg-neutral-950 border-t border-neutral-800">
 	  <div class="container mx-auto px-4">
 	    <div class="flex items-end justify-between mb-10">
 	      <div>
-	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch</span>
-	        <h2 class="text-3xl md:text-4xl font-bold text-white">Ausgewähltes Videos</h2>
+	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Ansehen</span>
+	        <h2 class="text-3xl md:text-4xl font-bold text-white">Ausgewählte Videos</h2>
 	      </div>
-	      <a href="/videos/" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
+	      <a href="/de/videos/" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
 	        Alle Videos ansehen <ArrowRight size={18} />
 	      </a>
 	    </div>
@@ -697,7 +696,7 @@ const webPageSchema = {
 	          </div>
 	          <div class="p-4">
 	            <h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-blue-400">{video.title}</h3>
-	            <p class="text-neutral-500 text-xs mt-2">{video.viewCount ? (video.viewCount >= 1000 ? (video.viewCount/1000).toFixed(1) + 'K' : video.viewCount) + ' views' : ''}</p>
+	            <p class="text-neutral-500 text-xs mt-2">{video.viewCount ? (video.viewCount >= 1000 ? (video.viewCount/1000).toFixed(1) + ' Tsd.' : video.viewCount) + ' Aufrufe' : ''}</p>
 	          </div>
 	        </a>
 	      ))}
@@ -706,14 +705,14 @@ const webPageSchema = {
 	</section>
 	<Newsletter client:visible />
 
-	{/* Ausgewähltes Video Section */}
+	{/* Featured Video Section */}
 	<section class="py-12 bg-neutral-900">
 		<div class="max-w-4xl mx-auto px-4">
-			<h2 class="text-2xl font-bold mb-6">Ausgewähltes Video</h2>
+			<h2 class="text-2xl font-bold mb-6">Vorgestelltes Video</h2>
 			<div class="aspect-video rounded-lg overflow-hidden">
-				<iframe class="w-full h-full" src="https://www.youtube.com/embed/ucYb0Bg4XrA" frameborder="0" allowfullscreen></iframe>
+				<iframe class="w-full h-full" src="https://www.youtube.com/embed/ucYb0Bg4XrA" frameborder="0" allowfullscreen title="Warum Laufen möglicherweise mein Leben gerettet hat"></iframe>
 			</div>
-			<p class="mt-3 text-neutral-400">Why Running Might Have Saved My Life</p>
+			<p class="mt-3 text-neutral-400">Warum Laufen möglicherweise mein Leben gerettet hat</p>
 		</div>
 	</section>
 
