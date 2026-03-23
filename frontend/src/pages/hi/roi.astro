@@ -1,0 +1,334 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const pageTitle = "Speediance ROI कैलकुलेटर";
+const pageDescription = "गणना करें कि पारंपरिक जिम सदस्यता की तुलना में Speediance होम जिम के साथ आप कितना बचा सकते हैं। अपना ब्रेक-ईवन पॉइंट देखें और आज ही बचत शुरू करें।";
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tobyonfitnesstech.com/hi/roi/#webpage",
+  "name": pageTitle,
+  "description": pageDescription,
+  "url": "https://tobyonfitnesstech.com/hi/roi",
+  "isPartOf": {
+    "@id": "https://tobyonfitnesstech.com/#website"
+  }
+};
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Speediance Home Gym",
+  "description": "AI-संचालित स्मार्ट होम जिम जिसमें डिजिटल वेट रेजिस्टेंस, लाइव कोचिंग और संपूर्ण वर्कआउट ट्रैकिंग शामिल है।",
+  "brand": {
+    "@type": "Brand",
+    "name": "Speediance"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "4995",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+};
+---
+
+<Layout 
+  title={`${pageTitle} | Toby on Fitness Tech`}
+  description={pageDescription}
+  jsonLd={[webPageSchema, productSchema]}
+>
+  <section class="py-20 bg-neutral-950 border-b border-neutral-800">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Speediance ROI कैलकुलेटर</h1>
+      <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
+        जानिए कि Speediance होम जिम पर स्विच करके आप कितना बचा सकते हैं। 
+        पारंपरिक जिम सदस्यताओं की लागत से तुलना करें और अपना ब्रेक-ईवन पॉइंट देखें।
+      </p>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-900">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div class="bg-neutral-950 rounded-xl p-6 md:p-8 border border-neutral-800">
+            <h2 class="text-2xl font-bold text-white mb-6">अपनी बचत की गणना करें</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <label for="speediancePrice" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  Speediance खरीद मूल्य
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">$</span>
+                  <input 
+                    type="number" 
+                    id="speediancePrice" 
+                    value="4995" 
+                    min="0"
+                    step="100"
+                    class="w-full bg-neutral-900 border border-neutral-700 rounded-lg py-3 pl-8 pr-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label for="monthlyMembership" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  Speediance मासिक सदस्यता
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">$</span>
+                  <input 
+                    type="number" 
+                    id="monthlyMembership" 
+                    value="39" 
+                    min="0"
+                    step="1"
+                    class="w-full bg-neutral-900 border border-neutral-700 rounded-lg py-3 pl-8 pr-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  />
+                </div>
+                <p class="text-xs text-neutral-500 mt-1">Speediance ऐप सब्सक्रिप्शन (वैकल्पिक, लेकिन अनुशंसित)</p>
+              </div>
+
+              <div>
+                <label for="gymCost" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  पारंपरिक जिम की मासिक लागत
+                </label>
+                <div class="relative">
+                  <span class="absolute left-4 top-1/2 -translate-y-1/2 text-neutral-400">$</span>
+                  <input 
+                    type="number" 
+                    id="gymCost" 
+                    value="150" 
+                    min="0"
+                    step="5"
+                    class="w-full bg-neutral-900 border border-neutral-700 rounded-lg py-3 pl-8 pr-4 text-white text-lg focus:outline-none focus:border-blue-500 transition-colors"
+                  />
+                </div>
+                <p class="text-xs text-neutral-500 mt-1">औसत जिम सदस्यता + अतिरिक्त खर्च (पार्किंग, सप्लीमेंट्स आदि)</p>
+              </div>
+
+              <div>
+                <label for="yearsSlider" class="block text-sm font-semibold text-neutral-300 mb-2">
+                  उपयोग के वर्ष: <span id="yearsDisplay" class="text-blue-400">5</span> वर्ष
+                </label>
+                <input 
+                  type="range" 
+                  id="yearsSlider" 
+                  min="1" 
+                  max="10" 
+                  value="5"
+                  class="w-full h-2 bg-neutral-800 rounded-lg appearance-none cursor-pointer accent-blue-500"
+                />
+                <div class="flex justify-between text-xs text-neutral-500 mt-1">
+                  <span>1 वर्ष</span>
+                  <span>10 वर्ष</span>
+                </div>
+              </div>
+
+              <button 
+                id="calculateBtn"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+              >
+                बचत की गणना करें
+              </button>
+            </div>
+          </div>
+
+          <div id="resultsSection" class="bg-neutral-950 rounded-xl p-6 md:p-8 border border-neutral-800 hidden">
+            <h2 class="text-2xl font-bold text-white mb-6">आपके परिणाम</h2>
+
+            <div class="text-center mb-8">
+              <p class="text-neutral-400 text-sm uppercase tracking-wide mb-2">कुल बचत</p>
+              <p id="totalSavings" class="text-5xl md:text-6xl font-bold text-green-400">$0</p>
+            </div>
+
+            <div class="space-y-4 mb-8">
+              <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                <span class="text-neutral-400">Speediance की कुल लागत</span>
+                <span id="speedianceTotal" class="text-white font-semibold">$0</span>
+              </div>
+              <div class="flex justify-between items-center py-3 border-b border-neutral-800">
+                <span class="text-neutral-400">पारंपरिक जिम की कुल लागत</span>
+                <span id="gymTotal" class="text-white font-semibold">$0</span>
+              </div>
+              <div class="flex justify-between items-center py-3">
+                <span class="text-neutral-400">आपकी बचत</span>
+                <span id="savingsAmount" class="text-green-400 font-bold">$0</span>
+              </div>
+            </div>
+
+            <div class="bg-blue-900/30 border border-blue-800 rounded-lg p-4 mb-8">
+              <p class="text-blue-300 text-sm font-semibold mb-1">ब्रेक-ईवन पॉइंट</p>
+              <p id="breakEvenText" class="text-white text-lg">गणना हो रही है...</p>
+            </div>
+
+            <div class="mb-6">
+              <h3 class="text-white font-semibold mb-4">लागत तुलना</h3>
+              <div class="space-y-3">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-neutral-400">Speediance</span>
+                    <span id="chartSpeediance" class="text-white">$0</span>
+                  </div>
+                  <div class="h-6 bg-neutral-800 rounded-full overflow-hidden">
+                    <div id="barSpeediance" class="h-full bg-blue-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span class="text-neutral-400">पारंपरिक जिम</span>
+                    <span id="chartGym" class="text-white">$0</span>
+                  </div>
+                  <div class="h-6 bg-neutral-800 rounded-full overflow-hidden">
+                    <div id="barGym" class="h-full bg-orange-500 rounded-full transition-all duration-500" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="initialState" class="bg-neutral-950 rounded-xl p-6 md:p-8 border border-neutral-800 lg:flex lg:items-center lg:justify-center">
+            <div class="text-center">
+              <div class="text-6xl mb-4">💰</div>
+              <p class="text-neutral-400">अपनी वैल्यू भरें और अपनी बचत देखने के लिए कैलकुलेट पर क्लिक करें</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-950 border-t border-neutral-800">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold text-white text-center mb-8">Speediance आर्थिक रूप से क्यों समझदारी है</h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">🏠</div>
+            <h3 class="text-white font-bold text-lg mb-2">आने-जाने का कोई खर्च नहीं</h3>
+            <p class="text-neutral-400 text-sm">घर पर वर्कआउट करके ईंधन, पार्किंग और समय—तीनों बचाएँ। औसत जिम जाने वाले लोग सिर्फ जिम पहुँचने में 15–25 डॉलर प्रति माह खर्च करते हैं।</p>
+          </div>
+
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">⏰</div>
+            <h3 class="text-white font-bold text-lg mb-2">24/7 उपलब्धता</h3>
+            <p class="text-neutral-400 text-sm">जिम के समय की चिंता किए बिना जब चाहें तब ट्रेन करें। शेड्यूल टकराने की वजह से वर्कआउट मिस नहीं होंगे।</p>
+          </div>
+
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">📉</div>
+            <h3 class="text-white font-bold text-lg mb-2">कोई छिपी हुई फीस नहीं</h3>
+            <p class="text-neutral-400 text-sm">कोई शुरुआती शुल्क नहीं, कोई वार्षिक अनुबंध नहीं, और कोई अचानक कीमत वृद्धि नहीं। आपकी लागत साल-दर-साल अनुमानित रहती है।</p>
+          </div>
+
+          <div class="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
+            <div class="text-3xl mb-3">👨‍👩‍👧‍👦</div>
+            <h3 class="text-white font-bold text-lg mb-2">पूरा परिवार इस्तेमाल कर सकता है</h3>
+            <p class="text-neutral-400 text-sm">एक खरीद पूरे घर के लिए पर्याप्त है। 4 लोगों के परिवार के लिए 4,995 डॉलर एक बार बनाम 150 × 12 × 5 वर्ष की तुलना करें।</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-900">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-3xl font-bold text-white mb-4">क्या बचत शुरू करने के लिए तैयार हैं?</h2>
+      <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+        उन हज़ारों उपयोगकर्ताओं में शामिल हों जिन्होंने Speediance अपनाया और फिर पीछे मुड़कर नहीं देखा।
+      </p>
+      <a 
+        href="/hi/speediance/" 
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+      >
+        Speediance के बारे में और जानें
+      </a>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  const speediancePriceInput = document.getElementById('speediancePrice') as HTMLInputElement;
+  const monthlyMembershipInput = document.getElementById('monthlyMembership') as HTMLInputElement;
+  const gymCostInput = document.getElementById('gymCost') as HTMLInputElement;
+  const yearsSlider = document.getElementById('yearsSlider') as HTMLInputElement;
+  const yearsDisplay = document.getElementById('yearsDisplay') as HTMLSpanElement;
+  const calculateBtn = document.getElementById('calculateBtn') as HTMLButtonElement;
+  const resultsSection = document.getElementById('resultsSection') as HTMLDivElement;
+  const initialState = document.getElementById('initialState') as HTMLDivElement;
+
+  const totalSavings = document.getElementById('totalSavings') as HTMLParagraphElement;
+  const speedianceTotal = document.getElementById('speedianceTotal') as HTMLParagraphElement;
+  const gymTotal = document.getElementById('gymTotal') as HTMLParagraphElement;
+  const savingsAmount = document.getElementById('savingsAmount') as HTMLParagraphElement;
+  const breakEvenText = document.getElementById('breakEvenText') as HTMLParagraphElement;
+  const barSpeediance = document.getElementById('barSpeediance') as HTMLDivElement;
+  const barGym = document.getElementById('barGym') as HTMLDivElement;
+  const chartSpeediance = document.getElementById('chartSpeediance') as HTMLSpanElement;
+  const chartGym = document.getElementById('chartGym') as HTMLSpanElement;
+
+  function formatCurrency(amount: number): string {
+    return '$' + amount.toLocaleString('hi-IN');
+  }
+
+  function calculate() {
+    const speediancePrice = parseFloat(speediancePriceInput.value) || 0;
+    const monthlyMembership = parseFloat(monthlyMembershipInput.value) || 0;
+    const gymCost = parseFloat(gymCostInput.value) || 0;
+    const years = parseInt(yearsSlider.value) || 5;
+
+    const speedianceTotalCost = speediancePrice + (monthlyMembership * 12 * years);
+    const gymTotalCost = gymCost * 12 * years;
+    const savings = gymTotalCost - speedianceTotalCost;
+
+    const monthlyDifference = gymCost - monthlyMembership;
+    let breakEvenMonths = 0;
+    if (monthlyDifference > 0) {
+      breakEvenMonths = Math.ceil(speediancePrice / monthlyDifference);
+    }
+
+    totalSavings.textContent = formatCurrency(Math.max(0, savings));
+    speedianceTotal.textContent = formatCurrency(speedianceTotalCost);
+    gymTotal.textContent = formatCurrency(gymTotalCost);
+    savingsAmount.textContent = formatCurrency(Math.max(0, savings));
+
+    if (monthlyDifference <= 0) {
+      breakEvenText.textContent = "Speediance तुरंत अपनी लागत निकाल देता है (सदस्यता जिम से महंगी है)";
+    } else if (breakEvenMonths <= 12) {
+      breakEvenText.textContent = `${breakEvenMonths} महीने में Speediance अपनी लागत निकाल देगा`;
+    } else {
+      const breakEvenYears = (breakEvenMonths / 12).toFixed(1);
+      breakEvenText.textContent = `${breakEvenMonths} महीने (~${breakEvenYears} वर्ष) में Speediance अपनी लागत निकाल देगा`;
+    }
+
+    const maxCost = Math.max(speedianceTotalCost, gymTotalCost);
+    if (maxCost > 0) {
+      barSpeediance.style.width = `${(speedianceTotalCost / maxCost) * 100}%`;
+      barGym.style.width = `${(gymTotalCost / maxCost) * 100}%`;
+    }
+
+    chartSpeediance.textContent = formatCurrency(speedianceTotalCost);
+    chartGym.textContent = formatCurrency(gymTotalCost);
+
+    resultsSection.classList.remove('hidden');
+    initialState.classList.add('hidden');
+  }
+
+  yearsSlider.addEventListener('input', () => {
+    yearsDisplay.textContent = yearsSlider.value;
+  });
+
+  calculateBtn.addEventListener('click', calculate);
+
+  [speediancePriceInput, monthlyMembershipInput, gymCostInput].forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        calculate();
+      }
+    });
+  });
+</script>
