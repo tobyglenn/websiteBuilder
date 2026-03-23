@@ -1,0 +1,328 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const exercises = [
+  {"name":"Peso muerto con barra","best1RM":388,"workout":"Día de pierna"},
+  {"name":"Jalón al pecho con barra de rodillas","best1RM":294,"workout":"Espalda con barra"},
+  {"name":"Jalón al pecho con barra de rodillas con agarre invertido","best1RM":280,"workout":"Espalda con barra"},
+  {"name":"Jalón al pecho con barra sentado con agarre invertido","best1RM":248,"workout":"Espalda con barra"},
+  {"name":"Hip thrust con barra","best1RM":240,"workout":"Día de pierna"},
+  {"name":"Press de banca con barra","best1RM":232,"workout":"Warrior 3 (barra)"},
+  {"name":"Remo amplio con barra sentado","best1RM":202,"workout":"Espalda con barra"},
+  {"name":"Remo inclinado con barra","best1RM":198,"workout":"Espalda con barra"},
+  {"name":"Jalón al pecho con barra sentado","best1RM":192,"workout":"Espalda con barra"},
+  {"name":"Remo con barra sentado","best1RM":192,"workout":"Espalda con barra"},
+  {"name":"Press de banca inclinado con barra","best1RM":185,"workout":"Warrior 3 (barra)"},
+  {"name":"Empuje hacia abajo de tríceps con barra de pie","best1RM":170,"workout":"Brazos con barra"},
+  {"name":"Remo con barra sentado con agarre invertido","best1RM":170,"workout":"Espalda con barra"},
+  {"name":"Pushdown inclinado con barra y brazos rectos","best1RM":168,"workout":"Espalda con barra"},
+  {"name":"Peso muerto con barra y piernas rígidas","best1RM":140,"workout":"Día de pierna"},
+  {"name":"Remo inclinado con barra y agarre invertido","best1RM":126,"workout":"Espalda con barra"},
+  {"name":"Jalón al pecho arrodillado con doble agarre","best1RM":125,"workout":"Warrior 2"},
+  {"name":"Press de pecho inclinado con barra y agarre cerrado","best1RM":125,"workout":"Warrior 3 (barra)"},
+  {"name":"Peso muerto rumano con cuerda para tríceps","best1RM":120,"workout":"Warrior 4 (cuerda)"},
+  {"name":"Remo amplio sentado con doble agarre","best1RM":110,"workout":"Warrior 1"},
+  {"name":"Sentadilla con barra","best1RM":68,"workout":"Día de pierna"},
+  {"name":"Peso muerto rumano con barra","best1RM":52,"workout":"Día de pierna"},
+];
+
+const workoutCategories = ["Día de pierna","Espalda con barra","Warrior 3 (barra)","Warrior 1","Warrior 2","Warrior 4 (cuerda)","Brazos con barra"];
+const exercisesByCategory: Record<string, typeof exercises> = {};
+workoutCategories.forEach(cat => {
+  exercisesByCategory[cat] = exercises.filter(e => e.workout === cat);
+});
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Calculadoras fitness | Toby on Fitness Tech",
+  "description": "Calculadoras fitness gratis: calculadora de TDEE y macros con Mifflin-St Jeor, y calculadora de 1RM con las fórmulas de Epley y Brzycki.",
+  "url": "https://tobyonfitnesstech.com/calculators"
+};
+---
+
+<Layout
+  title="Calculadoras fitness | Toby on Fitness Tech"
+  description="Calculadoras fitness gratis: calculadora de TDEE y macros y calculadora de 1RM. Calcula al instante tus calorías diarias, macros y tu repetición máxima."
+  jsonLd={jsonLd}
+>
+  <main class="min-h-screen bg-neutral-950 text-white py-12 px-4">
+    <div class="max-w-3xl mx-auto">
+
+      <!-- Hero -->
+      <div class="text-center mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          Calculadoras fitness
+        </h1>
+        <p class="text-neutral-400 text-lg">TDEE, macros y repetición máxima — todo en un solo lugar</p>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-2 mb-8 bg-neutral-900 rounded-xl p-1 border border-neutral-800">
+        <button
+          id="tab-tdee"
+          onclick="switchTab('tdee')"
+          class="flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all bg-blue-600 text-white"
+        >
+          Calorías y macros
+        </button>
+        <button
+          id="tab-1rm"
+          onclick="switchTab('1rm')"
+          class="flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all text-neutral-400 hover:text-white"
+        >
+          Calculadora de 1RM
+        </button>
+      </div>
+
+      <!-- TDEE Panel -->
+      <div id="panel-tdee">
+        <div class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-8">
+          <form id="tdee-form" class="space-y-5">
+            <div>
+              <label class="block text-sm font-medium text-neutral-300 mb-2">Sexo</label>
+              <div class="flex gap-4">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="gender" value="male" checked class="w-4 h-4 accent-blue-500" />
+                  <span class="text-neutral-200">Hombre</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input type="radio" name="gender" value="female" class="w-4 h-4 accent-blue-500" />
+                  <span class="text-neutral-200">Mujer</span>
+                </label>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label for="t-age" class="block text-sm font-medium text-neutral-300 mb-2">Edad</label>
+                <input type="number" id="t-age" value="35" min="15" max="100"
+                  class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-blue-500" />
+              </div>
+              <div>
+                <label for="t-height" class="block text-sm font-medium text-neutral-300 mb-2">Altura (cm)</label>
+                <input type="number" id="t-height" value="180" min="100" max="250"
+                  class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-blue-500" />
+              </div>
+            </div>
+            <div>
+              <label for="t-weight" class="block text-sm font-medium text-neutral-300 mb-2">Peso (lbs)</label>
+              <input type="number" id="t-weight" value="215" min="50" max="500"
+                class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-blue-500" />
+            </div>
+            <div>
+              <label for="t-activity" class="block text-sm font-medium text-neutral-300 mb-2">Nivel de actividad</label>
+              <select id="t-activity"
+                class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                <option value="1.2">Sedentario (poco o nada de ejercicio)</option>
+                <option value="1.375">Ligeramente activo (1-3 días/semana)</option>
+                <option value="1.55" selected>Moderadamente activo (3-5 días/semana)</option>
+                <option value="1.725">Muy activo (6-7 días/semana)</option>
+                <option value="1.9">Extra activo (ejercicio muy intenso)</option>
+              </select>
+            </div>
+            <div>
+              <label for="t-goal" class="block text-sm font-medium text-neutral-300 mb-2">Objetivo</label>
+              <select id="t-goal"
+                class="w-full px-4 py-3 bg-neutral-800 border border-neutral-700 rounded-xl text-white focus:outline-none focus:border-blue-500">
+                <option value="cut">Definición (perder grasa −20%)</option>
+                <option value="maintain" selected>Mantener peso</option>
+                <option value="bulk">Volumen (ganar músculo +10%)</option>
+              </select>
+            </div>
+            <button type="submit"
+              class="w-full py-4 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors">
+              Calcular mis macros
+            </button>
+          </form>
+
+          <div id="tdee-results" class="hidden mt-8 pt-8 border-t border-neutral-800">
+            <h2 class="text-xl font-bold text-center mb-6">Tus objetivos diarios</h2>
+            <div class="text-center mb-8">
+              <p class="text-neutral-400 text-sm mb-1">Calorías diarias</p>
+              <p class="text-5xl font-bold text-blue-400" id="t-calories">0</p>
+              <p class="text-neutral-500 text-sm mt-1" id="t-calories-breakdown">TDEE: 0</p>
+            </div>
+            <div class="grid grid-cols-3 gap-4">
+              <div class="bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 text-center">
+                <p class="text-blue-400 text-sm font-medium mb-1">Proteína</p>
+                <p class="text-2xl font-bold" id="t-protein">0g</p>
+                <p class="text-neutral-500 text-xs mt-1" id="t-protein-pct">0%</p>
+              </div>
+              <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-xl p-4 text-center">
+                <p class="text-yellow-400 text-sm font-medium mb-1">Grasa</p>
+                <p class="text-2xl font-bold" id="t-fat">0g</p>
+                <p class="text-neutral-500 text-xs mt-1" id="t-fat-pct">0%</p>
+              </div>
+              <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-4 text-center">
+                <p class="text-green-400 text-sm font-medium mb-1">Carbohidratos</p>
+                <p class="text-2xl font-bold" id="t-carbs">0g</p>
+                <p class="text-neutral-500 text-xs mt-1" id="t-carbs-pct">0%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 1RM Panel -->
+      <div id="panel-1rm" class="hidden">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 md:p-8">
+          <div class="mb-5">
+            <label for="rm-exercise" class="block text-sm font-medium text-neutral-300 mb-2">Ejercicio (preajuste opcional)</label>
+            <select id="rm-exercise"
+              class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500">
+              <option value="">Personalizado (ingresa el peso manualmente)</option>
+              {workoutCategories.map(category => (
+                <optgroup label={category}>
+                  {exercisesByCategory[category].map(ex => (
+                    <option value={JSON.stringify(ex)}>{ex.name} ({ex.best1RM} lbs)</option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+          <div class="grid grid-cols-2 gap-4 mb-5">
+            <div>
+              <label for="rm-weight" class="block text-sm font-medium text-neutral-300 mb-2">Peso (lbs)</label>
+              <input type="number" id="rm-weight" min="1" placeholder="Ingresa el peso"
+                class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+            <div>
+              <label for="rm-reps" class="block text-sm font-medium text-neutral-300 mb-2">Repeticiones (1–15)</label>
+              <input type="number" id="rm-reps" min="1" max="15" placeholder="Ingresa las repeticiones"
+                class="w-full bg-neutral-800 border border-neutral-700 text-white rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            </div>
+          </div>
+          <button id="rm-calculate-btn"
+            class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-4 px-6 rounded-xl transition-colors">
+            Calcular 1RM
+          </button>
+
+          <div id="rm-results" class="hidden mt-8 pt-8 border-t border-neutral-700">
+            <div class="grid grid-cols-3 gap-4 mb-8">
+              <div class="bg-neutral-800 rounded-xl p-4 text-center">
+                <p class="text-sm text-neutral-400 mb-1">Epley</p>
+                <p id="rm-epley" class="text-2xl font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-neutral-800 rounded-xl p-4 text-center">
+                <p class="text-sm text-neutral-400 mb-1">Brzycki</p>
+                <p id="rm-brzycki" class="text-2xl font-bold text-white">0</p>
+                <p class="text-xs text-neutral-500">lbs</p>
+              </div>
+              <div class="bg-blue-500/20 border border-blue-500/30 rounded-xl p-4 text-center">
+                <p class="text-sm text-blue-300 mb-1">Promedio</p>
+                <p id="rm-average" class="text-2xl font-bold text-blue-400">0</p>
+                <p class="text-xs text-blue-300/70">lbs</p>
+              </div>
+            </div>
+            <h3 class="text-base font-semibold text-white mb-3">Porcentajes de entrenamiento</h3>
+            <div class="grid grid-cols-4 gap-3">
+              {[100, 95, 90, 85, 80, 75, 70, 65].map(pct => (
+                <div class="bg-neutral-800 rounded-lg p-3 text-center">
+                  <p class="text-xs text-neutral-400 mb-1">{pct}%</p>
+                  <p id={`rm-pct-${pct}`} class="text-base font-bold text-white">0</p>
+                  <p class="text-xs text-neutral-500">lbs</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Tab switching
+  function switchTab(tab: string) {
+    const tdeePanel = document.getElementById('panel-tdee')!;
+    const rmPanel = document.getElementById('panel-1rm')!;
+    const tdeeBtn = document.getElementById('tab-tdee')!;
+    const rmBtn = document.getElementById('tab-1rm')!;
+
+    if (tab === 'tdee') {
+      tdeePanel.classList.remove('hidden');
+      rmPanel.classList.add('hidden');
+      tdeeBtn.className = 'flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all bg-blue-600 text-white';
+      rmBtn.className = 'flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all text-neutral-400 hover:text-white';
+    } else {
+      tdeePanel.classList.add('hidden');
+      rmPanel.classList.remove('hidden');
+      rmBtn.className = 'flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all bg-blue-600 text-white';
+      tdeeBtn.className = 'flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all text-neutral-400 hover:text-white';
+    }
+  }
+  (window as any).switchTab = switchTab;
+
+  // TDEE calculator
+  document.getElementById('tdee-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const gender = (document.querySelector('input[name="gender"]:checked') as HTMLInputElement)?.value;
+    const age = parseInt((document.getElementById('t-age') as HTMLInputElement).value);
+    const height = parseInt((document.getElementById('t-height') as HTMLInputElement).value);
+    const weightLbs = parseInt((document.getElementById('t-weight') as HTMLInputElement).value);
+    const activity = parseFloat((document.getElementById('t-activity') as HTMLSelectElement).value);
+    const goal = (document.getElementById('t-goal') as HTMLSelectElement).value;
+
+    const weightKg = weightLbs * 0.453592;
+    let bmr = gender === 'male'
+      ? (10 * weightKg) + (6.25 * height) - (5 * age) + 5
+      : (10 * weightKg) + (6.25 * height) - (5 * age) - 161;
+    const tdee = Math.round(bmr * activity);
+
+    let targetCalories: number;
+    let proteinPct: number, fatPct: number, carbsPct: number;
+    switch (goal) {
+      case 'cut':   targetCalories = Math.round(tdee * 0.8);  proteinPct = 40; fatPct = 35; carbsPct = 25; break;
+      case 'bulk':  targetCalories = Math.round(tdee * 1.1);  proteinPct = 30; fatPct = 25; carbsPct = 45; break;
+      default:      targetCalories = tdee;                     proteinPct = 30; fatPct = 35; carbsPct = 35;
+    }
+
+    document.getElementById('t-calories')!.textContent = targetCalories.toLocaleString();
+    document.getElementById('t-calories-breakdown')!.textContent = `TDEE: ${tdee.toLocaleString()} cal/día`;
+    document.getElementById('t-protein')!.textContent = `${Math.round((targetCalories * proteinPct / 100) / 4)}g`;
+    document.getElementById('t-protein-pct')!.textContent = `${proteinPct}%`;
+    document.getElementById('t-fat')!.textContent = `${Math.round((targetCalories * fatPct / 100) / 9)}g`;
+    document.getElementById('t-fat-pct')!.textContent = `${fatPct}%`;
+    document.getElementById('t-carbs')!.textContent = `${Math.round((targetCalories * carbsPct / 100) / 4)}g`;
+    document.getElementById('t-carbs-pct')!.textContent = `${carbsPct}%`;
+    document.getElementById('tdee-results')!.classList.remove('hidden');
+  });
+
+  // 1RM calculator
+  const rmExercise = document.getElementById('rm-exercise') as HTMLSelectElement;
+  const rmWeight = document.getElementById('rm-weight') as HTMLInputElement;
+
+  rmExercise?.addEventListener('change', () => {
+    if (rmExercise.value) {
+      const ex = JSON.parse(rmExercise.value);
+      rmWeight.value = ex.best1RM.toString();
+    }
+  });
+
+  document.getElementById('rm-calculate-btn')?.addEventListener('click', () => {
+    const weight = parseFloat(rmWeight.value);
+    const reps = parseInt((document.getElementById('rm-reps') as HTMLInputElement).value);
+
+    if (!weight || weight < 1 || !reps || reps < 1 || reps > 15) {
+      alert('Ingresa un peso válido (mínimo 1) y repeticiones válidas (1–15)');
+      return;
+    }
+
+    const epley = weight * (1 + reps / 30);
+    const brzycki = weight * (36 / (37 - reps));
+    const average = (epley + brzycki) / 2;
+
+    document.getElementById('rm-epley')!.textContent = Math.round(epley).toString();
+    document.getElementById('rm-brzycki')!.textContent = Math.round(brzycki).toString();
+    document.getElementById('rm-average')!.textContent = Math.round(average).toString();
+
+    [100, 95, 90, 85, 80, 75, 70, 65].forEach(pct => {
+      const el = document.getElementById(`rm-pct-${pct}`);
+      if (el) el.textContent = Math.round(average * (pct / 100)).toString();
+    });
+
+    document.getElementById('rm-results')!.classList.remove('hidden');
+  });
+</script>
