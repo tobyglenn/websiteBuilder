@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const updated = 'März 2026';
+
+const termsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://tobyonfitnesstech.com/terms#webpage',
+  name: 'Nutzungsbedingungen | Toby on Fitness Tech',
+  description:
+    'Nutzungsbedingungen für Toby on Fitness Tech zu zulässiger Nutzung, Eigentum, Haftungsausschlüssen und Haftungsbeschränkungen.',
+  url: 'https://tobyonfitnesstech.com/terms',
+  inLanguage: 'en',
+  isPartOf: {
+    '@id': 'https://tobyonfitnesstech.com/#website',
+  },
+  about: {
+    '@id': 'https://tobyonfitnesstech.com/#organization',
+  },
+  author: {
+    '@id': 'https://tobyonfitnesstech.com/#toby',
+  },
+};
+---
+
+<Layout
+  title="Nutzungsbedingungen | Toby on Fitness Tech"
+  description="Prüfen Sie die Nutzungsbedingungen für TobyOnFitnessTech, einschließlich Nutzungsregeln, Eigentum an Inhalten, Fitness-Haftungsausschlüssen und Haftungsgrenzen."
+  jsonLd={termsSchema}
+>
+  <section class="bg-neutral-950 text-white border-b border-neutral-800">
+    <div class="container mx-auto max-w-4xl px-4 py-16 md:py-20">
+      <p class="text-blue-400 font-semibold uppercase tracking-wider text-sm">Rechtliches</p>
+      <h1 class="mt-3 text-4xl md:text-5xl font-bold">Nutzungsbedingungen</h1>
+      <p class="mt-4 text-neutral-400 max-w-3xl">
+        Diese Bedingungen regeln die Nutzung von TobyOnFitnessTech, einschließlich Website-Inhalten, datengestützter Analysen
+        und Kommentaren zu Fitnesstechnologie.
+      </p>
+      <p class="mt-3 text-sm text-neutral-500">Zuletzt aktualisiert: {updated}</p>
+    </div>
+  </section>
+
+  <section class="bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto max-w-4xl px-4 py-12 md:py-16 space-y-10 leading-relaxed">
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">1. Annahme der Bedingungen</h2>
+        <p class="mt-4">
+          Durch den Zugriff auf TobyOnFitnessTech oder dessen Nutzung erklären Sie sich mit diesen Nutzungsbedingungen und
+          den geltenden Gesetzen einverstanden. Wenn Sie nicht einverstanden sind, stellen Sie die Nutzung der Website bitte ein.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">2. Pflichten der Nutzer</h2>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>Nutzen Sie die Website rechtmäßig und respektvoll.</li>
+          <li>Versuchen Sie nicht, den Betrieb der Website zu stören oder auf eingeschränkte Systeme zuzugreifen.</li>
+          <li>Kopieren, scrapen oder veröffentlichen Sie Inhalte nicht auf irreführende oder missbräuchliche Weise erneut.</li>
+          <li>Bewerten Sie Fitness- und Produktinformationen unabhängig, bevor Sie danach handeln.</li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">3. Eigentum an Inhalten</h2>
+        <p class="mt-4">
+          Sofern nicht anders angegeben, gehören alle originären Inhalte auf TobyOnFitnessTech — einschließlich schriftlicher Analysen,
+          Videos, Grafiken und Markenmaterialien — Toby Glenn Peters. Sie dürfen auf Inhalte verlinken,
+          aber Sie dürfen ohne vorherige schriftliche Genehmigung keine wesentlichen Teile reproduzieren.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">4. Fitness- und medizinischer Haftungsausschluss</h2>
+        <p class="mt-4">
+          Die Inhalte dieser Website dienen ausschließlich Informations- und Bildungszwecken. Sie stellen keine medizinische,
+          diagnostische oder therapeutische Beratung dar. Konsultieren Sie immer qualifizierte Gesundheits- oder Fitnessfachkräfte,
+          bevor Sie ein Trainings-, Erholungs-, Ernährungs- oder Gesundheitsprogramm beginnen oder ändern.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">5. Haftungsbeschränkung</h2>
+        <p class="mt-4">
+          Soweit gesetzlich zulässig, haften TobyOnFitnessTech und sein Betreiber nicht für
+          indirekte, zufällige, besondere oder Folgeschäden, die sich aus Ihrer Nutzung der Website,
+          dem Vertrauen auf ihre Inhalte oder der Unmöglichkeit des Zugriffs auf Dienste ergeben.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">6. Kontaktinformationen</h2>
+        <p class="mt-4">
+          Fragen zu diesen Bedingungen können an
+          <a href="mailto:toby@tobyonfitness.tech" class="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline">toby@tobyonfitness.tech</a>
+          gesendet werden.
+        </p>
+      </section>
+    </div>
+  </section>
+</Layout>

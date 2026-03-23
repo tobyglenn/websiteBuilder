@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const updated = 'marzo de 2026';
+
+const termsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://tobyonfitnesstech.com/terms#webpage',
+  name: 'Términos de servicio | Toby on Fitness Tech',
+  description:
+    'Términos de servicio de Toby on Fitness Tech sobre uso aceptable, propiedad, descargos de responsabilidad y limitaciones de responsabilidad.',
+  url: 'https://tobyonfitnesstech.com/terms',
+  inLanguage: 'en',
+  isPartOf: {
+    '@id': 'https://tobyonfitnesstech.com/#website',
+  },
+  about: {
+    '@id': 'https://tobyonfitnesstech.com/#organization',
+  },
+  author: {
+    '@id': 'https://tobyonfitnesstech.com/#toby',
+  },
+};
+---
+
+<Layout
+  title="Términos de servicio | Toby on Fitness Tech"
+  description="Consulta los Términos de servicio de TobyOnFitnessTech, incluidas las reglas de uso, la propiedad del contenido, los descargos de responsabilidad sobre fitness y los límites de responsabilidad."
+  jsonLd={termsSchema}
+>
+  <section class="bg-neutral-950 text-white border-b border-neutral-800">
+    <div class="container mx-auto max-w-4xl px-4 py-16 md:py-20">
+      <p class="text-blue-400 font-semibold uppercase tracking-wider text-sm">Legal</p>
+      <h1 class="mt-3 text-4xl md:text-5xl font-bold">Términos de servicio</h1>
+      <p class="mt-4 text-neutral-400 max-w-3xl">
+        Estos términos rigen el uso de TobyOnFitnessTech, incluido el contenido del sitio web, el análisis basado en datos
+        y los comentarios sobre tecnología fitness.
+      </p>
+      <p class="mt-3 text-sm text-neutral-500">Última actualización: {updated}</p>
+    </div>
+  </section>
+
+  <section class="bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto max-w-4xl px-4 py-12 md:py-16 space-y-10 leading-relaxed">
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">1. Aceptación de los términos</h2>
+        <p class="mt-4">
+          Al acceder o usar TobyOnFitnessTech, aceptas quedar sujeto a estos Términos de servicio y a las
+          leyes aplicables. Si no estás de acuerdo, deja de usar el sitio.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">2. Responsabilidades del usuario</h2>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>Usa el sitio web de manera legal y respetuosa.</li>
+          <li>No intentes interrumpir el funcionamiento del sitio ni acceder a sistemas restringidos.</li>
+          <li>No copies, extraigas ni vuelvas a publicar contenido de forma engañosa o abusiva.</li>
+          <li>Evalúa la información sobre fitness y productos de manera independiente antes de actuar en función de ella.</li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">3. Propiedad del contenido</h2>
+        <p class="mt-4">
+          Salvo que se indique lo contrario, todo el contenido original de TobyOnFitnessTech —incluidos análisis escritos,
+          videos, gráficos y materiales de marca— es propiedad de Toby Glenn Peters. Puedes enlazar al contenido,
+          pero no puedes reproducir partes sustanciales sin autorización previa por escrito.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">4. Descargo de responsabilidad sobre fitness y salud</h2>
+        <p class="mt-4">
+          El contenido de este sitio es solo para fines informativos y educativos. No constituye asesoramiento médico,
+          diagnóstico ni terapéutico. Consulta siempre con profesionales calificados de la salud o del fitness
+          antes de comenzar o cambiar cualquier programa de entrenamiento, recuperación, nutrición o salud.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">5. Limitación de responsabilidad</h2>
+        <p class="mt-4">
+          En la máxima medida permitida por la ley, TobyOnFitnessTech y su operador no son responsables de
+          daños indirectos, incidentales, especiales o consecuentes que resulten de tu uso del sitio,
+          de confiar en su contenido o de la imposibilidad de acceder a los servicios.
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">6. Información de contacto</h2>
+        <p class="mt-4">
+          Las preguntas sobre estos términos pueden enviarse a
+          <a href="mailto:toby@tobyonfitness.tech" class="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline">toby@tobyonfitness.tech</a>.
+        </p>
+      </section>
+    </div>
+  </section>
+</Layout>

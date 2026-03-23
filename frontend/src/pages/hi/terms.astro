@@ -1,0 +1,100 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const updated = 'मार्च 2026';
+
+const termsSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://tobyonfitnesstech.com/terms#webpage',
+  name: 'सेवा की शर्तें | Toby on Fitness Tech',
+  description:
+    'Toby on Fitness Tech के लिए सेवा की शर्तें, जिनमें स्वीकार्य उपयोग, स्वामित्व, अस्वीकरण और दायित्व की सीमाएँ शामिल हैं।',
+  url: 'https://tobyonfitnesstech.com/terms',
+  inLanguage: 'en',
+  isPartOf: {
+    '@id': 'https://tobyonfitnesstech.com/#website',
+  },
+  about: {
+    '@id': 'https://tobyonfitnesstech.com/#organization',
+  },
+  author: {
+    '@id': 'https://tobyonfitnesstech.com/#toby',
+  },
+};
+---
+
+<Layout
+  title="सेवा की शर्तें | Toby on Fitness Tech"
+  description="TobyOnFitnessTech की सेवा की शर्तों की समीक्षा करें, जिनमें उपयोग के नियम, सामग्री का स्वामित्व, फिटनेस अस्वीकरण और दायित्व की सीमाएँ शामिल हैं।"
+  jsonLd={termsSchema}
+>
+  <section class="bg-neutral-950 text-white border-b border-neutral-800">
+    <div class="container mx-auto max-w-4xl px-4 py-16 md:py-20">
+      <p class="text-blue-400 font-semibold uppercase tracking-wider text-sm">कानूनी</p>
+      <h1 class="mt-3 text-4xl md:text-5xl font-bold">सेवा की शर्तें</h1>
+      <p class="mt-4 text-neutral-400 max-w-3xl">
+        ये शर्तें TobyOnFitnessTech के उपयोग को नियंत्रित करती हैं, जिनमें वेबसाइट सामग्री, डेटा-आधारित विश्लेषण
+        और फिटनेस तकनीक पर टिप्पणियाँ शामिल हैं।
+      </p>
+      <p class="mt-3 text-sm text-neutral-500">अंतिम अपडेट: {updated}</p>
+    </div>
+  </section>
+
+  <section class="bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto max-w-4xl px-4 py-12 md:py-16 space-y-10 leading-relaxed">
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">1. शर्तों की स्वीकृति</h2>
+        <p class="mt-4">
+          TobyOnFitnessTech का उपयोग या उस तक पहुँच करके, आप इन सेवा की शर्तों और लागू कानूनों से बंधने के लिए सहमत होते हैं।
+          यदि आप सहमत नहीं हैं, तो कृपया साइट का उपयोग बंद कर दें।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">2. उपयोगकर्ता की जिम्मेदारियाँ</h2>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>वेबसाइट का उपयोग कानूनी और सम्मानजनक तरीके से करें।</li>
+          <li>साइट के संचालन में बाधा डालने या प्रतिबंधित प्रणालियों तक पहुँचने का प्रयास न करें।</li>
+          <li>सामग्री की प्रतिलिपि न बनाएं, उसे स्क्रैप न करें, या भ्रामक अथवा दुरुपयोगपूर्ण तरीके से पुनर्प्रकाशित न करें।</li>
+          <li>उस पर कार्रवाई करने से पहले फिटनेस और उत्पाद संबंधी जानकारी का स्वतंत्र रूप से मूल्यांकन करें।</li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">3. सामग्री का स्वामित्व</h2>
+        <p class="mt-4">
+          जब तक अन्यथा उल्लेख न किया गया हो, TobyOnFitnessTech पर सभी मौलिक सामग्री — जिनमें लिखित विश्लेषण,
+          वीडियो, ग्राफिक्स और ब्रांडेड सामग्री शामिल हैं — Toby Glenn Peters के स्वामित्व में हैं। आप सामग्री के लिए लिंक दे सकते हैं,
+          लेकिन पूर्व लिखित अनुमति के बिना उसके महत्वपूर्ण हिस्सों का पुनरुत्पादन नहीं कर सकते।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">4. फिटनेस और चिकित्सीय अस्वीकरण</h2>
+        <p class="mt-4">
+          इस साइट की सामग्री केवल जानकारी और शिक्षा के उद्देश्यों के लिए है। यह चिकित्सा,
+          निदानात्मक या उपचारात्मक सलाह नहीं है। किसी भी प्रशिक्षण, रिकवरी, पोषण या स्वास्थ्य कार्यक्रम को शुरू करने या बदलने से पहले
+          हमेशा योग्य स्वास्थ्य-सेवा या फिटनेस पेशेवरों से परामर्श करें।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">5. दायित्व की सीमा</h2>
+        <p class="mt-4">
+          कानून द्वारा अनुमत अधिकतम सीमा तक, TobyOnFitnessTech और उसका संचालक आपकी साइट के उपयोग,
+          उसकी सामग्री पर निर्भरता, या सेवाओं तक पहुँच न पाने के परिणामस्वरूप होने वाले अप्रत्यक्ष, आकस्मिक,
+          विशेष या परिणामी नुकसान के लिए जिम्मेदार नहीं हैं।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">6. संपर्क जानकारी</h2>
+        <p class="mt-4">
+          इन शर्तों के बारे में प्रश्न यहाँ भेजे जा सकते हैं
+          <a href="mailto:toby@tobyonfitness.tech" class="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline">toby@tobyonfitness.tech</a>.
+        </p>
+      </section>
+    </div>
+  </section>
+</Layout>
