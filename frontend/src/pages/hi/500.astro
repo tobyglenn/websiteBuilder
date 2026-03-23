@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { ServerCrash, RefreshCcw } from 'lucide-react';
+---
+
+<Layout title="सर्वर त्रुटि - Toby on Fitness Tech" description="कुछ गड़बड़ हो गई। फिटनेस टेक रिव्यू, Speediance कवरेज और डेटा-आधारित ट्रेनिंग कंटेंट के लिए TobyOnFitnessTech पर वापस जाएँ।" noindex={true}>
+  <div class="min-h-screen flex items-center justify-center text-center px-4 bg-neutral-950">
+    <div class="max-w-md w-full">
+        <div class="relative w-32 h-32 mx-auto mb-8 text-red-500/20">
+            <ServerCrash class="w-full h-full animate-spin-slow" strokeWidth={1} />
+        </div>
+        
+        <h1 class="text-6xl font-bold text-white mb-4 tracking-tighter">500</h1>
+        
+        <h2 class="text-2xl font-semibold text-red-400 mb-6">आंतरिक सर्वर त्रुटि</h2>
+        
+        <p class="text-neutral-500 mb-8 leading-relaxed">
+            सर्वर को एक आंतरिक त्रुटि या गलत कॉन्फ़िगरेशन का सामना करना पड़ा और वह आपका अनुरोध पूरा नहीं कर सका।
+        </p>
+        
+        <button 
+            onclick="window.location.reload()"
+            class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 hover:bg-neutral-800 border border-neutral-800 text-white font-bold rounded-full transition-all hover:scale-105"
+        >
+            <RefreshCcw size={18} /> फिर से कोशिश करें
+        </button>
+    </div>
+  </div>
+</Layout>
