@@ -1,0 +1,113 @@
+---
+import Layout from '../layouts/Layout.astro';
+import videosData from '../data/videos.json';
+
+const videos = videosData.videos ?? [];
+const latestVideo = videos[0] ?? null;
+const fallbackVideoId = 'LZDxBscLnPY';
+const featuredVideoId = latestVideo?.id || fallbackVideoId;
+const featuredTitle = latestVideo?.title || 'Última subida de Toby sobre tecnología fitness';
+const recentVideos = videos.slice(0, 6);
+---
+
+<Layout 
+  title="Transmisiones en vivo - Toby sobre tecnología fitness"
+  description="Mira el contenido más reciente de YouTube de Toby sobre tecnología fitness y suscríbete para próximas transmisiones en vivo sobre entrenamientos de Speediance, comentarios de BJJ y preguntas y respuestas sobre tecnología fitness."
+>
+  <section class="px-4 py-10 md:py-14">
+    <div class="max-w-6xl mx-auto">
+      <nav class="text-sm text-neutral-400 mb-6" aria-label="Breadcrumb">
+        <ol class="flex items-center gap-2">
+          <li><a href="/" class="hover:text-white transition-colors">Inicio</a></li>
+          <li aria-hidden="true" class="text-neutral-600">/</li>
+          <li class="text-white font-medium" aria-current="page">En vivo</li>
+        </ol>
+      </nav>
+
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-8">
+        <div>
+          <h1 class="text-4xl md:text-5xl font-bold text-white mb-3">En vivo y lo último</h1>
+          <p class="text-neutral-400 max-w-2xl">
+            Todavía no hay transmisiones en vivo, pero puedes ver aquí la subida más reciente y descubrir videos recientes del canal.
+          </p>
+        </div>
+        <div class="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold w-fit">
+          <span class="w-2 h-2 rounded-full bg-red-400 animate-pulse"></span>
+          Transmisiones en vivo próximamente
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-4">
+          <div class="relative aspect-video rounded-2xl overflow-hidden border border-neutral-800 bg-black">
+            <iframe
+              class="w-full h-full"
+              src={`https://www.youtube.com/embed/${featuredVideoId}`}
+              title={featuredTitle}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+            ></iframe>
+          </div>
+
+          <div class="bg-neutral-900/60 border border-neutral-800 rounded-xl p-5">
+            <p class="text-xs uppercase tracking-wider text-blue-400 font-semibold mb-2">Última subida</p>
+            <h2 class="text-xl md:text-2xl text-white font-bold leading-tight">{featuredTitle}</h2>
+            {latestVideo?.description && (
+              <p class="text-neutral-400 mt-3 line-clamp-4">{latestVideo.description}</p>
+            )}
+            <div class="mt-5 flex flex-wrap gap-3">
+              <a
+                href={`https://www.youtube.com/watch?v=${featuredVideoId}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold transition-colors"
+              >
+                Ver en YouTube
+              </a>
+              <a
+                href="https://www.youtube.com/@tobyonfitness?sub_confirmation=1"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-red-600 hover:bg-red-500 text-white font-semibold transition-colors"
+              >
+                Suscribirse
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <aside class="space-y-4">
+          <div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-5">
+            <h3 class="text-white font-bold text-lg mb-1">Videos recientes</h3>
+            <p class="text-sm text-neutral-400 mb-4">Contenido reciente de Toby sobre tecnología fitness.</p>
+            <ul class="space-y-3">
+              {recentVideos.map((video) => (
+                <li>
+                  <a
+                    href={`https://www.youtube.com/watch?v=${video.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="group flex gap-3 p-2 rounded-lg hover:bg-neutral-800/70 transition-colors"
+                  >
+                    <img
+                      src={video.thumbnail}
+                      alt={video.title}
+                      loading="lazy"
+                      class="w-24 h-14 object-cover rounded-md border border-neutral-700"
+                    />
+                    <div>
+                      <p class="text-sm text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-2">{video.title}</p>
+                      <p class="text-xs text-neutral-500 mt-1">{video.duration_formatted || video.duration || 'Video'}</p>
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+</Layout>
