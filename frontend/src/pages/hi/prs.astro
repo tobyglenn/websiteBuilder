@@ -1,0 +1,239 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Speediance डैशबोर्ड से निकाला गया PR डेटा
+const prsByMuscle = {
+  "पीठ और लैट्स": [
+    { name: "बारबेल डेडलिफ्ट", weight: 388, unit: "lbs" },
+    { name: "घुटनों के बल बारबेल लैट पुलडाउन", weight: 294, unit: "lbs" },
+    { name: "घुटनों के बल रिवर्स-ग्रिप बारबेल लैट पुलडाउन", weight: 280, unit: "lbs" },
+    { name: "बैठकर रिवर्स-ग्रिप बारबेल लैट पुलडाउन", weight: 248, unit: "lbs" },
+    { name: "बैठकर चौड़ा बारबेल रो", weight: 202, unit: "lbs" },
+    { name: "झुककर बारबेल रो", weight: 198, unit: "lbs" },
+    { name: "बैठकर बारबेल लैट पुलडाउन", weight: 192, unit: "lbs" },
+    { name: "बैठकर बारबेल रो", weight: 192, unit: "lbs" },
+    { name: "बैठकर रिवर्स-ग्रिप बारबेल रो", weight: 170, unit: "lbs" },
+    { name: "इनक्लाइन स्ट्रेट-आर्म पुशडाउन", weight: 168, unit: "lbs" },
+    { name: "हाफ-नीलिंग सिंगल-आर्म रो (L)", weight: 161, unit: "lbs" },
+    { name: "घुटनों के बल सिंगल-आर्म लैट पुलडाउन (L)", weight: 160, unit: "lbs" },
+    { name: "घुटनों के बल सिंगल-आर्म लैट पुलडाउन (R)", weight: 146, unit: "lbs" },
+    { name: "हाफ-नीलिंग सिंगल-आर्म रो (R)", weight: 140, unit: "lbs" },
+    { name: "झुककर रिवर्स-ग्रिप बारबेल रो", weight: 126, unit: "lbs" },
+    { name: "घुटनों के बल डुअल-हैंडल लैट पुलडाउन", weight: 125, unit: "lbs" },
+  ],
+  "चेस्ट और ट्राइसेप्स": [
+    { name: "बारबेल बेंच प्रेस", weight: 232, unit: "lbs" },
+    { name: "इनक्लाइन बारबेल बेंच प्रेस", weight: 185, unit: "lbs" },
+    { name: "खड़े होकर बारबेल ट्राइसेप्स पुशडाउन", weight: 170, unit: "lbs" },
+  ],
+  "पैर और ग्लूट्स": [
+    { name: "बारबेल हिप थ्रस्ट", weight: 240, unit: "lbs" },
+    { name: "बारबेल स्प्लिट स्क्वाट (L)", weight: 144, unit: "lbs" },
+    { name: "बारबेल स्प्लिट स्क्वाट (R)", weight: 144, unit: "lbs" },
+    { name: "बारबेल स्टिफ-लेग डेडलिफ्ट", weight: 140, unit: "lbs" },
+  ],
+  "कोर और बाजू": [
+    { name: "खड़े होकर हाई-टू-लो वुडचॉप्स (R)", weight: 170, unit: "lbs" },
+    { name: "खड़े होकर हाई-टू-लो वुडचॉप्स (L)", weight: 134, unit: "lbs" },
+  ],
+};
+
+const allPRs = [
+  { name: "बारबेल डेडलिफ्ट", weight: 388, muscle: "पीठ और लैट्स" },
+  { name: "घुटनों के बल बारबेल लैट पुलडाउन", weight: 294, muscle: "पीठ और लैट्स" },
+  { name: "घुटनों के बल रिवर्स-ग्रिप बारबेल लैट पुलडाउन", weight: 280, muscle: "पीठ और लैट्स" },
+  { name: "बैठकर रिवर्स-ग्रिप बारबेल लैट पुलडाउन", weight: 248, muscle: "पीठ और लैट्स" },
+  { name: "बारबेल हिप थ्रस्ट", weight: 240, muscle: "पैर और ग्लूट्स" },
+  { name: "बारबेल बेंच प्रेस", weight: 232, muscle: "चेस्ट और ट्राइसेप्स" },
+  { name: "बैठकर चौड़ा बारबेल रो", weight: 202, muscle: "पीठ और लैट्स" },
+  { name: "झुककर बारबेल रो", weight: 198, muscle: "पीठ और लैट्स" },
+  { name: "बैठकर बारबेल लैट पुलडाउन", weight: 192, muscle: "पीठ और लैट्स" },
+  { name: "बैठकर बारबेल रो", weight: 192, muscle: "पीठ और लैट्स" },
+  { name: "इनक्लाइन बारबेल बेंच प्रेस", weight: 185, muscle: "चेस्ट और ट्राइसेप्स" },
+  { name: "बैठकर रिवर्स-ग्रिप बारबेल रो", weight: 170, muscle: "पीठ और लैट्स" },
+  { name: "खड़े होकर बारबेल ट्राइसेप्स पुशडाउन", weight: 170, muscle: "चेस्ट और ट्राइसेप्स" },
+  { name: "खड़े होकर हाई-टू-लो वुडचॉप्स (R)", weight: 170, muscle: "कोर और बाजू" },
+  { name: "इनक्लाइन स्ट्रेट-आर्म पुशडाउन", weight: 168, muscle: "पीठ और लैट्स" },
+];
+
+const totalPRVolume = allPRs.reduce((sum, pr) => sum + pr.weight, 0);
+const totalPRs = allPRs.length;
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/hi/prs#collection`,
+  "name": "PR बोर्ड - Toby on Fitness Tech",
+  "description": `Speediance ट्रेनिंग के व्यक्तिगत रिकॉर्ड: ${totalPRs} PRs जिनका कुल ${totalPRVolume} lbs है। डेडलिफ्ट 388 lbs, बेंच प्रेस 232 lbs, और भी बहुत कुछ।`,
+  "url": `${siteUrl}/hi/prs`,
+  "inLanguage": "hi",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Speediance व्यक्तिगत रिकॉर्ड",
+    "numberOfItems": totalPRs,
+    "itemListElement": allPRs.map((pr, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": pr.name,
+      "description": `${pr.weight} lbs - ${pr.muscle}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title="PR बोर्ड - Toby on Fitness Tech"
+  description={`Speediance ट्रेनिंग के व्यक्तिगत रिकॉर्ड: ${totalPRs} PRs जिनका कुल ${totalPRVolume} lbs है। 388 lbs डेडलिफ्ट, 232 lbs बेंच प्रेस, और 125+ वर्कआउट्स से ज़्यादा का वास्तविक डेटा।`}
+  breadcrumbs={[{ name: "होम", url: "/hi/" }, { name: "PR बोर्ड", url: "/hi/prs" }]}
+  jsonLd={profilePageSchema}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-20 pb-16 md:pt-28 md:pb-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <span class="inline-flex items-center gap-2 bg-yellow-900/30 border border-yellow-500/30 px-4 py-1.5 rounded-full text-yellow-300 text-sm font-semibold mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            PR बोर्ड
+          </span>
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            नंबर झूठ नहीं बोलते।
+          </h1>
+          <p class="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-10">
+            {totalPRs} व्यक्तिगत रिकॉर्ड और कुल {totalPRVolume.toLocaleString()} lbs वजन। 
+            हर रेप ट्रैक की गई, हर PR लॉग किया गया। यही दिखता है {totalPRVolume.toLocaleString()} lbs की प्रोग्रेसिव ओवरलोड।
+          </p>
+          
+          <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRs}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">कुल PRs</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRVolume.toLocaleString()}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">कुल lbs</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">388</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">सबसे भारी</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-gradient-to-b from-neutral-950 to-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="black"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            </span>
+            हॉल ऑफ फेम
+          </h2>
+          
+          <div class="space-y-4">
+            {allPRs.slice(0, 5).map((pr, index) => (
+              <div class={`flex items-center gap-4 p-5 rounded-2xl border transition-all hover:scale-[1.01] ${
+                index === 0 ? 'bg-gradient-to-r from-yellow-900/30 to-neutral-900 border-yellow-500/30' :
+                index === 1 ? 'bg-neutral-900 border-neutral-700' :
+                index === 2 ? 'bg-neutral-900 border-neutral-700' :
+                'bg-neutral-900 border-neutral-800'
+              }`}>
+                <div class={`w-10 h-10 rounded-full flex items-center justify-center font-black text-lg ${
+                  index === 0 ? 'bg-yellow-500 text-black' :
+                  index === 1 ? 'bg-neutral-400 text-black' :
+                  index === 2 ? 'bg-amber-700 text-white' :
+                  'bg-neutral-800 text-neutral-400'
+                }`}>
+                  {index + 1}
+                </div>
+                <div class="flex-1">
+                  <div class="font-bold text-white text-lg">{pr.name}</div>
+                  <div class="text-sm text-neutral-500">{pr.muscle}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl md:text-3xl font-black text-white">{pr.weight}</div>
+                  <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold mb-10 text-center">मसल ग्रुप के अनुसार सभी रिकॉर्ड</h2>
+          
+          <div class="space-y-12">
+            {Object.entries(prsByMuscle).map(([muscle, prs]) => (
+              <div>
+                <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  {muscle}
+                </h3>
+                <div class="grid gap-3">
+                  {prs.map((pr, index) => (
+                    <div class="flex items-center justify-between p-4 bg-neutral-950 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <span class="text-neutral-600 font-mono text-sm w-6">{index + 1}</span>
+                        <span class="font-medium text-white">{pr.name}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-white">{pr.weight}</span>
+                        <span class="text-neutral-500 text-sm">{pr.unit}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="text-neutral-500 text-sm">
+            जुलाई 2025 से <strong class="text-white">Speediance Gym Monster 2S</strong> पर ट्रैक किए गए सभी PRs। 
+            कुल वॉल्यूम: <strong class="text-white">1,296,447 lbs</strong> और <strong class="text-white">125+ वर्कआउट्स</strong>।
+          </p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a href="/hi/speediance/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">वॉल्यूम डेटा देखें →</a>
+            <span class="text-neutral-700">•</span>
+            <a href="/hi/training/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">ट्रेनिंग ट्रेंड्स →</a>
+            <span class="text-neutral-700">•</span>
+            <a href="/hi/videos/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">PR प्रयास देखें →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">पूरा ट्रेनिंग डेटा देखना चाहते हैं?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          हर वर्कआउट, मासिक वॉल्यूम ट्रेंड्स और पूरी ट्रांसफ़ॉर्मेशन यात्रा को एक्सप्लोर करें।
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/hi/training/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+            ट्रेनिंग डैशबोर्ड
+          </a>
+          <a href="/hi/speediance/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
+            Speediance आँकड़े
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

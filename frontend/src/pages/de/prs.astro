@@ -1,0 +1,245 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// PR-Daten aus dem Speediance-Dashboard
+const prsByMuscle = {
+  "Rücken & Lats": [
+    { name: "Langhantel-Kreuzheben", weight: 388, unit: "lbs" },
+    { name: "Kniender Latziehen mit Langhantel", weight: 294, unit: "lbs" },
+    { name: "Kniender Latziehen mit Langhantel im Untergriff", weight: 280, unit: "lbs" },
+    { name: "Sitzender Latziehen mit Langhantel im Untergriff", weight: 248, unit: "lbs" },
+    { name: "Sitzendes weites Langhantelrudern", weight: 202, unit: "lbs" },
+    { name: "Vorgebeugtes Langhantelrudern", weight: 198, unit: "lbs" },
+    { name: "Sitzender Latziehen mit Langhantel", weight: 192, unit: "lbs" },
+    { name: "Sitzendes Langhantelrudern", weight: 192, unit: "lbs" },
+    { name: "Sitzendes Langhantelrudern im Untergriff", weight: 170, unit: "lbs" },
+    { name: "Schräger Pushdown mit gestreckten Armen", weight: 168, unit: "lbs" },
+    { name: "Halbkniendes einarmiges Rudern (L)", weight: 161, unit: "lbs" },
+    { name: "Kniender einarmiger Latziehen (L)", weight: 160, unit: "lbs" },
+    { name: "Kniender einarmiger Latziehen (R)", weight: 146, unit: "lbs" },
+    { name: "Halbkniendes einarmiges Rudern (R)", weight: 140, unit: "lbs" },
+    { name: "Vorgebeugtes Langhantelrudern im Untergriff", weight: 126, unit: "lbs" },
+    { name: "Kniender Latziehen mit Doppelgriff", weight: 125, unit: "lbs" },
+  ],
+  "Brust & Trizeps": [
+    { name: "Langhantel-Bankdrücken", weight: 232, unit: "lbs" },
+    { name: "Schrägbankdrücken mit Langhantel", weight: 185, unit: "lbs" },
+    { name: "Stehender Trizeps-Pushdown mit Langhantel", weight: 170, unit: "lbs" },
+  ],
+  "Beine & Gesäß": [
+    { name: "Langhantel-Hip-Thrust", weight: 240, unit: "lbs" },
+    { name: "Langhantel-Split-Squat (L)", weight: 144, unit: "lbs" },
+    { name: "Langhantel-Split-Squat (R)", weight: 144, unit: "lbs" },
+    { name: "Langhantel-Kreuzheben mit steifen Beinen", weight: 140, unit: "lbs" },
+  ],
+  "Rumpf & Arme": [
+    { name: "Stehende High-to-Low-Woodchops (R)", weight: 170, unit: "lbs" },
+    { name: "Stehende High-to-Low-Woodchops (L)", weight: 134, unit: "lbs" },
+  ],
+};
+
+const allPRs = [
+  { name: "Langhantel-Kreuzheben", weight: 388, muscle: "Rücken & Lats" },
+  { name: "Kniender Latziehen mit Langhantel", weight: 294, muscle: "Rücken & Lats" },
+  { name: "Kniender Latziehen mit Langhantel im Untergriff", weight: 280, muscle: "Rücken & Lats" },
+  { name: "Sitzender Latziehen mit Langhantel im Untergriff", weight: 248, muscle: "Rücken & Lats" },
+  { name: "Langhantel-Hip-Thrust", weight: 240, muscle: "Beine & Gesäß" },
+  { name: "Langhantel-Bankdrücken", weight: 232, muscle: "Brust & Trizeps" },
+  { name: "Sitzendes weites Langhantelrudern", weight: 202, muscle: "Rücken & Lats" },
+  { name: "Vorgebeugtes Langhantelrudern", weight: 198, muscle: "Rücken & Lats" },
+  { name: "Sitzender Latziehen mit Langhantel", weight: 192, muscle: "Rücken & Lats" },
+  { name: "Sitzendes Langhantelrudern", weight: 192, muscle: "Rücken & Lats" },
+  { name: "Schrägbankdrücken mit Langhantel", weight: 185, muscle: "Brust & Trizeps" },
+  { name: "Sitzendes Langhantelrudern im Untergriff", weight: 170, muscle: "Rücken & Lats" },
+  { name: "Stehender Trizeps-Pushdown mit Langhantel", weight: 170, muscle: "Brust & Trizeps" },
+  { name: "Stehende High-to-Low-Woodchops (R)", weight: 170, muscle: "Rumpf & Arme" },
+  { name: "Schräger Pushdown mit gestreckten Armen", weight: 168, muscle: "Rücken & Lats" },
+];
+
+const totalPRVolume = allPRs.reduce((sum, pr) => sum + pr.weight, 0);
+const totalPRs = allPRs.length;
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/de/prs#collection`,
+  "name": "PR-Board - Toby on Fitness Tech",
+  "description": `Persönliche Rekorde aus dem Speediance-Training: ${totalPRs} PRs mit insgesamt ${totalPRVolume} lbs. Kreuzheben 388 lbs, Bankdrücken 232 lbs und mehr.`,
+  "url": `${siteUrl}/de/prs`,
+  "inLanguage": "de-DE",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Speediance persönliche Rekorde",
+    "numberOfItems": totalPRs,
+    "itemListElement": allPRs.map((pr, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": pr.name,
+      "description": `${pr.weight} lbs - ${pr.muscle}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title="PR-Board - Toby on Fitness Tech"
+  description={`Persönliche Rekorde aus dem Speediance-Training: ${totalPRs} PRs mit insgesamt ${totalPRVolume} lbs. Kreuzheben 388 lbs, Bankdrücken 232 lbs und mehr echte Daten aus über 125 Workouts.`}
+  breadcrumbs={[{ name: "Startseite", url: "/de/" }, { name: "PR-Board", url: "/de/prs" }]}
+  jsonLd={profilePageSchema}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    {/* Hero */}
+    <section class="pt-20 pb-16 md:pt-28 md:pb-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <span class="inline-flex items-center gap-2 bg-yellow-900/30 border border-yellow-500/30 px-4 py-1.5 rounded-full text-yellow-300 text-sm font-semibold mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            PR-Board
+          </span>
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Zahlen lügen nicht.
+          </h1>
+          <p class="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-10">
+            {totalPRs} persönliche Rekorde mit insgesamt {totalPRVolume.toLocaleString()} lbs Gesamtgewicht. 
+            Jede Wiederholung verfolgt, jeder PR protokolliert. So sehen {totalPRVolume.toLocaleString()} lbs progressive Überlastung aus.
+          </p>
+          
+          {/* Quick Stats */}
+          <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRs}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">PRs gesamt</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRVolume.toLocaleString()}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">Lbs gesamt</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">388</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">Am schwersten</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Top 5 PRs - Hall of Fame */}
+    <section class="py-12 bg-gradient-to-b from-neutral-950 to-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="black"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            </span>
+            Ruhmeshalle
+          </h2>
+          
+          <div class="space-y-4">
+            {allPRs.slice(0, 5).map((pr, index) => (
+              <div class={`flex items-center gap-4 p-5 rounded-2xl border transition-all hover:scale-[1.01] ${
+                index === 0 ? 'bg-gradient-to-r from-yellow-900/30 to-neutral-900 border-yellow-500/30' :
+                index === 1 ? 'bg-neutral-900 border-neutral-700' :
+                index === 2 ? 'bg-neutral-900 border-neutral-700' :
+                'bg-neutral-900 border-neutral-800'
+              }`}>
+                <div class={`w-10 h-10 rounded-full flex items-center justify-center font-black text-lg ${
+                  index === 0 ? 'bg-yellow-500 text-black' :
+                  index === 1 ? 'bg-neutral-400 text-black' :
+                  index === 2 ? 'bg-amber-700 text-white' :
+                  'bg-neutral-800 text-neutral-400'
+                }`}>
+                  {index + 1}
+                </div>
+                <div class="flex-1">
+                  <div class="font-bold text-white text-lg">{pr.name}</div>
+                  <div class="text-sm text-neutral-500">{pr.muscle}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl md:text-3xl font-black text-white">{pr.weight}</div>
+                  <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* All PRs by Category */}
+    <section class="py-16 bg-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold mb-10 text-center">Alle Rekorde nach Muskelgruppe</h2>
+          
+          <div class="space-y-12">
+            {Object.entries(prsByMuscle).map(([muscle, prs]) => (
+              <div>
+                <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  {muscle}
+                </h3>
+                <div class="grid gap-3">
+                  {prs.map((pr, index) => (
+                    <div class="flex items-center justify-between p-4 bg-neutral-950 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <span class="text-neutral-600 font-mono text-sm w-6">{index + 1}</span>
+                        <span class="font-medium text-white">{pr.name}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-white">{pr.weight}</span>
+                        <span class="text-neutral-500 text-sm">{pr.unit}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Data Source */}
+    <section class="py-12 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="text-neutral-500 text-sm">
+            Alle PRs erfasst auf dem <strong class="text-white">Speediance Gym Monster 2S</strong> seit Juli 2025. 
+            Gesamtvolumen: <strong class="text-white">1,296,447 lbs</strong> über <strong class="text-white">125+ Workouts</strong>.
+          </p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a href="/de/speediance/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Volumendaten ansehen →</a>
+            <span class="text-neutral-700">•</span>
+            <a href="/de/training/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Trainingstrends →</a>
+            <span class="text-neutral-700">•</span>
+            <a href="/de/videos/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">PR-Versuche ansehen →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="py-16 bg-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">Möchten Sie die vollständigen Trainingsdaten sehen?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          Entdecken Sie jedes Workout, monatliche Volumentrends und die komplette Transformationsreise.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/de/training/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+            Trainings-Dashboard
+          </a>
+          <a href="/de/speediance/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
+            Speediance-Statistiken
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

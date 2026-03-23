@@ -1,0 +1,239 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Datos de PR extraídos del panel de Speediance
+const prsByMuscle = {
+  "Espalda y dorsales": [
+    { name: "Peso muerto con barra", weight: 388, unit: "lbs" },
+    { name: "Jalón al pecho con barra de rodillas", weight: 294, unit: "lbs" },
+    { name: "Jalón al pecho con barra en agarre inverso de rodillas", weight: 280, unit: "lbs" },
+    { name: "Jalón al pecho con barra en agarre inverso sentado", weight: 248, unit: "lbs" },
+    { name: "Remo amplio con barra sentado", weight: 202, unit: "lbs" },
+    { name: "Remo con barra inclinado", weight: 198, unit: "lbs" },
+    { name: "Jalón al pecho con barra sentado", weight: 192, unit: "lbs" },
+    { name: "Remo con barra sentado", weight: 192, unit: "lbs" },
+    { name: "Remo con barra en agarre inverso sentado", weight: 170, unit: "lbs" },
+    { name: "Pushdown inclinado con brazos rectos", weight: 168, unit: "lbs" },
+    { name: "Remo a una mano medio arrodillado (L)", weight: 161, unit: "lbs" },
+    { name: "Jalón al pecho a una mano de rodillas (L)", weight: 160, unit: "lbs" },
+    { name: "Jalón al pecho a una mano de rodillas (R)", weight: 146, unit: "lbs" },
+    { name: "Remo a una mano medio arrodillado (R)", weight: 140, unit: "lbs" },
+    { name: "Remo con barra inclinado en agarre inverso", weight: 126, unit: "lbs" },
+    { name: "Jalón al pecho con doble agarre de rodillas", weight: 125, unit: "lbs" },
+  ],
+  "Pecho y tríceps": [
+    { name: "Press de banca con barra", weight: 232, unit: "lbs" },
+    { name: "Press inclinado con barra", weight: 185, unit: "lbs" },
+    { name: "Pushdown de tríceps con barra de pie", weight: 170, unit: "lbs" },
+  ],
+  "Piernas y glúteos": [
+    { name: "Hip thrust con barra", weight: 240, unit: "lbs" },
+    { name: "Sentadilla búlgara con barra (L)", weight: 144, unit: "lbs" },
+    { name: "Sentadilla búlgara con barra (R)", weight: 144, unit: "lbs" },
+    { name: "Peso muerto con piernas rígidas con barra", weight: 140, unit: "lbs" },
+  ],
+  "Core y brazos": [
+    { name: "Woodchops de arriba hacia abajo de pie (R)", weight: 170, unit: "lbs" },
+    { name: "Woodchops de arriba hacia abajo de pie (L)", weight: 134, unit: "lbs" },
+  ],
+};
+
+const allPRs = [
+  { name: "Peso muerto con barra", weight: 388, muscle: "Espalda y dorsales" },
+  { name: "Jalón al pecho con barra de rodillas", weight: 294, muscle: "Espalda y dorsales" },
+  { name: "Jalón al pecho con barra en agarre inverso de rodillas", weight: 280, muscle: "Espalda y dorsales" },
+  { name: "Jalón al pecho con barra en agarre inverso sentado", weight: 248, muscle: "Espalda y dorsales" },
+  { name: "Hip thrust con barra", weight: 240, muscle: "Piernas y glúteos" },
+  { name: "Press de banca con barra", weight: 232, muscle: "Pecho y tríceps" },
+  { name: "Remo amplio con barra sentado", weight: 202, muscle: "Espalda y dorsales" },
+  { name: "Remo con barra inclinado", weight: 198, muscle: "Espalda y dorsales" },
+  { name: "Jalón al pecho con barra sentado", weight: 192, muscle: "Espalda y dorsales" },
+  { name: "Remo con barra sentado", weight: 192, muscle: "Espalda y dorsales" },
+  { name: "Press inclinado con barra", weight: 185, muscle: "Pecho y tríceps" },
+  { name: "Remo con barra en agarre inverso sentado", weight: 170, muscle: "Espalda y dorsales" },
+  { name: "Pushdown de tríceps con barra de pie", weight: 170, muscle: "Pecho y tríceps" },
+  { name: "Woodchops de arriba hacia abajo de pie (R)", weight: 170, muscle: "Core y brazos" },
+  { name: "Pushdown inclinado con brazos rectos", weight: 168, muscle: "Espalda y dorsales" },
+];
+
+const totalPRVolume = allPRs.reduce((sum, pr) => sum + pr.weight, 0);
+const totalPRs = allPRs.length;
+
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/es/prs#collection`,
+  "name": "Tablero de PR - Toby on Fitness Tech",
+  "description": `Récords personales del entrenamiento con Speediance: ${totalPRs} PRs que suman ${totalPRVolume} lbs. Peso muerto de 388 lbs, press de banca de 232 lbs y más.`,
+  "url": `${siteUrl}/es/prs`,
+  "inLanguage": "es",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Récords personales de Speediance",
+    "numberOfItems": totalPRs,
+    "itemListElement": allPRs.map((pr, index) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "name": pr.name,
+      "description": `${pr.weight} lbs - ${pr.muscle}`
+    }))
+  }
+};
+---
+
+<Layout 
+  title="Tablero de PR - Toby on Fitness Tech"
+  description={`Récords personales del entrenamiento con Speediance: ${totalPRs} PRs que suman ${totalPRVolume} lbs. Peso muerto de 388 lbs, press de banca de 232 lbs y más datos reales de más de 125 entrenamientos.`}
+  breadcrumbs={[{ name: "Inicio", url: "/es/" }, { name: "Tablero de PR", url: "/es/prs" }]}
+  jsonLd={profilePageSchema}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-20 pb-16 md:pt-28 md:pb-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <span class="inline-flex items-center gap-2 bg-yellow-900/30 border border-yellow-500/30 px-4 py-1.5 rounded-full text-yellow-300 text-sm font-semibold mb-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="text-yellow-400"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            Tablero de PR
+          </span>
+          <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">
+            Los números no mienten.
+          </h1>
+          <p class="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-10">
+            {totalPRs} récords personales a lo largo de {totalPRVolume.toLocaleString()} lbs de peso total. 
+            Cada repetición registrada, cada PR anotado. Así se ven {totalPRVolume.toLocaleString()} lbs de sobrecarga progresiva.
+          </p>
+          
+          <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRs}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">PR totales</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRVolume.toLocaleString()}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">Lbs totales</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">388</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">Más pesado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 bg-gradient-to-b from-neutral-950 to-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold mb-8 flex items-center gap-3">
+            <span class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="black"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+            </span>
+            Salón de la fama
+          </h2>
+          
+          <div class="space-y-4">
+            {allPRs.slice(0, 5).map((pr, index) => (
+              <div class={`flex items-center gap-4 p-5 rounded-2xl border transition-all hover:scale-[1.01] ${
+                index === 0 ? 'bg-gradient-to-r from-yellow-900/30 to-neutral-900 border-yellow-500/30' :
+                index === 1 ? 'bg-neutral-900 border-neutral-700' :
+                index === 2 ? 'bg-neutral-900 border-neutral-700' :
+                'bg-neutral-900 border-neutral-800'
+              }`}>
+                <div class={`w-10 h-10 rounded-full flex items-center justify-center font-black text-lg ${
+                  index === 0 ? 'bg-yellow-500 text-black' :
+                  index === 1 ? 'bg-neutral-400 text-black' :
+                  index === 2 ? 'bg-amber-700 text-white' :
+                  'bg-neutral-800 text-neutral-400'
+                }`}>
+                  {index + 1}
+                </div>
+                <div class="flex-1">
+                  <div class="font-bold text-white text-lg">{pr.name}</div>
+                  <div class="text-sm text-neutral-500">{pr.muscle}</div>
+                </div>
+                <div class="text-right">
+                  <div class="text-2xl md:text-3xl font-black text-white">{pr.weight}</div>
+                  <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-2xl font-bold mb-10 text-center">Todos los récords por grupo muscular</h2>
+          
+          <div class="space-y-12">
+            {Object.entries(prsByMuscle).map(([muscle, prs]) => (
+              <div>
+                <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center gap-2">
+                  <span class="w-2 h-2 bg-blue-500 rounded-full"></span>
+                  {muscle}
+                </h3>
+                <div class="grid gap-3">
+                  {prs.map((pr, index) => (
+                    <div class="flex items-center justify-between p-4 bg-neutral-950 rounded-xl border border-neutral-800 hover:border-neutral-700 transition-colors">
+                      <div class="flex items-center gap-4">
+                        <span class="text-neutral-600 font-mono text-sm w-6">{index + 1}</span>
+                        <span class="font-medium text-white">{pr.name}</span>
+                      </div>
+                      <div class="flex items-center gap-2">
+                        <span class="text-xl font-bold text-white">{pr.weight}</span>
+                        <span class="text-neutral-500 text-sm">{pr.unit}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 border-t border-neutral-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <p class="text-neutral-500 text-sm">
+            Todos los PR registrados en el <strong class="text-white">Speediance Gym Monster 2S</strong> desde julio de 2025. 
+            Volumen total: <strong class="text-white">1,296,447 lbs</strong> en <strong class="text-white">125+ entrenamientos</strong>.
+          </p>
+          <div class="mt-6 flex flex-wrap justify-center gap-3">
+            <a href="/es/speediance/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Ver datos de volumen →</a>
+            <span class="text-neutral-700">•</span>
+            <a href="/es/training/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Tendencias de entrenamiento →</a>
+            <span class="text-neutral-700">•</span>
+            <a href="/es/videos/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Ver intentos de PR →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-16 bg-neutral-900 border-t border-neutral-800">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-4">¿Quieres ver todos los datos de entrenamiento?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          Explora cada entrenamiento, las tendencias mensuales de volumen y el recorrido completo de transformación.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/es/training/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+            Panel de entrenamiento
+          </a>
+          <a href="/es/speediance/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
+            Estadísticas de Speediance
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
