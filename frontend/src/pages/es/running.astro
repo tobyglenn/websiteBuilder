@@ -1,0 +1,537 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getRunningData } from '../data/running.js';
+
+const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData();
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Registro de running: 265 millas en Garmin",
+  "description": "111 carreras, 265 millas registradas en Garmin Fenix 7. Gráficos mensuales de kilometraje, mapa de calor de actividad, mejores ritmos y registro completo de carreras.",
+  "author": { "@type": "Person", "name": "Toby Glenn Peters" },
+  "datePublished": "2026-03-04",
+  "url": "https://tobyonfitnesstech.com/running"
+};
+
+const howToSchema = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  "name": "Guía de entrenamiento de running",
+  "description": "Cómo entrenar para mejorar tu forma física con running y seguimiento GPS de Garmin",
+  "step": [
+    {
+      "@type": "HowToStep",
+      "name": "Calentamiento",
+      "text": "Empieza con 5 minutos de estiramientos dinámicos y trote suave para preparar tus músculos y articulaciones para la carrera."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Carrera principal",
+      "text": "Corre a tu ritmo objetivo usando Garmin para controlar las zonas de FC, asegurándote de permanecer en la zona de entrenamiento óptima para tu nivel de forma física."
+    },
+    {
+      "@type": "HowToStep",
+      "name": "Enfriamiento",
+      "text": "Termina con 5 minutos de trote suave y estiramientos estáticos para favorecer la recuperación y reducir el riesgo de lesión."
+    }
+  ]
+};
+
+const allSchemas = [articleSchema, howToSchema];
+
+// ── Monthly bar chart SVG ──────────────────────────────────────────────────
+const barW = 40, barGap = 12, chartH = 140, labelH = 28;
+const maxDist = Math.max(...monthly.map(m => m.distance));
+const chartW = monthly.length * (barW + barGap) - barGap + 10;
+
+function barHeight(d) {
+  return Math.max(4, Math.round((d / maxDist) * chartH));
+}
+
+// ── Activity heatmap SVG ───────────────────────────────────────────────────
+// Build 52 weeks × 7 days grid covering ~1 year back from today
+const today = new Date('2026-02-19');
+const cellSize = 12;
+const cellGap = 2;
+const step = cellSize + cellGap;
+
+// Start from the nearest Sunday >= 1 year ago
+const oneYearAgo = new Date(today);
+oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
+// Go back to last Sunday
+while (oneYearAgo.getDay() !== 0) oneYearAgo.setDate(oneYearAgo.getDate() - 1);
+
+// Generate all weeks
+const weeks = [];
+let cur = new Date(oneYearAgo);
+while (cur <= today) {
+  const week = [];
+  for (let d = 0; d < 7; d++) {
+    const dateStr = cur.toISOString().slice(0, 10);
+    const mi = dailyMap[dateStr] || 0;
+    week.push({ date: dateStr, mi: +mi.toFixed(2), dow: d });
+    cur.setDate(cur.getDate() + 1);
+  }
+  weeks.push(week);
+}
+
+const heatW = weeks.length * step;
+const heatH = 7 * step;
+
+function heatColor(mi) {
+  if (mi === 0) return '#1a1a2e';
+  if (mi < 1) return '#1e3a5f';
+  if (mi < 2) return '#1d4ed8';
+  if (mi < 3) return '#2563eb';
+  if (mi < 4) return '#3b82f6';
+  return '#60a5fa';
+}
+
+// Month labels for heatmap
+const monthLabels = [];
+let prevMonth = '';
+weeks.forEach((week, wi) => {
+  const month = week[0].date.slice(0, 7);
+  if (month !== prevMonth) {
+    const d = new Date(week[0].date + 'T00:00:00');
+    monthLabels.push({ x: wi * step, label: d.toLocaleDateString('es-ES', { month: 'short' }) });
+    prevMonth = month;
+  }
+});
+---
+
+<Layout
+  title="Registro de running: 265 millas en Garmin — TobyOnFitnessTech"
+  description="111 carreras, 265 millas registradas en Garmin Fenix 7. Gráficos mensuales de kilometraje, mapa de calor de actividad, mejores ritmos y registro completo de carreras."
+  jsonLd={allSchemas}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* ── Hero ─────────────────────────────────────────────────────── */}
+    <section id="hero" class="pt-28 pb-14 md:pt-36 md:pb-20 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-transparent pointer-events-none" />
+      <div class="absolute right-0 top-0 w-64 h-64 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">
+            Garmin Fenix 7 · feb 2025 – feb 2026
+          </p>
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight">
+            265 millas.<br />
+            <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
+              Cada carrera registrada.
+            </span>
+          </h2>
+          <p class="text-lg text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            Empecé en la cinta haciendo calentamientos de una milla. Ahora hago carreras de 3 a 5 millas varias veces por semana.
+            Ritmo real, frecuencia cardiaca real, datos reales — sin seleccionar solo lo bonito.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <span class="px-4 py-1.5 rounded-full text-xs font-semibold bg-blue-600/20 border border-blue-500/30 text-blue-400">
+              🏃 {stats.outdoorRuns} al aire libre
+            </span>
+            <span class="px-4 py-1.5 rounded-full text-xs font-semibold bg-neutral-800 border border-neutral-700 text-neutral-400">
+              🏋️ {stats.treadmillRuns} cinta
+            </span>
+            <span class="px-4 py-1.5 rounded-full text-xs font-semibold bg-neutral-800 border border-neutral-700 text-neutral-400">
+              🔥 {stats.totalCal.toLocaleString()} kcal quemadas
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Stat Cards ────────────────────────────────────────────────── */}
+    <section id="stats" class="py-10 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
+
+          <div class="bg-gradient-to-br from-blue-900/30 to-blue-900/10 border border-blue-800/30 rounded-2xl p-5">
+            <div class="text-3xl font-black text-blue-400 mb-1">{stats.totalRuns}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Carreras totales</div>
+          </div>
+
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-black text-white mb-1">{stats.totalDistMi}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Millas corridas</div>
+          </div>
+
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-black text-white mb-1">{stats.totalHrs}h</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Tiempo en movimiento</div>
+          </div>
+
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-black text-white mb-1">{stats.avgPace}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Ritmo medio/mi</div>
+          </div>
+
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-black text-white mb-1">{stats.longestMi}mi</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider font-semibold">Carrera más larga</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.longestDate}</div>
+          </div>
+
+          <div class="bg-gradient-to-br from-purple-900/30 to-purple-900/10 border border-purple-800/30 rounded-2xl p-5">
+            <div class="text-3xl font-black text-purple-400 mb-1">{stats.totalCal.toLocaleString()}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider font-semibold">kcal quemadas</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* ── Monthly Mileage Chart ─────────────────────────────────────── */}
+    <section id="monthly-mileage" class="py-14 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-1">Kilometraje mensual</h2>
+        <p class="text-neutral-500 text-sm mb-8">feb 2025 – feb 2026 · {stats.totalRuns} carreras en total</p>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
+          <svg
+            width={chartW}
+            height={chartH + labelH + 30}
+            viewBox={`0 0 ${chartW} ${chartH + labelH + 30}`}
+            class="min-w-full"
+            aria-label="Gráfico de barras del kilometraje mensual de running"
+          >
+            <defs>
+              <linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.9" />
+                <stop offset="100%" stop-color="#1d4ed8" stop-opacity="0.4" />
+              </linearGradient>
+              <linearGradient id="barGradActive" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#60a5fa" stop-opacity="1" />
+                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0.6" />
+              </linearGradient>
+            </defs>
+
+            {/* Grid lines */}
+            {[0, 25, 50, 75].map((pct) => {
+              const y = chartH - Math.round((pct / 100) * chartH);
+              return (
+                <Fragment key={pct}>
+                  <line x1="0" y1={y} x2={chartW} y2={y} stroke="#262626" stroke-width="1" />
+                  <text x={chartW - 2} y={y - 3} fill="#525252" font-size="9" text-anchor="end">
+                    {Math.round((pct / 100) * maxDist)}mi
+                  </text>
+                </Fragment>
+              );
+            })}
+
+            {/* Bars */}
+            {monthly.map((m, i) => {
+              const bh = barHeight(m.distance);
+              const x = i * (barW + barGap);
+              const y = chartH - bh;
+              const isActive = m.month.startsWith('2026') || m.distance === maxDist;
+              return (
+                <Fragment key={m.month}>
+                  <rect
+                    x={x}
+                    y={y}
+                    width={barW}
+                    height={bh}
+                    rx="4"
+                    fill={isActive ? 'url(#barGradActive)' : 'url(#barGrad)'}
+                  />
+                  {/* Value label */}
+                  <text x={x + barW / 2} y={y - 5} fill="#e5e5e5" font-size="10" text-anchor="middle" font-weight="600">
+                    {m.distance}
+                  </text>
+                  {/* Month label */}
+                  <text x={x + barW / 2} y={chartH + 16} fill="#737373" font-size="10" text-anchor="middle">
+                    {m.label}
+                  </text>
+                  {/* Run count */}
+                  <text x={x + barW / 2} y={chartH + 28} fill="#525252" font-size="9" text-anchor="middle">
+                    {m.runs}x
+                  </text>
+                </Fragment>
+              );
+            })}
+          </svg>
+        </div>
+
+        {/* Legend */}
+        <div class="flex gap-6 mt-4 text-xs text-neutral-500">
+          <span><span class="inline-block w-3 h-3 rounded-sm bg-blue-500 mr-1.5 align-middle"></span>millas por mes</span>
+          <span class="text-neutral-600">• números bajo las barras = cantidad de carreras</span>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Activity Heatmap ─────────────────────────────────────────── */}
+    <section id="activity-heatmap" class="py-14 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-1">Mapa de calor de actividad</h2>
+        <p class="text-neutral-500 text-sm mb-8">Un año de carreras · más oscuro = más distancia</p>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
+          <svg
+            width={heatW + 30}
+            height={heatH + 26}
+            viewBox={`0 0 ${heatW + 30} ${heatH + 26}`}
+            aria-label="Mapa de calor de actividad de running"
+          >
+            {/* Day of week labels */}
+            {['', 'L', '', 'X', '', 'V', ''].map((label, di) => (
+              <text
+                key={di}
+                x={2}
+                y={di * step + step / 2 + 20 + 4}
+                fill="#525252"
+                font-size="9"
+                dominant-baseline="middle"
+              >
+                {label}
+              </text>
+            ))}
+
+            {/* Month labels */}
+            {monthLabels.map(({ x, label }) => (
+              <text key={label + x} x={x + 20} y={10} fill="#737373" font-size="9">
+                {label}
+              </text>
+            ))}
+
+            {/* Cells */}
+            <g transform="translate(20, 18)">
+              {weeks.map((week, wi) =>
+                week.map((day) => (
+                  <rect
+                    key={day.date}
+                    x={wi * step}
+                    y={day.dow * step}
+                    width={cellSize}
+                    height={cellSize}
+                    rx="2"
+                    fill={heatColor(day.mi)}
+                  >
+                    <title>{day.date}: {day.mi > 0 ? `${day.mi}mi` : 'descanso'}</title>
+                  </rect>
+                ))
+              )}
+            </g>
+          </svg>
+
+          {/* Heatmap legend */}
+          <div class="flex items-center gap-1.5 mt-3 text-xs text-neutral-600">
+            <span>Menos</span>
+            <div class="w-3 h-3 rounded-sm" style="background:#1a1a2e"></div>
+            <div class="w-3 h-3 rounded-sm" style="background:#1e3a5f"></div>
+            <div class="w-3 h-3 rounded-sm" style="background:#1d4ed8"></div>
+            <div class="w-3 h-3 rounded-sm" style="background:#2563eb"></div>
+            <div class="w-3 h-3 rounded-sm" style="background:#3b82f6"></div>
+            <div class="w-3 h-3 rounded-sm" style="background:#60a5fa"></div>
+            <span>Más (4mi+)</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── PR Board ─────────────────────────────────────────────────── */}
+    <section id="pace-prs" class="py-14 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-1">Mejores ritmos</h2>
+        <p class="text-neutral-500 text-sm mb-8">Mejor ritmo por distancia — datos reales de Garmin, no estimaciones</p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {prs.map((pr, i) => (
+            <div key={pr.label} class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 relative overflow-hidden">
+              <div class="absolute top-3 right-3">
+                <span class={`text-xs px-2 py-0.5 rounded-full font-semibold ${
+                  pr.type === 'Outdoor'
+                    ? 'bg-green-900/40 text-green-400 border border-green-800/30'
+                    : 'bg-blue-900/40 text-blue-400 border border-blue-800/30'
+                }`}>
+                  {pr.type === 'Outdoor' ? '🌍' : '🏋️'} {pr.type === 'Outdoor' ? 'Aire libre' : 'Cinta'}
+                </span>
+              </div>
+              <div class="text-xs text-neutral-600 uppercase tracking-widest font-semibold mb-1">Rango de {pr.label}</div>
+              <div class="text-4xl font-black text-blue-400 mb-1">{pr.pace}</div>
+              <div class="text-xs text-neutral-400 mb-3">min/mi · {pr.dist} en {pr.duration}</div>
+              <div class="text-xs text-neutral-600">{pr.date}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Recent Runs ───────────────────────────────────────────────── */}
+    <section id="recent-runs" class="py-14 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-1">Carreras recientes</h2>
+        <p class="text-neutral-500 text-sm mb-8">Las últimas 10 carreras con desglose por zonas de FC</p>
+
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
+          {/* Desktop table */}
+          <div class="hidden md:block overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-neutral-800 text-xs text-neutral-500 uppercase tracking-wider">
+                  <th class="px-5 py-3 text-left">Fecha</th>
+                  <th class="px-5 py-3 text-left">Nombre</th>
+                  <th class="px-5 py-3 text-right">Dist.</th>
+                  <th class="px-5 py-3 text-right">Ritmo</th>
+                  <th class="px-5 py-3 text-right">Tiempo</th>
+                  <th class="px-5 py-3 text-right">FC media</th>
+                  <th class="px-5 py-3 text-right">Cal</th>
+                  <th class="px-5 py-3 text-left w-36">Zonas de FC</th>
+                </tr>
+              </thead>
+              <tbody>
+                {recentRuns.map((r, i) => (
+                  <tr key={r.date + i} class="border-b border-neutral-800/50 hover:bg-neutral-800/30 transition-colors">
+                    <td class="px-5 py-3.5 text-neutral-400 whitespace-nowrap">{r.date}</td>
+                    <td class="px-5 py-3.5">
+                      <div class="flex items-center gap-2">
+                        <span class="text-white font-medium">{r.name}</span>
+                        <span class={`text-xs px-1.5 py-0.5 rounded font-medium ${
+                          r.type === 'Treadmill'
+                            ? 'bg-blue-900/40 text-blue-400'
+                            : 'bg-green-900/40 text-green-400'
+                        }`}>{r.type === 'Treadmill' ? '🏋️' : '🌍'}</span>
+                      </div>
+                    </td>
+                    <td class="px-5 py-3.5 text-right font-semibold">{r.dist}mi</td>
+                    <td class="px-5 py-3.5 text-right text-blue-400 font-mono">{r.pace}</td>
+                    <td class="px-5 py-3.5 text-right text-neutral-400">{r.dur}</td>
+                    <td class="px-5 py-3.5 text-right">
+                      {r.hr ? (
+                        <span class={`font-semibold ${r.hr > 150 ? 'text-orange-400' : r.hr > 135 ? 'text-yellow-400' : 'text-green-400'}`}>
+                          {r.hr}
+                        </span>
+                      ) : <span class="text-neutral-600">—</span>}
+                    </td>
+                    <td class="px-5 py-3.5 text-right text-neutral-400">{r.cal || '—'}</td>
+                    <td class="px-5 py-3.5">
+                      {/* HR Zone bar */}
+                      <div class="flex h-3 rounded-full overflow-hidden gap-px w-32">
+                        {r.z1pct > 0 && <div class="bg-blue-400/80" style={`width:${r.z1pct}%`} title={`Z1: ${r.z1pct}%`}></div>}
+                        {r.z2pct > 0 && <div class="bg-green-400/80" style={`width:${r.z2pct}%`} title={`Z2: ${r.z2pct}%`}></div>}
+                        {r.z3pct > 0 && <div class="bg-yellow-400/80" style={`width:${r.z3pct}%`} title={`Z3: ${r.z3pct}%`}></div>}
+                        {r.z4pct > 0 && <div class="bg-orange-400/80" style={`width:${r.z4pct}%`} title={`Z4: ${r.z4pct}%`}></div>}
+                        {r.z5pct > 0 && <div class="bg-red-500/80" style={`width:${r.z5pct}%`} title={`Z5: ${r.z5pct}%`}></div>}
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile cards */}
+          <div class="md:hidden divide-y divide-neutral-800">
+            {recentRuns.map((r, i) => (
+              <div key={r.date + 'm' + i} class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <div class="font-semibold text-white">{r.name}</div>
+                    <div class="text-xs text-neutral-500">{r.date} · {r.type === 'Treadmill' ? 'Cinta' : 'Aire libre'}</div>
+                  </div>
+                  <div class="text-right">
+                    <div class="font-black text-lg text-white">{r.dist}mi</div>
+                    <div class="text-xs text-blue-400 font-mono">{r.pace}/mi</div>
+                  </div>
+                </div>
+                <div class="flex gap-4 text-xs text-neutral-500 mb-2">
+                  <span>⏱ {r.dur}</span>
+                  {r.hr && <span>❤️ {r.hr} bpm</span>}
+                  {r.cal && <span>🔥 {r.cal} kcal</span>}
+                </div>
+                <div class="flex h-2 rounded-full overflow-hidden gap-px">
+                  {r.z1pct > 0 && <div class="bg-blue-400/80" style={`width:${r.z1pct}%`}></div>}
+                  {r.z2pct > 0 && <div class="bg-green-400/80" style={`width:${r.z2pct}%`}></div>}
+                  {r.z3pct > 0 && <div class="bg-yellow-400/80" style={`width:${r.z3pct}%`}></div>}
+                  {r.z4pct > 0 && <div class="bg-orange-400/80" style={`width:${r.z4pct}%`}></div>}
+                  {r.z5pct > 0 && <div class="bg-red-500/80" style={`width:${r.z5pct}%`}></div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* HR Zone legend */}
+        <div class="flex flex-wrap gap-4 mt-4 text-xs text-neutral-500">
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-blue-400/80"></span>Z1 Recuperación</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-green-400/80"></span>Z2 Base</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-yellow-400/80"></span>Z3 Aeróbica</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-orange-400/80"></span>Z4 Umbral</span>
+          <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-sm bg-red-500/80"></span>Z5 Máxima</span>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Gear ─────────────────────────────────────────────────────── */}
+    <section id="running-gear" class="py-14 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-2xl font-bold mb-1">Equipo de running</h2>
+        <p class="text-neutral-500 text-sm mb-8">Lo que tengo en rotación</p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[
+            {
+              icon: '👟',
+              category: 'Zapatillas',
+              items: ['Hoka Clifton 9', 'Nike Pegasus 40'],
+              note: 'Las alterno para reducir el riesgo de lesión',
+            },
+            {
+              icon: '⌚',
+              category: 'Reloj',
+              items: ['Garmin Fenix 7'],
+              note: 'GPS, FC, carga de entrenamiento, recuperación',
+            },
+            {
+              icon: '💡',
+              category: 'Seguridad',
+              items: ['Noxgear Tracer Vizy'],
+              note: 'Para correr al aire libre temprano por la mañana',
+            },
+            {
+              icon: '📊',
+              category: 'Seguimiento de recuperación',
+              items: ['WHOOP 5.0', '8Sleep Pod'],
+              note: 'Calidad del sueño + monitoreo de HRV',
+            },
+          ].map((g) => (
+            <div key={g.category} class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+              <div class="text-2xl mb-3">{g.icon}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-widest font-semibold mb-2">{g.category}</div>
+              <ul class="space-y-1 mb-3">
+                {g.items.map((item) => (
+                  <li key={item} class="text-white font-medium">{item}</li>
+                ))}
+              </ul>
+              <p class="text-xs text-neutral-600">{g.note}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── CTA ──────────────────────────────────────────────────────── */}
+    <section id="see-the-full-picture" class="py-14 border-t border-neutral-900">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-2xl font-bold mb-3">Mira el panorama completo</h2>
+        <p class="text-neutral-400 mb-8 max-w-lg mx-auto">
+          Correr es solo una pieza. Levantamiento, sueño y recuperación están conectados.
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/training/" class="px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors">
+            Estadísticas completas de entrenamiento →
+          </a>
+          <a href="/speediance/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">
+            Panel de Speediance →
+          </a>
+          <a href="/blog/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">
+            Leer el blog →
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
