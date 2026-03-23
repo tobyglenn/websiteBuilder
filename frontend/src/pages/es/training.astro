@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Weekly training schedule - full body minus legs, prioritized: Running > Lifting > BJJ
+const weeklySchedule = [
+  {
+    day: "Lunes",
+    focus: "Correr + Pesas",
+    icon: "🏃",
+    exercises: ["Carrera suave de 5K", "Press de banca", "Jalón al pecho", "Press militar", "Remo con barra"],
+    priority: 1
+  },
+  {
+    day: "Martes",
+    focus: "BJJ",
+    icon: "🥋",
+    exercises: ["Drills con gi", "Rondas de sparring", "trabajo posicional"],
+    priority: 3
+  },
+  {
+    day: "Miércoles",
+    focus: "Correr + Pesas",
+    icon: "🏃",
+    exercises: ["Carrera tempo de 6K", "Peso muerto", "Hip thrust", "Dominadas", "Face pulls"],
+    priority: 1
+  },
+  {
+    day: "Jueves",
+    focus: "Recuperación activa",
+    icon: "🔄",
+    exercises: ["Trote suave de 3K", "trabajo de movilidad", "estiramientos"],
+    priority: 0
+  },
+  {
+    day: "Viernes",
+    focus: "Correr + Pesas",
+    icon: "🏃",
+    exercises: ["Trabajo de velocidad por intervalos", "Press inclinado", "Jalón al pecho", "Curl de bíceps", "Extensiones de tríceps"],
+    priority: 1
+  },
+  {
+    day: "Sábado",
+    focus: "BJJ",
+    icon: "🥋",
+    exercises: ["Open mat", "drilling técnico", "rolling en vivo"],
+    priority: 3
+  },
+  {
+    day: "Domingo",
+    focus: "Descanso",
+    icon: "😴",
+    exercises: ["Día de descanso", "recuperación con sueño", "caminata ligera"],
+    priority: 0
+  }
+];
+
+const stats = {
+  workoutsPerWeek: 6,
+  restDays: 1,
+  runningDays: 4,
+  liftingDays: 3,
+  bjjDays: 2
+};
+
+const pageTitle = "Semana de entrenamiento";
+const pageDescription = "Una semana típica de entrenamiento: correr, pesas de cuerpo completo (sin piernas) y BJJ. Mi enfoque de fitness por prioridad: Correr > Pesas > BJJ.";
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "Semana de entrenamiento de Toby",
+  "description": "Un programa semanal de entrenamiento que combina correr, pesas de cuerpo completo y jiu-jitsu brasileño.",
+  "provider": {
+    "@type": "Person",
+    "name": "Toby"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "https://schema.org/OfflineMode",
+    "courseWorkload": "P6D"
+  }
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} jsonLd={courseSchema}>
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    {/* Hero Section */}
+    <section class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Semana de entrenamiento</h1>
+      <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
+        Una semana típica equilibrando mis tres pilares: correr, pesas de cuerpo completo (sin piernas) y BJJ.
+        Todo está priorizado: <span class="text-blue-400 font-semibold">Correr &gt; Pesas &gt; BJJ</span>
+      </p>
+    </section>
+
+    {/* Stats Overview */}
+    <section class="mb-12">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
+          <div class="text-sm text-neutral-400">Entrenamientos/semana</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
+          <div class="text-sm text-neutral-400">Días de descanso</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-green-400 mb-1">{stats.runningDays}</div>
+          <div class="text-sm text-neutral-400">Días de carrera</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-purple-400 mb-1">{stats.liftingDays}</div>
+          <div class="text-sm text-neutral-400">Días de pesas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-orange-400 mb-1">{stats.bjjDays}</div>
+          <div class="text-sm text-neutral-400">Días de BJJ</div>
+        </div>
+      </div>
+    </section>
+
+    {/* Weekly Schedule Grid */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span>📅</span> Horario semanal
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+        {weeklySchedule.map((day) => (
+          <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+            day.priority === 0 
+              ? 'border-neutral-800 opacity-70' 
+              : day.priority === 1 
+                ? 'border-blue-500/30 hover:border-blue-500/60' 
+                : day.priority === 2 
+                  ? 'border-purple-500/30 hover:border-purple-500/60'
+                  : 'border-orange-500/30 hover:border-orange-500/60'
+          }`}>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl">{day.icon}</span>
+              <h3 class="text-lg font-bold text-white">{day.day}</h3>
+            </div>
+            <div class={`text-sm font-semibold mb-3 ${
+              day.priority === 1 ? 'text-blue-400' : 
+              day.priority === 2 ? 'text-purple-400' : 
+              day.priority === 3 ? 'text-orange-400' : 'text-neutral-500'
+            }`}>
+              {day.focus}
+            </div>
+            <ul class="space-y-1">
+              {day.exercises.map((ex) => (
+                <li class="text-sm text-neutral-400 flex items-start gap-2">
+                  <span class="text-neutral-600 mt-1">•</span>
+                  <span>{ex}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Training Philosophy */}
+    <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+      <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+        <span>🧠</span> Filosofía de entrenamiento
+      </h2>
+      <div class="space-y-4">
+        <p class="text-neutral-300 text-lg">
+          Mi entrenamiento está organizado por prioridad: <span class="text-blue-400 font-bold">Correr &gt; Pesas &gt; BJJ</span>
+        </p>
+        <div class="grid md:grid-cols-3 gap-6 mt-6">
+          <div class="bg-neutral-950 rounded-xl p-5 border border-blue-500/20">
+            <div class="text-3xl mb-2">🏆</div>
+            <h3 class="text-blue-400 font-bold mb-2">#1 Correr</h3>
+            <p class="text-neutral-400 text-sm">
+              El cardio es la base. Ya sean kilómetros suaves, carreras tempo o intervalos, correr va primero. 
+              Una base aeróbica sólida sostiene todo lo demás.
+            </p>
+          </div>
+          <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
+            <div class="text-3xl mb-2">💪</div>
+            <h3 class="text-purple-400 font-bold mb-2">#2 Pesas</h3>
+            <p class="text-neutral-400 text-sm">
+              Sesiones de cuerpo completo sin piernas (Speediance se encarga de los compuestos pesados). 
+              Enfoque en empujar, jalar e hipertrofia. Tres días por semana.
+            </p>
+          </div>
+          <div class="bg-neutral-950 rounded-xl p-5 border border-orange-500/20">
+            <div class="text-3xl mb-2">🥋</div>
+            <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
+            <p class="text-neutral-400 text-sm">
+              Dos días por semana para técnica y rolling. El jiu-jitsu me mantiene humilde y aporta 
+              una excelente condición anaeróbica y trabajo de habilidad.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

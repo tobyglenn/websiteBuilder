@@ -1,0 +1,200 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Weekly training schedule - full body minus legs, prioritized: Running > Lifting > BJJ
+const weeklySchedule = [
+  {
+    day: "सोमवार",
+    focus: "दौड़ + वेट ट्रेनिंग",
+    icon: "🏃",
+    exercises: ["आसान 5K दौड़", "बेंच प्रेस", "लैट पुलडाउन", "ओवरहेड प्रेस", "बारबेल रो"],
+    priority: 1
+  },
+  {
+    day: "मंगलवार",
+    focus: "BJJ",
+    icon: "🥋",
+    exercises: ["गी ड्रिलिंग", "स्पैरिंग राउंड्स", "पोज़िशनल वर्क"],
+    priority: 3
+  },
+  {
+    day: "बुधवार",
+    focus: "दौड़ + वेट ट्रेनिंग",
+    icon: "🏃",
+    exercises: ["6K टेम्पो रन", "डेडलिफ्ट", "हिप थ्रस्ट", "पुल-अप्स", "फेस पुल्स"],
+    priority: 1
+  },
+  {
+    day: "गुरुवार",
+    focus: "सक्रिय रिकवरी",
+    icon: "🔄",
+    exercises: ["आसान 3K जॉग", "मोबिलिटी वर्क", "स्ट्रेचिंग"],
+    priority: 0
+  },
+  {
+    day: "शुक्रवार",
+    focus: "दौड़ + वेट ट्रेनिंग",
+    icon: "🏃",
+    exercises: ["इंटरवल स्पीडवर्क", "इंक्लाइन बेंच", "लैट पुलडाउन", "बाइसेप कर्ल्स", "ट्राइसेप एक्सटेंशन्स"],
+    priority: 1
+  },
+  {
+    day: "शनिवार",
+    focus: "BJJ",
+    icon: "🥋",
+    exercises: ["ओपन मैट", "तकनीकी ड्रिलिंग", "लाइव रोलिंग"],
+    priority: 3
+  },
+  {
+    day: "रविवार",
+    focus: "आराम",
+    icon: "😴",
+    exercises: ["आराम का दिन", "नींद से रिकवरी", "हल्की वॉकिंग"],
+    priority: 0
+  }
+];
+
+const stats = {
+  workoutsPerWeek: 6,
+  restDays: 1,
+  runningDays: 4,
+  liftingDays: 3,
+  bjjDays: 2
+};
+
+const pageTitle = "ट्रेनिंग वीक";
+const pageDescription = "एक सामान्य ट्रेनिंग वीक: दौड़, फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर), और BJJ। फिटनेस के लिए मेरा प्राथमिकता-आधारित तरीका: दौड़ > वेट ट्रेनिंग > BJJ।";
+
+const courseSchema = {
+  "@context": "https://schema.org",
+  "@type": "Course",
+  "name": "टोबी का ट्रेनिंग वीक",
+  "description": "एक साप्ताहिक ट्रेनिंग प्रोग्राम जो दौड़, फुल-बॉडी वेट ट्रेनिंग और ब्राज़ीलियन जिउ-जित्सु को जोड़ता है।",
+  "provider": {
+    "@type": "Person",
+    "name": "Toby"
+  },
+  "hasCourseInstance": {
+    "@type": "CourseInstance",
+    "courseMode": "https://schema.org/OfflineMode",
+    "courseWorkload": "P6D"
+  }
+};
+---
+
+<Layout title={pageTitle} description={pageDescription} jsonLd={courseSchema}>
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    {/* Hero Section */}
+    <section class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">ट्रेनिंग वीक</h1>
+      <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
+        एक सामान्य सप्ताह जिसमें मेरे तीन स्तंभ संतुलित रहते हैं: दौड़, फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर), और BJJ।
+        सब कुछ प्राथमिकता के अनुसार है: <span class="text-blue-400 font-semibold">दौड़ &gt; वेट ट्रेनिंग &gt; BJJ</span>
+      </p>
+    </section>
+
+    {/* Stats Overview */}
+    <section class="mb-12">
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
+          <div class="text-sm text-neutral-400">वर्कआउट/सप्ताह</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
+          <div class="text-sm text-neutral-400">आराम के दिन</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-green-400 mb-1">{stats.runningDays}</div>
+          <div class="text-sm text-neutral-400">दौड़ के दिन</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-purple-400 mb-1">{stats.liftingDays}</div>
+          <div class="text-sm text-neutral-400">वेट ट्रेनिंग के दिन</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-orange-400 mb-1">{stats.bjjDays}</div>
+          <div class="text-sm text-neutral-400">BJJ के दिन</div>
+        </div>
+      </div>
+    </section>
+
+    {/* Weekly Schedule Grid */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span>📅</span> साप्ताहिक शेड्यूल
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+        {weeklySchedule.map((day) => (
+          <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+            day.priority === 0 
+              ? 'border-neutral-800 opacity-70' 
+              : day.priority === 1 
+                ? 'border-blue-500/30 hover:border-blue-500/60' 
+                : day.priority === 2 
+                  ? 'border-purple-500/30 hover:border-purple-500/60'
+                  : 'border-orange-500/30 hover:border-orange-500/60'
+          }`}>
+            <div class="flex items-center gap-2 mb-3">
+              <span class="text-2xl">{day.icon}</span>
+              <h3 class="text-lg font-bold text-white">{day.day}</h3>
+            </div>
+            <div class={`text-sm font-semibold mb-3 ${
+              day.priority === 1 ? 'text-blue-400' : 
+              day.priority === 2 ? 'text-purple-400' : 
+              day.priority === 3 ? 'text-orange-400' : 'text-neutral-500'
+            }`}>
+              {day.focus}
+            </div>
+            <ul class="space-y-1">
+              {day.exercises.map((ex) => (
+                <li class="text-sm text-neutral-400 flex items-start gap-2">
+                  <span class="text-neutral-600 mt-1">•</span>
+                  <span>{ex}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Training Philosophy */}
+    <section class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+      <h2 class="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+        <span>🧠</span> ट्रेनिंग दर्शन
+      </h2>
+      <div class="space-y-4">
+        <p class="text-neutral-300 text-lg">
+          मेरी ट्रेनिंग प्राथमिकता के अनुसार व्यवस्थित है: <span class="text-blue-400 font-bold">दौड़ &gt; वेट ट्रेनिंग &gt; BJJ</span>
+        </p>
+        <div class="grid md:grid-cols-3 gap-6 mt-6">
+          <div class="bg-neutral-950 rounded-xl p-5 border border-blue-500/20">
+            <div class="text-3xl mb-2">🏆</div>
+            <h3 class="text-blue-400 font-bold mb-2">#1 दौड़</h3>
+            <p class="text-neutral-400 text-sm">
+              कार्डियो आधार है। चाहे आसान मील हों, टेम्पो रन हों या इंटरवल्स, दौड़ सबसे पहले आती है। 
+              एक मजबूत एरोबिक आधार बाकी सबको सहारा देता है।
+            </p>
+          </div>
+          <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
+            <div class="text-3xl mb-2">💪</div>
+            <h3 class="text-purple-400 font-bold mb-2">#2 वेट ट्रेनिंग</h3>
+            <p class="text-neutral-400 text-sm">
+              फुल-बॉडी सेशन, पैरों को छोड़कर (भारी कंपाउंड मूवमेंट्स की ज़िम्मेदारी Speediance संभालता है)। 
+              फोकस प्रेसिंग, पुलिंग और हाइपरट्रॉफी पर है। सप्ताह में तीन दिन।
+            </p>
+          </div>
+          <div class="bg-neutral-950 rounded-xl p-5 border border-orange-500/20">
+            <div class="text-3xl mb-2">🥋</div>
+            <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
+            <p class="text-neutral-400 text-sm">
+              तकनीक और रोलिंग के लिए सप्ताह में दो दिन। जिउ-जित्सु मुझे विनम्र रखता है और 
+              बेहतरीन एनएरोबिक कंडीशनिंग और स्किल वर्क देता है।
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
