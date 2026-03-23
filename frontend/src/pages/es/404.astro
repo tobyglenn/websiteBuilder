@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Ghost, Home, AlertCircle } from 'lucide-react';
+---
+
+<Layout title="Página no encontrada - Toby sobre tecnología fitness" description="Esta página no existe. Vuelve a TobyOnFitnessTech para reseñas de tecnología fitness, análisis profundos de Speediance y datos reales de transformación." noindex={true}>
+  <div class="min-h-screen flex items-center justify-center text-center px-4 bg-neutral-950">
+    <div class="max-w-md w-full animate-bounce-slow">
+        <Ghost class="w-32 h-32 text-neutral-800 mx-auto mb-8 animate-pulse" strokeWidth={1} />
+        
+        <h1 class="text-6xl font-bold text-white mb-4 tracking-tighter">404</h1>
+        
+        <h2 class="text-2xl font-semibold text-neutral-400 mb-6">¿Perdido en los datos?</h2>
+        
+        <p class="text-neutral-500 mb-8 leading-relaxed">
+            La página que buscas puede haber sido eliminada, haber cambiado de nombre o estar temporalmente no disponible. 
+        </p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+                <Home size={18} /> Ir al inicio
+            </a>
+            <a href="/videos/" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-white font-medium rounded-full transition-all">
+                <AlertCircle size={18} /> Reportar problema
+            </a>
+        </div>
+    </div>
+  </div>
+</Layout>
