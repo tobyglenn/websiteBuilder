@@ -1,0 +1,146 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const transformationVideos = [
+  {
+    id: 'tvKRk67XmQ8',
+    title: 'मेरी ट्रांसफॉर्मेशन कहानी — 242 से 188 lbs तक',
+    description: 'पूरी कहानी कि कैसे मैंने Tonal, Arnold Blueprint के push-pull-legs प्रोग्राम और डेटा की जुनूनी ट्रैकिंग का उपयोग करके 6 महीनों में 242 lbs से 188 lbs तक का सफर तय किया।',
+  },
+  {
+    id: 'M07Aq93TCkM',
+    title: 'अत्यधिक वज़न घटाना: ईमानदार सच',
+    description: 'न कोई हाइप। न दवाइयाँ। न कोई ट्रिक। यहाँ उस चीज़ का असली विवरण है जिसने मेरे ट्रांसफॉर्मेशन को आगे बढ़ाया, जिसमें प्रिस्क्रिप्शन दवा की भूमिका भी शामिल है।',
+  },
+  {
+    id: 'Qy61dHyFWK4',
+    title: 'टूटी हुई एड़ी के साथ मेरा वज़न 238 lbs था',
+    description: 'मेरी यात्रा का सबसे निचला बिंदु — क्रूज़ शिप पर टूटी हुई एड़ी, हिलने-डुलने में असमर्थ, और तराज़ू का नंबर फिर से ऊपर जाते हुए देखना। वापसी कुछ ऐसी दिखती है।',
+  },
+];
+---
+
+<Layout 
+  title="यहाँ से शुरू करें - Toby on Fitness Tech"
+  description="यहाँ नए हैं? Toby की ट्रांसफॉर्मेशन कहानी से शुरू करें — 6 महीनों में 242 से 188 lbs — और जानें कि इस चैनल को क्या प्रेरित करता है।"
+  ogType="article"
+  breadcrumbs={[{ name: "होम", url: "/" }, { name: "यहाँ से शुरू करें", url: "/start-here" }]}
+>
+  <div class="bg-neutral-900 border-b border-neutral-800 pb-16 pt-24 md:pt-32">
+    <div class="container mx-auto px-4 max-w-4xl text-center">
+      <span class="inline-flex items-center gap-2 bg-green-900/30 border border-green-500/30 px-4 py-1.5 rounded-full text-green-300 text-sm font-semibold mb-6">
+        यहाँ से शुरू करें
+      </span>
+      <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+        इस चैनल के पीछे की असली कहानी
+      </h1>
+      <p class="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed">
+        2023 में मेरा वज़न 242 lbs था। मैं मोटापे से ग्रस्त था, 40 की उम्र के करीब पहुँच रहा था, और बहाने बनाते-बनाते थक चुका था। छह महीने बाद मेरा वज़न 188 lbs था। यह बिल्कुल कैसे हुआ — और मैंने इसके इर्द-गिर्द एक चैनल क्यों बनाया — वह यहाँ है।
+      </p>
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4 py-16 max-w-4xl">
+
+    {/* Stats */}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-white mb-1">54</div>
+        <div class="text-sm text-neutral-400">lbs कम</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-white mb-1">6</div>
+        <div class="text-sm text-neutral-400">महीने</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-green-400 mb-1">1.2M+</div>
+        <div class="text-sm text-neutral-400">lbs उठाए</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+        <div class="text-3xl font-bold text-blue-400 mb-1">104</div>
+        <div class="text-sm text-neutral-400">वीडियो</div>
+      </div>
+    </div>
+
+    {/* Story */}
+    <div class="prose prose-invert prose-lg max-w-none mb-16 space-y-6 text-neutral-300">
+      <h2 class="text-3xl font-bold text-white">बदलाव का मोड़</h2>
+      
+      <p class="leading-relaxed">
+        2023 की शुरुआत में मुझे एक ऐसा स्पष्ट क्षण मिला जिसे बहुत से लोग पहचानेंगे जिन्होंने अपने वज़न से संघर्ष किया है: मैं तराज़ू पर चढ़ा, एक ऐसा नंबर देखा जिसे मैं अब और तर्क देकर सही नहीं ठहरा सकता था, और मैंने एक फैसला किया।
+      </p>
+
+      <p class="leading-relaxed">
+        मैंने जिम जॉइन नहीं किया। मैंने एक Tonal खरीदा — एक स्मार्ट स्ट्रेंथ ट्रेनिंग मशीन — और Arnold Schwarzenegger Blueprint पर आधारित एक वर्कआउट प्रोग्राम बनाया: Push, Pull, Legs, जिसे हफ्ते में दो बार दोहराया जाता था और बीच में एक रनिंग डे होता था। छह दिन ट्रेनिंग, एक दिन आराम। छह महीनों तक मैंने एक भी सेशन मिस नहीं किया।
+      </p>
+
+      <p class="leading-relaxed">
+        डेटा ही सब कुछ था। मैंने Tonal पर उठाए गए हर पाउंड को ट्रैक किया। रिकवरी के लिए WHOOP पहना। Cronometer में हर भोजन लॉग किया। 4-मील के रूट दौड़ा और Garmin पर अपनी गति ट्रैक की। जब नंबरों ने कहा कि आराम करो, मैंने आराम किया। जब उन्होंने कहा कि और ज़ोर लगाया जा सकता है, मैंने ज़ोर लगाया।
+      </p>
+
+      <p class="leading-relaxed">
+        उन छह महीनों के अंत में: 242 → 188 lbs। और इस बारे में एक बहुत साफ राय कि कौन-सी फिटनेस टेक्नोलॉजी सच में काम करती है और कौन-सी सिर्फ मार्केटिंग का शोर है।
+      </p>
+
+      <h2 class="text-3xl font-bold text-white mt-12">मैंने यह चैनल क्यों शुरू किया</h2>
+
+      <p class="leading-relaxed">
+        जब मैंने Tonal से Speediance पर स्विच किया, तो मुझे किसी ऐसे व्यक्ति की ईमानदार, तकनीकी समीक्षा नहीं मिली जो वास्तव में भारी वज़न उठाता हो। ज़्यादातर रिव्यू शुरुआती लोगों या पत्रकारों के होते हैं। मुझे ऐसे व्यक्ति की रिव्यू चाहिए थीं जो कटिंग फेज़ से गुज़रा हो, progressive overload को समझता हो, और इस बात की परवाह करता हो कि असली लोड के नीचे मोटर कैसे व्यवहार करती है।
+      </p>
+
+      <p class="leading-relaxed">
+        इसलिए मैंने वे रिव्यू खुद बनाईं। अब मेरे पास Speediance की दो मशीनें हैं। मैंने उन पर 1.2 मिलियन पाउंड से अधिक उठाया है। मैंने हर firmware update, हर bug, हर improvement को डॉक्यूमेंट किया है। अगर आप होम जिम टेक को गंभीरता से लेते हैं, तो यह सबसे विस्तृत स्वतंत्र कवरेज है जो आपको मिलेगी।
+      </p>
+
+      <p class="leading-relaxed">
+        मैं BJJ की ट्रेनिंग भी करता हूँ और 2026 में 4-मील रेस टाइम के एक लक्ष्य की ओर काम कर रहा हूँ। यह चैनल इन सबको कवर करता है — क्योंकि डेटा, टेक्नोलॉजी और मानसिकता, सब आपस में जुड़े हुए हैं।
+      </p>
+    </div>
+
+    {/* Transformation Videos */}
+    <div class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-8">ट्रांसफॉर्मेशन कहानी देखें</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {transformationVideos.map(video => (
+          <a href={`/video/${video.id}/`} class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-green-500/50 transition-all hover:-translate-y-1 hover:shadow-xl">
+            <div class="aspect-video relative overflow-hidden bg-neutral-950">
+              <img 
+                src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
+                alt={video.title}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20">
+                <div class="bg-green-600 p-3 rounded-full shadow-lg">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg>
+                </div>
+              </div>
+              <span class="absolute top-2 left-2 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded-full uppercase">परिवर्तन</span>
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-white text-sm leading-snug group-hover:text-green-400 transition-colors mb-2">{video.title}</h3>
+              <p class="text-xs text-neutral-400 line-clamp-2">{video.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+
+    {/* CTA Section */}
+    <div class="bg-gradient-to-br from-blue-900/20 to-green-900/20 border border-blue-500/20 rounded-2xl p-10 text-center">
+      <h2 class="text-2xl font-bold text-white mb-4">अब आगे कहाँ जाएँ</h2>
+      <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+        गहराई में जाने के लिए तैयार हैं? Speediance, BJJ, फिटनेस टेक और ट्रेनिंग मेथडोलॉजी पर 104 वीडियो वाली पूरी वीडियो लाइब्रेरी देखें।
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/videos/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+          सभी वीडियो देखें →
+        </a>
+        <a href="/about/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
+          मेरे बारे में और
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
