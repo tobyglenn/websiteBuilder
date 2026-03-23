@@ -2,6 +2,34 @@
   command = "npm run build"
   publish = "dist"
 
+# ── Language-based redirects (browser Accept-Language → locale) ──────────────
+# Only applies when visiting the root path — deep links stay as-is.
+# Netlify evaluates conditions top-to-bottom; first match wins.
+
+[[redirects]]
+  from = "/"
+  to = "/de/"
+  status = 302
+  conditions = {Language = ["de"]}
+
+[[redirects]]
+  from = "/"
+  to = "/es/"
+  status = 302
+  conditions = {Language = ["es", "es-419", "es-MX", "es-AR", "es-CO", "es-CL"]}
+
+[[redirects]]
+  from = "/"
+  to = "/pt/"
+  status = 302
+  conditions = {Language = ["pt", "pt-BR", "pt-PT"]}
+
+[[redirects]]
+  from = "/"
+  to = "/hi/"
+  status = 302
+  conditions = {Language = ["hi"]}
+
 # Force canonical: non-www HTTPS (fixes Google Search Console redirect warnings)
 [[redirects]]
   from = "https://www.tobyonfitnesstech.com/*"
