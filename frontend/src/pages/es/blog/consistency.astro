@@ -1,0 +1,152 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getConsistencyData } from '../../../data/consistency.js';
+
+const data = getConsistencyData();
+
+const { 
+  totalTrainingDays, 
+  longestStreak, 
+  currentStreak, 
+  bestDay,
+  thisMonth,
+  dayOfWeekCounts, 
+  weeks, 
+  avgWeekly, 
+  totalWeeks 
+} = data;
+
+// Day names
+const dayNames = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+const maxDayCount = Math.max(...dayOfWeekCounts);
+
+// Calculate max for weekly chart
+const maxWeekCount = Math.max(...weeks.map(w => w.count), 1);
+---
+
+<Layout title="Análisis de constancia en el entrenamiento | TobyOnFitnessTech">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Cómo se calcula mi constancia de entrenamiento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Tu constancia de entrenamiento se calcula combinando todas las fechas de entrenamiento de Speediance (entrenamiento de fuerza) y Garmin (actividades de correr/ciclismo). Contamos cada día único en el que entrenaste."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué cuenta como una racha de entrenamiento?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Una racha de entrenamiento cuenta las semanas consecutivas en las que entrenaste al menos una vez. Si entrenas al menos una vez por semana, eso cuenta para tu racha."
+          }
+        }
+      ]
+    }
+  </script>
+
+  <main class="min-h-screen bg-neutral-950 text-white pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <!-- Hero Section -->
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
+          Análisis de constancia en el entrenamiento
+        </h1>
+        <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+          Sigue tu progreso fitness con información detallada sobre tus patrones de entrenamiento, rachas y constancia semanal.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-1">{currentStreak}</div>
+          <div class="text-sm text-neutral-400">Racha actual</div>
+          <div class="text-xs text-neutral-500">semanas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-1">{longestStreak}</div>
+          <div class="text-sm text-neutral-400">Racha más larga</div>
+          <div class="text-xs text-neutral-500">semanas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green-400 mb-1">{bestDay}</div>
+          <div class="text-sm text-neutral-400">Mejor día</div>
+          <div class="text-xs text-neutral-500">de la semana</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-yellow-400 mb-1">{avgWeekly}</div>
+          <div class="text-sm text-neutral-400">Prom. semanal</div>
+          <div class="text-xs text-neutral-500">sesiones</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">{totalWeeks}</div>
+          <div class="text-sm text-neutral-400">Semanas activas</div>
+          <div class="text-xs text-neutral-500">total</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-orange-400 mb-1">{thisMonth}</div>
+          <div class="text-sm text-neutral-400">Este mes</div>
+          <div class="text-xs text-neutral-500">sesiones</div>
+        </div>
+      </div>
+
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-6 text-white">Entrenamiento semanal (últimas 52 semanas)</h2>
+        <div class="h-48 flex items-end gap-1">
+          {weeks.map((week) => {
+            const height = week.count > 0 ? (week.count / maxWeekCount) * 100 : 4;
+            return (
+              <div 
+                class="flex-1 bg-blue-500/80 hover:bg-blue-400 rounded-t transition-colors relative group"
+                style={`height: ${height}%`}
+                title={`Semana del ${week.start}: ${week.count} sesiones`}
+              >
+                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                  {week.start}: {week.count}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div class="flex justify-between mt-2 text-xs text-neutral-500">
+          <span>hace 52 semanas</span>
+          <span>Hoy</span>
+        </div>
+      </div>
+
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-6 text-white">Entrenamiento por día de la semana</h2>
+        <div class="flex items-end gap-2 md:gap-4 h-40">
+          {dayOfWeekCounts.map((count, index) => {
+            const height = maxDayCount > 0 ? (count / maxDayCount) * 100 : 0;
+            return (
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-full flex flex-col items-center">
+                  <div class="text-xs text-neutral-400 mb-1">{count}</div>
+                  <div 
+                    class="w-full md:w-12 bg-purple-500/80 hover:bg-purple-400 rounded-t transition-colors relative group"
+                    style={`height: ${height}%`}
+                  >
+                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                      {count} sesiones
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 text-xs md:text-sm text-neutral-500">{dayNames[index]}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="mt-8 text-center text-neutral-400">
+        <p>Total de días de entrenamiento registrados: <span class="text-white font-semibold">{totalTrainingDays}</span></p>
+      </div>
+    </div>
+  </main>
+</Layout>

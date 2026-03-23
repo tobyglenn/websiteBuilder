@@ -1,0 +1,151 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getConsistencyData } from '../../../data/consistency.js';
+
+const data = getConsistencyData();
+
+const { 
+  totalTrainingDays, 
+  longestStreak, 
+  currentStreak, 
+  bestDay,
+  thisMonth,
+  dayOfWeekCounts, 
+  weeks, 
+  avgWeekly, 
+  totalWeeks 
+} = data;
+
+// Day names
+const dayNames = ['रवि', 'सोम', 'मंगल', 'बुध', 'गुरु', 'शुक्र', 'शनि'];
+const maxDayCount = Math.max(...dayOfWeekCounts);
+
+// Calculate max for weekly chart
+const maxWeekCount = Math.max(...weeks.map(w => w.count), 1);
+---
+
+<Layout title="ट्रेनिंग निरंतरता विश्लेषण | TobyOnFitnessTech">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "मेरी ट्रेनिंग निरंतरता कैसे गणना की जाती है?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "आपकी ट्रेनिंग निरंतरता की गणना Speediance (स्ट्रेंथ ट्रेनिंग) और Garmin (दौड़/साइक्लिंग गतिविधियाँ) की सभी वर्कआउट तारीखों को मिलाकर की जाती है। हम हर उस अनोखे दिन को गिनते हैं जिस दिन आपने ट्रेनिंग की।"
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "ट्रेनिंग स्ट्रीक में क्या गिना जाता है?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "ट्रेनिंग स्ट्रीक उन लगातार हफ्तों को गिनती है जिनमें आपने कम से कम एक बार ट्रेनिंग की हो। यदि आप हर हफ्ते कम से कम एक बार ट्रेनिंग करते हैं, तो वह आपकी स्ट्रीक में गिना जाता है।"
+          }
+        }
+      ]
+    }
+  </script>
+
+  <main class="min-h-screen bg-neutral-950 text-white pt-24 pb-16">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-12">
+        <h1 class="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent mb-4">
+          ट्रेनिंग निरंतरता विश्लेषण
+        </h1>
+        <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+          अपने ट्रेनिंग पैटर्न, स्ट्रीक और साप्ताहिक निरंतरता पर विस्तृत जानकारी के साथ अपनी फिटनेस यात्रा को ट्रैक करें।
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-12">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-1">{currentStreak}</div>
+          <div class="text-sm text-neutral-400">मौजूदा स्ट्रीक</div>
+          <div class="text-xs text-neutral-500">हफ्ते</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-1">{longestStreak}</div>
+          <div class="text-sm text-neutral-400">सबसे लंबी स्ट्रीक</div>
+          <div class="text-xs text-neutral-500">हफ्ते</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-2xl md:text-3xl font-bold text-green-400 mb-1">{bestDay}</div>
+          <div class="text-sm text-neutral-400">सबसे अच्छा दिन</div>
+          <div class="text-xs text-neutral-500">सप्ताह का</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-yellow-400 mb-1">{avgWeekly}</div>
+          <div class="text-sm text-neutral-400">औसत साप्ताहिक</div>
+          <div class="text-xs text-neutral-500">सेशन</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-cyan-400 mb-1">{totalWeeks}</div>
+          <div class="text-sm text-neutral-400">सक्रिय हफ्ते</div>
+          <div class="text-xs text-neutral-500">कुल</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+          <div class="text-3xl md:text-4xl font-bold text-orange-400 mb-1">{thisMonth}</div>
+          <div class="text-sm text-neutral-400">यह महीना</div>
+          <div class="text-xs text-neutral-500">सेशन</div>
+        </div>
+      </div>
+
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 mb-8">
+        <h2 class="text-xl font-semibold mb-6 text-white">साप्ताहिक ट्रेनिंग (पिछले 52 हफ्ते)</h2>
+        <div class="h-48 flex items-end gap-1">
+          {weeks.map((week) => {
+            const height = week.count > 0 ? (week.count / maxWeekCount) * 100 : 4;
+            return (
+              <div 
+                class="flex-1 bg-blue-500/80 hover:bg-blue-400 rounded-t transition-colors relative group"
+                style={`height: ${height}%`}
+                title={`सप्ताह ${week.start}: ${week.count} सेशन`}
+              >
+                <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                  {week.start}: {week.count}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div class="flex justify-between mt-2 text-xs text-neutral-500">
+          <span>52 हफ्ते पहले</span>
+          <span>आज</span>
+        </div>
+      </div>
+
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+        <h2 class="text-xl font-semibold mb-6 text-white">सप्ताह के दिन के अनुसार ट्रेनिंग</h2>
+        <div class="flex items-end gap-2 md:gap-4 h-40">
+          {dayOfWeekCounts.map((count, index) => {
+            const height = maxDayCount > 0 ? (count / maxDayCount) * 100 : 0;
+            return (
+              <div class="flex-1 flex flex-col items-center">
+                <div class="w-full flex flex-col items-center">
+                  <div class="text-xs text-neutral-400 mb-1">{count}</div>
+                  <div 
+                    class="w-full md:w-12 bg-purple-500/80 hover:bg-purple-400 rounded-t transition-colors relative group"
+                    style={`height: ${height}%`}
+                  >
+                    <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2 py-1 bg-neutral-800 text-xs text-white rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-10">
+                      {count} सेशन
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2 text-xs md:text-sm text-neutral-500">{dayNames[index]}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="mt-8 text-center text-neutral-400">
+        <p>रिकॉर्ड किए गए कुल ट्रेनिंग दिन: <span class="text-white font-semibold">{totalTrainingDays}</span></p>
+      </div>
+    </div>
+  </main>
+</Layout>
