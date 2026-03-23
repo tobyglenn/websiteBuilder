@@ -1,0 +1,64 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="पॉडकास्ट | फिटनेस टेक पर टोबी"
+  description="दो पॉडकास्ट, एक लक्ष्य: फिटनेस टेक और वेलनेस पर वास्तविक जानकारी देना। OpenClaw Daily और फिटनेस टेक पर टोबी।"
+  breadcrumbs={[{ name: "होम", url: "/" }, { name: "पॉडकास्ट", url: "/podcasts" }]}
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Hero -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        🎙️ पॉडकास्ट
+      </h2>
+      <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+        दो शो, एक लक्ष्य: फिटनेस टेक, एआई और वेलनेस पर वास्तविक जानकारी देना।
+      </p>
+    </div>
+
+    <!-- Podcast Cards -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <!-- OpenClaw Daily -->
+      <a
+        href="/podcasts/openclaw/"
+        class="group bg-neutral-900 border border-neutral-800 rounded-2xl p-8 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-400/5 transition-all block"
+      >
+        <div class="text-4xl mb-4">🎙️</div>
+        <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          OpenClaw Daily
+        </h2>
+        <p class="text-neutral-400 mb-6 leading-relaxed">
+          एआई-होस्ट किए गए दैनिक एपिसोड जो फिटनेस टेक, लोकल एआई, हार्डवेयर, सुरक्षा
+          और OpenClaw इकोसिस्टम को कवर करते हैं — हर दिन नई सोच के साथ। मेज़बान: Nova &amp; Alloy.
+        </p>
+        <span class="inline-flex items-center gap-2 text-blue-400 font-semibold text-sm group-hover:gap-3 transition-all">
+          अभी सुनें →
+        </span>
+      </a>
+
+      <!-- Fitness Tech Podcast -->
+      <a
+        href="/podcasts/fitness-tech/"
+        class="group bg-neutral-900 border border-neutral-800 rounded-2xl p-8 hover:border-green-500/50 hover:shadow-xl hover:shadow-green-400/5 transition-all block"
+      >
+        <div class="text-4xl mb-4">💪</div>
+        <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
+          फिटनेस टेक पर टोबी
+        </h2>
+        <p class="text-neutral-400 mb-6 leading-relaxed">
+          ट्रेनिंग, पोषण, रिकवरी और बेहतर नतीजों के पीछे की तकनीक पर व्यावहारिक विश्लेषण।
+          बिना फ़ालतू बातों के, सिर्फ़ वही जो काम करता है।
+        </p>
+        <span class="inline-flex items-center gap-2 text-green-400 font-semibold text-sm group-hover:gap-3 transition-all">
+          अभी सुनें →
+        </span>
+      </a>
+    </div>
+
+    <p class="text-center text-neutral-600 text-xs">
+      अब हर शो का अपना समर्पित पेज है, जिसमें पूरी एपिसोड सूची और सदस्यता लिंक हैं।
+    </p>
+  </div>
+</Layout>

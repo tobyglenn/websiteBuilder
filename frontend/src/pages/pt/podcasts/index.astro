@@ -1,0 +1,64 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+---
+
+<Layout
+  title="Podcasts | Toby sobre tecnologia fitness"
+  description="Dois podcasts, um objetivo: trazer insights reais sobre tecnologia fitness e bem-estar. OpenClaw Daily e Toby sobre tecnologia fitness."
+  breadcrumbs={[{ name: "Início", url: "/" }, { name: "Podcasts", url: "/podcasts" }]}
+>
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <!-- Hero -->
+    <div class="text-center mb-12">
+      <h2 class="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
+        🎙️ Podcasts
+      </h2>
+      <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+        Dois programas, um objetivo: trazer insights reais sobre tecnologia fitness, IA e bem-estar.
+      </p>
+    </div>
+
+    <!-- Podcast Cards -->
+    <div class="grid md:grid-cols-2 gap-6 mb-12">
+      <!-- OpenClaw Daily -->
+      <a
+        href="/podcasts/openclaw/"
+        class="group bg-neutral-900 border border-neutral-800 rounded-2xl p-8 hover:border-blue-500/50 hover:shadow-xl hover:shadow-blue-400/5 transition-all block"
+      >
+        <div class="text-4xl mb-4">🎙️</div>
+        <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          OpenClaw Daily
+        </h2>
+        <p class="text-neutral-400 mb-6 leading-relaxed">
+          Episódios diários apresentados por IA sobre tecnologia fitness, IA local, hardware, segurança
+          e o ecossistema OpenClaw — novas perspectivas todos os dias. Apresentado por Nova &amp; Alloy.
+        </p>
+        <span class="inline-flex items-center gap-2 text-blue-400 font-semibold text-sm group-hover:gap-3 transition-all">
+          Ouça agora →
+        </span>
+      </a>
+
+      <!-- Fitness Tech Podcast -->
+      <a
+        href="/podcasts/fitness-tech/"
+        class="group bg-neutral-900 border border-neutral-800 rounded-2xl p-8 hover:border-green-500/50 hover:shadow-xl hover:shadow-green-400/5 transition-all block"
+      >
+        <div class="text-4xl mb-4">💪</div>
+        <h2 class="text-2xl font-bold mb-3 bg-gradient-to-r from-green-400 to-teal-400 bg-clip-text text-transparent">
+          Toby sobre tecnologia fitness
+        </h2>
+        <p class="text-neutral-400 mb-6 leading-relaxed">
+          Análises práticas sobre treino, nutrição, recuperação e a tecnologia por trás
+          de melhores resultados. Sem enrolação, só o que funciona.
+        </p>
+        <span class="inline-flex items-center gap-2 text-green-400 font-semibold text-sm group-hover:gap-3 transition-all">
+          Ouça agora →
+        </span>
+      </a>
+    </div>
+
+    <p class="text-center text-neutral-600 text-xs">
+      Cada programa agora tem sua própria página dedicada com listas completas de episódios e links para assinar.
+    </p>
+  </div>
+</Layout>
