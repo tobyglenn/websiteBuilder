@@ -1,0 +1,333 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Por que você treina às 6h30 da manhã?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As manhãs são o único momento em que nada pode roubar meu treino. Às 8h00 eu já terminei — levantando peso ou no tatame — e o resto do dia pertence ao trabalho e à família. Treinar à noite nunca funcionou para mim: eu ganho um segundo fôlego que destrói meu sono, e às 21h estou cansado demais para realmente forçar. Cedo é a única resposta confiável."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como é a sua divisão de treino atual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Corpo inteiro menos pernas, 4x por semana no Speediance. BJJ 3–4x por semana. Corrida 2–3x por semana. Isso dá cerca de 10 horas de treino no total — que é meu teto antes de o WHOOP começar a piscar vermelho e a recuperação despencar. Não faço treino dedicado de pernas porque BJJ e corrida cobrem isso de forma adequada, e eu não compito em powerlifting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Por que você não treina pernas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O BJJ envolve muito movimento baseado em pernas — guarda, quedas, transições. Correr adiciona estresse direto nas pernas. Entre os dois, minhas pernas já recebem um estímulo de treino substancial sem uma sessão dedicada de musculação. Acrescentar agachamentos pesados ou levantamento terra por cima disso arrisca sobrecarregar um sistema que já está trabalhando duro, e a recuperação sofreria. Se eu não estivesse fazendo BJJ, voltaria a incluir pernas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como você acompanha o progresso?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "WHOOP para a pontuação diária de recuperação e HRV. Garmin para cada corrida (GPS, zonas de FC, ritmo, carga de treino). O Speediance rastreia automaticamente volume de treino, estimativas de 1RM e histórico de PR. 8Sleep para estágios do sono. Eu criei um relatório matinal com IA no OpenClaw que junta tudo isso antes de eu acordar e me dá uma recomendação de treino com porcentagem de confiança."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Speediance vs Tonal — qual eu deveria comprar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Eu tive Tonal por anos e troquei. A versão curta: dois Speediance custam menos em 5 anos do que um Tonal quando você considera a assinatura. O Speediance vai até 260 lbs, não tem assinatura obrigatória e o hardware dura. A única área em que o Tonal ainda vence: opções de treinadora mulher e qualidade de produção de vídeo. Se sua parceira ou parceiro quer especificamente uma experiência guiada liderada por uma mulher, Tonal é a resposta. Para todo o resto, Speediance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "WHOOP ou Garmin — você precisa dos dois?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Eles respondem perguntas diferentes. Garmin responde o que eu fiz — registro de atividade, GPS, ritmo, zonas de FC. WHOOP responde como eu me recuperei — fisiologia noturna, linha de base da HRV, prontidão. Se você quiser apenas um: Garmin se você corre, WHOOP se você se importa mais com recuperação. Eu uso os dois porque levo treino a sério o suficiente para querer as duas perguntas respondidas corretamente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "O 8Sleep Pod vale a pena?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Se você tende a sentir calor ao dormir, sim. É a única coisa que melhorou consistentemente minha porcentagem de sono profundo. O controle de temperatura é o recurso principal — não o rastreamento do sono. Eu uso junto com o WHOOP porque os dados de estágios do sono da 8Sleep me dão uma leitura independente. O custo da assinatura é real, mas para recuperação de um atleta sério é difícil discutir com os dados que ele produz."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual modelo do Speediance — Original, 2S ou Gym Monster 2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pegue o 2S se você precisa de um ambiente silencioso (academia no escritório) ou levanta acima de 180 lbs regularmente. Pegue o Original se barulho não for um problema e você quiser economizar — Originals open-box por $1,000–1,500 com garantia são um achado. O Gym Monster 2 adiciona uma tela maior e um coach de forma com IA, o que é útil para iniciantes, mas exagerado para praticantes avançados. Eu tenho tanto um Original (sala de estar) quanto um 2S (escritório)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como você perdeu 54 lbs em 6 meses?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Suporte farmacêutico (tirzepatida GLP-1, protocolo de TRT reestruturado, Anavar para preservação muscular), 800–1.200 calorias 6 dias por semana, 10.000–20.000 passos por dia e 30.000–50.000 lbs de volume de treino por dia. Eu escrevi a análise honesta completa — incluindo cada droga e dose — no post 242 to 188: The Honest Truth. Eu não fiz isso naturalmente. Não vou fingir o contrário."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Você ainda está usando medicação GLP-1?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Não. O protocolo de tirzepatida foi especificamente para o cutting de 6 meses. Agora estou em uma fase de construção muscular (188 → 218 lbs), o que significa comer mais, não menos. Ainda estou em TRT — isso é permanente devido a hipogonadismo primário causado por uma lesão física. Mas o GLP-1 foi uma ferramenta para um objetivo específico, não um estilo de vida."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "É possível ganhar músculo depois dos 40?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim, com ressalvas. A recuperação demora mais. O sono se torna ainda mais importante. A margem de erro na nutrição é menor. Mas o mecanismo de construção muscular não desaparece — a sobrecarga progressiva ainda funciona, a síntese proteica ainda acontece. Eu saí de 188 para 218 lbs desde o cutting, com 1,29M lbs levantadas no Speediance nesse período. Os dados dizem que está funcionando."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como está sua dieta agora?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Alta em proteína, carboidratos moderados, sem rastreamento obsessivo. Eu uso Cronometer quando quero ser preciso. A regra geral: comer em torno do treino, priorizar proteína, não ir dormir com fome quando estiver tentando crescer. O superávit calórico para um bulking limpo é menor do que a maioria das pessoas imagina — 200–300 acima da manutenção já basta. Mais do que isso e você está ganhando gordura mais rápido do que o necessário."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Algum conteúdo é patrocinado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nenhum patrocínio pago. Alguns links de equipamentos podem ser links de afiliado (divulgados quando aplicável), mas nenhuma marca me paga por cobertura nem controla o que eu digo. Eu comprei cada equipamento analisado aqui com meu próprio dinheiro. Speediance, Tonal, WHOOP, Garmin, 8Sleep — tudo comprado no varejo. Essa é a única forma de as análises significarem alguma coisa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Com que frequência você publica?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Vídeos no YouTube saem sempre que eu tenho algo que vale a pena dizer — normalmente 2–4 por semana. Posts de blog são gerados a partir de transcrições de vídeos e publicados continuamente. Os painéis de dados se atualizam automaticamente a partir de fontes de dados ao vivo. Nada de cronograma de postagem só por existir — o conteúdo existe quando há algo real para mostrar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Como eu entro em contato com você?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Comentários no YouTube são a melhor forma — eu leio e respondo os que valem a pena responder em formato de vídeo. Para perguntas rápidas, a seção de comentários responde mais rápido do que e-mail. Para contatos comerciais, use o e-mail na seção Sobre do canal do YouTube."
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="FAQ - TobyOnFitnessTech"
+  description="Perguntas comuns sobre o treino do Toby, seu conjunto de equipamentos, sua jornada de perda de peso e como este site funciona."
+  breadcrumbs={[{ name: "Início", url: "/" }, { name: "FAQ", url: "/faq" }]}
+  jsonLd={faqSchema}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* Hero */}
+    <section class="pt-20 pb-12 md:pt-28 md:pb-16">
+      <div class="container mx-auto px-4 text-center">
+        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-3 block">FAQ</span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Perguntas frequentes</h1>
+        <p class="text-neutral-400 text-lg max-w-xl mx-auto">Tudo o que as pessoas realmente perguntam sobre os equipamentos, o treino, a perda de peso e este site.</p>
+      </div>
+    </section>
+
+    {/* FAQ Sections */}
+    <section class="pb-20">
+      <div class="container mx-auto px-4 max-w-3xl space-y-10">
+
+        {/* Training Philosophy */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">🏋️ Filosofia de treino</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Por que você treina às 6h30 da manhã?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                As manhãs são o único momento em que nada pode roubar meu treino. Às 8h00 eu já terminei — levantando peso ou no tatame — e o resto do dia pertence ao trabalho e à família. Treinar à noite nunca funcionou para mim: eu ganho um segundo fôlego que destrói meu sono, e às 21h estou cansado demais para realmente forçar. Cedo é a única resposta confiável.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Como é a sua divisão de treino atual?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Corpo inteiro menos pernas, 4x por semana no Speediance. BJJ 3–4x por semana. Corrida 2–3x por semana. Isso dá cerca de 10 horas de treino no total — que é meu teto antes de o WHOOP começar a piscar vermelho e a recuperação despencar. Não faço treino dedicado de pernas porque BJJ e corrida cobrem isso de forma adequada, e eu não compito em powerlifting.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Por que você não treina pernas?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                O BJJ envolve muito movimento baseado em pernas — guarda, quedas, transições. Correr adiciona estresse direto nas pernas. Entre os dois, minhas pernas já recebem um estímulo de treino substancial sem uma sessão dedicada de musculação. Acrescentar agachamentos pesados ou levantamento terra por cima disso arrisca sobrecarregar um sistema que já está trabalhando duro, e a recuperação sofreria. Se eu não estivesse fazendo BJJ, voltaria a incluir pernas.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Como você acompanha o progresso?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                WHOOP para a pontuação diária de recuperação e HRV. Garmin para cada corrida (GPS, zonas de FC, ritmo, carga de treino). O Speediance rastreia automaticamente volume de treino, estimativas de 1RM e histórico de PR. 8Sleep para estágios do sono. Eu criei um relatório matinal com IA no OpenClaw que junta tudo isso antes de eu acordar e me dá uma recomendação de treino com porcentagem de confiança.
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* Gear & Equipment */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">⚙️ Equipamentos</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Speediance vs Tonal — qual eu deveria comprar?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Eu tive Tonal por anos e troquei. A versão curta: dois Speediance custam menos em 5 anos do que um Tonal quando você considera a assinatura. O Speediance vai até 260 lbs, não tem assinatura obrigatória e o hardware dura. A única área em que o Tonal ainda vence: opções de treinadora mulher e qualidade de produção de vídeo. Se sua parceira ou parceiro quer especificamente uma experiência guiada liderada por uma mulher, Tonal é a resposta. Para todo o resto, Speediance.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                WHOOP ou Garmin — você precisa dos dois?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Eles respondem perguntas diferentes. Garmin responde o que eu fiz — registro de atividade, GPS, ritmo, zonas de FC. WHOOP responde como eu me recuperei — fisiologia noturna, linha de base da HRV, prontidão. Se você quiser apenas um: Garmin se você corre, WHOOP se você se importa mais com recuperação. Eu uso os dois porque levo treino a sério o suficiente para querer as duas perguntas respondidas corretamente.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                O 8Sleep Pod vale a pena?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Se você tende a sentir calor ao dormir, sim. É a única coisa que melhorou consistentemente minha porcentagem de sono profundo. O controle de temperatura é o recurso principal — não o rastreamento do sono. Eu uso junto com o WHOOP porque os dados de estágios do sono da 8Sleep me dão uma leitura independente. O custo da assinatura é real, mas para recuperação de um atleta sério é difícil discutir com os dados que ele produz.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Qual modelo do Speediance — Original, 2S ou Gym Monster 2?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Pegue o 2S se você precisa de um ambiente silencioso (academia no escritório) ou levanta acima de 180 lbs regularmente. Pegue o Original se barulho não for um problema e você quiser economizar — Originals open-box por $1,000–1,500 com garantia são um achado. O Gym Monster 2 adiciona uma tela maior e um coach de forma com IA, o que é útil para iniciantes, mas exagerado para praticantes avançados. Eu tenho tanto um Original (sala de estar) quanto um 2S (escritório).
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* Weight & Nutrition */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">📊 Peso e nutrição</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Como você perdeu 54 lbs em 6 meses?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Suporte farmacêutico (tirzepatida GLP-1, protocolo de TRT reestruturado, Anavar para preservação muscular), 800–1.200 calorias 6 dias por semana, 10.000–20.000 passos por dia e 30.000–50.000 lbs de volume de treino por dia. Eu escrevi a análise honesta completa — incluindo cada droga e dose — no post <a href="/blog/242-to-188-the-honest-truth/" class="text-blue-400 hover:underline">242 to 188: The Honest Truth</a>. Eu não fiz isso naturalmente. Não vou fingir o contrário.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Você ainda está usando medicação GLP-1?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Não. O protocolo de tirzepatida foi especificamente para o cutting de 6 meses. Agora estou em uma fase de construção muscular (188 → 218 lbs), o que significa comer mais, não menos. Ainda estou em TRT — isso é permanente devido a hipogonadismo primário causado por uma lesão física. Mas o GLP-1 foi uma ferramenta para um objetivo específico, não um estilo de vida.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                É possível ganhar músculo depois dos 40?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Sim, com ressalvas. A recuperação demora mais. O sono se torna ainda mais importante. A margem de erro na nutrição é menor. Mas o mecanismo de construção muscular não desaparece — a sobrecarga progressiva ainda funciona, a síntese proteica ainda acontece. Eu saí de 188 para 218 lbs desde o cutting, com 1,29M lbs levantadas no Speediance nesse período. Os dados dizem que está funcionando.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Como está sua dieta agora?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Alta em proteína, carboidratos moderados, sem rastreamento obsessivo. Eu uso Cronometer quando quero ser preciso. A regra geral: comer em torno do treino, priorizar proteína, não ir dormir com fome quando estiver tentando crescer. O superávit calórico para um bulking limpo é menor do que a maioria das pessoas imagina — 200–300 acima da manutenção já basta. Mais do que isso e você está ganhando gordura mais rápido do que o necessário.
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* About This Site */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">📝 Sobre este site</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Algum conteúdo é patrocinado?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Nenhum patrocínio pago. Alguns links de equipamentos podem ser links de afiliado (divulgados quando aplicável), mas nenhuma marca me paga por cobertura nem controla o que eu digo. Eu comprei cada equipamento analisado aqui com meu próprio dinheiro. Speediance, Tonal, WHOOP, Garmin, 8Sleep — tudo comprado no varejo. Essa é a única forma de as análises significarem alguma coisa.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Com que frequência você publica?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Vídeos no YouTube saem sempre que eu tenho algo que vale a pena dizer — normalmente 2–4 por semana. Posts de blog são gerados a partir de transcrições de vídeos e publicados continuamente. Os painéis de dados se atualizam automaticamente a partir de fontes de dados ao vivo. Nada de cronograma de postagem só por existir — o conteúdo existe quando há algo real para mostrar.
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Como eu entro em contato com você?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                Comentários no YouTube são a melhor forma — eu leio e respondo os que valem a pena responder em formato de vídeo. Para perguntas rápidas, a seção de comentários responde mais rápido do que e-mail. Para contatos comerciais, use o e-mail na seção Sobre do canal do YouTube.
+              </div>
+            </details>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="py-16 border-t border-neutral-900 bg-neutral-900/30">
+      <div class="container mx-auto px-4 text-center max-w-xl">
+        <h2 class="text-2xl font-bold text-white mb-3">Pronto para ir mais fundo?</h2>
+        <p class="text-neutral-400 mb-6">O blog e as páginas de dados têm todos os detalhes por trás de cada resposta acima.</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/blog/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">Ler o blog</a>
+          <a href="/videos/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">Assistir aos vídeos</a>
+          <a href="/gear/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">Ver meus equipamentos</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>

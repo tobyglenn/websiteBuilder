@@ -1,0 +1,333 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "आप सुबह 6:30 बजे ट्रेनिंग क्यों करते हैं?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "सुबह ही वह एकमात्र समय है जब कोई भी चीज़ मेरी ट्रेनिंग छीन नहीं सकती। 8:00 बजे तक मैं खत्म कर चुका होता हूँ — चाहे वेटलिफ्टिंग हो या मैट पर ट्रेनिंग — और उसके बाद का दिन काम और परिवार का होता है। रात में ट्रेनिंग मेरे लिए कभी काम नहीं आई: मुझे दूसरी ऊर्जा मिल जाती है जो मेरी नींद खराब कर देती है, और रात 9 बजे तक मैं इतना थक जाता हूँ कि सच में जोर नहीं लगा पाता। जल्दी करना ही एकमात्र भरोसेमंद जवाब है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "आपका मौजूदा ट्रेनिंग स्प्लिट क्या है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "फुल बॉडी, लेकिन पैरों के बिना, हफ्ते में 4 बार Speediance पर। BJJ हफ्ते में 3–4 बार। रनिंग हफ्ते में 2–3 बार। कुल मिलाकर यह लगभग 10 घंटे की ट्रेनिंग बनती है — और यही मेरी सीमा है, उसके बाद WHOOP लाल होने लगता है और रिकवरी गिर जाती है। मैं अलग से लेग वर्क नहीं करता क्योंकि BJJ और रनिंग उसे पर्याप्त रूप से कवर कर देते हैं, और मैं पावरलिफ्टिंग में प्रतिस्पर्धा नहीं कर रहा हूँ।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "आप पैरों की ट्रेनिंग क्यों नहीं करते?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BJJ में पैरों पर आधारित बहुत सारी मूवमेंट होती हैं — गार्ड, टेकडाउन, ट्रांज़िशन। रनिंग पैरों पर सीधा तनाव डालती है। इन दोनों के बीच, मेरे पैरों को बिना अलग वेट ट्रेनिंग सेशन के ही काफी ट्रेनिंग स्टिम्युलस मिल जाता है। इसके ऊपर भारी स्क्वॉट या डेडलिफ्ट जोड़ना उस सिस्टम पर ज्यादा लोड डालने का जोखिम है जो पहले से ही कड़ी मेहनत कर रहा है, और रिकवरी प्रभावित होगी। अगर मैं BJJ नहीं कर रहा होता, तो मैं पैरों को फिर से शामिल करता।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "आप प्रगति को कैसे ट्रैक करते हैं?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "रोज़ की रिकवरी स्कोर और HRV के लिए WHOOP। हर रन के लिए Garmin (GPS, HR ज़ोन, पेस, ट्रेनिंग लोड)। Speediance अपने आप लिफ्टिंग वॉल्यूम, 1RM अनुमान और PR हिस्ट्री ट्रैक करता है। नींद के चरणों के लिए 8Sleep। मैंने OpenClaw पर एक AI मॉर्निंग रिपोर्ट बनाई है जो मेरे जागने से पहले इन सबको जोड़ती है और मुझे कॉन्फिडेंस प्रतिशत के साथ ट्रेनिंग रिकमेंडेशन देती है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Speediance बनाम Tonal — मुझे कौन सा खरीदना चाहिए?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "मैंने वर्षों तक Tonal रखा और फिर बदला। छोटा जवाब: सदस्यता को जोड़ें तो 5 साल में दो Speediance की लागत एक Tonal से कम पड़ती है। Speediance 260 lbs तक जाता है, इसमें अनिवार्य सब्सक्रिप्शन नहीं है, और हार्डवेयर टिकाऊ है। सिर्फ एक क्षेत्र है जहाँ Tonal अभी भी बेहतर है: महिला कोच विकल्प और वीडियो प्रोडक्शन क्वालिटी। अगर आपका पार्टनर खास तौर पर महिला-नेतृत्व वाला गाइडेड अनुभव चाहता है, तो Tonal सही जवाब है। बाकी सभी के लिए, Speediance।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "WHOOP या Garmin — क्या दोनों की ज़रूरत है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ये अलग-अलग सवालों के जवाब देते हैं। Garmin बताता है कि मैंने क्या किया — एक्टिविटी लॉग, GPS, पेस, HR ज़ोन। WHOOP बताता है कि मैं कितना रिकवर हुआ — रातभर की फिज़ियोलॉजी, HRV बेसलाइन, रेडीनेस। अगर आप सिर्फ एक चाहते हैं: अगर आप दौड़ते हैं तो Garmin, और अगर रिकवरी आपके लिए ज्यादा अहम है तो WHOOP। मैं दोनों का इस्तेमाल करता हूँ क्योंकि मैं ट्रेनिंग को इतना गंभीरता से लेता हूँ कि दोनों सवालों के सही जवाब चाहता हूँ।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "क्या 8Sleep Pod लेना सही है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "अगर आपको सोते समय गर्मी लगती है, तो हाँ। यही एक चीज़ है जिसने लगातार मेरे डीप स्लीप प्रतिशत को बेहतर किया है। तापमान नियंत्रण ही इसकी असली खासियत है — स्लीप ट्रैकिंग नहीं। मैं इसे WHOOP के साथ इस्तेमाल करता हूँ क्योंकि 8Sleep का स्लीप-स्टेज डेटा मुझे एक स्वतंत्र रीड देता है। सब्सक्रिप्शन की लागत वास्तविक है, लेकिन एक गंभीर एथलीट की रिकवरी के लिए इसके डेटा के खिलाफ तर्क करना मुश्किल है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "कौन सा Speediance मॉडल — Original, 2S, या Gym Monster 2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "अगर आपको शांत वातावरण चाहिए (ऑफिस जिम) या आप नियमित रूप से 180 lbs से ऊपर लिफ्ट करते हैं, तो 2S लें। अगर शोर समस्या नहीं है और आप पैसे बचाना चाहते हैं, तो Original लें — $1,000–1,500 में वारंटी के साथ open-box Original बहुत बढ़िया सौदा है। Gym Monster 2 में बड़ा स्क्रीन और AI form coach मिलता है, जो शुरुआती लोगों के लिए उपयोगी है लेकिन उन्नत lifters के लिए ज़रूरत से ज्यादा है। मेरे पास Original (लिविंग रूम) और 2S (ऑफिस) दोनों हैं।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "आपने 6 महीनों में 54 lbs कैसे घटाया?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "फार्मास्यूटिकल सपोर्ट (tirzepatide GLP-1, बदला हुआ TRT प्रोटोकॉल, मसल प्रिज़र्वेशन के लिए Anavar), हफ्ते में 6 दिन 800–1,200 कैलोरी, रोज़ 10,000–20,000 कदम, और प्रति दिन 30,000–50,000 lbs लिफ्टिंग वॉल्यूम। मैंने पूरी ईमानदार डिटेल — हर दवा और हर डोज़ सहित — 242 to 188: The Honest Truth पोस्ट में लिखी है। मैंने यह नैचुरली नहीं किया। मैं इसका दिखावा भी नहीं करने वाला।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "क्या आप अभी भी GLP-1 दवा ले रहे हैं?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "नहीं। tirzepatide प्रोटोकॉल खास तौर पर 6 महीने के कट के लिए था। अब मैं मसल-बिल्डिंग फेज़ में हूँ (188 → 218 lbs), जिसका मतलब है ज़्यादा खाना, कम नहीं। मैं अभी भी TRT पर हूँ — यह एक शारीरिक चोट से हुए primary hypogonadism के कारण स्थायी है। लेकिन GLP-1 एक खास लक्ष्य के लिए एक टूल था, जीवनशैली नहीं।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "क्या 40 के बाद मसल बना सकते हैं?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "हाँ, कुछ शर्तों के साथ। रिकवरी में ज्यादा समय लगता है। नींद और भी महत्वपूर्ण हो जाती है। पोषण में गलती की गुंजाइश कम हो जाती है। लेकिन मसल-बिल्डिंग का मैकेनिज़्म गायब नहीं होता — progressive overload अभी भी काम करता है, protein synthesis अभी भी होती है। कट के बाद से मैं 188 से 218 lbs तक गया हूँ, और इस दौरान Speediance पर 1.29M lbs लिफ्ट की हैं। डेटा कहता है कि यह काम कर रहा है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "अब आपका डाइट कैसा दिखता है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "उच्च प्रोटीन, मध्यम कार्ब्स, और इसे जुनूनी तरीके से ट्रैक नहीं किया जाता। जब मुझे सटीक होना होता है, तो मैं Cronometer इस्तेमाल करता हूँ। सामान्य नियम: ट्रेनिंग के आसपास खाओ, प्रोटीन को प्राथमिकता दो, और मसल बनाने की कोशिश करते समय भूखे पेट सोने मत जाओ। lean bulk के लिए कैलोरी surplus उतना बड़ा नहीं होता जितना लोग सोचते हैं — maintenance से 200–300 ऊपर काफी है। उससे ज्यादा और आप ज़रूरत से तेज़ फैट बढ़ा रहे हैं।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "क्या कोई कंटेंट स्पॉन्सर्ड है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "कोई paid sponsorship नहीं। कुछ gear links affiliate links हो सकते हैं (जहाँ लागू हो, वहाँ खुलासा किया गया है), लेकिन कोई ब्रांड मुझे कवरेज के लिए भुगतान नहीं करता और न ही यह तय करता है कि मैं क्या कहूँ। यहाँ रिव्यू किए गए हर उपकरण को मैंने अपनी जेब से खरीदा है। Speediance, Tonal, WHOOP, Garmin, 8Sleep — सब रिटेल पर खरीदे गए। रिव्यू का मतलब होने का यही एक तरीका है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "आप कितनी बार पोस्ट करते हैं?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "YouTube वीडियो तब अपलोड होते हैं जब मेरे पास कहने लायक कुछ होता है — आम तौर पर हफ्ते में 2–4 बार। ब्लॉग पोस्ट वीडियो ट्रांसक्रिप्ट से बनाए जाते हैं और लगातार प्रकाशित होते रहते हैं। डेटा डैशबोर्ड लाइव डेटा स्रोतों से अपने आप अपडेट होते हैं। सिर्फ शेड्यूल पूरा करने के लिए पोस्टिंग नहीं — कंटेंट तब मौजूद होता है जब दिखाने के लिए कुछ सचमुच वास्तविक हो।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "मैं आपसे कैसे संपर्क करूँ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "YouTube comments सबसे अच्छा तरीका हैं — मैं उन्हें पढ़ता हूँ और जिनका जवाब वीडियो रूप में देना बनता है, उनका जवाब देता हूँ। जल्दी सवालों के लिए, comment section ईमेल से तेज़ जवाब देता है। बिज़नेस पूछताछ के लिए, YouTube चैनल के About section में दिया गया ईमेल इस्तेमाल करें।"
+      }
+    }
+  ]
+};
+---
+
+<Layout
+  title="FAQ - TobyOnFitnessTech"
+  description="Toby की ट्रेनिंग, gear stack, weight loss journey, और यह साइट कैसे काम करती है — इन सब पर आम सवाल।"
+  breadcrumbs={[{ name: "होम", url: "/" }, { name: "FAQ", url: "/faq" }]}
+  jsonLd={faqSchema}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* Hero */}
+    <section class="pt-20 pb-12 md:pt-28 md:pb-16">
+      <div class="container mx-auto px-4 text-center">
+        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-3 block">FAQ</span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">आम सवाल</h1>
+        <p class="text-neutral-400 text-lg max-w-xl mx-auto">लोग वास्तव में gear, ट्रेनिंग, weight loss और इस साइट के बारे में जो पूछते हैं, वह सब यहाँ है।</p>
+      </div>
+    </section>
+
+    {/* FAQ Sections */}
+    <section class="pb-20">
+      <div class="container mx-auto px-4 max-w-3xl space-y-10">
+
+        {/* Training Philosophy */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">🏋️ ट्रेनिंग दर्शन</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                आप सुबह 6:30 बजे ट्रेनिंग क्यों करते हैं?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                सुबह ही वह एकमात्र समय है जब कोई भी चीज़ मेरी ट्रेनिंग छीन नहीं सकती। 8:00 बजे तक मैं खत्म कर चुका होता हूँ — चाहे वेटलिफ्टिंग हो या मैट पर ट्रेनिंग — और उसके बाद का दिन काम और परिवार का होता है। रात में ट्रेनिंग मेरे लिए कभी काम नहीं आई: मुझे दूसरी ऊर्जा मिल जाती है जो मेरी नींद खराब कर देती है, और रात 9 बजे तक मैं इतना थक जाता हूँ कि सच में जोर नहीं लगा पाता। जल्दी करना ही एकमात्र भरोसेमंद जवाब है।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                आपका मौजूदा ट्रेनिंग स्प्लिट क्या है?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                फुल बॉडी, लेकिन पैरों के बिना, हफ्ते में 4 बार Speediance पर। BJJ हफ्ते में 3–4 बार। रनिंग हफ्ते में 2–3 बार। कुल मिलाकर यह लगभग 10 घंटे की ट्रेनिंग बनती है — और यही मेरी सीमा है, उसके बाद WHOOP लाल होने लगता है और रिकवरी गिर जाती है। मैं अलग से लेग वर्क नहीं करता क्योंकि BJJ और रनिंग उसे पर्याप्त रूप से कवर कर देते हैं, और मैं पावरलिफ्टिंग में प्रतिस्पर्धा नहीं कर रहा हूँ।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                आप पैरों की ट्रेनिंग क्यों नहीं करते?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                BJJ में पैरों पर आधारित बहुत सारी मूवमेंट होती हैं — गार्ड, टेकडाउन, ट्रांज़िशन। रनिंग पैरों पर सीधा तनाव डालती है। इन दोनों के बीच, मेरे पैरों को बिना अलग वेट ट्रेनिंग सेशन के ही काफी ट्रेनिंग स्टिम्युलस मिल जाता है। इसके ऊपर भारी स्क्वॉट या डेडलिफ्ट जोड़ना उस सिस्टम पर ज्यादा लोड डालने का जोखिम है जो पहले से ही कड़ी मेहनत कर रहा है, और रिकवरी प्रभावित होगी। अगर मैं BJJ नहीं कर रहा होता, तो मैं पैरों को फिर से शामिल करता।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                आप प्रगति को कैसे ट्रैक करते हैं?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                रोज़ की रिकवरी स्कोर और HRV के लिए WHOOP। हर रन के लिए Garmin (GPS, HR ज़ोन, पेस, ट्रेनिंग लोड)। Speediance अपने आप लिफ्टिंग वॉल्यूम, 1RM अनुमान और PR हिस्ट्री ट्रैक करता है। नींद के चरणों के लिए 8Sleep। मैंने OpenClaw पर एक AI मॉर्निंग रिपोर्ट बनाई है जो मेरे जागने से पहले इन सबको जोड़ती है और मुझे कॉन्फिडेंस प्रतिशत के साथ ट्रेनिंग रिकमेंडेशन देती है।
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* Gear & Equipment */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">⚙️ गियर और उपकरण</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                Speediance बनाम Tonal — मुझे कौन सा खरीदना चाहिए?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                मैंने वर्षों तक Tonal रखा और फिर बदला। छोटा जवाब: सदस्यता को जोड़ें तो 5 साल में दो Speediance की लागत एक Tonal से कम पड़ती है। Speediance 260 lbs तक जाता है, इसमें अनिवार्य सब्सक्रिप्शन नहीं है, और हार्डवेयर टिकाऊ है। सिर्फ एक क्षेत्र है जहाँ Tonal अभी भी बेहतर है: महिला कोच विकल्प और वीडियो प्रोडक्शन क्वालिटी। अगर आपका पार्टनर खास तौर पर महिला-नेतृत्व वाला गाइडेड अनुभव चाहता है, तो Tonal सही जवाब है। बाकी सभी के लिए, Speediance।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                WHOOP या Garmin — क्या दोनों की ज़रूरत है?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                ये अलग-अलग सवालों के जवाब देते हैं। Garmin बताता है कि मैंने क्या किया — एक्टिविटी लॉग, GPS, पेस, HR ज़ोन। WHOOP बताता है कि मैं कितना रिकवर हुआ — रातभर की फिज़ियोलॉजी, HRV बेसलाइन, रेडीनेस। अगर आप सिर्फ एक चाहते हैं: अगर आप दौड़ते हैं तो Garmin, और अगर रिकवरी आपके लिए ज्यादा अहम है तो WHOOP। मैं दोनों का इस्तेमाल करता हूँ क्योंकि मैं ट्रेनिंग को इतना गंभीरता से लेता हूँ कि दोनों सवालों के सही जवाब चाहता हूँ।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                क्या 8Sleep Pod लेना सही है?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                अगर आपको सोते समय गर्मी लगती है, तो हाँ। यही एक चीज़ है जिसने लगातार मेरे डीप स्लीप प्रतिशत को बेहतर किया है। तापमान नियंत्रण ही इसकी असली खासियत है — स्लीप ट्रैकिंग नहीं। मैं इसे WHOOP के साथ इस्तेमाल करता हूँ क्योंकि 8Sleep का स्लीप-स्टेज डेटा मुझे एक स्वतंत्र रीड देता है। सब्सक्रिप्शन की लागत वास्तविक है, लेकिन एक गंभीर एथलीट की रिकवरी के लिए इसके डेटा के खिलाफ तर्क करना मुश्किल है।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                कौन सा Speediance मॉडल — Original, 2S, या Gym Monster 2?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                अगर आपको शांत वातावरण चाहिए (ऑफिस जिम) या आप नियमित रूप से 180 lbs से ऊपर लिफ्ट करते हैं, तो 2S लें। अगर शोर समस्या नहीं है और आप पैसे बचाना चाहते हैं, तो Original लें — $1,000–1,500 में वारंटी के साथ open-box Original बहुत बढ़िया सौदा है। Gym Monster 2 में बड़ा स्क्रीन और AI form coach मिलता है, जो शुरुआती लोगों के लिए उपयोगी है लेकिन उन्नत lifters के लिए ज़रूरत से ज्यादा है। मेरे पास Original (लिविंग रूम) और 2S (ऑफिस) दोनों हैं।
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* Weight & Nutrition */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">📊 वज़न और पोषण</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                आपने 6 महीनों में 54 lbs कैसे घटाया?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                फार्मास्यूटिकल सपोर्ट (tirzepatide GLP-1, बदला हुआ TRT प्रोटोकॉल, मसल प्रिज़र्वेशन के लिए Anavar), हफ्ते में 6 दिन 800–1,200 कैलोरी, रोज़ 10,000–20,000 कदम, और प्रति दिन 30,000–50,000 lbs लिफ्टिंग वॉल्यूम। मैंने पूरी ईमानदार डिटेल — हर दवा और हर डोज़ सहित — <a href="/blog/242-to-188-the-honest-truth/" class="text-blue-400 hover:underline">242 to 188: The Honest Truth</a> पोस्ट में लिखी है। मैंने यह नैचुरली नहीं किया। मैं इसका दिखावा भी नहीं करने वाला।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                क्या आप अभी भी GLP-1 दवा ले रहे हैं?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                नहीं। tirzepatide प्रोटोकॉल खास तौर पर 6 महीने के कट के लिए था। अब मैं मसल-बिल्डिंग फेज़ में हूँ (188 → 218 lbs), जिसका मतलब है ज़्यादा खाना, कम नहीं। मैं अभी भी TRT पर हूँ — यह एक शारीरिक चोट से हुए primary hypogonadism के कारण स्थायी है। लेकिन GLP-1 एक खास लक्ष्य के लिए एक टूल था, जीवनशैली नहीं।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                क्या 40 के बाद मसल बना सकते हैं?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                हाँ, कुछ शर्तों के साथ। रिकवरी में ज्यादा समय लगता है। नींद और भी महत्वपूर्ण हो जाती है। पोषण में गलती की गुंजाइश कम हो जाती है। लेकिन मसल-बिल्डिंग का मैकेनिज़्म गायब नहीं होता — progressive overload अभी भी काम करता है, protein synthesis अभी भी होती है। कट के बाद से मैं 188 से 218 lbs तक गया हूँ, और इस दौरान Speediance पर 1.29M lbs लिफ्ट की हैं। डेटा कहता है कि यह काम कर रहा है।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                अब आपका डाइट कैसा दिखता है?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                उच्च प्रोटीन, मध्यम कार्ब्स, और इसे जुनूनी तरीके से ट्रैक नहीं किया जाता। जब मुझे सटीक होना होता है, तो मैं Cronometer इस्तेमाल करता हूँ। सामान्य नियम: ट्रेनिंग के आसपास खाओ, प्रोटीन को प्राथमिकता दो, और मसल बनाने की कोशिश करते समय भूखे पेट सोने मत जाओ। lean bulk के लिए कैलोरी surplus उतना बड़ा नहीं होता जितना लोग सोचते हैं — maintenance से 200–300 ऊपर काफी है। उससे ज्यादा और आप ज़रूरत से तेज़ फैट बढ़ा रहे हैं।
+              </div>
+            </details>
+          </div>
+        </div>
+
+        {/* About This Site */}
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-4 pb-3 border-b border-neutral-800">📝 इस साइट के बारे में</h2>
+          <div class="space-y-3">
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                क्या कोई कंटेंट स्पॉन्सर्ड है?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                कोई paid sponsorship नहीं। कुछ gear links affiliate links हो सकते हैं (जहाँ लागू हो, वहाँ खुलासा किया गया है), लेकिन कोई ब्रांड मुझे कवरेज के लिए भुगतान नहीं करता और न ही यह तय करता है कि मैं क्या कहूँ। यहाँ रिव्यू किए गए हर उपकरण को मैंने अपनी जेब से खरीदा है। Speediance, Tonal, WHOOP, Garmin, 8Sleep — सब रिटेल पर खरीदे गए। रिव्यू का मतलब होने का यही एक तरीका है।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                आप कितनी बार पोस्ट करते हैं?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                YouTube वीडियो तब अपलोड होते हैं जब मेरे पास कहने लायक कुछ होता है — आम तौर पर हफ्ते में 2–4 बार। ब्लॉग पोस्ट वीडियो ट्रांसक्रिप्ट से बनाए जाते हैं और लगातार प्रकाशित होते रहते हैं। डेटा डैशबोर्ड लाइव डेटा स्रोतों से अपने आप अपडेट होते हैं। सिर्फ शेड्यूल पूरा करने के लिए पोस्टिंग नहीं — कंटेंट तब मौजूद होता है जब दिखाने के लिए कुछ सचमुच वास्तविक हो।
+              </div>
+            </details>
+            <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+              <summary class="flex items-center justify-between cursor-pointer p-5 font-semibold text-white hover:text-blue-400 transition-colors list-none">
+                मैं आपसे कैसे संपर्क करूँ?
+                <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
+              </summary>
+              <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
+                YouTube comments सबसे अच्छा तरीका हैं — मैं उन्हें पढ़ता हूँ और जिनका जवाब वीडियो रूप में देना बनता है, उनका जवाब देता हूँ। जल्दी सवालों के लिए, comment section ईमेल से तेज़ जवाब देता है। बिज़नेस पूछताछ के लिए, YouTube चैनल के About section में दिया गया ईमेल इस्तेमाल करें।
+              </div>
+            </details>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="py-16 border-t border-neutral-900 bg-neutral-900/30">
+      <div class="container mx-auto px-4 text-center max-w-xl">
+        <h2 class="text-2xl font-bold text-white mb-3">और गहराई में जाने के लिए तैयार हैं?</h2>
+        <p class="text-neutral-400 mb-6">ऊपर दिए गए हर जवाब के पीछे पूरी डिटेल ब्लॉग और डेटा पेजों पर है।</p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a href="/blog/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-colors">ब्लॉग पढ़ें</a>
+          <a href="/videos/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">वीडियो देखें</a>
+          <a href="/gear/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors">मेरा गियर देखें</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
