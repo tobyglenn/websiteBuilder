@@ -1,0 +1,720 @@
+---
+// TODO(pt): EXO translation API unavailable during overnight build; localized key UI strings added, long-form body content still partly English.
+import Layout from '../../layouts/Layout.astro';
+import Hero from '../../components/Hero.jsx';
+import TrainingFocus from '../../components/TrainingFocus.jsx';
+import Newsletter from '../../components/Newsletter.jsx';
+import WorkoutHeatmap from '../../components/WorkoutHeatmap.jsx';
+import ThisWeekWidget from '../../components/ThisWeekWidget.jsx';
+import LatestActivity from '../../components/LatestActivity.jsx';
+import YearlyGoals from '../../components/YearlyGoals.jsx';
+import NewsletterSignup from '../../components/NewsletterSignup.jsx';
+import { CANONICAL_BLOG_POSTS } from '../../lib/blogPosts';
+import videosData from '../../data/videos.json';
+import { videos as youtube } from '../../data/youtube.js';
+import { Play, ArrowRight, Clock, Eye, Video } from 'lucide-react';
+import { trainingStreak, lastWorkoutData, thisWeekVolume, thisMonthMiles } from '../../lib/trainingStats.js';
+import { lifetimeStats } from '../../data/stats.js';
+import { recentActivity } from '../../data/recentActivity.js';
+import weeklyProgress from '../../data/weeklyProgress.js';
+
+function readTime(content = '') {
+  const words = content.split(/\s+/).filter(Boolean).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+function formatBlogDate(value) {
+  const timestamp = Date.parse(value || '');
+  if (Number.isNaN(timestamp)) return 'Undated';
+  return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+const lastWorkout = lastWorkoutData;
+
+const allVideos = videosData.videos || [];
+
+// Channel stats calculated from videos.json
+const channelTotalVideos = allVideos.length;
+const channelTotalViews = allVideos.reduce((sum, v) => sum + (v.viewCount || 0), 0);
+const channelShortsCount = allVideos.filter(v => v.is_short === true).length;
+const channelLiveCount = allVideos.filter(v => v.is_live === true || v.duration === 'LIVE').length;
+const channelLatestVideo = [...allVideos]
+  .filter(v => v.publishedAt)
+  .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())[0];
+const channelLatestDate = channelLatestVideo
+  ? new Date(channelLatestVideo.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+  : 'N/A';
+const channelTotalViewsFormatted = channelTotalViews >= 1000
+  ? (channelTotalViews / 1000).toFixed(1) + 'K'
+  : channelTotalViews.toString();
+
+const popularVideos = [...allVideos]
+  .filter(v => !v.is_live && v.viewCount > 0)
+  .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
+  .slice(0, 5);
+
+const recentVideos = allVideos.filter(v => !v.is_live).slice(0, 3);
+
+function formatViews(count) {
+  if (!count) return '0 views';
+  if (count >= 1000) return (count / 1000).toFixed(1) + 'K views';
+  return count + ' views';
+}
+
+const recentPosts = [...CANONICAL_BLOG_POSTS]
+  .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+  .slice(0, 3);
+
+const formattedLifetimeStats = {
+  lbsLifted: new Intl.NumberFormat('en-US').format(lifetimeStats.totalLbsLifted),
+  milesRun: new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 1,
+    maximumFractionDigits: 1,
+  }).format(lifetimeStats.totalMilesRun),
+  workouts: new Intl.NumberFormat('en-US').format(lifetimeStats.totalWorkouts),
+};
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": "https://tobyonfitnesstech.com/#webpage-home",
+  "name": "Toby on Fitness Tech - Início",
+  "description": "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.",
+  "url": "https://tobyonfitnesstech.com",
+  "inLanguage": "en",
+  "primaryImageOfPage": {
+    "@type": "ImageObject",
+    "url": "https://tobyonfitnesstech.com/images/og-home.jpg"
+  },
+  "isPartOf": {
+    "@id": "https://tobyonfitnesstech.com/#website"
+  },
+  "about": {
+    "@id": "https://tobyonfitnesstech.com/#organization"
+  },
+  "author": {
+    "@id": "https://tobyonfitnesstech.com/#person"
+  }
+};
+---
+
+<Layout 
+  title="Toby on Fitness Tech - Reviews, Analysis, & Live Streams"
+  description="Independent fitness tech reviews from a real athlete. Speediance vs Tonal, Whoop vs Garmin, BJJ commentary, and transformation data. No fluff, just real numbers."
+  jsonLd={webPageSchema}
+>
+	
+	<Hero client:load />
+	<TrainingFocus client:load />
+
+	<section id="this-week" class="py-12 bg-neutral-950">
+  <div class="max-w-6xl mx-auto px-4">
+    <h2 class="text-2xl font-bold text-white mb-8">This Week vs Last Week</h2>
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+      <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🏋️</span><span class="text-neutral-400 text-sm">Workouts</span></div>
+        <div class="text-3xl font-bold text-white">{weeklyProgress.workouts.thisWeek}</div>
+        <div class="text-sm text-neutral-500">vs {weeklyProgress.workouts.lastWeek} last week</div>
+      </div>
+      <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🏃</span><span class="text-neutral-400 text-sm">Runs</span></div>
+        <div class="text-3xl font-bold text-white">{weeklyProgress.runs.thisWeek}</div>
+        <div class="text-sm text-neutral-500">vs {weeklyProgress.runs.lastWeek} last week</div>
+      </div>
+      <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">💪</span><span class="text-neutral-400 text-sm">Volume</span></div>
+        <div class="text-3xl font-bold text-white">{weeklyProgress.volume.thisWeek.toLocaleString()}</div>
+        <div class="text-sm text-neutral-500">vs {weeklyProgress.volume.lastWeek.toLocaleString()} lbs</div>
+      </div>
+      <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🗺️</span><span class="text-neutral-400 text-sm">Miles</span></div>
+        <div class="text-3xl font-bold text-white">{weeklyProgress.miles.thisWeek}</div>
+        <div class="text-sm text-neutral-500">vs {weeklyProgress.miles.lastWeek} mi</div>
+      </div>
+      <div class="bg-neutral-900 rounded-xl p-4 border border-neutral-800">
+        <div class="flex items-center gap-2 mb-2"><span class="text-2xl">🥋</span><span class="text-neutral-400 text-sm">BJJ</span></div>
+        <div class="text-3xl font-bold text-white">{weeklyProgress.bjj.thisWeek}</div>
+        <div class="text-sm text-neutral-500">vs {weeklyProgress.bjj.lastWeek} last week</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+	{/* Lifetime Stats Section */}
+	<section id="lifetime-stats" class="py-16 bg-neutral-950 border-y border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Lifetime Totals</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Real Data. Real Results.</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">A lifetime summary of every tracked session and run.</p>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+				<div class="bg-neutral-900 rounded-lg p-8 border border-neutral-800">
+					<div class="text-4xl font-bold text-blue-400">🏋️ {formattedLifetimeStats.lbsLifted}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Lbs Lifted</div>
+				</div>
+				<div class="bg-neutral-900 rounded-lg p-8 border border-neutral-800">
+					<div class="text-4xl font-bold text-blue-400">🏃 {formattedLifetimeStats.milesRun}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Miles Run</div>
+				</div>
+				<div class="bg-neutral-900 rounded-lg p-8 border border-neutral-800">
+					<div class="text-4xl font-bold text-blue-400">💪 {formattedLifetimeStats.workouts}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Total Workouts</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<YearlyGoals client:visible />
+
+	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<WorkoutHeatmap client:load />
+			<ThisWeekWidget client:load />
+		</div>
+	</section>
+
+	{/* Últimas do blog */}
+	<section id="blog" class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
+				<div>
+					<span class="text-blue-400 font-bold uppercase tracking-widest text-sm mb-2 block">Últimas do blog</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Análises e reviews recentes</h2>
+					<p class="text-neutral-400 mt-3 max-w-2xl">The newest posts on fitness tech, training trends, and what the data actually says.</p>
+				</div>
+				<a href="/blog/" class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:border-blue-500/50 hover:text-blue-400 transition-colors">
+					Ver todos os posts <ArrowRight size={16} />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				{recentPosts.map((post) => (
+					<a href={`/blog/${post.slug}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
+						{post.image && (
+						<div class="aspect-video overflow-hidden bg-neutral-950">
+							<img
+								src={post.image}
+								alt={post.title}
+								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+								loading="lazy"
+							/>
+						</div>
+						)}
+						<div class="p-5">
+							<span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide bg-blue-500/10 text-blue-400 border border-blue-500/20">
+								{post.category}
+							</span>
+							<h3 class="mt-3 text-lg font-bold text-white leading-snug group-hover:text-blue-400 transition-colors line-clamp-2">
+								{post.title}
+							</h3>
+							<div class="mt-2 text-xs text-neutral-500 flex items-center gap-2">
+								<span>{formatBlogDate(post.published_at)}</span>
+								<span>•</span>
+								<span>{readTime(post.content)}</span>
+							</div>
+							<p class="mt-3 text-sm text-neutral-400 leading-relaxed">
+								{post.excerpt.length > 100 ? `${post.excerpt.slice(0, 100)}...` : post.excerpt}
+							</p>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Vídeo em destaque Section -->
+	<section id="featured-video" class="py-16 bg-neutral-900">
+	  <div class="max-w-4xl mx-auto px-4">
+	    <h2 class="text-2xl font-bold mb-6 text-white">Vídeo em destaque</h2>
+	    <div class="aspect-video rounded-xl overflow-hidden bg-neutral-800">
+	      <iframe 
+	        class="w-full h-full" 
+	        src="https://www.youtube.com/embed/0C8mQoV-Xpg" 
+	        title="Speediance V3.1 Progressive Overload Review"
+	        frameborder="0" 
+	        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+	        allowfullscreen>
+	      </iframe>
+	    </div>
+	    <p class="mt-4 text-neutral-400">Speediance Fixed Progressive Overload (Mostly) — V3.1 Update Review</p>
+	    <a href="/videos/" class="inline-block mt-2 text-blue-400 hover:text-blue-300">View all videos →</a>
+	  </div>
+	</section>
+
+	<NewsletterSignup client:visible />
+
+	{/* Vídeos mais recentes Section */}
+	<section id="latest-videos" class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="flex items-end justify-between mb-10">
+				<div>
+					<span class="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-2 block">YouTube</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Vídeos mais recentes</h2>
+				</div>
+				<a href="/videos/" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
+					Ver todos os vídeos <ArrowRight size={18} />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+				{allVideos.filter(v => !v.is_live).slice(0, 4).map((video) => (
+					<a href={`/video/${video.id}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all">
+						<div class="aspect-video relative overflow-hidden">
+							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+							{video.duration_formatted && (
+								<span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded">{video.duration_formatted}</span>
+							)}
+						</div>
+						<div class="p-4">
+							<h3 class="font-semibold text-white text-sm group-hover:text-cyan-400 transition-colors line-clamp-2">{video.title}</h3>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<LatestActivity client:load />
+
+	{/* YouTube Social Proof Section */}
+	<section class="py-12 bg-neutral-950 border-t border-neutral-900">
+		<div class="container mx-auto px-4">
+			<div class="bg-neutral-900 rounded-2xl p-6 md:p-8 border border-neutral-800">
+				<div class="flex flex-col md:flex-row items-center justify-between gap-6">
+					<div class="flex items-center gap-3">
+						<div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
+							<svg class="w-6 h-6 text-white fill-white" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+						</div>
+						<div>
+							<div class="text-white font-bold text-lg">Toby on Fitness</div>
+							<div class="text-neutral-500 text-sm">YouTube Channel</div>
+						</div>
+					</div>
+					
+					<div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+						<div class="text-center">
+							<div class="text-2xl md:text-3xl font-black text-white">1.2K</div>
+							<div class="text-xs text-neutral-500 uppercase tracking-wide">Subscribers</div>
+						</div>
+						<div class="h-10 w-px bg-neutral-700 hidden md:block"></div>
+						<div class="text-center">
+							<div class="text-2xl md:text-3xl font-black text-white">9.9K</div>
+							<div class="text-xs text-neutral-500 uppercase tracking-wide">Total Views</div>
+						</div>
+						<div class="h-10 w-px bg-neutral-700 hidden md:block"></div>
+						<div class="text-center">
+							<div class="text-2xl md:text-3xl font-black text-white">104</div>
+							<div class="text-xs text-neutral-500 uppercase tracking-wide">Videos</div>
+						</div>
+					</div>
+
+					<a href="https://youtube.com/@tobyonfitness" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors text-sm">
+						<svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+						Subscribe
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* YouTube Channel Stats Section */}
+	<section id="channel-stats" class="py-16 bg-neutral-950 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-red-500 font-bold uppercase tracking-widest text-sm mb-2 block">Channel Stats</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">By the Numbers</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Real production metrics from the YouTube channel — no filler, just output.</p>
+			</div>
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+				{/* Total Videos */}
+				<div class="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 hover:border-red-500/40 transition-all group text-center">
+					<div class="flex items-center justify-center w-12 h-12 rounded-full bg-red-500/10 border border-red-500/20 mx-auto mb-4">
+						<svg class="w-6 h-6 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.069A1 1 0 0121 8.82v6.36a1 1 0 01-1.447.893L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+						</svg>
+					</div>
+					<div class="text-3xl md:text-4xl font-black text-white mb-2 group-hover:text-red-400 transition-colors">{channelTotalVideos}</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Total Videos</div>
+				</div>
+				{/* Total Views */}
+				<div class="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 hover:border-blue-500/40 transition-all group text-center">
+					<div class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 mx-auto mb-4">
+						<svg class="w-6 h-6 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+						</svg>
+					</div>
+					<div class="text-3xl md:text-4xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{channelTotalViewsFormatted}</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Total Views</div>
+				</div>
+				{/* Shorts */}
+				<div class="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 hover:border-purple-500/40 transition-all group text-center">
+					<div class="flex items-center justify-center w-12 h-12 rounded-full bg-purple-500/10 border border-purple-500/20 mx-auto mb-4">
+						<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+						</svg>
+					</div>
+					<div class="text-3xl md:text-4xl font-black text-white mb-2 group-hover:text-purple-400 transition-colors">{channelShortsCount}</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Shorts</div>
+				</div>
+				{/* Latest Upload */}
+				<div class="bg-neutral-900 rounded-2xl p-6 border border-neutral-800 hover:border-green-500/40 transition-all group text-center">
+					<div class="flex items-center justify-center w-12 h-12 rounded-full bg-green-500/10 border border-green-500/20 mx-auto mb-4">
+						<svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+						</svg>
+					</div>
+					<div class="text-lg md:text-xl font-black text-white mb-2 group-hover:text-green-400 transition-colors leading-tight">{channelLatestDate}</div>
+					<div class="text-xs font-semibold text-neutral-500 uppercase tracking-widest">Latest Upload</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	{/* Popular Videos Section */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch Next</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Most Popular Videos</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Top videos by views from the channel.</p>
+			</div>
+			<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				{popularVideos.map(video => (
+					<a href={`/video/${video.id}/`} class="group block bg-neutral-950 rounded-xl overflow-hidden border border-neutral-800 hover:border-blue-500/50 transition-all">
+						<div class="aspect-video relative overflow-hidden">
+							<img
+								src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+								alt={video.title}
+								class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+								loading="lazy"
+							/>
+							{video.duration_formatted && video.duration_formatted !== 'Live' && (
+								<span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded">{video.duration_formatted}</span>
+							)}
+						</div>
+						<div class="p-4">
+							<h3 class="font-semibold text-white text-sm mb-2 group-hover:text-blue-400 transition-colors line-clamp-2">{video.title}</h3>
+							<div class="flex items-center justify-between text-xs text-neutral-500">
+								<span>{formatViews(video.viewCount)}</span>
+								<span>{video.publishedAt ? new Date(video.publishedAt).toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'}) : ''}</span>
+							</div>
+						</div>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* Training Activity Section */}
+	<section id="training-activity" class="py-20 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-12">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Training Activity</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Today's Stats</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Live snapshot of your recent training.</p>
+			</div>
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{trainingStreak} days</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Training Streak</div>
+				</div>
+				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{lastWorkout?.date ?? 'N/A'}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">Last Workout</div>
+					<div class="text-xs text-neutral-600 mt-2">{lastWorkout?.type ?? ''}</div>
+				</div>
+				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{thisWeekVolume}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">This Week (lbs)</div>
+				</div>
+				<div class="bg-neutral-950 rounded-2xl p-6 md:p-8 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl md:text-3xl font-black text-white mb-2 group-hover:text-blue-400 transition-colors">{thisMonthMiles}</div>
+					<div class="text-sm md:text-base font-semibold text-neutral-400 uppercase tracking-wide">This Month (miles)</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	{/* Recent Activity Section */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Recent Activity</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Recent Activity</h2>
+				<p class="text-neutral-400 mt-3 max-w-xl mx-auto">Latest from training</p>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+				{recentActivity.map((item) => (
+					<div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all">
+						<div class="flex items-start justify-between gap-4">
+							<div>
+								<div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">{item.date}</div>
+								<h3 class="text-white font-bold text-lg">{item.title}</h3>
+								<p class="text-neutral-400 text-sm mt-1">{item.subtitle}</p>
+							</div>
+							<div class="text-2xl" aria-hidden="true">
+								{item.type === 'run' ? '🏃‍♂️' : item.type === 'workout' ? '🏋️' : '😴'}
+							</div>
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* Recent Activity Section */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-10">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Live Data</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Recent Activity</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Your latest workouts, runs, and recovery scores from your devices.</p>
+			</div>
+			<div class="grid grid-cols-1 md:grid-cols-5 gap-4">
+				{recentActivity.map(activity => (
+					<div class="bg-neutral-900 rounded-lg p-5 border border-neutral-800 hover:border-blue-500/50 transition-all">
+						<div class="flex items-center gap-2 mb-3">
+							<span class="text-2xl">
+								{activity.type === 'run' ? '🏃‍♂️' : activity.type === 'workout' ? '🏋️' : '😴'}
+							</span>
+							<span class="text-xs font-bold text-neutral-500 uppercase tracking-wider">
+								{activity.type}
+							</span>
+						</div>
+						<h3 class="font-bold text-white text-sm mb-1">{activity.title}</h3>
+						<p class="text-xs text-neutral-400 mb-2">{activity.subtitle}</p>
+						<div class="text-xs text-neutral-600">
+							{new Date(activity.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+						</div>
+					</div>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* Recent Videos Section */}
+	<section class="py-16 bg-neutral-950">
+		<div class="container mx-auto px-4">
+			<div class="flex items-end justify-between mb-12 border-b border-neutral-900 pb-8">
+				<div>
+					<h2 class="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-white to-neutral-400 bg-clip-text text-transparent">Latest Uploads</h2>
+					<p class="text-neutral-500 max-w-2xl">
+						Fresh from the lab. In-depth testing and honest reviews.
+					</p>
+				</div>
+				<a href="/videos/" class="hidden md:flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors group">
+					Ver todos os vídeos <ArrowRight size={18} class="group-hover:translate-x-1 transition-transform" />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+				{recentVideos.map((video) => (
+					<a href={video.is_live ? `https://www.youtube.com/live/${video.id}` : `/video/${video.id}/`} target={video.is_live ? '_blank' : '_self'} class="group block relative bg-neutral-900 rounded-2xl overflow-hidden border border-neutral-800 hover:border-neutral-700 transition-all hover:shadow-2xl hover:shadow-blue-900/10">
+						<div class="aspect-video relative overflow-hidden">
+							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" loading="lazy" />
+							<div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+							
+							{video.is_live ? (
+								<div class="absolute top-3 left-3 flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
+									<span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span> Live
+								</div>
+							) : video.duration_formatted && (
+								<div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white text-xs font-mono px-2 py-1 rounded border border-white/10 flex items-center gap-1">
+									<Clock size={10} /> {video.duration_formatted}
+								</div>
+							)}
+
+							<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform scale-90 group-hover:scale-100">
+								<div class="bg-blue-600/90 p-4 rounded-full shadow-xl backdrop-blur-sm">
+									<Play className="text-white fill-white ml-1" size={24} />
+								</div>
+							</div>
+						</div>
+						
+						<div class="p-6">
+							<div class="flex items-center justify-between text-xs text-neutral-500 mb-3 font-medium uppercase tracking-wider">
+								{video.is_live ? (
+									<span class="flex items-center gap-1 text-red-400 font-bold"><span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse inline-block"></span> LIVE NOW</span>
+								) : (
+									<span>{video.viewCount?.toLocaleString() ?? 0} views</span>
+								)}
+								<span>{new Date(video.publishedAt).toLocaleDateString()}</span>
+							</div>
+							
+							<h3 class="text-lg font-bold text-white mb-3 line-clamp-2 leading-snug group-hover:text-blue-400 transition-colors">
+								{video.title}
+							</h3>
+							
+							<p class="text-neutral-400 text-sm line-clamp-2 mb-4 leading-relaxed">
+								{video.description}
+							</p>
+						</div>
+					</a>
+				))}
+			</div>
+			
+			<div class="mt-12 text-center md:hidden">
+				<a href="/videos/" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-900 border border-neutral-800 rounded-full text-white font-semibold hover:bg-neutral-800 transition-colors">
+					Ver todos os vídeos <ArrowRight size={16} />
+				</a>
+			</div>
+		</div>
+	</section>
+
+	{/* Recent Blog Posts */}
+	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="flex items-end justify-between mb-12">
+				<div>
+					<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Analysis Log</span>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Written Reviews</h2>
+				</div>
+				<a href="/blog/" class="hidden md:flex items-center gap-2 text-neutral-400 hover:text-white transition-colors group text-sm font-medium">
+					Read More Analysis <ArrowRight size={16} class="group-hover:translate-x-1 transition-transform" />
+				</a>
+			</div>
+
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+				{recentPosts.map((post) => (
+					<article class="flex flex-col group border-l-2 border-neutral-800 pl-6 hover:border-blue-500 transition-colors py-2">
+						<span class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">{post.category}</span>
+						<h3 class="text-xl font-bold text-white mb-3 leading-tight group-hover:text-blue-400 transition-colors">
+							<a href={`/blog/${post.slug}/`}>{post.title}</a>
+						</h3>
+						<p class="text-neutral-400 text-sm line-clamp-3 mb-4 leading-relaxed flex-grow">
+							{post.excerpt}
+						</p>
+						<a href={`/blog/${post.slug}/`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
+							Read Article <ArrowRight size={14} class="group-hover/link:translate-x-1 transition-transform" />
+						</a>
+					</article>
+				))}
+			</div>
+		</div>
+	</section>
+
+	{/* Data Deep Dive Section */}
+	<section id="data-deep-dive" class="py-20 bg-neutral-900 border-t border-neutral-800">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-12">
+				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Dive Deeper</span>
+				<h2 class="text-3xl md:text-4xl font-bold text-white">Your Data, Decoded.</h2>
+				<p class="text-neutral-500 mt-3 max-w-xl mx-auto">Every workout, every mile, every sleep score — tracked and analyzed.</p>
+			</div>
+			
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+				{/* Running */}
+				<a href="/running/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">🏃</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Running</h3>
+					<p class="text-xs text-neutral-500">265 miles · 111 runs</p>
+				</a>
+				{/* Speediance */}
+				<a href="/speediance/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">🏋️</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lifting</h3>
+					<p class="text-xs text-neutral-500">1.29M lbs · 125 workouts</p>
+				</a>
+				{/* Sleep */}
+				<a href="/sleep/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">😴</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Sleep</h3>
+					<p class="text-xs text-neutral-500">Avg 68 score · 8 nights</p>
+				</a>
+				{/* WHOOP */}
+				<a href="/whoop/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-red-500/50 transition-all group">
+					<div class="text-2xl mb-3">💪</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-red-400 transition-colors">WHOOP</h3>
+					<p class="text-xs text-neutral-500">Recovery · HRV · Strain</p>
+				</a>
+				{/* Transformation */}
+				<a href="/transformation/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">📈</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Transformation</h3>
+					<p class="text-xs text-neutral-500">242 → 188 → 218 lbs</p>
+				</a>
+				{/* Training */}
+				<a href="/training/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">🎯</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Training</h3>
+					<p class="text-xs text-neutral-500">Volume trends · PRs</p>
+				</a>
+				{/* BJJ */}
+				<a href="/bjj/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">🥋</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">BJJ</h3>
+					<p class="text-xs text-neutral-500">Brown belt · 10+ years</p>
+				</a>
+				{/* Gear */}
+				<a href="/gear/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">⚙️</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Gear</h3>
+					<p class="text-xs text-neutral-500">What I actually use</p>
+				</a>
+				{/* PR Board */}
+				<a href="/prs/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-yellow-500/50 transition-all group">
+					<div class="text-2xl mb-3">🥇</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-yellow-400 transition-colors">PR Board</h3>
+					<p class="text-xs text-neutral-500">388 lb deadlift · 25 PRs</p>
+				</a>
+				{/* A Day in the Data */}
+				<a href="/day/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">📅</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">A Day in the Data</h3>
+					<p class="text-xs text-neutral-500">24h of tracking</p>
+				</a>
+				{/* FAQ */}
+				<a href="/faq/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
+					<div class="text-2xl mb-3">❓</div>
+					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">FAQ</h3>
+					<p class="text-xs text-neutral-500">Common questions on training, gear, and site operations</p>
+				</a>
+			</div>
+		</div>
+	</section>
+	{/* Vídeo em destaques Section */}
+	<section class="py-20 bg-neutral-950 border-t border-neutral-800">
+	  <div class="container mx-auto px-4">
+	    <div class="flex items-end justify-between mb-10">
+	      <div>
+	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch</span>
+	        <h2 class="text-3xl md:text-4xl font-bold text-white">Vídeo em destaques</h2>
+	      </div>
+	      <a href="/videos/" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
+	        Ver todos os vídeos <ArrowRight size={18} />
+	      </a>
+	    </div>
+	    
+	    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+	      {youtube.slice(0,4).filter(v => v.viewCount > 0).map((video) => (
+	        <a href={`/video/${video.id}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:border-neutral-700">
+	          <div class="aspect-video relative overflow-hidden bg-neutral-950">
+	            <img src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} class="w-full h-full object-cover" loading="lazy" />
+	            {video.duration_formatted && <span class="absolute bottom-2 right-2 bg-black/75 text-white text-xs px-2 py-1 rounded">{video.duration_formatted}</span>}
+	          </div>
+	          <div class="p-4">
+	            <h3 class="text-white font-bold text-sm line-clamp-2 group-hover:text-blue-400">{video.title}</h3>
+	            <p class="text-neutral-500 text-xs mt-2">{video.viewCount ? (video.viewCount >= 1000 ? (video.viewCount/1000).toFixed(1) + 'K' : video.viewCount) + ' views' : ''}</p>
+	          </div>
+	        </a>
+	      ))}
+	    </div>
+	  </div>
+	</section>
+	<Newsletter client:visible />
+
+	{/* Vídeo em destaque Section */}
+	<section class="py-12 bg-neutral-900">
+		<div class="max-w-4xl mx-auto px-4">
+			<h2 class="text-2xl font-bold mb-6">Vídeo em destaque</h2>
+			<div class="aspect-video rounded-lg overflow-hidden">
+				<iframe class="w-full h-full" src="https://www.youtube.com/embed/ucYb0Bg4XrA" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<p class="mt-3 text-neutral-400">Why Running Might Have Saved My Life</p>
+		</div>
+	</section>
+
+</Layout>

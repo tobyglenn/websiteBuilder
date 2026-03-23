@@ -1,0 +1,833 @@
+---
+// TODO(pt): EXO translation API unavailable during overnight build; localized key UI strings added, long-form body content still partly English.
+import Layout from '../../layouts/Layout.astro';
+import { weightData, getStats } from '../../data/weight.js';
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Weight chart
+const weightStats = getStats();
+const chartWidth = 600;
+const chartHeight = 260;
+const wPadding = 44;
+const weights = weightData.map(d => d.weight);
+const minW = Math.min(...weights) - 10;
+const maxW = Math.max(...weights) + 10;
+const wRange = maxW - minW;
+const wPoints = weightData.map((d, i) => {
+  const x = wPadding + (i / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+  const y = chartHeight - wPadding - ((d.weight - minW) / wRange) * (chartHeight - 2 * wPadding);
+  return `${x},${y}`;
+}).join(' ');
+
+// ProfilePage JSON-LD — about page structured data for E-E-A-T signals
+const profilePageSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfilePage",
+  "@id": `${siteUrl}/about/#profilepage`,
+  "name": "Sobre Toby Glenn Peters",
+  "description": "Toby Glenn Peters is an independent fitness technology reviewer who dropped from 242 to 188 lbs using data-driven training, Speediance, Tonal, WHOOP, Garmin, and Brazilian Jiu-Jitsu.",
+  "url": `${siteUrl}/about/`,
+  "inLanguage": "en-US",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "about": { "@id": `${siteUrl}/#toby` },
+  "mainEntity": {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": `${siteUrl}/#toby`,
+    "name": "Toby Glenn Peters",
+    "alternateName": ["TobyOnFitnessTech", "Toby on Fitness Tech"],
+    "jobTitle": "Fitness Enthusiast & Tech Builder",
+    "description": "Toby Glenn Peters dropped from 242 to 188 lbs using obsessive data tracking, Speediance, Tonal, and Brazilian Jiu-Jitsu. Independent fitness tech reviewer — no programs, no fluff.",
+    "url": siteUrl,
+    "image": [
+      {
+        "@type": "ImageObject",
+        "@id": `${siteUrl}/#toby-image-before`,
+        "url": `${siteUrl}/progress/progress_230.jpg`,
+        "caption": "Toby Glenn Peters at 230 lbs before fitness transformation — August 4, 2023",
+        "width": 400,
+        "height": 533
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${siteUrl}/#toby-image-after`,
+        "url": `${siteUrl}/progress/progress_188.jpg`,
+        "caption": "Toby Glenn Peters at 188 lbs after 54 lb weight loss — January 4, 2024",
+        "width": 400,
+        "height": 533
+      },
+      {
+        "@type": "ImageObject",
+        "@id": `${siteUrl}/#toby-image-current`,
+        "url": `${siteUrl}/progress/progress_229.jpg`,
+        "caption": "Toby Glenn Peters at 229 lbs muscle building phase — February 3, 2026",
+        "width": 400,
+        "height": 533
+      }
+    ],
+    "sameAs": [
+      "https://www.youtube.com/@tobyonfitness",
+      "https://www.instagram.com/tobyonfitness"
+    ],
+    "knowsSobre": ["Speediance", "BJJ", "Garmin", "WHOOP", "8Sleep", "Running", "Brazilian Jiu-Jitsu"],
+    "award": "242→188 lb transformation",
+    "worksFor": { "@id": `${siteUrl}/#organization` },
+    "nationality": {
+      "@type": "Country",
+      "name": "United States"
+    }
+  },
+  "breadcrumb": {
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Início", "item": siteUrl },
+      { "@type": "ListItem", "position": 2, "name": "Sobre", "item": `${siteUrl}/about/` }
+    ]
+  }
+};
+---
+
+<Layout 
+  title="Sobre Toby Glenn Peters - TobyOnFitnessTech"
+  description="Toby Glenn Peters dropped from 242 to 188 lbs using obsessive data tracking, Speediance, Tonal, and Brazilian Jiu-Jitsu. Independent fitness tech reviewer — no programs, no fluff."
+  breadcrumbs={[{ name: "Início", url: "/" }, { name: "Sobre", url: "/about" }]}
+  jsonLd={profilePageSchema}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    {/* Hero Section */}
+    <section id="hero" class="pt-20 pb-12 md:pt-28 md:pb-16 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+          {/* Left — text */}
+          <div class="flex-1 max-w-2xl">
+            <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+              I don't sell programs.<br />
+              <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">I just document what actually works.</span>
+            </h2>
+            <p class="text-xl text-neutral-400 mb-8 leading-relaxed">
+              Computer Programmer. BJJ Practitioner. Data Nerd. <br/>
+              I dropped 54 lbs in 6 months and I'm here to show you exactly how.
+            </p>
+          </div>
+
+          {/* Right — before/after comparison */}
+          <div class="flex-shrink-0 w-full lg:w-auto">
+            <div class="flex gap-3 items-end">
+              {/* Before */}
+              <div class="relative group">
+                <div class="w-44 md:w-52 rounded-2xl overflow-hidden border border-neutral-800 shadow-xl">
+                  <img
+                    src="/progress/progress_230.jpg"
+                    alt="Before — 230 lbs"
+                    class="w-full aspect-[3/4] object-cover object-top"
+                    loading="eager"
+                  />
+                </div>
+                <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+                  <span class="bg-black/80 backdrop-blur-sm text-neutral-300 text-xs font-bold px-3 py-1 rounded-full border border-neutral-700">
+                    230 lbs
+                  </span>
+                </div>
+              </div>
+
+              {/* Arrow / divider */}
+              <div class="flex flex-col items-center gap-1 pb-10 text-neutral-500">
+                <div class="h-px w-6 bg-neutral-700"></div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-500"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                <div class="h-px w-6 bg-neutral-700"></div>
+              </div>
+
+              {/* After */}
+              <div class="relative group">
+                <div class="w-44 md:w-52 rounded-2xl overflow-hidden border border-blue-500/40 shadow-xl shadow-blue-900/20">
+                  <img
+                    src="/progress/progress_188.jpg"
+                    alt="After — 188 lbs"
+                    class="w-full aspect-[3/4] object-cover object-top"
+                    loading="eager"
+                  />
+                </div>
+                <div class="absolute bottom-3 left-0 right-0 flex justify-center">
+                  <span class="bg-blue-600/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full">
+                    188 lbs
+                  </span>
+                </div>
+                {/* -54 lbs badge */}
+                <div class="absolute -top-3 -right-3 bg-blue-600 text-white text-xs font-black px-2.5 py-1.5 rounded-full shadow-lg rotate-6">
+                  −54 lbs
+                </div>
+              </div>
+            </div>
+            <p class="text-center text-neutral-600 text-xs mt-4 tracking-wider uppercase">6 months · no excuses</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* The Transformation */}
+    <section id="stats" class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex flex-col md:flex-row gap-12 items-center">
+          <div class="md:w-1/2">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+               <h2 class="text-2xl font-bold mb-6 text-blue-400">The Stats</h2>
+               <div class="grid grid-cols-2 gap-6">
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">242</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Starting Weight</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-blue-500 mb-1">188</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Achieved Jan 4, 2024</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">6 Months</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Duration</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">0</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Excuses Made</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">54 lbs</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Total Lost</div>
+                 </div>
+                 <div>
+                   <div class="text-4xl font-bold text-white mb-1">1M+</div>
+                   <div class="text-sm text-neutral-500 uppercase tracking-wider">Lbs Lifted</div>
+                 </div>
+               </div>
+            </div>
+          </div>
+          <div class="md:w-1/2 space-y-6 text-neutral-300 leading-relaxed text-lg">
+            <h2 class="text-3xl font-bold text-white">The Turnaround</h2>
+            <p>
+              In late 2024, I was 242 pounds. Traditional cardio — the thing most people lean on to lose weight — wasn't cutting it. 
+              I decided to engineer a smarter solution.
+            </p>
+            <p>
+              I chose to to be a computer programmer. I went deep on the data: WHOOP recovery scores, Garmin activity tracking, 8Sleep sleep quality, and meticulous calorie logging via Cronometer. 
+              Every variable that I could control, I controlled. Every variable I could, I measured.
+            </p>
+            <p>
+              The anchor of my training became a <strong class="text-white">digital cable machine</strong> — a smart home gym that let me train heavy from home. 
+              I've now logged over 1,000,000 lbs of lifting volume on it. No hype — I have the data to prove it.
+            </p>
+            <p>
+              Alongside the machine work, I returned to <strong class="text-white">Brazilian Jiu-Jitsu</strong> as both a physical outlet and a mental anchor. 
+              BJJ forced me to stay disciplined, stay humble, and keep showing up — even when the scale wasn't moving the way I wanted.
+            </p>
+            <p>
+              Six months later: 188 lbs. 54 lbs lost.
+            </p>
+            <div class="pt-2">
+              <a href="/videos/?category=transformation" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group">
+                Watch the transformation videos 
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <span class="mx-2 text-neutral-600">|</span>
+              <a href="/fitness-age/" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group">
+                Calculate Your Fitness Age
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Jornada do peso Chart */}
+    <section id="weight-journey" class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-3xl font-bold text-white mb-8 text-center">Jornada do peso</h2>
+
+          {/* Stat cards */}
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Starting</p>
+              <p class="text-3xl font-bold text-white">{weightStats.start} lbs</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Lowest</p>
+              <p class="text-3xl font-bold text-green-400">{weightStats.lowest} lbs</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Current</p>
+              <p class="text-3xl font-bold text-blue-400">{weightStats.current} lbs</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
+              <p class="text-sm text-neutral-400 mb-1">Change</p>
+              <p class={`text-3xl font-bold ${weightStats.totalChange < 0 ? 'text-green-400' : 'text-purple-400'}`}>
+                {weightStats.totalChange > 0 ? '+' : ''}{weightStats.totalChange} lbs
+              </p>
+            </div>
+          </div>
+
+          {/* SVG chart */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="text-lg font-semibold text-white mb-4">Weight Over Time</h3>
+            <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto" preserveAspectRatio="xMidYMid meet">
+              <defs>
+                <linearGradient id="wGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#3b82f6" />
+                  <stop offset="100%" stop-color="#8b5cf6" />
+                </linearGradient>
+              </defs>
+              {[0, 0.25, 0.5, 0.75, 1].map((ratio) => {
+                const y = wPadding + ratio * (chartHeight - 2 * wPadding);
+                const w = Math.round(maxW - ratio * wRange);
+                return (
+                  <g>
+                    <line x1={wPadding} y1={y} x2={chartWidth - wPadding} y2={y} stroke="#262626" stroke-width="1" stroke-dasharray="4" />
+                    <text x={wPadding - 6} y={y + 4} text-anchor="end" fill="#525252" font-size="11">{w}</text>
+                  </g>
+                );
+              })}
+              {weightData.filter((_, i) => i % 2 === 0).map((d, i) => {
+                const x = wPadding + ((i * 2) / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+                const label = new Date(d.date).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                return <text x={x} y={chartHeight - 8} text-anchor="middle" fill="#525252" font-size="10">{label}</text>;
+              })}
+              <polyline points={wPoints} fill="none" stroke="url(#wGradient)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+              {weightData.map((d, i) => {
+                const x = wPadding + (i / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+                const y = chartHeight - wPadding - ((d.weight - minW) / wRange) * (chartHeight - 2 * wPadding);
+                return <circle cx={x} cy={y} r="5" fill="#3b82f6" stroke="#171717" stroke-width="2" />;
+              })}
+            </svg>
+          </div>
+
+          {/* Narrative */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 mt-6 space-y-4 text-neutral-300 leading-relaxed">
+            <p><strong class="text-white">242 → 188:</strong> From January 2023 to March 2024, I dropped 54 lbs using pharmaceutical support (GLP-1, TRT, Anavar), aggressive calorie restriction, and high-volume training. The focus: get lean, build the habit, prove to myself I could do it.</p>
+            <p><strong class="text-white">188 → 218:</strong> After hitting 188 lbs, I pivoted to building. Ate more, prioritized protein and progressive overload on the Speediance, and added BJJ. The scale went up 30 lbs — and I'm stronger, more conditioned, and more capable than ever.</p>
+            <p><strong class="text-white">The lesson:</strong> The scale is a tool, not a judge. Each phase had purpose. The transformation isn't over — it's just entered a new chapter.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Estatísticas de corrida Section */}
+    <section id="running-stats" class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Estatísticas de corrida</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">111</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider">Total Runs</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">265.1 mi</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider">Total Miles</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">67.2 h</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider">Total Hours</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">15:12/mi</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider">Avg Pace</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+            <div class="text-4xl font-bold text-white mb-2">5 mi</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider">Longest Run (June 30, 2025)</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Chapter 2 — The Build */}
+    <section id="build-phase" class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">Chapter 2</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">
+            188 lbs Was the Starting Line, Not the Finish.
+          </h2>
+
+          {/* Stats grid */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mb-10">
+            <h3 class="text-xl font-bold mb-6 text-blue-400">The Build Phase Numbers</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">1,296,447</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs Lifted Since July 2025</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">125</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Speediance Sessions</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">265.1 mi</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Miles Run (Past Year)</div>
+              </div>
+              <div>
+                <div class="text-3xl font-bold text-white mb-1">111</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Runs Logged</div>
+              </div>
+            </div>
+          </div>
+
+          {/* Prose */}
+          <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
+            <p>
+              I hit 188 lbs on January 4, 2024, and immediately understood that the cut was just phase one. 
+              Losing weight is a subtraction problem. Building something on top of it is a different challenge entirely — and honestly, 
+              the more interesting one. The scale has been climbing since. 188 → 205 → 218-229 lbs as of early 2026. 
+              That's not a setback. That's the plan working.
+            </p>
+            <p>
+              The <strong class="text-white">Speediance</strong> became the anchor of phase two. In the seven months between July 2025 and February 2026 alone, 
+              I logged 125 sessions and moved <strong class="text-white">1,296,447 lbs</strong> of total volume. My best single session: 
+              35,305 lbs in 50 minutes on February 2, 2026. Top lifts tracked by the machine — barbell lat pulldown at a 294 lb 1RM, 
+              bent over row at 198 lbs, bench press at 90 lbs via the cable system. These aren't estimates. The machine logs every rep.
+            </p>
+            <p>
+              Running got rebuilt from scratch in parallel. I started with 1-mile sessions — genuinely just trying to not stop. 
+              By early 2026 I'm doing 5-mile runs. 111 runs logged over the past year: 84 outdoor, 27 treadmill, 2 open water swims. 
+              <strong class="text-white">265.1 miles total.</strong> Not fast. But consistent, progressive, and building. 
+              The weight going up isn't something to explain away — muscle weighs something. That's the point.
+            </p>
+            <p>
+              Every training decision now runs through the stack: WHOOP gives me a recovery score each morning, 
+              8Sleep tells me how the night actually went, and the AI assistant I built on <strong class="text-white">OpenClaw</strong> reads all of it — 
+              Garmin activity, sleep data, HRV trends — and generates a daily readiness recommendation before I decide whether to push or pull back. 
+              The system makes the decisions defensible. No guessing, no going on feel when the data says otherwise.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Fotos de progresso */}
+    <section id="progress-photos" class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-10">
+          <h2 class="text-3xl font-bold mb-3">Fotos de progresso</h2>
+          <p class="text-neutral-400 text-lg">242 → 188 lbs. Every photo is real, unedited, and timestamped by weight.</p>
+        </div>
+
+        {/* Timeline gallery */}
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mb-8">
+          {[
+            { src: '/progress/progress_230.jpg', label: '230 lbs', date: 'Aug 4, 2023' },
+            { src: '/progress/progress_220.jpg', label: '220 lbs', date: 'Sep 7, 2023' },
+            { src: '/progress/progress_200.jpg', label: '200 lbs', date: 'Dec 1, 2023' },
+            { src: '/progress/progress_188.jpg', label: '188 lbs', date: 'Jan 4, 2024' },
+            { src: '/progress/progress_191.jpg', label: '191 lbs', date: 'Feb 6, 2024' },
+            { src: '/progress/progress_211.jpg', label: '211 lbs', date: 'Jun 2, 2024' },
+            { src: '/progress/progress_229.jpg', label: '229 lbs', date: 'Feb 3, 2026' },
+            { src: '/progress/workout_action.jpg', label: 'Training', date: '' },
+          ].map(({ src, label, date }) => (
+            <div class="relative group overflow-hidden rounded-xl bg-neutral-900 border border-neutral-800 hover:border-neutral-600 transition-all">
+              <div class="aspect-[3/4]">
+                <img
+                  src={src}
+                  alt={label}
+                  class="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+              </div>
+              <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent pt-8 pb-2 px-2 text-center pointer-events-none">
+    <span class="text-white text-xs font-bold block leading-tight drop-shadow">{label}</span>
+    {date && <span class="text-neutral-400 text-[10px] block">{date}</span>}
+  </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Data callout */}
+        <div class="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 flex flex-col md:flex-row items-center gap-6">
+          <div class="flex-shrink-0 text-5xl">📊</div>
+          <div>
+            <h3 class="text-xl font-bold text-white mb-2">Every data point logged</h3>
+            <p class="text-neutral-400">
+              These photos don't tell the whole story. Behind each one: daily WHOOP recovery scores, Garmin training load, 8Sleep sleep quality data, 
+              and Cronometer nutrition logs. The transformation was systematic, not accidental.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Philosophy / Pillars */}
+    <section id="focus" class="py-16 bg-neutral-900/30 border-y border-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-12 text-center">Meu foco</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="space-y-4">
+            <h3 class="text-xl font-bold text-white">Início Gym Tech</h3>
+            <p class="text-neutral-400">
+              I've lifted over 1,000,000 lbs on my digital cable machine. I test firmware updates, compare modes, and find the bugs 
+              so you don't have to. If a machine says it replaces a gym, I verify it.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-bold text-white">BJJ & Grappling</h3>
+            <p class="text-neutral-400">
+              Jiu-Jitsu isn't just a sport; it's a system. I analyze match footage, discuss belt culture, and break down the "why" 
+              behind the techniques.
+            </p>
+          </div>
+          <div class="space-y-4">
+            <h3 class="text-xl font-bold text-white">Data & Automation</h3>
+            <p class="text-neutral-400">
+              From Whoop recovery scores to building my own AI assistant (OpenClaw) to manage my schedule and training. 
+              If it can be measured and automated, I'm interested.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Filosofia de treino - Why I Train at 6:30 AM */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold text-white mb-8 text-center">Filosofia de treino</h2>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 space-y-6">
+            <div class="flex gap-4">
+              <div class="text-3xl">🌅</div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">Why I Train at 6:30 AM</h3>
+                <p class="text-neutral-400">
+                  Mornings are for training before the day steals your energy. 6:30 AM means I'm done lifting or on the mat 
+                  by 8:00, leaving the rest of the day for work, family, and recovery. Training at night has never worked for me — 
+                  I get second winds that mess with sleep, and by 9 PM I'm too tired to roll hard.
+                </p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="text-3xl">🔄</div>
+              <div>
+                <h3 class="text-xl font-bold text-white mb-2">BJJ + Lifting + Running = The Stack</h3>
+                <p class="text-neutral-400">
+                  I don't choose between them — I do all three. BJJ 3-4x/week keeps my grappling sharp and provides cardio. 
+                  Speediance lifting 4x/week builds muscle and strength. Running 2-3x/week maintains cardiovascular base. 
+                  The key is not doing too much of any one: 10 hours total training/week is my ceiling before recovery suffers.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Estatísticas de corrida Section */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <div class="text-center mb-10">
+            <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Miles</span>
+            <h2 class="text-3xl md:text-4xl font-bold text-white">Running Log</h2>
+            <p class="text-neutral-500 mt-3 max-w-xl mx-auto">I didn't run during the 54 lb weight loss. Running came later — and it might be what saved my life.</p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
+              <div class="text-3xl font-black text-white mb-1">266</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Miles Total</div>
+            </div>
+            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
+              <div class="text-3xl font-black text-white mb-1">113</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Runs Logged</div>
+            </div>
+            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
+              <div class="text-3xl font-black text-white mb-1">67h</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Total Time</div>
+            </div>
+            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
+              <div class="text-3xl font-black text-white mb-1">15:12</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Avg Pace /mi</div>
+            </div>
+            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
+              <div class="text-3xl font-black text-white mb-1">5.0</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Longest Run (mi)</div>
+            </div>
+            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
+              <div class="text-3xl font-black text-white mb-1">76.8</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Peak Month (mi)</div>
+            </div>
+          </div>
+          <div class="text-center">
+            <a href="/running/" class="inline-flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors text-sm">
+              See Full Running Dashboard →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* BJJ Journey Section */}
+    <section class="py-16 border-t border-neutral-900 bg-neutral-950">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 text-center">My BJJ Journey</h2>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            As a brown belt BJJ practitioner, the mat is where I reset. Training out of a dedicated BJJ gym means 3-4 classes a week, regular rolling sessions, and a circuit of positional drilling that keeps the game sharp even when the rest of life is busy. Those classes are a ritual — technique, live sparring, and cleaning up mistakes with training partners who expect the work.
+          </p>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            The story that brought me here started in 2023 with a 242→188 lb cut that leaned heavily on jiu-jitsu, WHOOP recovery signals, and calculated caloric control. Since then the focus has flipped: I spent 2024 and 2025 rebuilding strength and muscle, climbing from 205 to 218 lbs while still showing up for the mat and letting BJJ keep my conditioning honest.
+          </p>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            Competition has been a compass. At brown belt I earned third place at a regional tournament with a reverse triangle finish that reminded me grit beats perfection. That night is logged in detail in my <a href="/blog/speediance-customization-why-it-breaks-settings/" class="text-blue-500 hover:text-cyan-400 font-semibold">tournament recap</a>, and the lessons from that scramble still shape how I stack strength work with rolling.
+          </p>
+          <p class="text-neutral-300 text-base md:text-lg mb-4">
+            The mat never stops teaching me. For more context on how I pair this journey with broader BJJ commentary, read the <a href="/blog/mike-israetel-bjj-black-belt-defence/" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science take on belt culture</a> or trace how my OpenClaw BJJ buddy project ties training data into every report (<a href="/blog/openclaw-automation/" class="text-blue-500 hover:text-cyan-400 font-semibold">BJJ automation build log</a>).
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">2023 Fat Loss</span>
+              <p class="text-3xl font-black text-white mt-3">242→188 lbs</p>
+              <p class="text-neutral-400 text-sm mt-2">Lean, disciplined, and jiu-jitsu fueled. WHOOP recovery kept the deficit honest.</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">Current Build</span>
+              <p class="text-3xl font-black text-white mt-3">205→218 lbs</p>
+              <p class="text-neutral-400 text-sm mt-2">Muscle gain phase that still honors BJJ volume — strength training, running, and rolling in harmony.</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">Weekly Mat Time</span>
+              <p class="text-3xl font-black text-white mt-3">3-4 classes</p>
+              <p class="text-neutral-400 text-sm mt-2">Technique rounds, structured drills, and open-mat rolling with partners who keep each session honest.</p>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+              <span class="text-xs uppercase tracking-widest text-blue-500">Competition</span>
+              <p class="text-3xl font-black text-white mt-3">Brown belt</p>
+              <p class="text-neutral-400 text-sm mt-2">Tournaments, ranking matches, and the humility of overtime bouts that remind me to keep evolving.</p>
+            </div>
+          </div>
+
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mt-10">
+            <div class="flex items-center justify-between text-xs text-neutral-500 uppercase tracking-widest">
+              <span>Belt &amp; Mat Timeline</span>
+              <span class="text-blue-500">Still climbing</span>
+            </div>
+            <div class="grid mt-6 gap-4 md:grid-cols-4">
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Foundation</p>
+                <p class="text-base font-semibold text-white mt-3">White belt</p>
+                <p class="text-neutral-400 text-sm mt-1">Installed the basics with hourly guard retention drills at the gym.</p>
+              </div>
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Momentum</p>
+                <p class="text-base font-semibold text-white mt-3">Blue → Purple</p>
+                <p class="text-neutral-400 text-sm mt-1">Built pressure passing and entered the tournament circuit to test what stuck.</p>
+              </div>
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Recognition</p>
+                <p class="text-base font-semibold text-white mt-3">Purple → Brown</p>
+                <p class="text-neutral-400 text-sm mt-1">Earned the brown belt, third-place finish, and a reverse triangle that still lives in the logs.</p>
+              </div>
+              <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Daily grind</p>
+                <p class="text-base font-semibold text-white mt-3">Brown belt now</p>
+                <p class="text-neutral-400 text-sm mt-1">Each week balances technique, conditioning, and recovery — the gym, the mat, and WHOOP all in sync.</p>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-neutral-500 text-sm mt-6 text-center">
+            Dive deeper into the journey with the <a href="/blog/mike-israetel-bjj-black-belt-defence/" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science belt debate</a> or the <a href="/blog/openclaw-automation/" class="text-blue-500 hover:text-cyan-400 font-semibold">OpenClaw BJJ automation build log</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+    {/* Personal Lifestyle Section */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center">Personal Lifestyle</h2>
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
+              <img 
+                src="/images/about/fishing.jpg" 
+                alt="Fishing landscape: rod on river bank, scenic, no people"
+                class="w-full object-contain aspect-video bg-neutral-950"
+                loading="lazy"
+              />
+              <div class="p-4">
+                <p class="text-center text-neutral-300">Fishing landscape: rod on river bank, scenic, no people</p>
+              </div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
+              <img 
+                src="/images/about/selfie_dbz.jpg" 
+                alt="Solo selfie: Dragon Ball Z shirt, smiling, outdoor with painted rabbit sculpture"
+                class="w-full object-contain aspect-video bg-neutral-950"
+                loading="lazy"
+              />
+              <div class="p-4">
+                <p class="text-center text-neutral-300">Solo selfie: Dragon Ball Z shirt, smiling, outdoor with painted rabbit sculpture</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* BJJ Weight Transformation Timeline */}
+    <section class="py-16 border-t border-neutral-900 bg-neutral-950">
+      <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">BJJ + Transformation</p>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">How BJJ Fueled My Transformation</h2>
+          
+          {/* Jornada do peso Stats */}
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+              <div class="text-4xl font-bold text-white mb-2">242 lbs</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Starting Weight (2023)</div>
+              <div class="text-xs text-neutral-600 mt-2">Heavy, out of shape</div>
+            </div>
+            <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6 text-center">
+              <div class="text-4xl font-bold text-blue-500 mb-2">188 lbs</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Lowest Weight (Jan 2024)</div>
+              <div class="text-xs text-neutral-600 mt-2">54 lbs lost — BJJ accelerated fat loss</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+              <div class="text-4xl font-bold text-white mb-2">218 lbs</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Current Weight (2026)</div>
+              <div class="text-xs text-neutral-600 mt-2">+30 lbs muscle — stronger than ever</div>
+            </div>
+          </div>
+
+          {/* Belt Progression Timeline */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mb-10">
+            <h3 class="text-xl font-bold text-white mb-6 text-center">Belt Progression Timeline</h3>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+              {/* White Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-white border-4 border-neutral-300 flex items-center justify-center mb-3">
+                  <span class="text-neutral-800 font-bold text-xs">WHT</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">White Belt</div>
+                  <div class="text-neutral-500 text-sm">Started BJJ</div>
+                  <div class="text-blue-400 text-xs mt-1">2022</div>
+                </div>
+              </div>
+              
+              {/* Arrow */}
+              <div class="hidden md:block text-neutral-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+
+              {/* Blue Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-blue-600 border-4 border-blue-400 flex items-center justify-center mb-3">
+                  <span class="text-white font-bold text-xs">BLU</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">Blue Belt</div>
+                  <div class="text-neutral-500 text-sm">First stripe earned</div>
+                  <div class="text-blue-400 text-xs mt-1">2023</div>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div class="hidden md:block text-neutral-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+
+              {/* Purple Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-purple-600 border-4 border-purple-400 flex items-center justify-center mb-3">
+                  <span class="text-white font-bold text-xs">PRP</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">Purple Belt</div>
+                  <div class="text-neutral-500 text-sm">Competition ready</div>
+                  <div class="text-blue-400 text-xs mt-1">2024</div>
+                </div>
+              </div>
+
+              {/* Arrow */}
+              <div class="hidden md:block text-neutral-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </div>
+
+              {/* Brown Belt */}
+              <div class="flex flex-col items-center flex-1">
+                <div class="w-16 h-16 rounded-full bg-amber-700 border-4 border-amber-500 flex items-center justify-center mb-3">
+                  <span class="text-white font-bold text-xs">BRN</span>
+                </div>
+                <div class="text-center">
+                  <div class="text-white font-bold">Brown Belt</div>
+                  <div class="text-neutral-500 text-sm">Current rank</div>
+                  <div class="text-blue-400 text-xs mt-1">2025-Present</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* BJJ Journey Narrative */}
+          <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
+            <p>
+              <strong class="text-white">BJJ wasn't just part of my transformation — it was the catalyst.</strong> 
+              When I started training jiu-jitsu in 2022, I was 242 pounds and honestly in the worst shape of my life. 
+              But something clicked on the mat. The technical nature of BJJ — solving positional puzzles, 
+              against opponents who don't care about your excuses — changed how I approached fitness entirely.
+            </p>
+            <p>
+              The weight loss happened faster than I expected. Between training 3-4x per week, the consistent 
+              caloric deficit tracked via Cronometer, and the mental clarity that comes from regular mat time, 
+              I dropped from 242 to 188 pounds by January 2024. That's not just cardio — that's the compound 
+              effect of consistency, competition (I competed at both Gi and No-Gi), and having a community 
+              that held me accountable.
+            </p>
+            <p>
+              Now at <strong class="text-white">218 pounds</strong> in 2026, I'm in the muscle-building phase. 
+              The difference this time: I train smarter. WHOOP recovery scores tell me when to push and when to rest. 
+              My BJJ training has evolved from "survive every round" to "dominate positions." I've competed at brown belt 
+              in both Gi and No-Gi, and the drive to keep improving keeps me showing up at 6:30 AM — even when the 
+              bed is warm and the mat is cold.
+            </p>
+            <p>
+              BJJ taught me that progress isn't linear. There will be plateaus, injuries, and rounds where you get submitted 
+              by someone who trained for half as long. That's the point. The mat doesn't care about your excuses. 
+              Neither do I. That's why I document everything — the lifts, the runs, the rolls, the data. 
+              Because what gets measured gets managed.
+            </p>
+          </div>
+
+          {/* BJJ Stats Grid */}
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-10">
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">3-4x</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Sessions/Week</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">Brown</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Current Belt</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">Gi + No-Gi</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Competition</div>
+            </div>
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
+              <div class="text-3xl font-black text-white mb-1">4+</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Stripes Earned</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA */}
+    <section class="py-24">
+       <div class="container mx-auto px-4 text-center">
+         <h2 class="text-3xl font-bold mb-6">See the evidence</h2>
+         <p class="text-neutral-400 mb-8 max-w-2xl mx-auto">
+           I document everything on YouTube. The successes, the failures, and the raw data.
+         </p>
+         <a href="/videos/" class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
+           Browse Video Library
+         </a>
+       </div>
+    </section>
+  </main>
+</Layout>
