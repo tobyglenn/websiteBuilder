@@ -1,0 +1,261 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { currentGearItems, replacedGearItems } from '../../../data/gearItems';
+import speedianceJson from '../../../data/speediance_dashboard_data.json';
+import garminJson from '../../../data/garmin_all_activities.json';
+import whoopJson from '../../../data/whoop_v2_latest.json';
+import csvRawImport from '../../../data/eight_sleep_historical.csv?raw';
+
+let speedianceStats = { totalVolume: 0, totalWorkouts: 0 };
+let garminStats = { totalMiles: '0', totalRuns: 0 };
+let avgRecovery = 0, avgHRV = 0, avgRHR = 0;
+let avgSleepScore = 0, avgSleepHours = 0;
+
+try {
+  const speedianceData: any = speedianceJson;
+  speedianceStats = {
+    totalVolume: speedianceData.totalVolumeLbs || 0,
+    totalWorkouts: speedianceData.totalWorkouts || 0,
+  };
+} catch (e) {}
+
+try {
+  const garminActivities: any[] = (garminJson as any).activities || garminJson || [];
+  const totalMiles = garminActivities.reduce((sum: number, a: any) => sum + (a.distance_miles || a.distance || 0), 0);
+  const totalRuns = garminActivities.filter((a: any) => (a.activityType || a.type || '').toLowerCase().includes('run')).length;
+  garminStats = { totalMiles: totalMiles.toFixed(1), totalRuns };
+} catch (e) {}
+
+try {
+  const whoopData: any = whoopJson;
+  const recoveries: any[] = whoopData?.recoveries || whoopData?.data || [];
+  const scores: number[] = [], hrvs: number[] = [], rhrs: number[] = [];
+  for (const d of recoveries.slice(0, 30)) {
+    const score = d.score?.recovery_score ?? d.recovery_score ?? d.score;
+    const hrv = d.score?.hrv_rmssd_milli ?? d.hrv_rmssd_milli;
+    const rhr = d.score?.resting_heart_rate ?? d.resting_heart_rate;
+    if (typeof score === 'number') scores.push(score > 1 ? score : score * 100);
+    if (typeof hrv === 'number') hrvs.push(hrv);
+    if (typeof rhr === 'number') rhrs.push(rhr);
+  }
+  if (scores.length) avgRecovery = scores.reduce((a, b) => a + b, 0) / scores.length;
+  if (hrvs.length) avgHRV = hrvs.reduce((a, b) => a + b, 0) / hrvs.length;
+  if (rhrs.length) avgRHR = rhrs.reduce((a, b) => a + b, 0) / rhrs.length;
+} catch (e) {}
+
+try {
+  const csvRaw = csvRawImport;
+  let records: any[] = [];
+  try { records = JSON.parse(csvRaw); } catch {
+    const lines = csvRaw.trim().split('\n');
+    const headers = lines[0].split(',').map(h => h.trim());
+    records = lines.slice(1).map(line => {
+      const vals = line.split(',');
+      return Object.fromEntries(headers.map((h, i) => [h, vals[i]?.trim()]));
+    });
+  }
+  const recent = records.slice(0, 30);
+  const scores = recent.map(r => parseFloat(r.sleep_score || r.score || '0')).filter(n => !isNaN(n));
+  const hours = recent.map(r => parseFloat(r.time_slept_hours || r.hours || '0')).filter(n => !isNaN(n));
+  if (scores.length) avgSleepScore = scores.reduce((a, b) => a + b, 0) / scores.length;
+  if (hours.length) avgSleepHours = hours.reduce((a, b) => a + b, 0) / hours.length;
+} catch (e) {}
+
+const gearJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: "Toby का फिटनेस टेक गियर",
+  description: 'गियर की संक्षिप्त सूची, जिसमें विस्तृत रिव्यू के सीधे लिंक हैं।',
+  url: 'https://tobyonfitnesstech.com/gear',
+  itemListElement: currentGearItems.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    item: {
+      '@type': 'Product',
+      name: item.name,
+      category: item.category,
+      description: item.shortDescription,
+      image: `https://tobyonfitnesstech.com${item.image}`,
+      url: `https://tobyonfitnesstech.com/gear/${item.slug}`
+    }
+  }))
+};
+
+const verdictClasses: Record<string, string> = {
+  'Not Recommended': 'bg-red-500/15 text-red-300 border-red-500/25',
+  Good: 'bg-yellow-500/15 text-yellow-300 border-yellow-500/25',
+  Great: 'bg-blue-500/15 text-blue-300 border-blue-500/25',
+  Essential: 'bg-green-500/15 text-green-300 border-green-500/25'
+};
+---
+
+<Layout title="मेरा गियर - Toby on Fitness Tech" description="मेरे इस्तेमाल किए जाने वाले फिटनेस टेक गियर की त्वरित सूची, छोटे सारांश और विस्तृत रिव्यू के लिंक के साथ।" jsonLd={gearJsonLd}>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-32 pb-16 md:pt-40 md:pb-20 border-b border-neutral-900/80">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <p class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-4">गियर सूची</p>
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-5">मैं क्या इस्तेमाल करता हूँ (त्वरित सूची)</h1>
+        <p class="text-lg text-neutral-400 max-w-3xl">
+          यह पेज अब एक तेज़ इंडेक्स है। हर आइटम का यहाँ छोटा सारांश और इमेज है, और फिर वह अपनी पूरी रिव्यू पेज पर ले जाता है जहाँ विस्तृत नोट्स, फायदे, नुकसान और संदर्भ मिलते हैं।
+        </p>
+      </div>
+    </section>
+
+    <section class="py-12 md:py-16 border-b border-neutral-900/80">
+      <div class="container mx-auto px-4 max-w-6xl">
+        <div class="flex items-end justify-between mb-8">
+          <div>
+            <p class="text-xs font-bold tracking-widest text-cyan-400 uppercase mb-2">लाइव आँकड़े</p>
+            <h2 class="text-2xl md:text-3xl font-bold">वास्तविक दुनिया का प्रदर्शन डेटा</h2>
+          </div>
+          <p class="text-xs text-neutral-500 hidden md:block">मौजूदा डेटा सेट से स्वतः गणना की गई</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">🏋️</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">स्ट्रेंथ</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">Speediance Gym Monster 2S</h3>
+            <p class="text-sm text-neutral-400 mb-6">AI-संचालित स्मार्ट होम जिम, इलेक्ट्रॉनिक रेज़िस्टेंस के साथ।</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{new Intl.NumberFormat('hi-IN').format(speedianceStats.totalVolume)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">कुल उठाई गई lbs</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{speedianceStats.totalWorkouts}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">वर्कआउट्स</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">⌚</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">मल्टीस्पोर्ट</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">Garmin Fenix 7</h3>
+            <p class="text-sm text-neutral-400 mb-6">दौड़ और ट्रेनिंग के लिए प्रीमियम मल्टीस्पोर्ट GPS वॉच।</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{garminStats.totalMiles}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">कुल मील</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{garminStats.totalRuns}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">रन</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">💓</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">रिकवरी</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">WHOOP 4.0</h3>
+            <p class="text-sm text-neutral-400 mb-6">रिकवरी ट्रैकिंग के साथ निरंतर हेल्थ मॉनिटरिंग।</p>
+            <div class="grid grid-cols-3 gap-3">
+              <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgRecovery.toFixed(0)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">औसत रिकवरी</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgHRV.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">HRV (ms)</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgRHR.toFixed(0)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">RHR (bpm)</div>
+              </div>
+            </div>
+            <p class="text-xs text-neutral-500 mt-3">30-दिन का औसत</p>
+          </div>
+
+          <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
+            <div class="flex items-start justify-between mb-4">
+              <div class="text-4xl">😴</div>
+              <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">नींद</span>
+            </div>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">8Sleep Pod 4</h3>
+            <p class="text-sm text-neutral-400 mb-6">तापमान नियंत्रण और स्लीप ट्रैकिंग वाला स्मार्ट मैट्रेस।</p>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{avgSleepScore.toFixed(0)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">औसत स्लीप स्कोर</div>
+              </div>
+              <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{avgSleepHours.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">औसत घंटे</div>
+              </div>
+            </div>
+            <p class="text-xs text-neutral-500 mt-3">30-दिन का औसत</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="text-2xl font-bold mb-2">मौजूदा गियर</h2>
+        <p class="text-sm text-neutral-500 mb-8">मेरे वर्कफ़्लो में रोज़ इस्तेमाल होने वाला गियर और सक्रिय टूल्स।</p>
+
+        <div class="space-y-4">
+          {currentGearItems.map((item) => (
+            <a
+              href={`/gear/${item.slug}/`}
+              class="group block rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-blue-500/40 hover:bg-neutral-900 transition-all"
+            >
+              <article class="p-4 md:p-5 grid gap-4 md:grid-cols-[180px_1fr_auto] md:items-center">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  class="w-full h-32 object-cover rounded-lg border border-neutral-800"
+                  loading="lazy"
+                />
+
+                <div>
+                  <div class="flex flex-wrap items-center gap-2 mb-2">
+                    <span class="text-xs text-neutral-400">{item.categoryEmoji} {item.category}</span>
+                    <span class={`text-xs px-2 py-0.5 rounded-full border ${verdictClasses[item.verdict]}`}>{item.verdict === 'Not Recommended' ? 'अनुशंसित नहीं' : item.verdict === 'Good' ? 'अच्छा' : item.verdict === 'Great' ? 'बेहतरीन' : 'ज़रूरी'}</span>
+                    <span class="text-xs text-neutral-500">{item.location}</span>
+                  </div>
+                  <h3 class="text-xl font-semibold group-hover:text-blue-300 transition-colors">{item.name}</h3>
+                  <p class="text-sm text-neutral-400 mt-2">{item.shortDescription}</p>
+                </div>
+
+                <div class="text-sm font-semibold text-blue-300 group-hover:text-blue-200">पूरी जानकारी →</div>
+              </article>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <h2 class="text-2xl font-bold mb-2">मैंने क्या बदला</h2>
+        <p class="text-sm text-neutral-500 mb-8">पहले के डिवाइस और वे मेरे सेटअप से क्यों बाहर हो गए।</p>
+
+        <div class="grid gap-4 md:grid-cols-2">
+          {replacedGearItems.map((item) => (
+            <a
+              href={`/gear/${item.slug}/`}
+              class="group rounded-2xl border border-neutral-800 bg-neutral-900/50 hover:border-red-500/35 transition-colors p-4"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class="text-xs text-neutral-400">{item.categoryEmoji} {item.category}</span>
+                <span class={`text-xs px-2 py-0.5 rounded-full border ${verdictClasses[item.verdict]}`}>{item.verdict === 'Not Recommended' ? 'अनुशंसित नहीं' : item.verdict === 'Good' ? 'अच्छा' : item.verdict === 'Great' ? 'बेहतरीन' : 'ज़रूरी'}</span>
+              </div>
+              <h3 class="font-semibold text-lg group-hover:text-red-300 transition-colors">{item.name}</h3>
+              <p class="text-sm text-neutral-400 mt-2">{item.shortDescription}</p>
+              <p class="text-xs text-neutral-500 mt-3">पूरा संदर्भ देखें →</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
