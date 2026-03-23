@@ -1,0 +1,198 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { getExercises } from '../../../data/exercises.js';
+
+const { allExercises, grouped, totalCount } = getExercises();
+
+const pageTitle = "एक्सरसाइज़ लाइब्रेरी";
+const pageDescription = "Speediance पर किए गए सभी अभ्यासों को PR वजन के साथ देखें। मसल ग्रुप के अनुसार फ़िल्टर करें: बैक और लैट्स, चेस्ट और ट्राइसेप्स, लेग्स और ग्लूट्स, कोर और आर्म्स।";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Speediance पर सबसे भारी एक्सरसाइज़ कौन-सी है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "बारबेल डेडलिफ्ट का PR सबसे अधिक 388 lbs है, इसके बाद बारबेल हिप थ्रस्ट 240 lbs और बारबेल बेंच प्रेस 232 lbs है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "एक्सरसाइज़ लाइब्रेरी में कितनी यूनिक एक्सरसाइज़ हैं?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `लाइब्रेरी में सभी Speediance वर्कआउट प्रोग्रामों में कुल ${totalCount} यूनिक एक्सरसाइज़ हैं।`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "मैं Speediance के साथ कौन-कौन से मसल ग्रुप ट्रेन कर सकता हूँ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Speediance आपको सभी प्रमुख मसल ग्रुप ट्रेन करने देता है: बैक और लैट्स, चेस्ट और ट्राइसेप्स, लेग्स और ग्लूट्स, और कोर और आर्म्स (जिसमें बाइसेप्स, शोल्डर्स और एब्स शामिल हैं)।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Speediance पर बड़ा चेस्ट बनाने के लिए सबसे अच्छी एक्सरसाइज़ कौन-सी है?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "बारबेल बेंच प्रेस का चेस्ट PR सबसे अधिक 232 lbs है। दूसरी प्रभावी चेस्ट एक्सरसाइज़ में इंक्लाइन बारबेल बेंच प्रेस (185 lbs PR) और ड्यूल-हैंडल बेंच प्रेस (90 lbs PR) शामिल हैं।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "क्या मैं Speediance पर अपने पर्सनल रिकॉर्ड ट्रैक कर सकता हूँ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "हाँ! Speediance हर एक्सरसाइज़ के लिए आपका 1-rep max (1RM) अपने-आप ट्रैक करता है। यह पेज आपके सभी PR दिखाता है, 388 lb डेडलिफ्ट से लेकर छोटे isolation मूवमेंट्स तक।"
+      }
+    }
+  ]
+};
+
+const muscleGroups = ['सभी', 'बैक और लैट्स', 'चेस्ट और ट्राइसेप्स', 'लेग्स और ग्लूट्स', 'कोर और आर्म्स'];
+---
+
+<Layout 
+  title={`${pageTitle} | Toby on Fitness Tech`}
+  description={pageDescription}
+  jsonLd={faqSchema}
+>
+  <section class="py-20 bg-neutral-950 border-b border-neutral-800">
+    <div class="container mx-auto px-4 text-center">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">एक्सरसाइज़ लाइब्रेरी</h1>
+      <p class="text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
+        Speediance पर किए गए सभी {totalCount} अभ्यासों को पर्सनल रिकॉर्ड वजन के साथ देखें।
+      </p>
+    </div>
+  </section>
+
+  <section class="py-8 bg-neutral-900 border-b border-neutral-800 sticky top-16 z-40">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-wrap justify-center gap-3">
+        {muscleGroups.map((group) => (
+          <button
+            data-filter={group}
+            class={`filter-btn px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+              group === 'सभी' 
+                ? 'bg-blue-600 text-white' 
+                : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white border border-neutral-700'
+            }`}
+          >
+            {group}
+          </button>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-neutral-950">
+    <div class="container mx-auto px-4">
+      <div id="exerciseGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        {allExercises.map((exercise) => (
+          <div 
+            data-group={exercise.muscleGroup}
+            class="exercise-card bg-neutral-900 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all hover:shadow-lg hover:shadow-blue-500/10"
+          >
+            <h3 class="text-white font-semibold text-lg mb-3 line-clamp-2">{exercise.name}</h3>
+            
+            <div class="mb-3">
+              <span class={`inline-block px-3 py-1 rounded-full text-xs font-medium ${
+                exercise.muscleGroup === 'Back & Lats' ? 'bg-blue-500/20 text-blue-400' :
+                exercise.muscleGroup === 'Chest & Triceps' ? 'bg-red-500/20 text-red-400' :
+                exercise.muscleGroup === 'Legs & Glutes' ? 'bg-green-500/20 text-green-400' :
+                'bg-purple-500/20 text-purple-400'
+              }`}>
+                {exercise.muscleGroup === 'Back & Lats' ? 'बैक और लैट्स' :
+                 exercise.muscleGroup === 'Chest & Triceps' ? 'चेस्ट और ट्राइसेप्स' :
+                 exercise.muscleGroup === 'Legs & Glutes' ? 'लेग्स और ग्लूट्स' :
+                 'कोर और आर्म्स'}
+              </span>
+            </div>
+            
+            <div class="flex items-baseline gap-2">
+              <span class="text-2xl font-bold text-white">{exercise.prWeight || '—'}</span>
+              <span class="text-sm text-neutral-400">lbs PR</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      
+      <div id="noResults" class="hidden text-center py-16">
+        <div class="text-6xl mb-4">🏋️</div>
+        <p class="text-xl text-neutral-400">इस श्रेणी के लिए कोई एक्सरसाइज़ नहीं मिली।</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-12 bg-neutral-900 border-t border-neutral-800">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-1">{grouped['Back & Lats']?.length || 0}</div>
+          <div class="text-sm text-neutral-400">बैक और लैट्स</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-red-400 mb-1">{grouped['Chest & Triceps']?.length || 0}</div>
+          <div class="text-sm text-neutral-400">चेस्ट और ट्राइसेप्स</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-green-400 mb-1">{grouped['Legs & Glutes']?.length || 0}</div>
+          <div class="text-sm text-neutral-400">लेग्स और ग्लूट्स</div>
+        </div>
+        <div class="text-center">
+          <div class="text-3xl md:text-4xl font-bold text-purple-400 mb-1">{grouped['Core & Arms']?.length || 0}</div>
+          <div class="text-sm text-neutral-400">कोर और आर्म्स</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const cards = document.querySelectorAll('.exercise-card');
+    const noResults = document.getElementById('noResults');
+    
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const filter = btn.getAttribute('data-filter');
+        
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-blue-600', 'text-white');
+          b.classList.add('bg-neutral-800', 'text-neutral-300', 'border', 'border-neutral-700');
+        });
+        btn.classList.remove('bg-neutral-800', 'text-neutral-300', 'border', 'border-neutral-700');
+        btn.classList.add('bg-blue-600', 'text-white');
+        
+        let visibleCount = 0;
+        cards.forEach(card => {
+          const group = card.getAttribute('data-group');
+          const normalizedGroup = group === 'Back & Lats' ? 'बैक और लैट्स' :
+            group === 'Chest & Triceps' ? 'चेस्ट और ट्राइसेप्स' :
+            group === 'Legs & Glutes' ? 'लेग्स और ग्लूट्स' :
+            group === 'Core & Arms' ? 'कोर और आर्म्स' : group;
+          if (filter === 'सभी' || normalizedGroup === filter) {
+            (card as HTMLElement).style.display = 'block';
+            visibleCount++;
+          } else {
+            (card as HTMLElement).style.display = 'none';
+          }
+        });
+        
+        if (noResults) {
+          if (visibleCount === 0) {
+            noResults.classList.remove('hidden');
+          } else {
+            noResults.classList.add('hidden');
+          }
+        }
+      });
+    });
+  });
+</script>
