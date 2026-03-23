@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {
+  NUTRITION_STATS,
+  MONTHLY_TRENDS,
+  RECENT_RECORDS,
+  LAST_SYNCED,
+  TOTAL_DAYS_TRACKED,
+} from '../data/nutrition.js';
+
+// SVG bar chart dimensions
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = { top: 10, right: 10, bottom: 40, left: 40 };
+const innerWidth = chartWidth - chartPadding.left - chartPadding.right;
+const innerHeight = chartHeight - chartPadding.top - chartPadding.bottom;
+
+const maxCalories = Math.max(...MONTHLY_TRENDS.map(d => d.avgCalories), 1);
+const barWidth = MONTHLY_TRENDS.length > 0 ? Math.floor(innerWidth / MONTHLY_TRENDS.length) - 4 : 0;
+
+function barX(i) {
+  return chartPadding.left + i * (innerWidth / MONTHLY_TRENDS.length) + 2;
+}
+function barHeight(val) {
+  return Math.round((val / maxCalories) * innerHeight);
+}
+function barY(val) {
+  return chartPadding.top + innerHeight - barHeight(val);
+}
+function monthLabel(m) {
+  const [year, month] = m.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+  return date.toLocaleString('default', { month: 'short', year: '2-digit' });
+}
+
+// FAQPage JSON-LD
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Was ist Cronometer und warum sollte man es für die Ernährungserfassung nutzen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cronometer ist eine App zur Ernährungserfassung, die detaillierte Mikronährstoffdaten über Makronährstoffe hinaus liefert. Sie ist bei Fitnessbegeisterten wegen ihrer Genauigkeit und umfassenden Lebensmitteldatenbank beliebt."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie viel Protein sollte ich pro Tag essen, um Muskeln aufzubauen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die meisten Studien empfehlen 0,7–1 g Protein pro Pfund Körpergewicht (1,6–2,2 g pro kg) für Muskelwachstum. Das Tracking mit Tools wie Cronometer hilft dabei, diese Ziele konstant zu erreichen."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie erfasse ich meine Wasseraufnahme genau?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Protokolliere alle Getränke, einschließlich Wasser, Kaffee und den Wassergehalt von Lebensmitteln, in Cronometer. Ziele auf mindestens 2–3 Liter täglich, mehr bei hartem Training oder heißen Bedingungen."
+      }
+    }
+  ]
+};
+---
+
+<Layout title="Ernährungsstatistiken | TobyOnFitnessTech" description="Echte Ernährungsdaten aus Cronometer — Kalorien, Protein, Kohlenhydrate, Fett und Hydration im Zeitverlauf.">
+  <Header client:load />
+
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <!-- Hero -->
+    <section id="hero" class="pt-24 pb-12 px-4">
+      <div class="max-w-5xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="text-blue-400 text-sm font-medium">Cronometer-Daten</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Ernährungsstatistiken</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+          Ich tracke, was ich esse, um meine Leistung zu unterstützen
+        </p>
+        {LAST_SYNCED && (
+          <p class="text-neutral-600 text-sm mt-3">Zuletzt synchronisiert: {LAST_SYNCED}</p>
+        )}
+      </div>
+    </section>
+
+    <!-- Stat Cards -->
+    <section id="nutrition-stats" class="px-4 pb-12">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">Durchschn. Kalorien</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgCalories.toLocaleString()}</p>
+            <p class="text-neutral-500 text-xs mt-1">kcal / Tag</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">Durchschn. Protein</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgProtein}</p>
+            <p class="text-neutral-500 text-xs mt-1">Gramm / Tag</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">Durchschn. Kohlenhydrate</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgCarbs}</p>
+            <p class="text-neutral-500 text-xs mt-1">Gramm / Tag</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">Durchschn. Fett</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgFat}</p>
+            <p class="text-neutral-500 text-xs mt-1">Gramm / Tag</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">Durchschn. Wasser</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgWater}</p>
+            <p class="text-neutral-500 text-xs mt-1">Liter / Tag</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">Erfasste Tage</p>
+            <p class="text-3xl font-bold text-blue-400">{TOTAL_DAYS_TRACKED}</p>
+            <p class="text-neutral-500 text-xs mt-1">Tage insgesamt</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Monthly Calorie Trend -->
+    {MONTHLY_TRENDS.length > 0 && (
+      <section id="monthly-avg-calories" class="px-4 pb-12">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-xl font-semibold mb-4">Monatlicher Kaloriendurchschnitt</h2>
+          <div class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 overflow-x-auto">
+            <svg
+              viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+              class="w-full"
+              style={`min-width: ${Math.max(300, MONTHLY_TRENDS.length * 60)}px`}
+            >
+              {/* Y-axis gridlines */}
+              {[0, 0.25, 0.5, 0.75, 1].map((pct) => {
+                const y = chartPadding.top + innerHeight - pct * innerHeight;
+                return (
+                  <g>
+                    <line
+                      x1={chartPadding.left}
+                      y1={y}
+                      x2={chartPadding.left + innerWidth}
+                      y2={y}
+                      stroke="#404040"
+                      stroke-width="1"
+                    />
+                    <text
+                      x={chartPadding.left - 6}
+                      y={y + 4}
+                      fill="#737373"
+                      font-size="10"
+                      text-anchor="end"
+                    >
+                      {Math.round(maxCalories * pct)}
+                    </text>
+                  </g>
+                );
+              })}
+              {/* Bars */}
+              {MONTHLY_TRENDS.map((d, i) => (
+                <g>
+                  <rect
+                    x={barX(i)}
+                    y={barY(d.avgCalories)}
+                    width={barWidth}
+                    height={barHeight(d.avgCalories)}
+                    fill="#3B82F6"
+                    rx="2"
+                  />
+                  <text
+                    x={barX(i) + barWidth / 2}
+                    y={chartPadding.top + innerHeight + 16}
+                    fill="#737373"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    {monthLabel(d.month)}
+                  </text>
+                  <text
+                    x={barX(i) + barWidth / 2}
+                    y={barY(d.avgCalories) - 4}
+                    fill="#93C5FD"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    {d.avgCalories.toLocaleString()}
+                  </text>
+                </g>
+              ))}
+            </svg>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Recent Entries Table -->
+    {RECENT_RECORDS.length > 0 && (
+      <section id="recent-entries" class="px-4 pb-16">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-xl font-semibold mb-4">Letzte Einträge</h2>
+          <div class="bg-neutral-900 rounded-xl border border-neutral-800 overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-neutral-800">
+                  <th class="text-left text-neutral-400 font-medium px-4 py-3">Datum</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">Kalorien</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">Protein</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">Kohlenhydrate</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">Fett</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">Wasser</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RECENT_RECORDS.map((r, i) => (
+                  <tr class={i % 2 === 0 ? 'bg-neutral-900' : 'bg-neutral-800/40'}>
+                    <td class="px-4 py-2.5 text-neutral-300">{r.date}</td>
+                    {r.tracked ? (
+                      <>
+                        <td class="px-4 py-2.5 text-right text-blue-400 font-medium">{Math.round(r.calories).toLocaleString()}</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.protein)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.carbs)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.fat)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-500">
+                          {r.water > 0 ? `${(r.water / 1000).toFixed(2)}L` : '—'}
+                        </td>
+                      </>
+                    ) : (
+                      <td colspan="5" class="px-4 py-2.5 text-center text-neutral-600 italic text-xs">Nicht erfasst</td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <Footer client:load />
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

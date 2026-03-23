@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import {
+  NUTRITION_STATS,
+  MONTHLY_TRENDS,
+  RECENT_RECORDS,
+  LAST_SYNCED,
+  TOTAL_DAYS_TRACKED,
+} from '../data/nutrition.js';
+
+// SVG bar chart dimensions
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = { top: 10, right: 10, bottom: 40, left: 40 };
+const innerWidth = chartWidth - chartPadding.left - chartPadding.right;
+const innerHeight = chartHeight - chartPadding.top - chartPadding.bottom;
+
+const maxCalories = Math.max(...MONTHLY_TRENDS.map(d => d.avgCalories), 1);
+const barWidth = MONTHLY_TRENDS.length > 0 ? Math.floor(innerWidth / MONTHLY_TRENDS.length) - 4 : 0;
+
+function barX(i) {
+  return chartPadding.left + i * (innerWidth / MONTHLY_TRENDS.length) + 2;
+}
+function barHeight(val) {
+  return Math.round((val / maxCalories) * innerHeight);
+}
+function barY(val) {
+  return chartPadding.top + innerHeight - barHeight(val);
+}
+function monthLabel(m) {
+  const [year, month] = m.split('-');
+  const date = new Date(parseInt(year), parseInt(month) - 1, 1);
+  return date.toLocaleString('default', { month: 'short', year: '2-digit' });
+}
+
+// FAQPage JSON-LD
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Cronometer क्या है और पोषण ट्रैकिंग के लिए इसका उपयोग क्यों करें?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cronometer एक पोषण ट्रैकिंग ऐप है जो केवल मैक्रोज़ से आगे बढ़कर सूक्ष्म पोषक तत्वों का विस्तृत डेटा देता है। इसकी सटीकता और व्यापक खाद्य डेटाबेस के कारण यह फिटनेस पसंद करने वालों में लोकप्रिय है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "मांसपेशियाँ बनाने के लिए मुझे प्रतिदिन कितना प्रोटीन खाना चाहिए?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "अधिकांश शोध मांसपेशियों की वृद्धि के लिए शरीर के प्रति पाउंड वजन पर 0.7–1 ग्राम प्रोटीन (या प्रति किलोग्राम 1.6–2.2 ग्राम) सुझाते हैं। Cronometer जैसे टूल्स के साथ ट्रैकिंग करने से इन लक्ष्यों को लगातार पूरा करना आसान होता है।"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "मैं पानी के सेवन को सही तरीके से कैसे ट्रैक करूँ?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cronometer में पानी, कॉफी और भोजन में मौजूद पानी सहित सभी पेयों को लॉग करें। प्रतिदिन कम से कम 2–3 लीटर का लक्ष्य रखें, और अगर आप कड़ी ट्रेनिंग कर रहे हैं या मौसम गर्म है तो इससे अधिक लें।"
+      }
+    }
+  ]
+};
+---
+
+<Layout title="पोषण आँकड़े | TobyOnFitnessTech" description="Cronometer से वास्तविक फूड ट्रैकिंग डेटा — समय के साथ कैलोरी, प्रोटीन, कार्ब्स, फैट और हाइड्रेशन।">
+  <Header client:load />
+
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <!-- Hero -->
+    <section id="hero" class="pt-24 pb-12 px-4">
+      <div class="max-w-5xl mx-auto text-center">
+        <div class="inline-flex items-center gap-2 bg-blue-500/10 border border-blue-500/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="text-blue-400 text-sm font-medium">Cronometer डेटा</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">पोषण आँकड़े</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl mx-auto">
+          अपने प्रदर्शन को ऊर्जा देने के लिए मैं क्या खाता हूँ, उसका ट्रैक रखता हूँ
+        </p>
+        {LAST_SYNCED && (
+          <p class="text-neutral-600 text-sm mt-3">आखिरी सिंक: {LAST_SYNCED}</p>
+        )}
+      </div>
+    </section>
+
+    <!-- Stat Cards -->
+    <section id="nutrition-stats" class="px-4 pb-12">
+      <div class="max-w-5xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">औसत कैलोरी</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgCalories.toLocaleString()}</p>
+            <p class="text-neutral-500 text-xs mt-1">kcal / दिन</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">औसत प्रोटीन</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgProtein}</p>
+            <p class="text-neutral-500 text-xs mt-1">ग्राम / दिन</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">औसत कार्ब्स</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgCarbs}</p>
+            <p class="text-neutral-500 text-xs mt-1">ग्राम / दिन</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">औसत फैट</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgFat}</p>
+            <p class="text-neutral-500 text-xs mt-1">ग्राम / दिन</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">औसत पानी</p>
+            <p class="text-3xl font-bold text-blue-400">{NUTRITION_STATS.avgWater}</p>
+            <p class="text-neutral-500 text-xs mt-1">लीटर / दिन</p>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <p class="text-neutral-400 text-sm mb-1">ट्रैक किए गए दिन</p>
+            <p class="text-3xl font-bold text-blue-400">{TOTAL_DAYS_TRACKED}</p>
+            <p class="text-neutral-500 text-xs mt-1">कुल दिन</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Monthly Calorie Trend -->
+    {MONTHLY_TRENDS.length > 0 && (
+      <section id="monthly-avg-calories" class="px-4 pb-12">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-xl font-semibold mb-4">मासिक औसत कैलोरी</h2>
+          <div class="bg-neutral-900 rounded-xl border border-neutral-800 p-6 overflow-x-auto">
+            <svg
+              viewBox={`0 0 ${chartWidth} ${chartHeight}`}
+              class="w-full"
+              style={`min-width: ${Math.max(300, MONTHLY_TRENDS.length * 60)}px`}
+            >
+              {/* Y-axis gridlines */}
+              {[0, 0.25, 0.5, 0.75, 1].map((pct) => {
+                const y = chartPadding.top + innerHeight - pct * innerHeight;
+                return (
+                  <g>
+                    <line
+                      x1={chartPadding.left}
+                      y1={y}
+                      x2={chartPadding.left + innerWidth}
+                      y2={y}
+                      stroke="#404040"
+                      stroke-width="1"
+                    />
+                    <text
+                      x={chartPadding.left - 6}
+                      y={y + 4}
+                      fill="#737373"
+                      font-size="10"
+                      text-anchor="end"
+                    >
+                      {Math.round(maxCalories * pct)}
+                    </text>
+                  </g>
+                );
+              })}
+              {/* Bars */}
+              {MONTHLY_TRENDS.map((d, i) => (
+                <g>
+                  <rect
+                    x={barX(i)}
+                    y={barY(d.avgCalories)}
+                    width={barWidth}
+                    height={barHeight(d.avgCalories)}
+                    fill="#3B82F6"
+                    rx="2"
+                  />
+                  <text
+                    x={barX(i) + barWidth / 2}
+                    y={chartPadding.top + innerHeight + 16}
+                    fill="#737373"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    {monthLabel(d.month)}
+                  </text>
+                  <text
+                    x={barX(i) + barWidth / 2}
+                    y={barY(d.avgCalories) - 4}
+                    fill="#93C5FD"
+                    font-size="9"
+                    text-anchor="middle"
+                  >
+                    {d.avgCalories.toLocaleString()}
+                  </text>
+                </g>
+              ))}
+            </svg>
+          </div>
+        </div>
+      </section>
+    )}
+
+    <!-- Recent Entries Table -->
+    {RECENT_RECORDS.length > 0 && (
+      <section id="recent-entries" class="px-4 pb-16">
+        <div class="max-w-5xl mx-auto">
+          <h2 class="text-xl font-semibold mb-4">हाल की प्रविष्टियाँ</h2>
+          <div class="bg-neutral-900 rounded-xl border border-neutral-800 overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead>
+                <tr class="border-b border-neutral-800">
+                  <th class="text-left text-neutral-400 font-medium px-4 py-3">तारीख</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">कैलोरी</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">प्रोटीन</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">कार्ब्स</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">फैट</th>
+                  <th class="text-right text-neutral-400 font-medium px-4 py-3">पानी</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RECENT_RECORDS.map((r, i) => (
+                  <tr class={i % 2 === 0 ? 'bg-neutral-900' : 'bg-neutral-800/40'}>
+                    <td class="px-4 py-2.5 text-neutral-300">{r.date}</td>
+                    {r.tracked ? (
+                      <>
+                        <td class="px-4 py-2.5 text-right text-blue-400 font-medium">{Math.round(r.calories).toLocaleString()}</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.protein)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.carbs)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-300">{Math.round(r.fat)}g</td>
+                        <td class="px-4 py-2.5 text-right text-neutral-500">
+                          {r.water > 0 ? `${(r.water / 1000).toFixed(2)}L` : '—'}
+                        </td>
+                      </>
+                    ) : (
+                      <td colspan="5" class="px-4 py-2.5 text-center text-neutral-600 italic text-xs">ट्रैक नहीं किया गया</td>
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <Footer client:load />
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
