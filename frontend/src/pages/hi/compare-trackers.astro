@@ -1,0 +1,629 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const garminRuns = 111;
+const garminMiles = 265.1;
+const garminAvgPace = 15.21;
+
+const whoopAvgRecovery = 54.9;
+const whoopAvgHRV = 36.6;
+const whoopAvgRHR = 66.6;
+
+const jsonLdProducts = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "WHOOP 4.0",
+    "description": "24/7 फिटनेस और हेल्थ ट्रैकर, जिसमें लगातार हार्ट रेट मॉनिटरिंग, HRV, स्लीप ट्रैकिंग और रिकवरी इनसाइट्स मिलते हैं।",
+    "brand": { "@type": "Brand", "name": "WHOOP" },
+    "offers": {
+      "@type": "Offer",
+      "price": "239",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.2",
+      "reviewCount": "15000"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Garmin Fenix 7",
+    "description": "प्रीमियम मल्टीस्पोर्ट GPS वॉच, जिसमें एडवांस्ड ट्रेनिंग फीचर्स, मैप्स और 24/7 हेल्थ मॉनिटरिंग है।",
+    "brand": { "@type": "Brand", "name": "Garmin" },
+    "offers": {
+      "@type": "Offer",
+      "price": "599",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.7",
+      "reviewCount": "8000"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Apple Watch Ultra 2",
+    "description": "प्रीमियम GPS + Cellular स्मार्टवॉच, जिसमें एडवांस्ड हेल्थ सेंसर, डुअल स्पीकर्स और प्रिसीजन GPS है।",
+    "brand": { "@type": "Brand", "name": "Apple" },
+    "offers": {
+      "@type": "Offer",
+      "price": "799",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "12000"
+    }
+  }
+];
+
+const comparisonFeatures = [
+  { feature: "कीमत", whoop: "$239", garmin: "$599", apple: "$799" },
+  { feature: "सब्सक्रिप्शन", whoop: "$239/वर्ष (वैकल्पिक)", garmin: "कोई नहीं", apple: "कोई नहीं" },
+  { feature: "बैटरी लाइफ", whoop: "5 दिन", garmin: "18-22 दिन", apple: "36 घंटे" },
+  { feature: "डिस्प्ले", whoop: "कोई नहीं (सिर्फ LED)", garmin: "1.3\" रंगीन MIP", apple: "1.9\" OLED" },
+  { feature: "हार्ट रेट", whoop: "✓ लगातार", garmin: "✓ लगातार", apple: "✓ लगातार" },
+  { feature: "HRV", whoop: "✓ हाँ (RMSSD)", garmin: "✓ हाँ", apple: "✓ हाँ" },
+  { feature: "GPS", whoop: "✗ नहीं (फोन ज़रूरी)", garmin: "✓ ड्यूल-बैंड", apple: "✓ ड्यूल-बैंड" },
+  { feature: "SpO2", whoop: "✓ हाँ", garmin: "✓ हाँ", apple: "✓ हाँ" },
+  { feature: "स्किन टेम्प", whoop: "✓ हाँ", garmin: "✓ हाँ", apple: "✓ हाँ" },
+  { feature: "स्लीप ट्रैकिंग", whoop: "बेहतरीन", garmin: "अच्छी", apple: "अच्छी" },
+  { feature: "रिकवरी ट्रैकिंग", whoop: "बेहतरीन (रिकवरी स्कोर)", garmin: "अच्छी (HRV/HR)", apple: "बेसिक (सिर्फ HR)" },
+  { feature: "एक्टिविटी ट्रैकिंग", whoop: "वर्कआउट डिटेक्शन", garmin: "100+ खेल", apple: "100+ खेल" },
+  { feature: "वर्कआउट ऐप", whoop: "बेसिक", garmin: "बेहतरीन (Connect)", apple: "बेहतरीन (Fitness+)" },
+  { feature: "स्मार्टफोन ज़रूरी", whoop: "हाँ (सेटअप/सिंक)", garmin: "नहीं (स्टैंडअलोन)", apple: "हाँ (iPhone)" },
+  { feature: "वॉटर रेसिस्टेंस", whoop: "IP68 (शावर ठीक है)", garmin: "10 ATM (100m)", apple: "10 ATM (100m)" },
+];
+
+const whoopPros = [
+  "लगातार HRV और रिकवरी स्कोरिंग",
+  "अपनी श्रेणी में सबसे बेहतरीन स्लीप ट्रैकिंग",
+  "सटल बैंड डिज़ाइन (स्क्रीन का कोई ध्यान भंग नहीं)",
+  "स्ट्रेन बनाम रिकवरी समझने के लिए शानदार",
+  "पहले साल के बाद वार्षिक सब्सक्रिप्शन ($239/वर्ष) वैकल्पिक है",
+  "हल्का (24g) — भूल जाएंगे कि आपने पहना हुआ है"
+];
+
+const whoopCons = [
+  "इन-बिल्ट GPS नहीं — दूरी ट्रैक करने के लिए फोन चाहिए",
+  "डिस्प्ले नहीं — जल्दी आँकड़े देखने के लिए फोन देखना पड़ेगा",
+  "Garmin/Apple की तुलना में ऐप कम सहज",
+  "अगर रिकवरी डेटा चाहिए तो पहले साल के बाद सब्सक्रिप्शन ज़रूरी",
+  "Garmin की तुलना में सीमित स्पोर्ट्स मोड"
+];
+
+const garminPros = [
+  "अपनी श्रेणी में सबसे सटीक GPS",
+  "कमाल की बैटरी लाइफ (दिन नहीं, हफ्ते)",
+  "बहुत बड़ा स्पोर्ट्स डेटाबेस (100+ गतिविधियाँ)",
+  "स्टैंडअलोन — ट्रैकिंग के लिए फोन की ज़रूरत नहीं",
+  "विस्तृत एनालिटिक्स के साथ बेहतरीन Connect ऐप",
+  "टोपो मैप्स और नेविगेशन फीचर्स",
+  "कोई सब्सक्रिप्शन नहीं"
+];
+
+const garminCons = [
+  "शुरुआती कीमत ज़्यादा ($599+)",
+  "बड़ा केस — कम 'wearable' जैसा एहसास",
+  "इतने सारे फीचर्स के कारण सीखने में ज़्यादा समय",
+  "Apple की तुलना में UI/UX थोड़ा पुराना लगता है",
+  "स्लीप ट्रैकिंग WHOOP जितनी डिटेल्ड नहीं"
+];
+
+const applePros = [
+  "इकोसिस्टम के साथ सबसे बेहतरीन कुल इंटीग्रेशन",
+  "शानदार OLED डिस्प्ले",
+  "फोन से स्वतंत्रता के लिए cellular विकल्प",
+  "FDA क्लियरेंस के साथ शानदार हेल्थ फीचर्स",
+  "रोज़मर्रा के इस्तेमाल के लिए बेहतरीन (सिर्फ फिटनेस नहीं)",
+  "Apple Fitness+ इंटीग्रेशन",
+  "Siri इंटीग्रेशन"
+];
+
+const appleCons = [
+  "बैटरी लाइफ सीमित है (36 घंटे)",
+  "रोज़ चार्ज करना पड़ता है",
+  "महंगा ($799+)",
+  "सिर्फ iPhone के साथ काम करता है",
+  "रिकवरी फीचर्स WHOOP जितने एडवांस्ड नहीं",
+  "कई दिनों वाली गतिविधियों के लिए आदर्श नहीं"
+];
+---
+
+<Layout
+  title="WHOOP vs Garmin vs Apple Watch | Toby की फिटनेस ट्रैकर तुलना"
+  description="WHOOP, Garmin Fenix और Apple Watch की ईमानदार तुलना, असली डेटा के आधार पर: Garmin पर 111 रन, WHOOP के साथ 1500+ दिन।"
+  breadcrumbs={[{ name: "होम", url: "/" }, { name: "तुलना", url: "/compare" }]}
+  jsonLd={jsonLdProducts}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* Hero */}
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">फिटनेस ट्रैकर तुलना · असली डेटा</p>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            WHOOP vs Garmin<br />
+            <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
+              vs Apple Watch
+            </span>
+          </h1>
+          <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            मैंने Garmin के साथ <strong class="text-white">111 रन</strong> ट्रैक किए हैं और WHOOP को <strong class="text-blue-400">1500+ दिनों</strong> तक पहना है। यह मेरी ईमानदार तीन-तरफ़ा तुलना है — कोई affiliate bias नहीं, सिर्फ़ कई सालों के असली इस्तेमाल का डेटा।
+          </p>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 border border-neutral-700/50 text-neutral-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-neutral-400 inline-block"></span>
+              Garmin पर 111 रन
+            </div>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-purple-900/20 border border-purple-500/30 text-purple-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-purple-400 inline-block"></span>
+              WHOOP के साथ 1500+ दिन
+            </div>
+            <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-900/20 border border-green-500/30 text-green-300 font-medium rounded-full text-sm">
+              <span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>
+              Apple Watch रोज़ाना
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Comparison Table */}
+    <section class="py-16 bg-neutral-900/50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2 text-center">फ़ीचर तुलना</h2>
+        <p class="text-neutral-400 text-center mb-10">तीनों का इस्तेमाल कर चुके व्यक्ति की side-by-side specs</p>
+
+        {/* Mobile: stacked cards */}
+        <div class="md:hidden space-y-4 mb-8">
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-purple-400">WHOOP 4.0</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">कीमत:</span> $239 + वैकल्पिक $239/वर्ष</li>
+              <li><span class="text-neutral-500">बैटरी:</span> 5 दिन</li>
+              <li><span class="text-neutral-500">डिस्प्ले:</span> कोई नहीं (LED)</li>
+              <li><span class="text-neutral-500">HR/HRV:</span> <span class="text-green-400">✓ लगातार</span></li>
+              <li><span class="text-neutral-500">GPS:</span> <span class="text-red-400">✗ फोन ज़रूरी</span></li>
+              <li><span class="text-neutral-500">नींद:</span> <span class="text-green-400">बेहतरीन</span></li>
+              <li><span class="text-neutral-500">रिकवरी:</span> <span class="text-green-400">अपनी श्रेणी में सर्वश्रेष्ठ</span></li>
+            </ul>
+          </div>
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-green-400">Garmin Fenix 7</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">कीमत:</span> $599</li>
+              <li><span class="text-neutral-500">बैटरी:</span> 18-22 दिन</li>
+              <li><span class="text-neutral-500">डिस्प्ले:</span> 1.3" रंगीन MIP</li>
+              <li><span class="text-neutral-500">HR/HRV:</span> <span class="text-green-400">✓ लगातार</span></li>
+              <li><span class="text-neutral-500">GPS:</span> <span class="text-green-400">✓ ड्यूल-बैंड</span></li>
+              <li><span class="text-neutral-500">नींद:</span> अच्छी</li>
+              <li><span class="text-neutral-500">रिकवरी:</span> अच्छी (HRV/HR)</li>
+            </ul>
+          </div>
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-5">
+            <h3 class="font-bold text-lg mb-3 text-blue-400">Apple Watch Ultra 2</h3>
+            <ul class="space-y-2 text-sm text-neutral-300">
+              <li><span class="text-neutral-500">कीमत:</span> $799</li>
+              <li><span class="text-neutral-500">बैटरी:</span> 36 घंटे</li>
+              <li><span class="text-neutral-500">डिस्प्ले:</span> 1.9" OLED</li>
+              <li><span class="text-neutral-500">HR/HRV:</span> <span class="text-green-400">✓ लगातार</span></li>
+              <li><span class="text-neutral-500">GPS:</span> <span class="text-green-400">✓ ड्यूल-बैंड</span></li>
+              <li><span class="text-neutral-500">नींद:</span> अच्छी</li>
+              <li><span class="text-neutral-500">रिकवरी:</span> बेसिक (सिर्फ HR)</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Desktop: table */}
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800">
+                <th class="text-left py-3 px-4 text-neutral-400 font-medium w-1/4">फ़ीचर</th>
+                <th class="text-center py-3 px-4 text-purple-400 font-bold w-1/4">WHOOP 4.0</th>
+                <th class="text-center py-3 px-4 text-green-400 font-bold w-1/4">Garmin Fenix 7</th>
+                <th class="text-center py-3 px-4 text-blue-400 font-bold w-1/4">Apple Watch Ultra 2</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-800">
+              {comparisonFeatures.map((row, index) => (
+                <tr class={`hover:bg-neutral-900/50 transition-colors ${index % 2 === 0 ? 'bg-neutral-900/30' : ''}`}>
+                  <td class="py-3 px-4 text-neutral-400">{row.feature}</td>
+                  <td class="py-3 px-4 text-center text-purple-300">{row.whoop}</td>
+                  <td class="py-3 px-4 text-center text-green-300">{row.garmin}</td>
+                  <td class="py-3 px-4 text-center text-blue-300">{row.apple}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    {/* My Experience */}
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2">मेरा अनुभव</h2>
+        <p class="text-neutral-400 mb-10">असली ट्रैकिंग से असली नंबर — कोई अनुमान नहीं</p>
+        <div class="grid md:grid-cols-3 gap-6">
+
+          {/* WHOOP */}
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-purple-900/40 flex items-center justify-center font-bold text-purple-400">W</div>
+              <div>
+                <h3 class="font-bold text-lg">WHOOP 4.0</h3>
+                <div class="flex items-center gap-2">
+                  <p class="text-xs text-neutral-500">2022 से</p>
+                  <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded-full border border-purple-500/30">रोज़ाना पहनना</span>
+                </div>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-purple-300">{whoopAvgRecovery.toFixed(0)}%</div>
+                <div class="text-xs text-neutral-500 mt-0.5">औसत रिकवरी</div>
+              </div>
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-green-400">{whoopAvgHRV.toFixed(1)}ms</div>
+                <div class="text-xs text-neutral-500 mt-0.5">औसत HRV</div>
+              </div>
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-purple-400">{whoopAvgRHR.toFixed(0)} bpm</div>
+                <div class="text-xs text-neutral-500 mt-0.5">औसत RHR</div>
+              </div>
+              <div class="bg-purple-900/20 rounded-xl p-3 border border-purple-500/10">
+                <div class="text-2xl font-bold text-white">1500+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">ट्रैक किए गए दिन</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              रिकवरी को समझने के लिए WHOOP मेरा पसंदीदा है। इसका रिकवरी स्कोर मुझे बताता है कि मुझे जोर लगाना चाहिए या आराम से लेना चाहिए। स्लीप ट्रैकिंग कमाल की है — मुझे महसूस होने से पहले ही यह समझ जाता है कि मैं undertrained हूँ। GPS की कमी मुझे परेशान नहीं करती क्योंकि दौड़ने के लिए मैं Garmin इस्तेमाल करता हूँ।
+            </p>
+          </div>
+
+          {/* Garmin */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-green-900/30 flex items-center justify-center font-bold text-green-400">G</div>
+              <div>
+                <h3 class="font-bold text-lg">Garmin Fenix 7</h3>
+                <p class="text-xs text-neutral-500">रनिंग और साइकलिंग</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-300">{garminRuns}</div>
+                <div class="text-xs text-neutral-500 mt-0.5">कुल रन</div>
+              </div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-400">{garminMiles.toFixed(0)} mi</div>
+                <div class="text-xs text-neutral-500 mt-0.5">कुल दूरी</div>
+              </div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-white">{garminAvgPace.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 mt-0.5">औसत min/mile</div>
+              </div>
+              <div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10">
+                <div class="text-2xl font-bold text-green-400">GPS</div>
+                <div class="text-xs text-neutral-500 mt-0.5">ड्यूल-बैंड</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              आउटडोर एक्टिविटीज़ के लिए Garmin मेरा workhorse है। इसका GPS पूरी तरह भरोसेमंद है — घने पेड़ों के नीचे भी सिग्नल नहीं खोता। बैटरी लाइफ पागलपन की हद तक अच्छी है; मैं बिना चिंता के 50-mile ultramarathon कर सकता हूँ। Connect ऐप मुझे हर वह metric देता है जो मैं चाहूँ, भले ही UI थोड़ा पुराना लगे।
+            </p>
+          </div>
+
+          {/* Apple Watch */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-xl bg-blue-900/30 flex items-center justify-center font-bold text-blue-400">A</div>
+              <div>
+                <h3 class="font-bold text-lg">Apple Watch Ultra 2</h3>
+                <p class="text-xs text-neutral-500">रोज़मर्रा और वर्कआउट्स</p>
+              </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3 mb-5">
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-300">36 hrs</div>
+                <div class="text-xs text-neutral-500 mt-0.5">बैटरी लाइफ</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-green-400">1.9\"</div>
+                <div class="text-xs text-neutral-500 mt-0.5">डिस्प्ले साइज़</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-blue-400">100+</div>
+                <div class="text-xs text-neutral-500 mt-0.5">वर्कआउट टाइप्स</div>
+              </div>
+              <div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10">
+                <div class="text-2xl font-bold text-white">$799</div>
+                <div class="text-xs text-neutral-500 mt-0.5">कीमत</div>
+              </div>
+            </div>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              जिन दिनों मैं रनिंग नहीं करता, उन दिनों Apple Watch मेरी daily driver है। इसका डिस्प्ले शानदार है, notifications बेहद seamless हैं, और अगर आप Apple ecosystem में हैं तो इसका कोई जवाब नहीं। लेकिन बैटरी लाइफ एक असली सीमा है — मैं इसे हर दिन चार्ज करता हूँ। अगर आप serious athlete हैं और लंबी बैटरी चाहते हैं, तो कहीं और देखें।
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* Pros & Cons */}
+    <section class="py-16 bg-neutral-900/50">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">फायदे और नुकसान</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+
+          {/* WHOOP */}
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-purple-400">WHOOP 4.0</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">फायदे</p>
+              <ul class="space-y-2">
+                {whoopPros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">नुकसान</p>
+              <ul class="space-y-2">
+                {whoopCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Garmin */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-green-400">Garmin Fenix 7</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">फायदे</p>
+              <ul class="space-y-2">
+                {garminPros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">नुकसान</p>
+              <ul class="space-y-2">
+                {garminCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* Apple Watch */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6">
+            <h3 class="font-bold text-lg mb-5 text-blue-400">Apple Watch Ultra 2</h3>
+            <div class="mb-5">
+              <p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">फायदे</p>
+              <ul class="space-y-2">
+                {applePros.map(pro => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>
+                    {pro}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">नुकसान</p>
+              <ul class="space-y-2">
+                {appleCons.map(con => (
+                  <li class="flex items-start gap-2 text-sm text-neutral-300">
+                    <span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>
+                    {con}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* Best For */}
+    <section class="py-16">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-10 text-center">आपके लिए सही कौन-सा है?</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+          
+          {/* WHOOP */}
+          <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-purple-900/40 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🎯</span>
+            </div>
+            <h3 class="font-bold text-xl mb-3 text-purple-400">WHOOP चुनें अगर...</h3>
+            <ul class="space-y-3 text-left">
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                रिकवरी ऑप्टिमाइज़ेशन आपकी #1 प्राथमिकता है
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                आप strain बनाम recovery को समझना चाहते हैं
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                आप एक subtle band पसंद करते हैं (भारी घड़ी नहीं)
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                आपके पास आउटडोर गतिविधियों के लिए पहले से GPS वॉच है
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-purple-400">•</span>
+                आप workout metrics से ज़्यादा sleep quality ट्रैक करते हैं
+              </li>
+            </ul>
+          </div>
+
+          {/* Garmin */}
+          <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-green-900/30 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">🏃</span>
+            </div>
+            <h3 class="font-bold text-xl mb-3 text-green-400">Garmin चुनें अगर...</h3>
+            <ul class="space-y-3 text-left">
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                आप बाहर दौड़ते/साइकिल चलाते हैं और भरोसेमंद GPS चाहते हैं
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                बैटरी लाइफ मायने रखती है (कई दिनों के इवेंट्स)
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                आप detailed workout analytics चाहते हैं
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                आप subscription fees नहीं देना चाहते
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-green-400">•</span>
+                आपको navigation/mapping features चाहिए
+              </li>
+            </ul>
+          </div>
+
+          {/* Apple Watch */}
+          <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6 text-center">
+            <div class="w-14 h-14 rounded-2xl bg-blue-900/30 flex items-center justify-center mx-auto mb-4">
+              <span class="text-2xl">⌚</span>
+            </div>
+            <h3 class="font-bold text-xl mb-3 text-blue-400">Apple Watch चुनें अगर...</h3>
+            <ul class="space-y-3 text-left">
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                आप पहले से Apple ecosystem में हैं
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                आप सबसे अच्छा smartwatch experience चाहते हैं
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                notifications और Siri आपके लिए महत्वपूर्ण हैं
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                आपको रोज़ चार्ज करना बुरा नहीं लगता
+              </li>
+              <li class="flex items-start gap-2 text-neutral-300">
+                <span class="text-blue-400">•</span>
+                आप फोन से cellular independence चाहते हैं
+              </li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* My Setup */}
+    <section class="py-16 bg-neutral-900">
+      <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold mb-2 text-center">मेरा मौजूदा सेटअप</h2>
+        <p class="text-neutral-400 text-center mb-10">मेरे लिए यही काम करता है — आपके लिए नतीजे अलग हो सकते हैं</p>
+        
+        <div class="max-w-2xl mx-auto">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+            <div class="flex items-center justify-center gap-8 mb-6">
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-purple-900/40 flex items-center justify-center mx-auto mb-2">
+                  <span class="text-2xl">💜</span>
+                </div>
+                <p class="font-bold text-purple-400">WHOOP</p>
+                <p class="text-xs text-neutral-500">24/7 रिकवरी</p>
+              </div>
+              <div class="text-3xl text-neutral-600">+</div>
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-green-900/30 flex items-center justify-center mx-auto mb-2">
+                  <span class="text-2xl">🏃</span>
+                </div>
+                <p class="font-bold text-green-400">Garmin</p>
+                <p class="text-xs text-neutral-500">रनिंग और साइकलिंग</p>
+              </div>
+              <div class="text-3xl text-neutral-600">+</div>
+              <div class="text-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-900/30 flex items-center justify-center mx-auto mb-2">
+                  <span class="text-2xl">🍎</span>
+                </div>
+                <p class="font-bold text-blue-400">Apple</p>
+                <p class="text-xs text-neutral-500">रोज़मर्रा की ज़िंदगी</p>
+              </div>
+            </div>
+            <p class="text-neutral-300 text-center leading-relaxed">
+              मैं रिकवरी और स्लीप ट्रैकिंग के लिए WHOOP को 24/7 पहनता हूँ। जब मैं दौड़ने जाता हूँ, तो GPS ट्रैकिंग के लिए अपना Garmin Fenix 7 लेता हूँ। Apple Watch मेरी रोज़मर्रा की notifications और non-running workouts संभालती है। यह ज़्यादातर लोगों की ज़रूरत से अधिक gear है, लेकिन हर डिवाइस अपनी खास भूमिका में बेहतरीन है।
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* CTA Section */}
+    <section class="py-16">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-3xl font-bold text-white mb-4">चुनने के लिए तैयार?</h2>
+        <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
+          ROI calculator देखें ताकि आपको ठीक-ठीक पता चले कि आप कितना बचाएँगे, या मेरी detailed gear reviews ब्राउज़ करें।
+        </p>
+        <div class="flex flex-wrap justify-center gap-4">
+          <a 
+            href="/roi/" 
+            class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+          >
+            ROI Calculator
+          </a>
+          <a 
+            href="/gear/" 
+            class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
+          >
+            Gear Reviews
+          </a>
+          <a 
+            href="/compare/" 
+            class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
+          >
+            Gym Comparison
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
