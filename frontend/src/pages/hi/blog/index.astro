@@ -1,11 +1,10 @@
 ---
-// TODO(hi): EXO translation API unavailable during overnight build; localized key UI strings added, long-form body content still partly English.
 import Layout from '../../../layouts/Layout.astro';
 import { LISTING_BLOG_POSTS } from '../../../lib/blogPosts';
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
-  return `${Math.max(1, Math.round(words / 200))} min read`;
+  return `${Math.max(1, Math.round(words / 200))} मिनट पढ़ाई`;
 }
 
 function dateTimestamp(value = '') {
@@ -19,7 +18,7 @@ function formatPostDate(
 ) {
   const timestamp = Date.parse(value);
   return Number.isNaN(timestamp)
-    ? 'Undated'
+    ? 'बिना तारीख'
     : new Date(timestamp).toLocaleDateString(undefined, options);
 }
 
@@ -39,13 +38,13 @@ function placeholderSurfaceClass(category = '') {
 
 function placeholderLabel(category = '') {
   const normalized = category.toLowerCase();
-  if (normalized.includes('speediance')) return 'Firmware Notes';
-  if (normalized.includes('wear')) return 'Recovery Signals';
-  if (normalized.includes('bjj')) return 'Mat Notes';
-  if (normalized.includes('field')) return 'Field Report';
-  if (normalized.includes('train')) return 'Training Notes';
-  if (normalized.includes('review')) return 'Independent Review';
-  return 'Analysis Log';
+  if (normalized.includes('speediance')) return 'फर्मवेयर नोट्स';
+  if (normalized.includes('wear')) return 'रिकवरी संकेत';
+  if (normalized.includes('bjj')) return 'मैट नोट्स';
+  if (normalized.includes('field')) return 'फील्ड रिपोर्ट';
+  if (normalized.includes('train')) return 'ट्रेनिंग नोट्स';
+  if (normalized.includes('review')) return 'स्वतंत्र समीक्षा';
+  return 'विश्लेषण लॉग';
 }
 
 function placeholderMonogram(title = '') {
@@ -65,17 +64,17 @@ const siteUrl = "https://tobyonfitnesstech.com";
 // Read category from URL and set activeCategory
 const urlCategory = Astro.url.searchParams.get('category');
 const CATEGORY_OPTIONS = [
-  'All',
+  'सभी',
   'Speediance',
   'BJJ',
-  'Wearables',
-  'Training',
-  'Field Reports',
-  'The Long Game',
+  'वियरेबल्स',
+  'प्रशिक्षण',
+  'फील्ड रिपोर्ट',
+  'लंबा खेल',
 ];
 const activeCategory = CATEGORY_OPTIONS.includes(String(urlCategory || ''))
   ? String(urlCategory)
-  : 'All';
+  : 'सभी';
 
 // Sort posts by date descending
 const sortedPosts = [...LISTING_BLOG_POSTS].sort((a, b) =>
@@ -83,7 +82,7 @@ const sortedPosts = [...LISTING_BLOG_POSTS].sort((a, b) =>
 );
 
 // Filter posts based on activeCategory
-const filteredPosts = activeCategory === 'All' ? sortedPosts : sortedPosts.filter(p => p.category === activeCategory);
+const filteredPosts = activeCategory === 'सभी' ? sortedPosts : sortedPosts.filter(p => p.category === activeCategory);
 
 
 // Process posts first (needed for schemas below)
@@ -92,13 +91,13 @@ const blogListSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/blog#collection`,
   "name": "विश्लेषण लॉग — Toby on Fitness Tech",
-  "description": "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.",
+  "description": "फिटनेस टेक्नोलॉजी का स्वतंत्र विश्लेषण। वास्तविक डेटा। कोई एफिलिएट दबाव नहीं। एक एथलीट का यह जुनून कि असल में क्या काम कर रहा है।",
   "url": `${siteUrl}/blog`,
-  "inLanguage": "en",
+  "inLanguage": "hi",
   "isPartOf": { "@id": `${siteUrl}/#website` },
   "author": { "@id": `${siteUrl}/#toby` },
   "hasPart": filteredPosts.slice(0, 10).map((post, index) => ({
-    "@type": "ब्लॉगPosting",
+    "@type": "BlogPosting",
     "@id": `${siteUrl}/blog/${post.slug}`,
     "position": index + 1,
     "headline": post.title,
@@ -115,8 +114,8 @@ const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "@id": `${siteUrl}/blog#itemlist`,
-  "name": "Latest Fitness Tech Analysis Posts",
-  "description": "Independent fitness technology analysis and reviews",
+  "name": "फिटनेस टेक विश्लेषण की नवीनतम पोस्ट",
+  "description": "फिटनेस टेक्नोलॉजी का स्वतंत्र विश्लेषण और समीक्षाएँ",
   "url": `${siteUrl}/blog`,
   "numberOfItems": LISTING_BLOG_POSTS.length,
   "itemListElement": filteredPosts.slice(0, 10).map((post, index) => ({
@@ -134,27 +133,27 @@ const sidebarPosts = filteredPosts.slice(1, 5);
 const gridPosts = filteredPosts.slice(5);
 
 const title = "विश्लेषण लॉग — Toby on Fitness Tech";
-const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
+const description = "फिटनेस टेक्नोलॉजी का स्वतंत्र विश्लेषण। वास्तविक डेटा। कोई एफिलिएट दबाव नहीं। एक एथलीट का यह जुनून कि असल में क्या काम कर रहा है।";
 ---
 
-<Layout title={title} description={description} jsonLd={[blogListSchema, itemListSchema]} breadcrumbs={[{ name: "होम", url: "/" }, { name: "ब्लॉग", url: "/blog" }]}>
+<Layout title={title} description={description} jsonLd={[blogListSchema, itemListSchema]} breadcrumbs={[{ name: "होम", url: "/" }, { name: "Blog", url: "/blog" }]}>
 
   <!-- ░░ HERO ░░ -->
   <section class="bg-neutral-950 border-b border-neutral-800">
     <div class="container mx-auto px-4 py-10 md:py-14 text-center max-w-3xl">
       <p class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-5">
-        THE ANALYSIS LOG
+        विश्लेषण लॉग
       </p>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
-        I don't take anyone's word for it.<br class="hidden md:block" />
-        <span class="text-neutral-400">Including the sensors.</span>
+        मैं किसी की बात यूँ ही नहीं मानता।<br class="hidden md:block" />
+        <span class="text-neutral-400">सेंसरों की भी नहीं।</span>
       </h1>
       <p class="text-lg text-neutral-300 leading-relaxed mb-8">
-        Independent analysis of fitness technology. Real data. No affiliate pressure.
-        One athlete's obsession with knowing what's actually working.
+        फिटनेस टेक्नोलॉजी का स्वतंत्र विश्लेषण। वास्तविक डेटा। कोई एफिलिएट दबाव नहीं।
+        एक एथलीट का यह जुनून कि असल में क्या काम कर रहा है।
       </p>
       <p class="text-xs text-neutral-600 tracking-wide">
-        All data is real. All opinions are mine. Nothing is sponsored unless explicitly stated.
+        सारा डेटा वास्तविक है। सारी राय मेरी अपनी है। जब तक स्पष्ट रूप से न कहा जाए, कुछ भी प्रायोजित नहीं है।
       </p>
     </div>
   </section>
@@ -174,7 +173,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
           <button
             id="clear-search"
             class="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white p-1 hidden"
-            aria-label="Clear search"
+            aria-label="खोज साफ़ करें"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -282,7 +281,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
               href={`/blog/${featuredPost.slug}/`}
               class="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors group/cta"
             >
-              Read Full Analysis
+              पूरा विश्लेषण पढ़ें
               <span class="group-hover/cta:translate-x-1 transition-transform">&rarr;</span>
             </a>
           </div>
@@ -291,7 +290,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         <!-- Latest Sidebar -->
         <aside class="lg:col-span-1 flex flex-col gap-0">
           <h3 class="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-4 px-1">
-            Latest Posts
+            नवीनतम पोस्ट
           </h3>
           <div class="flex flex-col divide-y divide-neutral-800">
             {sidebarPosts.length > 0 ? sidebarPosts.map(post => (
@@ -341,7 +340,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
                 </div>
               </article>
             )) : (
-              <p class="text-neutral-600 text-sm py-4 px-2">No other posts in this category.</p>
+              <p class="text-neutral-600 text-sm py-4 px-2">इस श्रेणी में कोई अन्य पोस्ट नहीं हैं।</p>
             )}
           </div>
         </aside>
@@ -349,8 +348,8 @@ const description = "Independent analysis of fitness technology. Real data. No a
       </div>
     ) : (
       <div class="py-20 text-center">
-        <p class="text-neutral-500 text-lg">No posts found in <strong class="text-neutral-300">{activeCategory}</strong> yet.</p>
-        <a href="/blog/" class="mt-4 inline-block text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors">← View all posts</a>
+        <p class="text-neutral-500 text-lg">अभी तक <strong class="text-neutral-300">{activeCategory}</strong> में कोई पोस्ट नहीं मिली है।</p>
+        <a href="/blog/" class="mt-4 inline-block text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors">← सभी पोस्ट देखें</a>
       </div>
     )}
 
@@ -359,7 +358,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
       {gridPosts.length > 0 && (
       <div>
         <div class="flex items-center gap-4 mb-8">
-          <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">More Analysis</h2>
+          <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">और विश्लेषण</h2>
           <div class="flex-1 border-t border-neutral-800" />
         </div>
 
@@ -426,7 +425,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
                 </p>
 
                 <a href={`/blog/${post.slug}/`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group/cta">
-                  Read Full Analysis
+                  पूरा विश्लेषण पढ़ें
                   <span class="group-hover/cta:translate-x-0.5 transition-transform">&rarr;</span>
                 </a>
               </div>
@@ -441,21 +440,21 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
   <script>
     function updateCategoryUrl(category) {
-      const nextCategory = categories.includes(category) ? category : 'All';
+      const nextCategory = categories.includes(category) ? category : 'सभी';
       const url = new URL(window.location.href);
       url.searchParams.set('category', nextCategory);
       url.hash = 'category-filters';
       window.history.replaceState({}, '', url);
     }
 
-    function applyFilter(activeCategory = 'All') {
+    function applyFilter(activeCategory = 'सभी') {
       const searchTerm = (document.getElementById('blog-search')?.value || '').toLowerCase().trim();
 
       const leadSection = document.getElementById('lead-section');
       const allGridSection = document.getElementById('all-grid-section');
       const noResultsMsg = document.getElementById('no-results-message');
 
-      if (activeCategory === 'All' && !searchTerm) {
+      if (activeCategory === 'सभी' && !searchTerm) {
         if (leadSection) leadSection.style.display = '';
         if (allGridSection) allGridSection.style.display = '';
         if (noResultsMsg) noResultsMsg.style.display = 'none';
@@ -466,7 +465,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
         let visibleCount = 0;
         document.querySelectorAll('[data-post-card]').forEach(card => {
-          const categoryMatch = activeCategory === 'All' || card.getAttribute('data-category') === activeCategory;
+          const categoryMatch = activeCategory === 'सभी' || card.getAttribute('data-category') === activeCategory;
           const title = card.getAttribute('data-title') || '';
           const excerpt = card.getAttribute('data-excerpt') || '';
           const searchMatch = !searchTerm || title.includes(searchTerm) || excerpt.includes(searchTerm);
@@ -514,15 +513,15 @@ const description = "Independent analysis of fitness technology. Real data. No a
       gridSection.insertAdjacentHTML('afterend', noResultsHtml);
     }
 
-    const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
+    const categories = ['सभी', 'Speediance', 'BJJ', 'वियरेबल्स', 'प्रशिक्षण', 'फील्ड रिपोर्ट', 'लंबा खेल'];
     const initialUrl = new URL(window.location.href);
     const initialCategory = initialUrl.searchParams.get('category');
     let activeCategory = categories.includes(initialCategory) ? initialCategory : '{activeCategory}';
 
     document.querySelectorAll('[data-cat-btn]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const selected = btn.getAttribute('data-cat-btn') || 'All';
-        activeCategory = categories.includes(selected) ? selected : 'All';
+        const selected = btn.getAttribute('data-cat-btn') || 'सभी';
+        activeCategory = categories.includes(selected) ? selected : 'सभी';
         updateCategoryUrl(activeCategory);
         applyFilter(activeCategory);
       });

@@ -1,11 +1,10 @@
 ---
-// TODO(es): EXO translation API unavailable during overnight build; localized key UI strings added, long-form body content still partly English.
 import Layout from '../../../layouts/Layout.astro';
 import { LISTING_BLOG_POSTS } from '../../../lib/blogPosts';
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
-  return `${Math.max(1, Math.round(words / 200))} min read`;
+  return `${Math.max(1, Math.round(words / 200))} min de lectura`;
 }
 
 function dateTimestamp(value = '') {
@@ -19,7 +18,7 @@ function formatPostDate(
 ) {
   const timestamp = Date.parse(value);
   return Number.isNaN(timestamp)
-    ? 'Undated'
+    ? 'Sin fecha'
     : new Date(timestamp).toLocaleDateString(undefined, options);
 }
 
@@ -39,13 +38,13 @@ function placeholderSurfaceClass(category = '') {
 
 function placeholderLabel(category = '') {
   const normalized = category.toLowerCase();
-  if (normalized.includes('speediance')) return 'Firmware Notes';
-  if (normalized.includes('wear')) return 'Recovery Signals';
-  if (normalized.includes('bjj')) return 'Mat Notes';
-  if (normalized.includes('field')) return 'Field Report';
-  if (normalized.includes('train')) return 'Training Notes';
-  if (normalized.includes('review')) return 'Independent Review';
-  return 'Analysis Log';
+  if (normalized.includes('speediance')) return 'Notas de firmware';
+  if (normalized.includes('wear')) return 'Señales de recuperación';
+  if (normalized.includes('bjj')) return 'Notas del tatami';
+  if (normalized.includes('field')) return 'Reporte de campo';
+  if (normalized.includes('train')) return 'Notas de entrenamiento';
+  if (normalized.includes('review')) return 'Reseña independiente';
+  return 'Registro de análisis';
 }
 
 function placeholderMonogram(title = '') {
@@ -65,17 +64,17 @@ const siteUrl = "https://tobyonfitnesstech.com";
 // Read category from URL and set activeCategory
 const urlCategory = Astro.url.searchParams.get('category');
 const CATEGORY_OPTIONS = [
-  'All',
+  'Todos',
   'Speediance',
   'BJJ',
   'Wearables',
-  'Training',
-  'Field Reports',
-  'The Long Game',
+  'Entrenamiento',
+  'Reportes de campo',
+  'El juego largo',
 ];
 const activeCategory = CATEGORY_OPTIONS.includes(String(urlCategory || ''))
   ? String(urlCategory)
-  : 'All';
+  : 'Todos';
 
 // Sort posts by date descending
 const sortedPosts = [...LISTING_BLOG_POSTS].sort((a, b) =>
@@ -83,7 +82,7 @@ const sortedPosts = [...LISTING_BLOG_POSTS].sort((a, b) =>
 );
 
 // Filter posts based on activeCategory
-const filteredPosts = activeCategory === 'All' ? sortedPosts : sortedPosts.filter(p => p.category === activeCategory);
+const filteredPosts = activeCategory === 'Todos' ? sortedPosts : sortedPosts.filter(p => p.category === activeCategory);
 
 
 // Process posts first (needed for schemas below)
@@ -92,9 +91,9 @@ const blogListSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/blog#collection`,
   "name": "El registro de análisis — Toby on Fitness Tech",
-  "description": "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.",
+  "description": "Análisis independiente de tecnología fitness. Datos reales. Sin presión de afiliados. La obsesión de un atleta por saber qué está funcionando de verdad.",
   "url": `${siteUrl}/blog`,
-  "inLanguage": "en",
+  "inLanguage": "es",
   "isPartOf": { "@id": `${siteUrl}/#website` },
   "author": { "@id": `${siteUrl}/#toby` },
   "hasPart": filteredPosts.slice(0, 10).map((post, index) => ({
@@ -115,8 +114,8 @@ const itemListSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
   "@id": `${siteUrl}/blog#itemlist`,
-  "name": "Latest Fitness Tech Analysis Posts",
-  "description": "Independent fitness technology analysis and reviews",
+  "name": "Últimos posts de análisis de tecnología fitness",
+  "description": "Análisis y reseñas independientes de tecnología fitness",
   "url": `${siteUrl}/blog`,
   "numberOfItems": LISTING_BLOG_POSTS.length,
   "itemListElement": filteredPosts.slice(0, 10).map((post, index) => ({
@@ -134,7 +133,7 @@ const sidebarPosts = filteredPosts.slice(1, 5);
 const gridPosts = filteredPosts.slice(5);
 
 const title = "El registro de análisis — Toby on Fitness Tech";
-const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
+const description = "Análisis independiente de tecnología fitness. Datos reales. Sin presión de afiliados. La obsesión de un atleta por saber qué está funcionando de verdad.";
 ---
 
 <Layout title={title} description={description} jsonLd={[blogListSchema, itemListSchema]} breadcrumbs={[{ name: "Inicio", url: "/" }, { name: "Blog", url: "/blog" }]}>
@@ -143,18 +142,18 @@ const description = "Independent analysis of fitness technology. Real data. No a
   <section class="bg-neutral-950 border-b border-neutral-800">
     <div class="container mx-auto px-4 py-10 md:py-14 text-center max-w-3xl">
       <p class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-5">
-        THE ANALYSIS LOG
+        EL REGISTRO DE ANÁLISIS
       </p>
       <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
-        I don't take anyone's word for it.<br class="hidden md:block" />
-        <span class="text-neutral-400">Including the sensors.</span>
+        No me creo la palabra de nadie.<br class="hidden md:block" />
+        <span class="text-neutral-400">Ni siquiera la de los sensores.</span>
       </h1>
       <p class="text-lg text-neutral-300 leading-relaxed mb-8">
-        Independent analysis of fitness technology. Real data. No affiliate pressure.
-        One athlete's obsession with knowing what's actually working.
+        Análisis independiente de tecnología fitness. Datos reales. Sin presión de afiliados.
+        La obsesión de un atleta por saber qué está funcionando de verdad.
       </p>
       <p class="text-xs text-neutral-600 tracking-wide">
-        All data is real. All opinions are mine. Nothing is sponsored unless explicitly stated.
+        Todos los datos son reales. Todas las opiniones son mías. Nada está patrocinado salvo que se indique explícitamente.
       </p>
     </div>
   </section>
@@ -168,13 +167,13 @@ const description = "Independent analysis of fitness technology. Real data. No a
           <input
             type="text"
             id="blog-search"
-            placeholder="Buscar publicaciones..."
+            placeholder="Buscar posts..."
             class="w-full bg-neutral-800 border border-neutral-700 text-white placeholder-gray-400 px-4 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
           />
           <button
             id="clear-search"
             class="absolute right-2 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white p-1 hidden"
-            aria-label="Clear search"
+            aria-label="Borrar búsqueda"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -282,7 +281,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
               href={`/blog/${featuredPost.slug}/`}
               class="inline-flex items-center gap-2 text-sm font-bold text-blue-400 hover:text-blue-300 transition-colors group/cta"
             >
-              Read Full Analysis
+              Leer análisis completo
               <span class="group-hover/cta:translate-x-1 transition-transform">&rarr;</span>
             </a>
           </div>
@@ -291,7 +290,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         <!-- Latest Sidebar -->
         <aside class="lg:col-span-1 flex flex-col gap-0">
           <h3 class="text-xs font-bold text-neutral-500 uppercase tracking-widest mb-4 px-1">
-            Latest Posts
+            Últimos posts
           </h3>
           <div class="flex flex-col divide-y divide-neutral-800">
             {sidebarPosts.length > 0 ? sidebarPosts.map(post => (
@@ -341,7 +340,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
                 </div>
               </article>
             )) : (
-              <p class="text-neutral-600 text-sm py-4 px-2">No other posts in this category.</p>
+              <p class="text-neutral-600 text-sm py-4 px-2">No hay otros posts en esta categoría.</p>
             )}
           </div>
         </aside>
@@ -349,8 +348,8 @@ const description = "Independent analysis of fitness technology. Real data. No a
       </div>
     ) : (
       <div class="py-20 text-center">
-        <p class="text-neutral-500 text-lg">No posts found in <strong class="text-neutral-300">{activeCategory}</strong> yet.</p>
-        <a href="/blog/" class="mt-4 inline-block text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors">← View all posts</a>
+        <p class="text-neutral-500 text-lg">Todavía no se encontraron posts en <strong class="text-neutral-300">{activeCategory}</strong>.</p>
+        <a href="/blog/" class="mt-4 inline-block text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors">← Ver todos los posts</a>
       </div>
     )}
 
@@ -359,7 +358,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
       {gridPosts.length > 0 && (
       <div>
         <div class="flex items-center gap-4 mb-8">
-          <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">More Analysis</h2>
+          <h2 class="text-xs font-bold text-neutral-500 uppercase tracking-widest whitespace-nowrap">Más análisis</h2>
           <div class="flex-1 border-t border-neutral-800" />
         </div>
 
@@ -426,7 +425,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
                 </p>
 
                 <a href={`/blog/${post.slug}/`} class="inline-flex items-center gap-1.5 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors group/cta">
-                  Read Full Analysis
+                  Leer análisis completo
                   <span class="group-hover/cta:translate-x-0.5 transition-transform">&rarr;</span>
                 </a>
               </div>
@@ -441,21 +440,21 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
   <script>
     function updateCategoryUrl(category) {
-      const nextCategory = categories.includes(category) ? category : 'All';
+      const nextCategory = categories.includes(category) ? category : 'Todos';
       const url = new URL(window.location.href);
       url.searchParams.set('category', nextCategory);
       url.hash = 'category-filters';
       window.history.replaceState({}, '', url);
     }
 
-    function applyFilter(activeCategory = 'All') {
+    function applyFilter(activeCategory = 'Todos') {
       const searchTerm = (document.getElementById('blog-search')?.value || '').toLowerCase().trim();
 
       const leadSection = document.getElementById('lead-section');
       const allGridSection = document.getElementById('all-grid-section');
       const noResultsMsg = document.getElementById('no-results-message');
 
-      if (activeCategory === 'All' && !searchTerm) {
+      if (activeCategory === 'Todos' && !searchTerm) {
         if (leadSection) leadSection.style.display = '';
         if (allGridSection) allGridSection.style.display = '';
         if (noResultsMsg) noResultsMsg.style.display = 'none';
@@ -466,7 +465,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
         let visibleCount = 0;
         document.querySelectorAll('[data-post-card]').forEach(card => {
-          const categoryMatch = activeCategory === 'All' || card.getAttribute('data-category') === activeCategory;
+          const categoryMatch = activeCategory === 'Todos' || card.getAttribute('data-category') === activeCategory;
           const title = card.getAttribute('data-title') || '';
           const excerpt = card.getAttribute('data-excerpt') || '';
           const searchMatch = !searchTerm || title.includes(searchTerm) || excerpt.includes(searchTerm);
@@ -514,15 +513,15 @@ const description = "Independent analysis of fitness technology. Real data. No a
       gridSection.insertAdjacentHTML('afterend', noResultsHtml);
     }
 
-    const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
+    const categories = ['Todos', 'Speediance', 'BJJ', 'Wearables', 'Entrenamiento', 'Reportes de campo', 'El juego largo'];
     const initialUrl = new URL(window.location.href);
     const initialCategory = initialUrl.searchParams.get('category');
     let activeCategory = categories.includes(initialCategory) ? initialCategory : '{activeCategory}';
 
     document.querySelectorAll('[data-cat-btn]').forEach(btn => {
       btn.addEventListener('click', () => {
-        const selected = btn.getAttribute('data-cat-btn') || 'All';
-        activeCategory = categories.includes(selected) ? selected : 'All';
+        const selected = btn.getAttribute('data-cat-btn') || 'Todos';
+        activeCategory = categories.includes(selected) ? selected : 'Todos';
         updateCategoryUrl(activeCategory);
         applyFilter(activeCategory);
       });
