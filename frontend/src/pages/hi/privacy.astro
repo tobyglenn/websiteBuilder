@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const updated = 'मार्च 2026';
+
+const privacySchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  '@id': 'https://tobyonfitnesstech.com/privacy#webpage',
+  name: 'गोपनीयता नीति | Toby on Fitness Tech',
+  description:
+    'Toby on Fitness Tech की गोपनीयता नीति, जिसमें wearable डेटा स्रोत, automation workflows, और डेटा का उपयोग व संग्रहण कैसे किया जाता है, शामिल है।',
+  url: 'https://tobyonfitnesstech.com/privacy',
+  inLanguage: 'hi',
+  isPartOf: {
+    '@id': 'https://tobyonfitnesstech.com/#website',
+  },
+  about: {
+    '@id': 'https://tobyonfitnesstech.com/#organization',
+  },
+  author: {
+    '@id': 'https://tobyonfitnesstech.com/#toby',
+  },
+};
+---
+
+<Layout
+  title="गोपनीयता नीति | Toby on Fitness Tech"
+  description="जानें कि TobyOnFitnessTech WHOOP, Garmin, 8Sleep, Speediance, और OpenClaw workflows के डेटा को फिटनेस ट्रैकिंग और AI-संचालित रिपोर्टिंग के लिए कैसे संभालता है।"
+  jsonLd={privacySchema}
+>
+  <section class="bg-neutral-950 text-white border-b border-neutral-800">
+    <div class="container mx-auto max-w-4xl px-4 py-16 md:py-20">
+      <p class="text-blue-400 font-semibold uppercase tracking-wider text-sm">कानूनी</p>
+      <h1 class="mt-3 text-4xl md:text-5xl font-bold">गोपनीयता नीति</h1>
+      <p class="mt-4 text-neutral-400 max-w-3xl">
+        TobyOnFitnessTech वास्तविक दुनिया के फिटनेस प्रशिक्षण, wearable डेटा, और automation workflows का दस्तावेज़ीकरण करता है।
+        यह नीति बताती है कि कौन-सा डेटा उपयोग किया जाता है, उसे कैसे संसाधित किया जाता है, और उसकी सुरक्षा कैसे की जाती है।
+      </p>
+      <p class="mt-3 text-sm text-neutral-500">अंतिम अपडेट: {updated}</p>
+    </div>
+  </section>
+
+  <section class="bg-neutral-950 text-neutral-200">
+    <div class="container mx-auto max-w-4xl px-4 py-12 md:py-16 space-y-10 leading-relaxed">
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">1. परिचय</h2>
+        <p class="mt-4">
+          TobyOnFitnessTech Toby Glenn Peters द्वारा संचालित एक व्यक्तिगत वेबसाइट है। यह साइट
+          फिटनेस तकनीक पर केंद्रित है, जिसमें wearable metrics, training logs, और OpenClaw द्वारा संचालित automated summaries
+          शामिल हैं। हम केवल वही डेटा एकत्र और संसाधित करते हैं जो साइट चलाने,
+          व्यक्तिगत प्रदर्शन संबंधी जानकारी तैयार करने, और शिक्षाप्रद फिटनेस सामग्री प्रकाशित करने के लिए आवश्यक है।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">2. हम कौन-सा डेटा एकत्र करते हैं</h2>
+        <p class="mt-4">डेटा में जुड़े हुए tools और services से निम्नलिखित श्रेणियाँ शामिल हो सकती हैं:</p>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>
+            <span class="font-semibold text-white">WHOOP:</span> recovery scores, strain, sleep metrics,
+            resting heart rate, और heart-rate variability trends.
+          </li>
+          <li>
+            <span class="font-semibold text-white">Garmin:</span> activities, distance, pace, heart rate,
+            training load, और workout summaries.
+          </li>
+          <li>
+            <span class="font-semibold text-white">8Sleep:</span> sleep duration, sleep staging,
+            temperature-related sleep insights, और overnight recovery context.
+          </li>
+          <li>
+            <span class="font-semibold text-white">Speediance:</span> workout sessions, exercise logs,
+            reps, sets, resistance, और volume totals.
+          </li>
+          <li>
+            <span class="font-semibold text-white">OpenClaw automation:</span> morning और nightly fitness reports,
+            workflow timestamps, और summarized performance outputs तैयार करने के लिए उपयोग किया जाने वाला metadata.
+          </li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">3. डेटा का उपयोग कैसे किया जाता है</h2>
+        <p class="mt-4">एकत्र किया गया डेटा निम्नलिखित उद्देश्यों के लिए उपयोग किया जाता है:</p>
+        <ul class="mt-4 space-y-3 list-disc pl-6 marker:text-blue-400">
+          <li>व्यक्तिगत फिटनेस ट्रैकिंग और दीर्घकालिक रुझान विश्लेषण।</li>
+          <li>AI-संचालित प्रदर्शन रिपोर्ट और प्रशिक्षण सारांश।</li>
+          <li>automation workflows के माध्यम से तैयार की गई morning readiness और nightly recap reports.</li>
+          <li>TobyOnFitnessTech पर साझा की गई शिक्षाप्रद सामग्री और उत्पाद विश्लेषण।</li>
+        </ul>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">4. डेटा संग्रहण और प्रतिधारण</h2>
+        <p class="mt-4">
+          डेटा स्थानीय प्रणालियों (जिसमें व्यक्तिगत logs और project files शामिल हैं) तथा चुनी हुई
+          cloud services में संग्रहीत किया जा सकता है, जिनका उपयोग sync, backup, और automation execution के लिए किया जाता है। हम डेटा को केवल उतनी अवधि तक रखते हैं
+          जितनी ongoing tracking, reporting, और site operations के लिए आवश्यक हो।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">5. Cookies और analytics</h2>
+        <p class="mt-4">
+          TobyOnFitnessTech न्यूनतम cookies का उपयोग करता है। हम invasive ad-tech tracking का उपयोग नहीं करते। कोई भी analytics
+          हल्के होते हैं और उनका उद्देश्य केवल साइट के समग्र प्रदर्शन और पाठक रुझानों को समझना है।
+        </p>
+      </section>
+
+      <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">
+        <h2 class="text-2xl font-bold text-white">6. संपर्क</h2>
+        <p class="mt-4">
+          गोपनीयता से जुड़े प्रश्नों, सुधारों, या अनुरोधों के लिए ईमेल करें
+          <a href="mailto:toby@tobyonfitness.tech" class="text-blue-400 hover:text-blue-300 underline-offset-4 hover:underline">toby@tobyonfitness.tech</a>.
+        </p>
+      </section>
+    </div>
+  </section>
+</Layout>
