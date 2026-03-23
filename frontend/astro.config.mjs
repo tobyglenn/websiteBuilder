@@ -16,6 +16,13 @@ export default defineConfig({
 
   integrations: [react(), sitemap()],
 
+  redirects: {
+    '/mma-rpg': 'https://clawdassistant85-netizen.github.io/mma-rpg/',
+    '/gridbound-realms': 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
+    '/bjj-buddy': 'https://bjj-buddy.tobyonfitnesstech.com',
+    '/nutritrack': 'https://nutritrack.tobyonfitnesstech.com',
+  },
+
   i18n: {
     defaultLocale: 'en',
     locales: ['en', 'es', 'pt', 'hi', 'de'],
