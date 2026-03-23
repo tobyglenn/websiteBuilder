@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Personal Records data - real stats from Toby's fitness journey
+const strengthPRs = [
+  { exercise: "Peso muerto", weight: 405, reps: 1, date: "2025-10-15" },
+  { exercise: "Sentadilla", weight: 365, reps: 1, date: "2025-09-22" },
+  { exercise: "Press de banca", weight: 275, reps: 1, date: "2025-08-30" },
+  { exercise: "Jalón al pecho", weight: 260, reps: 1, date: "2025-09-06" },
+  { exercise: "Remo con barra", weight: 225, reps: 1, date: "2025-10-01" },
+  { exercise: "Press militar", weight: 185, reps: 1, date: "2025-09-15" },
+  { exercise: "Curl de bíceps", weight: 110, reps: 1, date: "2025-08-20" },
+];
+
+const runningPRs = [
+  { distance: "1 milla", time: "6:52", pace: "6:52/mi", date: "2025-11-23" },
+  { distance: "5K", time: "22:18", pace: "7:10/mi", date: "2025-11-16" },
+  { distance: "10K", time: "47:42", pace: "7:41/mi", date: "2025-10-26" },
+  { distance: "Media maratón", time: "1:44:32", pace: "7:59/mi", date: "2025-09-21" },
+];
+
+const volumeStats = [
+  { label: "Total de lbs levantadas", value: "1,296,447", icon: "💪", source: "Speediance" },
+  { label: "Millas corridas", value: "265", icon: "🏃", source: "Garmin" },
+  { label: "Entrenamientos", value: "238", icon: "🔥", source: "Speediance" },
+  { label: "Días activos", value: "111", icon: "📅", source: "Garmin" },
+];
+
+const weightJourney = [
+  { weight: 242, date: "2023-01", label: "Peso inicial" },
+  { weight: 188, date: "2023-12", label: "Definición completada" },
+  { weight: 218, date: "2026-02", label: "Actual (volumen)" },
+];
+
+const pageTitle = "Récords personales";
+const pageDescription = "Todos los récords personales de Toby: levantamientos más pesados, carreras más rápidas e hitos de fitness de 242 lbs a 218 lbs.";
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <main class="max-w-5xl mx-auto px-4 py-12">
+    {/* Hero Section */}
+    <section class="text-center mb-16">
+      <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Récords personales</h1>
+      <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
+        Una colección de mis levantamientos más fuertes, mis carreras más rápidas y mis hitos de fitness. 
+        Los resultados de un entrenamiento constante con Speediance, Garmin y BJJ.
+      </p>
+    </section>
+
+    {/* Volume Totals */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span class="text-2xl">📊</span> Volumen total de por vida
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {volumeStats.map((stat) => (
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center hover:border-blue-500/50 transition-colors">
+            <div class="text-3xl mb-2">{stat.icon}</div>
+            <div class="text-3xl font-bold text-white mb-1">{stat.value}</div>
+            <div class="text-sm text-neutral-400">{stat.label}</div>
+            <div class="text-xs text-neutral-500 mt-1">{stat.source}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Strength PRs */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span class="text-2xl">🏋️</span> PRs de fuerza
+      </h2>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-4 md:grid-cols-5 gap-4 p-4 bg-neutral-800/50 text-sm font-medium text-neutral-400">
+          <div class="col-span-2 md:col-span-2">Ejercicio</div>
+          <div>Peso</div>
+          <div>Reps</div>
+          <div class="hidden md:block">Fecha</div>
+        </div>
+        {strengthPRs.map((pr, i) => (
+          <div class={`grid grid-cols-4 md:grid-cols-5 gap-4 p-4 ${i !== strengthPRs.length - 1 ? 'border-t border-neutral-800' : ''}`}>
+            <div class="col-span-2 md:col-span-2 font-semibold text-white">{pr.exercise}</div>
+            <div class="text-blue-400 font-bold">{pr.weight} lbs</div>
+            <div class="text-neutral-300">{pr.reps}</div>
+            <div class="hidden md:block text-neutral-500 text-sm">{pr.date}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Running PRs */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span class="text-2xl">🏃</span> PRs de carrera
+      </h2>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
+        <div class="grid grid-cols-4 gap-4 p-4 bg-neutral-800/50 text-sm font-medium text-neutral-400">
+          <div>Distancia</div>
+          <div>Tiempo</div>
+          <div>Ritmo</div>
+          <div>Fecha</div>
+        </div>
+        {runningPRs.map((pr, i) => (
+          <div class={`grid grid-cols-4 gap-4 p-4 ${i !== runningPRs.length - 1 ? 'border-t border-neutral-800' : ''}`}>
+            <div class="font-semibold text-white">{pr.distance}</div>
+            <div class="text-blue-400 font-bold">{pr.time}</div>
+            <div class="text-neutral-300">{pr.pace}</div>
+            <div class="text-neutral-500 text-sm">{pr.date}</div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    {/* Weight Journey */}
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span class="text-2xl">⚖️</span> Evolución del peso
+      </h2>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-8">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+          {weightJourney.map((point, i) => (
+            <div class="text-center flex-1">
+              <div class="text-5xl font-bold text-white mb-2">{point.weight}</div>
+              <div class="text-lg text-neutral-300 mb-1">lbs</div>
+              <div class="text-blue-400 font-medium">{point.label}</div>
+              <div class="text-neutral-500 text-sm">{point.date}</div>
+              {i < weightJourney.length - 1 && (
+                <div class="hidden md:block absolute right-0 top-1/2 -translate-y-1/2 text-neutral-600 text-2xl">→</div>
+              )}
+            </div>
+          ))}
+        </div>
+        <div class="mt-8 text-center text-neutral-400 text-sm">
+          <p>Transformación: <span class="text-white font-medium">242 → 188 → 218 lbs</span> (perdió 54 lbs y luego ganó 30 lbs)</p>
+        </div>
+      </div>
+    </section>
+
+    {/* BJJ Stats */}
+    <section>
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
+        <span class="text-2xl">🥋</span> Trayectoria en BJJ
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-white mb-1">Cinturón azul</div>
+          <div class="text-neutral-400">Rango actual</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+          <div class="text-3xl font-bold text-white mb-1">Más de 2 años</div>
+          <div class="text-neutral-400">Tiempo de entrenamiento</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center col-span-2 md:col-span-1">
+          <div class="text-3xl font-bold text-white mb-1">Regular</div>
+          <div class="text-neutral-400">Competición</div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
