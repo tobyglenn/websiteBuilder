@@ -1,11 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import { getSpeedianceData } from '../data/speediance.js';
+import Layout from '../../layouts/Layout.astro';
+import { getSpeedianceData } from '../../data/speediance.js';
 
 const { stats, chartData, donutData, workoutTypeBreakdown, exercisePRs, recentSessions } = getSpeedianceData();
 
 // ── Heatmap data ──────────────────────────────────────────────────────────
-import rawSpeediance from '../data/speediance_dashboard_data.json';
+import rawSpeediance from '../../data/speediance_dashboard_data.json';
 const allSessions = rawSpeediance.allSessions || [];
 
 // Build date → count map

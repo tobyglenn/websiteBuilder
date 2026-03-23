@@ -1,7 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.jsx';
+import Footer from '../../components/Footer.jsx';
 import { Activity, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
 import {
   RECOVERY_RECORDS,
@@ -14,7 +14,7 @@ import {
   TREND_DATA,
   RECOVERY_BREAKDOWN,
   LAST_SYNCED,
-} from '../data/whoop.js';
+} from '../../data/whoop.js';
 
 // Recovery color helper
 function getRecoveryColor(score) {
