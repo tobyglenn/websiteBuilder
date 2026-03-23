@@ -1,0 +1,280 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getYearInReview2025 } from '../data/yearInReview.js';
+
+const yearInReview = getYearInReview2025();
+const { garmin, speediance, eightSleep, whoop, combined } = yearInReview;
+
+const pageTitle = "Retrospectiva de 2025 | Toby sobre tecnologia fitness";
+const pageDescription = "Uma visão completa dos meus dados de fitness de 2025: corrida, treino de força, sono e métricas de recuperação do Garmin, Speediance, 8Sleep e WHOOP.";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quantas milhas você correu em 2025?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Corri ${garmin.totalMiles} milhas em ${garmin.totalRuns} corridas em 2025.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto volume você levantou no Speediance em 2025?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Levantei ${speediance.totalVolumeFmt} de volume em ${speediance.totalWorkouts} treinos.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual foi sua pontuação média de sono no 8Sleep em 2025?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Minha pontuação média de sono foi ${eightSleep.avgSleepScore} em ${eightSleep.totalNights} noites registradas.`
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual foi sua recuperação média no WHOOP em 2025?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": `Minha pontuação média de recuperação foi ${whoop.avgRecovery}% com ${whoop.recoveryRate}% dos dias em recuperação verde.`
+      }
+    }
+  ]
+};
+---
+
+<Layout 
+  title={pageTitle} 
+  description={pageDescription}
+  jsonLd={faqSchema}
+>
+  <div class="container mx-auto px-4 py-12">
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <span class="inline-block px-4 py-1.5 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full mb-4">
+        Relatório anual de 2025
+      </span>
+      <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">
+        Retrospectiva do ano
+      </h1>
+      <p class="text-xl text-neutral-400 max-w-2xl mx-auto">
+        Uma visão completa da minha jornada fitness em corrida, treino de força, sono e recuperação.
+      </p>
+    </div>
+
+    <!-- Combined Stats -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+        <div class="text-3xl md:text-4xl font-bold text-white mb-2">
+          {combined.totalWorkouts.toLocaleString()}
+        </div>
+        <div class="text-neutral-400 text-sm">Total de treinos</div>
+        <div class="text-xs text-neutral-500 mt-1">Corrida + Força</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+        <div class="text-3xl md:text-4xl font-bold text-white mb-2">
+          {garmin.totalMiles.toLocaleString()}
+        </div>
+        <div class="text-neutral-400 text-sm">Milhas corridas</div>
+        <div class="text-xs text-neutral-500 mt-1">{garmin.totalRuns} corridas</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+        <div class="text-3xl md:text-4xl font-bold text-white mb-2">
+          {speediance.totalVolumeFmt}
+        </div>
+        <div class="text-neutral-400 text-sm">Volume levantado</div>
+        <div class="text-xs text-neutral-500 mt-1">{speediance.totalWorkouts} treinos</div>
+      </div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
+        <div class="text-3xl md:text-4xl font-bold text-white mb-2">
+          {eightSleep.avgSleepScore}
+        </div>
+        <div class="text-neutral-400 text-sm">Pontuação média de sono</div>
+        <div class="text-xs text-neutral-500 mt-1">{eightSleep.totalNights} noites</div>
+      </div>
+    </div>
+
+    <!-- Running Section -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+        <span class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400">🏃</span>
+        Corrida
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{garmin.totalMiles.toLocaleString()}</div>
+          <div class="text-neutral-400">Total de milhas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{garmin.totalRuns}</div>
+          <div class="text-neutral-400">Total de corridas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{garmin.totalHours}h</div>
+          <div class="text-neutral-400">Tempo correndo</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{garmin.avgPace}</div>
+          <div class="text-neutral-400">Ritmo médio/mi</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{garmin.avgHR}</div>
+          <div class="text-neutral-400">FC média</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{garmin.totalCalories.toLocaleString()}</div>
+          <div class="text-neutral-400">Calorias queimadas</div>
+        </div>
+      </div>
+      {garmin.longestRun && (
+        <div class="mt-4 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <h3 class="text-lg font-semibold text-white mb-2">Corrida mais longa</h3>
+          <p class="text-neutral-300">
+            <span class="text-blue-400 font-bold">{garmin.longestRun.miles} milhas</span> em {garmin.longestRun.date} 
+            (ritmo: {garmin.longestRun.pace}/mi)
+          </p>
+        </div>
+      )}
+    </section>
+
+    <!-- Speediance Section -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+        <span class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400">💪</span>
+        Treino de força Speediance
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{speediance.totalVolumeFmt}</div>
+          <div class="text-neutral-400">Volume total</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{speediance.totalWorkouts}</div>
+          <div class="text-neutral-400">Total de treinos</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{speediance.totalHours}h</div>
+          <div class="text-neutral-400">Tempo treinando</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{speediance.avgVolume.toLocaleString()}</div>
+          <div class="text-neutral-400">Volume médio/treino</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{speediance.totalCalories.toLocaleString()}</div>
+          <div class="text-neutral-400">Calorias queimadas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{speediance.highestSession?.volume.toLocaleString() || 0}</div>
+          <div class="text-neutral-400">Maior volume</div>
+        </div>
+      </div>
+      {speediance.topWorkouts.length > 0 && (
+        <div class="mt-4 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <h3 class="text-lg font-semibold text-white mb-4">Principais treinos por volume</h3>
+          <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+            {speediance.topWorkouts.map((workout, i) => (
+              <div class="text-center">
+                <div class="text-2xl font-bold text-blue-400">#{i + 1}</div>
+                <div class="text-white font-medium truncate">{workout.name}</div>
+                <div class="text-neutral-400 text-sm">{(workout.volume / 1000).toFixed(0)}K lbs</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+
+    <!-- Sleep Section -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+        <span class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400">😴</span>
+        Recuperação 8Sleep
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{eightSleep.avgSleepScore}</div>
+          <div class="text-neutral-400">Pontuação média de sono</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{eightSleep.avgTotalSleepHrs}h</div>
+          <div class="text-neutral-400">Sono total médio</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{eightSleep.totalNights}</div>
+          <div class="text-neutral-400">Noites registradas</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{eightSleep.avgHR}</div>
+          <div class="text-neutral-400">Frequência cardíaca média</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{eightSleep.avgRHR}</div>
+          <div class="text-neutral-400">FC de repouso média</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHOOP Section -->
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+        <span class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400">💓</span>
+        Recuperação e esforço WHOOP
+      </h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{whoop.avgRecovery}%</div>
+          <div class="text-neutral-400">Recuperação média</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{whoop.avgStrain}</div>
+          <div class="text-neutral-400">Esforço médio</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{whoop.avgSleep}h</div>
+          <div class="text-neutral-400">Sono médio</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{whoop.avgHRV}</div>
+          <div class="text-neutral-400">HRV média</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{whoop.avgRHR}</div>
+          <div class="text-neutral-400">RHR média</div>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+          <div class="text-4xl font-bold text-white mb-2">{whoop.recoveryRate}%</div>
+          <div class="text-neutral-400">Dias de recuperação verde</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navigation Links -->
+    <div class="border-t border-neutral-800 pt-12">
+      <h3 class="text-xl font-semibold text-white mb-6 text-center">Explore mais estatísticas</h3>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <a href="/running/" class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-blue-500 transition-colors group">
+          <div class="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">Corrida</div>
+          <div class="text-neutral-400 text-sm">Registro completo de corridas e análises</div>
+        </a>
+        <a href="/speediance/" class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-blue-500 transition-colors group">
+          <div class="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">Speediance</div>
+          <div class="text-neutral-400 text-sm">Dados de treino de força</div>
+        </a>
+        <a href="/sleep/" class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-blue-500 transition-colors group">
+          <div class="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">Sono</div>
+          <div class="text-neutral-400 text-sm">Análise do 8Sleep</div>
+        </a>
+        <a href="/whoop/" class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:border-blue-500 transition-colors group">
+          <div class="text-lg font-semibold text-white group-hover:text-blue-400 transition-colors">WHOOP</div>
+          <div class="text-neutral-400 text-sm">Recuperação e esforço</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>
