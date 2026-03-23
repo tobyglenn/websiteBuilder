@@ -1,0 +1,153 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.jsx';
+import Footer from '../../components/Footer.jsx';
+import { HeartPulse, Activity, Gauge, CalendarCheck2, Route, Zap, ArrowDown, ArrowUp, Equal } from 'lucide-react';
+import { FITNESS_AGE_DATA } from '../../data/fitnessAge.js';
+
+const {
+  fitnessAge,
+  actualAge,
+  ageDelta,
+  avgHRV,
+  avgRHR,
+  avgRecovery,
+  weeklyWorkouts,
+  runningMiles,
+  cardioScore,
+  workoutConsistency,
+  compositeScore,
+  avgPaceMinPerMile,
+  dataWindows,
+} = FITNESS_AGE_DATA;
+
+const deltaLabel = ageDelta > 0 ? 'jünger' : ageDelta < 0 ? 'älter' : 'gleich';
+const deltaAbs = Math.abs(ageDelta);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Fitnessalter-Rechner',
+  description:
+    'Eine Schätzung des Fitnessalters anhand von WHOOP-Erholungstrends und Garmin-Laufvolumen, gewichtet nach HRV, Ruhepuls, Konstanz und Cardio-Leistung.',
+  totalTime: 'P1D',
+  tool: [
+    { '@type': 'HowToTool', name: 'WHOOP-Erholungsdaten' },
+    { '@type': 'HowToTool', name: 'Garmin-Aktivitätsverlauf' },
+  ],
+  step: [
+    { '@type': 'HowToStep', name: 'Basis-Erholungsmetriken berechnen', text: 'Berechne durchschnittliche HRV, Ruhepuls und Erholungswert aus WHOOP-Datensätzen.' },
+    { '@type': 'HowToStep', name: 'Trainingskonstanz messen', text: 'Schätze den Prozentsatz aktiver Tage anhand der WHOOP-Workouts im jüngsten Zeitraum.' },
+    { '@type': 'HowToStep', name: 'Kardiovaskuläre Belastung bewerten', text: 'Nutze Garmin-Laufkilometer und Laufhäufigkeit, um einen Cardio-Score zu erstellen.' },
+    { '@type': 'HowToStep', name: 'Fitnessalter erzeugen', text: 'Kombiniere gewichtete Scores und ordne das Ergebnis einer Altersdifferenz im Vergleich zum chronologischen Alter zu.' },
+  ],
+};
+---
+
+<Layout
+  title="Fitnessalter-Rechner | TobyOnFitnessTech"
+  description="Sieh dir Tobys berechnetes Fitnessalter anhand echter WHOOP-Erholungs- und Garmin-Laufdaten an, einschließlich HRV, Ruhepuls, Konstanz und Cardio-Score."
+  breadcrumbs={[{ name: 'Startseite', url: '/de/' }, { name: 'Fitnessalter', url: '/de/fitness-age' }]}
+  jsonLd={jsonLd}
+>
+  <Header client:load />
+
+  <main class="bg-neutral-950 min-h-screen text-white pb-20">
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <span class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-blue-500/20 text-blue-400 mb-4">
+          <Gauge class="w-4 h-4" />
+          Datengestützter Langlebigkeitswert
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-3">Fitnessalter</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl">
+          Eine kombinierte Schätzung der biologischen Fitness auf Basis von Erholungsphysiologie und kardiovaskulärer Trainingsbelastung.
+        </p>
+
+        <div class="mt-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p class="text-neutral-400 text-sm uppercase tracking-wide">Berechnetes Fitnessalter</p>
+            <p class="text-6xl font-extrabold text-blue-400 leading-none mt-2">{fitnessAge}</p>
+          </div>
+          <div class="text-neutral-300">
+            <p class="text-sm">Tatsächliches Alter: <span class="text-white font-semibold">{actualAge}</span></p>
+            <p class="mt-1 text-lg font-semibold flex items-center gap-2">
+              {ageDelta > 0 ? <ArrowDown class="w-5 h-5 text-green-400" /> : ageDelta < 0 ? <ArrowUp class="w-5 h-5 text-yellow-400" /> : <Equal class="w-5 h-5 text-blue-400" />}
+              {deltaAbs} Jahre {deltaLabel}
+            </p>
+            <p class="text-neutral-500 text-sm mt-1">Kombinierter Score: {compositeScore}/100</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><HeartPulse class="w-4 h-4" /> Durchschn. HRV</p>
+          <p class="text-3xl font-bold mt-2">{avgHRV}<span class="text-neutral-500 text-lg"> ms</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Activity class="w-4 h-4" /> Ruhepuls</p>
+          <p class="text-3xl font-bold mt-2">{avgRHR}<span class="text-neutral-500 text-lg"> bpm</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Zap class="w-4 h-4" /> Erholungswert</p>
+          <p class="text-3xl font-bold mt-2">{avgRecovery}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><CalendarCheck2 class="w-4 h-4" /> Wöchentliche Workouts</p>
+          <p class="text-3xl font-bold mt-2">{weeklyWorkouts}</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Route class="w-4 h-4" /> Gelaufene Meilen</p>
+          <p class="text-3xl font-bold mt-2">{runningMiles}<span class="text-neutral-500 text-lg"> /12 Wo.</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Gauge class="w-4 h-4" /> Cardio-Score</p>
+          <p class="text-3xl font-bold mt-2 text-blue-400">{cardioScore}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">So wird es berechnet</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-2">Eingaben und Zeitfenster</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>WHOOP-Erholungsfenster: {dataWindows.whoopDays} Tage</li>
+              <li>Garmin-Lauffenster: {dataWindows.runningDays} Tage</li>
+              <li>Workout-Konstanz: {workoutConsistency}% der Tage aktiv</li>
+              <li>Durchschnittstempo: {avgPaceMinPerMile > 0 ? `${avgPaceMinPerMile} min/mi` : 'k. A.'}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-2">Gewichtungsmodell</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>HRV-Score (30%): höher ist besser im Vergleich zu Altersnormen</li>
+              <li>Ruhepuls-Score (25%): niedriger ist besser im Vergleich zu Altersnormen</li>
+              <li>Workout-Konstanz (20%): häufiges Training steigert den Score</li>
+              <li>Cardio-Volumen (15%): mehr Laufmeilen verbessern den Score</li>
+              <li>WHOOP-Erholungsqualität (10%): Stabilität des Erholungstrends</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto bg-gradient-to-r from-blue-900/25 to-sky-900/20 border border-blue-800/30 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-3">Fitnessalter vs. tatsächliches Alter</h2>
+        <p class="text-neutral-300 max-w-3xl">
+          Bei einem tatsächlichen Alter in den 40ern deuten die aktuellen Erholungs- und Cardio-Trends auf ein physiologisches Profil hin, das
+          <span class="text-blue-400 font-semibold"> {deltaAbs} Jahre {deltaLabel}</span> ist als das chronologische Alter.
+          Diese Schätzung wird aktualisiert, wenn sich WHOOP- und Garmin-Daten verändern.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

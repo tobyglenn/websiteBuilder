@@ -1,0 +1,153 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.jsx';
+import Footer from '../../components/Footer.jsx';
+import { HeartPulse, Activity, Gauge, CalendarCheck2, Route, Zap, ArrowDown, ArrowUp, Equal } from 'lucide-react';
+import { FITNESS_AGE_DATA } from '../../data/fitnessAge.js';
+
+const {
+  fitnessAge,
+  actualAge,
+  ageDelta,
+  avgHRV,
+  avgRHR,
+  avgRecovery,
+  weeklyWorkouts,
+  runningMiles,
+  cardioScore,
+  workoutConsistency,
+  compositeScore,
+  avgPaceMinPerMile,
+  dataWindows,
+} = FITNESS_AGE_DATA;
+
+const deltaLabel = ageDelta > 0 ? 'कम' : ageDelta < 0 ? 'ज़्यादा' : 'बराबर';
+const deltaAbs = Math.abs(ageDelta);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'फ़िटनेस आयु कैलकुलेटर',
+  description:
+    'WHOOP रिकवरी ट्रेंड्स और Garmin रनिंग वॉल्यूम का उपयोग करके फ़िटनेस आयु का एक अनुमान, जिसमें HRV, आराम की हृदय गति, निरंतरता और कार्डियो आउटपुट को वेट किया गया है।',
+  totalTime: 'P1D',
+  tool: [
+    { '@type': 'HowToTool', name: 'WHOOP रिकवरी डेटा' },
+    { '@type': 'HowToTool', name: 'Garmin गतिविधि इतिहास' },
+  ],
+  step: [
+    { '@type': 'HowToStep', name: 'बेसलाइन रिकवरी मेट्रिक्स की गणना करें', text: 'WHOOP रिकॉर्ड्स से औसत HRV, आराम की हृदय गति और रिकवरी स्कोर निकालें।' },
+    { '@type': 'HowToStep', name: 'ट्रेनिंग निरंतरता मापें', text: 'हालिया अवधि में WHOOP वर्कआउट्स के आधार पर सक्रिय दिनों का प्रतिशत अनुमानित करें।' },
+    { '@type': 'HowToStep', name: 'हृदय-स्वास्थ्य लोड का मूल्यांकन करें', text: 'Garmin की रनिंग माइल्स और रन फ़्रीक्वेंसी का उपयोग करके कार्डियो स्कोर बनाएं।' },
+    { '@type': 'HowToStep', name: 'फ़िटनेस आयु तैयार करें', text: 'वेटेड स्कोर को मिलाकर परिणाम को वास्तविक आयु के मुकाबले आयु-अंतर में मैप करें।' },
+  ],
+};
+---
+
+<Layout
+  title="फ़िटनेस आयु कैलकुलेटर | TobyOnFitnessTech"
+  description="WHOOP रिकवरी और Garmin रनिंग के वास्तविक डेटा का उपयोग करके Toby की गणना की गई फ़िटनेस आयु देखें, जिसमें HRV, आराम की हृदय गति, निरंतरता और कार्डियो स्कोर शामिल हैं।"
+  breadcrumbs={[{ name: 'होम', url: '/hi/' }, { name: 'फ़िटनेस आयु', url: '/hi/fitness-age' }]}
+  jsonLd={jsonLd}
+>
+  <Header client:load />
+
+  <main class="bg-neutral-950 min-h-screen text-white pb-20">
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <span class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-blue-500/20 text-blue-400 mb-4">
+          <Gauge class="w-4 h-4" />
+          डेटा-आधारित दीर्घायु मेट्रिक
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-3">फ़िटनेस आयु</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl">
+          रिकवरी फिज़ियोलॉजी और कार्डियो ट्रेनिंग लोड पर आधारित जैविक फिटनेस का एक संयुक्त अनुमान।
+        </p>
+
+        <div class="mt-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p class="text-neutral-400 text-sm uppercase tracking-wide">गणना की गई फ़िटनेस आयु</p>
+            <p class="text-6xl font-extrabold text-blue-400 leading-none mt-2">{fitnessAge}</p>
+          </div>
+          <div class="text-neutral-300">
+            <p class="text-sm">वास्तविक आयु: <span class="text-white font-semibold">{actualAge}</span></p>
+            <p class="mt-1 text-lg font-semibold flex items-center gap-2">
+              {ageDelta > 0 ? <ArrowDown class="w-5 h-5 text-green-400" /> : ageDelta < 0 ? <ArrowUp class="w-5 h-5 text-yellow-400" /> : <Equal class="w-5 h-5 text-blue-400" />}
+              {deltaAbs} वर्ष {deltaLabel}
+            </p>
+            <p class="text-neutral-500 text-sm mt-1">संयुक्त स्कोर: {compositeScore}/100</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><HeartPulse class="w-4 h-4" /> औसत HRV</p>
+          <p class="text-3xl font-bold mt-2">{avgHRV}<span class="text-neutral-500 text-lg"> ms</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Activity class="w-4 h-4" /> आराम की HR</p>
+          <p class="text-3xl font-bold mt-2">{avgRHR}<span class="text-neutral-500 text-lg"> bpm</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Zap class="w-4 h-4" /> रिकवरी स्कोर</p>
+          <p class="text-3xl font-bold mt-2">{avgRecovery}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><CalendarCheck2 class="w-4 h-4" /> साप्ताहिक वर्कआउट्स</p>
+          <p class="text-3xl font-bold mt-2">{weeklyWorkouts}</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Route class="w-4 h-4" /> दौड़ी गई माइल्स</p>
+          <p class="text-3xl font-bold mt-2">{runningMiles}<span class="text-neutral-500 text-lg"> /12 सप्ताह</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Gauge class="w-4 h-4" /> कार्डियो स्कोर</p>
+          <p class="text-3xl font-bold mt-2 text-blue-400">{cardioScore}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">यह कैसे गणना की जाती है</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-2">इनपुट और विंडो</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>WHOOP रिकवरी विंडो: {dataWindows.whoopDays} दिन</li>
+              <li>Garmin रनिंग विंडो: {dataWindows.runningDays} दिन</li>
+              <li>वर्कआउट निरंतरता: {workoutConsistency}% दिन सक्रिय</li>
+              <li>औसत पेस: {avgPaceMinPerMile > 0 ? `${avgPaceMinPerMile} min/mi` : 'उपलब्ध नहीं'}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-2">वेटिंग मॉडल</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>HRV स्कोर (30%): आयु मानकों की तुलना में जितना अधिक, उतना बेहतर</li>
+              <li>आराम की HR स्कोर (25%): आयु मानकों की तुलना में जितना कम, उतना बेहतर</li>
+              <li>वर्कआउट निरंतरता (20%): नियमित ट्रेनिंग स्कोर बढ़ाती है</li>
+              <li>कार्डियो वॉल्यूम (15%): अधिक रनिंग माइल्स स्कोर बेहतर बनाती हैं</li>
+              <li>WHOOP रिकवरी गुणवत्ता (10%): रिकवरी ट्रेंड की स्थिरता</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto bg-gradient-to-r from-blue-900/25 to-sky-900/20 border border-blue-800/30 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-3">फ़िटनेस आयु बनाम वास्तविक आयु</h2>
+        <p class="text-neutral-300 max-w-3xl">
+          वास्तविक आयु 40s में होने पर, मौजूदा रिकवरी और कार्डियो ट्रेंड्स एक ऐसे शारीरिक प्रोफ़ाइल की ओर इशारा करते हैं जो
+          <span class="text-blue-400 font-semibold"> {deltaAbs} वर्ष {deltaLabel}</span> है वास्तविक कालानुक्रमिक आयु की तुलना में।
+          WHOOP और Garmin डेटा बदलने के साथ यह अनुमान भी अपडेट होता रहता है।
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

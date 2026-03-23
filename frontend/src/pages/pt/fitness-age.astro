@@ -1,0 +1,153 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.jsx';
+import Footer from '../../components/Footer.jsx';
+import { HeartPulse, Activity, Gauge, CalendarCheck2, Route, Zap, ArrowDown, ArrowUp, Equal } from 'lucide-react';
+import { FITNESS_AGE_DATA } from '../../data/fitnessAge.js';
+
+const {
+  fitnessAge,
+  actualAge,
+  ageDelta,
+  avgHRV,
+  avgRHR,
+  avgRecovery,
+  weeklyWorkouts,
+  runningMiles,
+  cardioScore,
+  workoutConsistency,
+  compositeScore,
+  avgPaceMinPerMile,
+  dataWindows,
+} = FITNESS_AGE_DATA;
+
+const deltaLabel = ageDelta > 0 ? 'mais jovem' : ageDelta < 0 ? 'mais velho' : 'igual';
+const deltaAbs = Math.abs(ageDelta);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: 'Calculadora de idade fitness',
+  description:
+    'Uma estimativa de idade fitness usando tendências de recuperação do WHOOP e volume de corrida do Garmin, ponderada por HRV, frequência cardíaca em repouso, consistência e desempenho cardiovascular.',
+  totalTime: 'P1D',
+  tool: [
+    { '@type': 'HowToTool', name: 'Dados de recuperação do WHOOP' },
+    { '@type': 'HowToTool', name: 'Histórico de atividades do Garmin' },
+  ],
+  step: [
+    { '@type': 'HowToStep', name: 'Calcular métricas básicas de recuperação', text: 'Calcule a HRV média, a frequência cardíaca em repouso e a pontuação de recuperação a partir dos registros do WHOOP.' },
+    { '@type': 'HowToStep', name: 'Medir a consistência do treino', text: 'Estime a porcentagem de dias ativos a partir dos treinos do WHOOP na janela recente.' },
+    { '@type': 'HowToStep', name: 'Avaliar a carga cardiovascular', text: 'Use as milhas de corrida do Garmin e a frequência de corrida para criar uma pontuação de cardio.' },
+    { '@type': 'HowToStep', name: 'Gerar a idade fitness', text: 'Combine pontuações ponderadas e converta o resultado em uma diferença de idade em relação à idade cronológica.' },
+  ],
+};
+---
+
+<Layout
+  title="Calculadora de idade fitness | TobyOnFitnessTech"
+  description="Veja a idade fitness calculada do Toby usando dados reais de recuperação do WHOOP e corrida do Garmin, incluindo HRV, frequência cardíaca em repouso, consistência e pontuação de cardio."
+  breadcrumbs={[{ name: 'Início', url: '/pt/' }, { name: 'Idade fitness', url: '/pt/fitness-age' }]}
+  jsonLd={jsonLd}
+>
+  <Header client:load />
+
+  <main class="bg-neutral-950 min-h-screen text-white pb-20">
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <span class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-blue-500/20 text-blue-400 mb-4">
+          <Gauge class="w-4 h-4" />
+          Métrica de longevidade orientada por dados
+        </span>
+        <h1 class="text-4xl md:text-5xl font-bold mb-3">Idade fitness</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl">
+          Uma estimativa combinada da condição biológica com base na fisiologia de recuperação e na carga de treino cardiovascular.
+        </p>
+
+        <div class="mt-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p class="text-neutral-400 text-sm uppercase tracking-wide">Idade fitness calculada</p>
+            <p class="text-6xl font-extrabold text-blue-400 leading-none mt-2">{fitnessAge}</p>
+          </div>
+          <div class="text-neutral-300">
+            <p class="text-sm">Idade real: <span class="text-white font-semibold">{actualAge}</span></p>
+            <p class="mt-1 text-lg font-semibold flex items-center gap-2">
+              {ageDelta > 0 ? <ArrowDown class="w-5 h-5 text-green-400" /> : ageDelta < 0 ? <ArrowUp class="w-5 h-5 text-yellow-400" /> : <Equal class="w-5 h-5 text-blue-400" />}
+              {deltaAbs} anos {deltaLabel}
+            </p>
+            <p class="text-neutral-500 text-sm mt-1">Pontuação composta: {compositeScore}/100</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><HeartPulse class="w-4 h-4" /> HRV média</p>
+          <p class="text-3xl font-bold mt-2">{avgHRV}<span class="text-neutral-500 text-lg"> ms</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Activity class="w-4 h-4" /> FC em repouso</p>
+          <p class="text-3xl font-bold mt-2">{avgRHR}<span class="text-neutral-500 text-lg"> bpm</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Zap class="w-4 h-4" /> Pontuação de recuperação</p>
+          <p class="text-3xl font-bold mt-2">{avgRecovery}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><CalendarCheck2 class="w-4 h-4" /> Treinos semanais</p>
+          <p class="text-3xl font-bold mt-2">{weeklyWorkouts}</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Route class="w-4 h-4" /> Milhas corridas</p>
+          <p class="text-3xl font-bold mt-2">{runningMiles}<span class="text-neutral-500 text-lg"> /12 sem</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Gauge class="w-4 h-4" /> Pontuação de cardio</p>
+          <p class="text-3xl font-bold mt-2 text-blue-400">{cardioScore}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Como é calculada</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-2">Entradas e janelas</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>Janela de recuperação do WHOOP: {dataWindows.whoopDays} dias</li>
+              <li>Janela de corrida do Garmin: {dataWindows.runningDays} dias</li>
+              <li>Consistência de treino: {workoutConsistency}% dos dias ativos</li>
+              <li>Ritmo médio: {avgPaceMinPerMile > 0 ? `${avgPaceMinPerMile} min/mi` : 'N/D'}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-2">Modelo de ponderação</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>Pontuação de HRV (30%): quanto maior, melhor em relação às normas por idade</li>
+              <li>Pontuação de FC em repouso (25%): quanto menor, melhor em relação às normas por idade</li>
+              <li>Consistência de treino (20%): treinar com frequência aumenta a pontuação</li>
+              <li>Volume de cardio (15%): mais milhas de corrida melhoram a pontuação</li>
+              <li>Qualidade de recuperação do WHOOP (10%): estabilidade da tendência de recuperação</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto bg-gradient-to-r from-blue-900/25 to-sky-900/20 border border-blue-800/30 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-3">Idade fitness vs. idade real</h2>
+        <p class="text-neutral-300 max-w-3xl">
+          Com uma idade real na faixa dos 40 anos, as tendências atuais de recuperação e cardio indicam um perfil fisiológico que está
+          <span class="text-blue-400 font-semibold"> {deltaAbs} anos {deltaLabel}</span> do que a idade cronológica.
+          Essa estimativa é atualizada conforme os dados do WHOOP e do Garmin evoluem.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
