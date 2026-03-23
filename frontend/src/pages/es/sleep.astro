@@ -1,0 +1,331 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.jsx';
+import Footer from '../components/Footer.jsx';
+import { Moon, Heart, Activity, Thermometer, Clock, TrendingUp } from 'lucide-react';
+import {
+  currentData,
+  RECENT_SLEEP,
+  TREND_DATA,
+  SLEEP_STAGES,
+  LAST_SYNCED,
+  TOTAL_NIGHTS,
+  avgSleepScore,
+  avgHRV,
+  avgHeartRate,
+  avgTimeSlept,
+  avgSleepQuality,
+} from '../data/sleep.js';
+
+// Chart dimensions
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = 30;
+
+// Generate trend line SVG points
+function generateTrendLine(data, valueKey, maxVal = 100) {
+  if (!data.length || data.every(d => !d[valueKey] || d[valueKey] === 0)) return '';
+  const validData = data.filter(d => d[valueKey] > 0);
+  if (validData.length < 2) return '';
+  return validData
+    .map((d, i) => {
+      const x = chartPadding + (i / (validData.length - 1)) * (chartWidth - 2 * chartPadding);
+      const y = chartHeight - chartPadding - (d[valueKey] / maxVal) * (chartHeight - 2 * chartPadding);
+      return `${x},${y}`;
+    })
+    .join(' ');
+}
+
+const sleepScorePoints = generateTrendLine(TREND_DATA, 'sleep_score', 100);
+
+// Sleep stage bar chart calculations
+const stageColors = {
+  deep: '#8B5CF6',
+  rem: '#3B82F6',
+  light: '#10B981',
+  awake: '#EF4444',
+};
+
+const stages = [
+  { name: 'Profundo', hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
+  { name: 'REM', hours: SLEEP_STAGES.rem.hours, pct: SLEEP_STAGES.rem.pct, color: stageColors.rem },
+  { name: 'Ligero', hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
+  { name: 'Despierto', hours: SLEEP_STAGES.awake.hours, pct: SLEEP_STAGES.awake.pct, color: stageColors.awake },
+];
+
+const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
+
+// JSON-LD schema for 8Sleep Pod 3
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "8Sleep Pod 3",
+  "description": "Colchón inteligente avanzado con regulación activa de temperatura, seguimiento del sueño y monitoreo de bienestar.",
+  "brand": {
+    "@type": "Brand",
+    "name": "8Sleep"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.7",
+    "reviewCount": "2847"
+  },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "2495",
+    "availability": "https://schema.org/InStock"
+  },
+  "category": "Colchón inteligente",
+  "keywords": "8Sleep, Pod 3, colchón inteligente, rastreador del sueño, regulación de temperatura"
+};
+---
+
+<Layout 
+  title="Datos de 8Sleep | TobyOnFitnessTech"
+  description="Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, fases del sueño y seguimiento de temperatura. Mira cómo optimizo la recuperación a través del sueño."
+  breadcrumbs={[{ name: "Inicio", url: "/" }, { name: "Datos de sueño", url: "/sleep" }]}
+  jsonLd={jsonLd}
+>
+  <Header client:load />
+  
+  <main class="bg-neutral-950 min-h-screen pb-20">
+    <!-- Hero Section -->
+    <section class="pt-20 pb-10 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
+            <Moon class="w-4 h-4" />
+            Datos de sueño
+          </span>
+          <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS} noches registradas</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Estadísticas de sueño</h1>
+        <p class="text-lg text-neutral-400 max-w-2xl">
+          Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, desglose de fases del sueño y seguimiento de temperatura.
+        </p>
+      </div>
+    </section>
+
+    <!-- Stats Grid - 6 cards -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Moon class="w-4 h-4" />
+              Puntuación de sueño
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.sleep_score}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Activity class="w-4 h-4" />
+              Calidad del sueño
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.sleep_quality_score}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Heart class="w-4 h-4" />
+              HRV promedio
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHRV}<span class="text-lg text-neutral-500">ms</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <TrendingUp class="w-4 h-4" />
+              Frecuencia cardíaca promedio
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHeartRate}<span class="text-lg text-neutral-500">lpm</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Clock class="w-4 h-4" />
+              Tiempo promedio dormido
+            </div>
+            <div class="text-3xl font-bold text-white">{avgTimeSlept}<span class="text-lg text-neutral-500">h</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Thermometer class="w-4 h-4" />
+              Temp. de la cama
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.bed_temp}<span class="text-lg text-neutral-500">°C</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sleep Stages Breakdown -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Desglose de las fases del sueño</h2>
+          
+          <!-- Stacked bar chart -->
+          <div class="mb-6">
+            <div class="flex h-8 rounded-lg overflow-hidden">
+              {stages.map((stage) => (
+                <div 
+                  class={`transition-all duration-500`}
+                  style={`width: ${totalPct > 0 ? (parseFloat(stage.pct) / totalPct) * 100 : 0}%; background-color: ${stage.color};`}
+                  title={`${stage.name}: ${stage.hours}h (${stage.pct}%)`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <!-- Legend with details -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stages.map((stage) => (
+              <div class="flex items-center gap-3">
+                <div class={`w-3 h-3 rounded-full`} style={`background-color: ${stage.color};`}></div>
+                <div>
+                  <div class="text-white font-medium">{stage.name}</div>
+                  <div class="text-neutral-400 text-sm">{stage.hours}h ({stage.pct}%)</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historical Trend Chart -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Tendencia de la puntuación de sueño</h2>
+          {sleepScorePoints ? (
+            <div class="overflow-x-auto">
+              <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
+                <!-- Grid -->
+                <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                
+                <!-- Y-axis labels -->
+                <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
+                
+                <!-- Line -->
+                <polyline
+                  points={sleepScorePoints}
+                  fill="none"
+                  stroke="#3B82F6"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                
+                <!-- Data points -->
+                {TREND_DATA.filter(d => d.sleep_score > 0).map((d, i) => {
+                  const validData = TREND_DATA.filter(d => d.sleep_score > 0);
+                  const x = chartPadding + (i / (validData.length - 1)) * (chartWidth - 2 * chartPadding);
+                  const y = chartHeight - chartPadding - (d.sleep_score / 100) * (chartHeight - 2 * chartPadding);
+                  return (
+                    <circle cx={x} cy={y} r="3" fill="#3B82F6" />
+                  );
+                })}
+              </svg>
+            </div>
+          ) : (
+            <p class="text-neutral-400">No hay datos de puntuación de sueño disponibles</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Sleep Table -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">Sueño reciente (últimos 7 días)</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-neutral-400 text-sm border-b border-neutral-800">
+                  <th class="text-left py-2 px-2">Fecha</th>
+                  <th class="text-left py-2 px-2">Puntuación de sueño</th>
+                  <th class="text-left py-2 px-2">Calidad</th>
+                  <th class="text-left py-2 px-2">HRV</th>
+                  <th class="text-left py-2 px-2">FC</th>
+                  <th class="text-left py-2 px-2">Tiempo dormido</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RECENT_SLEEP.map((row) => (
+                  <tr class="border-b border-neutral-800/50">
+                    <td class="py-2 px-2 text-white text-sm">
+                      {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </td>
+                    <td class="py-2 px-2">
+                      {row.sleep_score > 0 ? (
+                        <span class={`px-2 py-0.5 rounded text-sm font-medium ${
+                          row.sleep_score >= 67 ? 'text-green-400 bg-green-400/10' : 
+                          row.sleep_score >= 34 ? 'text-yellow-400 bg-yellow-400/10' : 
+                          'text-red-400 bg-red-400/10'
+                        }`}>
+                          {row.sleep_score}
+                        </span>
+                      ) : (
+                        <span class="text-neutral-500 text-sm">-</span>
+                      )}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.sleep_quality_score ? row.sleep_quality_score : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.current_hrv ? `${row.current_hrv} ms` : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.current_heart_rate ? `${row.current_heart_rate} lpm` : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.time_slept_hours ? `${row.time_slept_hours} h` : '-'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-8 border border-purple-800/30">
+          <h2 class="text-2xl font-bold text-white mb-4">Haz seguimiento de tu sueño</h2>
+          <p class="text-neutral-400 mb-6">
+            Mira cómo los datos de 8Sleep se integran con mi ecosistema fitness más amplio.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/whoop/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+              Datos de WHOOP
+            </a>
+            <a href="/training/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              Resumen de entrenamiento
+            </a>
+            <a href="/day/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              Un día en los datos
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-2 text-neutral-500 text-sm">
+          <Clock class="w-4 h-4" />
+          <span>Última sincronización: {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : 'N/D'}</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
