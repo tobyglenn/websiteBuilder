@@ -112,3 +112,44 @@
   from = "/?p=*"
   to = "/"
   status = 301
+
+# Game & App redirects
+[[redirects]]
+  from = "/mma-rpg"
+  to = "https://clawdassistant85-netizen.github.io/mma-rpg/"
+  status = 301
+
+[[redirects]]
+  from = "/mma-rpg/*"
+  to = "https://clawdassistant85-netizen.github.io/mma-rpg/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/gridbound-realms"
+  to = "https://clawdassistant85-netizen.github.io/gridbound-realms/"
+  status = 301
+
+[[redirects]]
+  from = "/gridbound-realms/*"
+  to = "https://clawdassistant85-netizen.github.io/gridbound-realms/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/bjj-buddy"
+  to = "https://bjj-buddy.tobyonfitnesstech.com"
+  status = 301
+
+[[redirects]]
+  from = "/bjj-buddy/*"
+  to = "https://bjj-buddy.tobyonfitnesstech.com/:splat"
+  status = 301
+
+[[redirects]]
+  from = "/nutritrack"
+  to = "https://nutritrack.tobyonfitnesstech.com"
+  status = 301
+
+[[redirects]]
+  from = "/nutritrack/*"
+  to = "https://nutritrack.tobyonfitnesstech.com/:splat"
+  status = 301
