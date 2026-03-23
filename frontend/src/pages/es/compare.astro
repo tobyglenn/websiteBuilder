@@ -1,0 +1,134 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Comparación de Speediance vs Tonal vs gimnasio tradicional",
+  "description": "Comparación honesta de Speediance, Tonal y membresías de gimnasio tradicional basada en experiencia real: 9M+ lbs en Tonal, 1.29M+ lbs en Speediance.",
+  "brand": [
+    { "@type": "Brand", "name": "Speediance" },
+    { "@type": "Brand", "name": "Tonal" },
+    { "@type": "Brand", "name": "Gimnasio tradicional" }
+  ],
+  "offers": [
+    { "@type": "Offer", "name": "Speediance", "price": "4995", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
+    { "@type": "Offer", "name": "Tonal", "price": "2495", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
+  ],
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "2" }
+};
+
+const comparisonFeatures = [
+  { feature: "Costo inicial", speediance: "$4,995", tonal: "$2,495 + $39/mes", traditional: "$0-$200 de inscripción" },
+  { feature: "Costo mensual", speediance: "$39/mes (opcional)", tonal: "$39/mes obligatorio", traditional: "~$150/mes" },
+  { feature: "Costo total a 1 año", speediance: "$5,463", tonal: "$2,963 + $468 = $3,431", traditional: "$1,800" },
+  { feature: "Costo total a 3 años", speediance: "$6,399", tonal: "$2,963 + $1,404 = $4,367", traditional: "$5,400" },
+  { feature: "Costo total a 5 años", speediance: "$7,335", tonal: "$2,963 + $2,340 = $5,303", traditional: "$9,000" },
+  { feature: "Rango de resistencia", speediance: "220 lbs (cable)", tonal: "200 lbs (digital)", traditional: "Ilimitado" },
+  { feature: "Modo excéntrico", speediance: "✓ Sí", tonal: "✓ Sí", traditional: "✓ Sí (con compañero)" },
+  { feature: "Modo spotter", speediance: "✓ IA adaptativa", tonal: "✓ Sí", traditional: "✓ Con spotter humano" },
+  { feature: "Calidad de la app", speediance: "Buena (mejorando)", tonal: "Excelente", traditional: "N/D" },
+  { feature: "Atención al cliente", speediance: "Rápida", tonal: "Tuvo problemas", traditional: "Varía" },
+  { feature: "Garantía", speediance: "2 años", tonal: "1 año", traditional: "N/D" },
+  { feature: "Espacio requerido", speediance: "6×4 pies de piso", tonal: "Montaje en pared + espacio de piso", traditional: "Gran sala de gimnasio" },
+  { feature: "Instalación", speediance: "Independiente (sin perforar)", tonal: "Montaje en pared obligatorio", traditional: "N/D" },
+  { feature: "Seguimiento de datos", speediance: "Reps, peso, volumen", tonal: "Reps, peso, volumen", traditional: "Seguimiento manual" },
+];
+
+const speediancePros = [
+  "No requiere suscripción para usarlo",
+  "Diseño independiente - sin perforar la pared",
+  "Mayor resistencia máxima (220 lbs)",
+  "Adaptación de peso con IA en tiempo real",
+  "Sistema de doble cable para ejercicios versátiles",
+  "Uso sin conexión disponible",
+  "No he vivido subidas de precio",
+  "La inversión única se amortiza en ~2 años frente a Tonal"
+];
+const speedianceCons = [
+  "Costo inicial más alto ($4,995)",
+  "Marca más nueva con biblioteca de contenido más pequeña",
+  "La app aún está madurando frente a competidores establecidos"
+];
+const tonalPros = [
+  "Marca establecida con biblioteca de contenido extensa",
+  "Excelente calidad y variedad de coaching",
+  "Diseño elegante de pared que ahorra espacio",
+  "Comunidad fuerte y variedad de clases",
+  "Trayectoria comprobada (años en el mercado)"
+];
+const tonalCons = [
+  "Suscripción de $39/mes obligatoria - costo continuo para siempre",
+  "Instalación en pared obligatoria (perforación, montaje)",
+  "He vivido aumentos de precio con el tiempo",
+  "Menor resistencia máxima (200 lbs)",
+  "Funcionalidad sin conexión limitada",
+  "Algunos usuarios reportan problemas de soporte",
+  "El programa de recompra no es como se anunciaba"
+];
+const traditionalGymPros = [
+  "Resistencia ilimitada (puedes cargar más que en cualquier gimnasio inteligente)",
+  "Amplia variedad de equipos disponibles",
+  "Ambiente social y comunidad",
+  "Acceso a clases, entrenadores y amenidades",
+  "Sin costo inicial de equipo",
+  "Puedes probar antes de comprometerte"
+];
+const traditionalGymCons = [
+  "Tiempo y costo de traslado (gasolina, estacionamiento)",
+  "El costo mensual se acumula bastante con el tiempo",
+  "Lleno en horas pico",
+  "Esperar por el equipo",
+  "Acceso 24/7 limitado en muchos gimnasios",
+  "Menos conveniente para entrenamientos rápidos"
+];
+---
+
+<Layout
+  title="Speediance vs Tonal vs gimnasio tradicional | Toby sobre tecnología fitness"
+  description="He levantado 9M+ lbs en Tonal y 1.29M+ lbs en Speediance. Aquí tienes mi comparación honesta de 3 vías, incluyendo costos de membresía de gimnasio tradicional."
+  breadcrumbs={[{ name: "Inicio", url: "/" }, { name: "Comparar", url: "/compare" }]}
+  jsonLd={jsonLd}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10"><div class="max-w-3xl">
+        <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Comparación de equipos · Datos reales, sin patrocinio</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">Speediance vs Tonal<br /><span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">vs gimnasio tradicional</span></h1>
+        <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">He levantado <strong class="text-white">9M+ libras</strong> en Tonal y <strong class="text-blue-400">1.29M+ libras</strong> en Speediance. Aquí va mi comparación honesta de las tres opciones — sin sesgo de afiliados, solo datos de años de uso real.</p>
+        <div class="flex flex-wrap gap-4 mt-6">
+          <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 border border-neutral-700/50 text-neutral-300 font-medium rounded-full text-sm"><span class="w-2 h-2 rounded-full bg-neutral-400 inline-block"></span>9M+ lbs en Tonal</div>
+          <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-900/20 border border-blue-500/30 text-blue-300 font-medium rounded-full text-sm"><span class="w-2 h-2 rounded-full bg-blue-400 inline-block"></span>1.29M+ lbs en Speediance</div>
+          <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-900/20 border border-green-500/30 text-green-300 font-medium rounded-full text-sm"><span class="w-2 h-2 rounded-full bg-green-400 inline-block"></span>Años en gimnasios tradicionales</div>
+        </div>
+      </div></div>
+    </section>
+
+    <section class="py-16 bg-neutral-900/50"><div class="container mx-auto px-4">
+      <h2 class="text-3xl font-bold mb-2 text-center">Comparación de funciones</h2>
+      <p class="text-neutral-400 text-center mb-10">Especificaciones lado a lado de alguien que ha usado los tres</p>
+      <div class="md:hidden space-y-4 mb-8">
+        <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-5"><h3 class="font-bold text-lg mb-3 text-blue-400">Speediance</h3><ul class="space-y-2 text-sm text-neutral-300"><li><span class="text-neutral-500">Inicial:</span> $4,995</li><li><span class="text-neutral-500">Mensual:</span> $39/mes (opcional)</li><li><span class="text-neutral-500">Total a 5 años:</span> $7,335</li><li><span class="text-neutral-500">Resistencia:</span> cable de 220 lbs</li><li><span class="text-neutral-500">Excéntrico:</span> <span class="text-green-400">✓ Sí</span></li><li><span class="text-neutral-500">Spotter:</span> <span class="text-green-400">✓ IA adaptativa</span></li><li><span class="text-neutral-500">App:</span> Buena (mejorando)</li><li><span class="text-neutral-500">Soporte:</span> Rápido</li><li><span class="text-neutral-500">Garantía:</span> 2 años</li><li><span class="text-neutral-500">Instalación:</span> Independiente</li><li><span class="text-neutral-500">Subidas de precio:</span> <span class="text-green-400">Ninguna ✓</span></li></ul></div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5"><h3 class="font-bold text-lg mb-3 text-neutral-300">Tonal</h3><ul class="space-y-2 text-sm text-neutral-300"><li><span class="text-neutral-500">Inicial:</span> $2,495 + $39/mes</li><li><span class="text-neutral-500">Mensual:</span> <span class="text-red-400">$39/mes obligatorio</span></li><li><span class="text-neutral-500">Total a 5 años:</span> $5,303</li><li><span class="text-neutral-500">Resistencia:</span> digital de 200 lbs</li><li><span class="text-neutral-500">Excéntrico:</span> <span class="text-green-400">✓ Sí</span></li><li><span class="text-neutral-500">Spotter:</span> <span class="text-green-400">✓ Sí</span></li><li><span class="text-neutral-500">App:</span> Excelente</li><li><span class="text-neutral-500">Soporte:</span> Tuvo problemas</li><li><span class="text-neutral-500">Garantía:</span> 1 año</li><li><span class="text-neutral-500">Instalación:</span> Montaje en pared</li><li><span class="text-neutral-500">Subidas de precio:</span> <span class="text-red-400">Sí ✗</span></li></ul></div>
+        <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-5"><h3 class="font-bold text-lg mb-3 text-green-400">Gimnasio tradicional</h3><ul class="space-y-2 text-sm text-neutral-300"><li><span class="text-neutral-500">Inicial:</span> $0-$200 de inscripción</li><li><span class="text-neutral-500">Mensual:</span> ~$150/mes</li><li><span class="text-neutral-500">Total a 5 años:</span> $9,000</li><li><span class="text-neutral-500">Resistencia:</span> <span class="text-green-400">Ilimitada</span></li><li><span class="text-neutral-500">Excéntrico:</span> <span class="text-green-400">✓ Con compañero</span></li><li><span class="text-neutral-500">Spotter:</span> <span class="text-green-400">Con humano</span></li><li><span class="text-neutral-500">App:</span> N/D</li><li><span class="text-neutral-500">Soporte:</span> Varía</li><li><span class="text-neutral-500">Garantía:</span> N/D</li><li><span class="text-neutral-500">Instalación:</span> N/D</li><li><span class="text-neutral-500">Subidas de precio:</span> Ocasionales</li></ul></div>
+      </div>
+      <div class="hidden md:block overflow-x-auto"><table class="w-full text-sm"><thead><tr class="border-b border-neutral-800"><th class="text-left py-3 px-4 text-neutral-400 font-medium w-1/4">Función</th><th class="text-center py-3 px-4 text-blue-400 font-bold w-1/4">Speediance</th><th class="text-center py-3 px-4 text-neutral-300 font-bold w-1/4">Tonal</th><th class="text-center py-3 px-4 text-green-400 font-bold w-1/4">Gimnasio tradicional</th></tr></thead><tbody class="divide-y divide-neutral-800">{comparisonFeatures.map((row, index) => (<tr class={`hover:bg-neutral-900/50 transition-colors ${index % 2 === 0 ? 'bg-neutral-900/30' : ''}`}><td class="py-3 px-4 text-neutral-400">{row.feature}</td><td class="py-3 px-4 text-center text-blue-300">{row.speediance}</td><td class="py-3 px-4 text-center text-neutral-300">{row.tonal}</td><td class="py-3 px-4 text-center text-green-300">{row.traditional}</td></tr>))}</tbody></table></div>
+    </div></section>
+
+    <section class="py-16"><div class="container mx-auto px-4"><h2 class="text-3xl font-bold mb-2">Mi experiencia</h2><p class="text-neutral-400 mb-10">Números reales de entrenamientos reales — sin adivinar</p><div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6"><div class="flex items-center gap-3 mb-5"><div class="w-10 h-10 rounded-xl bg-blue-900/40 flex items-center justify-center font-bold text-blue-400">S</div><div><h3 class="font-bold text-lg">Speediance</h3><div class="flex items-center gap-2"><p class="text-xs text-neutral-500">Desde ago 2025</p><span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full border border-blue-500/30">Actual</span></div></div></div><div class="grid grid-cols-2 gap-3 mb-5"><div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10"><div class="text-2xl font-bold text-blue-300">1.29M+</div><div class="text-xs text-neutral-500 mt-0.5">lbs levantadas</div></div><div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10"><div class="text-2xl font-bold text-green-400">$4,995</div><div class="text-xs text-neutral-500 mt-0.5">costo inicial</div></div><div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10"><div class="text-2xl font-bold text-green-400">$39/mes</div><div class="text-xs text-neutral-500 mt-0.5">membresía opcional</div></div><div class="bg-blue-900/20 rounded-xl p-3 border border-blue-500/10"><div class="text-2xl font-bold text-blue-400">220 lbs</div><div class="text-xs text-neutral-500 mt-0.5">resistencia máxima</div></div></div><p class="text-neutral-400 text-sm leading-relaxed">Cambiarme a Speediance eliminó la ansiedad por la suscripción. El diseño independiente significó no perforar la pared, y las 220 lbs de resistencia por cable cubren todo lo que necesito. El modo IA se adapta en tiempo real — algo que Tonal no podía igualar.</p></div>
+      <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6"><div class="flex items-center gap-3 mb-5"><div class="w-10 h-10 rounded-xl bg-neutral-800 flex items-center justify-center font-bold text-neutral-300">T</div><div><h3 class="font-bold text-lg">Tonal</h3><p class="text-xs text-neutral-500">Usado durante años</p></div></div><div class="grid grid-cols-2 gap-3 mb-5"><div class="bg-neutral-800/60 rounded-xl p-3"><div class="text-2xl font-bold text-white">9M+</div><div class="text-xs text-neutral-500 mt-0.5">lbs levantadas</div></div><div class="bg-neutral-800/60 rounded-xl p-3"><div class="text-2xl font-bold text-white">$2,495</div><div class="text-xs text-neutral-500 mt-0.5">costo inicial</div></div><div class="bg-neutral-800/60 rounded-xl p-3"><div class="text-2xl font-bold text-red-400">$39/mes</div><div class="text-xs text-neutral-500 mt-0.5">membresía obligatoria</div></div><div class="bg-neutral-800/60 rounded-xl p-3"><div class="text-2xl font-bold text-neutral-400">200 lbs</div><div class="text-xs text-neutral-500 mt-0.5">resistencia máxima</div></div></div><p class="text-neutral-400 text-sm leading-relaxed">Tonal fue mi primer gimnasio inteligente en casa y lo cambió todo. Fui un usuario constante durante años, construyendo fuerza real y registrando cada repetición. Pero la suscripción nunca me convenció — y cuando los precios empezaron a subir, empecé a buscar alternativas.</p></div>
+      <div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6"><div class="flex items-center gap-3 mb-5"><div class="w-10 h-10 rounded-xl bg-green-900/30 flex items-center justify-center font-bold text-green-400">G</div><div><h3 class="font-bold text-lg">Gimnasio tradicional</h3><p class="text-xs text-neutral-500">Antes de la era del gimnasio inteligente</p></div></div><div class="grid grid-cols-2 gap-3 mb-5"><div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10"><div class="text-2xl font-bold text-green-300">∞</div><div class="text-xs text-neutral-500 mt-0.5">límite de resistencia</div></div><div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10"><div class="text-2xl font-bold text-neutral-400">~$0</div><div class="text-xs text-neutral-500 mt-0.5">sin costo de equipo</div></div><div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10"><div class="text-2xl font-bold text-red-400">~$150/mes</div><div class="text-xs text-neutral-500 mt-0.5">costo de membresía</div></div><div class="bg-green-900/20 rounded-xl p-3 border border-green-500/10"><div class="text-2xl font-bold text-green-400">Completo</div><div class="text-xs text-neutral-500 mt-0.5">acceso a amenidades</div></div></div><p class="text-neutral-400 text-sm leading-relaxed">Antes de pasarme a lo inteligente, pasé años en gimnasios tradicionales. La variedad de equipos es imbatible, y hay algo del ambiente del gimnasio que no se puede replicar en casa. Dicho eso, el traslado, esperar por el equipo y los costos mensuales se acumulan.</p></div>
+    </div></div></section>
+
+    <section class="py-16 bg-neutral-900/50"><div class="container mx-auto px-4"><h2 class="text-3xl font-bold mb-10 text-center">Pros y contras</h2><div class="grid md:grid-cols-3 gap-6"><div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6"><h3 class="font-bold text-lg mb-5 text-blue-400">Speediance</h3><div class="mb-5"><p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p><ul class="space-y-2">{speediancePros.map(pro => (<li class="flex items-start gap-2 text-sm text-neutral-300"><span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>{pro}</li>))}</ul></div><div><p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Contras</p><ul class="space-y-2">{speedianceCons.map(con => (<li class="flex items-start gap-2 text-sm text-neutral-300"><span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>{con}</li>))}</ul></div></div><div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6"><h3 class="font-bold text-lg mb-5 text-neutral-300">Tonal</h3><div class="mb-5"><p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p><ul class="space-y-2">{tonalPros.map(pro => (<li class="flex items-start gap-2 text-sm text-neutral-300"><span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>{pro}</li>))}</ul></div><div><p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Contras</p><ul class="space-y-2">{tonalCons.map(con => (<li class="flex items-start gap-2 text-sm text-neutral-300"><span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>{con}</li>))}</ul></div></div><div class="bg-neutral-900 border border-green-500/30 rounded-2xl p-6"><h3 class="font-bold text-lg mb-5 text-green-400">Gimnasio tradicional</h3><div class="mb-5"><p class="text-xs font-bold tracking-widest text-green-500 uppercase mb-3">Pros</p><ul class="space-y-2">{traditionalGymPros.map(pro => (<li class="flex items-start gap-2 text-sm text-neutral-300"><span class="text-green-400 mt-0.5 flex-shrink-0">✓</span>{pro}</li>))}</ul></div><div><p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-3">Contras</p><ul class="space-y-2">{traditionalGymCons.map(con => (<li class="flex items-start gap-2 text-sm text-neutral-300"><span class="text-red-400 mt-0.5 flex-shrink-0">✗</span>{con}</li>))}</ul></div></div></div></div></section>
+
+    <section class="py-16"><div class="container mx-auto px-4"><h2 class="text-3xl font-bold mb-2 text-center">Análisis de costos a largo plazo</h2><p class="text-neutral-400 text-center mb-10">Los números no mienten — esto es lo que realmente gastarás con el tiempo</p><div class="grid md:grid-cols-3 gap-6 mb-10"><div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center"><h3 class="text-lg font-bold text-neutral-300 mb-4">Costo total a 1 año</h3><div class="space-y-3"><div class="flex justify-between items-center py-2 border-b border-neutral-800"><span class="text-blue-400">Speediance</span><span class="font-bold text-white">$5,463</span></div><div class="flex justify-between items-center py-2 border-b border-neutral-800"><span class="text-neutral-300">Tonal</span><span class="font-bold text-white">$3,431</span></div><div class="flex justify-between items-center py-2"><span class="text-green-400">Gimnasio tradicional</span><span class="font-bold text-white">$1,800</span></div></div></div><div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center"><h3 class="text-lg font-bold text-neutral-300 mb-4">Costo total a 3 años</h3><div class="space-y-3"><div class="flex justify-between items-center py-2 border-b border-neutral-800"><span class="text-blue-400">Speediance</span><span class="font-bold text-white">$6,399</span></div><div class="flex justify-between items-center py-2 border-b border-neutral-800"><span class="text-neutral-300">Tonal</span><span class="font-bold text-white">$4,367</span></div><div class="flex justify-between items-center py-2"><span class="text-green-400">Gimnasio tradicional</span><span class="font-bold text-white">$5,400</span></div></div></div><div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center"><h3 class="text-lg font-bold text-neutral-300 mb-4">Costo total a 5 años</h3><div class="space-y-3"><div class="flex justify-between items-center py-2 border-b border-neutral-800"><span class="text-blue-400">Speediance</span><span class="font-bold text-white">$7,335</span></div><div class="flex justify-between items-center py-2 border-b border-neutral-800"><span class="text-neutral-300">Tonal</span><span class="font-bold text-white">$5,303</span></div><div class="flex justify-between items-center py-2"><span class="text-green-400">Gimnasio tradicional</span><span class="font-bold text-white">$9,000</span></div></div></div></div><p class="text-neutral-400 text-sm text-center max-w-2xl mx-auto">* Los costos de Speediance y Tonal incluyen membresías obligatorias/opcionales. El gimnasio tradicional asume un promedio de ~$150/mes. No incluye costos de traslado, suplementos ni tarifas adicionales.</p></div></section>
+
+    <section class="py-16"><div class="container mx-auto px-4 max-w-3xl"><div class="bg-neutral-900 border border-blue-500/20 rounded-2xl p-8"><p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">Mi conclusión</p><h2 class="text-3xl font-bold mb-5">El veredicto</h2><p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-white">Para la mayoría de la gente con un gimnasio en casa, Speediance gana en valor.</strong> El precio único de $4,995 (con membresía opcional de $39/mes) se amortiza frente a Tonal después de unos 2 años — y frente a un gimnasio tradicional después de unos 3-4 años.</p><p class="text-neutral-300 leading-relaxed mb-4">Sin instalación en pared y con 220 lbs de resistencia por cable, Speediance es la compra más inteligente para la mayoría de los gimnasios en casa. La adaptación con IA es realmente impresionante — ajusta la resistencia a mitad de serie de formas que Tonal simplemente no puede.</p><p class="text-neutral-300 leading-relaxed mb-4"><strong class="text-white">Sin embargo, los gimnasios tradicionales siguen teniendo sentido para algunos:</strong> Si quieres resistencia ilimitada (pesas pesadas en sentadillas/peso muerto), prosperas en un ambiente social o quieres acceso a clases y amenidades sin comprar equipo, un gimnasio tradicional por ~$150/mes sigue siendo una opción sólida.</p><p class="text-neutral-400 leading-relaxed mb-8">La biblioteca de contenido de Tonal y la calidad del coaching son excepcionales, y tuve años de grandes entrenamientos con él. Pero la suscripción obligatoria y las subidas de precio lo hicieron más difícil de recomendar. Después de 9M+ lbs, estoy feliz con mi decisión de cambiar a Speediance.</p><div class="flex flex-wrap gap-4"><a href="/roi/" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded-xl transition-colors">Calcula tu ROI →</a><a href="/gear/" class="inline-flex items-center gap-2 px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white font-semibold rounded-xl transition-colors border border-neutral-700">Ver reseñas completas del equipo →</a></div></div></div></section>
+
+    <section class="py-16 bg-neutral-900"><div class="container mx-auto px-4 text-center"><h2 class="text-3xl font-bold text-white mb-4">¿Listo para tomar una decisión?</h2><p class="text-neutral-400 mb-8 max-w-xl mx-auto">Consulta la calculadora de ROI para ver exactamente cuánto ahorrarías o revisa mis reseñas detalladas del equipo.</p><div class="flex flex-wrap justify-center gap-4"><a href="/roi/" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">Calculadora ROI</a><a href="/gear/" class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700">Reseñas del equipo</a><a href="/speediance/" class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700">Mi recorrido con Speediance</a></div></div></section>
+  </main>
+</Layout>
