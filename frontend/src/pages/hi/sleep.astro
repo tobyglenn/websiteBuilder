@@ -47,9 +47,9 @@ const stageColors = {
 };
 
 const stages = [
-  { name: 'गहरी नींद', hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
+  { name: 'गहरी', hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
   { name: 'REM', hours: SLEEP_STAGES.rem.hours, pct: SLEEP_STAGES.rem.pct, color: stageColors.rem },
-  { name: 'हल्की नींद', hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
+  { name: 'हल्की', hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
   { name: 'जागृत', hours: SLEEP_STAGES.awake.hours, pct: SLEEP_STAGES.awake.pct, color: stageColors.awake },
 ];
 
@@ -60,7 +60,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "8Sleep Pod 3",
-  "description": "सक्रिय तापमान नियंत्रण, स्लीप ट्रैकिंग और वेलनेस मॉनिटरिंग वाला उन्नत स्मार्ट गद्दा।",
+  "description": "उन्नत स्मार्ट गद्दा जिसमें सक्रिय तापमान नियंत्रण, नींद ट्रैकिंग और वेलनेस मॉनिटरिंग शामिल है।",
   "brand": {
     "@type": "Brand",
     "name": "8Sleep"
@@ -77,14 +77,14 @@ const jsonLd = {
     "availability": "https://schema.org/InStock"
   },
   "category": "स्मार्ट गद्दा",
-  "keywords": "8Sleep, Pod 3, स्मार्ट गद्दा, स्लीप ट्रैकर, तापमान नियंत्रण"
+  "keywords": "8Sleep, Pod 3, स्मार्ट गद्दा, नींद ट्रैकर, तापमान नियंत्रण"
 };
 ---
 
 <Layout 
   title="8Sleep डेटा | TobyOnFitnessTech"
-  description="मेरे 8Sleep Pod 3 का वास्तविक स्लीप डेटा — स्लीप स्कोर, HRV, नींद के चरण, और तापमान ट्रैकिंग। देखें कि मैं नींद के जरिए रिकवरी कैसे ऑप्टिमाइज़ करता हूँ।"
-  breadcrumbs={[{ name: "होम", url: "/" }, { name: "स्लीप डेटा", url: "/sleep" }]}
+  description="मेरे 8Sleep Pod 3 से वास्तविक नींद डेटा — स्लीप स्कोर, HRV, नींद के चरण और तापमान ट्रैकिंग। देखें कि मैं नींद के ज़रिए रिकवरी को कैसे बेहतर बनाता हूँ।"
+  breadcrumbs={[{ name: "होम", url: "/" }, { name: "नींद डेटा", url: "/sleep" }]}
   jsonLd={jsonLd}
 >
   <Header client:load />
@@ -96,13 +96,13 @@ const jsonLd = {
         <div class="flex items-center gap-3 mb-4">
           <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
             <Moon class="w-4 h-4" />
-            स्लीप डेटा
+            नींद डेटा
           </span>
           <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS} रातें ट्रैक की गईं</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">नींद के आँकड़े</h1>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">नींद आँकड़े</h1>
         <p class="text-lg text-neutral-400 max-w-2xl">
-          मेरे 8Sleep Pod 3 का वास्तविक स्लीप डेटा — स्लीप स्कोर, HRV, नींद के चरणों का विवरण, और तापमान ट्रैकिंग।
+          मेरे 8Sleep Pod 3 से वास्तविक नींद डेटा — स्लीप स्कोर, HRV, नींद के चरणों का विवरण और तापमान ट्रैकिंग।
         </p>
       </div>
     </section>
@@ -196,7 +196,7 @@ const jsonLd = {
     <section class="px-4 pb-10">
       <div class="max-w-6xl mx-auto">
         <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-          <h2 class="text-xl font-bold text-white mb-6">स्लीप स्कोर ट्रेंड</h2>
+          <h2 class="text-xl font-bold text-white mb-6">स्लीप स्कोर रुझान</h2>
           {sleepScorePoints ? (
             <div class="overflow-x-auto">
               <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
@@ -257,7 +257,7 @@ const jsonLd = {
                 {RECENT_SLEEP.map((row) => (
                   <tr class="border-b border-neutral-800/50">
                     <td class="py-2 px-2 text-white text-sm">
-                      {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {new Date(row.date).toLocaleDateString('hi-IN', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
                     <td class="py-2 px-2">
                       {row.sleep_score > 0 ? (
@@ -299,14 +299,14 @@ const jsonLd = {
         <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-8 border border-purple-800/30">
           <h2 class="text-2xl font-bold text-white mb-4">अपनी नींद ट्रैक करें</h2>
           <p class="text-neutral-400 mb-6">
-            देखें कि 8Sleep डेटा मेरे बड़े फिटनेस इकोसिस्टम के साथ कैसे जुड़ता है।
+            देखें कि 8Sleep डेटा मेरे व्यापक फिटनेस इकोसिस्टम के साथ कैसे जुड़ता है।
           </p>
           <div class="flex flex-wrap gap-4">
             <a href="/whoop/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
               WHOOP डेटा
             </a>
             <a href="/training/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
-              ट्रेनिंग ओवरव्यू
+              ट्रेनिंग अवलोकन
             </a>
             <a href="/day/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
               डेटा में एक दिन

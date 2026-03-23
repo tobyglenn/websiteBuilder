@@ -77,7 +77,7 @@ const jsonLd = {
     "availability": "https://schema.org/InStock"
   },
   "category": "Colchón inteligente",
-  "keywords": "8Sleep, Pod 3, colchón inteligente, rastreador del sueño, regulación de temperatura"
+  "keywords": "8Sleep, Pod 3, colchón inteligente, rastreador de sueño, regulación de temperatura"
 };
 ---
 
@@ -102,7 +102,7 @@ const jsonLd = {
         </div>
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Estadísticas de sueño</h1>
         <p class="text-lg text-neutral-400 max-w-2xl">
-          Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, desglose de fases del sueño y seguimiento de temperatura.
+          Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, desglose de las fases del sueño y seguimiento de temperatura.
         </p>
       </div>
     </section>
@@ -128,16 +128,16 @@ const jsonLd = {
           <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
             <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
               <Heart class="w-4 h-4" />
-              HRV promedio
+              HRV prom.
             </div>
             <div class="text-3xl font-bold text-white">{avgHRV}<span class="text-lg text-neutral-500">ms</span></div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
             <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
               <TrendingUp class="w-4 h-4" />
-              Frecuencia cardíaca promedio
+              Frecuencia cardíaca prom.
             </div>
-            <div class="text-3xl font-bold text-white">{avgHeartRate}<span class="text-lg text-neutral-500">lpm</span></div>
+            <div class="text-3xl font-bold text-white">{avgHeartRate}<span class="text-lg text-neutral-500">bpm</span></div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
             <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
@@ -257,7 +257,7 @@ const jsonLd = {
                 {RECENT_SLEEP.map((row) => (
                   <tr class="border-b border-neutral-800/50">
                     <td class="py-2 px-2 text-white text-sm">
-                      {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {new Date(row.date).toLocaleDateString('es-MX', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
                     <td class="py-2 px-2">
                       {row.sleep_score > 0 ? (
@@ -279,7 +279,7 @@ const jsonLd = {
                       {row.current_hrv ? `${row.current_hrv} ms` : '-'}
                     </td>
                     <td class="py-2 px-2 text-neutral-300 text-sm">
-                      {row.current_heart_rate ? `${row.current_heart_rate} lpm` : '-'}
+                      {row.current_heart_rate ? `${row.current_heart_rate} bpm` : '-'}
                     </td>
                     <td class="py-2 px-2 text-neutral-300 text-sm">
                       {row.time_slept_hours ? `${row.time_slept_hours} h` : '-'}
@@ -299,7 +299,7 @@ const jsonLd = {
         <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-8 border border-purple-800/30">
           <h2 class="text-2xl font-bold text-white mb-4">Haz seguimiento de tu sueño</h2>
           <p class="text-neutral-400 mb-6">
-            Mira cómo los datos de 8Sleep se integran con mi ecosistema fitness más amplio.
+            Mira cómo los datos de 8Sleep se integran con mi ecosistema de fitness más amplio.
           </p>
           <div class="flex flex-wrap gap-4">
             <a href="/whoop/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">

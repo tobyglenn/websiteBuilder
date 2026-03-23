@@ -47,9 +47,9 @@ const stageColors = {
 };
 
 const stages = [
-  { name: 'Tiefschlaf', hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
+  { name: 'Tief', hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
   { name: 'REM', hours: SLEEP_STAGES.rem.hours, pct: SLEEP_STAGES.rem.pct, color: stageColors.rem },
-  { name: 'Leichtschlaf', hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
+  { name: 'Leicht', hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
   { name: 'Wach', hours: SLEEP_STAGES.awake.hours, pct: SLEEP_STAGES.awake.pct, color: stageColors.awake },
 ];
 
@@ -60,7 +60,7 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Product",
   "name": "8Sleep Pod 3",
-  "description": "Fortschrittliche smarte Matratze mit aktiver Temperaturregulierung, Schlaftracking und Wellness-Monitoring.",
+  "description": "Fortschrittliche intelligente Matratze mit aktiver Temperaturregulierung, Schlaftracking und Wellness-Monitoring.",
   "brand": {
     "@type": "Brand",
     "name": "8Sleep"
@@ -76,14 +76,14 @@ const jsonLd = {
     "price": "2495",
     "availability": "https://schema.org/InStock"
   },
-  "category": "Smarte Matratze",
-  "keywords": "8Sleep, Pod 3, smarte Matratze, Schlaftracker, Temperaturregulierung"
+  "category": "Intelligente Matratze",
+  "keywords": "8Sleep, Pod 3, intelligente Matratze, Schlaftracker, Temperaturregulierung"
 };
 ---
 
 <Layout 
   title="8Sleep-Daten | TobyOnFitnessTech"
-  description="Echte Schlafdaten von meinem 8Sleep Pod 3 — Schlafwerte, HRV, Schlafphasen und Temperaturtracking. Sieh, wie ich meine Regeneration durch Schlaf optimiere."
+  description="Echte Schlafdaten von meinem 8Sleep Pod 3 — Schlafwerte, HRV, Schlafphasen und Temperatur-Tracking. Sieh, wie ich meine Regeneration durch Schlaf optimiere."
   breadcrumbs={[{ name: "Startseite", url: "/" }, { name: "Schlafdaten", url: "/sleep" }]}
   jsonLd={jsonLd}
 >
@@ -102,7 +102,7 @@ const jsonLd = {
         </div>
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Schlafstatistiken</h1>
         <p class="text-lg text-neutral-400 max-w-2xl">
-          Echte Schlafdaten von meinem 8Sleep Pod 3 — Schlafwerte, HRV, Aufschlüsselung der Schlafphasen und Temperaturtracking.
+          Echte Schlafdaten von meinem 8Sleep Pod 3 — Schlafwerte, HRV, Aufschlüsselung der Schlafphasen und Temperatur-Tracking.
         </p>
       </div>
     </section>
@@ -128,21 +128,21 @@ const jsonLd = {
           <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
             <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
               <Heart class="w-4 h-4" />
-              Durchschn. HRV
+              Ø HRV
             </div>
             <div class="text-3xl font-bold text-white">{avgHRV}<span class="text-lg text-neutral-500">ms</span></div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
             <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
               <TrendingUp class="w-4 h-4" />
-              Durchschn. Herzfrequenz
+              Ø Herzfrequenz
             </div>
             <div class="text-3xl font-bold text-white">{avgHeartRate}<span class="text-lg text-neutral-500">bpm</span></div>
           </div>
           <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
             <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
               <Clock class="w-4 h-4" />
-              Durchschn. Schlafdauer
+              Ø Schlafdauer
             </div>
             <div class="text-3xl font-bold text-white">{avgTimeSlept}<span class="text-lg text-neutral-500">Std.</span></div>
           </div>
@@ -230,7 +230,7 @@ const jsonLd = {
               </svg>
             </div>
           ) : (
-            <p class="text-neutral-400">Keine Schlafwert-Daten verfügbar</p>
+            <p class="text-neutral-400">Keine Schlafwertdaten verfügbar</p>
           )}
         </div>
       </div>
@@ -257,7 +257,7 @@ const jsonLd = {
                 {RECENT_SLEEP.map((row) => (
                   <tr class="border-b border-neutral-800/50">
                     <td class="py-2 px-2 text-white text-sm">
-                      {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                      {new Date(row.date).toLocaleDateString('de-DE', { month: 'short', day: 'numeric', year: 'numeric' })}
                     </td>
                     <td class="py-2 px-2">
                       {row.sleep_score > 0 ? (
@@ -299,7 +299,7 @@ const jsonLd = {
         <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-8 border border-purple-800/30">
           <h2 class="text-2xl font-bold text-white mb-4">Verfolge deinen Schlaf</h2>
           <p class="text-neutral-400 mb-6">
-            Sieh, wie 8Sleep-Daten in mein breiteres Fitness-Ökosystem integriert werden.
+            Sieh, wie sich 8Sleep-Daten in mein breiteres Fitness-Ökosystem integrieren.
           </p>
           <div class="flex flex-wrap gap-4">
             <a href="/whoop/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
@@ -321,7 +321,7 @@ const jsonLd = {
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-2 text-neutral-500 text-sm">
           <Clock class="w-4 h-4" />
-          <span>Zuletzt synchronisiert: {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : 'N/V'}</span>
+          <span>Zuletzt synchronisiert: {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : 'Nicht verfügbar'}</span>
         </div>
       </div>
     </section>
