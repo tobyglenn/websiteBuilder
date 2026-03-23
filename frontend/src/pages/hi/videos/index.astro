@@ -1,0 +1,165 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import VideoGrid from '../../../components/VideoGrid.jsx';
+import { Play } from 'lucide-react';
+import { VIDEOS } from '../../../data/mock.js';
+
+const title = "सभी वीडियो - Toby on Fitness Tech";
+const description = "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और ट्रांसफॉर्मेशन कंटेंट वाले सभी 104 वीडियो देखें।";
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Define playlists based on keywords
+const PLAYLIST_DEFINITIONS = [
+  {
+    id: 'speediance-reviews',
+    name: 'Speediance रिव्यू',
+    description: 'Speediance होम जिम उपकरणों की गहराई वाली समीक्षाएँ और तुलना',
+    keywords: ['speediance', 'speediance 2s', 'speediance vs', 'tonal', 'gym monster', 'home gym'],
+  },
+  {
+    id: 'bjj-training',
+    name: 'BJJ प्रशिक्षण',
+    description: 'Brazilian Jiu-Jitsu प्रशिक्षण, तकनीक विश्लेषण और प्रतियोगिता की तैयारी',
+    keywords: ['bjj', 'jiu-jitsu', 'submission', 'grappling', 'mat', 'black belt'],
+  },
+  {
+    id: 'openclaw-tutorials',
+    name: 'OpenClaw ट्यूटोरियल',
+    description: 'OpenClaw AI असिस्टेंट सेटअप, ट्यूटोरियल और ऑटोमेशन गाइड',
+    keywords: ['openclaw', 'ai assistant', 'automation', 'tutorial'],
+  },
+  {
+    id: 'training-tips',
+    name: 'ट्रेनिंग टिप्स',
+    description: 'सामान्य फिटनेस सलाह, वर्कआउट टिप्स और वेट ट्रेनिंग मार्गदर्शन',
+    keywords: ['training', 'workout', 'lifting', 'strength', 'fitness'],
+  },
+  {
+    id: 'live-sessions',
+    name: 'लाइव सत्र',
+    description: 'लाइवस्ट्रीम आर्काइव और रीयल-टाइम प्रशिक्षण सत्र',
+    keywords: ['live', 'livestream'],
+    isLive: true,
+  },
+  {
+    id: 'field-reports',
+    name: 'फील्ड रिपोर्ट',
+    description: 'वास्तविक दुनिया के प्रशिक्षण अपडेट, प्रगति रिपोर्ट और यात्रा लॉग',
+    keywords: ['field report', 'progress', 'update', 'journey', 'transformation'],
+  },
+];
+
+// Build playlists by filtering videos based on keywords
+function buildPlaylists(videos) {
+  return PLAYLIST_DEFINITIONS.map(playlistDef => {
+    const matchedVideos = videos.filter(video => {
+      // Check for live videos
+      if (playlistDef.isLive) {
+        return video.is_live === true || video.is_short === 'LIVE';
+      }
+      
+      // Check keywords in title and description
+      const searchText = `${video.title || ''} ${video.description || ''}`.toLowerCase();
+      return playlistDef.keywords.some(keyword => searchText.includes(keyword.toLowerCase()));
+    });
+
+    return {
+      id: playlistDef.id,
+      name: playlistDef.name,
+      description: playlistDef.description,
+      videoCount: matchedVideos.length,
+      thumbnail: matchedVideos[0]?.thumbnail || null,
+      videos: matchedVideos.slice(0, 8), // Limit to 8 videos per playlist
+    };
+  }).filter(p => p.videoCount > 0); // Only show playlists with videos
+}
+
+const featuredPlaylists = buildPlaylists(VIDEOS);
+
+// Build CollectionPage + ItemList schema for the top videos
+// Use top 20 by view count for itemListElement (keeps payload size reasonable)
+const topVideos = [...VIDEOS]
+  .sort((a: { view_count?: number }, b: { view_count?: number }) => (b.view_count || 0) - (a.view_count || 0))
+  .slice(0, 20);
+
+const videosCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/videos#collection`,
+  "name": "Toby on Fitness Tech — पूरी वीडियो लाइब्रेरी",
+  "description": "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले सभी 104 वीडियो। बिना स्क्रिप्ट, बिना स्पॉन्सर।",
+  "url": `${siteUrl}/videos`,
+  "inLanguage": "hi",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "about": [
+    { "@type": "Thing", "name": "फिटनेस टेक्नोलॉजी" },
+    { "@type": "Thing", "name": "Speediance" },
+    { "@type": "Thing", "name": "Brazilian Jiu-Jitsu" },
+    { "@type": "Thing", "name": "होम जिम उपकरण" }
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Toby on Fitness Tech के शीर्ष वीडियो",
+    "numberOfItems": VIDEOS.length,
+    "itemListElement": topVideos.map((video: {
+      id: string;
+      title: string;
+      description: string;
+      thumbnail: string;
+      published_at: string;
+      view_count?: number;
+      duration_iso?: string;
+    }, index: number) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${siteUrl}/video/${video.id}`,
+      "name": video.title,
+      "item": {
+        "@type": "VideoObject",
+        "@id": `${siteUrl}/video/${video.id}#video`,
+        "name": video.title,
+        "description": video.description,
+        "thumbnailUrl": video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+        "uploadDate": video.published_at,
+        "url": `${siteUrl}/video/${video.id}`,
+        "embedUrl": `https://www.youtube.com/embed/${video.id}`,
+        "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
+        "author": { "@id": `${siteUrl}/#toby` },
+        "publisher": { "@id": `${siteUrl}/#organization` },
+        ...(video.duration_iso && video.duration_iso !== "P0D" && video.duration_iso !== "LIVE" ? { "duration": video.duration_iso } : {}),
+        ...(video.view_count && video.view_count > 0 ? {
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": { "@type": "WatchAction" },
+            "userInteractionCount": video.view_count
+          }
+        } : {})
+      }
+    }))
+  }
+};
+---
+
+<Layout title={title} description={description} breadcrumbs={[{ name: "होम", url: "/" }, { name: "वीडियो", url: "/videos" }]} jsonLd={videosCollectionSchema}>
+    <!-- Hero -->
+    <section class="bg-neutral-950 border-b border-neutral-800">
+      <div class="container mx-auto px-4 py-10 md:py-14 max-w-3xl text-center">
+        <p class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-4">वीडियो लाइब्रेरी</p>
+        <h2 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
+          कैमरे पर सब कुछ।<br class="hidden md:block" />
+          <span class="text-neutral-400">कोई स्क्रिप्ट नहीं। कोई स्पॉन्सर नहीं।</span>
+        </h2>
+        <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
+          Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले 104 वीडियो। नीचे विषय के अनुसार फ़िल्टर करें।
+        </p>
+      </div>
+    </section>
+    
+    <!-- Grid -->
+    <div class="container mx-auto px-4 py-10">
+      <VideoGrid client:load showFilters={true} videos={VIDEOS} />
+    </div>
+  </Layout>

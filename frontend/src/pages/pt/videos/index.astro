@@ -1,0 +1,165 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import VideoGrid from '../../../components/VideoGrid.jsx';
+import { Play } from 'lucide-react';
+import { VIDEOS } from '../../../data/mock.js';
+
+const title = "Todos os vídeos - Toby on Fitness Tech";
+const description = "Navegue por todos os 104 vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e conteúdo de transformação.";
+
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Define playlists based on keywords
+const PLAYLIST_DEFINITIONS = [
+  {
+    id: 'speediance-reviews',
+    name: 'Análises de Speediance',
+    description: 'Análises detalhadas e comparações dos equipamentos domésticos de academia da Speediance',
+    keywords: ['speediance', 'speediance 2s', 'speediance vs', 'tonal', 'gym monster', 'home gym'],
+  },
+  {
+    id: 'bjj-training',
+    name: 'Treino de BJJ',
+    description: 'Treino de Brazilian Jiu-Jitsu, análises técnicas e preparação para competições',
+    keywords: ['bjj', 'jiu-jitsu', 'submission', 'grappling', 'mat', 'black belt'],
+  },
+  {
+    id: 'openclaw-tutorials',
+    name: 'Tutoriais do OpenClaw',
+    description: 'Configuração do assistente de IA OpenClaw, tutoriais e guias de automação',
+    keywords: ['openclaw', 'ai assistant', 'automation', 'tutorial'],
+  },
+  {
+    id: 'training-tips',
+    name: 'Dicas de treino',
+    description: 'Conselhos gerais de fitness, dicas de treino e orientações para musculação',
+    keywords: ['training', 'workout', 'lifting', 'strength', 'fitness'],
+  },
+  {
+    id: 'live-sessions',
+    name: 'Sessões ao vivo',
+    description: 'Arquivos de transmissões ao vivo e sessões de treino em tempo real',
+    keywords: ['live', 'livestream'],
+    isLive: true,
+  },
+  {
+    id: 'field-reports',
+    name: 'Relatórios de campo',
+    description: 'Atualizações reais de treino, relatórios de progresso e registros da jornada',
+    keywords: ['field report', 'progress', 'update', 'journey', 'transformation'],
+  },
+];
+
+// Build playlists by filtering videos based on keywords
+function buildPlaylists(videos) {
+  return PLAYLIST_DEFINITIONS.map(playlistDef => {
+    const matchedVideos = videos.filter(video => {
+      // Check for live videos
+      if (playlistDef.isLive) {
+        return video.is_live === true || video.is_short === 'LIVE';
+      }
+      
+      // Check keywords in title and description
+      const searchText = `${video.title || ''} ${video.description || ''}`.toLowerCase();
+      return playlistDef.keywords.some(keyword => searchText.includes(keyword.toLowerCase()));
+    });
+
+    return {
+      id: playlistDef.id,
+      name: playlistDef.name,
+      description: playlistDef.description,
+      videoCount: matchedVideos.length,
+      thumbnail: matchedVideos[0]?.thumbnail || null,
+      videos: matchedVideos.slice(0, 8), // Limit to 8 videos per playlist
+    };
+  }).filter(p => p.videoCount > 0); // Only show playlists with videos
+}
+
+const featuredPlaylists = buildPlaylists(VIDEOS);
+
+// Build CollectionPage + ItemList schema for the top videos
+// Use top 20 by view count for itemListElement (keeps payload size reasonable)
+const topVideos = [...VIDEOS]
+  .sort((a: { view_count?: number }, b: { view_count?: number }) => (b.view_count || 0) - (a.view_count || 0))
+  .slice(0, 20);
+
+const videosCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}/videos#collection`,
+  "name": "Toby on Fitness Tech — Biblioteca completa de vídeos",
+  "description": "Todos os 104 vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Sem roteiros, sem patrocinadores.",
+  "url": `${siteUrl}/videos`,
+  "inLanguage": "pt",
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "about": [
+    { "@type": "Thing", "name": "Tecnologia fitness" },
+    { "@type": "Thing", "name": "Speediance" },
+    { "@type": "Thing", "name": "Brazilian Jiu-Jitsu" },
+    { "@type": "Thing", "name": "Equipamentos de academia em casa" }
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": "Principais vídeos de Toby on Fitness Tech",
+    "numberOfItems": VIDEOS.length,
+    "itemListElement": topVideos.map((video: {
+      id: string;
+      title: string;
+      description: string;
+      thumbnail: string;
+      published_at: string;
+      view_count?: number;
+      duration_iso?: string;
+    }, index: number) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${siteUrl}/video/${video.id}`,
+      "name": video.title,
+      "item": {
+        "@type": "VideoObject",
+        "@id": `${siteUrl}/video/${video.id}#video`,
+        "name": video.title,
+        "description": video.description,
+        "thumbnailUrl": video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+        "uploadDate": video.published_at,
+        "url": `${siteUrl}/video/${video.id}`,
+        "embedUrl": `https://www.youtube.com/embed/${video.id}`,
+        "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
+        "author": { "@id": `${siteUrl}/#toby` },
+        "publisher": { "@id": `${siteUrl}/#organization` },
+        ...(video.duration_iso && video.duration_iso !== "P0D" && video.duration_iso !== "LIVE" ? { "duration": video.duration_iso } : {}),
+        ...(video.view_count && video.view_count > 0 ? {
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": { "@type": "WatchAction" },
+            "userInteractionCount": video.view_count
+          }
+        } : {})
+      }
+    }))
+  }
+};
+---
+
+<Layout title={title} description={description} breadcrumbs={[{ name: "Início", url: "/" }, { name: "Vídeos", url: "/videos" }]} jsonLd={videosCollectionSchema}>
+    <!-- Hero -->
+    <section class="bg-neutral-950 border-b border-neutral-800">
+      <div class="container mx-auto px-4 py-10 md:py-14 max-w-3xl text-center">
+        <p class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-4">BIBLIOTECA DE VÍDEOS</p>
+        <h2 class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
+          Tudo na câmera.<br class="hidden md:block" />
+          <span class="text-neutral-400">Sem roteiros. Sem patrocinadores.</span>
+        </h2>
+        <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
+          104 vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Filtre por tópico abaixo.
+        </p>
+      </div>
+    </section>
+    
+    <!-- Grid -->
+    <div class="container mx-auto px-4 py-10">
+      <VideoGrid client:load showFilters={true} videos={VIDEOS} />
+    </div>
+  </Layout>
