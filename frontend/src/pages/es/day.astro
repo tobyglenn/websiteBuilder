@@ -1,0 +1,299 @@
+---
+import Layout from '../layouts/Layout.astro';
+// Real data from TobyOnFitnessTech data sources
+// 8Sleep: eight_sleep_historical.csv
+// Garmin: garmin_all_activities.json  
+// Speediance: speediance_dashboard_data.json
+// Daily Report: daily_report_2026-02-11.json
+
+// Sample day data (representative of Toby's typical day)
+const dayData = {
+  date: "2026-02-19",
+  sleep: {
+    score: 61,
+    hours: 3.48,
+    bedtime: "11:30 PM",
+    wakeTime: "6:30 AM",
+    hrv: 27.9,
+    heartRate: 76,
+    respRate: 17.1
+  },
+  morningRun: {
+    time: "6:30 AM",
+    distance: 3.02,
+    duration: "45:32",
+    pace: "15:04/mi",
+    calories: 312,
+    avgHR: 132,
+    maxHR: 156,
+    elevation: 82
+  },
+  lifting: {
+    time: "12:00 PM",
+    workout: "Brazos con barra",
+    duration: 26,
+    volume: 11447,
+    calories: 180,
+    exercises: ["Curl con barra", "Rompecráneos", "Curl martillo", "Jalón de tríceps", "Curl predicador"]
+  },
+  nutrition: {
+    calories: 2400,
+    protein: 185,
+    carbs: 220,
+    fat: 65,
+    meals: 4
+  },
+  recovery: {
+    whoopStrain: 11.6,
+    whoopRecovery: 18,
+    hrStatus: "elevada"
+  }
+};
+
+const timelineEvents = [
+  { time: "11:30 PM", icon: "moon", label: "Hora de dormir", value: `Puntuación de sueño: ${dayData.sleep.score}` },
+  { time: "6:30 AM", icon: "sun", label: "Despertar", value: `${dayData.sleep.hours}h de sueño, ${dayData.sleep.hrv} HRV` },
+  { time: "6:30 AM", icon: "run", label: "Carrera matutina", value: `${dayData.morningRun.distance}mi @ ${dayData.morningRun.pace}` },
+  { time: "9:00 AM", icon: "coffee", label: "Desayuno", value: `${Math.round(dayData.nutrition.calories * 0.3)}kcal, ${Math.round(dayData.nutrition.protein * 0.3)}g de proteína` },
+  { time: "12:00 PM", icon: "dumbbell", label: "Levantamiento", value: `${dayData.lifting.workout}: ${dayData.lifting.volume.toLocaleString()} lbs` },
+  { time: "1:00 PM", icon: "utensils", label: "Almuerzo", value: `${Math.round(dayData.nutrition.calories * 0.35)}kcal, ${Math.round(dayData.nutrition.protein * 0.35)}g de proteína` },
+  { time: "3:00 PM", icon: "activity", label: "Chequeo WHOOP", value: `${dayData.recovery.whoopStrain} de esfuerzo, ${dayData.recovery.whoopRecovery}% de recuperación` },
+  { time: "7:00 PM", icon: "utensils", label: "Cena", value: `${Math.round(dayData.nutrition.calories * 0.35)}kcal, ${Math.round(dayData.nutrition.protein * 0.35)}g de proteína` }
+];
+---
+
+<Layout
+  title="Un día en la vida | TobyOnFitnessTech"
+  description="Mira cómo Toby integra la tecnología fitness en su rutina diaria — desde la recuperación con 8Sleep hasta las carreras matutinas y los entrenamientos con Speediance."
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Un día en la vida: rutina fitness con entrenamiento guiado por datos",
+    "description": "Una rutina fitness diaria completa que combina carrera matutina, entrenamiento de fuerza con Speediance, seguimiento de recuperación con 8Sleep y WHOOP, y optimización de la nutrición.",
+    "url": "https://tobyonfitnesstech.com/day",
+    "author": {
+      "@type": "Person",
+      "name": "Toby Glenn Peters"
+    },
+    "datePublished": "2026-02-19",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Seguimiento del sueño y la recuperación",
+        "text": "Haz seguimiento del sueño usando 8Sleep para monitorear la puntuación de sueño, HRV, frecuencia cardíaca y frecuencia respiratoria. Apunta a 7-9 horas de sueño para una recuperación óptima.",
+        "tool": {
+          "@type": "HowToTool",
+          "name": "8Sleep"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Carrera matutina",
+        "text": `Comienza el día con una carrera matutina. Esta rutina incluye ${dayData.morningRun.distance} millas a un ritmo de ${dayData.morningRun.pace}, quemando ${dayData.morningRun.calories} calorías con una FC promedio de ${dayData.morningRun.avgHR}.`,
+        "tool": {
+          "@type": "HowToTool",
+          "name": "Garmin Fenix 7"
+        },
+        "duration": `PT${parseInt(dayData.morningRun.duration.split(':')[0])}M${parseInt(dayData.morningRun.duration.split(':')[1])}S`
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Entrenamiento de fuerza",
+        "text": `Realiza una sesión de ${dayData.lifting.workout} enfocada en brazos. Completa ${dayData.lifting.exercises.length} ejercicios: ${dayData.lifting.exercises.join(', ')}. Volumen total: ${dayData.lifting.volume.toLocaleString()} lbs en ${dayData.lifting.duration} minutos.`,
+        "tool": [
+          {
+            "@type": "HowToTool",
+            "name": "Speediance Smart Gym"
+          },
+          {
+            "@type": "HowToTool",
+            "name": "Barra"
+          }
+        ],
+        "duration": `PT${dayData.lifting.duration}M`
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Monitoreo de esfuerzo y recuperación",
+        "text": `Consulta el esfuerzo de WHOOP (${dayData.recovery.whoopStrain}) y la recuperación (${dayData.recovery.whoopRecovery}%) para medir qué tan listo estás para el entrenamiento del día siguiente.`,
+        "tool": {
+          "@type": "HowToTool",
+          "name": "WHOOP 4.0"
+        }
+      }
+    ],
+    "nutrition": {
+      "@type": "NutritionInformation",
+      "calories": `${dayData.nutrition.calories} calorías`,
+      "proteinContent": `${dayData.nutrition.protein}g de proteína`,
+      "carbohydrateContent": `${dayData.nutrition.carbs}g de carbohidratos`,
+      "fatContent": `${dayData.nutrition.fat}g de grasa`
+    },
+    "totalTime": "PT3H30M"
+  }}
+>
+  
+  {/* Hero Section */}
+  <section class="pt-24 pb-12 md:pt-32 md:pb-16 bg-gradient-to-b from-neutral-900 to-neutral-950">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto text-center">
+        <span class="inline-block px-3 py-1 mb-4 text-xs font-medium bg-blue-500/10 text-blue-400 rounded-full border border-blue-500/20">
+          Detrás de escena
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 tracking-tight">
+          Un día en los <span class="text-blue-400">datos</span>
+        </h2>
+        <p class="text-lg text-neutral-400 leading-relaxed">
+          Mira cómo integro <strong>8Sleep</strong>, <strong>Garmin</strong>, <strong>Speediance</strong> y <strong>WHOOP</strong> en un solo día — desde las carreras matutinas hasta la recuperación nocturna.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  {/* 24-Hour Timeline */}
+  <section class="py-16 bg-neutral-950">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-12 text-center">La línea de tiempo de 24 horas (fin de semana)</h2>
+      
+      <div class="max-w-2xl mx-auto relative">
+        {/* Vertical Line */}
+        <div class="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-neutral-800"></div>
+        
+        {/* Timeline Events */}
+        <div class="space-y-8">
+          {timelineEvents.map((event, i) => (
+            <div class={`flex items-center ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
+              {/* Icon Circle */}
+              <div class="flex-shrink-0 w-12 h-12 rounded-full bg-neutral-900 border-2 border-blue-500 flex items-center justify-center z-10 ml-1 md:ml-0">
+                {event.icon === 'moon' && <svg class="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>}
+                {event.icon === 'sun' && <svg class="w-5 h-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>}
+                {event.icon === 'run' && <svg class="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>}
+                {event.icon === 'coffee' && <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3"></path></svg>}
+                {event.icon === 'dumbbell' && <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.5 6.5h11M6.5 17.5h11M3 12h3M18 12h3M6.5 9.5h11M6.5 14.5h11"></path></svg>}
+                {event.icon === 'utensils' && <svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>}
+                {event.icon === 'activity' && <svg class="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path></svg>}
+              </div>
+              
+              {/* Content Card */}
+              <div class={`ml-6 md:ml-0 ${i % 2 === 0 ? 'md:mr-auto md:pr-12 md:text-right' : 'md:ml-auto md:pl-12 md:text-left'} w-full md:w-auto`}>
+                <div class="bg-neutral-900/50 rounded-lg p-4 border border-neutral-800 hover:border-blue-500/30 transition-colors">
+                  <span class="text-sm text-neutral-500">{event.time}</span>
+                  <h3 class="text-lg font-semibold text-white mt-1">{event.label}</h3>
+                  <p class="text-sm text-neutral-400 mt-1">{event.value}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Key Stats Grid */}
+  <section class="py-16 bg-neutral-900">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-12 text-center">Los números</h2>
+      
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+        <div class="bg-neutral-950 rounded-xl p-6 border border-neutral-800 text-center">
+          <div class="text-3xl font-bold text-blue-400 mb-2">{dayData.sleep.score}</div>
+          <div class="text-sm text-neutral-400">Puntuación de sueño</div>
+          <div class="text-xs text-neutral-600 mt-1">8Sleep</div>
+        </div>
+        <div class="bg-neutral-950 rounded-xl p-6 border border-neutral-800 text-center">
+          <div class="text-3xl font-bold text-green-400 mb-2">{dayData.morningRun.distance}mi</div>
+          <div class="text-sm text-neutral-400">Carrera matutina</div>
+          <div class="text-xs text-neutral-600 mt-1">Garmin</div>
+        </div>
+        <div class="bg-neutral-950 rounded-xl p-6 border border-neutral-800 text-center">
+          <div class="text-3xl font-bold text-purple-400 mb-2">{(dayData.lifting.volume / 1000).toFixed(1)}k</div>
+          <div class="text-sm text-neutral-400">Lbs levantadas</div>
+          <div class="text-xs text-neutral-600 mt-1">Speediance</div>
+        </div>
+        <div class="bg-neutral-950 rounded-xl p-6 border border-neutral-800 text-center">
+          <div class="text-3xl font-bold text-orange-400 mb-2">{dayData.nutrition.protein}g</div>
+          <div class="text-sm text-neutral-400">Proteína</div>
+          <div class="text-xs text-neutral-600 mt-1">Seguimiento</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Key Insights */}
+  <section class="py-16 bg-neutral-950">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-12 text-center">Ideas clave</h2>
+      
+      <div class="max-w-3xl mx-auto space-y-8">
+        <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+          <h3 class="text-lg font-semibold text-white mb-3">Por qué entreno temprano por la mañana</h3>
+          <p class="text-neutral-400 leading-relaxed">
+            Las carreras matutinas se sienten distintas. Mis datos de Garmin muestran de forma constante una frecuencia cardíaca en reposo más baja y mejores lecturas de HRV antes de las 8 AM. Además, hacer el entrenamiento primero significa que no hay excusas más tarde en el día — la vida no se interpone en el entrenamiento cuando el entrenamiento ya está hecho.
+          </p>
+        </div>
+        
+        <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+          <h3 class="text-lg font-semibold text-white mb-3">Cómo uso los datos para optimizar la recuperación</h3>
+          <p class="text-neutral-400 leading-relaxed">
+            Mi puntuación de recuperación de WHOOP guía la intensidad de mi entrenamiento. Cuando estoy por debajo del 40 %, reduzco la carga — levantamiento más ligero, caminar en lugar de correr. El Pod 3 de 8Sleep rastrea la deuda de sueño en tiempo real, y he descubierto que 7+ horas de sueño real (no solo tiempo en la cama) se correlacionan directamente con un mejor rendimiento al levantar al día siguiente.
+          </p>
+        </div>
+        
+        <div class="bg-neutral-900/50 rounded-xl p-6 border border-neutral-800">
+          <h3 class="text-lg font-semibold text-white mb-3">Por qué no entreno de noche</h3>
+          <p class="text-neutral-400 leading-relaxed">
+            Todas mis sesiones de Speediance son antes de las 2 PM. Levantar por la noche dispara mi frecuencia cardíaca demasiado cerca de la hora de dormir, y mis datos de 8Sleep lo demuestran — los entrenamientos después de las 6 PM bajan mi puntuación de sueño en un promedio de 15 puntos. Los datos me lo dijeron: la mañana y el principio de la tarde son mis ventanas de entrenamiento.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Tech Stack Used */}
+  <section class="py-16 bg-neutral-900">
+    <div class="container mx-auto px-4">
+      <h2 class="text-2xl font-bold mb-8 text-center">El stack tecnológico</h2>
+      
+      <div class="flex flex-wrap justify-center gap-6">
+        <a href="/running/" class="flex items-center gap-2 px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-colors">
+          <span class="text-green-400">●</span>
+          <span class="text-white">Garmin Fenix</span>
+        </a>
+        <a href="/speediance/" class="flex items-center gap-2 px-4 py-2 bg-neutral-800 rounded-lg hover:bg-neutral-700 transition-colors">
+          <span class="text-purple-400">●</span>
+          <span class="text-white">Speediance</span>
+        </a>
+        <span class="flex items-center gap-2 px-4 py-2 bg-neutral-800 rounded-lg">
+          <span class="text-blue-400">●</span>
+          <span class="text-white">8Sleep Pod 3</span>
+        </span>
+        <span class="flex items-center gap-2 px-4 py-2 bg-neutral-800 rounded-lg">
+          <span class="text-red-400">●</span>
+          <span class="text-white">WHOOP 5.0</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  {/* CTA */}
+  <section class="py-16 bg-neutral-950 border-t border-neutral-800">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-2xl font-bold mb-4">¿Quieres más datos?</h2>
+      <p class="text-neutral-400 mb-8 max-w-2xl mx-auto">
+        Profundiza en tus datos de fitness con mis páginas detalladas sobre carrera, levantamiento y seguimiento de recuperación.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/running/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+          Estadísticas de carrera
+        </a>
+        <a href="/speediance/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+          Estadísticas de levantamiento
+        </a>
+        <a href="/training/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+          Panel completo
+        </a>
+      </div>
+    </div>
+  </section>
+
+</Layout>
