@@ -35,14 +35,14 @@ const weeklySchedule = [
     day: "शुक्रवार",
     focus: "दौड़ + वेट ट्रेनिंग",
     icon: "🏃",
-    exercises: ["इंटरवल स्पीडवर्क", "इंक्लाइन बेंच", "लैट पुलडाउन", "बाइसेप कर्ल्स", "ट्राइसेप एक्सटेंशन्स"],
+    exercises: ["इंटरवल स्पीडवर्क", "इनक्लाइन बेंच", "लैट पुलडाउन", "बाइसेप कर्ल्स", "ट्राइसेप एक्सटेंशन्स"],
     priority: 1
   },
   {
     day: "शनिवार",
     focus: "BJJ",
     icon: "🥋",
-    exercises: ["ओपन मैट", "तकनीकी ड्रिलिंग", "लाइव रोलिंग"],
+    exercises: ["ओपन मैट", "टेक्निकल ड्रिलिंग", "लाइव रोलिंग"],
     priority: 3
   },
   {
@@ -63,13 +63,13 @@ const stats = {
 };
 
 const pageTitle = "ट्रेनिंग वीक";
-const pageDescription = "एक सामान्य ट्रेनिंग वीक: दौड़, फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर), और BJJ। फिटनेस के लिए मेरा प्राथमिकता-आधारित तरीका: दौड़ > वेट ट्रेनिंग > BJJ।";
+const pageDescription = "एक सामान्य ट्रेनिंग वीक: दौड़, फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर), और BJJ। फिटनेस के प्रति मेरा प्राथमिकता-आधारित दृष्टिकोण: दौड़ > वेट ट्रेनिंग > BJJ।";
 
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "टोबी का ट्रेनिंग वीक",
-  "description": "एक साप्ताहिक ट्रेनिंग प्रोग्राम जो दौड़, फुल-बॉडी वेट ट्रेनिंग और ब्राज़ीलियन जिउ-जित्सु को जोड़ता है।",
+  "description": "एक साप्ताहिक ट्रेनिंग प्रोग्राम जो दौड़, फुल-बॉडी वेट ट्रेनिंग और ब्राज़ीलियन जिउ-जित्सु को मिलाता है।",
   "provider": {
     "@type": "Person",
     "name": "Toby"
@@ -98,7 +98,7 @@ const courseSchema = {
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
           <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
-          <div class="text-sm text-neutral-400">वर्कआउट/सप्ताह</div>
+          <div class="text-sm text-neutral-400">वर्कआउट्स/सप्ताह</div>
         </div>
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
           <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
@@ -122,7 +122,7 @@ const courseSchema = {
     {/* Weekly Schedule Grid */}
     <section class="mb-16">
       <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-        <span>📅</span> साप्ताहिक शेड्यूल
+        <span>📅</span> साप्ताहिक कार्यक्रम
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
         {weeklySchedule.map((day) => (
@@ -173,15 +173,15 @@ const courseSchema = {
             <div class="text-3xl mb-2">🏆</div>
             <h3 class="text-blue-400 font-bold mb-2">#1 दौड़</h3>
             <p class="text-neutral-400 text-sm">
-              कार्डियो आधार है। चाहे आसान मील हों, टेम्पो रन हों या इंटरवल्स, दौड़ सबसे पहले आती है। 
-              एक मजबूत एरोबिक आधार बाकी सबको सहारा देता है।
+              कार्डियो नींव है। चाहे आसान मील हों, टेम्पो रन हों या इंटरवल्स, दौड़ सबसे पहले आती है। 
+              एक मजबूत एरोबिक बेस बाकी हर चीज़ को सहारा देता है।
             </p>
           </div>
           <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
             <div class="text-3xl mb-2">💪</div>
             <h3 class="text-purple-400 font-bold mb-2">#2 वेट ट्रेनिंग</h3>
             <p class="text-neutral-400 text-sm">
-              फुल-बॉडी सेशन, पैरों को छोड़कर (भारी कंपाउंड मूवमेंट्स की ज़िम्मेदारी Speediance संभालता है)। 
+              फुल-बॉडी सेशंस, पैरों को छोड़कर (Speediance भारी कंपाउंड एक्सरसाइज़ संभालता है)। 
               फोकस प्रेसिंग, पुलिंग और हाइपरट्रॉफी पर है। सप्ताह में तीन दिन।
             </p>
           </div>
@@ -189,7 +189,7 @@ const courseSchema = {
             <div class="text-3xl mb-2">🥋</div>
             <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
             <p class="text-neutral-400 text-sm">
-              तकनीक और रोलिंग के लिए सप्ताह में दो दिन। जिउ-जित्सु मुझे विनम्र रखता है और 
+              तकनीक और रोलिंग के लिए सप्ताह में दो दिन। जिउ-जित्सु मुझे विनम्र बनाए रखता है और 
               बेहतरीन एनएरोबिक कंडीशनिंग और स्किल वर्क देता है।
             </p>
           </div>

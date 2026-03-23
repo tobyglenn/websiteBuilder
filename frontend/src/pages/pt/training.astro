@@ -7,49 +7,49 @@ const weeklySchedule = [
     day: "Segunda-feira",
     focus: "Corrida + Musculação",
     icon: "🏃",
-    exercises: ["Corrida leve de 5K", "Supino reto", "Puxada na frente", "Desenvolvimento acima da cabeça", "Remada com barra"],
+    exercises: ["Corrida leve de 5K", "Supino reto", "Puxada na frente", "Desenvolvimento militar", "Remada com barra"],
     priority: 1
   },
   {
     day: "Terça-feira",
     focus: "BJJ",
     icon: "🥋",
-    exercises: ["Drills com kimono", "Rounds de sparring", "trabalho posicional"],
+    exercises: ["Drills com kimono", "Rounds de sparring", "Trabalho posicional"],
     priority: 3
   },
   {
     day: "Quarta-feira",
     focus: "Corrida + Musculação",
     icon: "🏃",
-    exercises: ["Corrida ritmo de 6K", "Levantamento terra", "Hip thrust", "Barra fixa", "Face pulls"],
+    exercises: ["Corrida em ritmo de 6K", "Levantamento terra", "Hip thrust", "Barra fixa", "Face pulls"],
     priority: 1
   },
   {
     day: "Quinta-feira",
     focus: "Recuperação ativa",
     icon: "🔄",
-    exercises: ["Trote leve de 3K", "trabalho de mobilidade", "alongamento"],
+    exercises: ["Trote leve de 3K", "Trabalho de mobilidade", "Alongamento"],
     priority: 0
   },
   {
     day: "Sexta-feira",
     focus: "Corrida + Musculação",
     icon: "🏃",
-    exercises: ["Treino de velocidade em intervalos", "Supino inclinado", "Puxada na frente", "Rosca bíceps", "Extensões de tríceps"],
+    exercises: ["Treino de velocidade com intervalos", "Supino inclinado", "Puxada na frente", "Rosca bíceps", "Extensões de tríceps"],
     priority: 1
   },
   {
     day: "Sábado",
     focus: "BJJ",
     icon: "🥋",
-    exercises: ["Open mat", "drills técnicos", "rolas ao vivo"],
+    exercises: ["Open mat", "Drills técnicos", "Rolagem ao vivo"],
     priority: 3
   },
   {
     day: "Domingo",
     focus: "Descanso",
     icon: "😴",
-    exercises: ["Dia de descanso", "recuperação com sono", "caminhada leve"],
+    exercises: ["Dia de descanso", "Recuperação com sono", "Caminhada leve"],
     priority: 0
   }
 ];
@@ -63,7 +63,7 @@ const stats = {
 };
 
 const pageTitle = "Semana de treino";
-const pageDescription = "Uma semana típica de treino: corrida, musculação de corpo inteiro (sem pernas) e BJJ. Minha abordagem priorizada de fitness: Corrida > Musculação > BJJ.";
+const pageDescription = "Uma semana típica de treino: corrida, musculação de corpo inteiro (sem pernas) e BJJ. Minha abordagem priorizada de condicionamento físico: Corrida > Musculação > BJJ.";
 
 const courseSchema = {
   "@context": "https://schema.org",
@@ -122,7 +122,7 @@ const courseSchema = {
     {/* Weekly Schedule Grid */}
     <section class="mb-16">
       <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-        <span>📅</span> Cronograma semanal
+        <span>📅</span> Programação semanal
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
         {weeklySchedule.map((day) => (
@@ -173,7 +173,7 @@ const courseSchema = {
             <div class="text-3xl mb-2">🏆</div>
             <h3 class="text-blue-400 font-bold mb-2">#1 Corrida</h3>
             <p class="text-neutral-400 text-sm">
-              O cardio é a base. Seja com quilômetros leves, corridas em ritmo ou intervalos, a corrida vem primeiro. 
+              O cardio é a base. Seja com quilômetros leves, corridas em ritmo forte ou intervalos, a corrida vem primeiro. 
               Uma base aeróbica forte sustenta todo o resto.
             </p>
           </div>
@@ -181,7 +181,7 @@ const courseSchema = {
             <div class="text-3xl mb-2">💪</div>
             <h3 class="text-purple-400 font-bold mb-2">#2 Musculação</h3>
             <p class="text-neutral-400 text-sm">
-              Sessões de corpo inteiro sem pernas (a Speediance cuida dos compostos pesados). 
+              Sessões de corpo inteiro sem pernas (o Speediance cuida dos compostos pesados). 
               Foco em empurrar, puxar e hipertrofia. Três dias por semana.
             </p>
           </div>
@@ -189,7 +189,7 @@ const courseSchema = {
             <div class="text-3xl mb-2">🥋</div>
             <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
             <p class="text-neutral-400 text-sm">
-              Dois dias por semana para técnica e rola. O jiu-jítsu me mantém humilde e oferece 
+              Dois dias por semana para técnica e rolagem. O jiu-jítsu me mantém humilde e oferece 
               excelente condicionamento anaeróbico e trabalho técnico.
             </p>
           </div>
