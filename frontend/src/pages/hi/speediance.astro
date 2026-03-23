@@ -1,0 +1,558 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getSpeedianceData } from '../data/speediance.js';
+
+const { stats, chartData, donutData, workoutTypeBreakdown, exercisePRs, recentSessions } = getSpeedianceData();
+
+// ── Heatmap data ──────────────────────────────────────────────────────────
+import rawSpeediance from '../data/speediance_dashboard_data.json';
+const allSessions = rawSpeediance.allSessions || [];
+
+// Build date → count map
+const workoutDateMap: Record<string, number> = {};
+for (const s of allSessions) {
+  if (s.date) {
+    workoutDateMap[s.date] = (workoutDateMap[s.date] || 0) + 1;
+  }
+}
+
+// Generate last 52 weeks of dates (364 days)
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const heatmapDays: { date: string; count: number; label: string }[] = [];
+for (let i = 363; i >= 0; i--) {
+  const d = new Date(today);
+  d.setDate(d.getDate() - i);
+  const iso = d.toISOString().slice(0, 10);
+  heatmapDays.push({
+    date: iso,
+    count: workoutDateMap[iso] || 0,
+    label: d.toLocaleDateString('hi-IN', { month: 'short', day: 'numeric', year: 'numeric' }),
+  });
+}
+
+// Pad start so first day aligns to its weekday (0=Sun)
+const firstDay = new Date(heatmapDays[0].date).getDay();
+const paddedDays = [
+  ...Array(firstDay).fill(null),
+  ...heatmapDays,
+];
+
+// Build week columns for the grid
+const weeks: (typeof heatmapDays[0] | null)[][] = [];
+for (let i = 0; i < paddedDays.length; i += 7) {
+  weeks.push(paddedDays.slice(i, i + 7));
+}
+
+// Streak calculation
+let currentStreak = 0;
+let longestStreak = 0;
+let running = 0;
+for (let i = heatmapDays.length - 1; i >= 0; i--) {
+  if (heatmapDays[i].count > 0) {
+    running++;
+    if (currentStreak === 0) currentStreak = running;
+    longestStreak = Math.max(longestStreak, running);
+  } else {
+    if (currentStreak === 0) running = 0;
+    longestStreak = Math.max(longestStreak, running);
+    running = 0;
+  }
+}
+longestStreak = Math.max(longestStreak, running);
+
+// Month labels for heatmap header
+const monthLabels: { label: string; col: number }[] = [];
+let lastMonth = '';
+weeks.forEach((week, colIdx) => {
+  const firstReal = week.find(d => d !== null);
+  if (firstReal) {
+    const m = new Date(firstReal.date).toLocaleString('hi-IN', { month: 'short' });
+    if (m !== lastMonth) {
+      monthLabels.push({ label: m, col: colIdx });
+      lastMonth = m;
+    }
+  }
+});
+
+const heatColor = (count: number) => {
+  if (count === 0) return 'bg-neutral-800';
+  if (count === 1) return 'bg-orange-900';
+  if (count === 2) return 'bg-orange-600';
+  return 'bg-orange-400';
+};
+
+// Serialize for client-side charts
+const chartJSON = JSON.stringify(chartData);
+const donutJSON = JSON.stringify(donutData);
+---
+
+<Layout
+  title={`${stats.totalVolumeFmt} lbs उठाए: मेरी स्पीडिएंस यात्रा — TobyOnFitnessTech`}
+  description={`${stats.totalWorkouts} वर्कआउट, ${stats.totalVolumeFmt} lbs स्पीडिएंस पर उठाए गए। टोबी के होम जिम का वास्तविक डेटा — मासिक वॉल्यूम ट्रेंड्स, शीर्ष एक्सरसाइज़ और व्यक्तिगत रिकॉर्ड।`}
+  breadcrumbs={[{ name: "होम", url: "/" }, { name: "स्पीडिएंस यात्रा", url: "/speediance" }]}
+  jsonLd={{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "स्पीडिएंस यात्रा",
+    "description": `${stats.totalWorkouts} वर्कआउट, ${stats.totalVolumeFmt} lbs स्पीडिएंस पर उठाए गए। टोबी के होम जिम का वास्तविक डेटा।`,
+    "author": { "@type": "Person", "name": "Toby Glenn Peters" },
+    "datePublished": "2026-03-04",
+    "url": "https://tobyonfitnesstech.com/speediance"
+  }}
+>
+  <main class="min-h-screen bg-neutral-950 text-white">
+
+    {/* ── Hero ──────────────────────────────────────────────────────────────── */}
+    <section id="hero" class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+      <div class="absolute inset-0 bg-gradient-to-b from-orange-900/10 to-transparent pointer-events-none" />
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.08),_transparent_70%)] pointer-events-none" />
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-3xl">
+          <p class="text-xs font-bold tracking-widest text-orange-500 uppercase mb-4">स्पीडिएंस डेटा · Jul 2025 – Feb 2026</p>
+          <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {stats.totalVolumeFmt} lbs उठाए:<br />
+            <span class="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
+              मेरी स्पीडिएंस यात्रा
+            </span>
+          </h2>
+          <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
+            मैंने कमर्शियल जिम छोड़कर स्पीडिएंस स्मार्ट होम जिम चुना और फिर पीछे मुड़कर नहीं देखा।
+            {stats.totalWorkouts} वर्कआउट, {stats.totalVolumeFmt} lbs वॉल्यूम, और एक शरीर जो
+            188 lbs से 218 lbs मसल तक पहुँच गया। हर सेशन लॉग किया गया, हर PR ट्रैक किया गया।
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a
+              href="https://www.speediance.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600/20 hover:bg-orange-600/30 border border-orange-500/30 hover:border-orange-500/60 text-orange-400 hover:text-orange-300 font-medium rounded-full transition-all text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
+              Speediance.com
+            </a>
+            <a
+              href="/videos/?q=speediance"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 hover:bg-neutral-800 border border-neutral-700/50 hover:border-neutral-600 text-neutral-300 hover:text-white font-medium rounded-full transition-all text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              मेरे स्पीडिएंस वीडियो देखें
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Summary Stats ─────────────────────────────────────────────────────── */}
+    <section id="summary-stats" class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 col-span-2 sm:col-span-1 lg:col-span-1">
+            <div class="text-3xl font-bold text-orange-400 mb-1">{stats.totalVolumeFmt}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs उठाए गए</div>
+            <div class="text-xs text-neutral-600 mt-1">कुल वॉल्यूम</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.totalWorkouts}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">वर्कआउट</div>
+            <div class="text-xs text-neutral-600 mt-1">जुलाई 2025 से</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{stats.totalHours}h</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">प्रशिक्षण समय</div>
+            <div class="text-xs text-neutral-600 mt-1">कुल अवधि</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{(stats.avgVolume / 1000).toFixed(1)}k</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">औसत / सेशन</div>
+            <div class="text-xs text-neutral-600 mt-1">प्रति वर्कआउट lbs</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-white mb-1">{(stats.bestSessionVolume / 1000).toFixed(1)}k</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">सर्वश्रेष्ठ सेशन</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.bestSessionDate}</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
+            <div class="text-3xl font-bold text-red-400 mb-1">{(stats.totalCalories / 1000).toFixed(1)}k</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">जली हुई कैलोरी</div>
+            <div class="text-xs text-neutral-600 mt-1">कुल kcal</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Charts ────────────────────────────────────────────────────────────── */}
+    <section id="volume-over-time" class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-2">समय के साथ वॉल्यूम</h2>
+          <p class="text-neutral-400 text-sm">मासिक उठाने का वॉल्यूम — देखें कैसे नंबर बढ़ते गए जब प्रोग्रामिंग परिपक्व हुई।</p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-6">
+          {/* Monthly volume bar chart */}
+          <div class="lg:col-span-2 bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-sm font-semibold text-neutral-300 uppercase tracking-wider">मासिक वॉल्यूम (lbs)</h3>
+              <span class="text-xs text-neutral-600 bg-neutral-800 px-2 py-1 rounded-full">{stats.dateStart} → {stats.dateEnd}</span>
+            </div>
+            <div class="relative h-64 md:h-72">
+              <canvas id="volumeChart"></canvas>
+            </div>
+          </div>
+
+          {/* Workout type donut */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <h3 class="text-sm font-semibold text-neutral-300 uppercase tracking-wider mb-4">वर्कआउट प्रकार के अनुसार वॉल्यूम</h3>
+            <div class="relative h-48">
+              <canvas id="donutChart"></canvas>
+            </div>
+            <div class="mt-4 space-y-2">
+              {workoutTypeBreakdown.slice(0, 5).map((t) => (
+                <div class="flex items-center justify-between text-xs">
+                  <span class="text-neutral-400 truncate mr-2">{t.name}</span>
+                  <span class="text-neutral-300 font-mono shrink-0">{t.pct}%</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Personal Records ──────────────────────────────────────────────────── */}
+    <section id="personal-records" class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="mb-8">
+          <h2 class="text-2xl font-bold mb-2">व्यक्तिगत रिकॉर्ड</h2>
+          <p class="text-neutral-400 text-sm">स्पीडिएंस द्वारा ट्रैक किए गए सर्वश्रेष्ठ 1-रेप मैक्स अनुमान। ये वास्तविक नंबर हैं।</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          {exercisePRs.map((pr, i) => (
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4 hover:border-orange-800/50 transition-colors group">
+              <div class="flex items-start justify-between">
+                <div class="flex-1 min-w-0 mr-2">
+                  <div class="text-sm font-medium text-neutral-200 leading-snug">{pr.name}</div>
+                  <div class="text-xs text-neutral-600 mt-1">{pr.workout}</div>
+                </div>
+                <div class="shrink-0 text-right">
+                  <div class="text-xl font-bold text-orange-400">{pr.weight}</div>
+                  <div class="text-xs text-neutral-600">lbs</div>
+                </div>
+              </div>
+              {i === 0 && (
+                <div class="mt-2 pt-2 border-t border-neutral-800">
+                  <span class="text-xs text-yellow-500 font-semibold">🏆 शीर्ष PR</span>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Recent Sessions Table ─────────────────────────────────────────────── */}
+    <section id="recent-workouts" class="py-12 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="flex items-center justify-between mb-6">
+          <div>
+            <h2 class="text-2xl font-bold mb-1">हाल के वर्कआउट</h2>
+            <p class="text-neutral-400 text-sm">स्पीडिएंस के पिछले 20 सेशन</p>
+          </div>
+          <a
+            href="/videos/"
+            class="text-sm text-orange-400 hover:text-orange-300 font-medium flex items-center gap-1 transition-colors"
+          >
+            वर्कआउट वीडियो देखें
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
+        {/* Desktop table */}
+        <div class="hidden md:block overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800 text-left">
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">तारीख</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4">वर्कआउट</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">वॉल्यूम</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider pr-4 text-right">अवधि</th>
+                <th class="pb-3 text-xs font-semibold text-neutral-500 uppercase tracking-wider text-right">कैलोरी</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-neutral-900">
+              {recentSessions.map((s) => (
+                <tr class="hover:bg-neutral-900/50 transition-colors">
+                  <td class="py-3 pr-4 text-neutral-400 font-mono text-xs whitespace-nowrap">{s.date}</td>
+                  <td class="py-3 pr-4 text-neutral-200 font-medium">{s.title}</td>
+                  <td class="py-3 pr-4 text-right font-mono font-semibold text-orange-400">
+                    {s.volume >= 1000 ? (s.volume / 1000).toFixed(1) + 'k' : s.volume} lbs
+                  </td>
+                  <td class="py-3 pr-4 text-right text-neutral-300 font-mono">{s.duration}m</td>
+                  <td class="py-3 text-right text-neutral-400 font-mono">
+                    {s.calories > 0 ? s.calories + ' kcal' : '—'}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* Mobile cards */}
+        <div class="md:hidden space-y-3">
+          {recentSessions.slice(0, 10).map((s) => (
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
+              <div class="flex items-start justify-between mb-2">
+                <div class="flex-1 min-w-0 mr-3">
+                  <div class="font-medium text-white text-sm">{s.title}</div>
+                  <div class="text-xs text-neutral-500 mt-0.5">{s.date}</div>
+                </div>
+                <div class="text-right shrink-0">
+                  <div class="font-bold text-orange-400 font-mono">
+                    {s.volume >= 1000 ? (s.volume / 1000).toFixed(1) + 'k' : s.volume}
+                  </div>
+                  <div class="text-xs text-neutral-600">lbs</div>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-2 mt-3">
+                <div>
+                  <div class="text-white font-mono">{s.duration}m</div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">अवधि</div>
+                </div>
+                <div>
+                  <div class="text-neutral-300 font-mono">{s.calories > 0 ? s.calories + ' kcal' : '—'}</div>
+                  <div class="text-xs text-neutral-600 uppercase tracking-wider">कैलोरी</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* ── Workout Heatmap ────────────────────────────────────────────────── */}
+    <section id="workout-frequency" class="py-16 border-t border-neutral-800/60">
+      <div class="container mx-auto px-4 max-w-5xl">
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-8">
+          <div>
+            <h2 class="text-2xl font-bold text-white">वर्कआउट आवृत्ति</h2>
+            <p class="text-neutral-400 text-sm mt-1">पिछले 52 सप्ताह</p>
+          </div>
+          <div class="flex gap-6 text-sm">
+            <div class="text-center">
+              <div class="text-2xl font-bold text-orange-400">{currentStreak}</div>
+              <div class="text-neutral-400 text-xs">वर्तमान स्ट्रीक</div>
+            </div>
+            <div class="text-center">
+              <div class="text-2xl font-bold text-orange-300">{longestStreak}</div>
+              <div class="text-neutral-400 text-xs">सबसे लंबी स्ट्रीक</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Month labels */}
+        <div class="overflow-x-auto pb-2">
+          <div style={`display:grid;grid-template-columns:repeat(${weeks.length},minmax(0,1fr));min-width:${weeks.length * 14}px`} class="mb-1">
+            {weeks.map((_, colIdx) => {
+              const label = monthLabels.find(m => m.col === colIdx);
+              return (
+                <div class="text-[10px] text-neutral-500 h-4" style="min-width:12px">
+                  {label ? label.label : ''}
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Heatmap grid — 7 rows (days), N columns (weeks) */}
+          <div class="flex gap-[3px]">
+            {weeks.map((week) => (
+              <div class="flex flex-col gap-[3px]">
+                {week.map((day, rowIdx) => (
+                  day ? (
+                    <div
+                      class={`w-3 h-3 rounded-sm ${heatColor(day.count)} cursor-default`}
+                      title={`${day.label}: ${day.count} वर्कआउट${day.count !== 1 ? '' : ''}`}
+                    />
+                  ) : (
+                    <div class="w-3 h-3" />
+                  )
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Legend */}
+        <div class="flex items-center gap-2 mt-3 text-xs text-neutral-500">
+          <span>कम</span>
+          <div class="w-3 h-3 rounded-sm bg-neutral-800" />
+          <div class="w-3 h-3 rounded-sm bg-orange-900" />
+          <div class="w-3 h-3 rounded-sm bg-orange-600" />
+          <div class="w-3 h-3 rounded-sm bg-orange-400" />
+          <span>ज़्यादा</span>
+        </div>
+      </div>
+    </section>
+
+    {/* ── Callout / CTA ─────────────────────────────────────────────────────── */}
+    <section class="py-16 border-t border-neutral-900">
+      <div class="container mx-auto px-4">
+        <div class="bg-gradient-to-r from-orange-900/20 to-red-900/20 border border-orange-800/30 rounded-2xl p-8 flex flex-col md:flex-row items-center gap-6 max-w-3xl mx-auto">
+          <div class="text-5xl shrink-0">🏋️</div>
+          <div class="flex-1 text-center md:text-left">
+            <h3 class="text-xl font-bold text-white mb-2">188 से 218 lbs तक — बिना कमर्शियल जिम के</h3>
+            <p class="text-neutral-400 text-sm leading-relaxed">
+              स्पीडिएंस ने मेरी जिम सदस्यता की जगह ले ली। {stats.totalVolumeFmt} lbs वॉल्यूम, शून्य आना-जाना,
+              और पारंपरिक जिम की तुलना में कहीं ज़्यादा प्रोग्रेसिव ओवरलोड।
+              डेटा झूठ नहीं बोलता।
+            </p>
+          </div>
+          <a
+            href="/about/"
+            class="shrink-0 inline-flex items-center gap-2 px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-bold rounded-full transition-all hover:scale-105 text-sm"
+          >
+            मेरी कहानी पढ़ें
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</Layout>
+
+{/* ── Pass data to client ───────────────────────────────────────────────────── */}
+<script define:vars={{ chartData, donutData }}>
+  window.__SPEEDIANCE_CHART_DATA__ = chartData;
+  window.__SPEEDIANCE_DONUT_DATA__ = donutData;
+</script>
+
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+
+<script is:inline>
+  (function () {
+    Chart.defaults.color = '#737373';
+    Chart.defaults.borderColor = '#262626';
+    Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
+
+    const chartData = window.__SPEEDIANCE_CHART_DATA__ || [];
+    const donutData = window.__SPEEDIANCE_DONUT_DATA__ || [];
+
+    // ── Monthly Volume Bar Chart ───────────────────────────────────────────
+    (function buildVolumeChart() {
+      const canvas = document.getElementById('volumeChart');
+      if (!canvas) return;
+
+      const labels = chartData.map(d => d.label);
+      const volumes = chartData.map(d => d.volume);
+      const workouts = chartData.map(d => d.workouts);
+      const maxVol = Math.max(...volumes);
+
+      const bgColors = volumes.map(v => {
+        const intensity = v / maxVol;
+        const alpha = 0.25 + intensity * 0.55;
+        return `rgba(249,115,22,${alpha.toFixed(2)})`;
+      });
+
+      new Chart(canvas, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: 'वॉल्यूम (lbs)',
+            data: volumes,
+            backgroundColor: bgColors,
+            borderColor: 'rgba(249,115,22,0.8)',
+            borderWidth: 1,
+            borderRadius: 8,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              borderColor: '#404040',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (item) => {
+                  const lbs = item.raw;
+                  const formatted = lbs >= 1000 ? (lbs / 1000).toFixed(1) + 'k lbs' : lbs + ' lbs';
+                  return ` ${formatted} · ${workouts[item.dataIndex]} वर्कआउट`;
+                },
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { color: '#1a1a1a' },
+              ticks: { maxRotation: 30, font: { size: 11 } },
+            },
+            y: {
+              grid: { color: '#1a1a1a' },
+              ticks: {
+                callback: v => v >= 1000 ? (v / 1000).toFixed(0) + 'k' : v,
+              },
+              min: 0,
+            },
+          },
+        },
+      });
+    })();
+
+    // ── Workout Type Donut Chart ───────────────────────────────────────────
+    (function buildDonutChart() {
+      const canvas = document.getElementById('donutChart');
+      if (!canvas) return;
+
+      const colors = [
+        'rgba(249,115,22,0.85)',
+        'rgba(239,68,68,0.80)',
+        'rgba(251,191,36,0.80)',
+        'rgba(234,179,8,0.75)',
+        'rgba(249,115,22,0.50)',
+        'rgba(239,68,68,0.45)',
+        'rgba(251,191,36,0.45)',
+        'rgba(180,83,9,0.60)',
+      ];
+
+      new Chart(canvas, {
+        type: 'doughnut',
+        data: {
+          labels: donutData.map(d => d.name),
+          datasets: [{
+            data: donutData.map(d => d.volume),
+            backgroundColor: colors,
+            borderColor: '#171717',
+            borderWidth: 2,
+            hoverOffset: 4,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: '65%',
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: '#171717',
+              borderColor: '#404040',
+              borderWidth: 1,
+              padding: 10,
+              callbacks: {
+                label: (item) => {
+                  const v = item.raw;
+                  const pct = donutData[item.dataIndex]?.pct || 0;
+                  return ` ${(v / 1000).toFixed(0)}k lbs · ${pct}%`;
+                },
+              },
+            },
+          },
+        },
+      });
+    })();
+  })();
+</script>
