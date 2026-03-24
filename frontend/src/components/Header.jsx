@@ -10,6 +10,7 @@ const LOCALE_LABELS = {
   pt: 'Português',
   hi: 'हिन्दी',
 };
+const LOCALE_FLAGS = { en: '🇺🇸', de: '🇩🇪', es: '🇪🇸', pt: '🇧🇷', hi: '🇮🇳' };
 
 const NAV_TRANSLATIONS = {
   en: {
@@ -98,14 +99,14 @@ export default function Header() {
   const podcastBase = localePrefix(locale);
 
   const navLinks = useMemo(() => ([
-    { name: t.home, href: localizedHref(locale, '/') },
-    { name: t.videos, href: localizedHref(locale, '/videos/') },
-    { name: t.blog, href: localizedHref(locale, '/blog/'), hasDropdown: true },
-    { name: t.openclaw, href: `${podcastBase}/podcasts/openclaw/` },
-    { name: t.fitness, href: `${podcastBase}/podcasts/fitness-tech/` },
-    { name: t.games, href: localizedHref(locale, '/games/') },
-    { name: t.about, href: localizedHref(locale, '/about/') },
-    { name: t.faq, href: localizedHref(locale, '/faq/') },
+    { name: t.home, href: localizedHref(locale, '/'), icon: '🏠' },
+    { name: t.videos, href: localizedHref(locale, '/videos/'), icon: '🎬' },
+    { name: t.blog, href: localizedHref(locale, '/blog/'), hasDropdown: true, icon: '📝' },
+    { name: t.openclaw, href: `${podcastBase}/podcasts/openclaw/`, icon: '🤖' },
+    { name: t.fitness, href: `${podcastBase}/podcasts/fitness-tech/`, icon: '💪' },
+    { name: t.games, href: localizedHref(locale, '/games/'), icon: '🎮' },
+    { name: t.about, href: localizedHref(locale, '/about/'), icon: '👤' },
+    { name: t.faq, href: localizedHref(locale, '/faq/'), icon: '❓' },
   ]), [locale]);
 
   const subNavItems = useMemo(() => ([
@@ -135,6 +136,7 @@ export default function Header() {
   const languageLinks = SUPPORTED_LOCALES.map((code) => ({
     code,
     label: LOCALE_LABELS[code],
+    flag: LOCALE_FLAGS[code],
     href: code === 'en' ? '/' : `/${code}/`,
   }));
 
@@ -154,7 +156,8 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-6">
             {navLinks.map((link) => link.hasDropdown ? (
               <div key={link.name} className="relative" ref={blogDropdownRef} onMouseEnter={() => setIsDesktopBlogOpen(true)} onMouseLeave={() => setIsDesktopBlogOpen(false)}>
-                <button onClick={() => setIsDesktopBlogOpen((o) => !o)} className={`text-sm font-medium transition-colors flex items-center gap-1 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
+                <button onClick={() => setIsDesktopBlogOpen((o) => !o)} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
+                  {link.icon && <span>{link.icon}</span>}
                   {link.name}
                   <ChevronDown size={14} className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -171,7 +174,8 @@ export default function Header() {
                 )}
               </div>
             ) : (
-              <a key={link.name} href={link.href} className={`text-sm font-medium transition-colors ${pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
+              <a key={link.name} href={link.href} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
+                {link.icon && <span>{link.icon}</span>}
                 {link.name}
               </a>
             ))}
@@ -180,15 +184,18 @@ export default function Header() {
           <div className="hidden md:flex items-center gap-4">
             <div className="relative" ref={languageDropdownRef}>
               <button onClick={() => setIsLanguageOpen((o) => !o)} className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/90 px-3 py-2 text-sm text-neutral-200 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Choose language">
-                <Globe size={16} />
-                <span>{LOCALE_LABELS[locale]}</span>
+                <span>🌐</span>
+                <span>{LOCALE_FLAGS[locale]}</span>
                 <ChevronDown size={14} className={`transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
               </button>
               {isLanguageOpen && (
                 <div className="absolute right-0 mt-2 w-44 rounded-2xl border border-neutral-800 bg-neutral-900 p-2 shadow-xl shadow-black/40">
                   {languageLinks.map((item) => (
                     <button key={item.code} onClick={() => handleLanguageChoice(item.code)} className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-colors ${locale === item.code ? 'bg-blue-500/20 text-blue-400' : 'text-neutral-300 hover:bg-neutral-800 hover:text-white'}`}>
-                      {item.label}
+                      <span className="inline-flex items-center gap-2">
+                        <span>{item.flag}</span>
+                        <span>{item.label}</span>
+                      </span>
                     </button>
                   ))}
                 </div>
@@ -224,13 +231,14 @@ export default function Header() {
 
             <nav className="flex flex-col space-y-1 mb-6">
               {[
-                { name: t.home, href: localizedHref(locale, '/') },
-                { name: t.videos, href: localizedHref(locale, '/videos/') },
-                { name: t.games, href: localizedHref(locale, '/games/') },
-                { name: t.about, href: localizedHref(locale, '/about/') },
-                { name: t.faq, href: localizedHref(locale, '/faq/') },
+                { name: t.home, href: localizedHref(locale, '/'), icon: '🏠' },
+                { name: t.videos, href: localizedHref(locale, '/videos/'), icon: '🎬' },
+                { name: t.games, href: localizedHref(locale, '/games/'), icon: '🎮' },
+                { name: t.about, href: localizedHref(locale, '/about/'), icon: '👤' },
+                { name: t.faq, href: localizedHref(locale, '/faq/'), icon: '❓' },
               ].map((link) => (
-                <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="block px-4 py-3 rounded-xl text-lg font-medium text-neutral-200 hover:bg-neutral-800 hover:text-white transition-colors">
+                <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl text-lg font-medium text-neutral-200 hover:bg-neutral-800 hover:text-white transition-colors">
+                  {link.icon && <span>{link.icon}</span>}
                   {link.name}
                 </a>
               ))}
