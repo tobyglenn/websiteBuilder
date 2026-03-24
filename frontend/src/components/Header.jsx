@@ -149,11 +149,11 @@ export default function Header() {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800' : 'bg-transparent'}`}>
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <a href={localizedHref(locale, '/')} className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+          <a href={localizedHref(locale, '/')} className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity shrink-0">
             TobyOnFitnessTech
           </a>
 
-          <nav className="hidden md:flex items-center gap-6">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0 overflow-x-auto">
             {navLinks.map((link) => link.hasDropdown ? (
               <div key={link.name} className="relative" ref={blogDropdownRef} onMouseEnter={() => setIsDesktopBlogOpen(true)} onMouseLeave={() => setIsDesktopBlogOpen(false)}>
                 <button onClick={() => setIsDesktopBlogOpen((o) => !o)} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
@@ -181,7 +181,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="hidden md:flex items-center gap-4">
+          <div className="hidden lg:flex items-center gap-4 shrink-0">
             <div className="relative" ref={languageDropdownRef}>
               <button onClick={() => setIsLanguageOpen((o) => !o)} className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/90 px-3 py-2 text-sm text-neutral-200 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Choose language">
                 <span>🌐</span>
@@ -204,14 +204,14 @@ export default function Header() {
             <Search />
           </div>
 
-          <button className="md:hidden text-neutral-300 hover:text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button className="lg:hidden text-neutral-300 hover:text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </header>
 
       {isMenuOpen && (
-        <div className="md:hidden fixed inset-0 z-[100] bg-neutral-950 overflow-y-auto">
+        <div className="lg:hidden fixed inset-0 z-[100] bg-neutral-950 overflow-y-auto">
           <div className="flex flex-col min-h-full p-6">
             <div className="flex justify-between items-center mb-8">
               <a href={localizedHref(locale, '/')} className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">TobyOnFitnessTech</a>
