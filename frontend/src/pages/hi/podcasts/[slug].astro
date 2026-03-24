@@ -63,7 +63,7 @@ export async function getStaticPaths() {
       transcriptHtml = '<p class="text-neutral-500">ट्रांसक्रिप्ट उपलब्ध नहीं है।</p>';
     }
 
-    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+    const baseEpNum = String(episodeNum).padStart(3, '0'); const coverImage = `/images/podcast/episode_${baseEpNum}_cover_hi.png`;
 
     return {
       params: { slug },

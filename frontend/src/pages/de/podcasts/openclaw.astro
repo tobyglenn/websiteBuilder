@@ -54,7 +54,7 @@ try {
     const showNotesUrl = link;
     const pubDate = formatDate(pubDateRaw);
     const episodeNum = parseEpisodeNumber(item);
-    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+    const baseEpNum = String(episodeNum).padStart(3, '0'); const localeCover = `/images/podcast/episode_${baseEpNum}_cover_de.png`; const fallbackCover = `/images/podcast/episode_${baseEpNum}_cover.png`; const coverImage = localeCover;
 
     episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
   }
