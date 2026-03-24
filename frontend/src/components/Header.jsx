@@ -141,8 +141,14 @@ export default function Header() {
   }));
 
   const handleLanguageChoice = (code) => {
-    if (typeof window !== 'undefined') window.localStorage.setItem('site-lang', code);
-    window.location.href = code === 'en' ? '/' : `/${code}/`;
+    if (typeof window === 'undefined') return;
+    window.localStorage.setItem('site-lang', code);
+    // Strip current locale prefix to get the base path, then re-prefix with new locale
+    const currentPath = window.location.pathname;
+    const basePath = currentPath.replace(/^\/(en|de|es|pt|hi)(\/|$)/, '/');
+    const normalized = basePath || '/';
+    const targetPath = code === 'en' ? normalized : `/${code}${normalized}`;
+    window.location.href = targetPath;
   };
 
   return (
