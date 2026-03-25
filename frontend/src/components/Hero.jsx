@@ -2,15 +2,92 @@ import React from 'react';
 import { Play, Dumbbell, Users, TrendingDown, ArrowRight } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
 
-export default function Hero() {
+const t = {
+  en: {
+    heading1: 'Serious fitness,',
+    heading2: 'real results, zero hype',
+    subtitle: "For the person who's done with performance and ready for actual progress.",
+    liveStream: 'Upcoming Live Stream',
+    latestVideo: 'Latest Video',
+    watchLatest: 'Watch Latest',
+    aboutMe: 'About Me',
+    featured: 'FEATURED',
+    pillars: [
+      { name: 'Speediance User', description: '1,000,000+ lbs lifted. The definitive independent Speediance resource.' },
+      { name: 'BJJ Insight', description: 'Thoughtful commentary on grappling culture and match analysis.' },
+      { name: 'Transformation', description: '242 → 188 lbs. Real numbers, documented progress.' },
+    ],
+  },
+  es: {
+    heading1: 'Fitness serio,',
+    heading2: 'resultados reales, cero humo',
+    subtitle: 'Para quien ya dejó el show y quiere progreso real.',
+    liveStream: 'Transmisión en vivo próxima',
+    latestVideo: 'Último video',
+    watchLatest: 'Ver último',
+    aboutMe: 'Sobre mí',
+    featured: 'DESTACADO',
+    pillars: [
+      { name: 'Usuario Speediance', description: 'Más de 1,000,000 lbs levantadas. El recurso independiente definitivo de Speediance.' },
+      { name: 'Análisis BJJ', description: 'Comentarios reflexivos sobre la cultura del grappling y análisis de combates.' },
+      { name: 'Transformación', description: '242 → 188 lbs. Números reales, progreso documentado.' },
+    ],
+  },
+  de: {
+    heading1: 'Ernsthaftes Fitness,',
+    heading2: 'echte Ergebnisse, null Hype',
+    subtitle: 'Für alle, die Show satt haben und echten Fortschritt wollen.',
+    liveStream: 'Kommender Livestream',
+    latestVideo: 'Neuestes Video',
+    watchLatest: 'Neuestes ansehen',
+    aboutMe: 'Über mich',
+    featured: 'EMPFOHLEN',
+    pillars: [
+      { name: 'Speediance-Nutzer', description: 'Über 1.000.000 lbs gehoben. Die definitive unabhängige Speediance-Ressource.' },
+      { name: 'BJJ-Einblicke', description: 'Durchdachte Kommentare zu Grappling-Kultur und Kampfanalysen.' },
+      { name: 'Transformation', description: '242 → 188 lbs. Echte Zahlen, dokumentierter Fortschritt.' },
+    ],
+  },
+  pt: {
+    heading1: 'Fitness sério,',
+    heading2: 'resultados reais, zero hype',
+    subtitle: 'Para quem já cansou de show e quer progresso de verdade.',
+    liveStream: 'Live em breve',
+    latestVideo: 'Último vídeo',
+    watchLatest: 'Assistir último',
+    aboutMe: 'Sobre mim',
+    featured: 'DESTAQUE',
+    pillars: [
+      { name: 'Usuário Speediance', description: 'Mais de 1.000.000 lbs levantadas. O recurso independente definitivo sobre Speediance.' },
+      { name: 'Análise BJJ', description: 'Comentários reflexivos sobre cultura de grappling e análise de lutas.' },
+      { name: 'Transformação', description: '242 → 188 lbs. Números reais, progresso documentado.' },
+    ],
+  },
+  hi: {
+    heading1: 'गंभीर फिटनेस,',
+    heading2: 'असली नतीजे, शून्य हाइप',
+    subtitle: 'उन लोगों के लिए जो दिखावा छोड़कर असली प्रगति चाहते हैं।',
+    liveStream: 'आगामी लाइव स्ट्रीम',
+    latestVideo: 'नवीनतम वीडियो',
+    watchLatest: 'नवीनतम देखें',
+    aboutMe: 'मेरे बारे में',
+    featured: 'फ़ीचर्ड',
+    pillars: [
+      { name: 'Speediance उपयोगकर्ता', description: '10 लाख+ lbs उठाए। Speediance का निश्चित स्वतंत्र संसाधन।' },
+      { name: 'BJJ विश्लेषण', description: 'ग्रैपलिंग संस्कृति और मैच विश्लेषण पर विचारशील टिप्पणी।' },
+      { name: 'ट्रांसफ़ॉर्मेशन', description: '242 → 188 lbs. असली नंबर, प्रलेखित प्रगति।' },
+    ],
+  },
+};
+
+export default function Hero({ lang = 'en' }) {
+  const l = t[lang] || t.en;
   // Featured video - prefer live stream if one exists, otherwise most recent
   const featuredVideo = allVideos.find(v => v.is_live) || allVideos[0];
 
-  const pillars = [
-    { icon: Dumbbell, name: 'Speediance User', description: '1,000,000+ lbs lifted. The definitive independent Speediance resource.', href: '/videos?category=speediance' },
-    { icon: Users, name: 'BJJ Insight', description: 'Thoughtful commentary on grappling culture and match analysis.', href: '/videos?category=bjj' },
-    { icon: TrendingDown, name: 'Transformation', description: '242 → 188 lbs. Real numbers, documented progress.', href: '/about/' }
-  ];
+  const pillarIcons = [Dumbbell, Users, TrendingDown];
+  const pillarHrefs = ['/videos?category=speediance', '/videos?category=bjj', '/about/'];
+  const pillars = l.pillars.map((p, i) => ({ ...p, icon: pillarIcons[i], href: pillarHrefs[i] }));
 
   return (
     <section className="relative overflow-hidden bg-neutral-950 pt-24 pb-16 md:pt-36 md:pb-20">
@@ -26,30 +103,30 @@ export default function Hero() {
           {featuredVideo?.is_live ? (
             <div className="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold mb-6">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              Upcoming Live Stream
+              {l.liveStream}
             </div>
           ) : (
             <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-blue-300 text-sm font-semibold mb-6">
               <span className="w-2 h-2 rounded-full bg-blue-400" />
-              Latest Video
+              {l.latestVideo}
             </div>
           )}
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-            Serious fitness,<br />
-            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">real results, zero hype</span>
+            {l.heading1}<br />
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">{l.heading2}</span>
           </h1>
 
           <p className="text-lg md:text-xl text-neutral-400 mb-8 max-w-lg mx-auto md:mx-0 leading-relaxed">
-            For the person who's done with performance and ready for actual progress.
+            {l.subtitle}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
             <a href={`/video/${featuredVideo?.id}/`} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50">
-              <Play size={20} fill="currentColor" /> Watch Latest
+              <Play size={20} fill="currentColor" /> {l.watchLatest}
             </a>
             <a href="/about/" className="px-8 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 rounded-full transition-all hover:border-neutral-600 font-medium flex items-center gap-2">
-              About Me <ArrowRight size={16} />
+              {l.aboutMe} <ArrowRight size={16} />
             </a>
           </div>
         </div>
@@ -68,7 +145,7 @@ export default function Hero() {
                 )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">FEATURED</span>
+                    <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">{l.featured}</span>
                     <h3 className="text-xl font-bold text-white mb-1">{featuredVideo.title}</h3>
                     <p className="text-sm text-neutral-300 line-clamp-1">{featuredVideo.description?.slice(0, 80)}...</p>
                 </div>
