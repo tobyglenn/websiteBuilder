@@ -4,9 +4,79 @@ import speedianceData from '../data/speediance_dashboard_data.json';
 import garminData from '../data/garmin_all_activities.json';
 import whoopData from '../data/whoop_v2_latest.json';
 
-const TrainingFocus = () => {
+const translations = {
+  en: {
+    sectionHeading: "This Week's Focus",
+    subheading: 'Based on past 7 days activity',
+    runs: 'runs',
+    workouts: 'workouts',
+    bjjSessions: 'BJJ sessions',
+    focusOrder: ['Running', 'Lifting', 'BJJ'],
+    focusValues: {
+      running: 'Running',
+      lifting: 'Lifting',
+      bjj: 'BJJ',
+    },
+  },
+  es: {
+    sectionHeading: 'Enfoque de esta semana',
+    subheading: 'Basado en la actividad de los últimos 7 días',
+    runs: 'carreras',
+    workouts: 'entrenamientos',
+    bjjSessions: 'sesiones de BJJ',
+    focusOrder: ['Correr', 'Levantamiento', 'BJJ'],
+    focusValues: {
+      running: 'Correr',
+      lifting: 'Levantamiento',
+      bjj: 'BJJ',
+    },
+  },
+  de: {
+    sectionHeading: 'Fokus dieser Woche',
+    subheading: 'Basierend auf Aktivität der letzten 7 Tage',
+    runs: 'Läufe',
+    workouts: 'Workouts',
+    bjjSessions: 'BJJ-Sessions',
+    focusOrder: ['Laufen', 'Krafttraining', 'BJJ'],
+    focusValues: {
+      running: 'Laufen',
+      lifting: 'Krafttraining',
+      bjj: 'BJJ',
+    },
+  },
+  pt: {
+    sectionHeading: 'Foco da semana',
+    subheading: 'Com base na atividade dos últimos 7 dias',
+    runs: 'corridas',
+    workouts: 'treinos',
+    bjjSessions: 'treinos de BJJ',
+    focusOrder: ['Corrida', 'Levantamento', 'BJJ'],
+    focusValues: {
+      running: 'Corrida',
+      lifting: 'Levantamento',
+      bjj: 'BJJ',
+    },
+  },
+  hi: {
+    sectionHeading: 'इस सप्ताह का फोकस',
+    subheading: 'पिछले 7 दिनों की गतिविधि के आधार पर',
+    runs: 'रन',
+    workouts: 'वर्कआउट',
+    bjjSessions: 'BJJ सेशन',
+    focusOrder: ['दौड़ना', 'लिफ्टिंग', 'BJJ'],
+    focusValues: {
+      running: 'दौड़ना',
+      lifting: 'लिफ्टिंग',
+      bjj: 'BJJ',
+    },
+  },
+};
+
+const TrainingFocus = ({ lang = 'en' }) => {
+  const t = translations[lang] || translations.en;
+
   const [focusData, setFocusData] = useState({
-    focus: 'Running',
+    focus: 'running',
     runCount: 0,
     workoutCount: 0,
     bjjCount: 0,
@@ -15,7 +85,7 @@ const TrainingFocus = () => {
   useEffect(() => {
     // Use today as the reference date (not the last data date)
     const refDate = new Date();
-    
+
     const sevenDaysAgo = new Date(refDate);
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
@@ -32,8 +102,9 @@ const TrainingFocus = () => {
     const recentRuns = garminData.activities.filter((activity) => {
       if (!activity.date) return false;
       const activityDate = new Date(activity.date);
-      const isRunning = activity.activityType?.includes('running') || 
-                        activity.activityType?.includes('treadmill');
+      const isRunning =
+        activity.activityType?.includes('running') ||
+        activity.activityType?.includes('treadmill');
       return activityDate >= sevenDaysAgo && activityDate <= refDate && isRunning;
     });
 
@@ -46,22 +117,22 @@ const TrainingFocus = () => {
 
     // Determine focus (most sessions)
     const counts = {
-      Running: recentRuns.length,
-      Lifting: recentWorkouts.length,
-      BJJ: bjjSessions.length,
+      running: recentRuns.length,
+      lifting: recentWorkouts.length,
+      bjj: bjjSessions.length,
     };
 
     // Pick whatever had the most sessions; BJJ beats ties with Running
-    let focus = 'Running';
-    const maxCount = Math.max(counts.Running, counts.Lifting, counts.BJJ);
+    let focus = 'running';
+    const maxCount = Math.max(counts.running, counts.lifting, counts.bjj);
     if (maxCount === 0) {
-      focus = 'Running'; // Default when no data
-    } else if (counts.Lifting === maxCount) {
-      focus = 'Lifting';
-    } else if (counts.BJJ === maxCount) {
-      focus = 'BJJ';
+      focus = 'running'; // Default when no data
+    } else if (counts.lifting === maxCount) {
+      focus = 'lifting';
+    } else if (counts.bjj === maxCount) {
+      focus = 'bjj';
     } else {
-      focus = 'Running';
+      focus = 'running';
     }
 
     setFocusData({
@@ -74,11 +145,11 @@ const TrainingFocus = () => {
 
   const getFocusIcon = () => {
     switch (focusData.focus) {
-      case 'Running':
+      case 'running':
         return <Activity className="w-8 h-8 text-blue-400" />;
-      case 'Lifting':
+      case 'lifting':
         return <Dumbbell className="w-8 h-8 text-blue-400" />;
-      case 'BJJ':
+      case 'bjj':
         return <Trophy className="w-8 h-8 text-blue-400" />;
       default:
         return <Activity className="w-8 h-8 text-blue-400" />;
@@ -89,25 +160,21 @@ const TrainingFocus = () => {
     <div className="bg-neutral-900 rounded-2xl p-8 border border-neutral-800 shadow-2xl overflow-hidden relative">
       {/* Background accent */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-      
+
       <div className="relative z-10">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-blue-500 font-bold uppercase tracking-widest text-sm">
-            This Week's Focus
+            {t.sectionHeading}
           </span>
         </div>
-        
+
         <div className="flex items-center gap-4 mb-6">
-          <div className="p-3 bg-blue-500/20 rounded-xl">
-            {getFocusIcon()}
-          </div>
+          <div className="p-3 bg-blue-500/20 rounded-xl">{getFocusIcon()}</div>
           <div>
             <h2 className="text-3xl md:text-4xl font-black text-white">
-              {focusData.focus}
+              {t.focusValues[focusData.focus]}
             </h2>
-            <p className="text-neutral-400 text-sm">
-              Based on past 7 days activity
-            </p>
+            <p className="text-neutral-400 text-sm">{t.subheading}</p>
           </div>
         </div>
 
@@ -115,31 +182,31 @@ const TrainingFocus = () => {
           <div className="flex items-center gap-2">
             <span className="text-2xl">🏃</span>
             <span className="font-semibold">{focusData.runCount}</span>
-            <span className="text-neutral-500">runs</span>
+            <span className="text-neutral-500">{t.runs}</span>
           </div>
           <span className="text-neutral-600">•</span>
           <div className="flex items-center gap-2">
             <span className="text-2xl">🏋️</span>
             <span className="font-semibold">{focusData.workoutCount}</span>
-            <span className="text-neutral-500">workouts</span>
+            <span className="text-neutral-500">{t.workouts}</span>
           </div>
           <span className="text-neutral-600">•</span>
           <div className="flex items-center gap-2">
             <span className="text-2xl">🥋</span>
             <span className="font-semibold">{focusData.bjjCount}</span>
-            <span className="text-neutral-500">BJJ sessions</span>
+            <span className="text-neutral-500">{t.bjjSessions}</span>
           </div>
         </div>
 
         <div className="flex items-center gap-2 text-blue-400 font-medium">
-          <span>Running</span>
+          <span>{t.focusOrder[0]}</span>
           <span className="text-neutral-600">&gt;</span>
           <span className="flex items-center gap-1">
-            <Dumbbell size={16} /> Lifting
+            <Dumbbell size={16} /> {t.focusOrder[1]}
           </span>
           <span className="text-neutral-600">&gt;</span>
           <span className="flex items-center gap-1">
-            <Trophy size={16} /> BJJ
+            <Trophy size={16} /> {t.focusOrder[2]}
           </span>
         </div>
       </div>

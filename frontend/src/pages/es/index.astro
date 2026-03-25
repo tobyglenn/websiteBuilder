@@ -100,7 +100,7 @@ const webPageSchema = {
   jsonLd={webPageSchema}
 >
 	<Hero client:load />
-	<TrainingFocus client:load />
+	<TrainingFocus client:load lang="es" />
 
 	<section id="this-week" class="py-12 bg-neutral-950">
   <div class="max-w-6xl mx-auto px-4">
@@ -130,7 +130,7 @@ const webPageSchema = {
 		</div>
 	</section>
 
-	<YearlyGoals client:visible />
+	<YearlyGoals client:visible lang="es" />
 	<section class="py-16 bg-neutral-950 border-t border-neutral-800"><div class="container mx-auto px-4"><WorkoutHeatmap client:load /><ThisWeekWidget client:load /></div></section>
 
 	<section id="blog" class="py-16 bg-neutral-950 border-t border-neutral-800">
@@ -148,7 +148,7 @@ const webPageSchema = {
 
 	<section id="latest-videos" class="py-16 bg-neutral-950 border-t border-neutral-800"><div class="container mx-auto px-4"><div class="flex items-end justify-between mb-10"><div><span class="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-2 block">YouTube</span><h2 class="text-3xl md:text-4xl font-bold text-white">Videos más recientes</h2></div><a href="/es/videos/" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">Ver todos los videos <ArrowRight size={18} /></a></div><div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">{allVideos.filter(v => !v.is_live).slice(0, 4).map((video) => (<a href={`/video/${video.id}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all"><div class="aspect-video relative overflow-hidden"><img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />{video.duration_formatted && (<span class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-0.5 rounded">{video.duration_formatted}</span>)}</div><div class="p-4"><h3 class="font-semibold text-white text-sm group-hover:text-cyan-400 transition-colors line-clamp-2">{video.title}</h3></div></a>))}</div></div></section>
 
-	<LatestActivity client:load />
+	<LatestActivity client:load lang="es" />
 
 	<section class="py-12 bg-neutral-950 border-t border-neutral-900"><div class="container mx-auto px-4"><div class="bg-neutral-900 rounded-2xl p-6 md:p-8 border border-neutral-800"><div class="flex flex-col md:flex-row items-center justify-between gap-6"><div class="flex items-center gap-3"><div class="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center"><svg class="w-6 h-6 text-white fill-white" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></div><div><div class="text-white font-bold text-lg">Toby on Fitness</div><div class="text-neutral-500 text-sm">Canal de YouTube</div></div></div><div class="flex flex-wrap items-center justify-center gap-6 md:gap-10"><div class="text-center"><div class="text-2xl md:text-3xl font-black text-white">1.2K</div><div class="text-xs text-neutral-500 uppercase tracking-wide">Suscriptores</div></div><div class="h-10 w-px bg-neutral-700 hidden md:block"></div><div class="text-center"><div class="text-2xl md:text-3xl font-black text-white">9.9K</div><div class="text-xs text-neutral-500 uppercase tracking-wide">Vistas totales</div></div><div class="h-10 w-px bg-neutral-700 hidden md:block"></div><div class="text-center"><div class="text-2xl md:text-3xl font-black text-white">104</div><div class="text-xs text-neutral-500 uppercase tracking-wide">Videos</div></div></div><a href="https://youtube.com/@tobyonfitness" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-colors text-sm"><svg class="w-4 h-4 fill-white" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>Suscribirse</a></div></div></div></section>
 
