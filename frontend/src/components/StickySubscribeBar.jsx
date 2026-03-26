@@ -34,6 +34,20 @@ export default function StickySubscribeBar() {
             <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 4.217c4.293 0 7.783 3.49 7.783 7.783S16.293 19.783 12 19.783 4.217 16.293 4.217 12 7.707 4.217 12 4.217zm0 2.61a5.173 5.173 0 100 10.346A5.173 5.173 0 0012 6.827zm0 2.61a2.564 2.564 0 110 5.128 2.564 2.564 0 010-5.128zm-4.391 8.52a.782.782 0 01.782.783v1.043a.782.782 0 11-1.565 0V18.74a.782.782 0 01.783-.783zm8.782 0a.782.782 0 01.783.783v1.043a.782.782 0 11-1.565 0V18.74a.782.782 0 01.782-.783z"/>
           </svg>
         </a>
+        {/* YouTube icon-only */}
+        <a
+          href="https://www.youtube.com/@openclawdaily"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Watch on YouTube"
+          className="flex items-center justify-center w-10 h-10 rounded-full text-white transition-all duration-200 hover:scale-105 bg-[#FF0000]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 4px 14px rgba(255,0,0,0.4)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+            <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+          </svg>
+        </a>
       </div>
     </div>
   );

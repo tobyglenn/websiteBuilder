@@ -78,6 +78,7 @@ export default function EpisodeDetail({ episode }) {
                 iheartUrl={OPENCLAW_IHEART}
                 amazonUrl={OPENCLAW_AMAZON}
                 rssUrl={OPENCLAW_RSS}
+                youtubeUrl="https://www.youtube.com/@openclawdaily"
               />
             </div>
           </div>
@@ -129,6 +130,7 @@ export default function EpisodeDetail({ episode }) {
             iheartUrl={OPENCLAW_IHEART}
             amazonUrl={OPENCLAW_AMAZON}
             rssUrl={OPENCLAW_RSS}
+            youtubeUrl="https://www.youtube.com/@openclawdaily"
             className="justify-center"
           />
         </div>
