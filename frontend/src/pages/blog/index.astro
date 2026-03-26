@@ -516,7 +516,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
     const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
     const initialUrl = new URL(window.location.href);
     const initialCategory = initialUrl.searchParams.get('category');
-    let activeCategory = categories.includes(initialCategory) ? initialCategory : '{activeCategory}';
+    let activeCategory = categories.includes(initialCategory) ? initialCategory : 'All';
 
     document.querySelectorAll('[data-cat-btn]').forEach(btn => {
       btn.addEventListener('click', () => {
