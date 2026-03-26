@@ -49,7 +49,9 @@ const DEFAULT_DESCRIPTION = "Independent fitness technology reviews, analysis, a
 // Use as fallback for all meta tags
 const seoDescription = description || DEFAULT_DESCRIPTION;
 
-const robotsContent = noindex ? "noindex, nofollow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
+const crawlerRobotsContent = noindex
+  ? "noindex, follow"
+  : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1";
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
@@ -269,7 +271,6 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
-    <link rel="canonical" href={Astro.url.href} />
     
     <!-- Preconnect to external domains for faster connection -->
     <link rel="preconnect" href="https://www.youtube.com" />
@@ -299,6 +300,8 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
         card: "summary_large_image",
         title: title
       }}
+      noindex={noindex}
+      robotsExtras={noindex ? undefined : "max-snippet:-1, max-image-preview:large, max-video-preview:-1"}
       extend={{
         meta: [
           { name: "twitter:site", content: twitterSite },
@@ -312,12 +315,11 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
             { name: "article:author", content: author || "Toby Glenn Peters" },
           ] : []),
           { name: "author", content: "Toby Glenn Peters" },
-          { name: "robots", content: noindex ? "noindex, follow" : "index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" },
           { name: "ai-content-type", content: "educational" },
           { name: "ai-purpose", content: "product reviews, fitness analysis, tech comparison" },
           { name: "ai-target-audience", content: "fitness enthusiasts, tech adopters, home gym owners" },
-          { name: "googlebot", content: "index, follow" },
-          { name: "bingbot", content: "index, follow" },
+          { name: "googlebot", content: crawlerRobotsContent },
+          { name: "bingbot", content: crawlerRobotsContent },
           { name: "keywords", content: "fitness tech, Speediance, Tonal, Whoop, Garmin, BJJ, home gym, smart fitness equipment, wearables" },
         ],
         link: [
@@ -334,21 +336,6 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
         ]
       }}
     />
-    
-    <!-- Open Graph Meta Tags -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://tobyonfitnesstech.com" />
-    <meta property="og:title" content={title || "TobyOnFitnessTech"} />
-    <meta property="og:description" content={seoDescription || "Fitness tech reviews, tutorials, and insights"} />
-    <meta property="og:image" content={resolvedImage || "https://tobyonfitnesstech.com/og-image.jpg"} />
-    <meta property="og:site_name" content="TobyOnFitnessTech" />
-    
-    <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://tobyonfitnesstech.com" />
-    <meta name="twitter:title" content={title || "TobyOnFitnessTech"} />
-    <meta name="twitter:description" content={seoDescription || "Fitness tech reviews, tutorials, and insights"} />
-    <meta name="twitter:image" content={resolvedImage || "https://tobyonfitnesstech.com/og-image.jpg"} />
     
     <LangDetect />
     

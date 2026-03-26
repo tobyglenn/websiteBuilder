@@ -1,5 +1,5 @@
 export async function GET() {
-  const site = 'https://www.tobyonfitnesstech.com';
+  const site = 'https://tobyonfitnesstech.com';
   
   // Import data for dynamic pages
   const { VIDEOS } = await import('../data/mock.js');
@@ -9,23 +9,23 @@ export async function GET() {
   // Main static pages
   const mainPages = [
     { loc: '/', changefreq: 'daily', priority: 1.0 },
-    { loc: '/videos', changefreq: 'weekly', priority: 0.9 },
-    { loc: '/podcasts', changefreq: 'weekly', priority: 0.9 },
-    { loc: '/blog', changefreq: 'daily', priority: 0.8 },
-    { loc: '/gear', changefreq: 'monthly', priority: 0.7 },
-    { loc: '/about', changefreq: 'monthly', priority: 0.6 },
-    { loc: '/running', changefreq: 'weekly', priority: 0.7 },
-    { loc: '/prs', changefreq: 'weekly', priority: 0.7 },
-    { loc: '/transformation', changefreq: 'monthly', priority: 0.7 },
-    { loc: '/timeline', changefreq: 'monthly', priority: 0.6 },
-    { loc: '/day', changefreq: 'weekly', priority: 0.7 },
-    { loc: '/start-here', changefreq: 'monthly', priority: 0.7 },
-    { loc: '/calculator', changefreq: 'monthly', priority: 0.6 },
-    { loc: '/fitness-age', changefreq: 'monthly', priority: 0.7 },
-    { loc: '/roi', changefreq: 'monthly', priority: 0.6 },
-    { loc: '/compare', changefreq: 'monthly', priority: 0.6 },
-    { loc: '/compare-trackers', changefreq: 'monthly', priority: 0.6 },
-    { loc: '/sleep', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/videos/', changefreq: 'weekly', priority: 0.9 },
+    { loc: '/podcasts/', changefreq: 'weekly', priority: 0.9 },
+    { loc: '/blog/', changefreq: 'daily', priority: 0.8 },
+    { loc: '/gear/', changefreq: 'monthly', priority: 0.7 },
+    { loc: '/about/', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/running/', changefreq: 'weekly', priority: 0.7 },
+    { loc: '/prs/', changefreq: 'weekly', priority: 0.7 },
+    { loc: '/transformation/', changefreq: 'monthly', priority: 0.7 },
+    { loc: '/timeline/', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/day/', changefreq: 'weekly', priority: 0.7 },
+    { loc: '/start-here/', changefreq: 'monthly', priority: 0.7 },
+    { loc: '/calculators/', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/fitness-age/', changefreq: 'monthly', priority: 0.7 },
+    { loc: '/roi/', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/compare/', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/compare-trackers/', changefreq: 'monthly', priority: 0.6 },
+    { loc: '/sleep/', changefreq: 'monthly', priority: 0.6 },
   ];
 
   // Blog posts

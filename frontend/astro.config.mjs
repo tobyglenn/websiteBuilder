@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
+const EXCLUDED_SITEMAP_PATH = /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)\/$/;
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://tobyonfitnesstech.com',
@@ -14,7 +16,12 @@ export default defineConfig({
 
   trailingSlash: 'ignore',
 
-  integrations: [react(), sitemap()],
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => !EXCLUDED_SITEMAP_PATH.test(new URL(page).pathname),
+    }),
+  ],
 
   redirects: {
     '/mma-rpg': 'https://clawdassistant85-netizen.github.io/mma-rpg/',
