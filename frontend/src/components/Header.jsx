@@ -162,11 +162,15 @@ export default function Header() {
           <nav className="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0 overflow-x-auto">
             {navLinks.map((link) => link.hasDropdown ? (
               <div key={link.name} className="relative" ref={blogDropdownRef} onMouseEnter={() => setIsDesktopBlogOpen(true)} onMouseLeave={() => setIsDesktopBlogOpen(false)}>
-                <button onClick={() => setIsDesktopBlogOpen((o) => !o)} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
-                  {link.icon && <span>{link.icon}</span>}
-                  {link.name}
-                  <ChevronDown size={14} className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`} />
-                </button>
+                <span className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
+                  <a href={link.href} className="flex items-center gap-1.5 hover:text-white">
+                    {link.icon && <span>{link.icon}</span>}
+                    {link.name}
+                  </a>
+                  <button onClick={() => setIsDesktopBlogOpen((o) => !o)} className="hover:text-white">
+                    <ChevronDown size={14} className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`} />
+                  </button>
+                </span>
                 {isDesktopBlogOpen && (
                   <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 z-[200] pt-2">
                     <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
