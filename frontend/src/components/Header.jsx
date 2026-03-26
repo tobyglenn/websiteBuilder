@@ -76,10 +76,10 @@ export default function Header() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const blogClickSkip = useRef(false);
+  const lastBlogToggle = useRef(0);
   useEffect(() => {
     const close = (e) => {
-      if (blogClickSkip.current) { blogClickSkip.current = false; return; }
+      if (Date.now() - lastBlogToggle.current < 300) return;
       if (blogDropdownRef.current && !blogDropdownRef.current.contains(e.target)) setIsDesktopBlogOpen(false);
       if (languageDropdownRef.current && !languageDropdownRef.current.contains(e.target)) setIsLanguageOpen(false);
     };
@@ -164,7 +164,7 @@ export default function Header() {
           <nav className="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0">
             {navLinks.map((link) => link.hasDropdown ? (
               <div key={link.name} className="relative" ref={blogDropdownRef} onMouseEnter={() => setIsDesktopBlogOpen(true)} onMouseLeave={() => setIsDesktopBlogOpen(false)}>
-                <button onClick={() => { blogClickSkip.current = true; setIsDesktopBlogOpen((o) => !o); }} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
+                <button onClick={() => { lastBlogToggle.current = Date.now(); setIsDesktopBlogOpen((o) => !o); }} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
                   {link.icon && <span>{link.icon}</span>}
                   {link.name}
                   <ChevronDown size={14} className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`} />
