@@ -81,8 +81,8 @@ export default function Header() {
       if (blogDropdownRef.current && !blogDropdownRef.current.contains(e.target)) setIsDesktopBlogOpen(false);
       if (languageDropdownRef.current && !languageDropdownRef.current.contains(e.target)) setIsLanguageOpen(false);
     };
-    document.addEventListener('click', close);
-    return () => document.removeEventListener('click', close);
+    document.addEventListener('mousedown', close);
+    return () => document.removeEventListener('mousedown', close);
   }, []);
 
   useEffect(() => {
