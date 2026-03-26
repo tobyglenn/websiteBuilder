@@ -71,7 +71,7 @@ export function getRaceData() {
         name: cleanRunName(activity.activityName),
         distance: activity.distance_miles,
         distanceCategory: category,
-        duration: activity.duration_min,
+        duration: activity.duration_min || activity.duration || 0,
         durationFormatted: formatDuration(activity.duration_min),
         pace: pace,
         paceFormatted: formatPace(pace),
