@@ -1,72 +1,45 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import speedianceData from '../data/speediance_dashboard_data.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const { exercisePRs = {}, totalWorkouts = 0, totalVolumeLbs = 0 } = speedianceData;
 
-// PR data extracted from Speediance dashboard
-const prsByMuscle = {
-  "Back & Lats": [
-    { name: "Barbell Deadlift", weight: 388, unit: "lbs" },
-    { name: "Kneeling Barbell Lat Pulldown", weight: 294, unit: "lbs" },
-    { name: "Kneeling Barbell Reverse-Grip Lat Pulldown", weight: 280, unit: "lbs" },
-    { name: "Seated Barbell Reverse-Grip Lat Pulldown", weight: 248, unit: "lbs" },
-    { name: "Seated Barbell Wide Row", weight: 202, unit: "lbs" },
-    { name: "Barbell Bent Over Row", weight: 198, unit: "lbs" },
-    { name: "Seated Barbell Lat Pulldown", weight: 192, unit: "lbs" },
-    { name: "Seated Barbell Row", weight: 192, unit: "lbs" },
-    { name: "Seated Barbell Reverse-Grip Row", weight: 170, unit: "lbs" },
-    { name: "Incline Barbell Straight Arm Pushdown", weight: 168, unit: "lbs" },
-    { name: "Half Kneeling Single-Arm Row (L)", weight: 161, unit: "lbs" },
-    { name: "Kneeling Single-Arm Lat Pulldown (L)", weight: 160, unit: "lbs" },
-    { name: "Kneeling Single-Arm Lat Pulldown (R)", weight: 146, unit: "lbs" },
-    { name: "Half Kneeling Single-Arm Row (R)", weight: 140, unit: "lbs" },
-    { name: "Bent-Over Reverse-Grip Barbell Row", weight: 126, unit: "lbs" },
-    { name: "Kneeling Dual-Handle Lat Pulldown", weight: 125, unit: "lbs" },
-  ],
-  "Chest & Triceps": [
-    { name: "Barbell Bench Press", weight: 232, unit: "lbs" },
-    { name: "Incline Barbell Bench Press", weight: 185, unit: "lbs" },
-    { name: "Standing Barbell Triceps Push Down", weight: 170, unit: "lbs" },
-  ],
-  "Legs & Glutes": [
-    { name: "Barbell Hip Thrust", weight: 240, unit: "lbs" },
-    { name: "Barbell Split Squat (L)", weight: 144, unit: "lbs" },
-    { name: "Barbell Split Squat (R)", weight: 144, unit: "lbs" },
-    { name: "Barbell Stiff-Leg Deadlift", weight: 140, unit: "lbs" },
-  ],
-  "Core & Arms": [
-    { name: "Standing High-to-Low Woodchops (R)", weight: 170, unit: "lbs" },
-    { name: "Standing High-to-Low Woodchops (L)", weight: 134, unit: "lbs" },
-  ],
-};
+function getMuscleGroup(workout = '') {
+  if (workout.includes('Back')) return 'Back & Lats';
+  if (workout.includes('Chest') || workout.includes('Tricep')) return 'Chest & Triceps';
+  if (['Leg', 'Hip', 'Calf', 'Glute', 'Squat'].some(keyword => workout.includes(keyword))) return 'Legs & Glutes';
+  if (['Arm', 'Bicep', 'Shoulder'].some(keyword => workout.includes(keyword))) return 'Arms & Shoulders';
+  if (['Core', 'Ab', 'Woodchop'].some(keyword => workout.includes(keyword))) return 'Core';
+  return 'Other';
+}
 
-const allPRs = [
-  { name: "Barbell Deadlift", weight: 388, muscle: "Back & Lats" },
-  { name: "Kneeling Barbell Lat Pulldown", weight: 294, muscle: "Back & Lats" },
-  { name: "Kneeling Barbell Reverse-Grip Lat Pulldown", weight: 280, muscle: "Back & Lats" },
-  { name: "Seated Barbell Reverse-Grip Lat Pulldown", weight: 248, muscle: "Back & Lats" },
-  { name: "Barbell Hip Thrust", weight: 240, muscle: "Legs & Glutes" },
-  { name: "Barbell Bench Press", weight: 232, muscle: "Chest & Triceps" },
-  { name: "Seated Barbell Wide Row", weight: 202, muscle: "Back & Lats" },
-  { name: "Barbell Bent Over Row", weight: 198, muscle: "Back & Lats" },
-  { name: "Seated Barbell Lat Pulldown", weight: 192, muscle: "Back & Lats" },
-  { name: "Seated Barbell Row", weight: 192, muscle: "Back & Lats" },
-  { name: "Incline Barbell Bench Press", weight: 185, muscle: "Chest & Triceps" },
-  { name: "Seated Barbell Reverse-Grip Row", weight: 170, muscle: "Back & Lats" },
-  { name: "Standing Barbell Triceps Push Down", weight: 170, muscle: "Chest & Triceps" },
-  { name: "Standing High-to-Low Woodchops (R)", weight: 170, muscle: "Core & Arms" },
-  { name: "Incline Barbell Straight Arm Pushdown", weight: 168, muscle: "Back & Lats" },
-];
+const allPRs = Object.entries(exercisePRs)
+  .map(([name, info]) => ({
+    name: name.replace(/^\u200b+/, '').trim(),
+    weight: Number(info?.best1RM) || 0,
+    workout: info?.workout || '',
+    muscle: getMuscleGroup(info?.workout || ''),
+    unit: 'lbs',
+  }))
+  .sort((a, b) => b.weight - a.weight || a.name.localeCompare(b.name));
+
+const prsByMuscle = allPRs.reduce((groups, pr) => {
+  if (!groups[pr.muscle]) groups[pr.muscle] = [];
+  groups[pr.muscle].push(pr);
+  return groups;
+}, {});
 
 const totalPRVolume = allPRs.reduce((sum, pr) => sum + pr.weight, 0);
 const totalPRs = allPRs.length;
+const heaviestPR = allPRs[0] || { weight: 0, name: 'N/A' };
 
 const profilePageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "@id": `${siteUrl}/prs#collection`,
   "name": "PR Board - Toby on Fitness Tech",
-  "description": `Personal records from Speediance training: ${totalPRs} PRs totaling ${totalPRVolume} lbs. Deadlift 388 lbs, Bench Press 232 lbs, and more.`,
+  "description": `Personal records from Speediance training: ${totalPRs} PRs totaling ${totalPRVolume} lbs. Top lift: ${heaviestPR.name} at ${heaviestPR.weight} lbs.`,
   "url": `${siteUrl}/prs`,
   "inLanguage": "en",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -88,7 +61,7 @@ const profilePageSchema = {
 
 <Layout 
   title="PR Board - Toby on Fitness Tech"
-  description={`Personal records from Speediance training: ${totalPRs} PRs totaling ${totalPRVolume} lbs. Deadlift 388 lbs, Bench Press 232 lbs, and more real data from 125+ workouts.`}
+  description={`Personal records from Speediance training: ${totalPRs} PRs totaling ${totalPRVolume} lbs. Top lift: ${heaviestPR.name} at ${heaviestPR.weight} lbs across ${totalWorkouts} workouts.`}
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "PR Board", url: "/prs" }]}
   jsonLd={profilePageSchema}
 >
@@ -121,7 +94,7 @@ const profilePageSchema = {
               <div class="text-xs text-neutral-500 uppercase tracking-wider">Lbs Total</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
-              <div class="text-2xl md:text-3xl font-black text-yellow-400">388</div>
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{heaviestPR.weight}</div>
               <div class="text-xs text-neutral-500 uppercase tracking-wider">Heaviest</div>
             </div>
           </div>
@@ -210,8 +183,8 @@ const profilePageSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-2xl mx-auto text-center">
           <p class="text-neutral-500 text-sm">
-            All PRs tracked on <strong class="text-white">Speediance Gym Monster 2S</strong> since July 2025. 
-            Total volume: <strong class="text-white">1,296,447 lbs</strong> across <strong class="text-white">125+ workouts</strong>.
+            All PRs tracked on <strong class="text-white">Speediance Gym Monster 2S</strong> from the exported dashboard data.
+            Total training volume: <strong class="text-white">{Math.round(totalVolumeLbs).toLocaleString()} lbs</strong> across <strong class="text-white">{totalWorkouts} workouts</strong>.
           </p>
           <div class="mt-6 flex flex-wrap justify-center gap-3">
             <a href="/speediance/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">View Volume Data →</a>

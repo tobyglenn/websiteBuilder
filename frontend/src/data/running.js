@@ -22,6 +22,19 @@ function fmtDate(dateStr, fmt = 'short') {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
+function cleanRunName(name) {
+  if (!name) return 'Run';
+  if (name === 'Running' || name === 'Treadmill Running') return name;
+
+  const types = ['Base', 'Tempo', 'Recovery', 'Threshold', 'Anaerobic', 'Long Run'];
+  for (const type of types) {
+    if (name.includes(type)) return type;
+  }
+
+  if (name.toLowerCase().includes('running')) return 'Outdoor Run';
+  return name;
+}
+
 export function getRunningData() {
   const raw = rawData;
   const all = raw.activities || [];
@@ -104,7 +117,7 @@ export function getRunningData() {
     const tzTotal = Object.values(tz).reduce((s, v) => s + v, 0) || 1;
     return {
       date: fmtDate(r.date),
-      name: r.activityName || 'Run',
+      name: cleanRunName(r.activityName),
       dist: +r.distance_miles.toFixed(2),
       pace: fmtPace(pace),
       dur: fmtDur(r.duration_min),

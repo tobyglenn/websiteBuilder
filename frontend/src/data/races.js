@@ -43,6 +43,18 @@ function getRunningActivities() {
   );
 }
 
+
+function cleanRunName(name) {
+  if (!name) return 'Run';
+  if (name === 'Running' || name === 'Treadmill Running') return name;
+  const types = ['Base', 'Tempo', 'Recovery', 'Threshold', 'Anaerobic', 'Long Run'];
+  for (const t of types) {
+    if (name.includes(t)) return t;
+  }
+  if (name.toLowerCase().includes('running')) return 'Outdoor Run';
+  return name;
+}
+
 export function getRaceData() {
   const runningActivities = getRunningActivities();
   
@@ -56,7 +68,7 @@ export function getRaceData() {
       
       return {
         date: activity.date,
-        name: activity.activityName,
+        name: cleanRunName(activity.activityName),
         distance: activity.distance_miles,
         distanceCategory: category,
         duration: activity.duration_min,
@@ -91,7 +103,7 @@ export function getPRs() {
         date: fastest.date,
         distance: fastest.distance,
         duration: fastest.durationFormatted,
-        name: fastest.name,
+        name: cleanRunName(fastest.name),
         type: fastest.type
       };
     }
