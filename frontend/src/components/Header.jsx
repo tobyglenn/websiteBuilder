@@ -159,7 +159,7 @@ export default function Header() {
             TobyOnFitnessTech
           </a>
 
-          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0 overflow-x-auto">
+          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0">
             {navLinks.map((link) => link.hasDropdown ? (
               <div key={link.name} className="relative" ref={blogDropdownRef} onMouseEnter={() => setIsDesktopBlogOpen(true)} onMouseLeave={() => setIsDesktopBlogOpen(false)}>
                 <button onClick={() => setIsDesktopBlogOpen((o) => !o)} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
