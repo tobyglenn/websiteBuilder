@@ -64,15 +64,15 @@ export function getRaceData() {
       const category = categorizeByDistance(activity.distance_miles);
       if (!category) return null;
       
-      const pace = activity.duration_min / activity.distance_miles;
+      const pace = (activity.duration_min ?? activity.duration ?? 0) / activity.distance_miles;
       
       return {
         date: activity.date,
         name: cleanRunName(activity.activityName),
         distance: activity.distance_miles,
         distanceCategory: category,
-        duration: activity.duration_min || activity.duration || 0,
-        durationFormatted: formatDuration(activity.duration_min),
+        duration: activity.duration_min ?? activity.duration ?? 0,
+        durationFormatted: formatDuration(activity.duration_min ?? activity.duration ?? 0),
         pace: pace,
         paceFormatted: formatPace(pace),
         hr: activity.averageHR || null,

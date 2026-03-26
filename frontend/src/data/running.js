@@ -45,7 +45,7 @@ export function getRunningData() {
 
   const totalRuns = runs.length;
   const totalDist = runs.reduce((s, r) => s + (r.distance_miles || 0), 0);
-  const totalMin = runs.reduce((s, r) => s + ((r.duration_min || r.duration || 0) || 0), 0);
+  const totalMin = runs.reduce((s, r) => s + ((r.duration_min ?? r.duration ?? 0) || 0), 0);
   const totalCal = runs.reduce((s, r) => s + (r.calories || 0), 0);
   const avgPace = totalDist > 0 ? totalMin / totalDist : 0;
   const outdoorRuns = runs.filter(r => r.activityType === 'running').length;
@@ -88,9 +88,9 @@ export function getRunningData() {
 
   // PRs by distance bracket
   function prFor(lo, hi) {
-    const cands = runs.filter(r => r.distance_miles >= lo && r.distance_miles < hi && (r.duration_min || r.duration || 0) > 0);
+    const cands = runs.filter(r => r.distance_miles >= lo && r.distance_miles < hi && (r.duration_min ?? r.duration ?? 0) > 0);
     if (!cands.length) return null;
-    const best = cands.reduce((b, r) => ((r.duration_min || r.duration || 0) / r.distance_miles) < (b.duration_min / b.distance_miles) ? r : b);
+    const best = cands.reduce((b, r) => ((r.duration_min ?? r.duration ?? 0) / r.distance_miles) < (b.duration_min / b.distance_miles) ? r : b);
     const pace = best.duration_min / best.distance_miles;
     return {
       label: `${lo} mi`,
@@ -106,7 +106,7 @@ export function getRunningData() {
 
   // Recent 10 runs
   const recentRuns = [...runs].reverse().slice(0, 10).map(r => {
-    const pace = r.distance_miles > 0 ? (r.duration_min || r.duration || 0) / r.distance_miles : 0;
+    const pace = r.distance_miles > 0 ? (r.duration_min ?? r.duration ?? 0) / r.distance_miles : 0;
     const tz = {
       z1: r.hrTimeInZone_1 || 0,
       z2: r.hrTimeInZone_2 || 0,
@@ -120,7 +120,7 @@ export function getRunningData() {
       name: cleanRunName(r.activityName),
       dist: +r.distance_miles.toFixed(2),
       pace: fmtPace(pace),
-      dur: fmtDur((r.duration_min || r.duration || 0)),
+      dur: fmtDur((r.duration_min ?? r.duration ?? 0)),
       hr: r.averageHR ? Math.round(r.averageHR) : null,
       cal: r.calories ? Math.round(r.calories) : null,
       type: r.activityType === 'treadmill_running' ? 'Treadmill' : 'Outdoor',
