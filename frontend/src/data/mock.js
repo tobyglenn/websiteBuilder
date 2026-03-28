@@ -1440,4 +1440,228 @@ export const BLOG_POSTS = [
     ],
     "content": "## The Match That Could Have Defined My Ranking\n\nI told myself I'd never compete again after my second child. Life got busy. Training took a backseat. But then I felt the urge to compete - to show someone else they should compete.\n\nThat's pretty hypocritical, especially when I hadn't competed for years.\n\nSo I signed up. First competition back after having my second child. I swore I'd never do this again - but there I was, on the mat.\n\n## The Reality Check\n\nI wasn't in competition shape. Not even close.\n\nI knew I wasn't having the kind of training camps I used to put together when I was actively competing. I had some injuries going in. I'm getting near 40 - not a shocker.\n\nMy first match in the absolute division was against a blue belt with several years of grappling experience. This guy launched me from inside the circle onto the concrete. Welcome to competition, Toby. Here's some concrete.\n\nI bounced off, restarted in the center. But the writing was on the wall. I lost that match in overtime because I gassed out. First one in years. He was in competition shape. I clearly wasn't.\n\n## The Reverse Triangle\n\nBut then things got interesting.\n\nIn my second match - this one in the gi division - I was losing badly. Way behind on points. Gassed. Less than a minute left.\n\nMy opponent went for an omoplata. And I hit something I've never hit in competition before: a reverse triangle.\n\nI was locked in an omoplata, and I spun - flipping him into my reverse triangle. It wasn't something I'd trained specifically. It's something I do in the gym. But in that moment, with everything on the line, it worked.\n\nI got the submission. Third place. My first competition medal since becoming a brown belt.\n\n## What This Means for Black Belt\n\nHere's my philosophy: if I went out there and lost every match, there's no way I could accept a black belt. Not after that performance.\n\nThe fair criticism of guys like Mike Israetel isn't that they're not black belts - it's that they should compete to validate their rank. I've competed. I've shown up. I've lost. I've won.\n\nThat's what separates legitimate practitioners from keyboard warriors.\n\n## The Belt Doesn't Tell the Whole Story\n\nI've rolled with hobbyist black belts who would get destroyed by competition purples. I've rolled with guys who looked average but were legitimately black belts.\n\nThe gap between brown and black is smaller than people think. An \"upper blue belt\" can look a lot like a black belt if they're having a bad day and you're not trying hard.\n\nI've been that guy rolling for fun, not trying, looking like a blue belt. And I've been the guy hitting submissions on higher ranks when everything clicks.\n\nCompetition is the great equalizer. It shows what you can actually do under pressure - not what you look like in a casual roll.\n\n## The Bottom Line\n\nThat reverse triangle didn't just save my match - it reinforced something important.\n\nIf you want to be taken seriously in jiu-jitsu, compete. Show up. Test yourself. Win some, lose some - but put yourself out there.\n\nThe belt is just cloth. The competition is where you find out what you're really made of."
   }
+  {
+    slug: 'honest-truth-about-my-weight-loss',
+    title: 'The Honest Truth About How I Lost 54 Pounds (And What I Actually Used)',
+    excerpt: 'I went from 242 to 188 lbs in one winter. Here is exactly what I did, including the prescription medications nobody talks about.',
+    category: 'The Long Game',
+    published_at: '2026-03-28',
+    date: '2026-03-28',
+    image: 'https://img.youtube.com/vi/M07Aq93TCkM/maxresdefault.jpg',
+    tags: ['weight loss', 'transformation', 'GLP-1', 'TRT', 'Speediance'],
+    author: 'Toby Peters',
+    featured: false,
+    content: `I went from **242 lbs to 188 lbs** in the course of roughly a six-month time frame. That was in 2023. And that transformation set up the physique that I have today.
+
+But here's the thing: I got a YouTube comment that was both hugely flattering and also a little concerning from a goals perspective. Someone said: "Hey, I'm going to buy the original Speediance and then when I get a physique that looks like yours, I'm going to buy the Gym Monster 2."
+
+That inspired me to make this video and now write this post because I wanted to be transparent. If you're aiming for a physique like mine, you need to know exactly what it took to get here.
+
+## The Backstory Nobody Knows
+
+I was a morbidly obese kid. Very fat from the end of elementary school all through high school until my senior year.
+
+Here's what I didn't realize until I was talking to my wife: **I had never done a transformation naturally.**
+
+Even in high school, when I transformed my body from being a fat kid to a relatively fit kid my senior year, I used a prescription drug called **Fentramine**. At the time it was over-the-counter, and I just ordered it off the internet. It helped me drop the weight.
+
+I get tremendous hunger signaling—the kind you would never imagine. I never get full, and I have an insatiable appetite. The more I work out, the hungrier I become.
+
+**I've used Fentramine on every single one of my weight loss journeys—up until this one.**
+
+Realize that: all of these weight loss journeys were using a drug. The last one I did prior to 2023 was about four or five years earlier, and I swore I'd never gained the weight back after that. But that was using Fentramine and running. I attributed all the weight loss to the running and not to the Fentramine.
+
+## The 2023 Transformation
+
+**June 2023: 242 lbs.**
+
+I tried running and all that kind of stuff, and I had been trying all year up until that point and failing. I'd go out running, get sick, go out running, and I'd just eat more than that and end up gaining weight.
+
+**July: I failed to lose more than 5 pounds total.** For someone like me who usually has Fentramine? That was a problem.
+
+And that was another key factor: I could not use Fentramine. I had a health condition during the flu—I guess we'll call it that because you're not allowed to say the words on YouTube. After hospitalization, they said I could never touch Fentramine again.
+
+**August is when I got with a new doctor and we changed everything in my protocol.**
+
+## The Protocol
+
+I've been on TRT for many years. I had low testosterone many years ago. And let me be clear: **you can get fat on TRT.** It's not impossible, especially when your protocol is suboptimal.
+
+So I got with a new doctor—the clinic was called Matrix (now Matrix Reformed, they've changed names since then). And realize I'm not with them anymore; I'm with an endocrinologist now.
+
+Here's what we implemented:
+
+### 1. TRT Protocol Change
+
+We changed to **subQ injections multiple times a week, specifically 3x/week**. We didn't actually change my TRT dose, but we changed the frequency of injections to make my blood serum levels more stable.
+
+That was the immediate change they made as part of getting with this new doctor. And this multiple dosing a week really drastically changed the way I feel.
+
+### 2. GLP-1: Tirzepatide
+
+When I got with that doctor, we also implemented a GLP-1. Specifically for me: **Tirzepatide** was the GLP-1 I used.
+
+As a safety data point, I actually requested Tirzepatide. Of the two—Semaglutide and Tirzepatide—that were available at the time, I requested Tirzepatide even though it's slightly more expensive because there were lower instances of gastric issues with people on that drug.
+
+### 3. Anavar
+
+But that wasn't all. They actually added **Anavar** to that, which is an oral anabolic.
+
+This is where it becomes slightly controversial because at this point in time, that's not a normal TRT regimen. But we did this because when I went to that doctor, I said:
+
+> "I want to lose this weight in six months. And I don't want to lose any muscle. I want to take my weight from 242, well 237.4 at that point in time, the whole way down to under 200 lbs and not lose one ounce of muscle."
+
+This was one of the things they added to make that possible. If you just do the GLP-1, even with my TRT dose, I would probably be shredding muscle to do that weight loss that quickly.
+
+### 4. Cialis
+
+And then there was one more thing that I think actually is a huge game-changer for me. **Cialis**—which is an erectile dysfunction medication normally. But they specifically put me on it to increase my pumps in the gym.
+
+I know that sounds ridiculous, but it's a vasodilator. And in taking that and working out, you'll see your gains immediately. And I know that doesn't sound like it would matter, but for someone who needs motivation in the gym...
+
+It was a game-changer. It was an absolute game-changer. And of any of them, it has the highest safety profile of course because it's the most widely studied and used by millions of people. Honestly, I would say it was one of the most impactful things they put me on.
+
+## The Stack
+
+So before, I was on one drug: Fentramine. Post-hospitalization, they said I could never touch Fentramine again. And so it took all of these things to do this transformation.
+
+But I will say: when I was taking Fentramine to lose weight, I would lose a lot of muscle. And as you'll see from my progress photos, I didn't lose that much muscle this time. It was surprising how well that worked.
+
+## Progress Photos and Dates
+
+- **August 4th:** 230 lbs
+- **September 7th:** 220 lbs
+- **October:** 213 lbs
+- **November:** 202 lbs
+- **December:** 200 lbs
+
+I didn't lose much weight from November to December, and that was holiday time—Thanksgiving. But interestingly, I lost a ton of weight in December itself. And in that situation, I was off of TRT because I was switching from the TRT clinic to the endocrinologist. She wanted to run a whole bunch of tests.
+
+One of my symptoms that had me go on TRT to begin with was actually chronic headaches. That's not a normal symptom for low T. Most people going on TRT do not have chronic headaches. It's a weird symptom, and that's why she wanted to run all those tests.
+
+**Full disclosure: I broke a testicle.** Not in jiu-jitsu—for a guy who gets kicked in the nuts three or four days a week, I didn't break it in BJJ. I actually broke it, I'm pretty sure, doing work on my farm in a weird accident. I didn't have health insurance at the time to get it looked at. I only found out I had major damage when I went to get a vasectomy.
+
+## The Real Numbers
+
+Let me walk you through the calories, the steps, and the amount of pounds lifted per day because this is where it gets to be ridiculous.
+
+I wanted to make the entire transformation over one winter. I wanted to be done by my birthday in March and be able to go outside with my kids and have a lot of fun over the summer. That was my goal, and I was going to stop at nothing to make it happen.
+
+### Steps
+
+My **minimum steps per day was 10,000**. Just imagine my minimum is 10K.
+
+But here's the kicker: I have insomnia issues too, even without the Fentramine. In general, I have insomnia issues when my calories go low. You take my calories low and my insomnia ramps up.
+
+So what did I do with that extra time? I had three, four, five hours every night. Well, that's simple: **I ended up closer to 20,000 steps almost every day.**
+
+I walked on a treadmill in my basement every night, playing video games in the middle of the night. That was my release for the insomnia.
+
+### Calories
+
+**6 days a week: 800 to 1,200 calories every day.**
+
+This is where it becomes impractical if you don't have a GLP-1 in your back pocket. I don't think I could have ever done this outside of having Fentramine or a GLP-1.
+
+**One cheat day per week:** However many calories I wanted, whatever day I wanted. It wasn't a prescribed day. I just knew I could only have one within a 7-day period. I could extend it as far as I wanted, but I could not go below 7 days. I couldn't have two in one week. So I could have one every eight days, one every nine days, but it had to be seven days apart minimum.
+
+Usually, it would be once every one and a half weeks. And that was unlimited calories. And I mean *unlimited* calories.
+
+What's interesting: it was never the day before my Tirzepatide injection. It was never the day after my injection. It was always sometime like day three, three to four, maybe even day five. The half-life is 5 days, so you'd expect it around that 5-day mark, but it could be as early as day three for me.
+
+### Lifting
+
+**30,000 to 50,000 pounds almost every day.**
+
+I'm talking about lifting a much higher volume. I mean, I'm talking 30 to 50,000 pounds.
+
+The sacrifices I was making to get this done... there's no sacrifice other than being hungry—and I wasn't particularly hungry because of the GLP-1. But these steps and this weightlifting meant I sacrificed **time with my family**.
+
+But it was calculated: my kids weren't in any activities over this winter—they were still a little too young. And it was a freezing cold winter. A terrible winter for us to do activities. So it was a perfect winter to get this done.
+
+## What I Tell People Now
+
+I'm going to do most of these videos shirtless so you can see the way my muscles are reacting to the exercises. And because I spent so much time building the physique I have today, I'd rather do them shirtless most of the time.
+
+But this post is more about transparency and honesty around the way I went about this transformation.
+
+I've never transformed my physique naturally in my life. I thought the second one, where I was out running, was natural. But I realized I didn't post about that transformation at the time. And my partner at the time (not my current wife) was posting about her transformation, not mentioning that it was done on Fentramine.
+
+You really need to disclose that. If you're going to post about how you did all this, first of all, she claimed I did all this naturally. And it's like, you can only eat this amount of calories if you're taking something or you have incredible willpower.
+
+My only criticism of the Liver King, of all the influencers that's ever been out there, was when he was calling people "subprime" because they were taking things to get the results they wanted. And turns out he was on things the whole time. He actually had some deficiencies that caused him to go on it, and his stuff was all run by a doctor too. But it's like, you need to be transparent.
+
+## The Honest Advice
+
+Be cautious about trying to get someone's particular physique. Focus on making meaningful gains and improvements in your training. That's what I really wanted to focus on in general with my channel: making meaningful, impactful improvements in your training.
+
+It's one of the things I strive for in life: trying to make improvements upon what I've already done and trying to adjust things going forward to have better outcomes with minimal risk. Nothing is zero risk. And no medication—all of these medications have their own risks involved.
+
+I didn't go over all the risks, but you can just look them up. GLP-1s—the risks have been all over the news. Stomach issues. Realize I've had none. I never had any. At the highest dose I took, the lowest dose I took, no issues whatsoever.
+
+Anavar is barely even in use and prescribed anymore. Cialis has had some issues with people in the past. And dose also matters.
+
+My TRT dose is I think 140 a week. We actually lowered the dose from what my prior prescriber was prescribing me but split it to three times a week, and that very much helped.
+
+The GLP-1 dose—these things should escalate and escalate slowly. If you get with a good doctor, they'll run you through the full protocol.
+
+## What I'd Say to Someone Considering This
+
+Take your health into your own hands. Look up all of these medications and question whether you should or shouldn't even attempt it. Really evaluate for yourself how quickly you want to get to your goal and how much your goal matters to you.
+
+For me, I wanted to be the person I used to be, and I wanted to do it in one winter. And I achieved that.
+
+I can now do anything I want. I can run with my kids. I can chase after them. I can do all the things I wanted to do by sacrificing one winter and sacrificing majorly to make this happen.
+
+All I did was **work, walk, and lift**. That's it.
+
+The amount of time spent with my family over that winter was minimal. But I knew if I did that, I would now be able to spend so much more time with them today because I don't have to lift 30,000 to 50,000 lbs to maintain it.
+
+In fact, I'm maintaining it on roughly **10,000 pounds a day**. And then every now and then I'll sprinkle in one of those 40,000-pound days, but it's down to like 10,000 pounds a day roughly. And I take some weekends off and spend it just with my family.
+
+## GLP-1 vs Fentramine
+
+I could never do it without a GLP-1. I don't get full and I'm constantly hungry.
+
+GLP-1 versus Fentramine—in my opinion, I love the Fentramine. If I ever got cleared by doctors that hey, you can take Fentramine, I would actually prefer to take the Fentramine over the GLP-1. That's just the honest truth.
+
+It was just as hunger and appetite-suppressing to me as the GLP-1 is, and it was a heck of a lot cheaper. It's like a quarter the cost.
+
+## The Steps Were Outrageous
+
+I don't get nearly that kind of steps today. I like to shoot for 10,000 steps a day. I really like to shoot for that, and I was falling short of it for quite a while. I'm getting back to getting close to this number, but I don't ever get this number. Very rarely do I get much more than 10,000 steps.
+
+## Final Thoughts
+
+I want to thank you for reading this. If you have any questions about the protocol, I'm pretty transparent with it—how I got here.
+
+It was a video that took me a long time to record, especially because I recorded it once and then realized I had my mic the wrong way. Probably because of the nerves around recording this video—it's something that concerned me to record, just because it's scary to put yourself out there and be open.
+
+That's why a lot of people—the Liver King, my former partner—they're not transparent about "hey, I didn't do this naturally. I needed help." Not just the help of a doctor, but the help of a doctor who's prescribing me something to make it happen.
+
+And just the reality of: I reached out and got someone to help me. And even the transformation before that, that was the same thing—a doctor. The only one I didn't do with doctor supervision was the one in high school, and that's because the prescription drug I used later on was over-the-counter back then.
+
+I didn't even realize it didn't dawn on me that none of these transformations were done naturally. They were all done with some sort of pharmaceutical in place.
+
+Anyways, thank you for your time. If you have any questions about any of this, I can either record another video if it's going to be really hard to explain, or if it's something simple, I'll just post a comment back to you. I'm here to answer them. I'll be as transparent as I can be with any of the stuff I've done to get the physique I've gotten today.
+
+And honestly, this stuff was impactful. It worked. And it's allowed me to maintain the physique. Having this GLP-1 was what made it very easy to maintain the physique because you can dial the dose up and down whether you want to gain or lose.
+
+By the way, taking it completely out, you get very hungry. Right now I'm pretty much off of it, and the hunger is real. So it's tough to get off of these. But it's also tough to get off of Fentramine. You get wild headaches from the withdrawal of the Fentramine—or at least that's how it was for me.
+
+So it's not like GLP-1s or it's a little different with the GLP-1. You just get hungry. Fentramine, it feels like there is withdrawal similar to caffeine.
+
+Just be aware: ask your doctor specifically about "hey, if I want to come off of this, how do I?"
+
+Because TRT, I'm on for the rest of my life. My levels were low. They go to zero if I go off of it. That 188-pound picture, I was off of it. My level went near zero.
+
+Thankfully, I did get a clean bill of health. So I'm very relieved that I didn't have some other underlying issue that was causing my low testosterone in the beginning.
+
+I'm very thankful and very grateful for both your time and everything that I've been given in life. Thank you.
+
+Have a nice day.
+
+Like and subscribe.`,
+    readTime: 18
+  },
 ];
