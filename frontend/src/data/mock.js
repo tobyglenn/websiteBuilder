@@ -384,7 +384,7 @@ export const BLOG_POSTS = [
     "slug": "extreme-weight-loss-transformation-honest-truth",
     "title": "Extreme Weight Loss: The Honest Truth About My Transformation",
     "excerpt": "I went from 242 lbs to 188 lbs in six months. Here's exactly what it took - including the medications, the calories, and the 20,000 steps per day.",
-    "content": "I went from 242 lbs to 188 lbs in roughly six months in 2023. That's the physique I have today. I wanted to be transparent about exactly how I made that transformation happen - because if you're aiming for similar results, you deserve to know what it actually took.\n\n## The Backstory\n\nI was a morbidly obese kid. Very fat through elementary and high school until my senior year. Here's what most people don't know: I've never transformed my physique naturally.\n\n- In high school, I used a prescription drug called **Fentramine** (it was over-the-counter at the time)\n- Every weight loss journey I've ever done was with pharmaceutical help\n- I get tremendous hunger signaling - I never feel full and have an insatiable appetite\n- The more I work out, the hungrier I become\n\n## The Turning Point\n\nBy June 2023, I was 242 lbs. I tried running and failed all year - I'd go out running, get sick, eat more than I burned, and gain weight.\n\nIn July, I only lost 5 pounds total. I needed a different approach.\n\n## The Protocol\n\nI got with a new doctor in August 2023 and implemented a complete protocol. Here's exactly what I used:\n\n### Medications (All Prescribed)\n\n1. **TRT (Testosterone Replacement Therapy)**\n   - Changed from suboptimal protocol to subQ injections 3x/week\n   - This created stable blood serum levels\n   - Important note: you CAN get fat on TRT if your protocol is suboptimal\n\n2. **GLP-1 (Tirzepatide)**\n   - I specifically requested Tirzepatide over Semaglutide due to lower instances of gastric issues\n   - Slightly more expensive, but worked well for me\n   - This was the game-changer for hunger management\n\n3. **Anavar (Oral Anabolic)**\n   - This is where it gets controversial\n   - Added specifically to preserve muscle during aggressive weight loss\n   - Without this, I would have shredded muscle losing weight that quickly\n\n4. **Cialis (ED Medication)**\n   - Normally for erectile dysfunction, but prescribed for increased pumps in the gym\n   - It's a vasodilator\n   - One of the most impactful additions - highest safety profile, used by millions\n\n5. **Element Packets**\n   - One per day for hydration\n   - Curbed \"fake hunger\" from dehydration\n\n*Note: All of this was done through doctors. I'm not a doctor. This is not medical advice. I'm simply being transparent about what I did.*\n\n## The Numbers\n\n### Weight Loss Progress\n\n- **August 4th:** 230 lbs\n- **September 7th:** 220 lbs\n- **October:** 213 lbs\n- **November:** 202 lbs\n- **December:** 200 lbs\n\n### Daily Activity\n\n- **Minimum steps:** 10,000 per day\n- **Actual steps on insomnia nights:** Up to 20,000\n- I have insomnia issues when calories drop low\n- Instead of scrolling YouTube, I walked on a treadmill in my basement\n\n### Calories\n\n- **6 days a week:** 800-1,200 calories\n- **1 cheat day per week:** Unlimited calories (minimum 7 days between cheat days)\n- Everything was meticulously tracked\n\n### Lifting\n\n- **30,000 to 50,000 pounds** lifted almost every day\n- Volume was critical to preserve muscle\n\n## The Tradeoffs\n\nThis was not sustainable, and I'm not suggesting anyone replicate it:\n\n- Minimal time with family that winter\n- Kids weren't in activities and it was a freezing cold winter\n- It was a calculated sacrifice to achieve the goal in one winter\n- I wanted to be done by my birthday in March to enjoy summer with my kids\n\n## Maintenance Today\n\n- Now I lift roughly **10,000 pounds per day** to maintain\n- Occasionally do 40,000 lb days\n- Take weekends off\n- Can now run with my kids, chase them around - the goal was functionality\n\n## The Honest Take\n\n- I couldn't have done this without a GLP-1\n- Compared to Fentramine: Fentramine was equally appetite-suppressing and a quarter the cost\n- GLP-1: Just get hungry when coming off\n- Fentramine: Withdrawal headaches similar to caffeine\n- TRT is for life for me - my levels go to zero without it\n\n## What I'd Tell Someone Considering This\n\n1. Question whether you should attempt it\n2. Research all the medication risks\n3. Find a good doctor who will run you through the full protocol\n4. Understand the risks involved\n5. Consider whether a slower approach over a year might be better\n\nI wanted to be transparent because a lot of influencers aren't. I've seen people claim natural transformations while on pharmaceuticals. The Liver King situation made it clear how important disclosure is.\n\nThis worked for me. It allowed me to maintain the physique and live the active life I wanted with my kids. But it's not the only way, and it's not without tradeoffs.\n\nIf you have questions about the protocol, I'm happy to answer in the comments.",
+    "content": "I went from 242 lbs to 188 lbs in roughly six months in 2023. That's the physique I have today. I wanted to be transparent about exactly how I made that transformation happen - because if you're aiming for similar results, you deserve to know what it actually took.\n\n## The Backstory\n\nI was a morbidly obese kid. Very fat through elementary and high school until my senior year. Here's what most people don't know: I've never transformed my physique naturally.\n\n- In high school, I used a prescription drug called **phentermine** (it was over-the-counter at the time)\n- Every weight loss journey I've ever done was with pharmaceutical help\n- I get tremendous hunger signaling - I never feel full and have an insatiable appetite\n- The more I work out, the hungrier I become\n\n## The Turning Point\n\nBy June 2023, I was 242 lbs. I tried running and failed all year - I'd go out running, get sick, eat more than I burned, and gain weight.\n\nIn July, I only lost 5 pounds total. I needed a different approach.\n\n## The Protocol\n\nI got with a new doctor in August 2023 and implemented a complete protocol. Here's exactly what I used:\n\n### Medications (All Prescribed)\n\n1. **TRT (Testosterone Replacement Therapy)**\n   - Changed from suboptimal protocol to subQ injections 3x/week\n   - This created stable blood serum levels\n   - Important note: you CAN get fat on TRT if your protocol is suboptimal\n\n2. **GLP-1 (Tirzepatide)**\n   - I specifically requested Tirzepatide over Semaglutide due to lower instances of gastric issues\n   - Slightly more expensive, but worked well for me\n   - This was the game-changer for hunger management\n\n3. **Anavar (Oral Anabolic)**\n   - This is where it gets controversial\n   - Added specifically to preserve muscle during aggressive weight loss\n   - Without this, I would have shredded muscle losing weight that quickly\n\n4. **Cialis (ED Medication)**\n   - Normally for erectile dysfunction, but prescribed for increased pumps in the gym\n   - It's a vasodilator\n   - One of the most impactful additions - highest safety profile, used by millions\n\n5. **Element Packets**\n   - One per day for hydration\n   - Curbed \"fake hunger\" from dehydration\n\n*Note: All of this was done through doctors. I'm not a doctor. This is not medical advice. I'm simply being transparent about what I did.*\n\n## The Numbers\n\n### Weight Loss Progress\n\n- **August 4th:** 230 lbs\n- **September 7th:** 220 lbs\n- **October:** 213 lbs\n- **November:** 202 lbs\n- **December:** 200 lbs\n\n### Daily Activity\n\n- **Minimum steps:** 10,000 per day\n- **Actual steps on insomnia nights:** Up to 20,000\n- I have insomnia issues when calories drop low\n- Instead of scrolling YouTube, I walked on a treadmill in my basement\n\n### Calories\n\n- **6 days a week:** 800-1,200 calories\n- **1 cheat day per week:** Unlimited calories (minimum 7 days between cheat days)\n- Everything was meticulously tracked\n\n### Lifting\n\n- **30,000 to 50,000 pounds** lifted almost every day\n- Volume was critical to preserve muscle\n\n## The Tradeoffs\n\nThis was not sustainable, and I'm not suggesting anyone replicate it:\n\n- Minimal time with family that winter\n- Kids weren't in activities and it was a freezing cold winter\n- It was a calculated sacrifice to achieve the goal in one winter\n- I wanted to be done by my birthday in March to enjoy summer with my kids\n\n## Maintenance Today\n\n- Now I lift roughly **10,000 pounds per day** to maintain\n- Occasionally do 40,000 lb days\n- Take weekends off\n- Can now run with my kids, chase them around - the goal was functionality\n\n## The Honest Take\n\n- I couldn't have done this without a GLP-1\n- Compared to phentermine: phentermine was equally appetite-suppressing and a quarter the cost\n- GLP-1: Just get hungry when coming off\n- phentermine: Withdrawal headaches similar to caffeine\n- TRT is for life for me - my levels go to zero without it\n\n## What I'd Tell Someone Considering This\n\n1. Question whether you should attempt it\n2. Research all the medication risks\n3. Find a good doctor who will run you through the full protocol\n4. Understand the risks involved\n5. Consider whether a slower approach over a year might be better\n\nI wanted to be transparent because a lot of influencers aren't. I've seen people claim natural transformations while on pharmaceuticals. The Liver King situation made it clear how important disclosure is.\n\nThis worked for me. It allowed me to maintain the physique and live the active life I wanted with my kids. But it's not the only way, and it's not without tradeoffs.\n\nIf you have questions about the protocol, I'm happy to answer in the comments.",
     "date": "2025-10-07",
     "category": "Transformation",
     "tags": [
@@ -1463,13 +1463,13 @@ I was a morbidly obese kid. Very fat from the end of elementary school all throu
 
 Here's what I didn't realize until I was talking to my wife: **I had never done a transformation naturally.**
 
-Even in high school, when I transformed my body from being a fat kid to a relatively fit kid my senior year, I used a prescription drug called **Fentramine**. At the time it was over-the-counter, and I just ordered it off the internet. It helped me drop the weight.
+Even in high school, when I transformed my body from being a fat kid to a relatively fit kid my senior year, I used a prescription drug called **phentermine**. At the time it was over-the-counter, and I just ordered it off the internet. It helped me drop the weight.
 
 I get tremendous hunger signaling—the kind you would never imagine. I never get full, and I have an insatiable appetite. The more I work out, the hungrier I become.
 
-**I've used Fentramine on every single one of my weight loss journeys—up until this one.**
+**I've used phentermine on every single one of my weight loss journeys—up until this one.**
 
-Realize that: all of these weight loss journeys were using a drug. The last one I did prior to 2023 was about four or five years earlier, and I swore I'd never gained the weight back after that. But that was using Fentramine and running. I attributed all the weight loss to the running and not to the Fentramine.
+Realize that: all of these weight loss journeys were using a drug. The last one I did prior to 2023 was about four or five years earlier, and I swore I'd never gained the weight back after that. But that was using phentermine and running. I attributed all the weight loss to the running and not to the phentermine.
 
 ## The 2023 Transformation
 
@@ -1477,9 +1477,9 @@ Realize that: all of these weight loss journeys were using a drug. The last one 
 
 I tried running and all that kind of stuff, and I had been trying all year up until that point and failing. I'd go out running, get sick, go out running, and I'd just eat more than that and end up gaining weight.
 
-**July: I failed to lose more than 5 pounds total.** For someone like me who usually has Fentramine? That was a problem.
+**July: I failed to lose more than 5 pounds total.** For someone like me who usually has phentermine? That was a problem.
 
-And that was another key factor: I could not use Fentramine. I had a health condition during the flu—I guess we'll call it that because you're not allowed to say the words on YouTube. After hospitalization, they said I could never touch Fentramine again.
+And that was another key factor: I could not use phentermine. I had a health condition during the flu—I guess we'll call it that because you're not allowed to say the words on YouTube. After hospitalization, they said I could never touch phentermine again.
 
 **August is when I got with a new doctor and we changed everything in my protocol.**
 
@@ -1523,9 +1523,9 @@ It was a game-changer. It was an absolute game-changer. And of any of them, it h
 
 ## The Stack
 
-So before, I was on one drug: Fentramine. Post-hospitalization, they said I could never touch Fentramine again. And so it took all of these things to do this transformation.
+So before, I was on one drug: phentermine. Post-hospitalization, they said I could never touch phentermine again. And so it took all of these things to do this transformation.
 
-But I will say: when I was taking Fentramine to lose weight, I would lose a lot of muscle. And as you'll see from my progress photos, I didn't lose that much muscle this time. It was surprising how well that worked.
+But I will say: when I was taking phentermine to lose weight, I would lose a lot of muscle. And as you'll see from my progress photos, I didn't lose that much muscle this time. It was surprising how well that worked.
 
 ## Progress Photos and Dates
 
@@ -1551,7 +1551,7 @@ I wanted to make the entire transformation over one winter. I wanted to be done 
 
 My **minimum steps per day was 10,000**. Just imagine my minimum is 10K.
 
-But here's the kicker: I have insomnia issues too, even without the Fentramine. In general, I have insomnia issues when my calories go low. You take my calories low and my insomnia ramps up.
+But here's the kicker: I have insomnia issues too, even without the phentermine. In general, I have insomnia issues when my calories go low. You take my calories low and my insomnia ramps up.
 
 So what did I do with that extra time? I had three, four, five hours every night. Well, that's simple: **I ended up closer to 20,000 steps almost every day.**
 
@@ -1561,7 +1561,7 @@ I walked on a treadmill in my basement every night, playing video games in the m
 
 **6 days a week: 800 to 1,200 calories every day.**
 
-This is where it becomes impractical if you don't have a GLP-1 in your back pocket. I don't think I could have ever done this outside of having Fentramine or a GLP-1.
+This is where it becomes impractical if you don't have a GLP-1 in your back pocket. I don't think I could have ever done this outside of having phentermine or a GLP-1.
 
 **One cheat day per week:** However many calories I wanted, whatever day I wanted. It wasn't a prescribed day. I just knew I could only have one within a 7-day period. I could extend it as far as I wanted, but I could not go below 7 days. I couldn't have two in one week. So I could have one every eight days, one every nine days, but it had to be seven days apart minimum.
 
@@ -1585,7 +1585,7 @@ I'm going to do most of these videos shirtless so you can see the way my muscles
 
 But this post is more about transparency and honesty around the way I went about this transformation.
 
-I've never transformed my physique naturally in my life. I thought the second one, where I was out running, was natural. But I realized I didn't post about that transformation at the time. And my partner at the time (not my current wife) was posting about her transformation, not mentioning that it was done on Fentramine.
+I've never transformed my physique naturally in my life. I thought the second one, where I was out running, was natural. But I realized I didn't post about that transformation at the time. And my partner at the time (not my current wife) was posting about her transformation, not mentioning that it was done on phentermine.
 
 You really need to disclose that. If you're going to post about how you did all this, first of all, she claimed I did all this naturally. And it's like, you can only eat this amount of calories if you're taking something or you have incredible willpower.
 
@@ -1619,11 +1619,11 @@ The amount of time spent with my family over that winter was minimal. But I knew
 
 In fact, I'm maintaining it on roughly **10,000 pounds a day**. And then every now and then I'll sprinkle in one of those 40,000-pound days, but it's down to like 10,000 pounds a day roughly. And I take some weekends off and spend it just with my family.
 
-## GLP-1 vs Fentramine
+## GLP-1 vs phentermine
 
 I could never do it without a GLP-1. I don't get full and I'm constantly hungry.
 
-GLP-1 versus Fentramine—in my opinion, I love the Fentramine. If I ever got cleared by doctors that hey, you can take Fentramine, I would actually prefer to take the Fentramine over the GLP-1. That's just the honest truth.
+GLP-1 versus phentermine—in my opinion, I love the phentermine. If I ever got cleared by doctors that hey, you can take phentermine, I would actually prefer to take the phentermine over the GLP-1. That's just the honest truth.
 
 It was just as hunger and appetite-suppressing to me as the GLP-1 is, and it was a heck of a lot cheaper. It's like a quarter the cost.
 
@@ -1647,9 +1647,9 @@ Anyways, thank you for your time. If you have any questions about any of this, I
 
 And honestly, this stuff was impactful. It worked. And it's allowed me to maintain the physique. Having this GLP-1 was what made it very easy to maintain the physique because you can dial the dose up and down whether you want to gain or lose.
 
-By the way, taking it completely out, you get very hungry. Right now I'm pretty much off of it, and the hunger is real. So it's tough to get off of these. But it's also tough to get off of Fentramine. You get wild headaches from the withdrawal of the Fentramine—or at least that's how it was for me.
+By the way, taking it completely out, you get very hungry. Right now I'm pretty much off of it, and the hunger is real. So it's tough to get off of these. But it's also tough to get off of phentermine. You get wild headaches from the withdrawal of the phentermine—or at least that's how it was for me.
 
-So it's not like GLP-1s or it's a little different with the GLP-1. You just get hungry. Fentramine, it feels like there is withdrawal similar to caffeine.
+So it's not like GLP-1s or it's a little different with the GLP-1. You just get hungry. phentermine, it feels like there is withdrawal similar to caffeine.
 
 Just be aware: ask your doctor specifically about "hey, if I want to come off of this, how do I?"
 
