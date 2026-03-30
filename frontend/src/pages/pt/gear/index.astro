@@ -66,18 +66,14 @@ const gearJsonLd = {
   '@type': 'ItemList',
   name: "Equipamentos de fitness tech do Toby",
   description: 'Lista compacta de equipamentos com links diretos para reviews completos e detalhados.',
-  url: 'https://tobyonfitnesstech.com/gear',
+  url: 'https://tobyonfitnesstech.com/pt/gear',
   itemListElement: currentGearItems.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
-    item: {
-      '@type': 'Product',
-      name: item.name,
-      category: item.category,
-      description: item.shortDescription,
-      image: `https://tobyonfitnesstech.com${item.image}`,
-      url: `https://tobyonfitnesstech.com/gear/${item.slug}`
-    }
+    name: item.name,
+    description: item.shortDescription,
+    image: `https://tobyonfitnesstech.com${item.image}`,
+    url: `https://tobyonfitnesstech.com/gear/${item.slug}`
   }))
 };
 

@@ -26,7 +26,7 @@ export const goals2026 = {
   },
   bjj: {
     icon: '🥋',
-    current: 6,
+    current: 8,
     target: 100,
     unit: 'sessions',
     comingSoon: false
