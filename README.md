@@ -79,6 +79,36 @@ npm run build
 npm run preview
 ```
 
+## 🔗 Vizard Captions With Full-Video Links
+
+Use `scripts/vizard-links.mjs` when you want Vizard-style captions with your site URL appended to the end.
+
+```bash
+# 1. Put VIZARDAI_API_KEY in .env
+
+# 2. See connected Vizard accounts
+node scripts/vizard-links.mjs accounts
+
+# 3. See the clips in a Vizard project
+node scripts/vizard-links.mjs clips --project-id=17861706
+
+# 4. Compose captions with the full-video site link appended
+node scripts/vizard-links.mjs compose \
+  --project-id=17861706 \
+  --main-video=h3hq4Owzi74 \
+  --social-account-id=12345
+```
+
+What it does:
+
+- Calls Vizard's caption-generation endpoint for each selected clip/account combination.
+- Appends your website URL in the form `https://tobyonfitnesstech.com/video/<youtube-id>/`.
+- Keeps Vizard scheduling untouched when you use `compose` or `preview`.
+
+Optional:
+
+- `publish` is still available if you ever want the script to send the post through Vizard's publish API, but that is not required for the caption-only workflow.
+
 ---
 
 ## 🏗️ Tech Stack
@@ -107,3 +137,4 @@ Dist folder is ready at `frontend/dist/`. Push to `gh-pages` branch or configure
 ---
 
 Last updated: 2026-02-19
+# EP019 deploy trigger Tue Mar 31 20:56:28 EDT 2026
