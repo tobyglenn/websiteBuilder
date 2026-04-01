@@ -132,6 +132,7 @@ export function localizedTranscriptCandidates(
   const ep = String(episodeNum).padStart(3, "0");
   const paths: string[] = [
     `translations/${langCode}/episode_${ep}_${langCode}.md`,
+    `translations/${langCode}/episode_${ep}_${langCode}_nova.md`,
     `episode_${ep}_${langCode}.md`,
   ];
   return [...new Set(paths)].map(normalizeRepoTextPath);
