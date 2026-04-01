@@ -1,6 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { Play, Filter, Clock, SortDesc, Eye } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
+import { isLikelyShortVideo, isLiveVideo as isLiveVideoMeta, parseVideoDurationSeconds } from '../lib/videoMeta.js';
 
 const CATEGORIES = [
   { id: 'all', name: 'All' },
@@ -36,47 +37,6 @@ const DURATION_FILTERS = [
   { id: 'medium', name: 'Medium (5-20 min)' },
   { id: 'long', name: 'Long (20+ min)' },
 ];
-
-function parseDuration(value) {
-  if (!value) return 0;
-
-  const text = String(value).trim();
-  if (!text || text === '0:00' || text.toUpperCase() === 'LIVE' || text === 'P0D') {
-    return 0;
-  }
-
-  // ISO 8601 duration
-  const isoMatch = text.match(/^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/);
-  if (isoMatch) {
-    const hours = Number(isoMatch[1] || 0) * 3600;
-    const minutes = Number(isoMatch[2] || 0) * 60;
-    const seconds = Number(isoMatch[3] || 0);
-    return hours + minutes + seconds;
-  }
-
-  // HH:MM:SS or MM:SS
-  const parts = text.split(':').map(Number);
-  if (parts.some(Number.isNaN)) return 0;
-
-  if (parts.length === 3) {
-    return parts[0] * 3600 + parts[1] * 60 + parts[2];
-  }
-
-  if (parts.length === 2) {
-    return parts[0] * 60 + parts[1];
-  }
-
-  return 0;
-}
-
-function isShortVideo(video) {
-  if (video.is_live) return false;
-  if (video.is_short === true) return true;
-  if (video.is_short === false) return false;
-
-  const totalSeconds = parseDuration(video.duration_iso || video.duration);
-  return totalSeconds > 0 && totalSeconds < 180;
-}
 
 function categorizeVideo(title, description = '') {
   if (!title) return ['training'];
@@ -118,10 +78,6 @@ function resolveDurationLabel(video) {
   return raw;
 }
 
-function isLiveVideo(video) {
-  return Boolean(video.is_live) || String(video.duration_formatted || video.duration || '').trim().toUpperCase() === 'LIVE';
-}
-
 function formatViews(count) {
   const num = Number(count);
   if (!Number.isFinite(num) || num <= 0) return '0 views';
@@ -137,13 +93,14 @@ function formatViews(count) {
   return `${num.toLocaleString()} views`;
 }
 
-export default function VideoGrid({ limit, showFilters = true, videos }) {
+export default function VideoGrid({ limit, showFilters = true, videos, hideShortsByDefault = false }) {
   const sourceVideos = videos || allVideos;
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [durationFilter, setDurationFilter] = useState('all');
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
 
   // Read ?category= from URL on mount and apply filter
   useEffect(() => {
@@ -163,6 +120,12 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
+  useEffect(() => {
+    if (!includeShorts && selectedCategory === 'shorts') {
+      setSelectedCategory('all');
+    }
+  }, [includeShorts, selectedCategory]);
+
   const processedVideos = useMemo(() => {
     return sourceVideos.map(v => {
       const title = v.title || '';
@@ -170,7 +133,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
       const publishedRaw = v.publishedAt || v.published_at || v.publishedAt || '2026-02-18';
       const publishedDate = String(publishedRaw).split('T')[0] || '2026-02-18';
 
-      const isLive = isLiveVideo(v);
+      const isLive = isLiveVideoMeta(v);
       const durationLabel = resolveDurationLabel(v);
 
       return {
@@ -181,34 +144,54 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
         thumbnail: resolveThumbnail(v),
         published_at: publishedDate,
         dateObj: new Date(publishedRaw || '2026-02-18T00:00:00Z'),
-        durationSec: parseDuration(v.duration_iso || v.duration || 'PT0S'),
+        durationSec: parseVideoDurationSeconds(v.duration_iso || v.duration_formatted || v.duration || 'PT0S'),
         durationLabel,
         durationBadgeText: isLive ? 'LIVE' : durationLabel,
         is_live: isLive,
-        is_short: isShortVideo(v),
+        is_short: isLikelyShortVideo(v),
         viewCount: Number(v.viewCount ?? v.view_count ?? 0),
       };
     });
   }, [sourceVideos]);
 
+  const visibleSourceVideos = useMemo(() => {
+    if (includeShorts) {
+      return processedVideos;
+    }
+
+    return processedVideos.filter(v => !v.is_short);
+  }, [processedVideos, includeShorts]);
+
+  const shortsCount = useMemo(() => {
+    return processedVideos.filter(v => v.is_short).length;
+  }, [processedVideos]);
+
+  const visibleCategories = useMemo(() => {
+    if (includeShorts) {
+      return CATEGORIES;
+    }
+
+    return CATEGORIES.filter(cat => cat.id !== 'shorts');
+  }, [includeShorts]);
+
   // Count videos per category for UI badges
   const categoryCounts = useMemo(() => {
     const counts = {
-      all: processedVideos.length,
-      shorts: processedVideos.filter(v => v.is_short).length,
+      all: visibleSourceVideos.length,
+      shorts: shortsCount,
     };
 
     CATEGORIES.forEach(cat => {
       if (cat.id !== 'all' && cat.id !== 'shorts') {
-        counts[cat.id] = processedVideos.filter(v => v.categories.includes(cat.id)).length;
+        counts[cat.id] = visibleSourceVideos.filter(v => v.categories.includes(cat.id)).length;
       }
     });
 
     return counts;
-  }, [processedVideos]);
+  }, [visibleSourceVideos, shortsCount]);
 
   const filteredVideos = useMemo(() => {
-    let result = [...processedVideos];
+    let result = [...visibleSourceVideos];
 
     // Keep stream cards, since LIVE badge is now shown in-grid.
 
@@ -250,7 +233,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
 
     if (limit) return result.slice(0, limit);
     return result;
-  }, [processedVideos, selectedCategory, sortBy, durationFilter, searchQuery, limit]);
+  }, [visibleSourceVideos, selectedCategory, sortBy, durationFilter, searchQuery, limit]);
 
   return (
     <div className="space-y-6">
@@ -258,7 +241,7 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
         <div className="flex flex-col gap-6 pb-6 border-b border-neutral-800">
           {/* Top Row: Categories */}
           <div className="flex flex-wrap gap-2">
-            {CATEGORIES.map(cat => (
+            {visibleCategories.map(cat => (
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
@@ -271,6 +254,19 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                 {cat.name} ({categoryCounts[cat.id] ?? 0})
               </button>
             ))}
+            {hideShortsByDefault && shortsCount > 0 && (
+              <button
+                type="button"
+                onClick={() => setIncludeShorts(current => !current)}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
+                  includeShorts
+                    ? 'bg-sky-600 text-white border-sky-500'
+                    : 'bg-neutral-900 text-neutral-300 border-neutral-700 hover:text-white hover:border-sky-500/60'
+                }`}
+              >
+                {includeShorts ? `Hide Shorts (${shortsCount})` : `Show Shorts (${shortsCount})`}
+              </button>
+            )}
           </div>
 
           {/* Bottom Row: Controls */}
@@ -344,7 +340,10 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
                   Searching for <span className="text-blue-400">“{searchQuery}”</span> • {filteredVideos.length} result{filteredVideos.length === 1 ? '' : 's'}
                 </>
               ) : (
-                <>Showing {filteredVideos.length} videos</>
+                <>
+                  Showing {filteredVideos.length} videos
+                  {hideShortsByDefault && !includeShorts && shortsCount > 0 ? ` • ${shortsCount} shorts hidden` : ''}
+                </>
               )}
             </div>
           </div>
@@ -454,4 +453,3 @@ export default function VideoGrid({ limit, showFilters = true, videos }) {
     </div>
   );
 }
-

@@ -16,6 +16,7 @@ import { trainingStreak, lastWorkoutData, thisWeekVolume, thisMonthMiles } from 
 import { lifetimeStats } from '../data/stats.js';
 import { recentActivity } from '../data/recentActivity.js';
 import weeklyProgress from '../data/weeklyProgress.js';
+import { isLikelyShortVideo } from '../lib/videoMeta.js';
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
@@ -31,11 +32,28 @@ function formatBlogDate(value) {
 const lastWorkout = lastWorkoutData;
 
 const allVideos = videosData.videos || [];
+const officialChannelStats = videosData.channelStats || {};
+
+function formatCompactCount(value) {
+  const amount = Number(value || 0);
+  if (amount < 1000) {
+    return amount.toLocaleString('en-US');
+  }
+
+  return new Intl.NumberFormat('en-US', {
+    notation: 'compact',
+    maximumFractionDigits: 1,
+  }).format(amount);
+}
 
 // Channel stats calculated from videos.json
-const channelTotalVideos = allVideos.length;
-const channelTotalViews = allVideos.reduce((sum, v) => sum + (v.viewCount || 0), 0);
-const channelShortsCount = allVideos.filter(v => v.is_short === true).length;
+const channelTotalVideos = Number(officialChannelStats.videoCount || allVideos.length);
+const channelTotalViews = Number(
+  officialChannelStats.viewCount
+  || allVideos.reduce((sum, v) => sum + (v.viewCount || 0), 0)
+);
+const channelSubscriberCount = Number(officialChannelStats.subscriberCount || 0);
+const channelShortsCount = allVideos.filter((video) => isLikelyShortVideo(video)).length;
 const channelLiveCount = allVideos.filter(v => v.is_live === true || v.duration === 'LIVE').length;
 const channelLatestVideo = [...allVideos]
   .filter(v => v.publishedAt)
@@ -43,16 +61,18 @@ const channelLatestVideo = [...allVideos]
 const channelLatestDate = channelLatestVideo
   ? new Date(channelLatestVideo.publishedAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
   : 'N/A';
-const channelTotalViewsFormatted = channelTotalViews >= 1000
-  ? (channelTotalViews / 1000).toFixed(1) + 'K'
-  : channelTotalViews.toString();
+const channelSubscriberCountFormatted = formatCompactCount(channelSubscriberCount);
+const channelTotalViewsFormatted = formatCompactCount(channelTotalViews);
+const channelTotalVideosFormatted = formatCompactCount(channelTotalVideos);
 
 const popularVideos = [...allVideos]
   .filter(v => !v.is_live && v.viewCount > 0)
   .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
   .slice(0, 5);
 
-const recentVideos = allVideos.filter(v => !v.is_live).slice(0, 3);
+const recentVideos = allVideos
+  .filter((video) => !video.is_live && !isLikelyShortVideo(video))
+  .slice(0, 3);
 
 function formatViews(count) {
   if (!count) return '0 views';
@@ -294,17 +314,17 @@ const webPageSchema = {
 					
 					<div class="flex flex-wrap items-center justify-center gap-6 md:gap-10">
 						<div class="text-center">
-							<div class="text-2xl md:text-3xl font-black text-white">1.2K</div>
+							<div class="text-2xl md:text-3xl font-black text-white">{channelSubscriberCountFormatted}</div>
 							<div class="text-xs text-neutral-500 uppercase tracking-wide">Subscribers</div>
 						</div>
 						<div class="h-10 w-px bg-neutral-700 hidden md:block"></div>
 						<div class="text-center">
-							<div class="text-2xl md:text-3xl font-black text-white">9.9K</div>
+							<div class="text-2xl md:text-3xl font-black text-white">{channelTotalViewsFormatted}</div>
 							<div class="text-xs text-neutral-500 uppercase tracking-wide">Total Views</div>
 						</div>
 						<div class="h-10 w-px bg-neutral-700 hidden md:block"></div>
 						<div class="text-center">
-							<div class="text-2xl md:text-3xl font-black text-white">104</div>
+							<div class="text-2xl md:text-3xl font-black text-white">{channelTotalVideosFormatted}</div>
 							<div class="text-xs text-neutral-500 uppercase tracking-wide">Videos</div>
 						</div>
 					</div>

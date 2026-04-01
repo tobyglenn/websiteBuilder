@@ -95,13 +95,19 @@ function GoalCard({ goal, title, comingSoonText }) {
 
 export default function YearlyGoals({ lang = 'en' }) {
   const t = translations[lang] || translations.en;
+  const headingId = 'yearly-progress-heading';
 
   return (
-    <section className="py-16 bg-neutral-900 border-y border-neutral-800">
+    <section
+      id="yearly-progress"
+      aria-labelledby={headingId}
+      data-section-title={t.heading}
+      className="py-16 bg-neutral-900 border-y border-neutral-800"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <span className="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">{t.sectionKicker}</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">{t.heading}</h2>
+          <h2 id={headingId} className="text-3xl md:text-4xl font-bold text-white">{t.heading}</h2>
           <p className="text-neutral-500 mt-3 max-w-xl mx-auto">{t.subtext}</p>
         </div>
 

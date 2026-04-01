@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Search, X, FileText, Video, Clock } from 'lucide-react';
 import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 import videosData from '../data/videos.json';
+import { isLikelyShortVideo } from '../lib/videoMeta.js';
 
 // Flatten videos from the JSON structure
 const VIDEOS = videosData.videos || [];
@@ -268,7 +269,7 @@ export default function SearchModal({ isOpen, onClose }) {
                               </>
                             )}
                             <span className="bg-neutral-800 px-2 py-0.5 rounded">
-                              {video.is_short ? 'Short' : 'Video'}
+                              {isLikelyShortVideo(video) ? 'Short' : 'Video'}
                             </span>
                           </div>
                         </div>

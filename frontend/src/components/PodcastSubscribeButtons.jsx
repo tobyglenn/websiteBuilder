@@ -7,6 +7,7 @@ export default function PodcastSubscribeButtons({
   amazonUrl,
   overcastUrl,
   pocketcastsUrl,
+  jiosaavnUrl,
   className = '',
 }) {
   return (
@@ -112,6 +113,23 @@ export default function PodcastSubscribeButtons({
             <path d="M13.5 6.375c-3.09 0-5.625 2.535-5.625 5.625 0 3.09 2.535 5.625 5.625 5.625 3.09 0 5.625-2.535 5.625-5.625 0-3.09-2.535-5.625-5.625-5.625zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
           </svg>
           Amazon
+        </a>
+      )}
+
+      {/* JioSaavn */}
+      {jiosaavnUrl && (
+        <a
+          href={jiosaavnUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#2BC5B4]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(43,197,180,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+          </svg>
+          JioSaavn
         </a>
       )}
 

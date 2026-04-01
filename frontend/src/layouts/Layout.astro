@@ -23,9 +23,12 @@ interface Props {
   author?: string;
 }
 
+const DEFAULT_PAGE_DESCRIPTION = "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.";
+const DEFAULT_SEO_DESCRIPTION = "Independent fitness technology reviews, analysis, and deep dives on Speediance, Tonal, Garmin, WHOOP, running, and home gym training.";
+
 const { 
   title, 
-  description = "Independent reviews of fitness technology: Speediance, Tonal, Whoop, Garmin, and more. Real data from a real athlete.",
+  description = DEFAULT_PAGE_DESCRIPTION,
   image = "/og-default.jpg",
   ogType = "website",
   canonicalUrl,
@@ -43,11 +46,8 @@ const {
 const twitterSite = "@tobyonfitness";
 const twitterCreator = "@tobyglenn";
 
-// Default description constant for SEO fallback
-const DEFAULT_DESCRIPTION = "Independent fitness technology reviews, analysis, and deep dives on Speediance, Tonal, Garmin, WHOOP, running, and home gym training.";
-
 // Use as fallback for all meta tags
-const seoDescription = description || DEFAULT_DESCRIPTION;
+const seoDescription = description || DEFAULT_SEO_DESCRIPTION;
 
 const crawlerRobotsContent = noindex
   ? "noindex, follow"
@@ -57,14 +57,175 @@ const siteUrl = "https://tobyonfitnesstech.com";
 const resolvedUrl = canonicalUrl || (siteUrl + Astro.url.pathname);
 const resolvedImage = image.startsWith('http') ? image : (siteUrl + image);
 
-// Truncate title for HTML <title> tag (SEO best practice: <60 chars)
-// Pages already include their own suffix (e.g., " | Toby on Fitness Tech"), so we truncate the full title
-const maxTitleLength = 60;
-const seoTitle = title.length > maxTitleLength ? title.slice(0, maxTitleLength - 3) + '...' : title;
+const MIN_TITLE_LENGTH = 45;
+const MAX_TITLE_LENGTH = 60;
+const locales = ['en', 'es', 'pt', 'hi', 'de'];
+const normalizedPathname = Astro.url.pathname.replace(new RegExp(`^/(${locales.filter((locale) => locale !== 'en').join('|')})(?=/|$)`), '') || '/';
+
+const shortTitleFallbacks: Record<string, string> = {
+  '/about': 'Transformation story and training background',
+  '/affiliate': 'How commissions and recommendations work',
+  '/contact': 'Email, YouTube and collaboration links',
+  '/day': 'Routine, training and creator workflow',
+  '/faq': 'Answers on gear, data and training',
+  '/games': 'Apps, experiments and side projects',
+  '/gear': 'Fitness tech gear, wearables and setup',
+  '/hr-zones': 'Garmin running heart rate zone breakdowns',
+  '/live': 'Livestream archives and upcoming sessions',
+  '/podcasts': 'OpenClaw Daily and fitness tech episodes',
+  '/privacy': 'Data collection, cookies and email use',
+  '/prs': 'Speediance personal records and top lifts',
+  '/races': 'Garmin race-distance pace history',
+  '/search': 'Search videos, blog posts and gear reviews',
+  '/sleep': '8Sleep recovery and sleep trends',
+  '/start-here': 'Transformation story and best entry points',
+  '/streaks': 'Workout consistency and streak tracking',
+  '/terms': 'Site usage, content and affiliate terms',
+  '/training': 'Weekly split for running, lifting and BJJ',
+  '/training-log': 'Workout consistency and heatmap history',
+  '/videos': 'Speediance, BJJ and fitness tech library',
+};
+
+const countChars = (value = '') => Array.from(value).length;
+
+const normalizeText = (value = '') => value.replace(/\s+/g, ' ').trim();
+
+const compactText = (value = '', maxChars = MAX_TITLE_LENGTH) => {
+  const normalized = normalizeText(value).replace(/[|:;,.!?…-]+$/u, '').trim();
+  if (!normalized) return '';
+  if (countChars(normalized) <= maxChars) return normalized;
+
+  let compacted = '';
+  for (const word of normalized.split(' ')) {
+    const candidate = compacted ? `${compacted} ${word}` : word;
+    if (countChars(candidate) > maxChars) break;
+    compacted = candidate;
+  }
+
+  if (compacted) return compacted.replace(/[|:;,.!?…-]+$/u, '').trim();
+  return Array.from(normalized).slice(0, maxChars).join('').replace(/[|:;,.!?…-]+$/u, '').trim();
+};
+
+const trimTitleForSerp = (value = '', maxChars = MAX_TITLE_LENGTH) => {
+  const normalized = normalizeText(value);
+  if (countChars(normalized) <= maxChars) return normalized;
+
+  const clipped = Array.from(normalized).slice(0, maxChars).join('').trim();
+  const lastSpaceIndex = clipped.lastIndexOf(' ');
+  const safeBreak = lastSpaceIndex >= MIN_TITLE_LENGTH && lastSpaceIndex >= maxChars - 8
+    ? clipped.slice(0, lastSpaceIndex)
+    : clipped;
+
+  return safeBreak.replace(/[|:;,.!?…-]+$/u, '').trim();
+};
+
+const sanitizeDescriptionForTitle = (rawDescription = '') => {
+  const sanitizedDescription = normalizeText(rawDescription)
+    .replace(/\bTobyOnFitnessTech\b/gi, '')
+    .replace(/\bToby on Fitness Tech\b/gi, '')
+    .replace(/\bToby über Fitness-Tech\b/gi, '')
+    .replace(/\bToby sobre tecnología fitness\b/gi, '')
+    .replace(/\bToby sobre tecnologia fitness\b/gi, '')
+    .replace(/\bफिटनेस टेक पर टोबी\b/gi, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  return sanitizedDescription;
+};
+
+const normalizeToken = (value = '') => {
+  const cleaned = value.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, '');
+  return /^[a-z]{4,}s$/i.test(cleaned) ? cleaned.slice(0, -1) : cleaned;
+};
+
+const countNovelWords = (base = '', candidate = '') => {
+  const baseWords = new Set(
+    normalizeText(base)
+      .split(' ')
+      .map(normalizeToken)
+      .filter((word) => word.length > 2)
+  );
+
+  const candidateWords = normalizeText(candidate)
+    .split(' ')
+    .map(normalizeToken)
+    .filter((word) => word.length > 2);
+
+  return [...new Set(candidateWords)].filter((word) => !baseWords.has(word)).length;
+};
+
+const getDescriptionCandidates = (rawDescription = '') => {
+  const sanitizedDescription = sanitizeDescriptionForTitle(rawDescription);
+  if (!sanitizedDescription) return [];
+
+  const sentences = sanitizedDescription
+    .split(/[.!?]+/u)
+    .map((part) => part.trim())
+    .filter(Boolean)
+    .sort((a, b) => countChars(b) - countChars(a));
+
+  const candidates: string[] = [];
+
+  for (const sentence of sentences) {
+    const clauses = sentence
+      .split(/\s(?:[—–-])\s|:|[|•]/u)
+      .map((part) => part.trim())
+      .filter(Boolean);
+
+    candidates.push(...clauses, sentence);
+  }
+
+  return [...new Set(candidates)];
+};
+
+const selectTitleContext = ({
+  currentTitle = '',
+  rawDescription = '',
+  fallbackContext = '',
+  maxChars = 0,
+}) => {
+  if (maxChars < 12) return '';
+
+  const candidates = [
+    ...(fallbackContext ? [fallbackContext] : []),
+    ...getDescriptionCandidates(rawDescription),
+  ];
+
+  for (const candidate of candidates) {
+    const compacted = compactText(candidate, maxChars);
+    if (compacted && countNovelWords(currentTitle, compacted) >= 2) {
+      return compacted;
+    }
+  }
+
+  return candidates.length > 0 ? compactText(candidates[0], maxChars) : '';
+};
+
+const hasCustomDescription = normalizeText(description) !== normalizeText(DEFAULT_PAGE_DESCRIPTION);
+const fallbackContext = lang === 'en'
+  ? shortTitleFallbacks[normalizedPathname.replace(/\/$/, '') || '/'] || ''
+  : '';
+
+let seoTitle = normalizeText(title);
+
+if (countChars(seoTitle) < MIN_TITLE_LENGTH) {
+  const separator = ' | ';
+  const availableContextChars = MAX_TITLE_LENGTH - countChars(seoTitle) - countChars(separator);
+  const context = selectTitleContext({
+    currentTitle: seoTitle,
+    rawDescription: hasCustomDescription ? description : '',
+    fallbackContext,
+    maxChars: availableContextChars,
+  });
+
+  if (context && !seoTitle.toLowerCase().includes(context.toLowerCase())) {
+    seoTitle = `${seoTitle}${separator}${context}`;
+  }
+}
+
+seoTitle = trimTitleForSerp(seoTitle, MAX_TITLE_LENGTH);
 
 // Build hreflang links — only for pages with actual translated versions
-const locales = ['en', 'es', 'pt', 'hi', 'de'];
-
 let hreflangBase: string | null = null;
 if (episodeSlug) {
   // Podcast episode pages and openclaw landing: /podcasts/[episodeSlug]/

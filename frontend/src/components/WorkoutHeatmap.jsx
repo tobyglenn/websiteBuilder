@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
-import speedianceData from '../data/speediance_dashboard_data.json';
-import garminData from '../data/garmin_all_activities.json';
+import homepageFitnessData from '../data/homepageFitnessData.json';
 
 function toLocalDateKey(rawDate) {
   if (!rawDate) return null;
@@ -16,82 +15,40 @@ function getColorClass(count) {
   return 'bg-green-500';
 }
 
-function calculateStreaks(sortedDates) {
-  if (sortedDates.length === 0) return { current: 0, longest: 0, totalActive: 0 };
-  
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  
-  const totalActive = sortedDates.length;
-  
-  // Calculate current streak
-  let currentStreak = 0;
-  const mostRecent = new Date(sortedDates[sortedDates.length - 1]);
-  mostRecent.setHours(0, 0, 0, 0);
-  
-  const daysSinceLast = Math.floor((today - mostRecent) / (1000 * 60 * 60 * 24));
-  
-  if (daysSinceLast <= 1) {
-    let checkDate = new Date(mostRecent);
-    for (let i = sortedDates.length - 1; i >= 0; i--) {
-      const workoutDate = new Date(sortedDates[i]);
-      workoutDate.setHours(0, 0, 0, 0);
-      const diff = Math.floor((checkDate - workoutDate) / (1000 * 60 * 60 * 24));
-      if (diff <= 1) {
-        currentStreak++;
-        checkDate = new Date(workoutDate);
-        checkDate.setDate(checkDate.getDate() - 1);
-      } else {
-        break;
-      }
-    }
-  }
-  
-  // Calculate longest streak
-  let longestStreak = 1;
-  let streak = 1;
-  for (let i = 1; i < sortedDates.length; i++) {
-    const prev = new Date(sortedDates[i - 1]);
-    const curr = new Date(sortedDates[i]);
-    prev.setHours(0, 0, 0, 0);
-    curr.setHours(0, 0, 0, 0);
-    const diff = Math.floor((curr - prev) / (1000 * 60 * 60 * 24));
-    if (diff === 1) {
-      streak++;
-      longestStreak = Math.max(longestStreak, streak);
-    } else if (diff > 1) {
-      streak = 1;
-    }
-  }
-  
-  return { current: currentStreak, longest: longestStreak, totalActive };
-}
-
 export default function WorkoutHeatmap() {
   const { weeks, monthLabels, stats } = useMemo(() => {
+    const consistency = homepageFitnessData.consistency || {
+      totalActive: 0,
+      currentStreak: 0,
+      longestStreak: 0,
+      rangeStart: null,
+      rangeEnd: null,
+      days: [],
+    };
+
     const counts = new Map();
-    const allDates = [];
-
-    const speedianceDates = speedianceData?.dashboardData?.allSessions?.map((s) => s?.date) ?? [];
-    const garminDates = garminData?.activities?.map((a) => a?.date) ?? [];
-
-    [...speedianceDates, ...garminDates].forEach((date) => {
-      const key = toLocalDateKey(date);
-      if (!key) return;
-      counts.set(key, (counts.get(key) ?? 0) + 1);
-      if (!allDates.includes(key)) {
-        allDates.push(key);
-      }
+    (consistency.days || []).forEach((entry) => {
+      counts.set(entry.date, {
+        count: entry.count ?? 0,
+        runs: entry.runs ?? 0,
+        lifting: entry.lifting ?? 0,
+        bjj: entry.bjj ?? 0,
+      });
     });
 
-    allDates.sort();
-    const stats = calculateStreaks(allDates);
+    const summaryStats = {
+      totalActive: consistency.totalActive ?? 0,
+      current: consistency.currentStreak ?? 0,
+      longest: consistency.longestStreak ?? 0,
+    };
 
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    const end = consistency.rangeEnd ? new Date(`${consistency.rangeEnd}T12:00:00Z`) : new Date();
+    end.setHours(0, 0, 0, 0);
 
-    const start = new Date(today);
-    start.setDate(start.getDate() - (52 * 7 - 1));
+    const start = consistency.rangeStart
+      ? new Date(`${consistency.rangeStart}T12:00:00Z`)
+      : new Date(end);
+    start.setHours(0, 0, 0, 0);
 
     const startSunday = new Date(start);
     startSunday.setDate(startSunday.getDate() - startSunday.getDay());
@@ -106,7 +63,10 @@ export default function WorkoutHeatmap() {
         week.push({
           key,
           date: new Date(cursor),
-          count: key ? counts.get(key) ?? 0 : 0,
+          count: key ? (counts.get(key)?.count ?? 0) : 0,
+          runs: key ? (counts.get(key)?.runs ?? 0) : 0,
+          lifting: key ? (counts.get(key)?.lifting ?? 0) : 0,
+          bjj: key ? (counts.get(key)?.bjj ?? 0) : 0,
         });
         cursor.setDate(cursor.getDate() + 1);
       }
@@ -126,21 +86,26 @@ export default function WorkoutHeatmap() {
       }
     });
 
-    return { weeks: weeksData, monthLabels: labels, stats };
+    return { weeks: weeksData, monthLabels: labels, stats: summaryStats };
   }, []);
+  const headingId = 'training-consistency-heading';
 
   return (
-    <section className="py-16 bg-neutral-950 border-t border-neutral-800">
+    <section
+      id="training-consistency"
+      aria-labelledby={headingId}
+      data-section-title="Training Consistency"
+      className="py-16 bg-neutral-950 border-t border-neutral-800"
+    >
       <div className="container mx-auto px-4">
         <div className="text-center mb-10">
           <span className="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Track Your Progress</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">Training Consistency</h2>
+          <h2 id={headingId} className="text-3xl md:text-4xl font-bold text-white">Training Consistency</h2>
           <p className="text-neutral-500 mt-3 max-w-xl mx-auto">
-            A year of training activity from Speediance workouts and Garmin runs.
+            A year of training activity from Speediance workouts, Garmin runs, and BJJ sessions.
           </p>
         </div>
-        
-        {/* Summary Stats */}
+
         <div className="grid grid-cols-3 gap-4 mb-8 max-w-2xl mx-auto">
           <div className="bg-neutral-900 rounded-lg p-4 border border-neutral-800 text-center">
             <div className="text-2xl md:text-3xl font-bold text-green-400">{stats.totalActive}</div>
@@ -155,8 +120,7 @@ export default function WorkoutHeatmap() {
             <div className="text-xs md:text-sm font-semibold text-neutral-400 uppercase tracking-wide">Longest Streak</div>
           </div>
         </div>
-        
-        {/* Heatmap */}
+
         <div className="bg-neutral-900 rounded-lg p-4 md:p-6 border border-neutral-800 overflow-x-auto">
           <div className="min-w-max">
             <div className="flex mb-2 ml-8 h-4 text-xs text-neutral-500 relative">
@@ -184,12 +148,17 @@ export default function WorkoutHeatmap() {
 
               <div className="grid grid-rows-7 grid-flow-col gap-0.5">
                 {weeks.flat().map((day) => {
+                  const breakdown = [
+                    day.runs > 0 ? `${day.runs} run${day.runs === 1 ? '' : 's'}` : null,
+                    day.lifting > 0 ? `${day.lifting} lift${day.lifting === 1 ? '' : 's'}` : null,
+                    day.bjj > 0 ? `${day.bjj} BJJ session${day.bjj === 1 ? '' : 's'}` : null,
+                  ].filter(Boolean).join(', ');
                   const tooltip = `${day.count} session${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString('en-US', {
                     weekday: 'short',
                     month: 'short',
                     day: 'numeric',
                     year: 'numeric',
-                  })}`;
+                  })}${breakdown ? ` (${breakdown})` : ''}`;
 
                   return (
                     <div

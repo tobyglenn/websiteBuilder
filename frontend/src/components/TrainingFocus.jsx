@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Activity, Dumbbell, Trophy } from 'lucide-react';
-import speedianceData from '../data/speediance_dashboard_data.json';
-import garminData from '../data/garmin_all_activities.json';
-import whoopData from '../data/whoop_v2_latest.json';
+import homepageFitnessData from '../data/homepageFitnessData.json';
 
 const translations = {
   en: {
@@ -72,76 +70,16 @@ const translations = {
   },
 };
 
+const fallbackFocusData = {
+  focus: 'running',
+  runCount: 0,
+  workoutCount: 0,
+  bjjCount: 0,
+};
+
 const TrainingFocus = ({ lang = 'en' }) => {
   const t = translations[lang] || translations.en;
-
-  const [focusData, setFocusData] = useState({
-    focus: 'running',
-    runCount: 0,
-    workoutCount: 0,
-    bjjCount: 0,
-  });
-
-  useEffect(() => {
-    // Use today as the reference date (not the last data date)
-    const refDate = new Date();
-
-    const sevenDaysAgo = new Date(refDate);
-    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-
-    // Count Speediance workouts in past 7 days
-    const speedianceSessions = Object.values(speedianceData.workoutTypes).flatMap(
-      (workoutType) => workoutType.sessions || []
-    );
-    const recentWorkouts = speedianceSessions.filter((session) => {
-      const sessionDate = new Date(session.date);
-      return sessionDate >= sevenDaysAgo && sessionDate <= refDate;
-    });
-
-    // Count Garmin runs in past 7 days
-    const recentRuns = garminData.activities.filter((activity) => {
-      if (!activity.date) return false;
-      const activityDate = new Date(activity.date);
-      const isRunning =
-        activity.activityType?.includes('running') ||
-        activity.activityType?.includes('treadmill');
-      return activityDate >= sevenDaysAgo && activityDate <= refDate && isRunning;
-    });
-
-    // Count BJJ sessions (jiu-jitsu) from WHOOP in past 7 days
-    const bjjSessions = (whoopData.workouts?.records || []).filter((record) => {
-      if (record.sport_name !== 'jiu-jitsu') return false;
-      const endDate = new Date(record.end);
-      return endDate >= sevenDaysAgo && endDate <= refDate;
-    });
-
-    // Determine focus (most sessions)
-    const counts = {
-      running: recentRuns.length,
-      lifting: recentWorkouts.length,
-      bjj: bjjSessions.length,
-    };
-
-    // Pick whatever had the most sessions; BJJ beats ties with Running
-    let focus = 'running';
-    const maxCount = Math.max(counts.running, counts.lifting, counts.bjj);
-    if (maxCount === 0) {
-      focus = 'running'; // Default when no data
-    } else if (counts.lifting === maxCount) {
-      focus = 'lifting';
-    } else if (counts.bjj === maxCount) {
-      focus = 'bjj';
-    } else {
-      focus = 'running';
-    }
-
-    setFocusData({
-      focus,
-      runCount: recentRuns.length,
-      workoutCount: recentWorkouts.length,
-      bjjCount: bjjSessions.length,
-    });
-  }, []);
+  const focusData = homepageFitnessData.trainingFocus || fallbackFocusData;
 
   const getFocusIcon = () => {
     switch (focusData.focus) {
@@ -158,7 +96,6 @@ const TrainingFocus = ({ lang = 'en' }) => {
 
   return (
     <div className="bg-neutral-900 rounded-2xl p-8 border border-neutral-800 shadow-2xl overflow-hidden relative">
-      {/* Background accent */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
 
       <div className="relative z-10">

@@ -4,6 +4,8 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "refresh:homepage-hero-video": "node ./scripts/refresh-homepage-hero-video.mjs",
+    "refresh:homepage-data": "node ./scripts/refresh-homepage-fitness-data.mjs",
     "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"

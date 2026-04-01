@@ -11,7 +11,10 @@ const zones = [
 ];
 ---
 
-<Layout title="Heart Rate Zone Analysis | TobyOnFitnessTech">
+<Layout
+  title="Heart Rate Zone Analysis | TobyOnFitnessTech"
+  description={`Garmin running heart rate zone breakdowns across ${hrZones.totalRuns} activities, including time in zones 1-5, average heart rate, and recent run trends.`}
+>
   <section class="bg-neutral-950 text-white py-16 px-4 text-center">
     <h1 class="text-4xl md:text-5xl font-bold">Heart Rate Zone Analysis</h1>
     <p class="mt-4 text-lg text-blue-400 max-w-2xl mx-auto">Track your running intensity distribution from {hrZones.totalRuns} Garmin activities</p>

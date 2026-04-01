@@ -16,6 +16,7 @@ from urllib.parse import urlencode, quote
 CHANNEL_ID = "UCmSwMp2gPo5PGl32d4oCu-Q"
 SECRETS_PATH = "/Users/tobyglennpeters/.openclaw/workspace/secrets/api-keys.env"
 VIDEOS_JSON_PATH = "/Users/tobyglennpeters/.openclaw/workspace/websiteBuilder/frontend/src/data/videos.json"
+SHORT_FORM_MAX_SECONDS = 180
 
 
 def load_api_key():
@@ -51,6 +52,30 @@ def get_uploads_playlist_id(channel_id):
     if 'items' in response and len(response['items']) > 0:
         return response['items'][0]['contentDetails']['relatedPlaylists']['uploads']
     raise ValueError(f"Channel {channel_id} not found")
+
+
+def get_channel_stats(channel_id):
+    """Fetch official channel-level stats from YouTube."""
+    response = youtube_api_request('channels', {
+        'id': channel_id,
+        'part': 'statistics,snippet'
+    })
+
+    if 'items' not in response or not response['items']:
+        raise ValueError(f"Channel stats for {channel_id} not found")
+
+    item = response['items'][0]
+    stats = item.get('statistics', {})
+    snippet = item.get('snippet', {})
+
+    return {
+        'title': snippet.get('title', ''),
+        'customUrl': snippet.get('customUrl', ''),
+        'subscriberCount': int(stats.get('subscriberCount', 0)),
+        'viewCount': int(stats.get('viewCount', 0)),
+        'videoCount': int(stats.get('videoCount', 0)),
+        'hiddenSubscriberCount': bool(stats.get('hiddenSubscriberCount', False))
+    }
 
 
 def get_all_playlist_items(playlist_id):
@@ -146,6 +171,44 @@ def parse_iso_duration(iso_duration):
         return f"{minutes}:{seconds:02d}"
 
 
+def duration_to_seconds(value):
+    """Convert ISO 8601 or formatted durations into total seconds"""
+    if not value:
+        return 0
+
+    text = str(value).strip()
+    if not text or text == "0:00" or text == "P0D" or text.upper() == "LIVE":
+        return 0
+
+    iso_match = re.match(r'^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$', text)
+    if iso_match:
+        hours = int(iso_match.group(1) or 0)
+        minutes = int(iso_match.group(2) or 0)
+        seconds = int(iso_match.group(3) or 0)
+        return hours * 3600 + minutes * 60 + seconds
+
+    parts = text.split(':')
+    if not all(part.isdigit() for part in parts):
+        return 0
+
+    numbers = [int(part) for part in parts]
+    if len(numbers) == 3:
+        return numbers[0] * 3600 + numbers[1] * 60 + numbers[2]
+    if len(numbers) == 2:
+        return numbers[0] * 60 + numbers[1]
+    return 0
+
+
+def is_short_form_video(title='', description='', duration_iso='', duration_formatted=''):
+    """Treat Shorts and other short-form uploads as short videos."""
+    text = f"{title or ''} {description or ''}"
+    if re.search(r'(?:^|[\s#/])shorts?\b', text, re.IGNORECASE):
+        return True
+
+    duration_seconds = duration_to_seconds(duration_iso or duration_formatted)
+    return 0 < duration_seconds <= SHORT_FORM_MAX_SECONDS
+
+
 def load_existing_videos():
     """Load existing videos from JSON file"""
     if os.path.exists(VIDEOS_JSON_PATH):
@@ -165,10 +228,17 @@ def main():
     print("YouTube Data Refresh Script")
     print("=" * 50)
     
-    # Step 1: Get uploads playlist ID
+    # Step 1: Get uploads playlist ID and channel stats
     print("\n[1/5] Getting channel uploads playlist...")
     uploads_playlist_id = get_uploads_playlist_id(CHANNEL_ID)
     print(f"      Found uploads playlist: {uploads_playlist_id}")
+    channel_stats = get_channel_stats(CHANNEL_ID)
+    print(
+        "      Channel stats:"
+        f" {channel_stats['subscriberCount']} subscribers,"
+        f" {channel_stats['viewCount']} views,"
+        f" {channel_stats['videoCount']} videos"
+    )
     
     # Step 2: Get all video IDs from playlist
     print("\n[2/5] Fetching all videos from playlist...")
@@ -216,6 +286,12 @@ def main():
             if details.get('duration'):
                 existing['duration'] = parse_iso_duration(details['duration'])
                 existing['duration_formatted'] = existing['duration']
+            existing['is_short'] = is_short_form_video(
+                existing.get('title', ''),
+                existing.get('description', ''),
+                existing.get('duration_iso', ''),
+                existing.get('duration_formatted', existing.get('duration', ''))
+            )
             
             merged_videos.append(existing)
             updated_count += 1
@@ -233,7 +309,12 @@ def main():
                 'publishedAt': video['publishedAt'],
                 'videoOwnerChannelTitle': 'Toby Glenn',
                 'is_live': False,
-                'is_short': False,
+                'is_short': is_short_form_video(
+                    video['title'],
+                    video['description'],
+                    iso_duration,
+                    formatted_duration
+                ),
                 'duration_formatted': formatted_duration,
                 'viewCount': details.get('viewCount', 0),
                 'duration': formatted_duration,
@@ -250,6 +331,7 @@ def main():
     # Update fetchedAt timestamp
     result_data = {
         "videos": merged_videos,
+        "channelStats": channel_stats,
         "fetchedAt": datetime.now(timezone.utc).isoformat()
     }
     

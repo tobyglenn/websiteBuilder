@@ -1,6 +1,8 @@
 import React from 'react';
 import { Play, Dumbbell, Users, TrendingDown, ArrowRight } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
+import homepageHeroVideoData from '../data/homepageHeroVideo.json';
+import { isLiveVideo, selectFeaturedVideo } from '../lib/videoMeta.js';
 
 const t = {
   en: {
@@ -8,8 +10,8 @@ const t = {
     heading2: 'real results, zero hype',
     subtitle: "For the person who's done with performance and ready for actual progress.",
     liveStream: 'Upcoming Live Stream',
-    latestVideo: 'Latest Video',
-    watchLatest: 'Watch Latest',
+    featuredVideo: 'Featured Video',
+    watchFeatured: 'Watch Featured',
     aboutMe: 'About Me',
     featured: 'FEATURED',
     pillars: [
@@ -23,8 +25,8 @@ const t = {
     heading2: 'resultados reales, cero humo',
     subtitle: 'Para quien ya dejó el show y quiere progreso real.',
     liveStream: 'Transmisión en vivo próxima',
-    latestVideo: 'Último video',
-    watchLatest: 'Ver último',
+    featuredVideo: 'Video destacado',
+    watchFeatured: 'Ver destacado',
     aboutMe: 'Sobre mí',
     featured: 'DESTACADO',
     pillars: [
@@ -38,8 +40,8 @@ const t = {
     heading2: 'echte Ergebnisse, null Hype',
     subtitle: 'Für alle, die Show satt haben und echten Fortschritt wollen.',
     liveStream: 'Kommender Livestream',
-    latestVideo: 'Neuestes Video',
-    watchLatest: 'Neuestes ansehen',
+    featuredVideo: 'Empfohlenes Video',
+    watchFeatured: 'Empfohlenes ansehen',
     aboutMe: 'Über mich',
     featured: 'EMPFOHLEN',
     pillars: [
@@ -53,8 +55,8 @@ const t = {
     heading2: 'resultados reais, zero hype',
     subtitle: 'Para quem já cansou de show e quer progresso de verdade.',
     liveStream: 'Live em breve',
-    latestVideo: 'Último vídeo',
-    watchLatest: 'Assistir último',
+    featuredVideo: 'Vídeo em destaque',
+    watchFeatured: 'Ver destaque',
     aboutMe: 'Sobre mim',
     featured: 'DESTAQUE',
     pillars: [
@@ -68,8 +70,8 @@ const t = {
     heading2: 'असली नतीजे, शून्य हाइप',
     subtitle: 'उन लोगों के लिए जो दिखावा छोड़कर असली प्रगति चाहते हैं।',
     liveStream: 'आगामी लाइव स्ट्रीम',
-    latestVideo: 'नवीनतम वीडियो',
-    watchLatest: 'नवीनतम देखें',
+    featuredVideo: 'फ़ीचर्ड वीडियो',
+    watchFeatured: 'फ़ीचर्ड देखें',
     aboutMe: 'मेरे बारे में',
     featured: 'फ़ीचर्ड',
     pillars: [
@@ -82,8 +84,10 @@ const t = {
 
 export default function Hero({ lang = 'en' }) {
   const l = t[lang] || t.en;
-  // Featured video - prefer live stream if one exists, otherwise most recent
-  const featuredVideo = allVideos.find(v => v.is_live) || allVideos[0];
+  // Homepage hero is pinned to a generated latest long-form upload when available.
+  const featuredVideo = homepageHeroVideoData?.video ?? selectFeaturedVideo(allVideos);
+  const featuredVideoIsLive = isLiveVideo(featuredVideo);
+  const featuredVideoHref = featuredVideo ? `/video/${featuredVideo.id}/` : '/videos/';
 
   const pillarIcons = [Dumbbell, Users, TrendingDown];
   const pillarHrefs = ['/videos?category=speediance', '/videos?category=bjj', '/about/'];
@@ -100,7 +104,7 @@ export default function Hero({ lang = 'en' }) {
       <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12">
         {/* Text Content */}
         <div className="flex-1 text-center md:text-left">
-          {featuredVideo?.is_live ? (
+          {featuredVideoIsLive ? (
             <div className="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold mb-6">
               <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
               {l.liveStream}
@@ -108,7 +112,7 @@ export default function Hero({ lang = 'en' }) {
           ) : (
             <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-blue-300 text-sm font-semibold mb-6">
               <span className="w-2 h-2 rounded-full bg-blue-400" />
-              {l.latestVideo}
+              {l.featuredVideo}
             </div>
           )}
 
@@ -122,8 +126,8 @@ export default function Hero({ lang = 'en' }) {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-            <a href={`/video/${featuredVideo?.id}/`} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50">
-              <Play size={20} fill="currentColor" /> {l.watchLatest}
+            <a href={featuredVideoHref} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50">
+              <Play size={20} fill="currentColor" /> {featuredVideoIsLive ? l.liveStream : l.watchFeatured}
             </a>
             <a href="/about/" className="px-8 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 rounded-full transition-all hover:border-neutral-600 font-medium flex items-center gap-2">
               {l.aboutMe} <ArrowRight size={16} />
@@ -133,11 +137,11 @@ export default function Hero({ lang = 'en' }) {
 
         {/* Featured Video Card */}
         {featuredVideo && (
-            <a href={`/video/${featuredVideo.id}/`} className="flex-1 w-full max-w-xl relative group block">
+            <a href={featuredVideoHref} className="flex-1 w-full max-w-xl relative group block">
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
             <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800">
                 <img src={featuredVideo.thumbnail} alt={featuredVideo.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500" loading="lazy" />
-                {featuredVideo?.is_live && (
+                {featuredVideoIsLive && (
                   <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
                     <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                     Live Feb 19 · 6:30 PM ET
