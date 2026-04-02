@@ -45,13 +45,13 @@ export default function WorkoutHeatmap() {
     const end = consistency.rangeEnd ? new Date(`${consistency.rangeEnd}T12:00:00Z`) : new Date();
     end.setHours(0, 0, 0, 0);
 
-    const start = consistency.rangeStart
-      ? new Date(`${consistency.rangeStart}T12:00:00Z`)
-      : new Date(end);
-    start.setHours(0, 0, 0, 0);
+    // Anchor from today's Saturday (end of current week) going back 52 weeks.
+    // This ensures the current week is always the last column, no label collisions.
+    const endSaturday = new Date(end);
+    endSaturday.setDate(endSaturday.getDate() + (6 - endSaturday.getDay())); // advance to Saturday
 
-    const startSunday = new Date(start);
-    startSunday.setDate(startSunday.getDate() - startSunday.getDay());
+    const startSunday = new Date(endSaturday);
+    startSunday.setDate(startSunday.getDate() - 52 * 7 - 6); // 52 full weeks back to Sunday
 
     const weeksData = [];
     const cursor = new Date(startSunday);
@@ -74,15 +74,16 @@ export default function WorkoutHeatmap() {
     }
 
     const labels = [];
-    let lastMonth = -1;
+    let lastMonthKey = '';
     weeksData.forEach((week, weekIndex) => {
-      const month = week[0].date.getMonth();
-      if (month !== lastMonth) {
+      const d = week[0].date;
+      const monthKey = `${d.getFullYear()}-${d.getMonth()}`;
+      if (monthKey !== lastMonthKey) {
         labels.push({
-          label: week[0].date.toLocaleDateString('en-US', { month: 'short' }),
+          label: d.toLocaleDateString('en-US', { month: 'short' }),
           weekIndex,
         });
-        lastMonth = month;
+        lastMonthKey = monthKey;
       }
     });
 
