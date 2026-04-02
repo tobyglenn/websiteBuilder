@@ -133,6 +133,10 @@ export function localizedTranscriptCandidates(
   const paths: string[] = [
     `translations/${langCode}/episode_${ep}_${langCode}.md`,
     `translations/${langCode}/episode_${ep}_${langCode}_nova.md`,
+    `content_staging/translations/episode_${ep}_${langCode}.md`,
+    `content_staging/translations/episode_${ep}_${langCode}_nova.md`,
+    `episodes/episode_${ep}_${langCode}.md`,
+    `episodes/episode_${ep}_${langCode}_nova.md`,
     `episode_${ep}_${langCode}.md`,
   ];
   return [...new Set(paths)].map(normalizeRepoTextPath);
