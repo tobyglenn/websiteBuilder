@@ -2,6 +2,8 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import Search from './Search.jsx';
 
+const LOCALE_STORAGE_KEY = 'site-lang';
+const LEGACY_LOCALE_STORAGE_KEY = 'preferredLang';
 const SUPPORTED_LOCALES = ['en', 'de', 'es', 'pt', 'hi'];
 const LOCALE_LABELS = {
   en: 'English',
@@ -57,6 +59,13 @@ const localizedHref = (locale, href) => {
   if (locale === 'en') return href;
   return href === '/' ? `/${locale}/` : `/${locale}${href}`;
 };
+const getStoredLocalePreference = () =>
+  window.localStorage.getItem(LOCALE_STORAGE_KEY) || window.localStorage.getItem(LEGACY_LOCALE_STORAGE_KEY);
+
+const persistLocalePreference = (locale) => {
+  window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+  window.localStorage.setItem(LEGACY_LOCALE_STORAGE_KEY, locale);
+};
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -90,8 +99,9 @@ export default function Header() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     const currentPath = window.location.pathname;
-    const storedLocale = window.localStorage.getItem('site-lang');
+    const storedLocale = getStoredLocalePreference();
     if (currentPath === '/' && storedLocale && storedLocale !== 'en' && SUPPORTED_LOCALES.includes(storedLocale)) {
+      persistLocalePreference(storedLocale);
       window.location.replace(`/${storedLocale}/`);
     }
   }, []);
@@ -144,7 +154,7 @@ export default function Header() {
 
   const handleLanguageChoice = (code) => {
     if (typeof window === 'undefined') return;
-    window.localStorage.setItem('site-lang', code);
+    persistLocalePreference(code);
     // Strip current locale prefix to get the base path, then re-prefix with new locale
     const currentPath = window.location.pathname;
     const basePath = currentPath.replace(/^\/(en|de|es|pt|hi)(\/|$)/, '/');

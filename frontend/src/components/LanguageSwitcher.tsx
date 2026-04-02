@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
+const LOCALE_STORAGE_KEY = 'site-lang';
+const LEGACY_LOCALE_STORAGE_KEY = 'preferredLang';
 const languages = [
   { code: 'en', name: 'English', flag: '🇺🇸', path: '/podcasts/openclaw/' },
   { code: 'es', name: 'Español', flag: '🇪🇸', path: '/es/podcasts/openclaw/' },
@@ -12,6 +14,11 @@ const languages = [
 export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const persistLocalePreference = (locale: string) => {
+    localStorage.setItem(LOCALE_STORAGE_KEY, locale);
+    localStorage.setItem(LEGACY_LOCALE_STORAGE_KEY, locale);
+  };
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -48,7 +55,9 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
       const match = path.match(/^\/(es|pt|hi|de)\//);
-      return match ? match[1] : (localStorage.getItem('preferredLang') || currentLang);
+      return match
+        ? match[1]
+        : (localStorage.getItem(LOCALE_STORAGE_KEY) || localStorage.getItem(LEGACY_LOCALE_STORAGE_KEY) || currentLang);
     }
     return currentLang;
   });
@@ -89,7 +98,7 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
                       ? 'bg-blue-400/10 text-blue-400 border-l-2 border-blue-400' 
                       : 'text-neutral-300 hover:bg-neutral-800 hover:text-white'
                   }`}
-                  onClick={() => { localStorage.setItem('preferredLang', lang.code); setActiveLang(lang.code); setIsOpen(false); }}
+                  onClick={() => { persistLocalePreference(lang.code); setActiveLang(lang.code); setIsOpen(false); }}
                 >
                   <span className="text-base">{lang.flag}</span>
                   <span>{lang.name}</span>
