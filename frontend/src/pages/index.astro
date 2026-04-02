@@ -278,7 +278,7 @@ const webPageSchema = {
 			</div>
 
 			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-				{allVideos.filter(v => !v.is_live).slice(0, 4).map((video) => (
+				{allVideos.filter(v => !v.is_live && !isLikelyShortVideo(v)).slice(0, 4).map((video) => (
 					<a href={`/video/${video.id}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all">
 						<div class="aspect-video relative overflow-hidden">
 							<img src={video.thumbnail} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
