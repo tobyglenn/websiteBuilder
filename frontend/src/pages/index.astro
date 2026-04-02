@@ -270,7 +270,7 @@ const webPageSchema = {
 			<div class="flex items-end justify-between mb-10">
 				<div>
 					<span class="text-cyan-400 font-bold uppercase tracking-widest text-sm mb-2 block">YouTube</span>
-					<h2 class="text-3xl md:text-4xl font-bold text-white">Latest Long-Form Videos</h2>
+					<h2 class="text-3xl md:text-4xl font-bold text-white">Latest Videos</h2>
 				</div>
 				<a href="/videos/" class="text-cyan-400 hover:text-cyan-300 font-semibold flex items-center gap-2">
 					View All Videos <ArrowRight size={18} />
@@ -296,47 +296,6 @@ const webPageSchema = {
 	</section>
 
 	<LatestActivity client:load lang="en" />
-
-		{/* Featured Shorts Section */}
-	<section class="py-20 bg-neutral-950 border-t border-neutral-800">
-	  <div class="container mx-auto px-4">
-	    <div class="flex items-end justify-between mb-10">
-	      <div>
-	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch</span>
-	        <h2 class="text-3xl md:text-4xl font-bold text-white">Featured Shorts</h2>
-	      </div>
-	      <a href="/videos/?category=shorts" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
-	        View All Shorts <ArrowRight size={18} />
-	      </a>
-	    </div>
-	    
-	    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-	      {allVideos
-	        .filter(v => v.is_short === true)
-	        .filter(v => {
-	          if (!v.publishedAt) return false;
-	          const d = new Date(v.publishedAt);
-	          const cutoff = new Date();
-	          cutoff.setDate(cutoff.getDate() - 30);
-	          return d >= cutoff;
-	        })
-	        .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
-	        .slice(0, 4)
-	        .map((video) => (
-	        <a href={`https://www.youtube.com/shorts/${video.id}`} target="_blank" rel="noopener noreferrer" class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:border-blue-500/50">
-	          <div class="aspect-[9/16] relative overflow-hidden bg-neutral-950">
-	            <img src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
-	            <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">SHORT</span>
-	          </div>
-	          <div class="p-3">
-	            <h3 class="text-white font-bold text-xs line-clamp-2 group-hover:text-blue-400">{video.title}</h3>
-	            <p class="text-neutral-500 text-xs mt-1">{video.viewCount ? (video.viewCount >= 1000 ? (video.viewCount/1000).toFixed(1) + 'K' : video.viewCount) + ' views' : ''}</p>
-	          </div>
-	        </a>
-	      ))}
-	    </div>
-	  </div>
-	</section>
 
 	{/* YouTube Social Proof Section */}
 	<section class="py-12 bg-neutral-950 border-t border-neutral-900">
@@ -635,6 +594,46 @@ const webPageSchema = {
 				</a>
 			</div>
 		</div>
+	</section>
+	{/* Featured Shorts Section */}
+	<section class="py-20 bg-neutral-950 border-t border-neutral-800">
+	  <div class="container mx-auto px-4">
+	    <div class="flex items-end justify-between mb-10">
+	      <div>
+	        <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch</span>
+	        <h2 class="text-3xl md:text-4xl font-bold text-white">Featured Shorts</h2>
+	      </div>
+	      <a href="/videos/?category=shorts" class="text-blue-400 hover:text-blue-300 font-semibold flex items-center gap-2">
+	        View All Shorts <ArrowRight size={18} />
+	      </a>
+	    </div>
+	    
+	    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+	      {allVideos
+	        .filter(v => v.is_short === true)
+	        .filter(v => {
+	          if (!v.publishedAt) return false;
+	          const d = new Date(v.publishedAt);
+	          const cutoff = new Date();
+	          cutoff.setDate(cutoff.getDate() - 30);
+	          return d >= cutoff;
+	        })
+	        .sort((a, b) => (b.viewCount || 0) - (a.viewCount || 0))
+	        .slice(0, 4)
+	        .map((video) => (
+	        <a href={`https://www.youtube.com/shorts/${video.id}`} target="_blank" rel="noopener noreferrer" class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:border-blue-500/50">
+	          <div class="aspect-[9/16] relative overflow-hidden bg-neutral-950">
+	            <img src={video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`} alt={video.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy" />
+	            <span class="absolute top-2 left-2 bg-red-600 text-white text-xs font-bold px-2 py-0.5 rounded">SHORT</span>
+	          </div>
+	          <div class="p-3">
+	            <h3 class="text-white font-bold text-xs line-clamp-2 group-hover:text-blue-400">{video.title}</h3>
+	            <p class="text-neutral-500 text-xs mt-1">{video.viewCount ? (video.viewCount >= 1000 ? (video.viewCount/1000).toFixed(1) + 'K' : video.viewCount) + ' views' : ''}</p>
+	          </div>
+	        </a>
+	      ))}
+	    </div>
+	  </div>
 	</section>
 	<Newsletter client:visible />
 
