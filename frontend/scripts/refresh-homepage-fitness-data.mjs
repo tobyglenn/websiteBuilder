@@ -626,7 +626,7 @@ async function main() {
     )
   );
   const totalLiftingVolume =
-    hubStats.totalLiftingVolume ?? strengthSummary.lifetimeVolume + Math.round(derivedCurrentYearLiftingVolume);
+    hubStats.totalLiftingVolume ?? strengthSummary.lifetimeVolume;
   const totalRunSessions = hubStats.totalRunSessions ?? derivedTotalRunSessions;
   const totalRunMiles = hubStats.totalRunMiles ?? Number(derivedTotalRunMiles.toFixed(1));
   const currentRecovery =
