@@ -231,6 +231,27 @@
           "durationMinute": 26,
           "calorie": 319,
           "actionNum": 17
+        },
+        {
+          "date": "2026-03-28",
+          "totalCapacity": 0.0,
+          "durationMinute": 26,
+          "calorie": 34,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-03-28",
+          "totalCapacity": 722.0,
+          "durationMinute": 26,
+          "calorie": 77,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-03-29",
+          "totalCapacity": 7830.0,
+          "durationMinute": 26,
+          "calorie": 278,
+          "actionNum": 17
         }
       ],
       "exercises": [],
@@ -242,9 +263,9 @@
         "calorie": 887,
         "actionNum": 17
       },
-      "totalSessions": 23,
-      "avgVolume": 6836.3,
-      "totalVolume": 157234.0
+      "totalSessions": 26,
+      "avgVolume": 6376.4,
+      "totalVolume": 165786.0
     },
     "Chest handles": {
       "name": "Chest handles",
@@ -577,6 +598,20 @@
           "durationMinute": 31,
           "calorie": 391,
           "actionNum": 22
+        },
+        {
+          "date": "2026-03-26",
+          "totalCapacity": 17.0,
+          "durationMinute": 31,
+          "calorie": 5,
+          "actionNum": 22
+        },
+        {
+          "date": "2026-03-26",
+          "totalCapacity": 11953.0,
+          "durationMinute": 31,
+          "calorie": 575,
+          "actionNum": 22
         }
       ],
       "exercises": [],
@@ -588,9 +623,9 @@
         "calorie": 348,
         "actionNum": 22
       },
-      "totalSessions": 5,
-      "avgVolume": 8871.6,
-      "totalVolume": 44358.0
+      "totalSessions": 7,
+      "avgVolume": 8046.9,
+      "totalVolume": 56328.0
     },
     "Leg Day": {
       "name": "Leg Day",
@@ -1024,11 +1059,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 73,
-  "totalVolumeLbs": 769040.4,
+  "totalWorkouts": 78,
+  "totalVolumeLbs": 789562.4,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-03-19"
+    "end": "2026-03-29"
   },
   "allSessions": [
     {
@@ -1613,6 +1648,46 @@
       "totalCapacity": 4563.0,
       "durationMinute": 26,
       "calorie": 319,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-03-26",
+      "title": "Back Barbell",
+      "totalCapacity": 17.0,
+      "durationMinute": 31,
+      "calorie": 5,
+      "actionNum": 22
+    },
+    {
+      "date": "2026-03-26",
+      "title": "Back Barbell",
+      "totalCapacity": 11953.0,
+      "durationMinute": 31,
+      "calorie": 575,
+      "actionNum": 22
+    },
+    {
+      "date": "2026-03-28",
+      "title": "Arms Barbell",
+      "totalCapacity": 0.0,
+      "durationMinute": 26,
+      "calorie": 34,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-03-28",
+      "title": "Arms Barbell",
+      "totalCapacity": 722.0,
+      "durationMinute": 26,
+      "calorie": 77,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-03-29",
+      "title": "Arms Barbell",
+      "totalCapacity": 7830.0,
+      "durationMinute": 26,
+      "calorie": 278,
       "actionNum": 17
     }
   ]
