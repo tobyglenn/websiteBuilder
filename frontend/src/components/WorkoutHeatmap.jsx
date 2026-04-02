@@ -56,7 +56,7 @@ export default function WorkoutHeatmap() {
     const weeksData = [];
     const cursor = new Date(startSunday);
 
-    for (let w = 0; w < 52; w++) {
+    for (let w = 0; w < 53; w++) {
       const week = [];
       for (let d = 0; d < 7; d++) {
         const key = toLocalDateKey(cursor);
