@@ -4,8 +4,19 @@
 
 <script>
   (function() {
+    const STORAGE_KEY = 'site-lang';
+    const LEGACY_STORAGE_KEY = 'preferredLang';
     const SUPPORTED_LANGS = ['es', 'pt', 'hi', 'de'];
     const LOCALE_PATH_REGEX = /^\/(es|pt|hi|de)\//;
+
+    function getStoredLang() {
+      return localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
+    }
+
+    function persistLang(langCode) {
+      localStorage.setItem(STORAGE_KEY, langCode);
+      localStorage.setItem(LEGACY_STORAGE_KEY, langCode);
+    }
     
     function init() {
       // Skip if already on a locale path
@@ -14,9 +25,16 @@
       }
       
       // Check if user has already set a preference
-      const storedLang = localStorage.getItem('preferredLang');
+      const storedLang = getStoredLang();
+      if (storedLang === 'en') {
+        persistLang('en');
+        return;
+      }
+
       if (storedLang && SUPPORTED_LANGS.includes(storedLang)) {
-        // User has overridden, don't redirect
+        persistLang(storedLang);
+        const targetPath = `/${storedLang}${window.location.pathname}`;
+        window.location.replace(targetPath);
         return;
       }
       
@@ -26,9 +44,9 @@
       
       // If detected language is supported, redirect
       if (SUPPORTED_LANGS.includes(langCode)) {
-        localStorage.setItem('preferredLang', langCode);
+        persistLang(langCode);
         const targetPath = `/${langCode}${window.location.pathname}`;
-        window.location.href = targetPath;
+        window.location.replace(targetPath);
       }
     }
     

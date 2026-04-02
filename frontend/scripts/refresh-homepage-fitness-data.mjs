@@ -440,14 +440,28 @@ function parseStrengthSummary(strengthHtml) {
 }
 
 async function main() {
-  const [garminData, speedianceData, whoopSource, hubHtml, strengthHtml] = await Promise.all([
+  const [garminData, processedGarminData, speedianceData, whoopSource, hubHtml, strengthHtml] = await Promise.all([
     readJson('garmin_all_activities.json'),
+    readJson('garmin_processed_activities.json'),
     readJson('speediance_dashboard_data.json'),
     readFreshestWhoopData(),
     fetchHtml(),
     fetchHtml('strength/index.html'),
   ]);
   const { data: whoopData, filePath: whoopDataPath } = whoopSource;
+
+  // Build a set of date keys present in the processed Garmin data for quick lookup.
+  const processedDateSet = new Set();
+  // processedGarminData is an array of entries, each with a date and a runs array.
+  for (const entry of processedGarminData || []) {
+    const entryDate = entry.date; // fallback date if run lacks its own timestamp
+    if (Array.isArray(entry.runs)) {
+      for (const run of entry.runs) {
+        const key = dateKeyFromValue(run.start_time_local || entryDate);
+        if (key) processedDateSet.add(key);
+      }
+    }
+  }
 
   const hubStats = parseHubStats(hubHtml);
   const strengthSummary = parseStrengthSummary(strengthHtml);
@@ -464,6 +478,7 @@ async function main() {
   const whoopLiftDates = new Set();
   const lastActivityCandidates = [];
 
+  // First, process raw Garmin data, but skip any dates that are covered by processed data (to avoid duplication and prefer processed values).
   for (const activity of garminData.activities || []) {
     if (!['running', 'treadmill_running'].includes(activity.activityType)) {
       continue;
@@ -471,6 +486,11 @@ async function main() {
 
     const key = dateKeyFromValue(activity.startTimeLocal || activity.date);
     if (!key) continue;
+
+    if (processedDateSet.has(key)) {
+      // Processed data will provide the authoritative entry for this date.
+      continue;
+    }
 
     const current = runByDate.get(key) ?? { count: 0, miles: 0 };
     current.count += 1;
@@ -483,6 +503,31 @@ async function main() {
     );
     if (candidate) {
       lastActivityCandidates.push(candidate);
+    }
+  }
+
+  // Then incorporate processed Garmin runs, which are assumed to be the most up‑to‑date.
+  for (const entry of processedGarminData || []) {
+    const entryDate = entry.date;
+    if (!Array.isArray(entry.runs)) continue;
+    for (const run of entry.runs) {
+      // Expect run objects to have at least distance_miles and start_time_local.
+      const key = dateKeyFromValue(run.start_time_local || entryDate);
+      if (!key) continue;
+
+      const current = runByDate.get(key) ?? { count: 0, miles: 0 };
+      // Processed data may include explicit count; default to 1 per run.
+      current.count = (run.count ?? 1);
+      current.miles = Number(run.distance_miles || run.distance || 0);
+      runByDate.set(key, current);
+
+      const candidate = createLastActivityCandidate(
+        'Running',
+        run.start_time_local || entryDate
+      );
+      if (candidate) {
+        lastActivityCandidates.push(candidate);
+      }
     }
   }
 
