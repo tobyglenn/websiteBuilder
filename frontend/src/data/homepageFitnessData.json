@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-02T15:12:58.695Z",
+  "generatedAt": "2026-04-02T15:44:39.113Z",
   "source": {
     "hubBaseUrl": "http://192.168.1.249:8082/fitness",
     "hubTodayLabel": "Apr 2, 2026",
@@ -9,20 +9,20 @@
     "whoopLastSynced": "2026-04-02T08:05:02.379649"
   },
   "lifetimeStats": {
-    "totalLbsLifted": 9613160,
+    "totalLbsLifted": 9633682,
     "totalMilesRun": 3728.8,
-    "totalWorkouts": 2631,
+    "totalWorkouts": 2636,
     "sourceBreakdown": {
       "strengthSessions": 1002,
       "garminRuns": 1343,
-      "currentYearLiftingSessions": 37,
+      "currentYearLiftingSessions": 42,
       "allTimeBjjSessions": 249
     }
   },
   "trainingFocus": {
-    "focus": "bjj",
+    "focus": "lifting",
     "runCount": 3,
-    "workoutCount": 0,
+    "workoutCount": 3,
     "bjjCount": 3,
     "windowStart": "2026-03-27",
     "windowEnd": "2026-04-02"
@@ -38,7 +38,7 @@
     },
     "workouts": {
       "thisWeek": 4,
-      "lastWeek": 4
+      "lastWeek": 9
     },
     "runs": {
       "thisWeek": 2,
@@ -46,7 +46,7 @@
     },
     "volume": {
       "thisWeek": 0,
-      "lastWeek": 0
+      "lastWeek": 20522
     },
     "miles": {
       "thisWeek": 2.5,
@@ -66,13 +66,13 @@
     },
     "lifting": {
       "icon": "🏋️",
-      "current": 769040,
+      "current": 789562,
       "target": 500000,
       "unit": "lbs"
     },
     "workouts": {
       "icon": "💪",
-      "current": 88,
+      "current": 93,
       "target": 200,
       "unit": "workouts"
     },
@@ -1374,9 +1374,9 @@
       },
       {
         "date": "2026-03-26",
-        "count": 2,
+        "count": 3,
         "runs": 1,
-        "lifting": 1,
+        "lifting": 2,
         "bjj": 0
       },
       {
@@ -1388,9 +1388,9 @@
       },
       {
         "date": "2026-03-28",
-        "count": 1,
+        "count": 2,
         "runs": 0,
-        "lifting": 1,
+        "lifting": 2,
         "bjj": 0
       },
       {
