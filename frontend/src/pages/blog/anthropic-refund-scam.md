@@ -45,7 +45,7 @@ Let's be precise about what just happened here:
 3. They sent no follow-up email to activate it
 4. When I tried to use the self-service refund tool, it rejected me automatically
 5. The unused/locked-out days don't get prorated — they keep the full monthly fee regardless
-6. There is no way to cancel the plan either — the self-service cancellation option is equally broken and routes back into the same broken refund flow
+6. There is no way to cancel the plan either — I tried hitting cancel multiple times, every single attempt refused with the same error: the refund system was broken and there was nothing I could do
 7. There is no human to contact, no appeal process, no email address, no chat, no form — **no way to actually talk to a human being**
 
 This isn't a refund policy. This is a **refund theater** — the performance of offering a refund while engineering the system to ensure zero people can actually get one.
