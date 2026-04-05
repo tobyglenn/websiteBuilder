@@ -49,6 +49,8 @@ This week I learned something fascinating: **some companies don't just have bad 
 
 I'm talking about Anthropic.
 
+![Claude.ai billing settings showing failed refund attempt](/images/anthropic-refund-scam.jpg)
+
 ## The Setup
 
 Three days ago, I was locked out of my Claude Pro subscription. No warning, no explanation, no option to downgrade or pause — just: access revoked. Then the emails started flying. Other users had noticed the same thing. Models getting slower. Capabilities getting quietly dialed back. And then came the official email.
