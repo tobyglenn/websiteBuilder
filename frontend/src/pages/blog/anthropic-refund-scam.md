@@ -1,7 +1,7 @@
 ---
 title: "I Tried to Get a Refund From Anthropic and Found Out Their 'Refund' Policy Is a Scam"
 date: 2026-04-06
-description: "After Claude AI silently gutted its capabilities and hid a rate limit change, I tried to exercise the refund option they explicitly promised in their email. That's when I discovered their 'refund policy' is designed to ensure you can never actually get your money back."
+description: "After being locked out of Claude Pro for three days with no access, I tried to exercise the refund option Anthropic explicitly promised in their email. That's when I discovered their 'refund policy' is designed to ensure you can never actually get your money back — and they won't even prorate the days they locked you out."
 categories: ["AI Tech", "Rant"]
 tags: ["AI", "Claude", "Anthropic", "Customer Experience", "Subscription", "Scam"]
 ---
@@ -14,7 +14,7 @@ I'm talking about Anthropic.
 
 ## The Setup
 
-Two days ago, I received an email from them. Their Claude models had been degraded — made slower, less capable, more prone to errors — seemingly in preparation for a new model launch. Users noticed. Complaints mounted. And then came the email.
+Three days ago, I was locked out of my Claude Pro subscription. No warning, no explanation, no option to downgrade or pause — just: access revoked. Then the emails started flying. Other users had noticed the same thing. Models getting slower. Capabilities getting quietly dialed back. And then came the official email.
 
 **"You will receive another email from us tomorrow where you'll have the ability to refund your subscription if you prefer."**
 
@@ -24,6 +24,8 @@ That was the promise. A clear, unambiguous commitment. Exercise your refund, get
 
 No email arrived the next day.
 
+I waited a second day. Nothing.
+
 So I went to their billing portal myself. I clicked "manage subscription." I found the "request a refund" link — it's right there, front and center, next to "cancel subscription." Very official. Very customer-friendly. Very reassuring.
 
 I clicked it.
@@ -32,15 +34,18 @@ I clicked it.
 
 Excuse me?
 
+I had been locked out for three days. Three days without access to the product I paid for. And not only will they not refund the unused portion — the days I was locked out don't even get prorated. They charge you for the full month whether you can access the service or not. The billing runs through today, the lockout started three days ago, and they are keeping every penny of the difference.
+
 ## The Logic Is Insane
 
 Let's be precise about what just happened here:
 
-1. They broke their product and hid it from users
-2. They publicly promised a refund option to anyone who wanted out
-3. They sent no follow-up email
+1. They locked me out of my subscription — three days of zero access
+2. They publicly promised a refund option in writing
+3. They sent no follow-up email to activate it
 4. When I tried to use the self-service refund tool, it rejected me automatically
-5. There is no human to contact, no appeal process, no email address, no chat, no form — **no way to actually talk to a human being**
+5. The unused/locked-out days don't get prorated — they keep the full monthly fee regardless
+6. There is no human to contact, no appeal process, no email address, no chat, no form — **no way to actually talk to a human being**
 
 This isn't a refund policy. This is a **refund theater** — the performance of offering a refund while engineering the system to ensure zero people can actually get one.
 
