@@ -1,4 +1,5 @@
 ---
+layout: "../../layouts/MarkdownBlogPostLayout.astro"
 title: "I Tried to Get a Refund From Anthropic and Found Out Their 'Refund' Policy Is a Scam"
 date: 2026-04-06
 description: "After being locked out of Claude Pro for three days with no access, I tried to exercise the refund option Anthropic explicitly promised in their email. That's when I discovered their 'refund policy' is designed to ensure you can never actually get your money back — and they won't even prorate the days they locked you out."
