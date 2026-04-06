@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-04-05T11:54:01.605Z",
+  "generatedAt": "2026-04-06T00:06:01.219Z",
   "source": {
     "hubBaseUrl": "http://192.168.1.249:8082/fitness",
     "hubTodayLabel": "Apr 5, 2026",
     "hubTodayKey": "2026-04-05",
     "strengthDashboard": "http://192.168.1.249:8082/fitness/strength/index.html",
     "whoopDataPath": "/Users/tobyglennpeters/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-04-05T07:30:03.987267"
+    "whoopLastSynced": "2026-04-05T19:50:10.802629"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9633682,
-    "totalMilesRun": 3730.1,
+    "totalMilesRun": 3733.1,
     "totalWorkouts": 2636,
     "sourceBreakdown": {
       "strengthSessions": 1002,
@@ -21,7 +21,7 @@
   },
   "trainingFocus": {
     "focus": "running",
-    "runCount": 3,
+    "runCount": 4,
     "workoutCount": 0,
     "bjjCount": 2,
     "windowStart": "2026-03-30",
@@ -37,11 +37,11 @@
       "lastWeekEnd": "2026-03-29"
     },
     "workouts": {
-      "thisWeek": 5,
+      "thisWeek": 6,
       "lastWeek": 9
     },
     "runs": {
-      "thisWeek": 3,
+      "thisWeek": 4,
       "lastWeek": 2
     },
     "volume": {
@@ -49,7 +49,7 @@
       "lastWeek": 20522
     },
     "miles": {
-      "thisWeek": 3.8,
+      "thisWeek": 6.8,
       "lastWeek": 3.6
     },
     "bjj": {
@@ -60,7 +60,7 @@
   "yearlyGoals": {
     "running": {
       "icon": "🏃",
-      "current": 78.3,
+      "current": 81.4,
       "target": 365,
       "unit": "miles"
     },
@@ -72,7 +72,7 @@
     },
     "workouts": {
       "icon": "💪",
-      "current": 94,
+      "current": 95,
       "target": 200,
       "unit": "workouts"
     },
@@ -85,8 +85,8 @@
     }
   },
   "consistency": {
-    "totalActive": 1716,
-    "currentStreak": 1,
+    "totalActive": 1717,
+    "currentStreak": 2,
     "longestStreak": 60,
     "rangeStart": "2025-04-07",
     "rangeEnd": "2026-04-05",
@@ -1427,20 +1427,27 @@
         "runs": 1,
         "lifting": 0,
         "bjj": 0
+      },
+      {
+        "date": "2026-04-05",
+        "count": 1,
+        "runs": 1,
+        "lifting": 0,
+        "bjj": 0
       }
     ]
   },
   "trainingStats": {
-    "trainingStreak": 1,
+    "trainingStreak": 2,
     "lastWorkoutData": {
-      "date": "2026-04-04",
+      "date": "2026-04-05",
       "type": "Running"
     },
     "thisWeekVolume": 0,
-    "thisMonthMiles": 2.7
+    "thisMonthMiles": 5.7
   },
   "recovery": {
-    "currentScore": 0,
+    "currentScore": 71,
     "lastSleepScore": 0
   },
   "labels": {
