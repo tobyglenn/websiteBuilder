@@ -1,24 +1,5 @@
 [
     {
-        "date": "2026-04-01",
-        "runs": [
-            {
-                "activity_id": null,
-                "start_time_local": "2026-04-01",
-                "type": "running",
-                "distance_meters": 2220.8891999999996,
-                "distance_miles": 1.38,
-                "duration_seconds": 1427,
-                "pace_min_mile": "17:14",
-                "avg_speed_mps": 0,
-                "avg_heart_rate": 124,
-                "calories": 0
-            }
-        ],
-        "weight_kg": null,
-        "weight_lbs": null
-    },
-    {
         "date": "2026-04-04",
         "runs": [
             {
@@ -51,6 +32,25 @@
                 "avg_speed_mps": 0,
                 "avg_heart_rate": 124.0,
                 "calories": 444.0
+            }
+        ],
+        "weight_kg": null,
+        "weight_lbs": null
+    },
+    {
+        "date": "2026-04-07",
+        "runs": [
+            {
+                "activity_id": 22446488342,
+                "start_time_local": "2026-04-07 19:40:18",
+                "type": "treadmill_running",
+                "distance_meters": 2265.830078125,
+                "distance_miles": 1.41,
+                "duration_seconds": 1081.6920166015625,
+                "pace_min_mile": "12:47",
+                "avg_speed_mps": 0,
+                "avg_heart_rate": 124.0,
+                "calories": 218.0
             }
         ],
         "weight_kg": null,
