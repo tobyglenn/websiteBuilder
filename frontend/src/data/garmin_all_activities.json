@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-08T10:09:35.974973",
-  "total_activities": 1518,
+  "generated_at": "2026-04-08T19:50:21.383804",
+  "total_activities": 1519,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-04-07"
+    "end": "2026-04-08"
   },
   "activities": [
     {
@@ -19738,6 +19738,19 @@
       "averageHR": 124.0,
       "maxHR": 135.0,
       "calories": 218.0,
+      "avgPace": 0
+    },
+    {
+      "date": "2026-04-08",
+      "startTimeLocal": "2026-04-08 17:36:31",
+      "activityType": "running",
+      "activityName": "Camp Hill - Tempo",
+      "distance": 1.8013,
+      "distance_miles": 1.8013,
+      "duration": 36.41,
+      "averageHR": 112.0,
+      "maxHR": 143.0,
+      "calories": 283.0,
       "avgPace": 0
     }
   ],
