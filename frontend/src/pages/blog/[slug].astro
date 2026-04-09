@@ -20,8 +20,28 @@ export function getStaticPaths() {
 const { post } = Astro.props;
 const redirectSlug = BLOG_REDIRECTS[post.slug];
 
+// For redirect posts, render a proper page with meta description and H1 instead of a bare
+// Astro.redirect() stub (which generates minimal HTML without meta tags).
+// We use status 200 so Astro writes our body directly instead of overriding with its redirect template.
 if (redirectSlug) {
-  return Astro.redirect(`/blog/${redirectSlug}/`, 301);
+  const redirectUrl = `/blog/${redirectSlug}/`;
+  const redirectDescription = (post.excerpt?.slice(0, 155) || post.title).replace(/"/g, '&quot;');
+  const escapedTitle = post.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return new Response(
+    `<!DOCTYPE html><html lang="en"><head>
+<meta charset="UTF-8">
+<title>${escapedTitle} - TobyOnFitnessTech</title>
+<meta name="description" content="${redirectDescription}">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://tobyonfitnesstech.com${redirectUrl}">
+<meta http-equiv="refresh" content="0;url=${redirectUrl}">
+</head><body>
+<h1>${escapedTitle}</h1>
+<p>This page has moved. <a href="${redirectUrl}">Click here</a> if you are not redirected automatically.</p>
+<script>window.location.replace("${redirectUrl}")<\/script>
+</body></html>`,
+    { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+  );
 }
 
 // Sort posts by date (newest first) for navigation
