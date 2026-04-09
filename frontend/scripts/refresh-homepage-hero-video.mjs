@@ -1,4 +1,4 @@
-import { writeFile } from 'node:fs/promises';
+import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -6,6 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const OUTPUT_FILE = path.resolve(__dirname, '../src/data/homepageHeroVideo.json');
+const VIDEOS_JSON = path.resolve(__dirname, '../src/data/videos.json');
 const CHANNEL_ID = process.env.HOMEPAGE_HERO_YOUTUBE_CHANNEL_ID ?? 'UCmSwMp2gPo5PGl32d4oCu-Q';
 const FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 
@@ -53,6 +54,29 @@ function parseFeedEntries(feedXml) {
   });
 }
 
+async function getFallbackFromVideosJson() {
+  try {
+    const raw = await readFile(VIDEOS_JSON, 'utf8');
+    const data = JSON.parse(raw);
+    const videos = data.videos || [];
+    const longForm = videos.find((v) => !v.is_short && !v.is_live);
+    if (!longForm) return null;
+    return {
+      id: longForm.id,
+      title: longForm.title,
+      description: longForm.description || longForm.title,
+      publishedAt: longForm.publishedAt || longForm.published_at || '',
+      url: `https://www.youtube.com/watch?v=${longForm.id}`,
+      thumbnail: longForm.thumbnail || `https://i.ytimg.com/vi/${longForm.id}/hqdefault.jpg`,
+      viewCount: longForm.viewCount || longForm.view_count || 0,
+      is_short: false,
+      is_live: false,
+    };
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const response = await fetch(FEED_URL);
   if (!response.ok) {
@@ -61,13 +85,15 @@ async function main() {
 
   const feedXml = await response.text();
   const entries = parseFeedEntries(feedXml);
-  const featuredVideo =
-    entries.find((entry) => !entry.is_short && !entry.is_live) ??
-    entries.find((entry) => !entry.is_short) ??
-    entries[0];
+  let featuredVideo = entries.find((entry) => !entry.is_short && !entry.is_live);
 
   if (!featuredVideo) {
-    throw new Error('Could not find a homepage hero video in the channel feed');
+    console.warn('No long-form video found in RSS feed (all recent uploads may be Shorts) — falling back to videos.json');
+    featuredVideo = await getFallbackFromVideosJson();
+  }
+
+  if (!featuredVideo) {
+    throw new Error('Could not find a long-form homepage hero video in feed or videos.json');
   }
 
   const output = {
