@@ -314,7 +314,7 @@ const { episode } = Astro.props;
         )}
         <div class="mb-8">
           <h2 class="text-lg font-bold text-white mb-3">📄 Show Notes</h2>
-          <div class="text-neutral-300 text-sm leading-relaxed prose prose-invert max-w-none" set:html={episode.showNotesHtml} />
+          <div class="text-neutral-300 text-sm leading-relaxed prose prose-invert max-w-none" set:html={episode.showNotesHtml.replace(/<h1(\s[^>]*)?>/gi, '<h2$1>').replace(/<\/h1>/gi, '</h2>')} />
         </div>
         <div>
           <h2 class="text-lg font-bold text-white mb-3">📝 Transcript</h2>

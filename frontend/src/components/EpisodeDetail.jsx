@@ -155,7 +155,7 @@ function ShowNotes({ episode }) {
       {episode.showNotesHtml ? (
         <div
           className="show-notes-content prose prose-invert prose-sm max-w-none text-neutral-300"
-          dangerouslySetInnerHTML={{ __html: episode.showNotesHtml }}
+          dangerouslySetInnerHTML={{ __html: episode.showNotesHtml.replace(/<h1(\s[^>]*)?>/gi, '<h2$1>').replace(/<\/h1>/gi, '</h2>') }}
         />
       ) : (
         <>
