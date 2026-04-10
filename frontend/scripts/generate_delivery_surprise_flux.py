@@ -19,13 +19,13 @@ pipe.enable_sequential_cpu_offload(device='mps')
 
 prompt = (
     'Photorealistic editorial image for a home fitness technology blog post: '
-    'a forklift setting down a large shrink-wrapped pallet carrying boxed smart home gym equipment far away from a suburban house, '
+    'a forklift setting down a large shrink-wrapped freight pallet of sealed cardboard boxes far away from a suburban house, '
+    'no exercise machine visible, no unpacked equipment visible, just anonymous oversized boxed freight on a wooden pallet, '
     'the house should be clearly visible in the background at a distance so the problem is obvious, '
-    'long driveway or curbside drop-off, freight delivery scene, large wooden pallet, industrial forklift, '
-    'oversized delivery placed inconveniently far from the front door, realistic cardboard packaging and straps, '
+    'long driveway or curbside drop-off, industrial forklift, inconvenient delivery placement, realistic straps and packaging, '
     'delivery-day frustration, premium realistic photography, natural daylight, cinematic but believable, no text, no watermark, no logo'
 )
-negative = 'cartoon, illustration, text, watermark, logo, blurry, low detail, distorted, duplicate objects, deformed pallet, extra forklifts, indoor scene, close-up only'
+negative = 'exercise machine, home gym machine, exposed equipment, assembled machine, cartoon, illustration, text, watermark, logo, blurry, low detail, distorted, duplicate objects, deformed pallet, extra forklifts, indoor scene, close-up only'
 
 img = pipe(
     prompt=prompt,
