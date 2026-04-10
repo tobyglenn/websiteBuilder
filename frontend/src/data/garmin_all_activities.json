@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-04-09T08:05:03.117558",
-  "total_activities": 1519,
+  "generated_at": "2026-04-09T19:50:10.684014",
+  "total_activities": 1520,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-04-08"
+    "end": "2026-04-09"
   },
   "activities": [
     {
@@ -19751,6 +19751,19 @@
       "averageHR": 112.0,
       "maxHR": 143.0,
       "calories": 283.0,
+      "avgPace": 0
+    },
+    {
+      "date": "2026-04-09",
+      "startTimeLocal": "2026-04-09 19:13:22",
+      "activityType": "running",
+      "activityName": "Camp Hill - Recovery",
+      "distance": 1.413,
+      "distance_miles": 1.413,
+      "duration": 23.09,
+      "averageHR": 114.0,
+      "maxHR": 135.0,
+      "calories": 214.0,
       "avgPace": 0
     }
   ],
