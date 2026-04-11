@@ -18,14 +18,11 @@ pipe = FluxPipeline.from_pretrained(
 pipe.enable_sequential_cpu_offload(device='mps')
 
 prompt = (
-    'Photorealistic editorial image for a home fitness technology blog post: '
-    'a forklift setting down a large shrink-wrapped freight pallet of sealed cardboard boxes far away from a suburban house, '
-    'no exercise machine visible, no unpacked equipment visible, just anonymous oversized boxed freight on a wooden pallet, '
-    'the house should be clearly visible in the background at a distance so the problem is obvious, '
-    'long driveway or curbside drop-off, industrial forklift, inconvenient delivery placement, realistic straps and packaging, '
-    'delivery-day frustration, premium realistic photography, natural daylight, cinematic but believable, no text, no watermark, no logo'
+    'Photorealistic freight delivery scene: forklift dropping a sealed pallet of plain cardboard boxes at the curb far from a suburban house. '
+    'Only boxes on a wooden pallet. No visible machine. No unpacked equipment. No exercise gear. '
+    'House small in background, long distance from pallet to front door, realistic delivery frustration, natural daylight, realistic photo.'
 )
-negative = 'exercise machine, home gym machine, exposed equipment, assembled machine, cartoon, illustration, text, watermark, logo, blurry, low detail, distorted, duplicate objects, deformed pallet, extra forklifts, indoor scene, close-up only'
+negative = 'machine, home gym, exercise machine, exposed equipment, assembled equipment, bike, treadmill, weight machine, workout gear, cartoon, illustration, text, watermark, logo, blurry, low detail, distorted'
 
 img = pipe(
     prompt=prompt,
