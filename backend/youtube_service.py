@@ -6,48 +6,13 @@ from typing import List, Dict, Optional
 import requests
 
 YOUTUBE_API_KEY = os.environ.get("YOUTUBE_API_KEY", "")
-CHANNEL_HANDLE = "@tobyonfitnesstech"
+CHANNEL_ID = "UCmSwMp2gPo5PGl32d4oCu-Q"  # tobyonfitnesstech — hardcoded, saves 100 quota units per call
 DB_PATH = "toby_site.db"
 
-CHANNEL_ID_CACHE = None
 
 def get_channel_id() -> Optional[str]:
-    """Get channel ID from channel handle using YouTube Search API."""
-    global CHANNEL_ID_CACHE
-    
-    if CHANNEL_ID_CACHE:
-        return CHANNEL_ID_CACHE
-    
-    if not YOUTUBE_API_KEY:
-        print("YouTube API Key not configured")
-        return None
-    
-    # For handle-based lookup, we need to use the search endpoint
-    # Channel handle is @tobyonfitnesstech
-    url = "https://youtube.googleapis.com/youtube/v3/search"
-    params = {
-        "part": "snippet",
-        "q": CHANNEL_HANDLE,
-        "type": "channel",
-        "key": YOUTUBE_API_KEY
-    }
-    
-    try:
-        response = requests.get(url, params=params, timeout=30)
-        response.raise_for_status()
-        data = response.json()
-        
-        if data.get('items') and len(data['items']) > 0:
-            channel_id = data['items'][0]['snippet']['channelId']
-            CHANNEL_ID_CACHE = channel_id
-            print(f"Found channel ID: {channel_id}")
-            return channel_id
-        else:
-            print(f"No channel found for handle: {CHANNEL_HANDLE}")
-            return None
-    except Exception as e:
-        print(f"Error fetching channel ID: {e}")
-        return None
+    """Return the known channel ID directly — no API call needed."""
+    return CHANNEL_ID
 
 
 def get_uploads_playlist_id(channel_id: str) -> Optional[str]:
