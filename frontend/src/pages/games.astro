@@ -42,8 +42,13 @@ import Layout from '../layouts/Layout.astro';
             <div class="px-5 pb-5 grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <p class="text-xs text-neutral-500 uppercase tracking-widest mb-2">YouTube</p>
-                <div class="rounded-xl overflow-hidden w-full aspect-video bg-neutral-800 flex items-center justify-center">
-                  <a href="https://www.youtube.com/@IronVaneStory" target="_blank" rel="noopener noreferrer" class="text-sm text-neutral-400 hover:text-white transition-colors">Watch on YouTube →</a>
+                <div class="rounded-xl overflow-hidden w-full aspect-video bg-neutral-800">
+                  <iframe
+                    src="https://www.youtube.com/embed/L9VfUQxVRe0"
+                    class="w-full h-full"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
                 </div>
               </div>
               <div>
