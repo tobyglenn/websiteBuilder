@@ -21,7 +21,7 @@ export const goals2026 = homepageFitnessData.yearlyGoals || {
   },
   bjj: {
     icon: '🥋',
-    current: 10,
+    current: 11,
     target: 100,
     unit: 'sessions',
     comingSoon: false,
