@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre a revolução dos agentes de IA OpenClaw. Aprenda a rodar sua própria IA localmente, mantenha seus dados privados e fique à frente no mundo em constante evolução dos modelos de linguagem locais.</description>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 16 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre a revolução dos agentes de IA OpenClaw. De configurações de hardware a dicas de segurança, lançamentos de modelos e destaques da comunidade — tudo o que você precisa saber sobre o futuro da IA pessoal, bem aqui.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 33 -->
+    <item>
+      <title>Episódio 33: Comércio Headless e a Bancada de Robôs</title>
+      <guid isPermaLink="false">https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep033/episode_033.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-33/</link>
+      <description><![CDATA[A OpenClaw lança a versão v2026.4.15 com padrões do Claude Opus 4.7 e novas ferramentas de fala, a Anthropic libera um modelo de codificação e visão mais forte para disponibilidade geral, e a Salesforce reconstrói sua plataforma para agentes em vez de navegadores. A Roblox transforma a criação de jogos em um loop de planejamento com IA, a Physical Intelligence afirma que os robôs estão começando a recombinar habilidades nunca ensinadas diretamente, e os dados mais recentes da Adobe mostram que o tráfego de compras por IA finalmente está gerando receita varejista significativa.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-33/]]></description>
+      <pubDate>Fri, 17 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep033/episode_033.mp3" length="36234178" type="audio/mpeg"/>
+      <itunes:duration>37:44</itunes:duration>
+      <itunes:episode>33</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep033/episode_033_cover.png"/>
+    </item>
+
     <item>
       <title>Episódio 32: Passaportes, Sandboxes e a Camada Humana</title>
       <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep032/episode_032.mp3</guid>

@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 16 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 33 -->
+    <item>
+      <title>Episodio 33: Comercio Headless y el Banco de Trabajo Robot</title>
+      <guid isPermaLink="false">https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep033/episode_033.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-33/</link>
+      <description><![CDATA[OpenClaw lanza la versión v2026.4.15 con valores predeterminados de Claude Opus 4.7 y nuevas herramientas de voz, Anthropic introduce un modelo más potente de codificación y visión en disponibilidad general, Salesforce reconstruye su plataforma para agentes en lugar de navegadores, Roblox convierte la creación de juegos en un bucle de planificación con IA, Physical Intelligence dice que los robots están comenzando a recombinar habilidades que nunca les fueron enseñadas directamente, y los últimos datos de Adobe indican que el tráfico de compras con IA finalmente está convirtiéndose en ingresos reales para el retail.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-33/]]></description>
+      <pubDate>Fri, 17 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep033/episode_033.mp3" length="36316516" type="audio/mpeg"/>
+      <itunes:duration>37:49</itunes:duration>
+      <itunes:episode>33</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep033/episode_033_cover.png"/>
+    </item>
+
     <item>
       <title>Episodio 32: Pasaportes, Sandboxes y la Capa Humana</title>
       <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep032/episode_032.mp3</guid>
