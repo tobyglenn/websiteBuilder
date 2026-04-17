@@ -47,7 +47,7 @@ export async function getStaticPaths() {
     return (transcriptFiles[key] as string) ?? '';
   };
   // 1. Fetch RSS
-  const rssRes = await fetch('https://grayking-creator.github.io/openclaw-podcast/feed.xml');
+  const rssRes = await fetch('https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml');
   const rssText = await rssRes.text();
 
   // 2. Parse episodes

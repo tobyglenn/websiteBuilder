@@ -45,7 +45,7 @@ export function hasEpisode(items: string[], episodeNum: number): boolean {
 export async function ensureEpisodeFromFallbackFeed(
   items: string[],
   episodeNum: number,
-  fallbackFeedUrl = "https://grayking-creator.github.io/openclaw-podcast/feed.xml",
+  fallbackFeedUrl = "https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml",
 ): Promise<string[]> {
   if (hasEpisode(items, episodeNum)) return items;
 

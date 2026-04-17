@@ -5,7 +5,7 @@ const OPENCLAW_SPOTIFY  = 'https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr'
 const OPENCLAW_APPLE    = 'https://podcasts.apple.com/podcast/id1878697245';
 const OPENCLAW_IHEART   = 'https://iheart.com/podcast/324046562/';
 const OPENCLAW_AMAZON   = 'https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily';
-const OPENCLAW_RSS      = 'https://grayking-creator.github.io/openclaw-podcast/feed.xml';
+const OPENCLAW_RSS      = 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml';
 
 export default function EpisodeDetail({ episode }) {
   const [activeTab, setActiveTab] = useState('shownotes');
