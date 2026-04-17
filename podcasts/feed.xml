@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 17 Apr 2026 17:19:21 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 17 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 33 -->
+    <item>
+      <title>Episode 33: Headless Commerce and the Robot Workbench</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_033.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-33/</link>
+      <description><![CDATA[OpenClaw ships v2026.4.15 with Claude Opus 4.7 defaults and new speech tooling, Anthropic pushes a stronger coding-and-vision model into general availability, Salesforce rebuilds its platform for agents instead of browsers, Roblox turns game creation into a planning loop with AI, Physical Intelligence says robots are starting to remix skills they were never directly taught, and Adobe’s latest data says AI shopping traffic is finally turning into serious retail money.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-33/]]></description>
+      <pubDate>Fri, 17 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_033.mp3" length="32276941" type="audio/mpeg"/>
+      <itunes:duration>33:37</itunes:duration>
+      <itunes:episode>33</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_033_cover.png"/>
+    </item>
+
     <!-- Episode 32 -->
     <item>
       <title>Episode 32: Passports, Sandboxes, and the Human Layer</title>
