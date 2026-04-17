@@ -5,9 +5,9 @@ const OPENCLAW_SPOTIFY  = 'https://open.spotify.com/show/5HTiRFhiGmS0PNTga7LsKr'
 const OPENCLAW_APPLE    = 'https://podcasts.apple.com/podcast/id1878697245';
 const OPENCLAW_IHEART   = 'https://iheart.com/podcast/324046562/';
 const OPENCLAW_AMAZON   = 'https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily';
-const OPENCLAW_RSS      = 'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml';
+const OPENCLAW_RSS      = 'https://tobyonfitnesstech.com/podcasts/feed.xml';
 
-export default function EpisodeDetail({ episode }) {
+export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
   const [activeTab, setActiveTab] = useState('shownotes');
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function EpisodeDetail({ episode }) {
                 appleUrl={OPENCLAW_APPLE}
                 iheartUrl={OPENCLAW_IHEART}
                 amazonUrl={OPENCLAW_AMAZON}
-                rssUrl={OPENCLAW_RSS}
+                rssUrl={rssUrl}
                 youtubeUrl="https://www.youtube.com/@openclawdaily"
               />
             </div>
@@ -129,7 +129,7 @@ export default function EpisodeDetail({ episode }) {
             appleUrl={OPENCLAW_APPLE}
             iheartUrl={OPENCLAW_IHEART}
             amazonUrl={OPENCLAW_AMAZON}
-            rssUrl={OPENCLAW_RSS}
+                rssUrl={rssUrl}
             youtubeUrl="https://www.youtube.com/@openclawdaily"
             className="justify-center"
           />

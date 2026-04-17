@@ -99,7 +99,7 @@ const { episode } = Astro.props;
   lang="es"
   episodeSlug={episode.slug}
 >
-  <EpisodeDetail episode={episode} client:load />
+  <EpisodeDetail episode={episode} rssUrl="https://tobyonfitnesstech.com/es/podcasts/feed.xml" client:load />
   <StickySubscribeBar client:load />
 </Layout>
 

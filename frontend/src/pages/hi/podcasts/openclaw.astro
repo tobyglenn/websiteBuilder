@@ -12,6 +12,7 @@ import {
 
 const LANG = 'hi';
 const feedUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_${LANG}.xml`;
+const publicFeedUrl = `https://tobyonfitnesstech.com/${LANG}/podcasts/feed.xml`;
 
 interface Episode {
   episodeNum: number;
@@ -109,10 +110,10 @@ try {
     <div class="mb-8 bg-blue-500/10 border border-blue-500/30 rounded-xl p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3">
       <div class="flex-1">
         <p class="text-blue-400 text-sm font-semibold mb-1">📡 RSS Feed</p>
-        <code class="text-neutral-300 text-xs break-all select-all">{feedUrl}</code>
+        <code class="text-neutral-300 text-xs break-all select-all">{publicFeedUrl}</code>
       </div>
       <a
-        href={feedUrl}
+        href={publicFeedUrl}
         target="_blank"
         rel="noopener noreferrer"
         class="shrink-0 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
