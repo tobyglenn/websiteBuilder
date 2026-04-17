@@ -8,6 +8,7 @@ import {
   extractAttr,
   extractChannelItems,
   extractTag,
+  fetchPinnedGitHubRawText,
   fetchFirstAvailableText,
   localizedShowNotesCandidates,
   localizedTranscriptCandidates,
@@ -20,8 +21,7 @@ export async function getStaticPaths() {
   const feedUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_${langCode}.xml`;
   
   // 1. Fetch translated RSS
-  const rssRes = await fetch(feedUrl);
-  const rssText = await rssRes.text();
+  const rssText = await fetchPinnedGitHubRawText(feedUrl);
 
   // 2. Parse episodes
   let items = extractChannelItems(rssText);

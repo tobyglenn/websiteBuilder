@@ -29,6 +29,42 @@ export function extractChannelItems(xml: string): string[] {
   return channelXml.match(/<item>([\s\S]*?)<\/item>/gi) ?? [];
 }
 
+export async function resolvePinnedGitHubRawUrl(sourceUrl: string): Promise<string> {
+  const match = sourceUrl.match(
+    /^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/main\/(.+)$/,
+  );
+  if (!match) return sourceUrl;
+
+  const [, owner, repo, path] = match;
+  try {
+    const commitRes = await fetch(
+      `https://api.github.com/repos/${owner}/${repo}/commits/main`,
+      {
+        headers: {
+          Accept: "application/vnd.github+json",
+          "User-Agent": "websiteBuilder-openclaw-feed",
+        },
+      },
+    );
+    if (!commitRes.ok) return sourceUrl;
+    const commitData = await commitRes.json();
+    const sha = typeof commitData?.sha === "string" ? commitData.sha : "";
+    if (!sha) return sourceUrl;
+    return `https://raw.githubusercontent.com/${owner}/${repo}/${sha}/${path}`;
+  } catch {
+    return sourceUrl;
+  }
+}
+
+export async function fetchPinnedGitHubRawText(sourceUrl: string): Promise<string> {
+  const pinnedUrl = await resolvePinnedGitHubRawUrl(sourceUrl);
+  const res = await fetch(pinnedUrl);
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+  return await res.text();
+}
+
 export function parseEpisodeNumber(itemXml: string): number {
   const fromTag = parseInt(extractTag(itemXml, "itunes:episode"), 10);
   if (!Number.isNaN(fromTag)) return fromTag;
@@ -50,10 +86,7 @@ export async function ensureEpisodeFromFallbackFeed(
   if (hasEpisode(items, episodeNum)) return items;
 
   try {
-    const res = await fetch(fallbackFeedUrl);
-    if (!res.ok) return items;
-
-    const xml = await res.text();
+    const xml = await fetchPinnedGitHubRawText(fallbackFeedUrl);
     const fallbackItems = extractChannelItems(xml);
     const fallbackItem = fallbackItems.find(
       (item) => parseEpisodeNumber(item) === episodeNum,

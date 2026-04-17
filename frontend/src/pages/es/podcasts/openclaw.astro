@@ -6,6 +6,7 @@ import {
   extractAttr,
   extractChannelItems,
   extractTag,
+  fetchPinnedGitHubRawText,
   normalizeEpisodeTitle,
   parseEpisodeNumber,
 } from '../../../lib/openclawFeed';
@@ -38,9 +39,7 @@ let episodes: Episode[] = [];
 let fetchError = false;
 
 try {
-  const res = await fetch(feedUrl);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const xml = await res.text();
+  const xml = await fetchPinnedGitHubRawText(feedUrl);
 
   let items = extractChannelItems(xml);
   items = await ensureEpisodeFromFallbackFeed(items, 0);
