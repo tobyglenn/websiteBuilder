@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 21 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 36 -->
+    <item>
+      <title>एपिसोड 36: OpenClaw v2026.4.21 और v2026.4.20 की विस्तृत जानकारी, साथ ही OpenAI Images 2.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep036/episode_036.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-36/</link>
+      <description><![CDATA[यह एपिसोड जहाँ से शुरू होना चाहिए वहाँ से शुरू होता है: OpenClaw v2026.4.21 और v2026.4.20 की विस्तृत जानकारी के साथ। हम नए छवि-जनरेशन डिफ़ॉल्ट पथ, ज़ोरदार फ़ॉलबैक लॉग, मालिक-केवल कमांड कठोरता, Slack और ब्राउज़र गार्डरेल, सेटअप-फ़्लो सुधार, सत्र और cron स्टेट क्लीनअप, मूल्य निर्धारण सहायता, संक्षेपण सूचनाएं, और रनटाइम सुधारों को कवर करते हैं। फिर हम OpenAI के Images 2.0 को व्यावहारिक वर्कफ़्लो लेंस से देखते हैं और YouTube के व्यापक AI समानता-पहचान रोलआउट के साथ समाप्त करते हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-36/]]></description>
+      <pubDate>Thu, 23 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_036.mp3" length="39834896" type="audio/mpeg"/>
+      <itunes:duration>41:29</itunes:duration>
+      <itunes:episode>36</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep036/episode_036_cover.png"/>
+    </item>
+
     <!-- Episode 35 -->
     <item>
       <title>एपिसोड 35: DGX Spark बनाम Mac Studio: एक Mac-First AI खरीदार को वास्तव में क्या खरीदना चाहिए?</title>

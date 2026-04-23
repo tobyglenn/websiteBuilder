@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 21 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 36 -->
+    <item>
+      <title>Episodio 36: OpenClaw v2026.4.21 y v2026.4.20 en detalle, más OpenAI Images 2.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep036/episode_036.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-36/</link>
+      <description><![CDATA[Este episodio comienza donde debe: con un recorrido detallado de OpenClaw v2026.4.21 y v2026.4.20. Cubrimos la nueva ruta predeterminada de generación de imágenes, registros de respaldo más detallados, restricción de comandos solo para propietarios, protecciones para Slack y navegadores, mejoras en el flujo de configuración, limpieza del estado de sesión y cron, soporte de precios, avisos de compactación y correcciones de tiempo de ejecución. Luego analizamos OpenAI Images 2.0 desde la perspectiva de flujos de trabajo prácticos y cerramos con la expansión del sistema de detección de parecido de IA de YouTube.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-36/]]></description>
+      <pubDate>Thu, 23 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_036.mp3" length="33317660" type="audio/mpeg"/>
+      <itunes:duration>34:42</itunes:duration>
+      <itunes:episode>36</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep036/episode_036_cover.png"/>
+    </item>
+
     <!-- Episode 35 -->
     <item>
       <title>Episodio 35: DGX Spark vs Mac Studio: ¿Qué debería comprar un comprador de IA que prioriza Mac?</title>
