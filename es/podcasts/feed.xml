@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 23 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 17:49:13 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 37 -->
+    <item>
+      <title>Episodio 37: La Decisión del DGX Spark: Lo Que Realmente Cambia en la Compilación de Aria</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep037/episode_037.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-37/</link>
+      <description><![CDATA[Este episodio especial desglosa lo que el DGX Spark realmente significa en el entorno de cómputo real detrás de OpenClaw Daily. En lugar de ser una guía de compra genérica, es un análisis práctico de cómo el Spark se integra en la compilación de Aria, qué cargas de trabajo debe manejar, cómo cambia la generación local de imágenes y video, por qué una sola unidad probablemente desbloquea la mayor parte del valor estratégico, y cuándo una segunda unidad sería racional como seguro de escalabilidad o escasez.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-37/]]></description>
+      <pubDate>Thu, 23 Apr 2026 17:49:13 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_037.mp3" length="47096938" type="audio/mpeg"/>
+      <itunes:duration>49:03</itunes:duration>
+      <itunes:episode>37</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep037/episode_037_cover.png"/>
+    </item>
+
     <!-- Episode 36 -->
     <item>
       <title>Episodio 36: OpenClaw v2026.4.21 y v2026.4.20 en detalle, más OpenAI Images 2.0</title>
