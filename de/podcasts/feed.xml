@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 21 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 36 -->
+    <item>
+      <title>Folge 36: OpenClaw v2026.4.21 und v2026.4.20 im Detail, plus OpenAI Images 2.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep036/episode_036.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-36/</link>
+      <description><![CDATA[Diese Episode beginnt dort, wo sie sollte: mit einer detaillierten Durchgehung von OpenClaw v2026.4.21 und v2026.4.20. Wir behandeln den neuen Standardpfad für die Bilderzeugung, lautere Fallback-Protokolle, die Verschärfung von Owner-only-Befehlen, Slack- und Browser-Guardrails, Verbesserungen im Setup-Flow, Aufräumen von Session- und Cron-Zuständen, Preisunterstützung, Kompaktierungs-Hinweise und Runtime-Fixes. Dann betrachten wir OpenAIs Images 2.0 durch eine praktische Workflow-Linse und schließen mit YouTubes breiterer KI-Ähnlichkeitserkennungs-Rollout.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-36/]]></description>
+      <pubDate>Thu, 23 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_036.mp3" length="34639665" type="audio/mpeg"/>
+      <itunes:duration>36:04</itunes:duration>
+      <itunes:episode>36</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep036/episode_036_cover.png"/>
+    </item>
+
     <!-- Episode 35 -->
     <item>
       <title>Folge 35: DGX Spark vs Mac Studio: Was sollte ein Mac-first AI-Käufer tatsächlich kaufen?</title>
