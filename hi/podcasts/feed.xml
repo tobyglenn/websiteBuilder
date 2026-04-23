@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 23 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Apr 2026 17:49:13 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 37 -->
+    <item>
+      <title>एपिसोड 37: DGX स्पार्क निर्णय: आर्या बिल्ड में यह वास्तव में क्या बदलता है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep037/episode_037.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-37/</link>
+      <description><![CDATA[यह विशेष एपिसोड DGX स्पार्क का वास्तव में OpenClaw Daily के पीछे के वास्तविक कम्प्यूट वातावरण में क्या अर्थ है, इसका विश्लेषण करता है। यह एक सामान्य खरीदार गाइड नहीं है, बल्कि एक व्यावहारिक विश्लेषण है कि स्पार्क आर्या बिल्ड में कैसे फिट होता है और इस पर कौन से कार्यभार होने चाहिए। इसके अलावा, यह बताता है कि स्पार्क स्थानीय छवि और वीडियो जनरेशन को कैसे बदलता है, क्यों एक इकाई संभवतः अधिकांश रणनीतिक मूल्य को अनलॉक करती है, और कब दूसरी इकाई पैमाने या कमी बीमा के रूप में उचित होगी।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-37/]]></description>
+      <pubDate>Thu, 23 Apr 2026 17:49:13 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_037.mp3" length="58696141" type="audio/mpeg"/>
+      <itunes:duration>1:01:08</itunes:duration>
+      <itunes:episode>37</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep037/episode_037_cover.png"/>
+    </item>
+
     <!-- Episode 36 -->
     <item>
       <title>एपिसोड 36: OpenClaw v2026.4.21 और v2026.4.20 की विस्तृत जानकारी, साथ ही OpenAI Images 2.0</title>
