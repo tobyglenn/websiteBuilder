@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 23 Apr 2026 17:49:13 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 38 -->
+    <item>
+      <title>एपिसोड 38: OpenClaw v2026.4.22, Chrome Agents, Codex Surfaces, और Builder Stack के लिए लड़ाई</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep038/episode_038.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-38/</link>
+      <description><![CDATA[OpenClaw v2026.4.22 EP038 की नई प्रमुख कहानी है, और यह एक घना वाला है। हम रिलीज से शुरू करते हैं: xAI इमेज, TTS, STT, और रियलटाइम ट्रांसक्रिप्शन सपोर्ट; Gateway के बिना टर्मिनल एम्बेडेड मोड; ऑनबोर्डिंग के दौरान मिसिंग प्रोवाइडर और चैनल प्लगइन्स का ऑटो-इंस्टॉल; चैट-साइड मॉडल रजिस्ट्रेशन; डायग्नोस्टिक्स एक्सपोर्ट; Tencent Cloud सपोर्ट; Codex auth-path टाइटनिंग; प्रोवाइडर्स में GPT-5 ओवरले शेयरिंग; प्लगइन-लोड स्पीडअप्स; और प्राइसिंग, सेशन पर ऑपरेटर-फेसिंग फिक्सेस की एक लंबी टेल। एपिसोड Chrome, Cursor, Google के TPU स्प्लिट, OpenAI के वर्क सरफेस की ओर चढ़ाई, और Anthropic के Claude Code कंट्रोल ड्रामा में बड़ी बिल्डर-सरफेस लड़ाई में फैल जाता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-38/]]></description>
+      <pubDate>Fri, 24 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_038.mp3" length="61301280" type="audio/mpeg"/>
+      <itunes:duration>1:03:51</itunes:duration>
+      <itunes:episode>38</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep038/episode_038_cover.png"/>
+    </item>
+
     <!-- Episode 37 -->
     <item>
       <title>एपिसोड 37: DGX स्पार्क निर्णय: आर्या बिल्ड में यह वास्तव में क्या बदलता है</title>
