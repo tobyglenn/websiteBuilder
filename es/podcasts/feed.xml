@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 23 Apr 2026 17:49:13 +0000</lastBuildDate>
+    <lastBuildDate>2026-04-24T00:00:00Z</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 38 -->
+    <item>
+      <title>Episodio 38: OpenClaw v2026.4.22, Agentes de Chrome, Codex Surfaces, y la Lucha por el Builder Stack</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep038/episode_038.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-38/</link>
+      <description><![CDATA[OpenClaw v2026.4.22 es la historia principal del EP038, y es una densa. Comenzamos con el lanzamiento: soporte de imagen xAI, TTS, STT y transcripción en tiempo real; modo terminal embebido sin el Gateway; instalación automática de plugins de proveedor y canal faltantes durante el onboarding; registro de modelos en el chat; exportación de diagnósticos; soporte de Tencent Cloud; endurecimiento del path de autenticación de Codex; compartición de overlay de GPT-5 entre proveedores; mejoras de velocidad de carga de plugins; y una larga cola de correcciones orientadas al operador en precios, sessi
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-38/]]></description>
+      <pubDate>2026-04-24T00:00:00Z</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_038.mp3" length="51269425" type="audio/mpeg"/>
+      <itunes:duration>53:24</itunes:duration>
+      <itunes:episode>38</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep038/episode_038_cover.png"/>
+    </item>
+
     <!-- Episode 37 -->
     <item>
       <title>Episodio 37: La Decisión del DGX Spark: Lo Que Realmente Cambia en la Compilación de Aria</title>
