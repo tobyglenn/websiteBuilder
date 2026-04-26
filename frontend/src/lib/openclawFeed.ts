@@ -114,7 +114,10 @@ export async function fetchFirstAvailableText(
 ): Promise<{ url: string; text: string } | null> {
   for (const url of urls) {
     try {
-      const res = await fetch(url);
+      const fetchUrl = url.includes("raw.githubusercontent.com/")
+        ? await resolvePinnedGitHubRawUrl(url)
+        : url;
+      const res = await fetch(fetchUrl);
       if (!res.ok) continue;
       return { url, text: await res.text() };
     } catch {
