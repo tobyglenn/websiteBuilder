@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>2026-04-24T00:00:00Z</lastBuildDate>
+    <lastBuildDate>Sun, 26 Apr 2026 02:08:31 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 40 -->
+    <item>
+      <title>Episode 40: OpenClaw v2026.4.23, Anthropic’s Google Deal, DeepSeek V4, and the Vercel Spillover</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_040.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-40/</link>
+      <description><![CDATA[OpenClaw v2026.4.23 is the lead story and it deserves to be. The release materially improves image generation and reference-image editing across OpenAI Codex OAuth and OpenRouter, expands `image_generate` controls, adds optional forked transcript inheritance for `sessions_spawn`, introduces per-call `timeoutMs` for long generation tools, tunes local embedding context sizing, and tightens a long list of Codex, media, webchat, and security behaviors that operators actually feel. After the release deep dive, the episode shifts to Google’s planned Anthropic investment and compute expansion, DeepSeek’s V4 preview as a cheaper giant open-weight challenger, and Vercel’s warning that its customer-data incident may predate the breach it first disclosed.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-40/]]></description>
+      <pubDate>Sun, 26 Apr 2026 02:08:31 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_040.mp3" length="31399226" type="audio/mpeg"/>
+      <itunes:duration>32:42</itunes:duration>
+      <itunes:episode>40</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_040_cover.png"/>
+    </item>
+
     <!-- Episode 38 -->
     <item>
       <title>Episode 38: OpenClaw v2026.4.22, Chrome Agents, Codex Surfaces, and the Fight for the Builder Stack</title>
