@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
     <language>de-de</language>
-    <lastBuildDate>Fri, 24 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 26 Apr 2026 02:08:31 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 40 -->
+    <item>
+      <title>Folge 40: OpenClaw v2026.4.23, Anthropics Google-Deal, DeepSeek V4 und der Vercel-Spillover</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep040/episode_040.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-40/</link>
+      <description><![CDATA[OpenClaw v2026.4.23 ist die Hauptstory und verdient das auch. Das Release verbessert Bildgenerierung und Referenzbild-Bearbeitung über OpenAI Codex OAuth und OpenRouter wesentlich, erweitert die image_generate-Steuerung, fügt optionale Vererbung von Fork-Transkripten für sessions_spawn hinzu, führt timeouts pro Aufruf für lange Generierungstools ein, optimiert die lokale Embedding-Kontextgröße und verschärft eine lange Liste von Codex-, Media-, Webchat- und Sicherheitsverhalten, die Operatoren tatsächlich spüren. Nach dem Release
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-40/]]></description>
+      <pubDate>Sun, 26 Apr 2026 02:08:31 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_040.mp3" length="37467158" type="audio/mpeg"/>
+      <itunes:duration>39:01</itunes:duration>
+      <itunes:episode>40</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep040/episode_040_cover.png"/>
+    </item>
+
     <!-- Episode 38 -->
     <item>
       <title>Folge 38: OpenClaw v2026.4.22, Chrome Agents, Codex Surfaces, und der Kampf um den Builder-Stack</title>
