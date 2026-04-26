@@ -1,4 +1,6 @@
 ---
+import { existsSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 import Layout from '../../../layouts/Layout.astro';
 import EpisodeDetail from '../../../components/EpisodeDetail.jsx';
@@ -63,7 +65,11 @@ export async function getStaticPaths() {
       transcriptHtml = '<p class="text-neutral-500">ट्रांसक्रिप्ट उपलब्ध नहीं है।</p>';
     }
 
-    const baseEpNum = String(episodeNum).padStart(3, '0'); const coverImage = `/images/podcast/episode_${baseEpNum}_cover_hi.png`;
+    const baseEpNum = String(episodeNum).padStart(3, '0');
+    const localeCover = `/images/podcast/episode_${baseEpNum}_cover_hi.png`;
+    const fallbackCover = `/images/podcast/episode_${baseEpNum}_cover.png`;
+    const localeCoverPath = fileURLToPath(new URL(`../../../../public${localeCover}`, import.meta.url));
+    const coverImage = existsSync(localeCoverPath) ? localeCover : fallbackCover;
 
     return {
       params: { slug },
