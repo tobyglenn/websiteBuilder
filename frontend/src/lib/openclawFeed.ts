@@ -29,6 +29,8 @@ export function extractChannelItems(xml: string): string[] {
   return channelXml.match(/<item>([\s\S]*?)<\/item>/gi) ?? [];
 }
 
+const pinnedRepoShaCache = new Map<string, Promise<string>>();
+
 export async function resolvePinnedGitHubRawUrl(sourceUrl: string): Promise<string> {
   const match = sourceUrl.match(
     /^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/main\/(.+)$/,
@@ -37,18 +39,26 @@ export async function resolvePinnedGitHubRawUrl(sourceUrl: string): Promise<stri
 
   const [, owner, repo, path] = match;
   try {
-    const commitRes = await fetch(
-      `https://api.github.com/repos/${owner}/${repo}/commits/main`,
-      {
-        headers: {
-          Accept: "application/vnd.github+json",
-          "User-Agent": "websiteBuilder-openclaw-feed",
-        },
-      },
-    );
-    if (!commitRes.ok) return sourceUrl;
-    const commitData = await commitRes.json();
-    const sha = typeof commitData?.sha === "string" ? commitData.sha : "";
+    const repoKey = `${owner}/${repo}`;
+    let shaPromise = pinnedRepoShaCache.get(repoKey);
+    if (!shaPromise) {
+      shaPromise = (async () => {
+        const commitRes = await fetch(
+          `https://api.github.com/repos/${owner}/${repo}/commits/main`,
+          {
+            headers: {
+              Accept: "application/vnd.github+json",
+              "User-Agent": "websiteBuilder-openclaw-feed",
+            },
+          },
+        );
+        if (!commitRes.ok) return "";
+        const commitData = await commitRes.json();
+        return typeof commitData?.sha === "string" ? commitData.sha : "";
+      })();
+      pinnedRepoShaCache.set(repoKey, shaPromise);
+    }
+    const sha = await shaPromise;
     if (!sha) return sourceUrl;
     return `https://raw.githubusercontent.com/${owner}/${repo}/${sha}/${path}`;
   } catch {
