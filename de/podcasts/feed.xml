@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 27 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 41 -->
+    <item>
+      <title>Folge 41: OpenClaw v2026.4.25, Codex App-Server, Weltraumsolar und KI-gestaltete Autos</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep041/episode_041.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-41/</link>
+      <description><![CDATA[EP041 beginnt mit OpenClaw v2026.4.25: ein großes operatives Release, das TTS und Sprachantworten verbessert, Plugin-Startups in ein beständiges Cold Registry verschiebt, OpenTelemetry-Diagnose erweitert, Browser-Automatisierung verbessert, PWA/Web Push-Unterstützung in der Control UI hinzufügt, Installer und Updates absichert und die Codex App-Server-Integration verstärkt. Dann verknüpfen wir das mit OpenAI Codex CLI 0.125.0 und der breiteren Codex App-Richtung: Worktrees, App-Server-Transports, sticky Environments, Permission Profiles.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-41/]]></description>
+      <pubDate>Mon, 27 Apr 2026 22:50:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_041.mp3" length="39545252" type="audio/mpeg"/>
+      <itunes:duration>41:11</itunes:duration>
+      <itunes:episode>41</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep041/episode_041_cover.png"/>
+    </item>
+
     <!-- Episode 40 -->
     <item>
       <title>Folge 40: OpenClaw v2026.4.24, Project Deal, Claude Connectors und das ComfyUI Control-Wette</title>
