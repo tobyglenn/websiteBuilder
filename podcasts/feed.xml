@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 41 -->
+    <item>
+      <title>Episode 41: OpenClaw v2026.4.25, Codex App-Server, Space Solar, and AI-Designed Cars</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_041.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-41/</link>
+      <description><![CDATA[EP041 leads with OpenClaw v2026.4.25: a big operational release that upgrades TTS and voice replies, moves plugin startup onto a persisted cold registry, expands OpenTelemetry diagnostics, improves browser automation, adds PWA/Web Push support in the Control UI, hardens installers and updates, and tightens Codex app-server integration. Then we connect that to OpenAI Codex CLI 0.125.0 and the broader Codex app direction: worktrees, app-server transports, sticky environments, permission profiles, plugin marketplaces, built-in Git, automations, and in-app browser workflows. The back half covers Meta’s capacity reservation for space-beamed solar power and why AI data centers are turning energy procurement into product strategy, then closes with GM, Nissan, and Neural Concept showing AI moving into automotive design, simulation, and software validation loops.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-41/]]></description>
+      <pubDate>Mon, 27 Apr 2026 22:50:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_041.mp3" length="33873963" type="audio/mpeg"/>
+      <itunes:duration>35:17</itunes:duration>
+      <itunes:episode>41</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_041_cover.png"/>
+    </item>
+
     <!-- Episode 40 -->
     <item>
       <title>Episode 40: OpenClaw v2026.4.24, Project Deal, Claude Connectors, and the ComfyUI Control Bet</title>
