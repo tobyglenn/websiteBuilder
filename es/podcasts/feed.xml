@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Sun, 26 Apr 2026 02:08:31 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 40 -->
+    <item>
+      <title>Episodio 40: OpenClaw v2026.4.24, Project Deal, Claude Connectors y la apuesta de control de ComfyUI</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep040/episode_040.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-40/</link>
+      <description><![CDATA[OpenClaw v2026.4.24 es la noticia principal y lo merece. La versión añade Google Meet como un plugin de participante integrado con autenticación personal, transportes de voz en vivo, soporte de Chrome en nodos pareados, exportación de artefactos y asistencia, y flujos de recuperación para pestañas ya abiertas; también incluye consultas más profundas de agentes en tiempo real a través de Talk, Voice Call y Meet, una automatización del navegador más segura, una recuperación de pestañas más robusta, actualiza los catálogos de modelos integrados alrededor de DeepSeek V4, y mantiene un inicio más ligero con más mejoras.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-40/]]></description>
+      <pubDate>Mon, 27 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_040.mp3" length="35354792" type="audio/mpeg"/>
+      <itunes:duration>36:49</itunes:duration>
+      <itunes:episode>40</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep040/episode_040_cover.png"/>
+    </item>
+
     <!-- Episode 39 -->
     <item>
       <title>Episodio 39: OpenClaw v2026.4.23, el acuerdo de Anthropic con Google, DeepSeek V4 y el derrame de Vercel</title>
