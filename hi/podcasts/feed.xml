@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 27 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 41 -->
+    <item>
+      <title>एपिसोड 41: OpenClaw v2026.4.25, Codex App-Server, Space Solar, और AI-डिज़ाइन कार्स</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep041/episode_041.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-41/</link>
+      <description><![CDATA[EP041 OpenClaw v2026.4.25 के साथ शुरू होता है: एक बड़ा ऑपरेशनल रिलीज़ जो TTS और वॉइस रिप्लाई को अपग्रेड करता है, प्लगइन स्टार्टअप को एक स्थायी कोल्ड रजिस्ट्री में ले जाता है, OpenTelemetry डायग्नोस्टिक्स का विस्तार करता है, ब्राउज़र ऑटोमेशन में सुधार करता है, Control UI में PWA/Web Push सपोर्ट जोड़ता है, इंस्टॉलर और अपडेट को मजबूत बनाता है, और Codex app-server इंटीग्रेशन को कसता है। फिर हम इसे OpenAI Codex CLI 0.125.0 और व्यापक Codex ऐप दिशा: वर्कट्री, ऐप-सर्वर ट्रांसपोर्ट, स्टिकी एनवायरनमेंट, परमिशन प्रोफाइल से जोड़ते हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-41/]]></description>
+      <pubDate>Mon, 27 Apr 2026 22:50:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_041.mp3" length="45631155" type="audio/mpeg"/>
+      <itunes:duration>47:31</itunes:duration>
+      <itunes:episode>41</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep041/episode_041_cover.png"/>
+    </item>
+
     <!-- Episode 40 -->
     <item>
       <title>एपिसोड 40: OpenClaw v2026.4.24, प्रोजेक्ट डील, क्लॉड कनेक्टर्स, और कम्फ्यूआई नियंत्रण शर्त</title>
