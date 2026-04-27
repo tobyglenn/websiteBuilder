@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Mon, 27 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 41 -->
+    <item>
+      <title>Episodio 41: OpenClaw v2026.4.25, Codex App-Server, Energía Solar Espacial y Automóviles Diseñados por IA</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep041/episode_041.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-41/</link>
+      <description><![CDATA[EP041 comienza con OpenClaw v2026.4.25: una importante actualización operativa que mejora la síntesis de voz y las respuestas de voz, mueve el inicio de plugins a un registro frío persistente, expande los diagnósticos de OpenTelemetry, mejora la automatización del navegador, añade soporte PWA/Web Push en la UI de Control, fortalece los instaladores y las actualizaciones, y estrecha la integración con Codex app-server. Luego conectamos esto con OpenAI Codex CLI 0.125.0 y la dirección más amplia de la app Codex: worktrees, transportes app-server, entornos persistentes, perfiles de permisos, entre otros. Además, hablamos de la reserva de Meta de energía solar enviada por haz espacial y de cómo los fabricantes de automóviles utilizan la IA dentro del bucle de diseño, más allá de la simple generación de arte conceptual.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-41/]]></description>
+      <pubDate>Mon, 27 Apr 2026 22:50:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_041.mp3" length="38369533" type="audio/mpeg"/>
+      <itunes:duration>39:58</itunes:duration>
+      <itunes:episode>41</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep041/episode_041_cover.png"/>
+    </item>
+
     <!-- Episode 40 -->
     <item>
       <title>Episodio 40: OpenClaw v2026.4.24, Project Deal, Claude Connectors y la apuesta de control de ComfyUI</title>
