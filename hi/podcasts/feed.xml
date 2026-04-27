@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 26 Apr 2026 02:08:31 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 40 -->
+    <item>
+      <title>एपिसोड 40: OpenClaw v2026.4.24, प्रोजेक्ट डील, क्लॉड कनेक्टर्स, और कम्फ्यूआई नियंत्रण शर्त</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep040/episode_040.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-40/</link>
+      <description><![CDATA[OpenClaw v2026.4.24 मुख्य कहानी है और यह इसके हकदार भी है। इस रिलीज़ में Google Meet को एक बंडल पार्टिसिपेंट प्लगइन के रूप में शामिल किया गया है, जिसमें व्यक्तिगत प्रमाणीकरण, लाइव वॉइस ट्रांसपोर्ट, पेयर्ड‑नोड Chrome सहायता, आर्टिफैक्ट और उपस्थिति निर्यात, और पहले से खुले टैब्स के लिए रिकवरी फ्लो शामिल हैं; यह Talk, Voice Call और Meet में गहरी रियलटाइम एजेंट परामर्श भी जोड़ता है, सुरक्षित ब्राउज़र ऑटोमेशन और मजबूत टैब रिकवरी प्रदान करता है, DeepSeek V4 के आसपास बंडल मॉडल कैटलॉग को ताज़ा करता है, और स्टार्टअप को अधिक हल्का बनाए रखता है अधिक मैनिफेस्ट।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-40/]]></description>
+      <pubDate>Mon, 27 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_040.mp3" length="42627282" type="audio/mpeg"/>
+      <itunes:duration>44:24</itunes:duration>
+      <itunes:episode>40</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep040/episode_040_cover.png"/>
+    </item>
+
     <!-- Episode 39 -->
     <item>
       <title>एपिसोड 39: ओपनक्लॉ v2026.4.23, एंथ्रोपिक का गूगल डील, डीपसीक वी4, और वर्सेल स्पिलओवर</title>
