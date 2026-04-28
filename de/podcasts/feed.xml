@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 42 -->
+    <item>
+      <title>Folge 42: OpenClaw v2026.4.26 und der KI-Inferenz-Stack</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep042/episode_042.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-42/</link>
+      <description><![CDATA[EP042 beginnt mit OpenClaw v2026.4.26: Browser-Echtzeit-Transportverträge, eingeschränkte Google Live-Token, Gateway-Relay-Sitzungen, gebündelte Cerebras-Provider-Unterstützung, manifest-basierte Provider-Routing-Metadaten, asymmetrische Embedding-Eingabetypen, Abrufpräfixe für lokale Embedding-Modelle, sicherere Plugin-Mutation, Matrix-Verschlüsselungs-Setup, Transkriptkompression und Migrationstools. Dann gehen wir tiefer als in früheren Episoden auf die Inferenzinfrastruktur ein: Groqs LPU-gestützte gehostete Inferenz, Cerebras waf
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-42/]]></description>
+      <pubDate>Tue, 28 Apr 2026 15:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_042.mp3" length="40601435" type="audio/mpeg"/>
+      <itunes:duration>42:17</itunes:duration>
+      <itunes:episode>42</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep042/episode_042_cover.png"/>
+    </item>
+
     <!-- Episode 41 -->
     <item>
       <title>Folge 41: OpenClaw v2026.4.25, Codex App-Server, Weltraumsolar und KI-gestaltete Autos</title>
