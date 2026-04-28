@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 42 -->
+    <item>
+      <title>Episode 42: OpenClaw v2026.4.26 and the AI Inference Stack</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_042.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-42/</link>
+      <description><![CDATA[EP042 starts with OpenClaw v2026.4.26: browser realtime transport contracts, constrained Google Live tokens, Gateway relay sessions, bundled Cerebras provider support, manifest-owned provider routing metadata, asymmetric embedding input types, retrieval prefixes for local embedding models, safer plugin mutation, Matrix encryption setup, transcript compaction, and migration tooling. Then we go deeper than prior episodes on inference infrastructure: Groq’s LPU-backed hosted inference, Cerebras wafer-scale inference, LM Studio’s local desktop/server stack, Ollama’s local runner and cloud tiers, OpenRouter’s multi-provider marketplace, LiteLLM’s self-hostable gateway role, and cost-per-value ratings for each. We close with OpenAI Privacy Filter as a local PII token-classifier and Google Cloud AI zones as accelerator-placement infrastructure.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-42/]]></description>
+      <pubDate>Tue, 28 Apr 2026 15:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_042.mp3" length="34878318" type="audio/mpeg"/>
+      <itunes:duration>36:19</itunes:duration>
+      <itunes:episode>42</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_042_cover.png"/>
+    </item>
+
     <!-- Episode 41 -->
     <item>
       <title>Episode 41: OpenClaw v2026.4.25, Codex App-Server, Space Solar, and AI-Designed Cars</title>
