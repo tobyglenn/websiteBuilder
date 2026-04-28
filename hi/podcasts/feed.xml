@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 42 -->
+    <item>
+      <title>एपिसोड 42: OpenClaw v2026.4.26 और AI Inference Stack</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep042/episode_042.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-42/</link>
+      <description><![CDATA[EP042 OpenClaw v2026.4.26 के साथ शुरू होता है: ब्राउज़र रियलटाइम ट्रांसपोर्ट कॉन्ट्रैक्ट, सीमित Google Live टोकन, गेटवे रिले सत्र, बंडल्ड Cerebras प्रोवाइडर सपोर्ट, मैनिफेस्ट-स्वामित्व वाले प्रोवाइडर रूटिंग मेटाडेटा, असममित एम्बेडिंग इनपुट प्रकार, लोकल एम्बेडिंग मॉडल के लिए पुनर्प्राप्ति प्रीफिक्स, सुरक्षित प्लगइन म्यूटेशन, Matrix एन्क्रिप्शन सेटअप, ट्रांसक्रिप्ट संक्षेपण और माइग्रेशन टूलिंग। उसके बाद हम पिछले एपिसोड्स से अधिक गहराई से अनुमान अवसंरचना पर चर्चा करते हैं: Groq का LPU-आधारित होस्टेड इनफरेंस, Cerebras WAF।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-42/]]></description>
+      <pubDate>Tue, 28 Apr 2026 15:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_042.mp3" length="46997046" type="audio/mpeg"/>
+      <itunes:duration>48:57</itunes:duration>
+      <itunes:episode>42</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep042/episode_042_cover.png"/>
+    </item>
+
     <!-- Episode 41 -->
     <item>
       <title>एपिसोड 41: OpenClaw v2026.4.25, Codex App-Server, Space Solar, और AI-डिज़ाइन कार्स</title>
