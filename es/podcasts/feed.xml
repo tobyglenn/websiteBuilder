@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Mon, 27 Apr 2026 22:50:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 42 -->
+    <item>
+      <title>Episodio 42: OpenClaw v2026.4.26 y la Pila de Inferencia de IA</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep042/episode_042.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-42/</link>
+      <description><![CDATA[EP042 comienza con OpenClaw v2026.4.26: contratos de transporte realtime del navegador, tokens limitados de Google Live, sesiones de relay de Gateway, soporte de proveedor Cerebras incluido, metadatos de enrutamiento de proveedor propiedad del manifest, tipos de input de embedding asimétricos, prefijos de recuperación para modelos de embedding locales, mutación de plugins más segura, configuración de encriptación Matrix, compactación de transcripción y herramientas de migración. Luego profundizamos más que en episodios anteriores en la infraestructura de inferencia: la inferencia alojada respaldada por LPU de Groq, waf de Cerebras y servidores de modelos locales.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-42/]]></description>
+      <pubDate>Tue, 28 Apr 2026 15:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_042.mp3" length="38781640" type="audio/mpeg"/>
+      <itunes:duration>40:23</itunes:duration>
+      <itunes:episode>42</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep042/episode_042_cover.png"/>
+    </item>
+
     <!-- Episode 41 -->
     <item>
       <title>Episodio 41: OpenClaw v2026.4.25, Codex App-Server, Energía Solar Espacial y Automóviles Diseñados por IA</title>
