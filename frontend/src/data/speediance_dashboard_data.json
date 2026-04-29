@@ -534,6 +534,13 @@
           "durationMinute": 50,
           "calorie": 449,
           "actionNum": 34
+        },
+        {
+          "date": "2026-04-28",
+          "totalCapacity": 0.0,
+          "durationMinute": 50,
+          "calorie": 57,
+          "actionNum": 34
         }
       ],
       "exercises": [],
@@ -545,8 +552,8 @@
         "calorie": 449,
         "actionNum": 34
       },
-      "totalSessions": 2,
-      "avgVolume": 3320.8,
+      "totalSessions": 3,
+      "avgVolume": 2213.8,
       "totalVolume": 6641.5
     },
     "Deadlift": {
@@ -1094,11 +1101,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 83,
+  "totalWorkouts": 84,
   "totalVolumeLbs": 835948.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-04-26"
+    "end": "2026-04-28"
   },
   "allSessions": [
     {
@@ -1763,6 +1770,14 @@
       "totalCapacity": 4876.5,
       "durationMinute": 50,
       "calorie": 449,
+      "actionNum": 34
+    },
+    {
+      "date": "2026-04-28",
+      "title": "Warrior 4 (rope)",
+      "totalCapacity": 0.0,
+      "durationMinute": 50,
+      "calorie": 57,
       "actionNum": 34
     }
   ]
