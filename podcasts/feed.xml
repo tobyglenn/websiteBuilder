@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 43 -->
+    <item>
+      <title>Episode 43: OpenClaw v2026.4.27, Voice Agents, and Rapid AI Storage</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_043.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-43/</link>
+      <description><![CDATA[EP043 starts with OpenClaw v2026.4.27. The release adds Codex Computer Use status/install flows with fail-closed MCP checks, bundles DeepInfra as a provider for model discovery and media generation, expands Tencent Yuanbao and QQBot channel coverage, adds Docker GPU passthrough for sandboxed agents, introduces operator-managed outbound proxy routing, stages non-image chat attachments for agent use, moves startup and model catalogs toward manifest-first metadata, and fixes many real delivery, session, channel, media, plugin, update, and gateway edge cases. After the release deep dive, the episode turns to Deepgram Flux Multilingual and what multilingual streaming STT changes for voice agents, then Google Rapid Bucket, Colossus, gcsfs, and fsspec as an AI training data path.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-43/]]></description>
+      <pubDate>Thu, 30 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_043.mp3" length="38456467" type="audio/mpeg"/>
+      <itunes:duration>40:03</itunes:duration>
+      <itunes:episode>43</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_043_cover.png"/>
+    </item>
+
     <!-- Episode 42 -->
     <item>
       <title>Episode 42: OpenClaw v2026.4.26 and the AI Inference Stack</title>
