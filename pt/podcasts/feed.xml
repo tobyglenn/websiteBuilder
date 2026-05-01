@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre a revolução dos agentes de IA OpenClaw. Aprenda a rodar sua própria IA localmente, mantenha seus dados privados e fique à frente no mundo em constante evolução dos modelos de linguagem locais.</description>
     <language>pt-br</language>
-    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre a revolução dos agentes de IA OpenClaw. De configurações de hardware a dicas de segurança, lançamentos de modelos e destaques da comunidade — tudo o que você precisa saber sobre o futuro da IA pessoal, bem aqui.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 43 -->
+    <item>
+      <title>Episódio 43: OpenClaw v2026.4.27, Agentes de Voz e Armazenamento Rápido de IA</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep043/episode_043.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-43/</link>
+      <description><![CDATA[EP043 começa com o OpenClaw v2026.4.27. A versão adiciona status e fluxos de instalação do Codex Computer Use com verificações fail-closed do MCP, embute o DeepInfra como provedor para descoberta de modelos e geração de mídia, expande a cobertura de canais do Tencent Yuanbao e QQBot, adiciona passthrough de GPU Docker para agentes em sandbox, introduz roteamento de proxy de saída gerenciado pelo operador, prepara anexos de chat não-imagem para uso por agentes, move catálogos de inicialização e modelos para metadados baseados em manifest, e corrige várias entregas reais e sessões de problemas de confiabilidade.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-43/]]></description>
+      <pubDate>Thu, 30 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_043.mp3" length="43071990" type="audio/mpeg"/>
+      <itunes:duration>44:51</itunes:duration>
+      <itunes:episode>43</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep043/episode_043_cover.png"/>
+    </item>
+
     <!-- Episode 42 -->
     <item>
       <title>Episódio 42: OpenClaw v2026.4.26 e a Stack de Inferência de IA</title>
