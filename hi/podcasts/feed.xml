@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 28 Apr 2026 15:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Apr 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 43 -->
+    <item>
+      <title>एपिसोड 43: OpenClaw v2026.4.27, वॉइस एजेंट्स, और रैपिड AI स्टोरेज</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep043/episode_043.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-43/</link>
+      <description><![CDATA[EP043 OpenClaw v2026.4.27 से शुरू होता है। इस रिलीज़ में Codex Computer Use की स्थिति/इंस्टॉल फ्लो जो fail-closed MCP चेक के साथ हैं, मॉडल डिस्कवरी और मीडिया जनरेशन के लिए DeepInfra को प्रोवाइडर के रूप में बंडल किया गया है, Tencent Yuanbao और QQBot चैनल कवरेज का विस्तार किया गया है, sandboxed एजेंट्स के लिए Docker GPU passthrough जोड़ा गया है, operator-प्रबंधित आउटबाउंड प्रॉक्सी रूटिंग पेश की गई है, एजेंट उपयोग के लिए non-image चैट अटैचमेंट को स्टेज किया गया है, स्टार्टअप और मॉडल कैटलॉग को manifest-first मेटाडेटा की ओर ले जाया गया है, और कई वास्तविक डिलीवरी सेशन को ठीक किया गया है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-43/]]></description>
+      <pubDate>Thu, 30 Apr 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_043.mp3" length="51853313" type="audio/mpeg"/>
+      <itunes:duration>54:00</itunes:duration>
+      <itunes:episode>43</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep043/episode_043_cover.png"/>
+    </item>
+
     <!-- Episode 42 -->
     <item>
       <title>एपिसोड 42: OpenClaw v2026.4.26 और AI Inference Stack</title>
