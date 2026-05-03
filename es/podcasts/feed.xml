@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 30 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 16:08:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 44 -->
+    <item>
+      <title>Episodio 44: OpenClaw v2026.4.29, Dirección de Ejecución Activa, Memoria Consciente de Personas, Procedencia de Modelos y Seguridad de Cuenta</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep044/episode_044.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-44/</link>
+      <description><![CDATA[El episodio comienza con OpenClaw v2026.4.29. Esta versión añade valores predeterminados de dirección de ejecución activa, aplicación de respuestas visibles, metadatos de enrutamiento de subagentes generados, compromisos de seguimiento opcionales, metadatos wiki de memoria consciente de personas, filtros de Memoria Activa por conversación, recuperación parcial en tiempo de espera, RPC de vista previa de REM limitado, incorporación de proveedor NVIDIA y metadatos del catálogo, paridad de pensamiento Bedrock Opus 4.7, flujos de trabajo de escaneo OpenGrep, comportamiento de herramientas de perfil restrictivo más estricto, diagnósticos de inicio y modelo reutilizable.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-44/]]></description>
+      <pubDate>Sun, 03 May 2026 16:08:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_044.mp3" length="40525783" type="audio/mpeg"/>
+      <itunes:duration>42:12</itunes:duration>
+      <itunes:episode>44</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep044/episode_044_cover.png"/>
+    </item>
+
     <!-- Episode 43 -->
     <item>
       <title>Episodio 43: OpenClaw v2026.4.27, Agentes de Voz y Almacenamiento Rápido de IA</title>
