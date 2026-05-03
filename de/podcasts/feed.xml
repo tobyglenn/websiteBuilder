@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 30 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 16:08:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 44 -->
+    <item>
+      <title>Folge 44: OpenClaw v2026.4.29 – Active-Run-Steuerung, Personenbewusstes Gedächtnis, Modellherkunft und Kontosicherheit</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep044/episode_044.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-44/</link>
+      <description><![CDATA[Die Episode beginnt mit OpenClaw v2026.4.29. Das Release fügt Active-Run-Steuerung als Standard hinzu, ermöglicht die Erzwingung sichtbarer Antworten, führt Metadaten für Spawned-Subagent-Routing ein, macht Follow-up-Verpflichtungen zu opt-in Heartbeat-Arbeit, fügt dem Gedächtnis personenbezogene Wiki-Metadaten und Provenance-Ansichten hinzu, nimmt NVIDIA in den Provider-Katalog auf, verbessert Startup-Diagnosen und erhöht die Zuverlässigkeit über Slack, Telegram, Discord, WhatsApp, Signal, Feishu, Matrix, Teams und mehr. Die zweite Hälfte behandelt Ciscos Model Provenance Kit für KI-Lieferkettenverifizierung und OpenAI Advanced Account Security für phishing-resistente ChatGPT- und Codex-Konten.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-44/]]></description>
+      <pubDate>Sun, 03 May 2026 16:08:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_044.mp3" length="41389705" type="audio/mpeg"/>
+      <itunes:duration>43:06</itunes:duration>
+      <itunes:episode>44</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep044/episode_044_cover.png"/>
+    </item>
+
     <!-- Episode 43 -->
     <item>
       <title>Folge 43: OpenClaw v2026.4.27, Sprachagenten und Schneller KI-Speicher</title>
