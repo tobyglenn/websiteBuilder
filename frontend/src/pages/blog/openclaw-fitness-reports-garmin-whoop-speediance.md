@@ -19,7 +19,7 @@ It focuses on the actual public building blocks behind the stack:
 - **Garmin** for cardio, training load, pace, heart-rate zones, and activity detail
 - **WHOOP** for recovery, HRV, RHR, sleep, strain, and readiness context
 - **Speediance** for strength-session history, volume, calories, templates, and exercise detail
-- **Chronometer / Cronometer** for nutrition context
+- **Cronometer** for nutrition context
 - **OpenClaw** as the orchestration layer that runs syncs, normalizes data, and generates reports
 
 It also covers the exact GitHub projects and public APIs that matter, what still works, what is deprecated, and how to wire everything into a report system another person can actually reproduce.
@@ -42,6 +42,31 @@ Build it in four layers:
    HTML, dashboards, daily briefings, Telegram posts, voice summaries.
 
 That separation is what makes Aria-style reporting maintainable.
+
+### AI implementation contract
+
+If you are giving this article to an AI coding agent, tell it to build this contract before it writes any dashboard UI:
+
+- **Inputs:** environment variables and vendor credentials only; never hard-code secrets into source files.
+- **Sync outputs:** one raw JSON snapshot per vendor pull, plus one normalized JSON file per vendor.
+- **Report inputs:** normalized JSON only. The report builder should not call Garmin, WHOOP, Speediance, or Cronometer directly.
+- **Failure mode:** if one connector fails, preserve yesterday’s last-known-good normalized file and mark that source as stale in the report.
+- **Auditability:** keep enough raw payloads to debug vendor API changes without logging tokens, cookies, passwords, or private headers.
+
+Minimum environment variables for a cloneable build:
+
+```text
+GARMIN_EMAIL=
+GARMIN_PASSWORD=
+WHOOP_CLIENT_ID=
+WHOOP_CLIENT_SECRET=
+WHOOP_ACCESS_TOKEN=
+WHOOP_REFRESH_TOKEN=
+SPEEDIANCE_USER_ID=
+SPEEDIANCE_TOKEN=
+SPEEDIANCE_REGION=Global
+CRONOMETER_EXPORT_PATH=
+```
 
 ---
 
@@ -128,11 +153,14 @@ But `garth` is now explicitly deprecated. That matters because anyone reading th
 
 ```python
 from garminconnect import Garmin
-import json
 from datetime import date
+from pathlib import Path
+import json
+import os
 
-email = "YOUR_GARMIN_EMAIL"
-password = "YOUR_GARMIN_PASSWORD"
+email = os.environ["GARMIN_EMAIL"]
+password = os.environ["GARMIN_PASSWORD"]
+
 client = Garmin(email=email, password=password)
 client.login()
 
@@ -146,8 +174,9 @@ payload = {
     "activities": activities,
 }
 
-with open("data/garmin/latest.json", "w") as f:
-    json.dump(payload, f, indent=2)
+out = Path("data/garmin/raw")
+out.mkdir(parents=True, exist_ok=True)
+(out / f"{today}.json").write_text(json.dumps(payload, indent=2))
 ```
 
 ### What to normalize from Garmin
@@ -216,26 +245,29 @@ That limitation should be stated plainly in the article because it affects any s
 ### Minimal executable WHOOP example
 
 ```python
-import os
+from pathlib import Path
 import json
+import os
 import requests
 
 BASE = "https://api.prod.whoop.com/developer/v2"
 TOKEN = os.environ["WHOOP_ACCESS_TOKEN"]
 headers = {"Authorization": f"Bearer {TOKEN}"}
 
-recovery = requests.get(f"{BASE}/recovery", headers=headers).json()
-sleep = requests.get(f"{BASE}/activity/sleep", headers=headers).json()
-workouts = requests.get(f"{BASE}/activity/workout", headers=headers).json()
+def get(path):
+    response = requests.get(f"{BASE}{path}", headers=headers, timeout=30)
+    response.raise_for_status()
+    return response.json()
 
 payload = {
-    "recovery": recovery,
-    "sleep": sleep,
-    "workouts": workouts,
+    "recovery": get("/recovery"),
+    "sleep": get("/activity/sleep"),
+    "workouts": get("/activity/workout"),
 }
 
-with open("data/whoop/latest.json", "w") as f:
-    json.dump(payload, f, indent=2)
+out = Path("data/whoop/raw")
+out.mkdir(parents=True, exist_ok=True)
+(out / "latest.json").write_text(json.dumps(payload, indent=2))
 ```
 
 ### What to normalize from WHOOP
@@ -303,21 +335,29 @@ If you use `ANPC86/SmartGymWorkoutManager` as your starting point, while checkin
 Pseudo-example using that client pattern:
 
 ```python
-from speediance_manager.api_client import SpeedianceClient
-import json
+# Shape this around the api_client.py in:
+# https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager
+from api_client import SpeedianceClient
 from datetime import date
+from pathlib import Path
+import json
+import os
 
 client = SpeedianceClient()
-success, msg, debug = client.login("YOUR_EMAIL", "YOUR_PASSWORD")
+success, msg, debug = client.login(
+    os.environ["SPEEDIANCE_USER_ID"],
+    os.environ["SPEEDIANCE_TOKEN"],
+)
 if not success:
     raise RuntimeError(msg)
 
-start_date = "2026-01-01"
+start_date = os.environ.get("SPEEDIANCE_START_DATE", "2026-01-01")
 end_date = date.today().isoformat()
 records = client.get_training_data(start_date, end_date)
 
-with open("data/speediance/history.json", "w") as f:
-    json.dump(records, f, indent=2)
+out = Path("data/speediance/raw")
+out.mkdir(parents=True, exist_ok=True)
+(out / "history.json").write_text(json.dumps(records, indent=2))
 ```
 
 ### What to normalize from Speediance
@@ -355,7 +395,7 @@ That structure makes progression charts and PR detection trivial later.
 
 ---
 
-## 6. Chronometer / Cronometer: the nutrition context layer
+## 6. Cronometer: the nutrition context layer
 
 Whatever exact nutrition app you use, the role is the same: give the report context for energy intake.
 
@@ -529,7 +569,67 @@ OpenClaw then combines all of them into one report and recommendation surface.
 
 ---
 
-## 11. The real implementation rules
+## 11. API connection points to implement
+
+This is the checklist I would hand to an AI agent before asking it to build the repo.
+
+### Garmin connection points
+- Library: `garminconnect` from `cyberjunky/python-garminconnect`
+- Auth: Garmin Connect email/password with the library’s token/session handling
+- Pull cadence: daily morning sync plus optional post-workout sync
+- Minimum pulls:
+  - daily stats for steps, resting HR, sleep seconds, body battery, calories
+  - activities by date for runs/rides/cardio sessions
+  - activity detail when available for HR zones, pace, cadence, power, training effect
+- Normalized output: `data/garmin/summary/latest.json`
+
+### WHOOP connection points
+- API docs: `https://developer.whoop.com/api`
+- Auth: OAuth2 access token + refresh token flow
+- Base URL: `https://api.prod.whoop.com/developer/v2`
+- Minimum endpoint groups:
+  - `/cycle` for strain/cycle context
+  - `/recovery` for recovery score, HRV, resting HR
+  - `/activity/sleep` for sleep performance and sleep timing
+  - `/activity/workout` for workouts and WHOOP strain data
+  - `/user/profile/basic` and `/user/measurement/body` for profile/body context when needed
+- Normalized output: `data/whoop/normalized/latest.json`
+
+### Speediance connection points
+- Public extraction for this build: `https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager`
+- Upstream reference: `https://github.com/hbui3/UnofficialSpeedianceWorkoutManager`
+- Auth: unofficial token/user-id based flow exposed by the SmartGym client layer
+- Minimum pulls:
+  - workout history
+  - exercise/session detail
+  - custom workout/template metadata if you want planned-vs-actual reporting
+  - raw API/debug response capture without secrets
+- Normalized outputs:
+  - `data/speediance/normalized/history.json`
+  - `data/speediance/normalized/by_exercise.json`
+
+### Cronometer connection points
+- Public source: `https://cronometer.com/` exports/integrations
+- Recommended public-reproducible approach: CSV export or scheduled file drop, not a live render-time API dependency
+- Minimum fields: date, calories, protein, carbs, fat, fiber, and any micronutrients you want in recovery analysis
+- Normalized output: `data/nutrition/latest.json`
+
+### Report-generation connection point
+The report builder should read only these files:
+
+```text
+data/garmin/summary/latest.json
+data/whoop/normalized/latest.json
+data/speediance/normalized/history.json
+data/speediance/normalized/by_exercise.json
+data/nutrition/latest.json
+```
+
+That is the actual connection surface. Everything upstream can break and be fixed independently.
+
+---
+
+## 12. The real implementation rules
 
 If someone wants to reproduce this successfully, these rules matter more than any single code snippet:
 
@@ -553,7 +653,7 @@ If someone wants to reproduce this successfully, these rules matter more than an
 
 ---
 
-## 12. Implementation reference list
+## Final implementation reference list
 
 These are the public references an AI coding agent should be handed first when recreating this system:
 
