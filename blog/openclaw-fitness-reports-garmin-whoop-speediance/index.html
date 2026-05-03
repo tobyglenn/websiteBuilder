@@ -1,0 +1,527 @@
+<!DOCTYPE html><html lang="en" class="dark scroll-smooth"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap.xml"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml"><meta name="generator" content="Astro v5.17.3"><!-- Preconnect to external domains for faster connection --><link rel="preconnect" href="https://www.youtube.com"><link rel="preconnect" href="https://www.instagram.com"><link rel="preconnect" href="https://x.com"><link rel="dns-prefetch" href="https://www.youtube.com"><link rel="dns-prefetch" href="https://www.instagram.com"><link rel="dns-prefetch" href="https://x.com"><title>How to Rebuild My OpenClaw Fitness Reports with Garmin</title><link rel="canonical" href="https://tobyonfitnesstech.com/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><meta name="description" content="A reproducible implementation guide for building AI-readable fitness reports with OpenClaw, Garmin, WHOOP, Speediance, Cronometer, normalized JSON snapshots, and public GitHub repos."><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta property="og:title" content="How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects - TobyOnFitnessTech"><meta property="og:type" content="article"><meta property="og:image" content="https://tobyonfitnesstech.com"><meta property="og:url" content="https://tobyonfitnesstech.com/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><meta property="og:locale" content="en_US"><meta property="og:site_name" content="Toby on Fitness Tech"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects - TobyOnFitnessTech"><link rel="alternate" type="application/rss+xml" title="Blog Feed" href="https://tobyonfitnesstech.com/rss.xml"><meta name="twitter:site" content="@tobyonfitness"><meta name="twitter:creator" content="@tobyglenn"><meta name="twitter:title" content="How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects - TobyOnFitnessTech"><meta name="twitter:description" content="A reproducible implementation guide for building AI-readable fitness reports with OpenClaw, Garmin, WHOOP, Speediance, Cronometer, normalized JSON snapshots, and public GitHub repos."><meta name="twitter:image" content="https://tobyonfitnesstech.com"><meta name="article:published_time" content="2026-05-03T00:00:00.000Z"><meta name="article:modified_time" content="2026-05-03T00:00:00.000Z"><meta name="article:author" content="Toby Glenn Peters"><meta name="author" content="Toby Glenn Peters"><meta name="ai-content-type" content="educational"><meta name="ai-purpose" content="product reviews, fitness analysis, tech comparison"><meta name="ai-target-audience" content="fitness enthusiasts, tech adopters, home gym owners"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name="keywords" content="fitness tech, Speediance, Tonal, Whoop, Garmin, BJJ, home gym, smart fitness equipment, wearables"><script type="module">(function(){const a="site-lang",i="preferredLang",r=["es","pt","hi","de"],s=/^\/(es|pt|hi|de)\//;function g(){return localStorage.getItem(a)||localStorage.getItem(i)}function e(t){localStorage.setItem(a,t),localStorage.setItem(i,t)}function c(){if(s.test(window.location.pathname))return;const t=g();if(t==="en"){e("en");return}if(t&&r.includes(t)){e(t);const o=`/${t}${window.location.pathname}`;window.location.replace(o);return}const n=(navigator.language||navigator.languages?.[0]||"").split("-")[0].toLowerCase();if(r.includes(n)){e(n);const o=`/${n}${window.location.pathname}`;window.location.replace(o)}}document.readyState==="loading"?document.addEventListener("DOMContentLoaded",c):c()})();</script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.CDGfc0hd.js"></script><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="TobyOnFitnessTech"><meta name="theme-color" content="#0a0a0a"><meta name="referrer" content="strict-origin-when-cross-origin"><script type="application/ld+json">[{"@context":"https://schema.org","@type":"Person","@id":"https://tobyonfitnesstech.com/#toby","name":"Toby Glenn Peters","alternateName":"TobyOnFitnessTech","jobTitle":"Fitness Enthusiast & Tech Builder","description":"Independent fitness technology reviewer and builder. Dropped from 242 to 188 pounds, using data from Speediance, Garmin, WHOOP, and running to guide training decisions.","url":"https://tobyonfitnesstech.com","image":"https://tobyonfitnesstech.com/og-default.jpg","sameAs":["https://www.youtube.com/@tobyonfitness","https://www.instagram.com/tobyonfitness"],"knowsAbout":["Speediance","Brazilian Jiu-Jitsu","Garmin","WHOOP","8Sleep","Running","Fitness Technology","Home Gym Equipment"],"award":"242→188 lb transformation"},{"@context":"https://schema.org","@type":"WebSite","@id":"https://tobyonfitnesstech.com/#website","url":"https://tobyonfitnesstech.com","name":"Toby on Fitness Tech","description":"Independent fitness technology reviews, analysis, and deep dives.","publisher":{"@id":"https://tobyonfitnesstech.com/#organization"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://tobyonfitnesstech.com/search?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"https://schema.org","@type":"Organization","@id":"https://tobyonfitnesstech.com/#organization","name":"Toby on Fitness Tech","alternateName":"TobyOnFitnessTech","description":"Independent fitness technology reviews, analysis, and deep dives. Covering Speediance, Tonal, Whoop, Garmin, and more with real athlete data.","url":"https://tobyonfitnesstech.com","logo":{"@type":"ImageObject","url":"https://tobyonfitnesstech.com/og-default.jpg","width":1200,"height":630},"founder":{"@id":"https://tobyonfitnesstech.com/#toby"},"foundingDate":"2024","sameAs":["https://www.youtube.com/@tobyonfitness","https://x.com/tobyglenn","https://www.instagram.com/tobyonfitness","https://tobyonfitnesstech.com"],"contactPoint":{"@type":"ContactPoint","email":"toby@tobyonfitnesstech.com","contactType":"customer service","availableLanguage":"English"},"knowsAbout":["Fitness Technology","Smart Home Gym Equipment","Wearable Technology","Strength Training","Brazilian Jiu-Jitsu","Speediance","Tonal","Whoop","Garmin"]},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Main Navigation","description":"Primary navigation menu for Toby on Fitness Tech","mainEntityOfPage":"https://tobyonfitnesstech.com","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","url":"https://tobyonfitnesstech.com"},{"@type":"ListItem","position":2,"name":"Videos","url":"https://tobyonfitnesstech.com/videos"},{"@type":"ListItem","position":3,"name":"Podcasts","url":"https://tobyonfitnesstech.com/podcasts"},{"@type":"ListItem","position":4,"name":"Blog","url":"https://tobyonfitnesstech.com/blog"},{"@type":"ListItem","position":5,"name":"Gear","url":"https://tobyonfitnesstech.com/gear"},{"@type":"ListItem","position":6,"name":"About","url":"https://tobyonfitnesstech.com/about"}]},{"@context":"https://schema.org","@type":"SpeakableSpecification","cssSelector":["h1","h2","[data-speakable]","article p:first-of-type","meta[name='description']"]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://tobyonfitnesstech.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://tobyonfitnesstech.com/blog"},{"@type":"ListItem","position":3,"name":"How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects","item":"https://tobyonfitnesstech.com/blog/openclaw-fitness-reports-garmin-whoop-speediance/"}]}]</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"TobyOnFitnessTech","url":"https://tobyonfitnesstech.com","potentialAction":{"@type":"SearchAction","target":"https://tobyonfitnesstech.com/search?q={search_term_string}","query-input":"required name=search_term_string"}}</script><link rel="stylesheet" href="/_astro/anthropic-refund-scam.C6GgKNHd.css">
+<style>.markdown-article>h1:first-child{display:none}.markdown-article{color:#d4d4d8;font-size:1.075rem;line-height:1.9}.markdown-article>p:first-of-type{color:#e5e5e5;font-size:1.18rem;line-height:1.95;padding-left:1rem;border-left:3px solid rgb(59 130 246);margin-bottom:2.25rem}.markdown-article p{margin:0 0 1.35rem;color:#d4d4d8}.markdown-article h2{margin:3.25rem 0 1.25rem;padding-left:1rem;border-left:4px solid rgb(59 130 246);color:#fff;font-size:1.9rem;line-height:1.2;font-weight:800;letter-spacing:-.02em}.markdown-article h3{margin:2.1rem 0 1rem;color:#bfdbfe;font-size:1.35rem;line-height:1.35;font-weight:700}.markdown-article h4,.markdown-article h5,.markdown-article h6{margin:1.8rem 0 .8rem;color:#e5e7eb;font-size:1.05rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em}.markdown-article ul,.markdown-article ol{margin:0 0 1.6rem;padding-left:1.35rem}.markdown-article li{margin-bottom:.65rem;padding-left:.2rem;color:#d4d4d8}.markdown-article li::marker{color:#60a5fa}.markdown-article strong{color:#fff;font-weight:700}.markdown-article em{color:#e5e7eb}.markdown-article a{color:#60a5fa;text-decoration:underline;text-decoration-color:#60a5fa59;text-underline-offset:.22em;transition:color .16s ease,text-decoration-color .16s ease}.markdown-article a:hover{color:#bfdbfe;text-decoration-color:#bfdbfeb3}.markdown-article blockquote{margin:2rem 0;padding:1rem 1.2rem;border-left:4px solid rgb(59 130 246);background:#0f172a8c;color:#e5e7eb;font-style:italic}.markdown-article hr{margin:2.5rem 0;border:0;border-top:1px solid rgba(82,82,91,.5)}.markdown-article code{font-size:.92em;color:#e0e7ff;background:#0f172abf;border:1px solid rgba(59,130,246,.18);border-radius:.45rem;padding:.12rem .38rem}.markdown-article pre{margin:1.8rem 0;padding:1rem 1.1rem;overflow-x:auto;border-radius:1rem;border:1px solid rgba(63,63,70,.8);background:#0a0a0acc}.markdown-article pre code{padding:0;border:0;background:transparent}@media(max-width:768px){.markdown-article{font-size:1rem;line-height:1.8}.markdown-article>p:first-of-type{font-size:1.08rem;margin-bottom:1.8rem}.markdown-article h2{font-size:1.55rem;margin-top:2.6rem}.markdown-article h3{font-size:1.2rem}}
+</style></head> <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30"> <div data-pagefind-ignore> <style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><script>(()=>{var A=Object.defineProperty;var g=(i,o,a)=>o in i?A(i,o,{enumerable:!0,configurable:!0,writable:!0,value:a}):i[o]=a;var d=(i,o,a)=>g(i,typeof o!="symbol"?o+"":o,a);{let i={0:t=>m(t),1:t=>a(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(a(t)),5:t=>new Set(a(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>1/0*t},o=t=>{let[l,e]=t;return l in i?i[l](e):void 0},a=t=>t.map(o),m=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([l,e])=>[l,o(e)]));class y extends HTMLElement{constructor(){super(...arguments);d(this,"Component");d(this,"hydrator");d(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let c=this.querySelectorAll("astro-slot"),n={},h=this.querySelectorAll("template[data-astro-template]");for(let r of h){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("data-astro-template")||"default"]=r.innerHTML,r.remove())}for(let r of c){let s=r.closest(this.tagName);s!=null&&s.isSameNode(this)&&(n[r.getAttribute("name")||"default"]=r.innerHTML)}let p;try{p=this.hasAttribute("props")?m(JSON.parse(this.getAttribute("props"))):{}}catch(r){let s=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(s+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${s}`,this.getAttribute("props"),r),r}let u;await this.hydrator(this)(this.Component,p,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});d(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),c.disconnect(),this.childrenConnectedCallback()},c=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});c.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}async start(){let e=JSON.parse(this.getAttribute("opts")),c=this.getAttribute("client");if(Astro[c]===void 0){window.addEventListener(`astro:${c}`,()=>this.start(),{once:!0});return}try{await Astro[c](async()=>{let n=this.getAttribute("renderer-url"),[h,{default:p}]=await Promise.all([import(this.getAttribute("component-url")),n?import(n):()=>()=>{}]),u=this.getAttribute("component-export")||"default";if(!u.includes("."))this.Component=h[u];else{this.Component=h;for(let f of u.split("."))this.Component=this.Component[f]}return this.hydrator=p,this.hydrate},e,this)}catch(n){console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`,n)}}attributeChangedCallback(){this.hydrate()}}d(y,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",y)}})();</script><astro-island uid="ZqepUw" prefix="r8" component-url="/_astro/Header.BUE7M1W-.js" component-export="default" renderer-url="/_astro/client.Dc9Vh3na.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;Header&quot;,&quot;value&quot;:true}" await-children><header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent"><div class="container mx-auto px-4 h-16 flex items-center justify-between"><a href="/" class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity shrink-0">TobyOnFitnessTech</a><nav class="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0"><a href="/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>🏠</span>Home</a><a href="/videos/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>🎬</span>Videos</a><div class="relative"><button class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>📝</span>Blog &amp; Articles<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down transition-transform duration-200" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div><a href="/podcasts/openclaw/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>🎙️</span>OpenClaw Daily</a><a href="/podcasts/fitness-tech/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>💪</span>Fitness Tech Podcast</a><a href="/games/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>🎮</span>Playground</a><a href="/about/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>👤</span>About</a><a href="/faq/" class="text-sm font-medium transition-colors flex items-center gap-1.5 text-neutral-300 hover:text-white"><span>❓</span>FAQ</a></nav><div class="hidden lg:flex items-center gap-4 shrink-0"><div class="relative"><button class="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/90 px-3 py-2 text-sm text-neutral-200 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Choose language"><span>🌐</span><span>🇺🇸</span><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down transition-transform" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div><button class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full py-1.5 pl-4 pr-3 text-sm text-neutral-400 hover:text-white hover:border-neutral-600 transition-all duration-200 group" aria-label="Open search"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><span class="hidden lg:inline">Search</span><kbd class="hidden lg:inline text-xs bg-neutral-800 text-neutral-500 px-1.5 py-0.5 rounded font-mono">⌘K</kbd></button></div><button class="lg:hidden text-neutral-300 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><!--astro:end--></astro-island> </div> <main class="flex-grow pt-16" data-pagefind-body>  <article class="bg-neutral-950 min-h-screen pb-24"> <div class="relative bg-neutral-900 border-b border-neutral-800 pb-16 pt-24 md:pt-32"> <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none"></div> <div class="container mx-auto px-4 relative z-10 max-w-4xl"> <a href="/blog/?category=All#category-filters" class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors mb-8 group"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg> Back to Analysis
+</a> <div class="flex items-center gap-4 text-xs font-bold tracking-wider text-blue-500 uppercase mb-4"> <span class="bg-blue-900/30 px-3 py-1 rounded-full border border-blue-500/30">Field Reports</span> <span class="text-neutral-500">•</span> <span>11 min read</span> </div> <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight"> How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects </h1> <p class="max-w-3xl text-lg md:text-xl leading-relaxed text-neutral-300 mb-8"> A reproducible implementation guide for building AI-readable fitness reports with OpenClaw, Garmin, WHOOP, Speediance, Cronometer, normalized JSON snapshots, and public GitHub repos. </p> <div class="flex items-center gap-6 text-sm text-neutral-400 border-t border-neutral-800 pt-6"> <div class="flex items-center gap-2"> <div class="w-8 h-8 rounded-full bg-neutral-800 flex items-center justify-center text-neutral-500"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> </div> <span class="font-medium text-white">Toby</span> </div> <div class="flex items-center gap-2"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg> <span>May 3, 2026</span> </div> </div> <astro-island uid="1tjuS9" prefix="r7" component-url="/_astro/ShareButtons.DHAp2XF-.js" component-export="default" renderer-url="/_astro/client.Dc9Vh3na.js" props="{&quot;url&quot;:[0,&quot;https://tobyonfitnesstech.com/blog/openclaw-fitness-reports-garmin-whoop-speediance/&quot;],&quot;title&quot;:[0,&quot;How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects&quot;]}" ssr client="load" opts="{&quot;name&quot;:&quot;ShareButtons&quot;,&quot;value&quot;:true}" await-children><div class="flex gap-3 mt-4"><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftobyonfitnesstech.com%2Fblog%2Fopenclaw-fitness-reports-garmin-whoop-speediance%2F&amp;text=How%20to%20Rebuild%20My%20OpenClaw%20Fitness%20Reports%20with%20Garmin%2C%20WHOOP%2C%20Speediance%2C%20and%20Public%20GitHub%20Projects" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Share on Twitter">𝕏</a><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftobyonfitnesstech.com%2Fblog%2Fopenclaw-fitness-reports-garmin-whoop-speediance%2F" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Share on Facebook">f</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftobyonfitnesstech.com%2Fblog%2Fopenclaw-fitness-reports-garmin-whoop-speediance%2F" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Share on LinkedIn">in</a><button class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Copy link">🔗</button></div><!--astro:end--></astro-island> </div> </div> <div class="container mx-auto px-4 py-12 max-w-3xl"> <div class="markdown-shell rounded-3xl border border-neutral-800 bg-neutral-900/55 px-6 py-8 md:px-10 md:py-10 shadow-[0_30px_80px_rgba(0,0,0,0.28)]"> <div class="markdown-article"> <h1 id="how-to-rebuild-my-openclaw-fitness-reports-with-garmin-whoop-speediance-and-public-github-projects">How to Rebuild My OpenClaw Fitness Reports with Garmin, WHOOP, Speediance, and Public GitHub Projects</h1>
+<p>If you want to build a version of Aria’s fitness reports in your own OpenClaw setup, the key is <strong>not</strong> copying one private script tree. The key is reproducing the architecture with public projects, stable data snapshots, and connectors that can be swapped when vendors change their APIs.</p>
+<p>This guide is the practical version of that build.</p>
+<p>For an AI coding system, the core instruction is simple: <strong>treat each vendor as a connector, persist normalized JSON snapshots, and make the report generator consume only those snapshots.</strong> That separation is what makes the system reproducible instead of a pile of private scripts.</p>
+<p>It focuses on the actual public building blocks behind the stack:</p>
+<ul>
+<li><strong>Garmin</strong> for cardio, training load, pace, heart-rate zones, and activity detail</li>
+<li><strong>WHOOP</strong> for recovery, HRV, RHR, sleep, strain, and readiness context</li>
+<li><strong>Speediance</strong> for strength-session history, volume, calories, templates, and exercise detail</li>
+<li><strong>Chronometer / Cronometer</strong> for nutrition context</li>
+<li><strong>OpenClaw</strong> as the orchestration layer that runs syncs, normalizes data, and generates reports</li>
+</ul>
+<p>It also covers the exact GitHub projects and public APIs that matter, what still works, what is deprecated, and how to wire everything into a report system another person can actually reproduce.</p>
+<hr>
+<h2 id="1-the-architecture-to-copy">1. The architecture to copy</h2>
+<p>Do <strong>not</strong> build this as “one script that calls six APIs and renders HTML live.” That is fragile.</p>
+<p>Build it in four layers:</p>
+<ol>
+<li><strong>Connector layer</strong><br>
+One sync job per platform.</li>
+<li><strong>Normalized data layer</strong><br>
+Each sync writes stable JSON snapshots.</li>
+<li><strong>Analysis/report layer</strong><br>
+Report code reads normalized JSON only.</li>
+<li><strong>Presentation layer</strong><br>
+HTML, dashboards, daily briefings, Telegram posts, voice summaries.</li>
+</ol>
+<p>That separation is what makes Aria-style reporting maintainable.</p>
+<hr>
+<h2 id="2-public-projects-and-sources-used-in-the-build">2. Public projects and sources used in the build</h2>
+<p>These are the public pieces that matter for a reproducible version.</p>
+<p>Quick GitHub/API checklist:</p>
+<ul>
+<li>Garmin connector: <code>https://github.com/cyberjunky/python-garminconnect</code></li>
+<li>Garmin legacy auth context: <code>https://github.com/matin/garth</code></li>
+<li>WHOOP official developer API: <code>https://developer.whoop.com/api</code></li>
+<li>Speediance public extraction for this build: <code>https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager</code></li>
+<li>Speediance working fork this was extracted from: <code>https://github.com/ANPC86/SmartGymWorkoutManager</code></li>
+<li>Speediance upstream/original reference: <code>https://github.com/hbui3/UnofficialSpeedianceWorkoutManager</code></li>
+</ul>
+<h3 id="openclaw">OpenClaw</h3>
+<ul>
+<li>Platform/orchestrator: <strong>OpenClaw</strong></li>
+<li>Role: schedule sync jobs, run transformations, generate reports, publish outputs</li>
+</ul>
+<h3 id="garmin">Garmin</h3>
+<ul>
+<li>Primary Python client: <strong>cyberjunky/python-garminconnect</strong><br>
+GitHub: <code>https://github.com/cyberjunky/python-garminconnect</code></li>
+<li>Legacy auth library that previously mattered: <strong>matin/garth</strong><br>
+GitHub: <code>https://github.com/matin/garth</code></li>
+<li>Status note: <code>garth</code> is deprecated; <code>python-garminconnect</code> now uses newer Garmin auth flows and is the one to build around.</li>
+</ul>
+<h3 id="whoop">WHOOP</h3>
+<ul>
+<li>Official developer API docs: <code>https://developer.whoop.com/api</code></li>
+<li>Public API surface: OAuth2 + REST endpoints for recovery, cycles, sleep, workouts, profile, body measurements</li>
+<li>Optional community wrappers exist, but the reproducible build should anchor to the <strong>official WHOOP developer API</strong> wherever possible.</li>
+</ul>
+<h3 id="speediance">Speediance</h3>
+<ul>
+<li>Actual GitHub repo used for Aria’s working Speediance connection: <strong>ANPC86/SmartGymWorkoutManager</strong><br>
+GitHub: <code>https://github.com/ANPC86/SmartGymWorkoutManager</code></li>
+<li>Upstream project lineage / original public reference: <strong>hbui3/UnofficialSpeedianceWorkoutManager</strong><br>
+GitHub: <code>https://github.com/hbui3/UnofficialSpeedianceWorkoutManager</code></li>
+<li>Aria’s stack is based on the ANPC86 SmartGymWorkoutManager fork because it contains practical fixes/features around history, exports, API debugging, timezone handling, and unit handling.</li>
+<li>This is an <strong>unofficial</strong> Speediance integration and should be treated as unstable by default.</li>
+</ul>
+<h3 id="nutrition">Nutrition</h3>
+<ul>
+<li>Cronometer product site / exports / integrations: <code>https://cronometer.com/</code></li>
+<li>For a public-reproducible build, treat Cronometer as a structured nutrition export source, not as a magic direct report dependency.</li>
+</ul>
+<hr>
+<h2 id="3-garmin-the-cardio-and-activity-detail-layer">3. Garmin: the cardio and activity-detail layer</h2>
+<p>If WHOOP answers “how recovered am I?”, Garmin answers “what exactly did I do?”</p>
+<p>Garmin is where the report gets:</p>
+<ul>
+<li>distance</li>
+<li>pace and speed</li>
+<li>duration</li>
+<li>average and max HR</li>
+<li>heart-rate zones</li>
+<li>cadence</li>
+<li>power</li>
+<li>training effect</li>
+<li>activity metadata</li>
+<li>broader cardio/training detail that WHOOP does not emphasize as richly</li>
+</ul>
+<h3 id="public-repo-to-use">Public repo to use</h3>
+<p><strong>Recommended:</strong> <code>cyberjunky/python-garminconnect</code></p>
+<p>GitHub:
+<code>https://github.com/cyberjunky/python-garminconnect</code></p>
+<p>Why this matters:</p>
+<ul>
+<li>it is actively positioned as the Garmin Connect Python wrapper to use</li>
+<li>it exposes a very large Garmin endpoint surface</li>
+<li>it includes examples and token handling patterns</li>
+<li>it replaced older auth assumptions that broke in prior Garmin changes</li>
+</ul>
+<h3 id="important-garmin-compatibility-note">Important Garmin compatibility note</h3>
+<p>Historically, many builds used <code>garth</code>.</p>
+<p>GitHub:
+<code>https://github.com/matin/garth</code></p>
+<p>But <code>garth</code> is now explicitly deprecated. That matters because anyone reading this to build their own stack should <strong>not</strong> center a new implementation on deprecated auth.</p>
+<h3 id="minimal-executable-garmin-example">Minimal executable Garmin example</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> garminconnect </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Garmin</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> json</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> datetime </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> date</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">email </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "YOUR_GARMIN_EMAIL"</span></span>
+<span class="line"><span style="color:#E1E4E8">password </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "YOUR_GARMIN_PASSWORD"</span></span>
+<span class="line"><span style="color:#E1E4E8">client </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Garmin(</span><span style="color:#FFAB70">email</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">email, </span><span style="color:#FFAB70">password</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">password)</span></span>
+<span class="line"><span style="color:#E1E4E8">client.login()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">today </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> date.today().isoformat()</span></span>
+<span class="line"><span style="color:#E1E4E8">stats </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> client.get_stats(today)</span></span>
+<span class="line"><span style="color:#E1E4E8">activities </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> client.get_activities_by_date(today, today)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">payload </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "date"</span><span style="color:#E1E4E8">: today,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "stats"</span><span style="color:#E1E4E8">: stats,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "activities"</span><span style="color:#E1E4E8">: activities,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">with</span><span style="color:#79B8FF"> open</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"data/garmin/latest.json"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"w"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> f:</span></span>
+<span class="line"><span style="color:#E1E4E8">    json.dump(payload, f, </span><span style="color:#FFAB70">indent</span><span style="color:#F97583">=</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h3 id="what-to-normalize-from-garmin">What to normalize from Garmin</h3>
+<p>Do not dump raw Garmin payloads straight into your final report logic. Normalize them first into fields like:</p>
+<ul>
+<li><code>calendarDate</code></li>
+<li><code>totalSteps</code></li>
+<li><code>restingHeartRate</code></li>
+<li><code>sleepingSeconds</code></li>
+<li><code>bodyBattery</code></li>
+<li><code>activityName</code></li>
+<li><code>activityType</code></li>
+<li><code>durationSeconds</code></li>
+<li><code>distanceMeters</code></li>
+<li><code>distanceMiles</code></li>
+<li><code>averageHR</code></li>
+<li><code>maxHR</code></li>
+<li><code>calories</code></li>
+<li><code>trainingEffect</code></li>
+<li><code>cadence</code></li>
+<li><code>power</code></li>
+</ul>
+<h3 id="recommended-storage-pattern">Recommended storage pattern</h3>
+<ul>
+<li><code>data/garmin/raw/YYYY-MM-DD.json</code></li>
+<li><code>data/garmin/normalized/YYYY-MM-DD.json</code></li>
+<li><code>data/garmin/summary/latest.json</code></li>
+</ul>
+<p>That gives you both replayability and fast report access.</p>
+<hr>
+<h2 id="4-whoop-the-recovery-and-readiness-layer">4. WHOOP: the recovery and readiness layer</h2>
+<p>WHOOP is what makes the reports useful as a decision engine instead of just an activity log.</p>
+<p>It contributes:</p>
+<ul>
+<li>recovery score</li>
+<li>HRV</li>
+<li>resting heart rate</li>
+<li>sleep performance</li>
+<li>strain</li>
+<li>cycle context</li>
+<li>readiness framing for morning and nightly recommendations</li>
+</ul>
+<h3 id="public-api-to-use">Public API to use</h3>
+<p>Use the <strong>official WHOOP developer API</strong>:</p>
+<ul>
+<li>Docs: <code>https://developer.whoop.com/api</code></li>
+</ul>
+<p>Relevant endpoint groups:</p>
+<ul>
+<li><code>/developer/v2/cycle</code></li>
+<li><code>/developer/v2/recovery</code></li>
+<li><code>/developer/v2/activity/sleep</code></li>
+<li><code>/developer/v2/activity/workout</code></li>
+<li><code>/developer/v2/user/profile/basic</code></li>
+<li><code>/developer/v2/user/measurement/body</code></li>
+</ul>
+<h3 id="critical-limitation">Critical limitation</h3>
+<p>One of the most important implementation findings: <strong>journal data is not available from the WHOOP API</strong>.</p>
+<p>If you want journal answers or habit annotations, you cannot rely on a public WHOOP API endpoint for that. The practical options are:</p>
+<ul>
+<li>manual CSV export from WHOOP</li>
+<li>your own parallel journaling layer</li>
+<li>separate metadata you attach after sync</li>
+</ul>
+<p>That limitation should be stated plainly in the article because it affects any serious build.</p>
+<h3 id="minimal-executable-whoop-example">Minimal executable WHOOP example</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> os</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> json</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> requests</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">BASE</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> "https://api.prod.whoop.com/developer/v2"</span></span>
+<span class="line"><span style="color:#79B8FF">TOKEN</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> os.environ[</span><span style="color:#9ECBFF">"WHOOP_ACCESS_TOKEN"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">headers </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span><span style="color:#9ECBFF">"Authorization"</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"Bearer </span><span style="color:#79B8FF">{TOKEN}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">recovery </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> requests.get(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">{BASE}</span><span style="color:#9ECBFF">/recovery"</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">headers</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">headers).json()</span></span>
+<span class="line"><span style="color:#E1E4E8">sleep </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> requests.get(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">{BASE}</span><span style="color:#9ECBFF">/activity/sleep"</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">headers</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">headers).json()</span></span>
+<span class="line"><span style="color:#E1E4E8">workouts </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> requests.get(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">{BASE}</span><span style="color:#9ECBFF">/activity/workout"</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">headers</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">headers).json()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">payload </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "recovery"</span><span style="color:#E1E4E8">: recovery,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "sleep"</span><span style="color:#E1E4E8">: sleep,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "workouts"</span><span style="color:#E1E4E8">: workouts,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">with</span><span style="color:#79B8FF"> open</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"data/whoop/latest.json"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"w"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> f:</span></span>
+<span class="line"><span style="color:#E1E4E8">    json.dump(payload, f, </span><span style="color:#FFAB70">indent</span><span style="color:#F97583">=</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h3 id="what-to-normalize-from-whoop">What to normalize from WHOOP</h3>
+<p>Normalize into fields like:</p>
+<ul>
+<li><code>recovery_score</code></li>
+<li><code>hrv_rmssd_milli</code></li>
+<li><code>resting_heart_rate</code></li>
+<li><code>spo2_percentage</code></li>
+<li><code>skin_temp_celsius</code></li>
+<li><code>sleep_performance_percentage</code></li>
+<li><code>respiratory_rate</code></li>
+<li><code>strain</code></li>
+<li><code>cycle_start</code></li>
+<li><code>cycle_end</code></li>
+<li><code>workout_sport_name</code></li>
+</ul>
+<h3 id="recommended-storage-pattern-1">Recommended storage pattern</h3>
+<ul>
+<li><code>data/whoop/raw/recovery.json</code></li>
+<li><code>data/whoop/raw/sleep.json</code></li>
+<li><code>data/whoop/raw/workouts.json</code></li>
+<li><code>data/whoop/normalized/latest.json</code></li>
+</ul>
+<hr>
+<h2 id="5-speediance-the-strength-training-layer">5. Speediance: the strength-training layer</h2>
+<p>Speediance is the most unusual connector in the whole stack.</p>
+<p>Unlike Garmin and WHOOP, this is not a clean official public developer platform. The working connection pattern in Aria’s build is based on this public GitHub repo:</p>
+<p><strong>Public Aria extraction:</strong> <code>https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager</code></p>
+<p><strong>ANPC86/SmartGymWorkoutManager</strong><br>
+GitHub: <code>https://github.com/ANPC86/SmartGymWorkoutManager</code></p>
+<p>That repo is itself a personal fork / continuation of the original public Speediance project:</p>
+<p><strong>hbui3/UnofficialSpeedianceWorkoutManager</strong><br>
+GitHub: <code>https://github.com/hbui3/UnofficialSpeedianceWorkoutManager</code></p>
+<p>These repos are the important starting point because they show how to:</p>
+<ul>
+<li>authenticate against Speediance endpoints</li>
+<li>inspect workout data and API responses</li>
+<li>browse/export training history</li>
+<li>manage templates/workouts in a desktop-friendly way</li>
+<li>handle practical issues like timezone display and imperial/metric weight handling</li>
+</ul>
+<h3 id="why-these-repos-matter">Why these repos matter</h3>
+<p>Aria’s build uses the ANPC86 SmartGymWorkoutManager fork as the practical basis for the Speediance integration pattern, while preserving the hbui3 upstream reference for provenance. Together, they are the clearest public references for working with Speediance data outside the official app.</p>
+<h3 id="stability-warning">Stability warning</h3>
+<p>The original project notes that Speediance has been implementing security upgrades. That means:</p>
+<ul>
+<li>this integration can break</li>
+<li>headers and auth behavior can change</li>
+<li>endpoints can move</li>
+<li>you should isolate this connector behind a normalization step so your reports survive vendor-side churn</li>
+</ul>
+<h3 id="minimal-executable-pattern-for-speediance">Minimal executable pattern for Speediance</h3>
+<p>If you use <code>ANPC86/SmartGymWorkoutManager</code> as your starting point, while checking the <code>hbui3/UnofficialSpeedianceWorkoutManager</code> upstream for original context, the clean approach is:</p>
+<ol>
+<li>Run its app or client layer locally</li>
+<li>Authenticate with your Speediance account</li>
+<li>Pull workout history from the API methods it exposes</li>
+<li>Export normalized JSON into your own data directory</li>
+</ol>
+<p>Pseudo-example using that client pattern:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> speediance_manager.api_client </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> SpeedianceClient</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> json</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> datetime </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> date</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">client </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> SpeedianceClient()</span></span>
+<span class="line"><span style="color:#E1E4E8">success, msg, debug </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> client.login(</span><span style="color:#9ECBFF">"YOUR_EMAIL"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"YOUR_PASSWORD"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#F97583"> not</span><span style="color:#E1E4E8"> success:</span></span>
+<span class="line"><span style="color:#F97583">    raise</span><span style="color:#79B8FF"> RuntimeError</span><span style="color:#E1E4E8">(msg)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">start_date </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "2026-01-01"</span></span>
+<span class="line"><span style="color:#E1E4E8">end_date </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> date.today().isoformat()</span></span>
+<span class="line"><span style="color:#E1E4E8">records </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> client.get_training_data(start_date, end_date)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">with</span><span style="color:#79B8FF"> open</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"data/speediance/history.json"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"w"</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> f:</span></span>
+<span class="line"><span style="color:#E1E4E8">    json.dump(records, f, </span><span style="color:#FFAB70">indent</span><span style="color:#F97583">=</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h3 id="what-to-normalize-from-speediance">What to normalize from Speediance</h3>
+<p>Normalize into fields like:</p>
+<ul>
+<li><code>training_id</code></li>
+<li><code>date</code></li>
+<li><code>title</code></li>
+<li><code>duration_seconds</code></li>
+<li><code>calories</code></li>
+<li><code>total_volume</code></li>
+<li><code>exercise_count</code></li>
+<li><code>template_name</code></li>
+<li><code>planned_duration</code></li>
+<li><code>actual_duration</code></li>
+<li><code>exercise_breakdown</code></li>
+<li><code>estimated_1rm</code></li>
+</ul>
+<h3 id="best-practice-data-model">Best-practice data model</h3>
+<p>For a serious report system, keep two indexes:</p>
+<ol>
+<li><strong>bySession</strong></li>
+</ol>
+<ul>
+<li>one record per completed workout</li>
+</ul>
+<ol start="2">
+<li><strong>byExercise</strong></li>
+</ol>
+<ul>
+<li>one record stream per movement name</li>
+<li>includes weight, reps, side, session id, timestamp</li>
+</ul>
+<p>That structure makes progression charts and PR detection trivial later.</p>
+<h3 id="recommended-storage-pattern-2">Recommended storage pattern</h3>
+<ul>
+<li><code>data/speediance/raw/monthly/YYYY-MM.json</code></li>
+<li><code>data/speediance/normalized/history.json</code></li>
+<li><code>data/speediance/normalized/by_exercise.json</code></li>
+<li><code>data/speediance/dashboard/latest.json</code></li>
+</ul>
+<hr>
+<h2 id="6-chronometer--cronometer-the-nutrition-context-layer">6. Chronometer / Cronometer: the nutrition context layer</h2>
+<p>Whatever exact nutrition app you use, the role is the same: give the report context for energy intake.</p>
+<p>This matters because training load without nutrition context leads to bad conclusions.</p>
+<p>The report should be able to ask:</p>
+<ul>
+<li>Was recovery low because training load was high?</li>
+<li>Or because sleep was poor <strong>and</strong> calorie intake was low?</li>
+<li>Was the athlete under-fueled relative to output?</li>
+</ul>
+<h3 id="practical-build-advice">Practical build advice</h3>
+<p>For a reproducible version, do not depend on a live nutrition API at render time.
+Use one of:</p>
+<ul>
+<li>CSV export</li>
+<li>webhook ingestion</li>
+<li>scheduled sync into normalized JSON</li>
+</ul>
+<p>Normalize into fields like:</p>
+<ul>
+<li><code>calories_consumed</code></li>
+<li><code>protein_g</code></li>
+<li><code>carbs_g</code></li>
+<li><code>fat_g</code></li>
+<li><code>fiber_g</code></li>
+<li><code>target_calories</code></li>
+<li><code>estimated_deficit</code></li>
+</ul>
+<hr>
+<h2 id="7-what-openclaw-actually-does-in-this-stack">7. What OpenClaw actually does in this stack</h2>
+<p>OpenClaw is not the data source. It is the <strong>orchestration and reasoning layer</strong>.</p>
+<p>Its job is to:</p>
+<ul>
+<li>run sync jobs on schedule</li>
+<li>store stable outputs</li>
+<li>compare sources</li>
+<li>generate report HTML</li>
+<li>publish links</li>
+<li>produce human-friendly summaries from the normalized data</li>
+</ul>
+<p>That means the reporting code should read from files like:</p>
+<ul>
+<li><code>data/garmin/summary/latest.json</code></li>
+<li><code>data/whoop/normalized/latest.json</code></li>
+<li><code>data/speediance/normalized/history.json</code></li>
+<li><code>data/nutrition/latest.json</code></li>
+</ul>
+<p>The report generator should never need to know how Garmin auth works or how Speediance headers changed this week.</p>
+<hr>
+<h2 id="8-a-reproducible-directory-structure">8. A reproducible directory structure</h2>
+<p>Here is a public, cloneable structure someone else can actually use:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="text"><code><span class="line"><span>project/</span></span>
+<span class="line"><span>  data/</span></span>
+<span class="line"><span>    garmin/</span></span>
+<span class="line"><span>      raw/</span></span>
+<span class="line"><span>      normalized/</span></span>
+<span class="line"><span>      summary/</span></span>
+<span class="line"><span>    whoop/</span></span>
+<span class="line"><span>      raw/</span></span>
+<span class="line"><span>      normalized/</span></span>
+<span class="line"><span>    speediance/</span></span>
+<span class="line"><span>      raw/</span></span>
+<span class="line"><span>      normalized/</span></span>
+<span class="line"><span>      dashboard/</span></span>
+<span class="line"><span>    nutrition/</span></span>
+<span class="line"><span>  scripts/</span></span>
+<span class="line"><span>    sync_garmin.py</span></span>
+<span class="line"><span>    sync_whoop.py</span></span>
+<span class="line"><span>    sync_speediance.py</span></span>
+<span class="line"><span>    sync_nutrition.py</span></span>
+<span class="line"><span>    build_report.py</span></span>
+<span class="line"><span>  reports/</span></span>
+<span class="line"><span>    latest.html</span></span>
+<span class="line"><span>  frontend/</span></span>
+<span class="line"><span>    data/</span></span></code></pre>
+<p>This is the main lesson from the Aria build: <strong>make the file structure intelligible enough that anyone can debug it at 6 AM.</strong></p>
+<hr>
+<h2 id="9-example-report-builder-pattern">9. Example report builder pattern</h2>
+<p>Once each connector writes normalized JSON, the actual report code becomes simple.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> json</span></span>
+<span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> pathlib </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> Path</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">base </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Path(</span><span style="color:#9ECBFF">"data"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">garmin </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> json.loads((base </span><span style="color:#F97583">/</span><span style="color:#9ECBFF"> "garmin/summary/latest.json"</span><span style="color:#E1E4E8">).read_text())</span></span>
+<span class="line"><span style="color:#E1E4E8">whoop </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> json.loads((base </span><span style="color:#F97583">/</span><span style="color:#9ECBFF"> "whoop/normalized/latest.json"</span><span style="color:#E1E4E8">).read_text())</span></span>
+<span class="line"><span style="color:#E1E4E8">speediance </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> json.loads((base </span><span style="color:#F97583">/</span><span style="color:#9ECBFF"> "speediance/normalized/history.json"</span><span style="color:#E1E4E8">).read_text())</span></span>
+<span class="line"><span style="color:#E1E4E8">nutrition </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> json.loads((base </span><span style="color:#F97583">/</span><span style="color:#9ECBFF"> "nutrition/latest.json"</span><span style="color:#E1E4E8">).read_text())</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">summary </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "recovery"</span><span style="color:#E1E4E8">: whoop.get(</span><span style="color:#9ECBFF">"recovery_score"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    "hrv"</span><span style="color:#E1E4E8">: whoop.get(</span><span style="color:#9ECBFF">"hrv_rmssd_milli"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    "rhr"</span><span style="color:#E1E4E8">: whoop.get(</span><span style="color:#9ECBFF">"resting_heart_rate"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    "steps"</span><span style="color:#E1E4E8">: garmin.get(</span><span style="color:#9ECBFF">"totalSteps"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    "body_battery"</span><span style="color:#E1E4E8">: garmin.get(</span><span style="color:#9ECBFF">"bodyBattery"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    "lifting_volume"</span><span style="color:#E1E4E8">: speediance.get(</span><span style="color:#9ECBFF">"today"</span><span style="color:#E1E4E8">, {}).get(</span><span style="color:#9ECBFF">"total_volume"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    "calories_in"</span><span style="color:#E1E4E8">: nutrition.get(</span><span style="color:#9ECBFF">"calories_consumed"</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">html </span><span style="color:#F97583">=</span><span style="color:#F97583"> f</span><span style="color:#9ECBFF">"""</span></span>
+<span class="line"><span style="color:#9ECBFF">&#x3C;html></span></span>
+<span class="line"><span style="color:#9ECBFF">  &#x3C;body></span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;h1>Daily Fitness Report&#x3C;/h1></span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;ul></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>Recovery: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'recovery'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>HRV: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'hrv'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>RHR: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'rhr'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>Steps: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'steps'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>Body Battery: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'body_battery'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>Lifting Volume: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'lifting_volume'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">      &#x3C;li>Calories In: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">summary[</span><span style="color:#9ECBFF">'calories_in'</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">&#x3C;/li></span></span>
+<span class="line"><span style="color:#9ECBFF">    &#x3C;/ul></span></span>
+<span class="line"><span style="color:#9ECBFF">  &#x3C;/body></span></span>
+<span class="line"><span style="color:#9ECBFF">&#x3C;/html></span></span>
+<span class="line"><span style="color:#9ECBFF">"""</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Path(</span><span style="color:#9ECBFF">"reports/latest.html"</span><span style="color:#E1E4E8">).write_text(html)</span></span></code></pre>
+<p>This is where the whole design pays off: once the sync layer is sane, the report layer gets boring in the best possible way.</p>
+<hr>
+<h2 id="10-what-each-connector-is-actually-for">10. What each connector is actually for</h2>
+<p>This is the simplest mental model:</p>
+<h3 id="whoop-1">WHOOP</h3>
+<p>Use for:</p>
+<ul>
+<li>recovery</li>
+<li>HRV</li>
+<li>RHR</li>
+<li>sleep performance</li>
+<li>strain</li>
+<li>readiness framing</li>
+</ul>
+<h3 id="garmin-1">Garmin</h3>
+<p>Use for:</p>
+<ul>
+<li>running and cardio detail</li>
+<li>pace, power, cadence</li>
+<li>HR zones</li>
+<li>training effect</li>
+<li>detailed activity history</li>
+</ul>
+<h3 id="speediance-1">Speediance</h3>
+<p>Use for:</p>
+<ul>
+<li>strength workout history</li>
+<li>total volume</li>
+<li>exercise detail</li>
+<li>planned vs actual session execution</li>
+<li>movement-level progression if you build by-exercise indexing</li>
+</ul>
+<h3 id="nutrition-app">Nutrition app</h3>
+<p>Use for:</p>
+<ul>
+<li>calorie intake</li>
+<li>macro context</li>
+<li>under-fueling detection</li>
+</ul>
+<p>OpenClaw then combines all of them into one report and recommendation surface.</p>
+<hr>
+<h2 id="11-the-real-implementation-rules">11. The real implementation rules</h2>
+<p>If someone wants to reproduce this successfully, these rules matter more than any single code snippet:</p>
+<ol>
+<li>
+<p><strong>Normalize every vendor into your own schema</strong><br>
+Never let a report depend on vendor payload shape.</p>
+</li>
+<li>
+<p><strong>Keep raw snapshots</strong><br>
+When a sync breaks, raw payloads save you.</p>
+</li>
+<li>
+<p><strong>Never render from live APIs if the report is time-sensitive</strong><br>
+Sync first, render second.</p>
+</li>
+<li>
+<p><strong>Treat unofficial integrations as disposable adapters</strong><br>
+Especially Speediance.</p>
+</li>
+<li>
+<p><strong>Make Garmin and WHOOP complement each other, not compete</strong><br>
+WHOOP = readiness. Garmin = execution detail.</p>
+</li>
+<li>
+<p><strong>Model strength data at both session and exercise level</strong><br>
+Otherwise progression reporting stays shallow.</p>
+</li>
+</ol>
+<hr>
+<h2 id="12-implementation-reference-list">12. Implementation reference list</h2>
+<p>These are the public references an AI coding agent should be handed first when recreating this system:</p>
+<ul>
+<li>OpenClaw as the orchestration layer</li>
+<li>Garmin connector: <code>https://github.com/cyberjunky/python-garminconnect</code></li>
+<li>Garmin historical auth context: <code>https://github.com/matin/garth</code> <em>(deprecated; use as context, not as the center of a new build)</em></li>
+<li>WHOOP official developer API: <code>https://developer.whoop.com/api</code></li>
+<li>Speediance public extraction for this build: <code>https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager</code></li>
+<li>Speediance upstream/original reference: <code>https://github.com/hbui3/UnofficialSpeedianceWorkoutManager</code></li>
+<li>Cronometer nutrition exports: <code>https://cronometer.com/</code></li>
+</ul>
+<p>If you are handing this article to Claude Code, Codex, OpenClaw, or another implementation agent, the correct instruction is: build the connectors first, write normalized JSON snapshots second, then build the report renderer last. Do not start by designing the final HTML report.</p>
+<hr> </div> </div> <div class="mt-16 pt-8 border-t border-neutral-800"> <div class="flex items-center gap-4 flex-wrap"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg> <div class="flex flex-wrap gap-2"> <span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#openclaw</span><span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#garmin</span><span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#whoop</span><span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#speediance</span><span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#fitness reports</span><span class="text-sm bg-neutral-900 border border-neutral-800 px-3 py-1 rounded-full text-neutral-400 hover:text-white transition-colors cursor-pointer">#ai systems</span> </div> </div> </div> </div> </article>  </main> <div data-pagefind-ignore> <footer class="bg-neutral-950 border-t border-neutral-900 pt-16 pb-8"><div class="container mx-auto px-4"><div class="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12"><div class="col-span-1 md:col-span-2"><h3 class="text-xl font-bold text-white mb-4">TobyOnFitnessTech</h3><p class="text-neutral-400 text-sm leading-relaxed max-w-sm mb-6">Dedicated to cutting through the marketing hype and delivering data-driven reviews of fitness technology. Helping you train smarter, not harder.</p><div class="flex gap-2"><a href="https://www.youtube.com/@tobyonfitness" target="_blank" rel="noopener noreferrer" class="p-2 text-neutral-400 hover:text-red-500 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg></a><a href="https://x.com/tobyglenn" target="_blank" rel="noopener noreferrer" class="p-2 text-neutral-400 hover:text-blue-400 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter" aria-hidden="true"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a><a href="https://www.instagram.com/tobyonfitness" target="_blank" rel="noopener noreferrer" class="p-2 text-neutral-400 hover:text-pink-500 transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a href="mailto:admin@tobyonfitnesstech.com" class="p-2 text-neutral-400 hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></a></div></div><div><h4 class="font-semibold text-white mb-4">Content</h4><ul class="space-y-2 text-sm text-neutral-400"><li><a href="/videos/" class="hover:text-blue-400 transition-colors">Video Reviews</a></li><li><a href="/blog/" class="hover:text-blue-400 transition-colors">Written Analysis</a></li><li><a href="/live/" class="hover:text-blue-400 transition-colors">Live Streams</a></li><li><a href="/podcasts/" class="hover:text-blue-400 transition-colors">Podcasts</a></li><li><a href="/gear/" class="hover:text-blue-400 transition-colors">My Gear</a></li></ul></div><div><h4 class="font-semibold text-white mb-4">Data Pages</h4><ul class="space-y-2 text-sm text-neutral-400"><li><a href="/running/" class="hover:text-blue-400 transition-colors">Running Log</a></li><li><a href="/speediance/" class="hover:text-blue-400 transition-colors">Lifting Stats</a></li><li><a href="/sleep/" class="hover:text-blue-400 transition-colors">Sleep Data</a></li><li><a href="/training/" class="hover:text-blue-400 transition-colors">Training Trends</a></li><li><a href="/bjj/" class="hover:text-blue-400 transition-colors">BJJ Journey</a></li><li><a href="/transformation/" class="hover:text-blue-400 transition-colors">Weight Journey</a></li><li><a href="/prs/" class="hover:text-blue-400 transition-colors">PR Board</a></li><li><a href="/whoop/" class="hover:text-blue-400 transition-colors">Recovery</a></li><li><a href="/fitness-age/" class="hover:text-blue-400 transition-colors">Fitness Age</a></li></ul></div><div><h4 class="font-semibold text-white mb-4">Legal</h4><ul class="space-y-2 text-sm text-neutral-400"><li><a href="/privacy/" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li><li><a href="/terms/" class="hover:text-blue-400 transition-colors">Terms of Service</a></li><li><a href="/affiliate/" class="hover:text-blue-400 transition-colors">Affiliate Disclosure</a></li></ul></div></div><div class="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 mb-12"><div class="flex flex-col md:flex-row items-center justify-between gap-6"><div><h4 class="font-bold text-white mb-1 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail text-blue-500" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>Get the Weekly Brief</h4><p class="text-neutral-400 text-sm">Fitness tech insights, Speediance tips, and OpenClaw updates. No spam.</p></div><form class="flex w-full md:w-auto gap-2"><input type="email" placeholder="your@email.com" required="" class="flex-1 md:w-64 px-4 py-2.5 bg-neutral-950 border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-neutral-600 disabled:opacity-50" value=""/><button type="submit" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 text-white text-sm font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-900/20 disabled:opacity-70">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></button></form></div></div><div class="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-600"><p>© <!-- -->2026<!-- --> Toby on Fitness Tech. All rights reserved.</p><p class="flex items-center gap-1">Built with <span class="text-red-500">♥</span> using Astro &amp; React</p></div></div></footer> </div> </body></html> 
