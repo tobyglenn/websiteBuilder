@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 30 Apr 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 May 2026 16:08:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 44 -->
+    <item>
+      <title>एपिसोड 44: OpenClaw v2026.4.29, सक्रिय-रन स्टीयरिंग, लोग-जागरूक स्मृति, मॉडल प्रव्रजन, और खाता सुरक्षा</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep044/episode_044.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-44/</link>
+      <description><![CDATA[एपिसोड OpenClaw v2026.4.29 से शुरू होती है। यह रिलीज़ सक्रिय-रन स्टीयरिंग डिफ़ॉल्ट, दृश्य-जवाब प्रवर्तन, स्पॉन्ड-सबएजेंट रूटिंग मेटाडेटा, वैकल्पिक फॉलो-अप प्रतिबद्धताएं, लोग-जागरूक स्मृति विकि मेटाडेटा, प्रति-वार्तालाप सक्रिय स्मृति फ़िल्टर, टाइमआउट पर आंशिक रिकॉल, एक बाउंडेड REM प्रीव्यू RPC, NVIDIA प्रोवाइडर ऑनबोर्डिंग और कैटलॉग मेटाडेटा, Bedrock Opus 4.7 सोच समानता, OpenGrep स्कैन वर्कफ़्लोज़, सख्त प्रतिबंधात्मक-प्रोफ़ाइल टूल व्यवहार, स्टार्टअप निदान, पुन: प्रयोज्य मॉडल जोड़ती है। बैक हाफ़ में Cisco का AI आपूर्ति-श्रृंखला सत्यापन के लिए मॉडल प्रव्रजन किट और फ़िशिंग-प्रतिरोधी ChatGPT और Codex खातों के लिए OpenAI एडवांस्ड खाता सुरक्षा शामिल है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-44/]]></description>
+      <pubDate>Sun, 03 May 2026 16:08:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_044.mp3" length="46503017" type="audio/mpeg"/>
+      <itunes:duration>48:26</itunes:duration>
+      <itunes:episode>44</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep044/episode_044_cover.png"/>
+    </item>
+
     <!-- Episode 43 -->
     <item>
       <title>एपिसोड 43: OpenClaw v2026.4.27, वॉइस एजेंट्स, और रैपिड AI स्टोरेज</title>
