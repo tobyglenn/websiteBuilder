@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Sun, 03 May 2026 16:08:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 45 -->
+    <item>
+      <title>Episodio 45: OpenClaw Transferencia de Archivos, Endurecimiento del Runtime de Plugins, Flujos de Trabajo de Objetivos Codex y Seguridad de Egreso del Agente</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep045/episode_045.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-45/</link>
+      <description><![CDATA[OpenClaw Daily analiza tres nuevos lanzamientos de OpenClaw, enfocándose en herramientas de transferencia de archivos para nodos emparejados, endurecimiento de la instalación y actualización de plugins, reducción del camino crítico de arranque, correcciones en la entrega de canales y confiabilidad en tiempo de ejecución. Luego, el episodio desglosa los flujos de trabajo de objetivos de OpenAI Codex, perfiles de permisos, importaciones de plugins y controles multiagente, antes de cerrar con la redacción que preserva clases de Pipelock y el diseño de escaneo SSE en streaming para la seguridad de egreso del agente.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-45/]]></description>
+      <pubDate>Mon, 04 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_045.mp3" length="37335918" type="audio/mpeg"/>
+      <itunes:duration>38:53</itunes:duration>
+      <itunes:episode>45</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep045/episode_045_cover.png"/>
+    </item>
+
     <!-- Episode 44 -->
     <item>
       <title>Episodio 44: OpenClaw v2026.4.29, Dirección de Ejecución Activa, Memoria Consciente de Personas, Procedencia de Modelos y Seguridad de Cuenta</title>
