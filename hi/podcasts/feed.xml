@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 03 May 2026 16:08:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 45 -->
+    <item>
+      <title>एपिसोड 45: ओपनक्लॉ फाइल ट्रांसफर, प्लगइन रनटाइम हार्डनिंग, कोडेक्स गोल वर्कफ्लोज़, और एजेंट एग्रेस सिक्योरिटी</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep045/episode_045.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-45/</link>
+      <description><![CDATA[ओपनक्लॉ डेली तीन नए ओपनक्लॉ रिलीज़ की जांच करता है, जो जोड़े नोड्स के लिए फाइल-ट्रांसफर टूल्स, प्लगइन इंस्टॉल/अपडेट हार्डनिंग, स्टार्टअप हॉट-पाथ रिडक्शन, चैनल डिलीवरी फिक्सेस, और रनटाइम रिलायबिलिटी पर केंद्रित है। एपिसोड फिर ओपनएआई कोडेक्स गोल वर्कफ्लोज़, परमिशन प्रोफाइल्स, प्लगइन इम्पोर्ट्स, और मल्टी-एजेंट कंट्रोल्स को तोड़ता है, इससे पहले कि पाइपलॉक की क्लास-प्रिजर्विंग रिडैक्शन और एजेंट एग्रेस सिक्योरिटी के लिए स्ट्रीमिंग SSE स्कैन डिज़ाइन के साथ समाप्त हो।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-45/]]></description>
+      <pubDate>Mon, 04 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_045.mp3" length="44654384" type="audio/mpeg"/>
+      <itunes:duration>46:30</itunes:duration>
+      <itunes:episode>45</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep045/episode_045_cover.png"/>
+    </item>
+
     <!-- Episode 44 -->
     <item>
       <title>एपिसोड 44: OpenClaw v2026.4.29, सक्रिय-रन स्टीयरिंग, लोग-जागरूक स्मृति, मॉडल प्रव्रजन, और खाता सुरक्षा</title>
