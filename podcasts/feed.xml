@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 May 2026 16:08:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 04 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 45 -->
+    <item>
+      <title>Episode 45: OpenClaw File Transfer, Plugin Runtime Hardening, Codex Goal Workflows, and Agent Egress Security</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_045.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-45/</link>
+      <description><![CDATA[OpenClaw Daily examines three new OpenClaw releases, focusing on file-transfer tools for paired nodes, plugin install/update hardening, startup hot-path reductions, channel delivery fixes, and runtime reliability. The episode then breaks down OpenAI Codex goal workflows, permission profiles, plugin imports, and multi-agent controls, before closing with Pipelock’s class-preserving redaction and streaming SSE scan design for agent egress security.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-45/]]></description>
+      <pubDate>Mon, 04 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_045.mp3" length="33025087" type="audio/mpeg"/>
+      <itunes:duration>34:23</itunes:duration>
+      <itunes:episode>45</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_045_cover.png"/>
+    </item>
+
     <!-- Episode 44 -->
     <item>
       <title>Episode 44: OpenClaw v2026.4.29, Active-Run Steering, People-Aware Memory, Model Provenance, and Account Security</title>
