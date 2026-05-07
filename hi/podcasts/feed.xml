@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 04 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2026 14:51:54 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 46 -->
+    <item>
+      <title>एपिसोड 46: OpenClaw Codex OAuth रूटिंग, रियलटाइम वॉइस, OpenAI SDK इमेज अपडेट्स, और vLLM सर्विंग स्टेबिलाइज़ेशन</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep046/episode_046.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-46/</link>
+      <description><![CDATA[OpenClaw Daily OpenClaw v2026.5.4 से v2026.5.6 तक की जांच करता है, रियलटाइम Google Meet और Voice Call स्पीच, Twilio ऑडियो बैकप्रेशर, प्लगइन माइग्रेशन हिंट्स, वर्कस्पेस-स्कोप्ड मेटाडेटा स्नैपशॉट्स, SecretRef कॉन्ट्रैक्ट रेज़ोल्यूशन, मॉडल ऑथ इंस्पेक्शन, स्टार्टअप फेज डायग्नोस्टिक्स, रिच Slack प्रोग्रेस ड्राफ्ट्स, और कॉम्पैक्ट टूल-प्रोग्रेस आउटपुट पर ध्यान केंद्रित करता है। एपिसोड फिर LangGraph v1.2 अल्फा के नोड टाइमआउट, DeltaChannel चेकपॉइंटिंग, एरर हैंडलर्स, और स्ट्रीमिंग API को ब्रेक डाउन करता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-46/]]></description>
+      <pubDate>Thu, 07 May 2026 14:51:54 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_046.mp3" length="48724470" type="audio/mpeg"/>
+      <itunes:duration>50:45</itunes:duration>
+      <itunes:episode>46</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep046/episode_046_cover.png"/>
+    </item>
+
     <!-- Episode 45 -->
     <item>
       <title>एपिसोड 45: ओपनक्लॉ फाइल ट्रांसफर, प्लगइन रनटाइम हार्डनिंग, कोडेक्स गोल वर्कफ्लोज़, और एजेंट एग्रेस सिक्योरिटी</title>
