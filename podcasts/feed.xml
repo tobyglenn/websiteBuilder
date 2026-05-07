@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 04 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 07 May 2026 14:51:54 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on the OpenClaw AI agent revolution. Learn how to run your own AI locally, keep your data private, and stay ahead of the rapidly evolving world of local language models. From hardware setups to security tips, model releases to community highlights — everything you need to know about the future of personal AI, right here.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 46 -->
+    <item>
+      <title>Episode 46: OpenClaw Codex OAuth Routing, Realtime Voice, OpenAI SDK Image Updates, and vLLM Serving Stabilization</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_046.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-46/</link>
+      <description><![CDATA[OpenClaw Daily examines OpenClaw v2026.5.4 through v2026.5.6, focusing on realtime Google Meet and Voice Call speech, Twilio audio backpressure, plugin migration hints, workspace-scoped metadata snapshots, SecretRef contract resolution, model auth inspection, startup phase diagnostics, rich Slack progress drafts, and compact tool-progress output. The episode then breaks down LangGraph v1.2 alpha’s node timeouts, DeltaChannel checkpointing, error handlers, and streaming API, before closing with vLLM v0.20.1’s DeepSeek V4 kernel, communication, CUDA graph, and tool-call fixes. ### Fresh May 7 Update EP046 has been refreshed for May 7 with current OpenClaw technical content. New OpenClaw coverage includes v2026.5.6 Codex OAuth route repair, plugin runtime/header normalization, debug proxy header replay normalization, and bounded guarded-fetch timeout cleanup; v2026.5.5 channel/progress/session/status fixes; and the prior v2026.5.4 realtime voice and SecretRef contract work. Sources: https://github.com/openclaw/openclaw/releases, https://github.com/openclaw/openclaw/releases/tag/v2026.5.5, https://github.com/openclaw/openclaw/releases/tag/v2026.5.6, https://github.com/openai/openai-python/releases, https://github.com/vllm-project/vllm/releases.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-46/]]></description>
+      <pubDate>Thu, 07 May 2026 14:51:54 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_046.mp3" length="36244209" type="audio/mpeg"/>
+      <itunes:duration>37:45</itunes:duration>
+      <itunes:episode>46</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_046_cover.png"/>
+    </item>
+
     <!-- Episode 45 -->
     <item>
       <title>Episode 45: OpenClaw File Transfer, Plugin Runtime Hardening, Codex Goal Workflows, and Agent Egress Security</title>
