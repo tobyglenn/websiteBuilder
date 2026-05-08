@@ -78,17 +78,25 @@ async function getFallbackFromVideosJson() {
 }
 
 async function main() {
-  const response = await fetch(FEED_URL);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${FEED_URL}: ${response.status}`);
+  let featuredVideo = null;
+
+  try {
+    const response = await fetch(FEED_URL);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${FEED_URL}: ${response.status}`);
+    }
+
+    const feedXml = await response.text();
+    const entries = parseFeedEntries(feedXml);
+    featuredVideo = entries.find((entry) => !entry.is_short && !entry.is_live) ?? null;
+  } catch (error) {
+    console.warn(
+      `${error instanceof Error ? error.message : String(error)} — falling back to videos.json`
+    );
   }
 
-  const feedXml = await response.text();
-  const entries = parseFeedEntries(feedXml);
-  let featuredVideo = entries.find((entry) => !entry.is_short && !entry.is_live);
-
   if (!featuredVideo) {
-    console.warn('No long-form video found in RSS feed (all recent uploads may be Shorts) — falling back to videos.json');
+    console.warn('No long-form video found in RSS feed — falling back to videos.json');
     featuredVideo = await getFallbackFromVideosJson();
   }
 
