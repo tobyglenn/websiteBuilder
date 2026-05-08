@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-05-07T08:05:03.917377",
-  "total_activities": 1524,
+  "generated_at": "2026-05-07T19:50:26.144630",
+  "total_activities": 1525,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-05-05"
+    "end": "2026-05-07"
   },
   "activities": [
     {
@@ -19816,6 +19816,19 @@
       "averageHR": 131.0,
       "maxHR": 144.0,
       "calories": 288.0,
+      "avgPace": 0
+    },
+    {
+      "date": "2026-05-07",
+      "startTimeLocal": "2026-05-07 19:10:06",
+      "activityType": "running",
+      "activityName": "Camp Hill - Base",
+      "distance": 1.5934,
+      "distance_miles": 1.5934,
+      "duration": 27.13,
+      "averageHR": 123.0,
+      "maxHR": 141.0,
+      "calories": 230.0,
       "avgPace": 0
     }
   ],
