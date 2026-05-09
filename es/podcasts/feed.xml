@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 07 May 2026 14:51:54 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 09 May 2026 18:45:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 47 -->
+    <item>
+      <title>Episodio 47: OpenClaw v2026.5.7, Sandboxes de Agents SDK y Runtime de Seguridad de Gemini CLI</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep047/episode_047.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-47/</link>
+      <description><![CDATA[OpenClaw Daily cubre OpenClaw v2026.5.7, enfocándose en recuperación de publicación en ClawHub, `openai/chat-latest`, estado JSON de cron, listado de canales, aplicación de propietario de comandos nativos, alcance de administración de Memoria Activa, actualización de instantánea de skills, autorización previa a herramientas para despacho de skills inline, credenciales de Tavily respaldadas por SecretRef, invalidación de caché de contexto, análisis de destino Discord, sujeción de tokens de compactación, reporte de fallos de entrega, sondas de voz Discord, vitalidad del polling de Telegram, enrutamiento de WhatsApp y aprobaciones de Codex.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-47/]]></description>
+      <pubDate>Sat, 09 May 2026 18:45:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_047.mp3" length="40374482" type="audio/mpeg"/>
+      <itunes:duration>42:03</itunes:duration>
+      <itunes:episode>47</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep047/episode_047_cover.png"/>
+    </item>
+
     <!-- Episode 46 -->
     <item>
       <title>Episodio 46: Enrutamiento OAuth de OpenClaw Codex, Voz en Tiempo Real, Actualizaciones de Imágenes del SDK de OpenAI y Estabilización del Servicio de vLLM</title>
