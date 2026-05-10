@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 09 May 2026 18:45:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 10 May 2026 14:45:14 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 48 -->
+    <item>
+      <title>Folge 48: Codex Fernsteuerung, Agent RCE-Härtung, Copilot-Sitzungs-Hooks und Microsoft Agent Framework 1.5</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep048/episode_048.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-48/</link>
+      <description><![CDATA[OpenClaw Daily EP048 beginnt mit OpenAI Codex 0.130.0 und seinem ferngesteuerten App-Server-Einstiegspunkt, seitenweisen Thread-Ansichten, Plugin-Hook-Metadaten, Konfigurationsaktualisierung, Turn-Diff-Genauigkeit, Multi-Environment-Bildauflösung und Telemetrieänderungen. Die Episode erklärt dann Microsofts Semantic Kernel RCE-Fallstudie, GitHub Copilot SDK-Sitzungs-Hooks und Diagnosen sowie Änderungen am Microsoft Agent Framework 1.5 rund um die Magentic-Orchestrierung, WebBrowsingTool-Allowlisten, Reasoning-Events, Todo-State-Injection und
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-48/]]></description>
+      <pubDate>Sun, 10 May 2026 14:45:14 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_048.mp3" length="41672246" type="audio/mpeg"/>
+      <itunes:duration>43:24</itunes:duration>
+      <itunes:episode>48</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep048/episode_048_cover.png"/>
+    </item>
+
     <!-- Episode 47 -->
     <item>
       <title>Folge 47: OpenClaw v2026.5.7, Agents SDK Sandboxes und Gemini CLI Safety Runtime</title>
