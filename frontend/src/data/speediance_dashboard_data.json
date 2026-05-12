@@ -266,6 +266,20 @@
           "durationMinute": 26,
           "calorie": 395,
           "actionNum": 17
+        },
+        {
+          "date": "2026-05-11",
+          "totalCapacity": 0.0,
+          "durationMinute": 26,
+          "calorie": 16,
+          "actionNum": 17
+        },
+        {
+          "date": "2026-05-11",
+          "totalCapacity": 3087.0,
+          "durationMinute": 26,
+          "calorie": 89,
+          "actionNum": 17
         }
       ],
       "exercises": [],
@@ -277,9 +291,9 @@
         "calorie": 887,
         "actionNum": 17
       },
-      "totalSessions": 28,
-      "avgVolume": 6504.9,
-      "totalVolume": 182137.0
+      "totalSessions": 30,
+      "avgVolume": 6174.1,
+      "totalVolume": 185224.0
     },
     "Chest handles": {
       "name": "Chest handles",
@@ -1108,11 +1122,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 85,
-  "totalVolumeLbs": 856685.4,
+  "totalWorkouts": 87,
+  "totalVolumeLbs": 859772.4,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-05-05"
+    "end": "2026-05-11"
   },
   "allSessions": [
     {
@@ -1794,6 +1808,22 @@
       "durationMinute": 50,
       "calorie": 991,
       "actionNum": 30
+    },
+    {
+      "date": "2026-05-11",
+      "title": "Arms Barbell",
+      "totalCapacity": 0.0,
+      "durationMinute": 26,
+      "calorie": 16,
+      "actionNum": 17
+    },
+    {
+      "date": "2026-05-11",
+      "title": "Arms Barbell",
+      "totalCapacity": 3087.0,
+      "durationMinute": 26,
+      "calorie": 89,
+      "actionNum": 17
     }
   ]
 }
