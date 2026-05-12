@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
     <language>es-es</language>
-    <lastBuildDate>Sun, 10 May 2026 14:45:14 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 May 2026 11:08:16 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 49 -->
+    <item>
+      <title>Episodio 49: Sesión técnica sobre agentes de investigación, límites de sandbox, confiabilidad del kernel de inferencia y superficies de control de runtime de agentes</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep049/episode_049.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-49/</link>
+      <description><![CDATA[EP049 profundiza en el Agente de Investigación Profunda Gemini de Google en la API de Interactions, correcciones de sandbox y sesión del SDK de Agentes de OpenAI, parche de servicio de DeepSeek V4 de vLLM, y controles de runtime de TypeScript de Strands Agents para hooks, MCP, compresión, reintentos e interrupción humana.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-49/]]></description>
+      <pubDate>Tue, 12 May 2026 11:08:16 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_049.mp3" length="40534979" type="audio/mpeg"/>
+      <itunes:duration>42:13</itunes:duration>
+      <itunes:episode>49</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep049/episode_049_cover.png"/>
+    </item>
+
     <!-- Episode 48 -->
     <item>
       <title>Episodio 48: Control Remoto de Codex, Endurecimiento de RCE de Agentes, Ganchos de Sesión de Copilot, y Microsoft Agent Framework 1.5</title>
