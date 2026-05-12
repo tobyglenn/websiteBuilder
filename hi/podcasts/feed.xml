@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 10 May 2026 14:45:14 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 12 May 2026 11:08:16 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 49 -->
+    <item>
+      <title>एपिसोड 49: एपिसोड 49</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep049/episode_049.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-49/</link>
+      <description><![CDATA[EP049 Google की Gemini Deep Research Agent को Interactions API में गहराई से देखता है, साथ ही OpenAI Agents SDK सैंडबॉक्स और सेशन फिक्स की जानकारी देता है। इसके अलावा, vLLM की DeepSeek V4 सर्विंग पैच और Strands Agents TypeScript रनटाइम कंट्रोल्स पर हुक, MCP, संपीड़न, रिट्राई और मानव हस्तक्षेप की चर्चा की जाती है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-49/]]></description>
+      <pubDate>Tue, 12 May 2026 11:08:16 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_049.mp3" length="48416017" type="audio/mpeg"/>
+      <itunes:duration>50:25</itunes:duration>
+      <itunes:episode>49</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep049/episode_049_cover.png"/>
+    </item>
+
     <!-- Episode 48 -->
     <item>
       <title>एपिसोड 48: Codex रिमोट कंट्रोल, एजेंट RCE हार्डनिंग, Copilot सेशन हुक, और Microsoft एजेंट फ्रेमवर्क 1.5</title>
