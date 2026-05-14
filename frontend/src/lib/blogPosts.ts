@@ -162,30 +162,30 @@ function defaultCoverImage(slug: string, title: string, category: string): strin
   return '';
 }
 
-function repairLegacyImagePath(imagePath: string, slug: string, title: string, category: string): string {
-  const repairs: Record<string, string> = {
-    '/images/default-blog.jpg': '/progress/progress_188.jpg',
-    '/images/transformation.jpg': '/progress/progress_188.jpg',
-    '/images/speediance-2s.jpg': '/images/gear/speediance-gym-monster-2s.jpg',
-    '/images/speediance-comparison.jpg': '/images/gear/speediance-gym-monster-2s.jpg',
-    '/images/speediance-modes.jpg': '/images/gear/speediance-gym-monster-2s.jpg',
-  };
+const LEGACY_IMAGE_REPAIRS: Record<string, string> = {
+  '/images/default-blog.jpg': '/progress/progress_188.jpg',
+  '/images/transformation.jpg': '/progress/progress_188.jpg',
+  '/images/speediance-2s.jpg': '/images/gear/speediance-gym-monster-2s.jpg',
+  '/images/speediance-comparison.jpg': '/images/gear/speediance-gym-monster-2s.jpg',
+  '/images/speediance-modes.jpg': '/images/gear/speediance-gym-monster-2s.jpg',
+};
 
-  if (repairs[imagePath]) {
-    return repairs[imagePath];
+function repairLegacyImagePath(imagePath: string, slug: string, title: string, category: string): string {
+  if (LEGACY_IMAGE_REPAIRS[imagePath]) {
+    return LEGACY_IMAGE_REPAIRS[imagePath];
   }
 
   return defaultCoverImage(slug, title, category);
 }
 
 function resolveCoverImage(rawImage: string, slug: string, title: string, category: string): string {
-  if (imageExists(rawImage)) {
-    return rawImage;
+  const repaired = repairLegacyImagePath(rawImage, slug, title, category);
+  if (repaired && repaired !== rawImage && imageExists(repaired)) {
+    return repaired;
   }
 
-  const repaired = repairLegacyImagePath(rawImage, slug, title, category);
-  if (imageExists(repaired)) {
-    return repaired;
+  if (imageExists(rawImage)) {
+    return rawImage;
   }
 
   const fallback = defaultCoverImage(slug, title, category);

@@ -69,14 +69,14 @@ const gearJsonLd = {
   '@type': 'ItemList',
   name: "Toby's Fitness Tech Gear",
   description: 'Compact list of gear with direct links to full detailed reviews.',
-  url: 'https://tobyonfitnesstech.com/gear',
+  url: 'https://tobyonfitnesstech.com/gear/',
   itemListElement: currentGearItems.map((item, index) => ({
     '@type': 'ListItem',
     position: index + 1,
     name: item.name,
     description: item.shortDescription,
     image: `https://tobyonfitnesstech.com${item.image}`,
-    url: `https://tobyonfitnesstech.com/gear/${item.slug}`
+    url: `https://tobyonfitnesstech.com/gear/${item.slug}/`
   }))
 };
 

@@ -90,7 +90,7 @@ export default function Hero({ lang = 'en' }) {
   const featuredVideoHref = featuredVideo ? `/video/${featuredVideo.id}/` : '/videos/';
 
   const pillarIcons = [Dumbbell, Users, TrendingDown];
-  const pillarHrefs = ['/videos?category=speediance', '/videos?category=bjj', '/about/'];
+  const pillarHrefs = ['/videos/?category=speediance', '/videos/?category=bjj', '/about/'];
   const pillars = l.pillars.map((p, i) => ({ ...p, icon: pillarIcons[i], href: pillarHrefs[i] }));
 
   return (

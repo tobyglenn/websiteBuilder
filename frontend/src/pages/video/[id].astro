@@ -20,13 +20,14 @@ const { video } = Astro.props;
 const chapters = parseVideoChapters(video.full_description || video.description || '');
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const videoUrl = `${siteUrl}/video/${video.id}/`;
 
 // VideoObject JSON-LD structured data — enhanced with duration, view count, and entity refs
 // duration_iso (ISO 8601, e.g. "PT16M13S") is required for Google Video Rich Results
 const videoJsonLd: Record<string, unknown> = {
   "@context": "https://schema.org",
   "@type": "VideoObject",
-  "@id": `${siteUrl}/video/${video.id}#video`,
+  "@id": `${videoUrl}#video`,
   "name": video.title,
   "description": (video.full_description || video.description || video.title).slice(0, 5000),
   "thumbnailUrl": [
@@ -35,7 +36,7 @@ const videoJsonLd: Record<string, unknown> = {
     video.thumbnail,
   ].filter(Boolean),
   "uploadDate": video.published_at,
-  "url": `${siteUrl}/video/${video.id}`,
+  "url": videoUrl,
   "embedUrl": `https://www.youtube.com/embed/${video.id}`,
   "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
   "isFamilyFriendly": true,
@@ -336,7 +337,7 @@ relatedVideos = relatedVideos.slice(0, 8);
                 ))}
               </div>
               {relatedVideos.length > 4 && (
-                <a href={`/videos?category=${encodeURIComponent(videoCategory || 'all')}`} class="inline-block mt-4 text-sm text-blue-400 hover:text-blue-300 font-medium">
+                <a href={`/videos/?category=${encodeURIComponent(videoCategory || 'all')}`} class="inline-block mt-4 text-sm text-blue-400 hover:text-blue-300 font-medium">
                   View all {relatedVideos.length} videos →
                 </a>
               )}

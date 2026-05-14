@@ -3,7 +3,7 @@ export async function GET() {
   
   // Import data for dynamic pages
   const { VIDEOS } = await import('../data/mock.js');
-  const { CANONICAL_BLOG_POSTS } = await import('../lib/blogPosts');
+  const { BLOG_REDIRECTS, CANONICAL_BLOG_POSTS } = await import('../lib/blogPosts');
   const { gearItems } = await import('../data/gearItems.ts');
   
   // Main static pages
@@ -29,7 +29,10 @@ export async function GET() {
   ];
 
   // Blog posts
-  const blogPages = (CANONICAL_BLOG_POSTS || []).map((post: { slug?: string }) => ({
+  const redirectSlugs = new Set(Object.keys(BLOG_REDIRECTS || {}));
+  const blogPages = (CANONICAL_BLOG_POSTS || [])
+    .filter((post: { slug?: string }) => post.slug && !redirectSlugs.has(post.slug))
+    .map((post: { slug?: string }) => ({
     loc: `/blog/${post.slug}/`,
     changefreq: 'weekly',
     priority: 0.7

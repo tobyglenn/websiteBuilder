@@ -21,6 +21,16 @@ import {
 export async function getStaticPaths() {
   const langCode = 'es';
   const feedUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_${langCode}.xml`;
+  const canonicalizeLocalizedPodcastUrls = (html: string): string => {
+    const localeEpisodeUrl = new RegExp(`https://tobyonfitnesstech\\.com/${langCode}/podcasts/episode-0*(\\d+)\\/?`, 'g');
+    return html.replace(
+      localeEpisodeUrl,
+      (_match, episodeNumber) => `https://tobyonfitnesstech.com/${langCode}/podcasts/episode-${Number(episodeNumber)}/`
+    ).replace(
+      /https:\/\/tobyonfitnesstech\.com\/podcasts\/openclaw\/?/g,
+      'https://tobyonfitnesstech.com/podcasts/openclaw/'
+    );
+  };
   
   // 1. Fetch translated RSS
   const rssText = await fetchPinnedGitHubRawText(feedUrl);
@@ -50,7 +60,7 @@ export async function getStaticPaths() {
       localizedShowNotesCandidates(langCode, episodeNum),
     );
     if (showNotesResult) {
-      showNotesHtml = await marked.parse(showNotesResult.text);
+      showNotesHtml = canonicalizeLocalizedPodcastUrls(await marked.parse(showNotesResult.text));
     }
 
     // Fetch translated transcript (for topics/links)
@@ -60,7 +70,7 @@ export async function getStaticPaths() {
     );
     if (transcriptResult) {
       transcriptSourceUrl = transcriptResult.url;
-      transcriptHtml = await marked.parse(transcriptResult.text);
+      transcriptHtml = canonicalizeLocalizedPodcastUrls(await marked.parse(transcriptResult.text));
     } else {
       transcriptHtml = '<p class="text-neutral-500">Transcripción no disponible.</p>';
     }

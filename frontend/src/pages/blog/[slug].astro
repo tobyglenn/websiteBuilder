@@ -78,6 +78,7 @@ if (relatedPosts.length < 3) {
 }
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const postUrl = `${siteUrl}/blog/${post.slug}/`;
 
 // Extract FAQ schema from blog post content (## headings become Q&A pairs)
 function extractFAQSchema(content: string): object | null {
@@ -153,12 +154,12 @@ const authorSchema = {
 const articleJsonLd = {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "@id": `${siteUrl}/blog/${post.slug}#article`,
+  "@id": `${postUrl}#article`,
   "headline": post.title,
   "description": post.excerpt || post.title,
   "datePublished": post.published_at,
   "dateModified": post.published_at,
-  "url": `${siteUrl}/blog/${post.slug}`,
+  "url": postUrl,
   ...(post.image ? { "image": post.image.startsWith('http') ? post.image : `${siteUrl}${post.image}` } : {}),
   "author": authorSchema,
   "publisher": {
@@ -166,10 +167,10 @@ const articleJsonLd = {
   },
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `${siteUrl}/blog/${post.slug}`
+    "@id": postUrl
   },
   "isPartOf": {
-    "@id": `${siteUrl}/blog#collection`
+    "@id": `${siteUrl}/blog/#collection`
   },
   "wordCount": wordCount,
   ...(post.tags && post.tags.length > 0 ? { "keywords": post.tags.join(', ') } : {}),

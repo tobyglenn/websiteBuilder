@@ -46,6 +46,14 @@ export async function getStaticPaths() {
     const key = `../../data/transcripts/${filename}`;
     return (transcriptFiles[key] as string) ?? '';
   };
+  const canonicalizeInternalPodcastUrls = (html: string): string =>
+    html.replace(
+      /https:\/\/tobyonfitnesstech\.com\/podcasts\/episode-0*(\d+)\/?/g,
+      (_match, episodeNumber) => `https://tobyonfitnesstech.com/podcasts/episode-${Number(episodeNumber)}/`
+    ).replace(
+      /https:\/\/tobyonfitnesstech\.com\/podcasts\/openclaw\/?/g,
+      'https://tobyonfitnesstech.com/podcasts/openclaw/'
+    );
   // 1. Fetch RSS
   const rssRes = await fetch('https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml');
   const rssText = await rssRes.text();
@@ -112,12 +120,12 @@ export async function getStaticPaths() {
 
       // Render show notes HTML
       if (showNotesMd) {
-        showNotesHtml = await marked.parse(showNotesMd);
+        showNotesHtml = canonicalizeInternalPodcastUrls(await marked.parse(showNotesMd));
       } else {
         // Legacy fallback: look for ## SHOW NOTES in transcript
         const showNotesMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## )/m);
         if (showNotesMatch) {
-          showNotesHtml = await marked.parse(showNotesMatch[1]);
+          showNotesHtml = canonicalizeInternalPodcastUrls(await marked.parse(showNotesMatch[1]));
           rawMd = rawMd.replace(/^## SHOW NOTES[\s\S]*?(?=^## )/m, '');
         }
       }
@@ -156,7 +164,7 @@ export async function getStaticPaths() {
         .replace(/\*\*Nova:\*\*/g, '<span class="speaker nova">Nova</span>')
         .replace(/\*\*Alloy:\*\*/g, '<span class="speaker alloy">Alloy</span>');
 
-      transcriptHtml = html;
+      transcriptHtml = canonicalizeInternalPodcastUrls(html);
     } catch (e) {
       transcriptHtml = '<p class="text-neutral-500">Transcript unavailable.</p>';
     }
@@ -197,8 +205,8 @@ export async function getStaticPaths() {
       const slug = `toft-${index}`;
       const title = extractTag(item, 'title');
       const rawDesc = extractTag(item, 'description');
-      const showNotesHtml = rawDesc
-        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'");
+      const showNotesHtml = canonicalizeInternalPodcastUrls(rawDesc
+        .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'"));
       const description = rawDesc.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 300);
       const pubDateRaw = extractTag(item, 'pubDate');
       const dateObj = new Date(pubDateRaw);
@@ -229,12 +237,14 @@ export async function getStaticPaths() {
 }
 
 const { episode } = Astro.props;
+const episodeUrl = `https://tobyonfitnesstech.com/podcasts/${episode.slug}/`;
+const podcastSeriesUrl = 'https://tobyonfitnesstech.com/podcasts/';
 ---
 
 <Layout 
   title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | OpenClaw Daily`}
   description={episode.description}
-  episodeSlug={episode.slug}
+  episodeSlug={episode.isToft ? undefined : episode.slug}
   jsonLd={{
     "@context": "https://schema.org",
     "@type": "PodcastEpisode",
@@ -243,23 +253,23 @@ const { episode } = Astro.props;
     "datePublished": episode.isoDate || episode.date,
     "duration": episode.duration,
     "image": episode.coverImage,
-    "url": `https://tobyonfitnesstech.com/podcasts/${episode.slug}`,
+    "url": episodeUrl,
     "contentUrl": episode.audioUrl,
     "podcastSeries": {
       "@type": "PodcastSeries",
       "name": "Toby on Fitness Tech",
-      "url": "https://tobyonfitnesstech.com/podcasts"
+      "url": podcastSeriesUrl
     },
     "partOfSeries": {
       "@type": "PodcastSeries",
       "name": "Toby on Fitness Tech",
-      "url": "https://tobyonfitnesstech.com/podcasts"
+      "url": podcastSeriesUrl
     },
     ...(episode.season ? {
       "partOfSeason": {
         "@type": "PodcastSeason",
         "seasonNumber": episode.season,
-        "url": `https://tobyonfitnesstech.com/podcasts?season=${episode.season}`
+        "url": `https://tobyonfitnesstech.com/podcasts/?season=${episode.season}`
       }
     } : {}),
     "episodeNumber": episode.isToft ? undefined : episode.number,
@@ -269,12 +279,12 @@ const { episode } = Astro.props;
       "@type": "Person",
       "@id": "https://tobyonfitnesstech.com/#toby",
       "name": "Toby Glenn Peters",
-      "url": "https://tobyonfitnesstech.com"
+      "url": "https://tobyonfitnesstech.com/"
     },
     "publisher": {
       "@type": "Organization",
       "name": episode.isToft ? "Toby on Fitness Tech" : "OpenClaw",
-      "url": "https://tobyonfitnesstech.com"
+      "url": "https://tobyonfitnesstech.com/"
     },
     "speakable": {
       "@type": "SpeakableSpecification",

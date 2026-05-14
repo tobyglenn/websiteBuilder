@@ -5,7 +5,16 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
-const EXCLUDED_SITEMAP_PATH = /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)\/$/;
+const EXCLUDED_SITEMAP_PATHS = [
+  /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)(?:\/|\.html)?$/,
+  /^\/(?:mma-rpg|gridbound-realms|bjj-buddy|nutritrack)\/?$/,
+  /^\/blog\/(?:2025-09-09-discover-the-truth-behind-workout-tech-transparency|i-pulled-260-pounds-on-the-speediance-2s-did-it-break|speediance-2s-260-lb-lat-pulldown|speediance-broke-partner-mode-lost-free-lift-feature|the-submission-that-could-have-ended-everything|why-running-might-have-saved-my-life)\/$/,
+];
+
+const shouldIncludeInSitemap = (page) => {
+  const pathname = new URL(page).pathname;
+  return !EXCLUDED_SITEMAP_PATHS.some((pattern) => pattern.test(pathname));
+};
 
 // https://astro.build/config
 export default defineConfig({
@@ -19,7 +28,7 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      filter: (page) => !EXCLUDED_SITEMAP_PATH.test(new URL(page).pathname),
+      filter: shouldIncludeInSitemap,
     }),
   ],
 
