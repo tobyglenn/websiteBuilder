@@ -1,20 +1,36 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
-    <title>OpenClaw Daily (हिंदी)</title>
+    <title>AgentStack Daily (हिंदी)</title>
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
-    <description>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। सीखें कि अपनी खुद की एआई स्थानीय रूप से कैसे चलाएं, अपने डेटा को निजी रखें, और स्थानीय भाषा मॉडल की तेजी से विकसित होती दुनिया में आगे रहें।</description>
+    <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 12 May 2026 11:08:16 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
-    <itunes:summary>ओपनक्लॉ एआई एजेंट क्रांति पर दैनिक अपडेट। हार्डवेयर सेटअप से लेकर सुरक्षा युक्तियों तक, मॉडल रिलीज से लेकर कम्युनिटी हाइलाइट्स तक — व्यक्तिगत एआई के भविष्य के बारे में वह सब कुछ जो आपको जानना आवश्यक है, ठीक यहाँ।</itunes:summary>
+    <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
-      <itunes:name>OpenClaw Daily Hindi</itunes:name>
+      <itunes:name>AgentStack Daily Hindi</itunes:name>
       <itunes:email>admin@tobyonfitnesstech.com</itunes:email>
     </itunes:owner>
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 50 -->
+    <item>
+      <title>एपिसोड 50: AgentStack Daily EP050 — एजेंट रिलीज़ में नया क्या है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep050/episode_050.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-50/</link>
+      <description><![CDATA[यह एपिसोड LLM और एजेंट टूलिंग में नए परिवर्तनों पर नज़र डालता है: Hermes Agent v2026.5.7 ड्यूरेबल बोर्ड, वर्कर हेल्थ चेक, चेकपॉइंट प्रूनिंग, गेटवे रीज़्यूम, नो-एजेंट क्रॉन, प्रोवाइडर प्लगइन, प्लेटफ़ॉर्म अलाउलिस्ट और MCP फिक्सेस जोड़ता है; Claude Code v2.1.141 से v2.1.129 तक एजेंट व्यू, हुक JSON अपडेट, प्लगइन और वर्कलोड-आइडेंटिटी कंट्रोल, MCP मरम्मत और बैकग्राउंड-एजेंट अनुमति फिक्स प्रदान करता है। Google ADK पर्सिस्टेड स्थिति के साथ पॉज़-एंड-रीज़्यूम एजेंटों का दस्तावेज़ीकरण करता है, और GitHub उजागर करता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-50/]]></description>
+      <pubDate>Fri, 15 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_050.mp3" length="54803270" type="audio/mpeg"/>
+      <itunes:duration>57:05</itunes:duration>
+      <itunes:episode>50</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep050/episode_050_cover.png"/>
+    </item>
+
     <!-- Episode 49 -->
     <item>
       <title>एपिसोड 49: Gemini Deep Research, Agents SDK Sandbox सीमाएँ, vLLM Kernel Fixes और Strands Runtime Controls</title>
