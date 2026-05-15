@@ -122,6 +122,11 @@ function imageExists(imagePath: string): boolean {
 
 function defaultCoverImage(slug: string, title: string, category: string): string {
   const haystack = `${slug} ${title} ${category}`.toLowerCase();
+  const perPostBlogImage = `/images/blog/${slug}.jpg`;
+
+  if (imageExists(perPostBlogImage)) {
+    return perPostBlogImage;
+  }
 
   const explicitBySlug: Record<string, string> = {
     'transform-your-life-in-just-one-winter': '/progress/progress_188.jpg',
@@ -171,11 +176,16 @@ const LEGACY_IMAGE_REPAIRS: Record<string, string> = {
 };
 
 function repairLegacyImagePath(imagePath: string, slug: string, title: string, category: string): string {
+  const perPostImage = defaultCoverImage(slug, title, category);
+  if (perPostImage) {
+    return perPostImage;
+  }
+
   if (LEGACY_IMAGE_REPAIRS[imagePath]) {
     return LEGACY_IMAGE_REPAIRS[imagePath];
   }
 
-  return defaultCoverImage(slug, title, category);
+  return '';
 }
 
 function resolveCoverImage(rawImage: string, slug: string, title: string, category: string): string {
