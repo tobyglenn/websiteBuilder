@@ -1,20 +1,36 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
-    <title>OpenClaw Daily (Deutsch)</title>
+    <title>AgentStack Daily (Deutsch)</title>
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
-    <description>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Lernen Sie, wie Sie Ihre eigene KI lokal betreiben, Ihre Daten privat halten und in der sich schnell entwickelnden Welt der lokalen Sprachmodelle die Nase vorn haben.</description>
+    <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 12 May 2026 11:08:16 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
-    <itunes:summary>Tägliche Updates zur OpenClaw-KI-Agenten-Revolution. Von Hardware-Setups bis zu Sicherheitstipps, Modell-Releases bis zu Community-Highlights — alles, was Sie über die Zukunft der persönlichen KI wissen müssen, direkt hier.</itunes:summary>
+    <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
-      <itunes:name>OpenClaw Daily Deutsch</itunes:name>
+      <itunes:name>AgentStack Daily Deutsch</itunes:name>
       <itunes:email>admin@tobyonfitnesstech.com</itunes:email>
     </itunes:owner>
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 50 -->
+    <item>
+      <title>Folge 50: AgentStack Daily EP050 – Was gibt's Neues bei Agent-Releases</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep050/episode_050.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-50/</link>
+      <description><![CDATA[Diese AgentStack Daily-Folge behandelt, was es Neues im Bereich LLM- und Agent-Tooling gibt. Hermes Agent v2026.5.7 führt Durable Boards, Worker-Health-Checks, Checkpoint-Pruning, Gateway-Resume, No-Agent-Cron, Provider-Plugins, Platform-Allowlists und MCP-Fixes ein, während Claude Code v2.1.141 bis v2.1.129 die Agent-Ansicht, Hook-JSON-Updates, Plugin- und Workload-Identity-Kontrollen, MCP-Reparaturen sowie Hintergrund-Agent-Berechtigungskorrekturen hinzufügt. Google ADK dokumentiert das Pausieren und Fortsetzen von Agents mit persistiertem Zustand, und GitHub enthüllt…
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-50/]]></description>
+      <pubDate>Fri, 15 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_050.mp3" length="48322395" type="audio/mpeg"/>
+      <itunes:duration>50:20</itunes:duration>
+      <itunes:episode>50</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep050/episode_050_cover.png"/>
+    </item>
+
     <!-- Episode 49 -->
     <item>
       <title>Folge 49: Gemini Deep Research, Agents-SDK-Sandbox-Grenzen, vLLM-Kernel-Fixes und Strands-Runtime-Kontrollen</title>
