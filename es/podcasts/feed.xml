@@ -1,20 +1,36 @@
 <?xml version='1.0' encoding='utf-8'?>
 <rss xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" version="2.0">
   <channel>
-    <title>OpenClaw Daily (Español)</title>
+    <title>AgentStack Daily (Español)</title>
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
-    <description>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Aprende a ejecutar tu propia IA localmente, mantén tus datos privados y mantente a la vanguardia en el mundo de los modelos de lenguaje locales.</description>
+    <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 12 May 2026 11:08:16 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
-    <itunes:summary>Actualizaciones diarias sobre la revolución de los agentes de IA OpenClaw. Desde configuraciones de hardware hasta consejos de seguridad, lanzamientos de modelos y aspectos destacados de la comunidad — todo lo que necesitas saber sobre el futuro de la IA personal, aquí mismo.</itunes:summary>
+    <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
-      <itunes:name>OpenClaw Daily Español</itunes:name>
+      <itunes:name>AgentStack Daily Español</itunes:name>
       <itunes:email>admin@tobyonfitnesstech.com</itunes:email>
     </itunes:owner>
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 50 -->
+    <item>
+      <title>Episodio 50: AgentStack Daily EP050 — Novedades en los lanzamientos de agentes</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep050/episode_050.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-50/</link>
+      <description><![CDATA[Este episodio de AgentStack Daily cubre las novedades en herramientas de LLM y agentes: Hermes Agent v2026.5.7 añade tableros persistentes, comprobaciones de salud del worker, poda de puntos de control, reanudación de gateway, cron sin agente, plugins de proveedor, listas de permitidos de plataforma y correcciones de MCP. Claude Code v2.1.141 a v2.1.129 añade la vista de agente, actualizaciones de hook JSON, controles de plugin e identidad de carga de trabajo, reparaciones de MCP y correcciones de permisos de agente en segundo plano. Google ADK documenta agentes de pausa y reanudación con estado persistente, y GitHub expone.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-50/]]></description>
+      <pubDate>Fri, 15 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_050.mp3" length="46255168" type="audio/mpeg"/>
+      <itunes:duration>48:10</itunes:duration>
+      <itunes:episode>50</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep050/episode_050_cover.png"/>
+    </item>
+
     <!-- Episode 49 -->
     <item>
       <title>Episodio 49: Sesión técnica sobre agentes de investigación, límites de sandbox, confiabilidad del kernel de inferencia y superficies de control de runtime de agentes</title>
