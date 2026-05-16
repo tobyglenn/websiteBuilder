@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Fri, 15 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 May 2026 17:10:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 51 -->
+    <item>
+      <title>Episódio 51: OpenClaw 2026.5.12, Hermes Foundation, Controles de Segundo Plano do Claude Code e Implantações de Agentes Gemini</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep051/episode_051.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-51/</link>
+      <description><![CDATA[AgentStack Daily EP051 começa com uma leitura de release do agent-stack: OpenClaw v2026.5.12 reduz as instalações principais, fortalece Telegram, Codex, plugin, gateway, navegador e caminhos de configuração, e melhora a entrega de respostas. Hermes Agent 2026.5.16 adiciona beta nativo para Windows, instalação via PyPI, inicialização mais rápida, um proxy local compatível com OpenAI, upgrades de visão, vídeo, navegador, LSP e verificação. Claude Code 2.1.143 e 2.1.142 apertam dependências de plugins, flags de sessão em segundo plano, comportamento do PowerShell e isolamento de worktree.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-51/]]></description>
+      <pubDate>Sat, 16 May 2026 17:10:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_051.mp3" length="42751417" type="audio/mpeg"/>
+      <itunes:duration>44:31</itunes:duration>
+      <itunes:episode>51</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep051/episode_051_cover.png"/>
+    </item>
+
     <!-- Episode 50 -->
     <item>
       <title>Episódio 50: AgentStack Daily EP050 — O que há de novo nos lançamentos de agentes</title>
