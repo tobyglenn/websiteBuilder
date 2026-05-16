@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Fri, 15 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 May 2026 12:30:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 51 -->
+    <item>
+      <title>एपिसोड 51: OpenClaw 2026.5.12, Hermes Foundation, Claude Code पृष्ठभूमि नियंत्रण, और Gemini एजेंट परिनियोजन</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep051/episode_051.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-51/</link>
+      <description><![CDATA[AgentStack Daily EP051 एक एजेंट-स्टैक रिलीज़ रीडआउट के साथ शुरू होता है: OpenClaw v2026.5.12 कोर इंस्टॉल को हल्का करता है, Telegram, Codex, प्लगइन, गेटवे, ब्राउज़र और कॉन्फ़िग पथ को मजबूत बनाता है, और रिप्लाई डिलीवरी में सुधार करता है। Hermes Agent 2026.5.16 में मूल Windows बीटा, PyPI इंस्टॉलेशन, तेज़ स्टार्टअप, एक स्थानीय OpenAI-संगत प्रॉक्सी, विज़न, वीडियो, ब्राउज़र, LSP और सत्यापन अपग्रेड शामिल हैं। Claude Code 2.1.143 और 2.1.142 प्लगइन डिपेंडेंसी, पृष्ठभूमि-सत्र फ्लैग, PowerShell व्यवहार और वर्कट्री आइसोलेशन को मजबूत बनाते हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-51/]]></description>
+      <pubDate>Sat, 16 May 2026 12:30:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_051.mp3" length="52183084" type="audio/mpeg"/>
+      <itunes:duration>54:21</itunes:duration>
+      <itunes:episode>51</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep051/episode_051_cover.png"/>
+    </item>
+
     <!-- Episode 50 -->
     <item>
       <title>एपिसोड 50: AgentStack Daily EP050 — एजेंट रिलीज़ में नया क्या है</title>
