@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 15 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 May 2026 17:10:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 51 -->
+    <item>
+      <title>Episode 51: OpenClaw 2026.5.12, Hermes Foundation, Claude Code Background Controls, and Gemini Agent Deployments</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_051.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-51/</link>
+      <description><![CDATA[AgentStack Daily EP051 opens with an agent-stack release readout: OpenClaw v2026.5.12 trims core installs, hardens Telegram, Codex, plugin, gateway, browser, and config paths, and improves reply delivery; Hermes Agent 2026.5.16 adds native Windows beta, PyPI installation, faster startup, a local OpenAI-compatible proxy, vision, video, browser, LSP, and verification upgrades; Claude Code 2.1.143 and 2.1.142 tighten plugin dependencies, background-session flags, PowerShell behavior, worktree isolation, MCP timeout handling, and agent-dashboard defaults. Then the episode turns to Google Cloud's Gemini Enterprise Agent Platform release notes for immutable agent revisions, traffic splitting, and Priority PayGo, and to Google's Interactions API breaking-change guide for the new `steps` timeline and `response_format` migration.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-51/]]></description>
+      <pubDate>Sat, 16 May 2026 17:10:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_051.mp3" length="38991873" type="audio/mpeg"/>
+      <itunes:duration>40:36</itunes:duration>
+      <itunes:episode>51</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_051_cover.png"/>
+    </item>
+
     <!-- Episode 50 -->
     <item>
       <title>Episode 50: AgentStack Daily EP050 — What's New in Agent Releases</title>
