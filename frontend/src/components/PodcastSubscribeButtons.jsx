@@ -1,13 +1,30 @@
+/**
+ * @typedef {Object} PodcastSubscribeButtonsProps
+ * @property {string=} spotifyUrl
+ * @property {string=} appleUrl
+ * @property {string=} iheartUrl
+ * @property {string=} rssUrl
+ * @property {string=} youtubeUrl
+ * @property {string=} amazonUrl
+ * @property {string=} overcastUrl
+ * @property {string=} pocketcastsUrl
+ * @property {string=} jiosaavnUrl
+ * @property {string=} className
+ */
+
+/**
+ * @param {PodcastSubscribeButtonsProps} props
+ */
 export default function PodcastSubscribeButtons({
-  spotifyUrl,
-  appleUrl,
-  iheartUrl,
-  rssUrl,
-  youtubeUrl,
-  amazonUrl,
-  overcastUrl,
-  pocketcastsUrl,
-  jiosaavnUrl,
+  spotifyUrl = '',
+  appleUrl = '',
+  iheartUrl = '',
+  rssUrl = '',
+  youtubeUrl = '',
+  amazonUrl = '',
+  overcastUrl = '',
+  pocketcastsUrl = '',
+  jiosaavnUrl = '',
   className = '',
 }) {
   return (
@@ -62,6 +79,27 @@ export default function PodcastSubscribeButtons({
             <path d="M12 2v4M12 18v4M2 12h4M18 12h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
           </svg>
           Pocket Casts
+        </a>
+      )}
+
+      {/* Overcast */}
+      {overcastUrl && (
+        <a
+          href={overcastUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm text-white transition-all duration-200 hover:scale-105 hover:shadow-lg bg-[#FC7E0F]"
+          onMouseEnter={e => e.currentTarget.style.boxShadow = '0 10px 25px -3px rgba(252,126,15,0.30)'}
+          onMouseLeave={e => e.currentTarget.style.boxShadow = ''}
+        >
+          <svg viewBox="0 0 24 24" fill="none" width="16" height="16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="2" fill="currentColor" stroke="none" />
+            <path d="M8.5 15.5a5 5 0 0 1 0-7" />
+            <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+            <path d="M5.5 18.5a9 9 0 0 1 0-13" />
+            <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+          </svg>
+          Overcast
         </a>
       )}
 

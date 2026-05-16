@@ -136,7 +136,7 @@ export default function PodcastShowSwitcher({
   const [activeShow, setActiveShow] = useState('openclaw');
 
   const tabs = [
-    { id: 'openclaw', label: '🎙 OpenClaw Daily', rssUrl: 'https://tobyonfitnesstech.com/podcasts/feed.xml' },
+    { id: 'openclaw', label: '🎙 AgentStack Daily', rssUrl: 'https://tobyonfitnesstech.com/podcasts/feed.xml' },
     { id: 'fitness', label: '💪 Toby on Fitness Tech', rssUrl: 'https://anchor.fm/s/108bc95a4/podcast/rss' },
   ];
 
@@ -182,7 +182,7 @@ export default function PodcastShowSwitcher({
         <div>
           <div className="text-center mb-8">
             <p className="text-neutral-400 text-base md:text-lg max-w-2xl mx-auto">
-              AI-hosted daily episodes covering fitness tech, local AI, hardware, security, and the OpenClaw ecosystem — fresh takes every day.
+              AI-hosted daily episodes covering LLM performance, evaluations, AI news, local AI, hardware, security, and the AgentStack ecosystem — fresh takes every day.
             </p>
           </div>
 
@@ -196,7 +196,7 @@ export default function PodcastShowSwitcher({
             />
           </div>
 
-          {/* Hosts badge - OpenClaw Daily only */}
+          {/* Hosts badge - AgentStack Daily only */}
           <div className="mb-4 text-center">
             <span className="bg-blue-500/10 border border-blue-500/20 text-blue-300 text-sm px-3 py-1 rounded-full inline-block">
               🎤 Hosts: Nova &amp; Alloy

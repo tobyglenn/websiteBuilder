@@ -3,15 +3,18 @@ import { useState, useRef, useEffect } from 'react';
 const LOCALE_STORAGE_KEY = 'site-lang';
 const LEGACY_LOCALE_STORAGE_KEY = 'preferredLang';
 const languages = [
-  { code: 'en', name: 'English', flag: '🇺🇸', path: '/podcasts/openclaw/' },
-  { code: 'es', name: 'Español', flag: '🇪🇸', path: '/es/podcasts/openclaw/' },
-  { code: 'pt', name: 'Português', flag: '🇧🇷', path: '/pt/podcasts/openclaw/' },
-  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', path: '/hi/podcasts/openclaw/' },
-  { code: 'de', name: 'Deutsch', flag: '🇩🇪', path: '/de/podcasts/openclaw/' },
+  { code: 'en', name: 'English', flag: '🇺🇸', path: '/podcasts/agentstack/' },
+  { code: 'es', name: 'Español', flag: '🇪🇸', path: '/es/podcasts/agentstack/' },
+  { code: 'pt', name: 'Português', flag: '🇧🇷', path: '/pt/podcasts/agentstack/' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳', path: '/hi/podcasts/agentstack/' },
+  { code: 'de', name: 'Deutsch', flag: '🇩🇪', path: '/de/podcasts/agentstack/' },
 ];
 
-/** @type {{ currentLang?: string, currentSlug?: string }} */
-export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
+type LanguageSwitcherProps = {
+  currentLang?: string;
+};
+
+export default function LanguageSwitcher({ currentLang = 'en' }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +36,7 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
 
   // Only these paths have locale versions — everything else falls back to podcast index
   const LOCALE_PATHS = [
-    /^\/podcasts\/openclaw\/?$/,
+    /^\/podcasts\/(?:agentstack|openclaw)\/?$/,
     /^\/podcasts\/episode-\d+\/?$/,
   ];
 
@@ -46,7 +49,9 @@ export default function LanguageSwitcher({ currentLang = 'en', currentSlug }) {
     // Check if a locale version of this page exists
     const hasLocale = LOCALE_PATHS.some(re => re.test(normalized.replace(/\/$/, '')));
     // Fall back to podcast index if no locale version exists
-    const targetBase = hasLocale ? normalized : '/podcasts/openclaw/';
+    const targetBase = hasLocale
+      ? normalized.replace(/^\/podcasts\/openclaw\/?$/, '/podcasts/agentstack/')
+      : '/podcasts/agentstack/';
     return langCode === 'en' ? targetBase : `/${langCode}${targetBase}`;
   };
 

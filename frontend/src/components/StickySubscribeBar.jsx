@@ -4,7 +4,7 @@ export default function StickySubscribeBar() {
       className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-neutral-900/95 backdrop-blur border-t border-neutral-800 px-4 py-3 flex items-center justify-between gap-3"
       style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}
     >
-      <span className="text-sm font-semibold text-white">🎙 Subscribe to OpenClaw Daily</span>
+      <span className="text-sm font-semibold text-white">🎙 Subscribe to AgentStack Daily</span>
       <div className="flex items-center gap-2 shrink-0">
         {/* Spotify icon-only */}
         <a
@@ -36,7 +36,7 @@ export default function StickySubscribeBar() {
         </a>
         {/* YouTube icon-only */}
         <a
-          href="https://www.youtube.com/@openclawdaily"
+          href="https://www.youtube.com/@AgentStackDaily"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Watch on YouTube"

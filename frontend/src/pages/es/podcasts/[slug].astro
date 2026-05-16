@@ -28,7 +28,7 @@ export async function getStaticPaths() {
       (_match, episodeNumber) => `https://tobyonfitnesstech.com/${langCode}/podcasts/episode-${Number(episodeNumber)}/`
     ).replace(
       /https:\/\/tobyonfitnesstech\.com\/podcasts\/openclaw\/?/g,
-      'https://tobyonfitnesstech.com/podcasts/openclaw/'
+      'https://tobyonfitnesstech.com/podcasts/agentstack/'
     );
   };
   
@@ -110,7 +110,7 @@ const { episode } = Astro.props;
 ---
 
 <Layout 
-  title={`Episode ${episode.number}: ${episode.title} | OpenClaw Daily`} 
+  title={`Episode ${episode.number}: ${episode.title} | AgentStack Daily`} 
   description={episode.description}
   lang="es"
   episodeSlug={episode.slug}
