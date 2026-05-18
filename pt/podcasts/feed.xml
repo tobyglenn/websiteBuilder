@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 16 May 2026 17:10:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 52 -->
+    <item>
+      <title>Episódio 52: Agentes Locais Ganham Sua Semana de Hardware</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep052/episode_052.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-52/</link>
+      <description><![CDATA[Este episódio acompanha seis mudanças concretas na stack de agentes: Ollama avançando mais fundo em runtimes de agentes de codificação local, LM Studio melhorando inferência de visão em Apple Silicon e servidores locais remotos, NVIDIA posicionando DGX Spark como uma máquina séria para agentes locais, EXO mostrando onde a inferência local distribuída ainda precisa de endurecimento, xAI lançando Grok Build enquanto redireciona modelos antigos para Grok 4.3, e LiteLLM junto com Envoy AI Gateway apertando a camada de roteamento que fica entre agentes e modelos.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-52/]]></description>
+      <pubDate>Mon, 18 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_052.mp3" length="41800977" type="audio/mpeg"/>
+      <itunes:duration>43:32</itunes:duration>
+      <itunes:episode>52</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep052/episode_052_cover.png"/>
+    </item>
+
     <!-- Episode 51 -->
     <item>
       <title>Episódio 51: OpenClaw 2026.5.12, Hermes Foundation, Controles de Segundo Plano do Claude Code e Implantações de Agentes Gemini</title>
