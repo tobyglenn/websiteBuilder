@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 16 May 2026 17:10:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 52 -->
+    <item>
+      <title>Folge 52: Lokale Agenten erhalten ihre Hardware-Woche</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep052/episode_052.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-52/</link>
+      <description><![CDATA[In dieser Folge werden sechs konkrete Änderungen im Agent-Stack beschrieben. Ollama dringt tiefer in lokale Coding-Agent-Runtimes ein, LM Studio verbessert die Apple-Silicon-Vision-Inferenz und Remote-Local-Server, NVIDIA positioniert DGX Spark als ernsthafte lokale Agenten-Maschine, EXO zeigt, wo verteilte lokale Inferenz noch gehärtet werden muss, xAI liefert Grok Build und leitet ältere Modell-Slugs auf Grok 4.3 um. LiteLLM sowie Envoy AI Gateway festigen die Routing-Schicht, die zwischen Agenten und Modellen liegt.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-52/]]></description>
+      <pubDate>Mon, 18 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_052.mp3" length="43678032" type="audio/mpeg"/>
+      <itunes:duration>45:29</itunes:duration>
+      <itunes:episode>52</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep052/episode_052_cover.png"/>
+    </item>
+
     <!-- Episode 51 -->
     <item>
       <title>Folge 51: OpenClaw 2026.5.12, Hermes Foundation, Claude Code Hintergrundsteuerung und Gemini Agent Bereitstellungen</title>
