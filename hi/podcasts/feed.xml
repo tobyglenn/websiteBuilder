@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sat, 16 May 2026 12:30:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 18 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 52 -->
+    <item>
+      <title>एपिसोड 52: स्थानीय एजेंटों को उनका हार्डवेयर सप्ताह</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep052/episode_052.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-52/</link>
+      <description><![CDATA[यह एपिसोड एजेंट स्टैक में छह ठोस परिवर्तनों का अनुसरण करता है। Ollama स्थानीय कोडिंग-एजेंट रनटाइम में और गहराई तक बढ़ रहा है, LM Studio ने Apple Silicon विज़न इन्फरेंस और रिमोट लोकल सर्वर में सुधार किया है, NVIDIA ने DGX Spark को एक गंभीर स्थानीय-एजेंट मशीन के रूप में प्रस्तुत किया है, EXO ने दिखाया है कि वितरित स्थानीय इन्फरेंस को अभी और मजबूत करने की जरूरत है, xAI ने Grok Build जारी किया है और पुराने मॉडल स्लग को Grok 4.3 पर रीडायरेक्ट किया है, तथा LiteLLM और Envoy AI Gateway ने एजेंटों और मॉडलों के बीच राउटिंग परत को कसा है। ये परिवर्तन स्थानीय-प्रथम एजेंट बिल्डर्स के लिए महत्वपूर्ण हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-52/]]></description>
+      <pubDate>Mon, 18 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_052.mp3" length="50481572" type="audio/mpeg"/>
+      <itunes:duration>52:34</itunes:duration>
+      <itunes:episode>52</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep052/episode_052_cover.png"/>
+    </item>
+
     <!-- Episode 51 -->
     <item>
       <title>एपिसोड 51: OpenClaw 2026.5.12, Hermes Foundation, Claude Code पृष्ठभूमि नियंत्रण, और Gemini एजेंट परिनियोजन</title>
