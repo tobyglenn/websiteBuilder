@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 21:58:58 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 54 -->
+    <item>
+      <title>Episode 54: Claude Code 2.1.144, Cursor Composer 2.5, Stainless, Notion, Vercel AI SDK, and Cloudflare Mesh</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_054.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-54/</link>
+      <description><![CDATA[AgentStack Daily EP054 opens on concrete release work: Claude Code CLI 2.1.144 stabilizes background and detached agent sessions, fixes a long startup hang when the API endpoint is unreachable, repairs MCP pagination and unsupported-image handling, adds background-session resume and a session-scoped model picker, and tightens read-before-edit and search-error behavior. Then five more builder-relevant moves: Cursor Composer 2.5, a Kimi K2.5-based coding model at roughly a tenth of frontier per-token cost; Anthropic acquiring Stainless and pulling SDK code generation in-house; Notion's Developer Platform turning the workspace into a hosted agent runtime with Workers and an External Agent API; the Vercel AI SDK rewriting its LangChain and LangGraph adapter; and Cloudflare Mesh putting zero-trust networking and identity under the agent lifecycle.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-54/]]></description>
+      <pubDate>Tue, 19 May 2026 21:58:58 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_054.mp3" length="39477123" type="audio/mpeg"/>
+      <itunes:duration>41:07</itunes:duration>
+      <itunes:episode>54</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_054_cover.png"/>
+    </item>
+
     <!-- Episode 53 -->
     <item>
       <title>Episode 53: OpenClaw 2026.5.18, Codex 0.131.0, Copilot Remote Agents, and Claude Search Grounding</title>
