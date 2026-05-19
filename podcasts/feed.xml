@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 18 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 53 -->
+    <item>
+      <title>Episode 53: OpenClaw 2026.5.18, Codex 0.131.0, Copilot Remote Agents, and Claude Search Grounding</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_053.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-53/</link>
+      <description><![CDATA[AgentStack Daily EP053 opens with concrete release work: OpenClaw v2026.5.18 adds typed plugin tooling, faster gateway readiness, dialog-aware browser automation, runtime parity QA, realtime Android Talk Mode, safer media handling, stronger channel delivery, Codex app-server repairs, proxy TLS support, and operator-facing Mac app polish. OpenAI Codex CLI 0.131.0 adds richer TUI controls, unified mentions, plugin marketplace and sharing commands, daemon-managed remote control, configured remote environments, an `openai-codex` Python SDK, `codex doctor`, and tougher sandbox, auth, app-server, and state handling. Then the episode moves to GitHub's May 18 Copilot agent updates for remote CLI steering, cheaper model choices, and one-click Actions repair, followed by Anthropic's API update that gives Claude's web search tool richer SEC filing data for cited financial research workflows.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-53/]]></description>
+      <pubDate>Tue, 19 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_053.mp3" length="39243484" type="audio/mpeg"/>
+      <itunes:duration>40:52</itunes:duration>
+      <itunes:episode>53</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_053_cover.png"/>
+    </item>
+
     <!-- Episode 52 -->
     <item>
       <title>Episode 52: Local Agents Get Their Hardware Week</title>
