@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Mon, 18 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 53 -->
+    <item>
+      <title>Episódio 53: OpenClaw 2026.5.18, Codex 0.131.0, Copilot Remote Agents e Claude Search Grounding</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep053/episode_053.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-53/</link>
+      <description><![CDATA[AgentStack Daily EP053 abre com trabalho concreto de release: OpenClaw v2026.5.18 adiciona tooling de plugin tipado, prontidão mais rápida do gateway, automação de navegador consciente de diálogo, QA de paridade de runtime, Talk Mode Android em tempo real, manipulação de mídia mais segura, entrega de canal mais forte, reparos no app-server do Codex, suporte a TLS de proxy e polimento do app Mac para operadores. OpenAI Codex CLI 0.131.0 adiciona controles TUI mais ricos, menções unificadas, comandos de marketplace e compartilhamento de plugins, controle remoto gerenciado por daemon e e
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-53/]]></description>
+      <pubDate>Tue, 19 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_053.mp3" length="44022431" type="audio/mpeg"/>
+      <itunes:duration>45:51</itunes:duration>
+      <itunes:episode>53</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep053/episode_053_cover.png"/>
+    </item>
+
     <!-- Episode 52 -->
     <item>
       <title>Episódio 52: Agentes Locais Ganham Sua Semana de Hardware</title>
