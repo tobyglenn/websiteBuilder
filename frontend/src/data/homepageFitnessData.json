@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-05-19T00:35:08.252Z",
+  "generatedAt": "2026-05-19T12:05:06.982Z",
   "source": {
     "hubBaseUrl": "http://192.168.1.249:8082/fitness",
-    "hubTodayLabel": "May 18, 2026",
-    "hubTodayKey": "2026-05-18",
+    "hubTodayLabel": "May 19, 2026",
+    "hubTodayKey": "2026-05-19",
     "strengthDashboard": "http://192.168.1.249:8082/fitness/strength/index.html",
     "whoopDataPath": "/Users/tobyglennpeters/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-05-18T19:50:10.049308"
+    "whoopLastSynced": "2026-05-19T08:05:01.658645"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9703892,
@@ -24,8 +24,8 @@
     "runCount": 0,
     "workoutCount": 0,
     "bjjCount": 0,
-    "windowStart": "2026-05-12",
-    "windowEnd": "2026-05-18"
+    "windowStart": "2026-05-13",
+    "windowEnd": "2026-05-19"
   },
   "weeklyProgress": {
     "mode": "latest_activity_week",
@@ -88,8 +88,8 @@
     "totalActive": 1734,
     "currentStreak": 1,
     "longestStreak": 60,
-    "rangeStart": "2025-05-20",
-    "rangeEnd": "2026-05-18",
+    "rangeStart": "2025-05-21",
+    "rangeEnd": "2026-05-19",
     "days": [
       {
         "date": "2025-05-21",
@@ -1433,8 +1433,8 @@
     "thisMonthMiles": 4.4
   },
   "recovery": {
-    "currentScore": 45,
-    "lastSleepScore": 76
+    "currentScore": 41,
+    "lastSleepScore": 70
   },
   "labels": {
     "thisWeek": "May 11, 2026 - May 17, 2026",
