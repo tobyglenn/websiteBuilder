@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 19 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 21:58:58 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 54 -->
+    <item>
+      <title>एपिसोड 54: क्लॉड कोड 2.1.144, कर्सर कंपोज़र 2.5, स्टेनलेस, नोशन, वर्सेल एआई एसडीके, और क्लाउडफ्लेयर मेष</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep054/episode_054.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-54/</link>
+      <description><![CDATA[एजेंटस्टैक डेली EP054 कंक्रीट रिलीज़ कार्य पर शुरू होता है: क्लॉड कोड CLI 2.1.144 पृष्ठभूमि और डिटैच्ड एजेंट सत्रों को स्थिर करता है, जब API एंडपॉइंट अगम्य हो तो लंबे स्टार्टअप हेंग को ठीक करता है, MCP पेजिनेशन और असमर्थित-छवि हैंडलिंग की मरम्मत करता है, पृष्ठभूमि-सत्र पुनर्प्रारंभ और सत्र-स्कोप्ड मॉडल पिकर जोड़ता है, और पढ़ने-पहले-संपादन और खोज-त्रुटि व्यवहार को कठोर बनाता है। फिर पाँच और बिल्डर-प्रासंगिक चालें: कर्सर कंपोज़र 2.5, एक किमी K2.5-आधारित कोडिंग मॉडल जो लगभग फ्रंटियर प्रति-टू की दसवीं हिस्से पर है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-54/]]></description>
+      <pubDate>Tue, 19 May 2026 21:58:58 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_054.mp3" length="55522159" type="audio/mpeg"/>
+      <itunes:duration>57:50</itunes:duration>
+      <itunes:episode>54</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep054/episode_054_cover.png"/>
+    </item>
+
     <!-- Episode 53 -->
     <item>
       <title>एपिसोड 53: OpenClaw 2026.5.18, Codex 0.131.0, Copilot Remote Agents, और Claude Search Grounding</title>
