@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Tue, 19 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 19 May 2026 21:58:58 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 54 -->
+    <item>
+      <title>Episódio 54: Claude Code 2.1.144, Cursor Composer 2.5, Stainless, Notion, Vercel AI SDK e Cloudflare Mesh</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep054/episode_054.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-54/</link>
+      <description><![CDATA[AgentStack Daily EP054 começa com trabalho concreto de release: o Claude Code CLI 2.1.144 estabiliza sessões de agente em segundo plano e detachadas, corrige uma longa demora na inicialização quando o endpoint da API está inacessível, repara a paginação MCP e o tratamento de imagens não suportadas, adiciona a retomada de sessões em segundo plano e um seletor de modelo com escopo de sessão, e aperta o comportamento de leitura antes de edição e de erros de busca. Depois, mais cinco movimentos relevantes para desenvolvedores: Cursor Composer 2.5, um modelo de codificação baseado no Kimi K2.5 com custo aproximadamente um décimo do estado da arte por token.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-54/]]></description>
+      <pubDate>Tue, 19 May 2026 21:58:58 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_054.mp3" length="44112710" type="audio/mpeg"/>
+      <itunes:duration>45:56</itunes:duration>
+      <itunes:episode>54</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep054/episode_054_cover.png"/>
+    </item>
+
     <!-- Episode 53 -->
     <item>
       <title>Episódio 53: OpenClaw 2026.5.18, Codex 0.131.0, Copilot Remote Agents e Claude Search Grounding</title>
