@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 19 May 2026 21:58:58 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2026 17:31:28 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 55 -->
+    <item>
+      <title>एपिसोड 55: Codex 0.132.0, Claude Code 2.1.145, Gemini Managed Agents, और WebMCP</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep055/episode_055.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-55/</link>
+      <description><![CDATA[AgentStack Daily EP055 की शुरुआत ऑपरेटर रिलीज रीडआउट के साथ होती है: Codex CLI 0.132.0 पहली-क्लास Python SDK प्रमाणीकरण, सरलीकृत टेक्स्ट टर्न, समृद्ध टर्न परिणाम, स्कीमा-प्रतिबंधित `codex exec resume`, तेज़ TUI स्टार्टअप, प्रमाणीकरण-आधारित रिमोट एक्जीक्यूटर रजिस्ट्रीकरण, छवि-विश्वसनीयता संरक्षण, गोल-लूप ब्रेक, मल्टी-सेशन MCP रीप्ले फिक्स, रिमोट वेबसॉकेट केपीएलाइव, और Windows इंस्टॉल हार्डनिंग जोड़ता है। Claude Code CLI 2.1.145 `claude agents --json`, OpenTelemetry स्पैन में एजेंट आईडी, GitHu जोड़ता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-55/]]></description>
+      <pubDate>Wed, 20 May 2026 17:31:28 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_055.mp3" length="53949379" type="audio/mpeg"/>
+      <itunes:duration>56:11</itunes:duration>
+      <itunes:episode>55</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep055/episode_055_cover.png"/>
+    </item>
+
     <!-- Episode 54 -->
     <item>
       <title>एपिसोड 54: क्लॉड कोड 2.1.144, कर्सर कंपोज़र 2.5, स्टेनलेस, नोशन, वर्सेल एआई एसडीके, और क्लाउडफ्लेयर मेष</title>
