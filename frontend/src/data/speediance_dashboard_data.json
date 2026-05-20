@@ -361,6 +361,13 @@
           "durationMinute": 40,
           "calorie": 406,
           "actionNum": 26
+        },
+        {
+          "date": "2026-05-19",
+          "totalCapacity": 4389.5,
+          "durationMinute": 40,
+          "calorie": 103,
+          "actionNum": 26
         }
       ],
       "exercises": [],
@@ -372,9 +379,9 @@
         "calorie": 678,
         "actionNum": 26
       },
-      "totalSessions": 9,
-      "avgVolume": 9769.2,
-      "totalVolume": 87923.0
+      "totalSessions": 10,
+      "avgVolume": 9231.2,
+      "totalVolume": 92312.5
     },
     "Warrior 3 (bar)": {
       "name": "Warrior 3 (bar)",
@@ -1122,11 +1129,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 87,
-  "totalVolumeLbs": 859772.4,
+  "totalWorkouts": 88,
+  "totalVolumeLbs": 864161.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-05-11"
+    "end": "2026-05-19"
   },
   "allSessions": [
     {
@@ -1824,6 +1831,14 @@
       "durationMinute": 26,
       "calorie": 89,
       "actionNum": 17
+    },
+    {
+      "date": "2026-05-19",
+      "title": "Chest handles",
+      "totalCapacity": 4389.5,
+      "durationMinute": 40,
+      "calorie": 103,
+      "actionNum": 26
     }
   ]
 }
