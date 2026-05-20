@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 19 May 2026 21:58:58 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2026 17:31:28 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 55 -->
+    <item>
+      <title>Episodio 55: Codex 0.132.0, Claude Code 2.1.145, Gemini Managed Agents y WebMCP</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep055/episode_055.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-55/</link>
+      <description><![CDATA[AgentStack Daily EP055 comienza con el resumen de publicaciones del operador: Codex CLI 0.132.0 añade autenticación de primera clase para Python SDK, turnos de texto más simples, resultados más ricos, `codex exec resume` con esquema restringido, inicio más rápido de la TUI, registro de ejecutor remoto con respaldo de autenticación, preservación de la fidelidad de imagen, frenado de bucle de objetivos, correcciones de reproducción MCP multi‑sesión, keepalives de websocket remoto y fortalecimiento de la instalación en Windows. Claude Code CLI 2.1.145 incorpora `claude agents --json`, IDs de agente en spans de OpenTelemetry y GitHu...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-55/]]></description>
+      <pubDate>Wed, 20 May 2026 17:31:28 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_055.mp3" length="44384383" type="audio/mpeg"/>
+      <itunes:duration>46:13</itunes:duration>
+      <itunes:episode>55</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep055/episode_055_cover.png"/>
+    </item>
+
     <!-- Episode 54 -->
     <item>
       <title>Episodio 54: Claude Code 2.1.144, Cursor Composer 2.5, Stainless, Notion, Vercel AI SDK y Cloudflare Mesh</title>
