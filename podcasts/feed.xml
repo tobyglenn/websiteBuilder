@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 19 May 2026 21:58:58 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 20 May 2026 17:31:28 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 55 -->
+    <item>
+      <title>Episode 55: Codex 0.132.0, Claude Code 2.1.145, Gemini Managed Agents, and WebMCP</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_055.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-55/</link>
+      <description><![CDATA[AgentStack Daily EP055 opens with the operator release readout: Codex CLI 0.132.0 adds first-class Python SDK authentication, simpler text turns, richer turn results, schema-constrained `codex exec resume`, faster TUI startup, auth-backed remote executor registration, image-fidelity preservation, goal-loop brakes, multi-session MCP replay fixes, remote websocket keepalives, and Windows install hardening. Claude Code CLI 2.1.145 adds `claude agents --json`, agent IDs in OpenTelemetry spans, GitHub repository and pull-request status in status-line JSON, richer plugin discovery before install, awaiting-input counts in terminal titles, hook payloads for background tasks and session crons, and several permission, MCP, terminal, review, plugin, and skill-loop fixes. Then the episode covers six concrete AgentStack topics: Google Gemini 3.5 Flash GA and Managed Agents, Chrome WebMCP, Google AI Studio's Workspace and Android build updates, Chrome DevTools for agents, and GitHub making GPT-5.3-Codex the base model for Copilot Business and Enterprise.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-55/]]></description>
+      <pubDate>Wed, 20 May 2026 17:31:28 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/audio/episode_055.mp3" length="39543161" type="audio/mpeg"/>
+      <itunes:duration>41:11</itunes:duration>
+      <itunes:episode>55</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/episode_055_cover.png"/>
+    </item>
+
     <!-- Episode 54 -->
     <item>
       <title>Episode 54: Claude Code 2.1.144, Cursor Composer 2.5, Stainless, Notion, Vercel AI SDK, and Cloudflare Mesh</title>
