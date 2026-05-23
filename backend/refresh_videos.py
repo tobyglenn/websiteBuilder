@@ -7,6 +7,7 @@ Fetches latest video data from TobyOnFitnessTech channel and updates videos.json
 import json
 import os
 import re
+from pathlib import Path
 from datetime import datetime, timezone
 from urllib.request import urlopen, Request
 from urllib.error import HTTPError
@@ -14,8 +15,15 @@ from urllib.parse import urlencode, quote
 
 # Configuration
 CHANNEL_ID = "UCmSwMp2gPo5PGl32d4oCu-Q"
-SECRETS_PATH = "/Users/tobyglennpeters/.openclaw/workspace/secrets/api-keys.env"
-VIDEOS_JSON_PATH = "/Users/tobyglennpeters/.openclaw/workspace/websiteBuilder/frontend/src/data/videos.json"
+REPO_ROOT = Path(__file__).resolve().parents[1]
+SECRETS_PATH = os.environ.get(
+    "YOUTUBE_API_KEYS_FILE",
+    str(Path.home() / ".openclaw/workspace/secrets/api-keys.env"),
+)
+VIDEOS_JSON_PATH = os.environ.get(
+    "VIDEOS_JSON_PATH",
+    str(REPO_ROOT / "frontend/src/data/videos.json"),
+)
 SHORT_FORM_MAX_SECONDS = 180
 
 
