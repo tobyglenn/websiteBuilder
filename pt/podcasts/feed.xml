@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Wed, 20 May 2026 17:31:28 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 24 May 2026 15:07:24 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 56 -->
+    <item>
+      <title>Episódio 56: OpenClaw, Codex, Claude Code, Hermes, Appshots, Túneis MCP e Notícias de Agentes</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep056/episode_056.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-56/</link>
+      <description><![CDATA[AgentStack Daily EP056 começa com o trabalho de release que importa agora: OpenClaw v2026.5.20 adiciona verificações de política, manuseio mais seguro de arquivos de segredo, roteamento de provedores, recuperação de cron e subagentes, contexto de voz e correções de timeout de geração de imagem; Codex rust‑v0.133.0 adiciona metas, preparação para controle remoto, APIs de perfil de permissão, descoberta de plugins e ganchos de ciclo de vida; Claude Code 2.1.148 segue uma atualização maior 2.1.147 com sessões fixas em segundo plano, revisão de código, paginação MCP e aplicação de políticas enterprise.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-56/]]></description>
+      <pubDate>Sun, 24 May 2026 15:07:24 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_056.mp3" length="51492615" type="audio/mpeg"/>
+      <itunes:duration>53:38</itunes:duration>
+      <itunes:episode>56</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep056/episode_056_cover.png"/>
+    </item>
+
     <!-- Episode 55 -->
     <item>
       <title>Episódio 55: Codex 0.132.0, Claude Code 2.1.145, Gemini Managed Agents e WebMCP</title>
