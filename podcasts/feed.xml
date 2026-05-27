@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 24 May 2026 15:07:24 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2026 11:34:23 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 57 -->
+    <item>
+      <title>Episode 57: OpenClaw 2026.5.22, Claude Code 2.1.149, Gemini Managed Agents, Codex Remote Work, Anthropic Tooling, and Agent-Stack Projects</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_057.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-57/</link>
+      <description><![CDATA[AgentStack Daily EP057 leads with OpenClaw v2026.5.22 and Claude Code 2.1.149/2.1.150, then broadens into source-verified AI news and practical GitHub-hosted projects. OpenClaw improves gateway startup behavior, plugin metadata reuse, meeting-notes capture contracts, chat-session pagination, Discord callback lifetimes, xAI/Grok search reuse, plugin SDK helpers, provider/media fallbacks, and reliability fixes. Claude Code 2.1.149 adds per-category usage accounting, keyboard-scrollable diff detail, task-list rendering, managed cloud MCP connector loading, and permission/sandbox/PowerShell/macOS safety fixes, while 2.1.150 is internal-only. Then the episode covers Gemini 3.5 Flash and Gemini API Managed Agents, Codex mobile/remote access and hybrid/on-prem enterprise movement, Anthropic's Stainless acquisition and Project Glasswing update, and a GitHub project radar focused on semantic code intelligence, MCP builders, model routing, local agents, security scanners, and multi-harness setup tools.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-57/]]></description>
+      <pubDate>Wed, 27 May 2026 11:34:23 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_057.mp3" length="38600245" type="audio/mpeg"/>
+      <itunes:duration>40:12</itunes:duration>
+      <itunes:episode>57</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_057_cover.png"/>
+    </item>
+
     <!-- Episode 56 -->
     <item>
       <title>Episode 56: OpenClaw, Codex, Claude Code, Hermes, Appshots, MCP Tunnels, and Agent News</title>
