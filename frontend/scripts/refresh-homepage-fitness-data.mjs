@@ -644,11 +644,26 @@ async function main() {
     }
   }
 
-  const focusWindowStart = addDays(hubStats.todayKey, -6);
+  // The fitness hub can lag behind the source data when the daily dashboard
+  // generator has not advanced its displayed "Today" label. The homepage
+  // should anchor weekly/YTD stats to the current ET day plus the freshest
+  // activity data, not to a stale hub date.
+  const currentEtKey = dateKeyFromDate(new Date());
+  const freshestActivityKey = [
+    ...runByDate.keys(),
+    ...liftByDate.keys(),
+    ...bjjByDate.keys(),
+  ].sort().at(-1);
+  const analysisDateKey = [hubStats.todayKey, freshestActivityKey, currentEtKey]
+    .filter(Boolean)
+    .sort()
+    .at(-1);
+
+  const focusWindowStart = addDays(analysisDateKey, -6);
   const focusWindow = rangeTotals(
     { runByDate, liftByDate, bjjByDate },
     focusWindowStart,
-    hubStats.todayKey
+    analysisDateKey
   );
 
   const maxFocusCount = Math.max(focusWindow.runs, focusWindow.lifting, focusWindow.bjj);
@@ -667,11 +682,11 @@ async function main() {
     bjjByDate,
   });
   const sortedActivityDates = [...activityCounts.keys()].sort();
-  const streaks = calculateStreaks(sortedActivityDates, hubStats.todayKey);
+  const streaks = calculateStreaks(sortedActivityDates, analysisDateKey);
 
-  const heatmapStart = addDays(hubStats.todayKey, -(52 * 7 - 1));
+  const heatmapStart = addDays(analysisDateKey, -(52 * 7 - 1));
   const heatmapDays = [...activityCounts.entries()]
-    .filter(([date]) => date >= heatmapStart && date <= hubStats.todayKey)
+    .filter(([date]) => date >= heatmapStart && date <= analysisDateKey)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([date, activity]) => ({
       date,
@@ -681,7 +696,7 @@ async function main() {
       bjj: activity.bjj,
     }));
 
-  const ytdPrefix = `${hubStats.todayKey.slice(0, 4)}-`;
+  const ytdPrefix = `${analysisDateKey.slice(0, 4)}-`;
   const ytdRunCount = [...runByDate.entries()]
     .filter(([date]) => date.startsWith(ytdPrefix))
     .reduce((sum, [, entry]) => sum + entry.count, 0);
@@ -708,7 +723,7 @@ async function main() {
       .at(-1) ??
     null;
 
-  const calendarThisWeekStart = mondayForDateKey(hubStats.todayKey);
+  const calendarThisWeekStart = mondayForDateKey(analysisDateKey);
   const calendarThisWeekEnd = addDays(calendarThisWeekStart, 6);
   const calendarWeeklyThisWeek = rangeTotals(
     { runByDate, liftByDate, bjjByDate },
@@ -721,9 +736,9 @@ async function main() {
     calendarWeeklyThisWeek.workouts === 0 &&
     lastActivity.date < calendarThisWeekStart
       ? lastActivity.date
-      : hubStats.todayKey;
+      : analysisDateKey;
   const weeklyMode =
-    weeklyAnchorDate === hubStats.todayKey ? 'calendar_week' : 'latest_activity_week';
+    weeklyAnchorDate === analysisDateKey ? 'calendar_week' : 'latest_activity_week';
 
   const thisWeekStart = mondayForDateKey(weeklyAnchorDate);
   const thisWeekEnd = addDays(thisWeekStart, 6);
@@ -741,7 +756,7 @@ async function main() {
     lastWeekEnd
   );
 
-  const thisMonthPrefix = hubStats.todayKey.slice(0, 7);
+  const thisMonthPrefix = analysisDateKey.slice(0, 7);
   const thisMonthMiles = [...runByDate.entries()]
     .filter(([date]) => date.startsWith(thisMonthPrefix))
     .reduce((sum, [, entry]) => sum + entry.miles, 0);
@@ -755,6 +770,7 @@ async function main() {
       hubBaseUrl: FITNESS_HUB_BASE,
       hubTodayLabel: hubStats.todayLabel,
       hubTodayKey: hubStats.todayKey,
+      analysisDateKey,
       strengthDashboard: `${FITNESS_HUB_BASE}/strength/index.html`,
       whoopDataPath,
       whoopLastSynced: whoopData?.last_synced ?? null,
@@ -776,7 +792,7 @@ async function main() {
       workoutCount: focusWindow.lifting,
       bjjCount: focusWindow.bjj,
       windowStart: focusWindowStart,
-      windowEnd: hubStats.todayKey,
+      windowEnd: analysisDateKey,
     },
     weeklyProgress: {
       mode: weeklyMode,
@@ -840,7 +856,7 @@ async function main() {
       currentStreak: streaks.current,
       longestStreak: streaks.longest,
       rangeStart: heatmapStart,
-      rangeEnd: hubStats.todayKey,
+      rangeEnd: analysisDateKey,
       days: heatmapDays,
     },
     trainingStats: {
@@ -867,7 +883,7 @@ async function main() {
   await writeFile(OUTPUT_FILE, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
 
   console.log(
-    `Updated homepage fitness data for ${hubStats.todayKey}: ` +
+    `Updated homepage fitness data for ${analysisDateKey}: ` +
       `${totalLiftingVolume.toLocaleString()} lbs lifetime, ` +
       `${Number(ytdRunMiles.toFixed(1))} mi YTD, ` +
       `${ytdWorkoutCount} workouts YTD`
