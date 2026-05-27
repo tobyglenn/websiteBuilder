@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 24 May 2026 15:07:24 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 27 May 2026 11:34:23 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 57 -->
+    <item>
+      <title>Episódio 57: OpenClaw 2026.5.22, Claude Code 2.1.149, Agentes Gerenciados de Gemini, Trabalho Remoto com Codex, Ferramentas de Anthropic e Projetos de Agent-Stack</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep057/episode_057.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-57/</link>
+      <description><![CDATA[AgentStack Daily EP057 inicia com OpenClaw v2026.5.22 e Claude Code 2.1.149/2.1.150, depois expande para notícias de IA verificadas por fonte e projetos práticos hospedados no GitHub. OpenClaw melhora o comportamento de início do gateway, reutilização de metadados de plugins, contratos de captura de notas de reunião, paginação de sessões de chat, tempos de vida de callback do Discord, reutilização de busca xAI/Grok, ajudantes de SDK de plugins, fallbacks de provedor/mídia e correções de confiabilidade. Claude Code 2.1.149 adiciona contabilidade de uso por categoria e detalhe de diff rolável por teclado.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-57/]]></description>
+      <pubDate>Wed, 27 May 2026 11:34:23 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_057.mp3" length="43168540" type="audio/mpeg"/>
+      <itunes:duration>44:57</itunes:duration>
+      <itunes:episode>57</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep057/episode_057_cover.png"/>
+    </item>
+
     <!-- Episode 56 -->
     <item>
       <title>Episódio 56: OpenClaw, Codex, Claude Code, Hermes, Appshots, Túneis MCP e Notícias de Agentes</title>
