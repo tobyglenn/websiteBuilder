@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Wed, 27 May 2026 11:34:23 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 May 2026 18:08:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 58 -->
+    <item>
+      <title>एपिसोड 58: OpenClaw 2026.5.27, Codex 0.134, Claude Code 2.1.153, MCP गेटवे, लोकल कोड ग्राफ़, और प्राइवेट एजेंट कंट्रोल</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep058/episode_058.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-58/</link>
+      <description><![CDATA[AgentStack Daily EP058 एक नए रिलीज़ गैप के साथ शुरू होता है: OpenClaw v2026.5.27, Codex rust‑v0.134.0, और Claude Code 2.1.152/2.1.153 सभी अंतिम स्वीकृत ड्राफ्ट के बाद आए। OpenClaw प्रॉम्प्ट/कंटेंट सीमाओं को मज़बूत करता है, no‑auth एक्सपोज़र जाँच, Codex ऐप‑सर्वर रिकवरी, मेटाडेटा कैशिंग, ड्यूरेबल चैनल डिलीवरी, प्रोवाइडर कवरेज, एम्बेडिंग‑प्रोवाइडर सहायता, Pixverse, DeepInfra कैटलॉग ब्राउज़िंग, VLLM थिंकिंग पैराम्स, Claude OAuth ओवरले, रिलीज़ जाँच, और CI प्रूफ पथ। Codex स्थानीय कन्वर्सन जोड़ता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-58/]]></description>
+      <pubDate>Thu, 28 May 2026 18:08:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_058.mp3" length="53490460" type="audio/mpeg"/>
+      <itunes:duration>55:43</itunes:duration>
+      <itunes:episode>58</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep058/episode_058_cover.png"/>
+    </item>
+
     <!-- Episode 57 -->
     <item>
       <title>एपिसोड 57: ओपनक्लॉ 2026.5.22, क्लॉड कोड 2.1.149, जेमिनी प्रबंधित एजेंट, कोडेक्स रिमोट वर्क, एंथ्रोपिक टूलिंग, और एजेंट-स्टैक प्रोजेक्ट्स</title>
