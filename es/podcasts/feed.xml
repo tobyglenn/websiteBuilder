@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 27 May 2026 11:34:23 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 May 2026 18:08:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 58 -->
+    <item>
+      <title>Episodio 58: OpenClaw 2026.5.27, Codex 0.134, Claude Code 2.1.153, MCP Gateways, Gráficos de Código Locales y Control de Agente Privado</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep058/episode_058.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-58/</link>
+      <description><![CDATA[AgentStack Daily EP058 comienza con una nueva brecha de lanzamientos: OpenClaw v2026.5.27, Codex rust‑v0.134.0 y Claude Code 2.1.152/2.1.153 llegaron después del último borrador aprobado. OpenClaw refuerza los límites de prompt y contenido, las comprobaciones de exposición sin autenticación, la recuperación del servidor de aplicaciones Codex, el caché de metadatos, la entrega de canal duradera, la cobertura de proveedores, el soporte de proveedores de inserción, Pixverse, la navegación por el catálogo de DeepInfra, los parámetros de pensamiento de VLLM, las superposiciones OAuth de Claude, las verificaciones de lanzamiento y las rutas de prueba de CI. Por su parte, Codex añade funciones locales de conversión.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-58/]]></description>
+      <pubDate>Thu, 28 May 2026 18:08:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_058.mp3" length="45543802" type="audio/mpeg"/>
+      <itunes:duration>47:26</itunes:duration>
+      <itunes:episode>58</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep058/episode_058_cover.png"/>
+    </item>
+
     <!-- Episode 57 -->
     <item>
       <title>Episodio 57: OpenClaw 2026.5.22, Claude Code 2.1.149, Agentes Gestionados de Gemini, Trabajo Remoto con Codex, Herramientas de Anthropic y Proyectos de Agent-Stack</title>
