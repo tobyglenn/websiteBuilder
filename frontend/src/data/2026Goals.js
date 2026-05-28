@@ -10,13 +10,13 @@ export const goals2026 = homepageFitnessData.yearlyGoals || {
   lifting: {
     icon: '🏋️',
     current: 0,
-    target: 500000,
+    target: 2000000,
     unit: 'lbs',
   },
   workouts: {
     icon: '💪',
     current: 0,
-    target: 200,
+    target: 500,
     unit: 'workouts',
   },
   bjj: {

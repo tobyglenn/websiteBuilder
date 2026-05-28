@@ -834,13 +834,13 @@ async function main() {
       lifting: {
         icon: '🏋️',
         current: derivedCurrentYearLiftingVolume,
-        target: 500000,
+        target: 2000000,
         unit: 'lbs',
       },
       workouts: {
         icon: '💪',
         current: ytdWorkoutCount,
-        target: 200,
+        target: 500,
         unit: 'workouts',
       },
       bjj: {
