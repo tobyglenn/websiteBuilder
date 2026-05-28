@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 May 2026 11:34:23 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 28 May 2026 18:08:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 58 -->
+    <item>
+      <title>Episode 58: OpenClaw 2026.5.27, Codex 0.134, Claude Code 2.1.153, MCP Gateways, Local Code Graphs, and Private Agent Control</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_058.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-58/</link>
+      <description><![CDATA[AgentStack Daily EP058 leads with a new release gap: OpenClaw v2026.5.27, Codex rust-v0.134.0, and Claude Code 2.1.152/2.1.153 all landed after the last approved draft. OpenClaw strengthens prompt/content boundaries, no-auth exposure checks, Codex app-server recovery, metadata caching, durable channel delivery, provider coverage, embedding-provider support, Pixverse, DeepInfra catalog browsing, VLLM thinking params, Claude OAuth overlays, release checks, and CI proof paths. Codex adds local conversation-history search, a profile-first configuration model, better MCP setup with per-server environment targeting and OAuth for streamable HTTP, read-only MCP concurrency, richer hook and extension context, connector-schema preservation, and remote reliability fixes. Claude Code adds code-review fix mode, skill/tool restrictions, skill reload hooks, message-display hooks, plugin suggestion marketplaces, fallback-model continuity, background/workflow status improvements, MCP and remote fixes, then follows with LFS-skip plugin source options, update/doctor visibility, stricter subagent MCP policy handling, OAuth gateway credential fixes, macOS background-agent permission continuity, and many background-session repairs. The outside slate then covers MCP gateway governance, code-intelligence tools, shared agent memory and task state, mobile control bridges for local agents, local model routers and OpenAI-compatible serving, and DGX Spark / LM Studio as a private high-performance local model server.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-58/]]></description>
+      <pubDate>Thu, 28 May 2026 18:08:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_058.mp3" length="40016709" type="audio/mpeg"/>
+      <itunes:duration>41:40</itunes:duration>
+      <itunes:episode>58</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_058_cover.png"/>
+    </item>
+
     <!-- Episode 57 -->
     <item>
       <title>Episode 57: OpenClaw 2026.5.22, Claude Code 2.1.149, Gemini Managed Agents, Codex Remote Work, Anthropic Tooling, and Agent-Stack Projects</title>
