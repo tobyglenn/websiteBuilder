@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 28 May 2026 18:08:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 59 -->
+    <item>
+      <title>Episode 59: Hermes Agent 0.15.x, Codex 0.135, Claude Code 2.1.157, Opus 4.8, Browser MCP, and Usage Telemetry</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_059.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-59/</link>
+      <description><![CDATA[AgentStack Daily EP059 leads with a current agent-stack release readout. Hermes Agent moves from `v0.14.0` to the `v0.15.x` line with a major kanban/orchestration expansion, faster launch and session search, promptware defense, Bitwarden Secrets Manager support, skill bundles, an Ink multi-session TUI, image provider additions, a Nous-approved MCP catalog, ntfy messaging, and follow-up fixes for dashboard loopback auth, Docker insecure-mode opt-in, MCP PATH resolution, `.md` media delivery, plugin packaging, and wheel/sdist manifests. Codex `rust-v0.135.0` adds richer `doctor` diagnostics, remote `/status` details, Vim text objects, named permission profiles, bundled zsh helper discovery, Python SDK sandbox presets, non-interactive install mode, and TUI/session reliability fixes. Claude Code `2.1.154` through `2.1.157` adds Opus 4.8, dynamic workflows, effort controls, automatic skill loading from `.claude/skills`, plugin scaffolding, `claude agents` worktree/session improvements, richer telemetry options, and many background-session, sandbox, MCP, image, terminal, and worktree fixes. The episode then covers Anthropic Opus 4.8, OpenAI workspace-agent controls, Chrome DevTools MCP, local code-flow tools, usage/quota telemetry, and programmable video rendering for agent-built media.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-59/]]></description>
+      <pubDate>Fri, 29 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_059.mp3" length="37351801" type="audio/mpeg"/>
+      <itunes:duration>38:54</itunes:duration>
+      <itunes:episode>59</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_059_cover.png"/>
+    </item>
+
     <!-- Episode 58 -->
     <item>
       <title>Episode 58: OpenClaw 2026.5.27, Codex 0.134, Claude Code 2.1.153, MCP Gateways, Local Code Graphs, and Private Agent Control</title>
