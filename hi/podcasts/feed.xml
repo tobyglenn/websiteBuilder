@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 28 May 2026 18:08:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 59 -->
+    <item>
+      <title>एपिसोड 59: Hermes Agent 0.15.x, Codex 0.135, Claude Code 2.1.157, Opus 4.8, Browser MCP, और Usage Telemetry</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep059/episode_059.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-59/</link>
+      <description><![CDATA[AgentStack Daily EP059 एक वर्तमान एजेंट-स्टैक रिलीज़ रीडआउट के साथ शुरू होता है। Hermes Agent `v0.14.0` से `v0.15.x` लाइन में एक प्रमुख कानबन/ऑर्केस्ट्रेशन विस्तार, तेज़ लॉन्च और सत्र खोज, प्रॉम्प्टवेयर डिफेंस, Bitwarden Secrets Manager सहायता, स्किल बंडल, एक Ink मल्टी-सेशन TUI, इमेज प्रोवाइडर जोड़ाव, एक Nous-अप्रूव्ड MCP कैटलॉग, ntfy मैसेजिंग, और डैशबोर्ड लूपबैक ऑथ, Docker असुरक्षित-मोड ऑप्ट-इन, MCP PATH रिज़ॉल्यूशन, `.md` मीडिया डिलीवरी के लिए फॉलो-अप फिक्सेस के साथ आगे बढ़ता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-59/]]></description>
+      <pubDate>Fri, 29 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_059.mp3" length="50909980" type="audio/mpeg"/>
+      <itunes:duration>53:01</itunes:duration>
+      <itunes:episode>59</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep059/episode_059_cover.png"/>
+    </item>
+
     <!-- Episode 58 -->
     <item>
       <title>एपिसोड 58: OpenClaw 2026.5.27, Codex 0.134, Claude Code 2.1.153, MCP गेटवे, लोकल कोड ग्राफ़, और प्राइवेट एजेंट कंट्रोल</title>
