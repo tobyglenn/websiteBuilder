@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 28 May 2026 18:08:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 29 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 59 -->
+    <item>
+      <title>Episódio 59: Hermes Agent 0.15.x, Codex 0.135, Claude Code 2.1.157, Opus 4.8, Browser MCP e Telemetria de Uso</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep059/episode_059.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-59/</link>
+      <description><![CDATA[AgentStack Daily EP059 lidera com uma leitura atualizada do release do agent-stack. Hermes Agent avança de `v0.14.0` para a linha `v0.15.x` com uma grande expansão de kanban/orquestração, busca mais rápida de lançamento e sessão, defesa de promptware, suporte ao Bitwarden Secrets Manager, bundles de habilidades, um TUI multi-sessão Ink, adições de provedores de imagem, um catálogo MCP aprovado pela Nous, mensagens ntfy, e correções de follow-up para auth loopback do dashboard, opt-in de modo inseguro Docker, resolução de PATH MCP, entrega de mídia `.md` e plugins.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-59/]]></description>
+      <pubDate>Fri, 29 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_059.mp3" length="42125732" type="audio/mpeg"/>
+      <itunes:duration>43:52</itunes:duration>
+      <itunes:episode>59</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep059/episode_059_cover.png"/>
+    </item>
+
     <!-- Episode 58 -->
     <item>
       <title>Episódio 58: OpenClaw 2026.5.27, Codex 0.134, Claude Code 2.1.153, MCP Gateways, Grafos de Código Locais e Controle de Agente Privado</title>
