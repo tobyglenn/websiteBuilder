@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 29 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 60 -->
+    <item>
+      <title>Episode 60: Claude Code 2.1.158, Codex Windows Control, Runtime Instructions, and Local Agent Memory</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_060.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-60/</link>
+      <description><![CDATA[Claude Code `2.1.158` on npm `latest` adds auto mode for Bedrock, Vertex, and Foundry when `CLAUDE_CODE_ENABLE_AUTO_MODE=1` is set. OpenAI's May 29 Codex update adds Windows computer use in the Codex app, remote control from mobile or Mac while the Windows host keeps project files and local context, in-app browser infrastructure improvements, and Codex Profiles for identity, activity, usage stats, and token activity. The episode then covers Anthropic's Messages API system entries as a runtime-control surface, plus OpenLore, Mnemo, OpenMonoAgent, and Prometheus as project-radar examples of local architectural memory, persistent agent cognition, local-only coding agents, and graph-backed repair loops.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-60/]]></description>
+      <pubDate>Sun, 31 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_060.mp3" length="44602557" type="audio/mpeg"/>
+      <itunes:duration>46:27</itunes:duration>
+      <itunes:episode>60</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_060_cover.png"/>
+    </item>
+
     <!-- Episode 59 -->
     <item>
       <title>Episode 59: Hermes Agent 0.15.x, Codex 0.135, Claude Code 2.1.157, Opus 4.8, Browser MCP, and Usage Telemetry</title>
