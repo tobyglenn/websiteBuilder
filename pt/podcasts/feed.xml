@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Fri, 29 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 60 -->
+    <item>
+      <title>Episódio 60: Claude Code 2.1.158, Controle do Windows do Codex, Instruções de Runtime e Memória Local do Agente</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep060/episode_060.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-60/</link>
+      <description><![CDATA[Claude Code `2.1.158` no npm `latest` adiciona o modo automático para Bedrock, Vertex e Foundry quando `CLAUDE_CODE_ENABLE_AUTO_MODE=1` é definido. A atualização do Codex da OpenAI em 29 de maio adiciona uso de computador Windows no aplicativo Codex, controle remoto a partir de dispositivos móveis ou Mac enquanto o host Windows mantém arquivos de projeto e contexto local, melhorias na infraestrutura do navegador no aplicativo e Codex Profiles para identidade, atividade, estatísticas de uso e atividade de tokens. O episódio então cobre as entradas do sistema da API de Mensagens da Anthropic como um runtime-co
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-60/]]></description>
+      <pubDate>Sun, 31 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_060.mp3" length="50414698" type="audio/mpeg"/>
+      <itunes:duration>52:30</itunes:duration>
+      <itunes:episode>60</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep060/episode_060_cover.png"/>
+    </item>
+
     <!-- Episode 59 -->
     <item>
       <title>Episódio 59: Hermes Agent 0.15.x, Codex 0.135, Claude Code 2.1.157, Opus 4.8, Browser MCP e Telemetria de Uso</title>
