@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Fri, 29 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 31 May 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 60 -->
+    <item>
+      <title>एपिसोड 60: क्लॉड कोड 2.1.158, कोडेक्स विंडोज कंट्रोल, रनटाइम इंस्ट्रक्शन्स और लोकल एजेंट मेमोरी</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep060/episode_060.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-60/</link>
+      <description><![CDATA[npm पर Claude Code `2.1.158` `CLAUDE_CODE_ENABLE_AUTO_MODE=1` सेट होने पर Bedrock, Vertex और Foundry के लिए ऑटो मोड जोड़ता है। OpenAI के 29 मई के Codex अपडेट में Codex ऐप में विंडोज कंप्यूटर यूज़, मोबाइल या Mac से रिमोट कंट्रोल जबकि विंडोज होस्ट प्रोजेक्ट फाइल्स और लोकल कॉन्टेक्स्ट रखता है, इन-ऐप ब्राउज़र इन्फ्रास्ट्रक्चर में सुधार, और पहचान, गतिविधि, यूज़ स्टैट्स और टोकन गतिविधि के लिए Codex Profiles शामिल हैं। एपिसोड फिर Anthropic के Messages API सिस्टम एंट्रीज़ को रनटाइम-को के रूप में कवर करता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-60/]]></description>
+      <pubDate>Sun, 31 May 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_060.mp3" length="62123407" type="audio/mpeg"/>
+      <itunes:duration>1:04:42</itunes:duration>
+      <itunes:episode>60</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep060/episode_060_cover.png"/>
+    </item>
+
     <!-- Episode 59 -->
     <item>
       <title>एपिसोड 59: Hermes Agent 0.15.x, Codex 0.135, Claude Code 2.1.157, Opus 4.8, Browser MCP, और Usage Telemetry</title>
