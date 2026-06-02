@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Sun, 31 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 11:39:10 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 61 -->
+    <item>
+      <title>Episodio 61: OpenClaw 2026.5.28, MiniMax M3, Claude Code 2.1.159, y Grafos de Código</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep061/episode_061.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-61/</link>
+      <description><![CDATA[OpenClaw `v2026.5.28` lidera con recuperación más estable del agente y runtime de Codex, entrega de canal más segura, entradas de navegador y automatización más estrictas, expansión de proveedor y medios, superficies de plugin externalizadas, y prueba de lanzamiento limitada. MiniMax M3 sigue como el titular del descubrimiento de modelos: un modelo de código y agente posicionado en peso abierto con atención dispersa MSA, hasta 1M de contexto, multimodelidad nativa, disponibilidad de API, integración con MiniMax Code, y pesos abiertos prometidos después de la ventana de lanzamiento. Claude Code
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-61/]]></description>
+      <pubDate>Tue, 02 Jun 2026 11:39:10 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_061.mp3" length="42723413" type="audio/mpeg"/>
+      <itunes:duration>44:30</itunes:duration>
+      <itunes:episode>61</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep061/episode_061_cover.png"/>
+    </item>
+
     <!-- Episode 60 -->
     <item>
       <title>Episodio 60: Código de Claude 2.1.158, Control de Windows de Codex, Instrucciones de Runtime y Memoria Local del Agente</title>
