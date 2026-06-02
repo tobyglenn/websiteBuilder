@@ -35,6 +35,7 @@ export const VIDEOS = (videosData.videos || []).map(v => ({
   full_description: v.description || v.title,
   thumbnail: v.thumbnail || `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
   published_at: (v.publishedAt || '2025-01-01').slice(0, 10),
+  upload_date: v.publishedAt || '2025-01-01T00:00:00Z',
   views: String(v.viewCount || 0),
   view_count: v.viewCount || 0,
   tags: extractTags(v.description),

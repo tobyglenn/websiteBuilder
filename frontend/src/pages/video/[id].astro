@@ -35,7 +35,7 @@ const videoJsonLd: Record<string, unknown> = {
     `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
     video.thumbnail,
   ].filter(Boolean),
-  "uploadDate": video.published_at,
+  "uploadDate": video.upload_date || video.published_at,
   "url": videoUrl,
   "embedUrl": `https://www.youtube.com/embed/${video.id}`,
   "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,

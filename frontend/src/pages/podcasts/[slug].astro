@@ -273,7 +273,7 @@ const podcastSeriesUrl = 'https://tobyonfitnesstech.com/podcasts/';
       }
     } : {}),
     "episodeNumber": episode.isToft ? undefined : episode.number,
-    ...(episode.videoId ? { "video": { "@type": "VideoObject", "embedUrl": `https://www.youtube.com/embed/${episode.videoId}`, "url": `https://www.youtube.com/watch?v=${episode.videoId}` } } : {}),
+    ...(episode.videoId ? { "video": { "@type": "VideoObject", "name": episode.title, "description": episode.description, "thumbnailUrl": `https://i.ytimg.com/vi/${episode.videoId}/hqdefault.jpg`, "uploadDate": episode.isoDate || episode.date, "embedUrl": `https://www.youtube.com/embed/${episode.videoId}`, "url": `https://www.youtube.com/watch?v=${episode.videoId}` } } : {}),
     "inLanguage": "en",
     "author": {
       "@type": "Person",

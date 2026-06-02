@@ -110,6 +110,7 @@ const videosCollectionSchema = {
       description: string;
       thumbnail: string;
       published_at: string;
+      upload_date?: string;
       view_count?: number;
       duration_iso?: string;
     }, index: number) => ({
@@ -123,7 +124,7 @@ const videosCollectionSchema = {
         "name": video.title,
         "description": video.description,
         "thumbnailUrl": video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
-        "uploadDate": video.published_at,
+        "uploadDate": video.upload_date || video.published_at,
         "url": `${siteUrl}/video/${video.id}/`,
         "embedUrl": `https://www.youtube.com/embed/${video.id}`,
         "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
