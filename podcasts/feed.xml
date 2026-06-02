@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 31 May 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 02 Jun 2026 11:39:10 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 61 -->
+    <item>
+      <title>Episode 61: OpenClaw 2026.5.28, MiniMax M3, Claude Code 2.1.159, and Code Graphs</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_061.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-61/</link>
+      <description><![CDATA[OpenClaw `v2026.5.28` leads with steadier agent and Codex runtime recovery, safer channel delivery, stricter browser and automation inputs, provider and media expansion, externalized plugin surfaces, and bounded release proof. MiniMax M3 follows as the model-discovery headline: an open-weight-positioned coding and agent model with MSA sparse attention, up to 1M context, native multimodality, API availability, MiniMax Code integration, and open weights promised after the launch window. Claude Code `2.1.159` is the quiet CLI hygiene lane. Then EP061 evaluates Understand Anything, agentgateway, MCPJungle, and CodeAlmanac as practical tools for codebase graphs, agent traffic control, MCP management, and persistent repo context.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-61/]]></description>
+      <pubDate>Tue, 02 Jun 2026 11:39:10 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_061.mp3" length="37829946" type="audio/mpeg"/>
+      <itunes:duration>39:24</itunes:duration>
+      <itunes:episode>61</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_061_cover.png"/>
+    </item>
+
     <!-- Episode 60 -->
     <item>
       <title>Episode 60: Claude Code 2.1.158, Codex Windows Control, Runtime Instructions, and Local Agent Memory</title>
