@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 02 Jun 2026 11:39:10 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 14:12:03 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 62 -->
+    <item>
+      <title>एपिसोड 62: Codex 0.136, Stanford के Agent Guidelines, AWS OpenAI, और GPU Efficiency</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep062/episode_062.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-62/</link>
+      <description><![CDATA[AgentStack Daily EP062 Codex rust-v0.136.0 के साथ शुरू होता है: बेहतर TUI diagnostics और error context, improved app-server lifecycle handling, named hooks और permission scopes, Python SDK और Node SDK improvements, और non-interactive installation support. Stanford का CS336 course एक formal AI agent guidelines document प्रकाशित करता है जो 24 घंटे से कम में 1,863 stars तक पहुंचता है — institutional validation कि agent workflow guidelines एक first-class engineering concern बन रहे हैं। OpenAI GPT-4.5, o3, और Codex को AWS Bedrock पर रखता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-62/]]></description>
+      <pubDate>Wed, 03 Jun 2026 14:12:03 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_062.mp3" length="58925601" type="audio/mpeg"/>
+      <itunes:duration>1:01:22</itunes:duration>
+      <itunes:episode>62</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep062/episode_062_cover.png"/>
+    </item>
+
     <!-- Episode 61 -->
     <item>
       <title>एपिसोड 61: OpenClaw 2026.5.28, MiniMax M3, Claude Code 2.1.159, और Code Graphs</title>
