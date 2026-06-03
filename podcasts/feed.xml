@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 02 Jun 2026 11:39:10 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 14:12:03 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 62 -->
+    <item>
+      <title>Episode 62: Codex 0.136, Stanford's Agent Guidelines, AWS OpenAI, and GPU Efficiency</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_062.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-62/</link>
+      <description><![CDATA[AgentStack Daily EP062 leads with Codex `rust-v0.136.0`: better TUI diagnostics and error context, improved app-server lifecycle handling, named hooks and permission scopes, Python SDK and Node SDK improvements, and non-interactive installation support. Stanford's CS336 course publishes a formal AI agent guidelines document that reaches 1,863 stars in under 24 hours — institutional validation that agent workflow guidelines are becoming a first-class engineering concern. OpenAI puts GPT-4.5, o3, and Codex on AWS Bedrock, completing the pattern where both major labs distribute through the same cloud. Expanse from YC P26 uses cluster-specific fine-tuned models to predict GPU job resource needs and outperforms frontier LLMs by 8x on that task, backed by real HPC telemetry and SLURM/Kubernetes integration. The project radar covers agent OS for hardware, terminal context managers, MCP workflow templates, and physical agent scheduling.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-62/]]></description>
+      <pubDate>Wed, 03 Jun 2026 14:12:03 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_062.mp3" length="44259412" type="audio/mpeg"/>
+      <itunes:duration>46:06</itunes:duration>
+      <itunes:episode>62</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_062_cover.png"/>
+    </item>
+
     <!-- Episode 61 -->
     <item>
       <title>Episode 61: OpenClaw 2026.5.28, MiniMax M3, Claude Code 2.1.159, and Code Graphs</title>
