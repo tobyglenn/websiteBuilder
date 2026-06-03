@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 02 Jun 2026 11:39:10 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 03 Jun 2026 14:12:03 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 62 -->
+    <item>
+      <title>Folge 62: Codex 0.136, Stanfords Agent-Richtlinien, AWS OpenAI und GPU-Effizienz</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep062/episode_062.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-62/</link>
+      <description><![CDATA[AgentStack Daily EP062 beginnt mit Codex rust-v0.136.0: verbesserte TUI-Diagnose und Fehlerkontext, verbesserte App-Server-Lebenszyklusverwaltung, benannte Hooks und Berechtigungsbereiche, Python-SDK- und Node-SDK-Verbesserungen sowie Unterstützung für nicht-interaktive Installation. Stanfords CS336-Kurs veröffentlicht ein formelles KI-Agent-Richtliniendokument, das in weniger als 24 Stunden 1.863 Sterne erreicht – institutionelle Validierung, dass Agent-Workflow-Richtlinien zu einer erstklassigen technischen Angelegenheit werden. OpenAI bringt GPT-4.5, o3
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-62/]]></description>
+      <pubDate>Wed, 03 Jun 2026 14:12:03 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_062.mp3" length="51740883" type="audio/mpeg"/>
+      <itunes:duration>53:53</itunes:duration>
+      <itunes:episode>62</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep062/episode_062_cover.png"/>
+    </item>
+
     <!-- Episode 61 -->
     <item>
       <title>Folge 61: OpenClaw 2026.5.28, MiniMax M3, Claude Code 2.1.159 und Code-Graphen</title>
