@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Wed, 03 Jun 2026 14:12:03 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 04 Jun 2026 15:28:37 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 63 -->
+    <item>
+      <title>एपिसोड 63:</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep063/episode_063.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-63/</link>
+      <description><![CDATA[[00:00] एपिसोड हुक - OpenClaw v2026.6.1, Hermes Agent v2026.5.29.2, और Claude Code 2.1.162 एक ही एपिसोड विंडो में आए। स्थिर OpenClaw टैग v2026.6.1 है, Hermes स्थिर टैग v2026.5.29.2 पर है, और नवीनतम Claude Code npm `latest` 2.1.162 है। OpenClaw v2026.6.1 में Workboard ऑर्केस्ट्रेशन, एक शासित स्किल वर्कशॉप, SQLite-बैक्ड स्टेट रिकवरी, और MiniMax M3 प्रोवाइडर सपोर्ट शामिल है। Claude Code 2.1.162 `claude agents --json` में वेटिंग-फॉर विजिबिलिटी जोड़ता है और अनुमति के एक बैच के साथ आता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-63/]]></description>
+      <pubDate>Thu, 04 Jun 2026 15:28:37 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_063.mp3" length="40922845" type="audio/mpeg"/>
+      <itunes:duration>42:37</itunes:duration>
+      <itunes:episode>63</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep063/episode_063_cover.png"/>
+    </item>
+
     <!-- Episode 62 -->
     <item>
       <title>एपिसोड 62: Codex 0.136, Stanford के Agent Guidelines, AWS OpenAI, और GPU Efficiency</title>
