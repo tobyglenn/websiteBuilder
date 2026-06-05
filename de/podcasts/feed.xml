@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 63 -->
+    <item>
+      <title>Folge 63: OpenClaw 2026.6.1, Claude Code 2.1.162, Qwen 3.7 und Agenten-Speicherinfrastruktur</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep063/episode_063.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-63/</link>
+      <description><![CDATA[[00:00] Episode-Einstieg OpenClaw v2026.6.1, Hermes Agent v2026.5.29.2 und Claude Code 2.1.162 erscheinen im selben Episodenfenster. Der stabile OpenClaw-Tag ist v2026.6.1, der Hermes-stabile Tag bleibt bei v2026.5.29.2 und der neueste Claude Code npm `latest` ist 2.1.162. OpenClaw v2026.6.1 bietet Workboard-Orchestrierung, einen verwalteten Skill Workshop, SQLite-gestützte Zustandswiederherstellung und MiniMax M3-Provider-Unterstützung. Claude Code 2.1.162 fügt Sichtbarkeit beim Warten in `claude agents --json` hinzu und eine Reihe von Berechtigungen
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-63/]]></description>
+      <pubDate>Thu, 04 Jun 2026 15:28:37 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_063.mp3" length="35986747" type="audio/mpeg"/>
+      <itunes:duration>37:29</itunes:duration>
+      <itunes:episode>63</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep063/episode_063_cover.png"/>
+    </item>
+
     <!-- Episode 62 -->
     <item>
       <title>Folge 62: Codex 0.136, Stanfords Agent-Richtlinien, AWS OpenAI und GPU-Effizienz</title>
