@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 04 Jun 2026 15:28:37 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 64 -->
+    <item>
+      <title>एपिसोड 64: Claude Code 2.1.165, Microsoft का MAI कोडिंग मॉडल परिवार, और एजेंट इन्फ्रास्ट्रक्चर प्रोजेक्ट रडार</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep064/episode_064.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-64/</link>
+      <description><![CDATA[Claude Code 2.1.165 जून 5 तक का नवीनतम npm `latest` है, जो 2.1.163 और 2.1.164 के बाद आया है — ये सभी बग-फिक्स और विश्वसनीयता रिलीज़ हैं जो बैकग्राउंड सेशन, प्लगइन हुक, स्किल सिंटैक्स और Windows पाथ हैंडलिंग को साफ करते हैं। Microsoft ने Build 2026 में 2 जून को सात-मॉडल MAI परिवार जारी किया, जिसमें MAI-Code-1-Flash मुख्य आकर्षण है: एक 5B-पैरामीटर कोडिंग मॉडल जो GitHub Copilot प्रोडक्शन हार्नेसेस पर प्रशिक्षित है, जो SWE-Bench Pro पर 51% स्कोर करता है और तुलनीय मॉडलों की तुलना में 60% टोकन में हल्का है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-64/]]></description>
+      <pubDate>Fri, 05 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_064.mp3" length="50147622" type="audio/mpeg"/>
+      <itunes:duration>52:14</itunes:duration>
+      <itunes:episode>64</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep064/episode_064_cover.png"/>
+    </item>
+
     <!-- Episode 63 -->
     <item>
       <title>एपिसोड 63: OpenClaw 2026.6.1, Claude Code 2.1.162, Qwen 3.7 Max/Plus और कोडिंग एजेंट मेमोरी</title>
