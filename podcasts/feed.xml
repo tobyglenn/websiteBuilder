@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 04 Jun 2026 15:28:37 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 05 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 64 -->
+    <item>
+      <title>Episode 64: Claude Code 2.1.165, Microsoft's MAI Coding Model Family, and the Agent Infrastructure Project Radar</title>
+      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_064.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-64/</link>
+      <description><![CDATA[Claude Code 2.1.165 is the latest npm `latest` as of June 5, following 2.1.163 and 2.1.164 — all bug-fix and reliability releases that clean up background sessions, plugin hooks, skill syntax, and Windows path handling. Microsoft dropped a seven-model MAI family at Build 2026 on June 2, with MAI-Code-1-Flash as the headline: a 5B-parameter coding model trained on GitHub Copilot production harnesses, scoring 51% on SWE-Bench Pro and 60% leaner on tokens than comparable models. The episode also covers the GitHub Project Radar around agent memory, code graphs, and MCP tooling that serve the local coding-agent stack.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-64/]]></description>
+      <pubDate>Fri, 05 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_064.mp3" length="36697277" type="audio/mpeg"/>
+      <itunes:duration>38:13</itunes:duration>
+      <itunes:episode>64</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_064_cover.png"/>
+    </item>
+
     <!-- Episode 63 -->
     <item>
       <title>Episode 63: OpenClaw 2026.6.1, Claude Code 2.1.162, Qwen 3.7 Max/Plus, and Agent Memory Infrastructure</title>
