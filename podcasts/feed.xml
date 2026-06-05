@@ -15,22 +15,6 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
-    <!-- Episode 63 -->
-    <item>
-      <title>Episode 63: OpenClaw 2026.6.1, Claude Code 2.1.162, Qwen 3.7 Max/Plus, and Agent Memory Infrastructure</title>
-      <guid isPermaLink="false">https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_063.mp3</guid>
-      <link>https://tobyonfitnesstech.com/podcasts/episode-63/</link>
-      <description><![CDATA[[00:00] Episode hook OpenClaw v2026.6.1, Hermes Agent v2026.5.29.2, and Claude Code 2.1.162 drop in the same episode window. The stable OpenClaw tag is v2026.6.1, the Hermes stable tag stays at v2026.5.29.2, and the latest Claude Code npm `latest` is 2.1.162. OpenClaw v2026.6.1 ships Workboard orchestration, a governed Skill Workshop, SQLite-backed state recovery, and MiniMax M3 provider support. Claude Code 2.1.162 adds waiting-for visibility in `claude agents --json` and a batch of permission and interrupt fixes across five releases from 2.1.158 to 2.1.162. Qwen 3.7 Max and Plus split the coding-reasoning and multimodal-vision lanes. agentmemory makes every agent on your machine share a persistent context layer. This is a 60-minute episode — keep the existing builder stories and extend runtime.
-
-Show notes: https://tobyonfitnesstech.com/podcasts/episode-63/]]></description>
-      <pubDate>Thu, 04 Jun 2026 15:28:37 +0000</pubDate>
-      <enclosure url="https://op3.dev/e/https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/audio/episode_063.mp3" length="30290798" type="audio/mpeg"/>
-      <itunes:duration>31:33</itunes:duration>
-      <itunes:episode>63</itunes:episode>
-      <itunes:episodeType>full</itunes:episodeType>
-      <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-media-en/episode_063_cover.png"/>
-    </item>
-
     <!-- Episode 62 -->
     <item>
       <title>Episode 62: Codex 0.136, Stanford's Agent Guidelines, AWS OpenAI, and GPU Efficiency</title>
