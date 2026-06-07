@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Fri, 05 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 65 -->
+    <item>
+      <title>Episodio 65: Hermes Agent v0.16.0 Aplicación de Escritorio, Codex 0.137 Multi-Agente v2, Modelos de Respaldo de Claude Code y Gemma 4 12B en la Stack Local</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep065/episode_065.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-65/</link>
+      <description><![CDATA[Hermes Agent v0.16.0 — «The Surface Release»— lanza una aplicación de escritorio nativa con OAuth remoto, arrastrar y soltar archivos y un panel de administración web. Codex 0.137 incorpora persistencia de runtime multi-agente v2 y búsqueda web paralela, mientras que Claude Code 2.1.166/2.1.167 introduce cadenas de modelos de respaldo y reglas de denegación de nombres de herramientas glob. Gemma 4 12B es el último modelo abierto de 12B de Google que funciona localmente en un portátil con 16GB de VRAM.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-65/]]></description>
+      <pubDate>Sat, 06 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_065.mp3" length="38206528" type="audio/mpeg"/>
+      <itunes:duration>39:47</itunes:duration>
+      <itunes:episode>65</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep065/episode_065_cover.png"/>
+    </item>
+
     <!-- Episode 64 -->
     <item>
       <title>Episodio 64: Claude Code 2.1.165, la familia de modelos de codificación MAI de Microsoft y el Radar del Proyecto de Infraestructura de Agentes</title>

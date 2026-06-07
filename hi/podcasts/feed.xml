@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Fri, 05 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 65 -->
+    <item>
+      <title>एपिसोड 65: Hermes Agent v0.16.0 Desktop App, Codex 0.137 Multi-Agent v2, Claude Code Fallback Models, और Gemma 4 12B लोकल स्टैक पर</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep065/episode_065.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-65/</link>
+      <description><![CDATA[Hermes Agent v0.16.0 — "The Surface Release" — एक वास्तविक नेटिव डेस्कटॉप ऐप लाता है जिसमें OAuth रिमोट कनेक्ट, ड्रैग-एंड-ड्रॉप फ़ाइल इनपुट और ब्राउज़र-आधारित एडमिन पैनल शामिल है। Codex 0.137 मल्टी-एजेंट v2 रनटाइम चॉइस परसिस्टेंस और पैरलल वेब सर्च जोड़ता है, जबकि Claude Code 2.1.166/2.1.167 फॉलबैक मॉडल चेन और ग्लोब टूल-नेम डेनी रूल्स प्रस्तुत करता है। Gemma 4 12B Google का नवीनतम 12B मॉडल है जो 16GB VRAM वाले लैपटॉप पर स्थानीय रूप से चलता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-65/]]></description>
+      <pubDate>Sat, 06 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_065.mp3" length="45039325" type="audio/mpeg"/>
+      <itunes:duration>46:54</itunes:duration>
+      <itunes:episode>65</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep065/episode_065_cover.png"/>
+    </item>
+
     <!-- Episode 64 -->
     <item>
       <title>एपिसोड 64: Claude Code 2.1.165, Microsoft का MAI कोडिंग मॉडल परिवार, और एजेंट इन्फ्रास्ट्रक्चर प्रोजेक्ट रडार</title>
