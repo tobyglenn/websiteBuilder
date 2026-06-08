@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-07T08:05:37.225725",
-  "total_activities": 1533,
+  "generated_at": "2026-06-07T19:50:30.062137",
+  "total_activities": 1534,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-06-04"
+    "end": "2026-06-07"
   },
   "activities": [
     {
@@ -19933,6 +19933,19 @@
       "averageHR": 111.0,
       "maxHR": 123.0,
       "calories": 215.0,
+      "avgPace": 0
+    },
+    {
+      "date": "2026-06-07",
+      "startTimeLocal": "2026-06-07 17:51:56",
+      "activityType": "running",
+      "activityName": "Camp Hill - Long Run",
+      "distance": 3.1201,
+      "distance_miles": 3.1201,
+      "duration": 61.07,
+      "averageHR": 117.0,
+      "maxHR": 136.0,
+      "calories": 441.0,
       "avgPace": 0
     }
   ],
