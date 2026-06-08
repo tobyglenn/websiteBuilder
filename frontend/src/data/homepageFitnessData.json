@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-06-08T12:05:51.845Z",
+  "generatedAt": "2026-06-08T12:43:50.144Z",
   "source": {
-    "hubBaseUrl": "http://127.0.0.1:8082/fitness",
+    "hubBaseUrl": "http://127.0.0.1:8082",
     "hubTodayLabel": "Jun 8, 2026",
     "hubTodayKey": "2026-06-08",
     "analysisDateKey": "2026-06-08",
-    "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
+    "strengthDashboard": "http://127.0.0.1:8082/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
     "whoopLastSynced": "2026-06-08T08:05:46.857652"
   },
@@ -29,33 +29,33 @@
     "windowEnd": "2026-06-08"
   },
   "weeklyProgress": {
-    "mode": "calendar_week",
+    "mode": "rolling_7_days",
     "anchorDate": "2026-06-08",
     "dateRange": {
-      "thisWeekStart": "2026-06-08",
-      "thisWeekEnd": "2026-06-14",
-      "lastWeekStart": "2026-06-01",
-      "lastWeekEnd": "2026-06-07"
+      "thisWeekStart": "2026-06-02",
+      "thisWeekEnd": "2026-06-08",
+      "lastWeekStart": "2026-05-26",
+      "lastWeekEnd": "2026-06-01"
     },
     "workouts": {
-      "thisWeek": 1,
-      "lastWeek": 6
+      "thisWeek": 5,
+      "lastWeek": 7
     },
     "runs": {
-      "thisWeek": 0,
-      "lastWeek": 3
+      "thisWeek": 2,
+      "lastWeek": 4
     },
     "volume": {
       "thisWeek": 0,
-      "lastWeek": 11297
+      "lastWeek": 15485
     },
     "miles": {
-      "thisWeek": 0,
-      "lastWeek": 6.6
+      "thisWeek": 4.7,
+      "lastWeek": 5.6
     },
     "bjj": {
-      "thisWeek": 1,
-      "lastWeek": 2
+      "thisWeek": 3,
+      "lastWeek": 1
     }
   },
   "yearlyGoals": {
@@ -1417,7 +1417,7 @@
     "lastSleepScore": 79
   },
   "labels": {
-    "thisWeek": "June 8, 2026 - June 14, 2026",
-    "lastWeek": "June 1, 2026 - June 7, 2026"
+    "thisWeek": "June 2, 2026 - June 8, 2026",
+    "lastWeek": "May 26, 2026 - June 1, 2026"
   }
 }

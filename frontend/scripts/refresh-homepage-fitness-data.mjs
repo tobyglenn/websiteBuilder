@@ -516,9 +516,10 @@ async function main() {
       if (!key) continue;
 
       const current = runByDate.get(key) ?? { count: 0, miles: 0 };
-      // Processed data may include explicit count; default to 1 per run.
-      current.count = (run.count ?? 1);
-      current.miles = Number(run.distance_miles || run.distance || 0);
+      // Processed data can contain multiple runs on the same date. Accumulate
+      // instead of overwriting, otherwise same-day doubles undercount.
+      current.count += (run.count ?? 1);
+      current.miles += Number(run.distance_miles || run.distance || 0);
       runByDate.set(key, current);
 
       const candidate = createLastActivityCandidate(
@@ -723,27 +724,15 @@ async function main() {
       .at(-1) ??
     null;
 
-  const calendarThisWeekStart = mondayForDateKey(analysisDateKey);
-  const calendarThisWeekEnd = addDays(calendarThisWeekStart, 6);
-  const calendarWeeklyThisWeek = rangeTotals(
-    { runByDate, liftByDate, bjjByDate },
-    calendarThisWeekStart,
-    calendarThisWeekEnd
-  );
-
-  const weeklyAnchorDate =
-    lastActivity &&
-    calendarWeeklyThisWeek.workouts === 0 &&
-    lastActivity.date < calendarThisWeekStart
-      ? lastActivity.date
-      : analysisDateKey;
-  const weeklyMode =
-    weeklyAnchorDate === analysisDateKey ? 'calendar_week' : 'latest_activity_week';
-
-  const thisWeekStart = mondayForDateKey(weeklyAnchorDate);
-  const thisWeekEnd = addDays(thisWeekStart, 6);
-  const lastWeekStart = addDays(thisWeekStart, -7);
-  const lastWeekEnd = addDays(thisWeekStart, -1);
+  // Match the homepage focus card: compare the trailing 7-day window against
+  // the preceding 7 days. Calendar-week comparison is misleading early Monday
+  // because it shows only today's sessions while the focus card says “past 7 days”.
+  const weeklyAnchorDate = analysisDateKey;
+  const weeklyMode = 'rolling_7_days';
+  const thisWeekStart = addDays(weeklyAnchorDate, -6);
+  const thisWeekEnd = weeklyAnchorDate;
+  const lastWeekStart = addDays(weeklyAnchorDate, -13);
+  const lastWeekEnd = addDays(weeklyAnchorDate, -7);
 
   const weeklyThisWeek = rangeTotals(
     { runByDate, liftByDate, bjjByDate },

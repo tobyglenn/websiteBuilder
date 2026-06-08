@@ -9,7 +9,6 @@ const translations = {
     runs: 'runs',
     workouts: 'workouts',
     bjjSessions: 'BJJ sessions',
-    focusOrder: ['Running', 'Lifting', 'BJJ'],
     focusValues: {
       running: 'Running',
       lifting: 'Lifting',
@@ -22,7 +21,6 @@ const translations = {
     runs: 'carreras',
     workouts: 'entrenamientos',
     bjjSessions: 'sesiones de BJJ',
-    focusOrder: ['Correr', 'Levantamiento', 'BJJ'],
     focusValues: {
       running: 'Correr',
       lifting: 'Levantamiento',
@@ -35,7 +33,6 @@ const translations = {
     runs: 'Läufe',
     workouts: 'Workouts',
     bjjSessions: 'BJJ-Sessions',
-    focusOrder: ['Laufen', 'Krafttraining', 'BJJ'],
     focusValues: {
       running: 'Laufen',
       lifting: 'Krafttraining',
@@ -48,7 +45,6 @@ const translations = {
     runs: 'corridas',
     workouts: 'treinos',
     bjjSessions: 'treinos de BJJ',
-    focusOrder: ['Corrida', 'Levantamento', 'BJJ'],
     focusValues: {
       running: 'Corrida',
       lifting: 'Levantamento',
@@ -61,7 +57,6 @@ const translations = {
     runs: 'रन',
     workouts: 'वर्कआउट',
     bjjSessions: 'BJJ सेशन',
-    focusOrder: ['दौड़ना', 'लिफ्टिंग', 'BJJ'],
     focusValues: {
       running: 'दौड़ना',
       lifting: 'लिफ्टिंग',
@@ -80,6 +75,11 @@ const fallbackFocusData = {
 const TrainingFocus = ({ lang = 'en' }) => {
   const t = translations[lang] || translations.en;
   const focusData = homepageFitnessData.trainingFocus || fallbackFocusData;
+  const orderedFocus = [
+    { key: 'running', label: t.focusValues.running, icon: <Activity size={16} />, count: focusData.runCount || 0 },
+    { key: 'lifting', label: t.focusValues.lifting, icon: <Dumbbell size={16} />, count: focusData.workoutCount || 0 },
+    { key: 'bjj', label: t.focusValues.bjj, icon: <Trophy size={16} />, count: focusData.bjjCount || 0 },
+  ].sort((a, b) => b.count - a.count || ['running', 'lifting', 'bjj'].indexOf(a.key) - ['running', 'lifting', 'bjj'].indexOf(b.key));
 
   const getFocusIcon = () => {
     switch (focusData.focus) {
@@ -136,15 +136,14 @@ const TrainingFocus = ({ lang = 'en' }) => {
         </div>
 
         <div className="flex items-center gap-2 text-blue-400 font-medium">
-          <span>{t.focusOrder[0]}</span>
-          <span className="text-neutral-600">&gt;</span>
-          <span className="flex items-center gap-1">
-            <Dumbbell size={16} /> {t.focusOrder[1]}
-          </span>
-          <span className="text-neutral-600">&gt;</span>
-          <span className="flex items-center gap-1">
-            <Trophy size={16} /> {t.focusOrder[2]}
-          </span>
+          {orderedFocus.map((item, index) => (
+            <React.Fragment key={item.key}>
+              {index > 0 && <span className="text-neutral-600">&gt;</span>}
+              <span className="flex items-center gap-1">
+                {item.icon} {item.label}
+              </span>
+            </React.Fragment>
+          ))}
         </div>
       </div>
     </div>
