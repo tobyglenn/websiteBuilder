@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 06 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jun 2026 20:01:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 66 -->
+    <item>
+      <title>Folge 66: Claude Freitag-Ausfall, Claude Code .168 Tagesspäter-Behebung, OpenClaw Monatlicher Rhythmus-Wechsel, OpenAI ChatGPT Super-App, Apple WWDC 2026, Anthropic Mythos weitet sich aus, Microsoft MAI landet in Copilot, Gemma 4 12B auf dem Mac</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep066/episode_066.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-66/</link>
+      <description><![CDATA[OpenClaw v2026.6.5-beta.2 und Claude Code 2.1.168 führen den Agent-Harness-Zyklus an, und der Zyklus beginnt mit einem Ausfall am Freitag, den 5. Juni, der die Claude-API, Claude Code, claude.ai und Claude Cowork für etwa zwei Stunden traf – hauptsächlich Opus 4.7 und 4.8 – mit nahezu tausend Downdetector-Meldungen. OpenClaw wechselte die Release-Züge auf einen monatlichen Patch-Rhythmus mit der Juni-2026-Basis bei 5.28. Claude Code lieferte eine fokussierte, einen Tag verspätete Bugfix-Version auf der .167-Basis aus, schloss Sitzungs-Anhänge, Stream-JSON
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-66/]]></description>
+      <pubDate>Mon, 08 Jun 2026 20:01:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_066.mp3" length="43542195" type="audio/mpeg"/>
+      <itunes:duration>45:21</itunes:duration>
+      <itunes:episode>66</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep066/episode_066_cover.png"/>
+    </item>
+
     <!-- Episode 65 -->
     <item>
       <title>Folge 65: Hermes Agent v0.16.0 Desktop App, Codex 0.137 Multi-Agent v2, Claude Code Fallback Models, and Gemma 4 12B on the Local Stack</title>
