@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sat, 06 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jun 2026 20:01:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 66 -->
+    <item>
+      <title>एपिसोड 66: क्लॉड शुक्रवार आउटेज, क्लॉड कोड .168 दिन-देरी फिक्स, ओपनक्लॉ मासिक कैडेंस स्विच, ओपनएआई चैटजीपीटी सुपरऐप, ऐप्पल डब्ल्यूडब्ल्यूसी 2026, एंथ्रोपिक मिथोस विस्तार, माइक्रोसॉफ्ट MAI कॉपायलट में उतरा, मैक पर जेम्मा 4 12बी</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep066/episode_066.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-66/</link>
+      <description><![CDATA[एजेंट-हार्नेस चक्र का नेतृत्व OpenClaw v2026.6.5-beta.2 और Claude Code 2.1.168 ने किया, और चक्र की शुरुआत शुक्रवार 5 जून के आउटेज से हुई जिसने लगभग दो घंटे तक Claude API, Claude Code, claude.ai, और Claude Cowork को प्रभावित किया — मुख्य रूप से Opus 4.7 और 4.8 — जो लगभग एक हजार Downdetector रिपोर्ट तक पहुंचा। OpenClaw ने जून 2026 की फर्श 5.28 के साथ मासिक पैच कैडेंस पर रिलीज़ ट्रेन बदल दी। Claude Code ने .167 बेसलाइन पर एक दिन-देरी वाली बग-फिक्स रिलीज़ भेजी, जिसने सेशन अटैचमेंट और स्ट्रीम-जSON को बंद किया।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-66/]]></description>
+      <pubDate>Mon, 08 Jun 2026 20:01:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_066.mp3" length="47728475" type="audio/mpeg"/>
+      <itunes:duration>49:42</itunes:duration>
+      <itunes:episode>66</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep066/episode_066_cover.png"/>
+    </item>
+
     <!-- Episode 65 -->
     <item>
       <title>एपिसोड 65: Hermes Agent v0.16.0 Desktop App, Codex 0.137 Multi-Agent v2, Claude Code Fallback Models, और Gemma 4 12B लोकल स्टैक पर</title>
