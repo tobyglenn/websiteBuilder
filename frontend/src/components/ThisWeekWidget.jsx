@@ -29,6 +29,8 @@ export default function ThisWeekWidget() {
     dateRange: {
       thisWeekStart: '1970-01-01',
       thisWeekEnd: '1970-01-07',
+      lastWeekStart: '1969-12-25',
+      lastWeekEnd: '1969-12-31',
     },
     workouts: { thisWeek: 0, lastWeek: 0 },
     miles: { thisWeek: 0, lastWeek: 0 },
@@ -51,7 +53,11 @@ export default function ThisWeekWidget() {
   const range = progress.dateRange || {
     thisWeekStart: '1970-01-01',
     thisWeekEnd: '1970-01-07',
+    lastWeekStart: '1969-12-25',
+    lastWeekEnd: '1969-12-31',
   };
+  const thisWeekRange = `${formatRangeDate(range.thisWeekStart)}–${formatRangeDate(range.thisWeekEnd)}, ${range.thisWeekEnd.slice(0, 4)}`;
+  const lastWeekRange = `${formatRangeDate(range.lastWeekStart)}–${formatRangeDate(range.lastWeekEnd)}, ${range.lastWeekEnd.slice(0, 4)}`;
   const headingId = 'weekly-progress-heading';
 
   return (
@@ -68,7 +74,7 @@ export default function ThisWeekWidget() {
           </span>
           <h2 id={headingId} className="text-3xl md:text-4xl font-bold text-white">Weekly Progress</h2>
           <p className="text-neutral-500 mt-3 max-w-xl mx-auto">
-            Compare this week&apos;s performance to last week.
+            Rolling 7-day comparison: <span className="text-neutral-300">{thisWeekRange}</span> vs <span className="text-neutral-300">{lastWeekRange}</span>.
           </p>
         </div>
 
@@ -147,7 +153,7 @@ export default function ThisWeekWidget() {
         </div>
 
         <div className="text-center mt-6 text-sm text-neutral-500">
-          {`This Week: ${formatRangeDate(range.thisWeekStart)}–${formatRangeDate(range.thisWeekEnd)}, ${range.thisWeekEnd.slice(0, 4)}`}
+          This Week: <span className="text-neutral-300">{thisWeekRange}</span> · Last Week: <span className="text-neutral-300">{lastWeekRange}</span>
         </div>
       </div>
     </section>

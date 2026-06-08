@@ -6,6 +6,7 @@ const translations = {
   en: {
     sectionHeading: "This Week's Focus",
     subheading: 'Based on past 7 days activity',
+    rangeLabel: 'Date range',
     runs: 'runs',
     workouts: 'workouts',
     bjjSessions: 'BJJ sessions',
@@ -18,6 +19,7 @@ const translations = {
   es: {
     sectionHeading: 'Enfoque de esta semana',
     subheading: 'Basado en la actividad de los últimos 7 días',
+    rangeLabel: 'Rango de fechas',
     runs: 'carreras',
     workouts: 'entrenamientos',
     bjjSessions: 'sesiones de BJJ',
@@ -30,6 +32,7 @@ const translations = {
   de: {
     sectionHeading: 'Fokus dieser Woche',
     subheading: 'Basierend auf Aktivität der letzten 7 Tage',
+    rangeLabel: 'Datumsbereich',
     runs: 'Läufe',
     workouts: 'Workouts',
     bjjSessions: 'BJJ-Sessions',
@@ -42,6 +45,7 @@ const translations = {
   pt: {
     sectionHeading: 'Foco da semana',
     subheading: 'Com base na atividade dos últimos 7 dias',
+    rangeLabel: 'Intervalo de datas',
     runs: 'corridas',
     workouts: 'treinos',
     bjjSessions: 'treinos de BJJ',
@@ -54,6 +58,7 @@ const translations = {
   hi: {
     sectionHeading: 'इस सप्ताह का फोकस',
     subheading: 'पिछले 7 दिनों की गतिविधि के आधार पर',
+    rangeLabel: 'दिनांक सीमा',
     runs: 'रन',
     workouts: 'वर्कआउट',
     bjjSessions: 'BJJ सेशन',
@@ -70,11 +75,30 @@ const fallbackFocusData = {
   runCount: 0,
   workoutCount: 0,
   bjjCount: 0,
+  windowStart: '1970-01-01',
+  windowEnd: '1970-01-07',
 };
+
+const localeByLang = {
+  en: 'en-US',
+  es: 'es-ES',
+  de: 'de-DE',
+  pt: 'pt-BR',
+  hi: 'hi-IN',
+};
+
+function formatRangeDate(key, lang = 'en') {
+  return new Date(`${key}T12:00:00Z`).toLocaleDateString(localeByLang[lang] || 'en-US', {
+    month: 'short',
+    day: 'numeric',
+    timeZone: 'UTC',
+  });
+}
 
 const TrainingFocus = ({ lang = 'en' }) => {
   const t = translations[lang] || translations.en;
   const focusData = homepageFitnessData.trainingFocus || fallbackFocusData;
+  const focusRange = `${formatRangeDate(focusData.windowStart, lang)}–${formatRangeDate(focusData.windowEnd, lang)}, ${focusData.windowEnd.slice(0, 4)}`;
   const orderedFocus = [
     { key: 'running', label: t.focusValues.running, icon: <Activity size={16} />, count: focusData.runCount || 0 },
     { key: 'lifting', label: t.focusValues.lifting, icon: <Dumbbell size={16} />, count: focusData.workoutCount || 0 },
@@ -112,6 +136,7 @@ const TrainingFocus = ({ lang = 'en' }) => {
               {t.focusValues[focusData.focus]}
             </h2>
             <p className="text-neutral-400 text-sm">{t.subheading}</p>
+            <p className="text-neutral-500 text-xs mt-1">{t.rangeLabel}: {focusRange}</p>
           </div>
         </div>
 
