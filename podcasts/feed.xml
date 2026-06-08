@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jun 2026 20:01:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 66 -->
+    <item>
+      <title>Episode 66: Claude Friday Outage, Claude Code .168 Day-Late Fix, OpenClaw Monthly Cadence Switch, OpenAI ChatGPT Superapp, Apple WWDC 2026, Anthropic Mythos Widens, Microsoft MAI Lands in Copilot, Gemma 4 12B on Mac</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep066/episode_066.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-66/</link>
+      <description><![CDATA[OpenClaw v2026.6.5-beta.2 and Claude Code 2.1.168 lead the agent-harness cycle, and the cycle opens with a Friday June 5 outage that hit Claude API, Claude Code, claude.ai, and Claude Cowork for roughly two hours — primarily Opus 4.7 and 4.8 — peaking near a thousand Downdetector reports. OpenClaw switched release trains to a monthly patch cadence with the June 2026 floor at 5.28. Claude Code shipped a focused day-late bug-fix release on the .167 baseline, closing session attachment, stream-json event ordering, and interrupt handling regressions that some users reported during the outage window. OpenAI is reportedly planning its biggest ChatGPT overhaul yet — a unified superapp that folds in Codex, agents, and third-party services ahead of a fall IPO. Apple WWDC 2026 opens June 8 with a Gemini-powered Siri as the headline. Anthropic expands Project Glasswing to 150+ organizations and signals Mythos-class capabilities are coming in weeks. Microsoft launches MAI-Thinking-1 and MAI-Code-1-Flash into GitHub Copilot. Gemma 4 12B ships an encoder-free multimodal design for 16GB local Macs. The MCP lane is brief this week — a one-paragraph blip, not a deep-dive. Project radar covers A2A v1.0 and the CheetahClaws Python harness.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-66/]]></description>
+      <pubDate>Mon, 08 Jun 2026 20:01:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep066/episode_066.mp3" length="36531766" type="audio/mpeg"/>
+      <itunes:duration>38:03</itunes:duration>
+      <itunes:episode>66</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep066/episode_066_cover.png"/>
+    </item>
+
     <!-- Episode 65 -->
     <item>
       <title>Episode 65: Hermes Agent v0.16.0 Desktop App, Codex 0.137 Multi-Agent v2, Claude Code Fallback Models, and Gemma 4 12B on the Local Stack</title>
