@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Mon, 08 Jun 2026 20:01:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 09 Jun 2026 17:19:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 67 -->
+    <item>
+      <title>Episodio 67: Resumen de versiones de Agent Stack: Entrega de escritorio Codex, Claude Code 2.1.169, RC de especificación MCP y la línea insignia Qwen3.7</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep067/episode_067.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-67/</link>
+      <description><![CDATA[OpenAI Codex lanza rust-v0.138.0 con transferencia de CLI al escritorio y exposición de rutas de imágenes locales; Claude Code CLI llega a 2.1.169; la Candidata a versión de julio 2026 del MCP se vuelve sin estado con un marco de extensiones; Apple WWDC trae una renovación real de Siri AI con Gemini y Atajos en lenguaje natural; y los Qwen3.7-Max y Qwen3.7-Plus de Alibaba se incorporan a la carrera de modelos de agente con contextos de 1 millón de tokens y soporte multimodal.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-67/]]></description>
+      <pubDate>Tue, 09 Jun 2026 17:19:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_067.mp3" length="37616370" type="audio/mpeg"/>
+      <itunes:duration>39:10</itunes:duration>
+      <itunes:episode>67</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep067/episode_067_cover.png"/>
+    </item>
+
     <!-- Episode 66 -->
     <item>
       <title>Episodio 66: Corte de Claude el viernes, Corrección .168 de Claude Code un día tarde, Cambio a cadencia mensual de OpenClaw, Superapp ChatGPT de OpenAI, Apple WWDC 2026, Expansión de Mythos de Anthropic, MAI de Microsoft llega a Copilot, Gemma 4 12B en Mac</title>
