@@ -1,28 +1,28 @@
 {
-  "generatedAt": "2026-06-12T12:18:50.960Z",
+  "generatedAt": "2026-06-12T13:08:35.063Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Friday, 2026-06-12 03:00 ET",
+    "hubTodayLabel": "Jun 12, 2026",
     "hubTodayKey": "2026-06-12",
     "analysisDateKey": "2026-06-12",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-06-12T08:09:36.089349"
+    "whoopLastSynced": "2026-06-12T08:56:18.999558"
   },
   "lifetimeStats": {
-    "totalLbsLifted": 10892751,
-    "totalMilesRun": 2417.8,
-    "totalWorkouts": 2316,
+    "totalLbsLifted": 9741537,
+    "totalMilesRun": 3768.7,
+    "totalWorkouts": 2686,
     "sourceBreakdown": {
       "strengthSessions": 1002,
-      "garminRuns": 996,
+      "garminRuns": 1366,
       "currentYearLiftingSessions": 56,
       "allTimeBjjSessions": 262
     }
   },
   "trainingFocus": {
     "focus": "running",
-    "runCount": 8,
+    "runCount": 4,
     "workoutCount": 2,
     "bjjCount": 3,
     "windowStart": "2026-06-06",
@@ -38,20 +38,20 @@
       "lastWeekEnd": "2026-06-05"
     },
     "workouts": {
-      "thisWeek": 13,
-      "lastWeek": 9
+      "thisWeek": 9,
+      "lastWeek": 6
     },
     "runs": {
-      "thisWeek": 8,
-      "lastWeek": 6
+      "thisWeek": 4,
+      "lastWeek": 3
     },
     "volume": {
       "thisWeek": 17771,
       "lastWeek": 11297
     },
     "miles": {
-      "thisWeek": 16.6,
-      "lastWeek": 9.6
+      "thisWeek": 8.3,
+      "lastWeek": 4.8
     },
     "bjj": {
       "thisWeek": 3,
@@ -61,7 +61,7 @@
   "yearlyGoals": {
     "running": {
       "icon": "🏃",
-      "current": 130.2,
+      "current": 117.1,
       "target": 365,
       "unit": "miles"
     },
@@ -73,7 +73,7 @@
     },
     "workouts": {
       "icon": "💪",
-      "current": 149,
+      "current": 142,
       "target": 500,
       "unit": "workouts"
     },
@@ -1326,15 +1326,15 @@
       },
       {
         "date": "2026-05-31",
-        "count": 2,
-        "runs": 2,
+        "count": 1,
+        "runs": 1,
         "lifting": 0,
         "bjj": 0
       },
       {
         "date": "2026-06-01",
-        "count": 3,
-        "runs": 2,
+        "count": 2,
+        "runs": 1,
         "lifting": 1,
         "bjj": 0
       },
@@ -1347,8 +1347,8 @@
       },
       {
         "date": "2026-06-04",
-        "count": 2,
-        "runs": 2,
+        "count": 1,
+        "runs": 1,
         "lifting": 0,
         "bjj": 0
       },
@@ -1361,22 +1361,22 @@
       },
       {
         "date": "2026-06-07",
-        "count": 2,
-        "runs": 2,
+        "count": 1,
+        "runs": 1,
         "lifting": 0,
         "bjj": 0
       },
       {
         "date": "2026-06-08",
-        "count": 3,
-        "runs": 2,
+        "count": 2,
+        "runs": 1,
         "lifting": 0,
         "bjj": 1
       },
       {
         "date": "2026-06-09",
-        "count": 2,
-        "runs": 2,
+        "count": 1,
+        "runs": 1,
         "lifting": 0,
         "bjj": 0
       },
@@ -1389,8 +1389,8 @@
       },
       {
         "date": "2026-06-11",
-        "count": 3,
-        "runs": 2,
+        "count": 2,
+        "runs": 1,
         "lifting": 1,
         "bjj": 0
       },
@@ -1410,11 +1410,11 @@
       "type": "Lifting"
     },
     "thisWeekVolume": 17771,
-    "thisMonthMiles": 23.5
+    "thisMonthMiles": 11.8
   },
   "recovery": {
-    "currentScore": 84,
-    "lastSleepScore": 92
+    "currentScore": 94,
+    "lastSleepScore": 86
   },
   "labels": {
     "thisWeek": "June 6, 2026 - June 12, 2026",
