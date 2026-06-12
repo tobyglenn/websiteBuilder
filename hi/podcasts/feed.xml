@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 09 Jun 2026 17:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jun 2026 16:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 68 -->
+    <item>
+      <title>एपिसोड 68: ओपनक्लॉ v2026.6.5, कोडेक्स रस्ट-v0.139.0, क्लॉड फ़ेबल 5, एपल पर जेमिनी, डीपसीक V4 प्रो</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep068/episode_068.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-68/</link>
+      <description><![CDATA[इस सप्ताह OpenClaw v2026.6.5 और OpenAI Codex rust-v0.139.0 जारी हुए, साथ ही Anthropic के Claude Fable 5 और Mythos 5 के एलान और सिस्टम कार्ड के साथ। हम Claude Fable में मौन अनुप्रयोग जोखिमों, Apple के जेमिनी-आधारित AI आर्किटेक्चर का खुलासा, और DeepSeek V4 Pro के GPT-5.5 Pro के मुकाबले दावा किए गए परिशुद्धता लाभ को समझते हैं। इसके अलावा: OpenAI की गोपनीय ड्राफ्ट S-1, 2019 में GPT-2 का चरणबद्ध रिलीज़ जो आज की बहस को समझने का दृष्टिकोण, Mythos के लिए AWS Bedrock का डेटा साझाकरण अनिवार्यता, और एक शोधपत्र जो पूछता है कि क्या केवल grep काफ़ी है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-68/]]></description>
+      <pubDate>Fri, 12 Jun 2026 16:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_068.mp3" length="52898212" type="audio/mpeg"/>
+      <itunes:duration>55:06</itunes:duration>
+      <itunes:episode>68</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep068/episode_068_cover.png"/>
+    </item>
+
     <!-- Episode 67 -->
     <item>
       <title>एपिसोड 67: एजेंट स्टैक रिलीज़ राउंडअप: कोडेक्स डेस्कटॉप हैंडऑफ़, क्लॉड कोड 2.1.169, एमसीपी स्पेक आरसी, और क्यूवेन3.7 फ्लैगशिप लाइन</title>
