@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T13:08:35.063Z",
+  "generatedAt": "2026-06-12T23:50:35.330Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
     "hubTodayLabel": "Jun 12, 2026",
@@ -7,23 +7,23 @@
     "analysisDateKey": "2026-06-12",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-06-12T08:56:18.999558"
+    "whoopLastSynced": "2026-06-12T19:50:03.146512"
   },
   "lifetimeStats": {
-    "totalLbsLifted": 9741537,
+    "totalLbsLifted": 9746941,
     "totalMilesRun": 3768.7,
-    "totalWorkouts": 2686,
+    "totalWorkouts": 2687,
     "sourceBreakdown": {
       "strengthSessions": 1002,
       "garminRuns": 1366,
-      "currentYearLiftingSessions": 56,
+      "currentYearLiftingSessions": 57,
       "allTimeBjjSessions": 262
     }
   },
   "trainingFocus": {
     "focus": "running",
     "runCount": 4,
-    "workoutCount": 2,
+    "workoutCount": 3,
     "bjjCount": 3,
     "windowStart": "2026-06-06",
     "windowEnd": "2026-06-12"
@@ -38,7 +38,7 @@
       "lastWeekEnd": "2026-06-05"
     },
     "workouts": {
-      "thisWeek": 9,
+      "thisWeek": 10,
       "lastWeek": 6
     },
     "runs": {
@@ -46,7 +46,7 @@
       "lastWeek": 3
     },
     "volume": {
-      "thisWeek": 17771,
+      "thisWeek": 23175,
       "lastWeek": 11297
     },
     "miles": {
@@ -67,13 +67,13 @@
     },
     "lifting": {
       "icon": "🏋️",
-      "current": 897417,
+      "current": 902821,
       "target": 2000000,
       "unit": "lbs"
     },
     "workouts": {
       "icon": "💪",
-      "current": 142,
+      "current": 143,
       "target": 500,
       "unit": "workouts"
     },
@@ -1396,9 +1396,9 @@
       },
       {
         "date": "2026-06-12",
-        "count": 2,
+        "count": 3,
         "runs": 0,
-        "lifting": 1,
+        "lifting": 2,
         "bjj": 1
       }
     ]
@@ -1409,7 +1409,7 @@
       "date": "2026-06-12",
       "type": "Lifting"
     },
-    "thisWeekVolume": 17771,
+    "thisWeekVolume": 23175,
     "thisMonthMiles": 11.8
   },
   "recovery": {
