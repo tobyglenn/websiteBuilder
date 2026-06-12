@@ -827,6 +827,31 @@
       "totalSessions": 1,
       "avgVolume": 0.0,
       "totalVolume": 0.0
+    },
+    "ARIA 20260610 - Handles Recover": {
+      "name": "ARIA 20260610 - Handles Recover",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-06-11",
+          "totalCapacity": 8910.5,
+          "durationMinute": 20,
+          "calorie": 401,
+          "actionNum": 10
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-06-11",
+        "totalCapacity": 8910.5,
+        "durationMinute": 20,
+        "calorie": 401,
+        "actionNum": 10
+      },
+      "totalSessions": 1,
+      "avgVolume": 8910.5,
+      "totalVolume": 8910.5
     }
   },
   "exercisePRs": {
@@ -1143,11 +1168,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 90,
-  "totalVolumeLbs": 879646.9,
+  "totalWorkouts": 91,
+  "totalVolumeLbs": 888557.4,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-06-01"
+    "end": "2026-06-11"
   },
   "allSessions": [
     {
@@ -1869,6 +1894,14 @@
       "durationMinute": 26,
       "calorie": 978,
       "actionNum": 17
+    },
+    {
+      "date": "2026-06-11",
+      "title": "ARIA 20260610 - Handles Recover",
+      "totalCapacity": 8910.5,
+      "durationMinute": 20,
+      "calorie": 401,
+      "actionNum": 10
     }
   ]
 }
