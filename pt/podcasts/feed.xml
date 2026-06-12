@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Tue, 09 Jun 2026 17:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jun 2026 16:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 68 -->
+    <item>
+      <title>Episódio 68: OpenClaw v2026.6.5, Codex rust-v0.139.0, Claude Fable 5, Apple no Gemini, DeepSeek V4 Pro</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep068/episode_068.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-68/</link>
+      <description><![CDATA[OpenClaw v2026.6.5 e OpenAI Codex rust-v0.139.0 chegam esta semana, acompanhados pelo anúncio da Anthropic de Claude Fable 5 e Mythos 5 e seu system card. Dissecamos os riscos silenciosos de aplicação do Claude Fable, a revelação da arquitetura de IA da Apple baseada no Google Gemini e a alegada vantagem de precisão do DeepSeek V4 Pro sobre o GPT-5.5 Pro. Além disso: o projeto confidencial de S-1 da OpenAI, a releitura do lançamento escalonado do GPT-2 em 2019 como lente para os debates atuais, a exigência de compartilhamento de dados da AWS Bedrock para o Mythos e um artigo que questiona se apenas o grep é suficiente para busca agentiva.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-68/]]></description>
+      <pubDate>Fri, 12 Jun 2026 16:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_068.mp3" length="43736128" type="audio/mpeg"/>
+      <itunes:duration>45:33</itunes:duration>
+      <itunes:episode>68</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep068/episode_068_cover.png"/>
+    </item>
+
     <!-- Episode 67 -->
     <item>
       <title>Episódio 67: Resumo de Lançamentos do Agent Stack: Codex Desktop Handoff, Claude Code 2.1.169, MCP Spec RC e a Linha Principal Qwen3.7</title>
