@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 09 Jun 2026 17:19:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 12 Jun 2026 16:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 68 -->
+    <item>
+      <title>Folge 68: OpenClaw v2026.6.5, Codex rust-v0.139.0, Claude Fable 5, Apple auf Gemini, DeepSeek V4 Pro</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep068/episode_068.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-68/</link>
+      <description><![CDATA[OpenClaw v2026.6.5 und OpenAI Codex rust-v0.139.0 erscheinen diese Woche, zusammen mit Anthropics Ankündigung von Claude Fable 5 und Mythos 5 sowie der veröffentlichten Systemkarte. Wir beleuchten die stillen Anwendung-Risiken in Claude Fable, die von Apple enthüllte Gemini-basierte KI-Architektur und DeepSeek V4 Pro's behauptete Präzisionsüberlegenheit gegenüber GPT-5.5 Pro. Zusätzlich: OpenAI's vertraulicher Entwurf S-1, GPT-2's gestaffelte Veröffentlichung 2019 als Blickwinkel auf heutige Debatten, AWS Bedrocks Datenfreigabe-Anforderung für Mythos und ein Paper, das fragt, ob grep allein für agentische Suche ausreicht.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-68/]]></description>
+      <pubDate>Fri, 12 Jun 2026 16:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_068.mp3" length="46117660" type="audio/mpeg"/>
+      <itunes:duration>48:02</itunes:duration>
+      <itunes:episode>68</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep068/episode_068_cover.png"/>
+    </item>
+
     <!-- Episode 67 -->
     <item>
       <title>Folge 67: Agent-Stack Release-Rundschau: Codex Desktop-Übergabe, Claude Code 2.1.169, MCP-Spez RC und die Qwen3.7-Flaggschifflinie</title>
