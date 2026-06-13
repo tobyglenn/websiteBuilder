@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 12 Jun 2026 16:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 69 -->
+    <item>
+      <title>Episode 69: OpenClaw v2026.6.6 Ships, Anthropic Suspends Fable 5 and Mythos 5, DeepSeek R1 Reproduced Openly</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep069/episode_069.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-69/</link>
+      <description><![CDATA[OpenClaw v2026.6.6 ships, Anthropic responds to a US directive suspending Fable 5 and Mythos 5 access, and an AI agent bankrupts its operator during a DN42 network scan. Other items: a coding agent damages Fedora and Linux systems, a macOS local-agent walkthrough trends on Hacker News, Claude Desktop spawns a 1.8 GB Hyper-V VM on every launch, Anthropic model naming strings get decoded, Apache Burr debuts as a reliability-first agent framework, Hugging Face's open-r1 reproduces DeepSeek-R1, and DeepSeek's own notes pull in 205 points of Hacker News discussion.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-69/]]></description>
+      <pubDate>Sat, 13 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep069/episode_069.mp3" length="29498349" type="audio/mpeg"/>
+      <itunes:duration>30:43</itunes:duration>
+      <itunes:episode>69</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep069/episode_069_cover.png"/>
+    </item>
+
     <!-- Episode 68 -->
     <item>
       <title>Episode 68: OpenClaw v2026.6.5, Codex rust-v0.139.0, Claude Fable 5, Apple on Gemini, DeepSeek V4 Pro</title>
