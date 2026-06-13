@@ -884,6 +884,31 @@
       "totalSessions": 1,
       "avgVolume": 5404.0,
       "totalVolume": 5404.0
+    },
+    "ARIA 20260613 - Handles Build": {
+      "name": "ARIA 20260613 - Handles Build",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-06-13",
+          "totalCapacity": 9911.5,
+          "durationMinute": 16,
+          "calorie": 249,
+          "actionNum": 10
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-06-13",
+        "totalCapacity": 9911.5,
+        "durationMinute": 16,
+        "calorie": 249,
+        "actionNum": 10
+      },
+      "totalSessions": 1,
+      "avgVolume": 9911.5,
+      "totalVolume": 9911.5
     }
   },
   "exercisePRs": {
@@ -1200,11 +1225,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 93,
-  "totalVolumeLbs": 902821.4,
+  "totalWorkouts": 94,
+  "totalVolumeLbs": 912732.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-06-12"
+    "end": "2026-06-13"
   },
   "allSessions": [
     {
@@ -1949,6 +1974,14 @@
       "totalCapacity": 5404.0,
       "durationMinute": 16,
       "calorie": 285,
+      "actionNum": 10
+    },
+    {
+      "date": "2026-06-13",
+      "title": "ARIA 20260613 - Handles Build",
+      "totalCapacity": 9911.5,
+      "durationMinute": 16,
+      "calorie": 249,
       "actionNum": 10
     }
   ]
