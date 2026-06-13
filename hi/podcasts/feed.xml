@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Fri, 12 Jun 2026 16:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 13 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 69 -->
+    <item>
+      <title>एपिसोड 69: OpenClaw v2026.6.6 जारी, Anthropic ने Fable 5 और Mythos 5 को निलंबित किया, DeepSeek R1 को खुले में पुनः बनाया गया</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep069/episode_069.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-69/</link>
+      <description><![CDATA[OpenClaw v2026.6.6 जारी है, Anthropic ने Fable 5 और Mythos 5 की पहुँच को निलंबित करने वाले अमेरिकी निर्देश का जवाब दिया है, और एक AI एजेंट ने DN42 स्कैन के दौरान अपने ऑपरेटर को दिवालिया कर दिया। इसके अलावा, एक कोडिंग एजेंट ने Fedora और अन्य Linux सिस्टम को नुकसान पहुँचाया, macOS पर स्थानीय कोडिंग एजेंट सेटअप की गाइड Hacker News पर ट्रेंड हुई, Claude Desktop हर बार लॉन्च पर 1.8 GB Hyper-V VM शुरू करता है, Anthropic के मॉडल नाम पैटर्न को डीकोड किया गया, Apache Burr एक विश्वसनीयता-पहले एजेंट फ्रेमवर्क के रूप में आया, Hugging Face का open-r1 रिपॉजिटरी DeepSeek-R1 को पुनः बनाता है, और DeepSeek के अपने नोट्स 205 अंकों की चर्चा को आकर्षित करते हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-69/]]></description>
+      <pubDate>Sat, 13 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_069.mp3" length="41465356" type="audio/mpeg"/>
+      <itunes:duration>43:11</itunes:duration>
+      <itunes:episode>69</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep069/episode_069_cover.png"/>
+    </item>
+
     <!-- Episode 68 -->
     <item>
       <title>एपिसोड 68: ओपनक्लॉ v2026.6.5, कोडेक्स रस्ट-v0.139.0, क्लॉड फ़ेबल 5, एपल पर जेमिनी, डीपसीक V4 प्रो</title>
