@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Sat, 13 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jun 2026 18:47:30 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 70 -->
+    <item>
+      <title>Episodio 70: Qwen 3.6 27B alcanza 80 t/s en hardware RTX mixto, Codex se abre al código abierto, Fable 5 suspendido</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep070/episode_070.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-70/</link>
+      <description><![CDATA[Una configuración heterogénea de doble GPU con un RTX 5080 emparejado con un RTX 3090 sostuvo 80 tokens por segundo en Qwen 3.6 27B a cuantización Q8 con una división limpia de capas tensor‑paralelas. OpenAI abrió Codex a los mantenedores de código abierto y agregó tres cursos de flujo de trabajo en OpenAI Academy. Anthropic suspendió Fable 5 y Mythos 5 del acceso del gobierno de EE. UU. tras una directiva federal vinculada a las reuniones del CEO de Amazon con funcionarios de la administración Trump, mientras que Endor Labs colocó los resultados de codificación de Fable 5 en un nivel intermedio.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-70/]]></description>
+      <pubDate>Sun, 14 Jun 2026 18:47:30 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_070.mp3" length="32410688" type="audio/mpeg"/>
+      <itunes:duration>33:45</itunes:duration>
+      <itunes:episode>70</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep070/episode_070_cover.png"/>
+    </item>
+
     <!-- Episode 69 -->
     <item>
       <title>Episodio 69: OpenClaw v2026.6.6 se lanza, Anthropic suspende Fable 5 y Mythos 5, DeepSeek R1 reproducido abiertamente</title>
