@@ -52,6 +52,8 @@ If you are giving this article to an AI coding agent, tell it to build this cont
 - **Report inputs:** normalized JSON only. The report builder should not call Garmin, WHOOP, Speediance, or Cronometer directly.
 - **Failure mode:** if one connector fails, preserve yesterday’s last-known-good normalized file and mark that source as stale in the report.
 - **Auditability:** keep enough raw payloads to debug vendor API changes without logging tokens, cookies, passwords, or private headers.
+- **Send gate:** email, voice, Telegram, and adaptive workout actions should require same-day scored recovery data. A web report can still be generated in degraded mode, but the system should not send confident coaching from stale recovery.
+- **Plan snapshots:** adaptive workout plans should be written as daily JSON snapshots before they are sent anywhere. The nightly report can then compare the plan against what actually happened.
 
 Minimum environment variables for a cloneable build:
 
@@ -81,6 +83,7 @@ Quick GitHub/API checklist:
 - Speediance public extraction for this build: `https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager`
 - Speediance working fork this was extracted from: `https://github.com/ANPC86/SmartGymWorkoutManager`
 - Speediance upstream/original reference: `https://github.com/hbui3/UnofficialSpeedianceWorkoutManager`
+- Report generator/template reference: `https://github.com/tobyglenn/scriptsJinja`
 
 
 ### OpenClaw
@@ -110,6 +113,69 @@ Quick GitHub/API checklist:
 ### Nutrition
 - Cronometer product site / exports / integrations: `https://cronometer.com/`
 - For a public-reproducible build, treat Cronometer as a structured nutrition export source, not as a magic direct report dependency.
+
+---
+
+## 2.5. Production updates since the first build
+
+The current version of this stack has a few important changes that are worth copying if you are trying to rebuild it with an AI agent.
+
+### Single owner machine
+
+The fitness pipeline should have one authoritative always-on machine. Do not let two different computers generate and deploy reports against the same output repo. In my setup, the active machine owns vendor sync jobs, report generation, adaptive workout generation, deploys to GitHub Pages, and watchdog checks.
+
+Other machines can view the reports or host local dashboards, but they should not regenerate the fitness reports.
+
+### Sequential pipeline instead of staggered cron guesses
+
+The morning and nightly pipelines should run as ordered phases:
+
+1. sync vendor data
+2. verify required same-day data
+3. generate reports
+4. deploy
+5. send notifications
+6. generate voice summaries, if used
+7. run watchdog validation
+
+The old mistake is scheduling those steps at fixed wall-clock offsets and hoping each previous phase finished. The better pattern is one orchestrator that runs each phase only after the previous one exits cleanly.
+
+### Same-day WHOOP recovery gate
+
+For this stack, same-day WHOOP recovery is a hard gate for coaching. If today's recovery is missing, the system can still publish a web report with stale-source warnings, but it should withhold email, voice, Telegram coaching, and adaptive workout sends.
+
+That one rule prevents the worst failure mode: a plausible recommendation built from yesterday's recovery.
+
+### 8Sleep late-data handling
+
+8Sleep can update after the first morning run. A rerun should force-refresh today and yesterday before regenerating instead of trusting an existing local JSON file just because it exists.
+
+### Real Garmin HR zones only
+
+Do not invent heart-rate zone distributions from average heart rate. If Garmin activity detail includes time-in-zone data, use it. If it does not, hide that chart or mark it unavailable.
+
+### Plan execution review
+
+The nightly report now works better when it compares the day's plan against the day's actual data:
+
+- planned BJJ vs WHOOP BJJ workout
+- planned Speediance session vs Speediance sessions completed
+- planned run vs Garmin run distance
+- planned steps vs Garmin steps
+
+That turns the nightly report into a feedback loop instead of just a summary.
+
+### Open Wearables shadow mode
+
+Open Wearables is useful as a future abstraction layer, but I would not switch a working personal report system over all at once. The safer migration is shadow mode:
+
+1. keep the existing file-based pipeline authoritative
+2. import or mirror Garmin/WHOOP data into Open Wearables
+3. export Open Wearables data back into shadow JSON files
+4. compare shadow files against production files
+5. promote only after counts, dates, and same-day records match
+
+The shadow files should never overwrite production inputs during the pilot.
 
 ---
 
@@ -393,6 +459,22 @@ That structure makes progression charts and PR detection trivial later.
 - `data/speediance/normalized/by_exercise.json`
 - `data/speediance/dashboard/latest.json`
 
+### Adaptive Speediance workout snapshots
+
+The more advanced version of this build does not only read completed Speediance workouts. It also creates planned workouts from live readiness data.
+
+The useful pattern is:
+
+1. Load same-day WHOOP recovery, current strain, BJJ strain, Garmin body battery, resting HR, recent running load, weather, and recent Speediance plan history.
+2. Classify the day into a bucket such as `build`, `maintain`, `recover`, `protect`, or `post_bjj_brutal`.
+3. Select one Speediance implement for the whole workout, usually handles, barbell, or rope.
+4. Pick on-device exercises only for the core Speediance workout.
+5. Add zero to two off-Speediance accessories only when recovery supports it.
+6. Write the plan to `data/training_plans/YYYY-MM-DD_context.json`.
+7. Use the snapshot for both the morning recommendation and the nightly plan-execution review.
+
+For repeat control, compare the new workout signature against recent plan snapshots. The production version uses a rolling uniqueness window that grows up to 30 days, and it always stamps the workout title with today's date so a resurfaced workout is still fresh and searchable.
+
 ---
 
 ## 6. Cronometer: the nutrition context layer
@@ -615,7 +697,7 @@ This is the checklist I would hand to an AI agent before asking it to build the 
 - Normalized output: `data/nutrition/latest.json`
 
 ### Report-generation connection point
-The report builder should read only these files:
+The report builder should read only stable normalized files and plan snapshots. A practical shape is:
 
 ```text
 data/garmin/summary/latest.json
@@ -623,6 +705,8 @@ data/whoop/normalized/latest.json
 data/speediance/normalized/history.json
 data/speediance/normalized/by_exercise.json
 data/nutrition/latest.json
+data/training_plans/YYYY-MM-DD_morning.json
+data/training_plans/YYYY-MM-DD_post_bjj.json
 ```
 
 That is the actual connection surface. Everything upstream can break and be fixed independently.
@@ -651,6 +735,15 @@ If someone wants to reproduce this successfully, these rules matter more than an
 6. **Model strength data at both session and exercise level**  
    Otherwise progression reporting stays shallow.
 
+7. **Gate coaching on today's readiness, not yesterday's**  
+   Missing same-day recovery should degrade the system to web-only reporting.
+
+8. **Save the plan before judging the day**  
+   A nightly adherence score only works if the morning or post-BJJ plan was stored as data.
+
+9. **Pilot new backends in shadow mode**  
+   Open Wearables or any other abstraction layer should prove it can reproduce current files before it becomes the source of truth.
+
 ---
 
 ## Final implementation reference list
@@ -663,6 +756,7 @@ These are the public references an AI coding agent should be handed first when r
 - WHOOP official developer API: `https://developer.whoop.com/api`
 - Speediance public extraction for this build: `https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager`
 - Speediance upstream/original reference: `https://github.com/hbui3/UnofficialSpeedianceWorkoutManager`
+- Report generator/template reference: `https://github.com/tobyglenn/scriptsJinja`
 - Cronometer nutrition exports: `https://cronometer.com/`
 
 If you are handing this article to Claude Code, Codex, OpenClaw, or another implementation agent, the correct instruction is: build the connectors first, write normalized JSON snapshots second, then build the report renderer last. Do not start by designing the final HTML report.
