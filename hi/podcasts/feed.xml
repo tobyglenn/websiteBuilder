@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 14 Jun 2026 18:47:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 20:26:27 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 71 -->
+    <item>
+      <title>एपिसोड 71: Codex rust-v0.140.0 और Apple Foundation Models</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep071/episode_071.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-71/</link>
+      <description><![CDATA[आज के एपिसोड में AI के नवीनतम विकासों की चर्चा है, जिसमें OpenAI के Codex rust-v0.140.0 का स्थिर रिलीज़, Apple के नए फाउंडेशन मॉडल और SpaceX द्वारा Cursor के 60 अरब डॉलर के अधिग्रहण जैसी महत्वपूर्ण खरीदारी शामिल हैं। AI उद्योग में तेज़ी से हो रहे बदलावों, बड़े निवेश, छंटनी और NewCore द्वारा नए AI एजेंट पहचानों की शुरुआत पर विश्लेषण के लिए सुनें।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-71/]]></description>
+      <pubDate>Wed, 17 Jun 2026 20:26:27 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_071.mp3" length="25727103" type="audio/mpeg"/>
+      <itunes:duration>26:47</itunes:duration>
+      <itunes:episode>71</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep071/episode_071_cover.png"/>
+    </item>
+
     <!-- Episode 70 -->
     <item>
       <title>एपिसोड 70: Qwen 3.6 27B मिश्रित RTX हार्डवेयर पर 80 टोकन/सेकंड, Codex OSS के लिए खुला, Fable 5 निलंबित</title>
