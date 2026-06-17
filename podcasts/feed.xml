@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Jun 2026 18:47:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 20:26:27 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 71 -->
+    <item>
+      <title>Episode 71: Codex rust-v0.140.0 and Apple Foundation Models</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep071/episode_071.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-71/</link>
+      <description><![CDATA[Today's episode covers the latest developments in AI, including the stable release of OpenAI's Codex rust-v0.140.0, new foundation models from Apple, and significant acquisitions, such as SpaceX's $60B purchase of Cursor. Tune in for analysis on the rapidly shifting AI industry, including major investments, layoffs, and the launch of new AI agent identities by NewCore.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-71/]]></description>
+      <pubDate>Wed, 17 Jun 2026 20:26:27 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep071/episode_071.mp3" length="19234525" type="audio/mpeg"/>
+      <itunes:duration>20:02</itunes:duration>
+      <itunes:episode>71</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep071/episode_071_cover.png"/>
+    </item>
+
     <!-- Episode 70 -->
     <item>
       <title>Episode 70: Qwen 3.6 27B Hits 80 t/s on Mixed RTX Hardware, Codex Opens to OSS, Fable 5 Suspended</title>
