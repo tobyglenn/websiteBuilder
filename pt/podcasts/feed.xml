@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 14 Jun 2026 18:47:30 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jun 2026 20:26:27 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 71 -->
+    <item>
+      <title>Episódio 71: Codex rust-v0.140.0 e Apple Foundation Models</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep071/episode_071.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-71/</link>
+      <description><![CDATA[Neste episódio, abordamos os últimos desenvolvimentos em IA, incluindo a versão estável do Codex rust-v0.140.0 da OpenAI, novos modelos fundacionais da Apple e aquisições significativas, como a compra de US$ 60 bilhões da Cursor pela SpaceX. Ouça para uma análise do setor de IA em rápida mudança, com investimentos de grande porte, demissões e o lançamento de novas identidades de agentes de IA pela NewCore.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-71/]]></description>
+      <pubDate>Wed, 17 Jun 2026 20:26:27 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_071.mp3" length="22041121" type="audio/mpeg"/>
+      <itunes:duration>22:57</itunes:duration>
+      <itunes:episode>71</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep071/episode_071_cover.png"/>
+    </item>
+
     <!-- Episode 70 -->
     <item>
       <title>Episódio 70: Qwen 3.6 27B Atinge 80 t/s em Hardware RTX Misto, Codex Abre para o OSS, Fable 5 Suspenso</title>
