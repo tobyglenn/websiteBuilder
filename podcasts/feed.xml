@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 17 Jun 2026 20:26:27 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 12:15:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 72 -->
+    <item>
+      <title>Episode 72: OpenClaw 2026.6.8, Codex rust-v0.141.0, Claude Code 2.1.170, GLM-5.2 Open Weights</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep072/episode_072.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-72/</link>
+      <description><![CDATA[This episode covers OpenClaw v2026.6.8, OpenAI Codex rust-v0.141.0, and Claude Code CLI 2.1.170. Google's Nano Banana 2 and Nano Banana Pro image models are listed on OpenRouter. OpenAI rolls out LifeSciBench and a pre-release deployment simulation, and teams with Molecule.one on a GPT-5.4 medicinal chemistry reaction. Z.ai releases GLM-5.2 open weights under MIT, claiming a top open-weights slot via IndexShare speculative decoding. Radical AI argues the lab is the moat, and NEA's Tiffany Luck weighs in on enterprise AI ROI.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-72/]]></description>
+      <pubDate>Sat, 20 Jun 2026 12:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep072/episode_072.mp3" length="27523074" type="audio/mpeg"/>
+      <itunes:duration>28:40</itunes:duration>
+      <itunes:episode>72</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep072/episode_072_cover.png"/>
+    </item>
+
     <!-- Episode 71 -->
     <item>
       <title>Episode 71: Codex rust-v0.140.0 and Apple Foundation Models</title>
