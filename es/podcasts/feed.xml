@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 17 Jun 2026 20:26:27 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 20 Jun 2026 12:15:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,20 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 72 -->
+    <item>
+      <title>Episodio 72: OpenClaw 2026.6.8, Codex rust‑v0.141.0, Claude Code 2.1.170, GLM‑5.2 Pesos Abiertos</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep072/episode_072.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-72/</link>
+      <description><![CDATA[Este episodio cubre OpenClaw v2026.6.8, OpenAI Codex rust‑v0.141.0 y Claude Code CLI 2.1.170. Los modelos de imagen Nano Banana 2 y Nano Banana Pro de Google aparecen listados en OpenRouter. OpenAI lanza LifeSciBench y un sistema de simulación de despliegue previo al lanzamiento, y junto con Molecule.one utiliza GPT‑5.4 para mejorar una reacción de química medicinal. Z.ai libera GLM‑5.2 con pesos abiertos bajo licencia MIT, claiming a top open‑weights slot via IndexShare speculative decoding. Radical AI argues that the lab is the moat, not the model, y Tiffany Luck de NEA señala que las empresas aún están definiendo el ROI de la IA.]]></description>
+      <pubDate>Sat, 20 Jun 2026 12:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_072.mp3" length="30774378" type="audio/mpeg"/>
+      <itunes:duration>32:03</itunes:duration>
+      <itunes:episode>72</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep072/episode_072_cover.png"/>
+    </item>
+
     <!-- Episode 71 -->
     <item>
       <title>Episodio 71: Codex rust-v0.140.0 y modelos fundacionales de Apple</title>
