@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 20 Jun 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2026 12:15:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 73 -->
+    <item>
+      <title>Folge 73: OpenClaw v2026.6.9, Hermes v2026.6.19, Claude Code 2.1.176 veröffentlicht; Poolside fügt Laguna XS.2 und M.1 hinzu</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep073/episode_073.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-73/</link>
+      <description><![CDATA[Heute bei AgentStack Daily: OpenClaw v2026.6.9, Hermes Agent v2026.6.19 und Claude Code CLI 2.1.176 haben alle neue Versionen veröffentlicht. Poolside brachte Laguna XS.2 auf OpenRouter und Laguna M.1 über die API heraus. Für Enterprise-Teams gibt es neue Nutzungsanalysen und aktualisierte Ausgabenkontrollen. Eine Rückschau fragt, ob 30 Jahre Exportkontrollen ein Modell namens Mythos eindämmen können. Berichten zufolge sammelt Baseten 1,5 Mrd. USD bei einer Bewertung von 13 Mrd. USD. Datasette Apps wurde gestartet, um benutzerdefiniertes HTML in Datasette zu hosten. Meredith Whittaker von Signal warnte, dass KI-Chatbots nicht Ihre Freunde sind.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-73/]]></description>
+      <pubDate>Sun, 21 Jun 2026 12:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_073.mp3" length="27543136" type="audio/mpeg"/>
+      <itunes:duration>28:41</itunes:duration>
+      <itunes:episode>73</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep073/episode_073_cover.png"/>
+    </item>
+
     <!-- Episode 72 -->
     <item>
       <title>Folge 72: OpenClaw 2026.6.8, Codex rust-v0.141.0, Claude Code 2.1.170, GLM-5.2 Offene Gewichte</title>
