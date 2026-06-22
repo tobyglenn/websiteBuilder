@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sat, 20 Jun 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jun 2026 12:15:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 73 -->
+    <item>
+      <title>एपिसोड 73: OpenClaw v2026.6.9, Hermes v2026.6.19, Claude Code 2.1.176 रिलीज़; Poolside ने Laguna XS.2 और M.1 जोड़ा</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep073/episode_073.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-73/</link>
+      <description><![CDATA[आज का AgentStack Daily: OpenClaw v2026.6.9, Hermes Agent v2026.6.19 और Claude Code CLI 2.1.176 सभी नए रिलीज़ के साथ आए। Poolside ने OpenRouter पर Laguna XS.2 और API के माध्यम से Laguna M.1 जारी किया। एंटरप्राइज़ टीमों को नए उपयोग विश्लेषण और अपडेटेड खर्च नियंत्रण मिले।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-73/]]></description>
+      <pubDate>Sun, 21 Jun 2026 12:15:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_073.mp3" length="32190006" type="audio/mpeg"/>
+      <itunes:duration>33:31</itunes:duration>
+      <itunes:episode>73</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep073/episode_073_cover.png"/>
+    </item>
+
     <!-- Episode 72 -->
     <item>
       <title>एपिसोड 72: OpenClaw 2026.6.8, Codex rust-v0.141.0, Claude Code 2.1.170, GLM-5.2 खुले वेट्स</title>
