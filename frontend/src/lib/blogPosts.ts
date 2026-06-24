@@ -235,9 +235,11 @@ const markdownPosts = Object.entries(markdownRawModules).map(([path, raw]) =>
 
 const markdownSlugs = new Set(markdownPosts.map((post) => post.slug));
 
+export const DYNAMIC_BLOG_POSTS: BlogPost[] = fallbackPosts.filter((post) => !markdownSlugs.has(post.slug));
+
 export const BLOG_POSTS: BlogPost[] = [
   ...markdownPosts,
-  ...fallbackPosts.filter((post) => !markdownSlugs.has(post.slug)),
+  ...DYNAMIC_BLOG_POSTS,
 ];
 
 function listingIdentity(post: BlogPost): string {

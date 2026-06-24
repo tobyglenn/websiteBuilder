@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { marked } from 'marked';
-import { BLOG_POSTS, BLOG_REDIRECTS } from '../../lib/blogPosts';
+import { BLOG_POSTS, BLOG_REDIRECTS, DYNAMIC_BLOG_POSTS } from '../../lib/blogPosts';
 import ShareButtons from '../../components/ShareButtons.jsx';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
@@ -11,7 +11,7 @@ function readTime(content = '') {
 }
 
 export function getStaticPaths() {
-  return BLOG_POSTS.map(post => ({
+  return DYNAMIC_BLOG_POSTS.map(post => ({
     params: { slug: post.slug },
     props: { post },
   }));
