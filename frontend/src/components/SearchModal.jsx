@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Search, X, FileText, Video, Clock } from 'lucide-react';
-import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
-import videosData from '../data/videos.json';
-import { isLikelyShortVideo } from '../lib/videoMeta.js';
 
-// Flatten videos from the JSON structure
-const VIDEOS = videosData.videos || [];
+const EMPTY_RESULTS = { blogPosts: [], videos: [] };
+let searchIndexPromise;
+
+function loadSearchIndex() {
+  if (!searchIndexPromise) {
+    searchIndexPromise = fetch('/search-index.json')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Search index failed with ${response.status}`);
+        }
+        return response.json();
+      });
+  }
+
+  return searchIndexPromise;
+}
 
 // Debounce hook
 function useDebounce(value, delay) {
@@ -24,29 +35,21 @@ function useDebounce(value, delay) {
   return debouncedValue;
 }
 
-// Search function
-function searchContent(query) {
+function searchContent(searchIndex, query) {
   if (!query || query.trim().length === 0) {
-    return { blogPosts: [], videos: [] };
+    return EMPTY_RESULTS;
   }
 
   const lowerQuery = query.toLowerCase().trim();
   
   // Search blog posts
-  const blogResults = CANONICAL_BLOG_POSTS.filter(post => {
-    const titleMatch = post.title?.toLowerCase().includes(lowerQuery);
-    const excerptMatch = post.excerpt?.toLowerCase().includes(lowerQuery);
-    const categoryMatch = post.category?.toLowerCase().includes(lowerQuery);
-    const tagsMatch = post.tags?.some(tag => tag.toLowerCase().includes(lowerQuery));
-    return titleMatch || excerptMatch || categoryMatch || tagsMatch;
+  const blogResults = (searchIndex.blogPosts || []).filter(post => {
+    return post.searchText?.includes(lowerQuery);
   }).slice(0, 5);
 
   // Search videos
-  const videoResults = VIDEOS.filter(video => {
-    const titleMatch = video.title?.toLowerCase().includes(lowerQuery);
-    const descriptionMatch = video.description?.toLowerCase().includes(lowerQuery);
-    const categoryMatch = video.category?.toLowerCase().includes(lowerQuery);
-    return titleMatch || descriptionMatch || categoryMatch;
+  const videoResults = (searchIndex.videos || []).filter(video => {
+    return video.searchText?.includes(lowerQuery);
   }).slice(0, 5);
 
   return {
@@ -57,8 +60,9 @@ function searchContent(query) {
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState({ blogPosts: [], videos: [] });
+  const [results, setResults] = useState(EMPTY_RESULTS);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
   const inputRef = useRef(null);
   
   const debouncedQuery = useDebounce(query, 200);
@@ -74,17 +78,34 @@ export default function SearchModal({ isOpen, onClose }) {
 
   // Perform search when query changes
   useEffect(() => {
-    if (debouncedQuery) {
-      setIsLoading(true);
-      // Small delay to show loading state
-      setTimeout(() => {
-        const searchResults = searchContent(debouncedQuery);
-        setResults(searchResults);
-        setIsLoading(false);
-      }, 50);
-    } else {
-      setResults({ blogPosts: [], videos: [] });
+    if (!debouncedQuery) {
+      setResults(EMPTY_RESULTS);
+      setError('');
+      return;
     }
+
+    let isCurrent = true;
+    setIsLoading(true);
+    setError('');
+
+    loadSearchIndex()
+      .then((searchIndex) => {
+        if (!isCurrent) return;
+        setResults(searchContent(searchIndex, debouncedQuery));
+      })
+      .catch(() => {
+        if (!isCurrent) return;
+        setResults(EMPTY_RESULTS);
+        setError('Search is unavailable right now.');
+      })
+      .finally(() => {
+        if (!isCurrent) return;
+        setIsLoading(false);
+      });
+
+    return () => {
+      isCurrent = false;
+    };
   }, [debouncedQuery]);
 
   // Keyboard shortcuts
@@ -175,6 +196,11 @@ export default function SearchModal({ isOpen, onClose }) {
           {isLoading ? (
             <div className="p-8 text-center text-neutral-500">
               <div className="animate-pulse">Searching...</div>
+            </div>
+          ) : error ? (
+            <div className="p-8 text-center text-neutral-500">
+              <p>{error}</p>
+              <p className="text-sm mt-2">Try again in a moment.</p>
             </div>
           ) : !query ? (
             <div className="p-8 text-center text-neutral-500">
@@ -269,7 +295,7 @@ export default function SearchModal({ isOpen, onClose }) {
                               </>
                             )}
                             <span className="bg-neutral-800 px-2 py-0.5 rounded">
-                              {isLikelyShortVideo(video) ? 'Short' : 'Video'}
+                              {video.kind}
                             </span>
                           </div>
                         </div>
