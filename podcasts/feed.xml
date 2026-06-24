@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jun 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 74 -->
+    <item>
+      <title>Episode 74: OpenAI Codex 0.142 Stable, Daybreak Security Suite, Samsung Rolls Out Codex, Nex-N2-Pro, Reflection AI x SpaceX</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep074/episode_074.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-74/</link>
+      <description><![CDATA[OpenAI Codex 0.142 is the new stable, with usage-limit reset credits, organized plugins, and rollout token budgets. OpenAI's Daybreak initiative brings Codex Security and GPT-5.5-Cyber for vulnerability discovery, plus Patch the Planet for open-source maintainers. Samsung is rolling out ChatGPT Enterprise and Codex globally, and Nex AGI listed Nex-N2-Pro on OpenRouter. sqlite-utils ships migrations and nested transactions in 4.0rc1, iOS 27 brings practical AI features below the Siri surface, SpaceX inked a $150M/month compute deal with Reflection AI, and Groq confirmed a $650M raise. Also: the agentic "loopy" pattern, Fika Jobs' AI interview agents, and Z.ai's GLM-5V Turbo multimodal agent model.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-74/]]></description>
+      <pubDate>Wed, 24 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep074/episode_074.mp3" length="22405999" type="audio/mpeg"/>
+      <itunes:duration>23:20</itunes:duration>
+      <itunes:episode>74</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep074/episode_074_cover.png"/>
+    </item>
+
     <!-- Episode 73 -->
     <item>
       <title>Episode 73: OpenClaw v2026.6.9, Hermes v2026.6.19, Claude Code 2.1.176 Released; Poolside Adds Laguna XS.2 and M.1</title>
