@@ -828,6 +828,31 @@
       "avgVolume": 0.0,
       "totalVolume": 0.0
     },
+    "Guided Pilates": {
+      "name": "Guided Pilates",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-05-18",
+          "totalCapacity": 0.0,
+          "durationMinute": 4,
+          "calorie": 15,
+          "actionNum": 0
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-05-18",
+        "totalCapacity": 0.0,
+        "durationMinute": 4,
+        "calorie": 15,
+        "actionNum": 0
+      },
+      "totalSessions": 1,
+      "avgVolume": 0.0,
+      "totalVolume": 0.0
+    },
     "ARIA 20260610 - Handles Recover": {
       "name": "ARIA 20260610 - Handles Recover",
       "code": "",
@@ -1325,7 +1350,7 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 98,
+  "totalWorkouts": 99,
   "totalVolumeLbs": 939234.9,
   "dateRange": {
     "start": "2025-11-01",
@@ -2027,6 +2052,14 @@
       "durationMinute": 26,
       "calorie": 89,
       "actionNum": 17
+    },
+    {
+      "date": "2026-05-18",
+      "title": "Guided Pilates",
+      "totalCapacity": 0.0,
+      "durationMinute": 4,
+      "calorie": 15,
+      "actionNum": 0
     },
     {
       "date": "2026-05-19",
