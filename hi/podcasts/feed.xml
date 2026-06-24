@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 21 Jun 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,20 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 74 -->
+    <item>
+      <title>एपिसोड 74: OpenAI Codex 0.142 स्थिर, डेब्रेक सुरक्षा सुइट, सैमसंग लॉन्च करता है Codex, नेक्स-एन2-प्रो, रिफ्लेक्शन एआई x स्पेसएक्स</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep074/episode_074.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-74/</link>
+      <description><![CDATA[OpenAI Codex 0.142 उपयोग-सीमा रीसेट क्रेडिट, संगठित प्लगइन सतहों और कॉन्फ़िगर करने योग्य रोलआउट टोकन बजट के साथ 0.142 लाइन का पहला स्थिर संस्करण लाता है। OpenAI Daybreak एक नई भेद्यता-खोज पहल के रूप में Codex Security और GPT-5.5-Cyber को पेश करता है, साथ ही ओपन-सोर्स मेंटेनर्स के लिए Patch the Planet प्रोग्राम भी लाता है। सैमसंग इलेक्ट्रॉनिक्स अपने वैश्विक कार्यबल के लिए ChatGPT Enterprise और Codex को लागू कर रहा है। Nex AGI ने Qwen3.5 पर आधारित 397B MoE, Nex-N2-Pro को OpenRouter पर सूचीबद्ध किया है। sqlite-utils 4.0rc1 स्कीमा माइग्रेशन और नेस्टेड ट्रांजेक्शन जोड़ता है। iOS 27 सिरी सतह के नीचे व्यावहारिक AI सुविधाएँ लाता है। SpaceX ने Reflection AI के साथ $150M/माह के कंप्यूट समझौते पर हस्ताक्षर किए हैं। Groq ने $650M जुटाने की पुष्टि की है। उत्पादन में 'लूपी' एजेंट पैटर्न काफी लोकप्रिय हो रहा है।]]></description>
+      <pubDate>Wed, 24 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_074.mp3" length="29875766" type="audio/mpeg"/>
+      <itunes:duration>31:07</itunes:duration>
+      <itunes:episode>74</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep074/episode_074_cover.png"/>
+    </item>
+
     <!-- Episode 73 -->
     <item>
       <title>एपिसोड 73: OpenClaw v2026.6.9, Hermes v2026.6.19, Claude Code 2.1.176 रिलीज़; Poolside ने Laguna XS.2 और M.1 जोड़ा</title>
