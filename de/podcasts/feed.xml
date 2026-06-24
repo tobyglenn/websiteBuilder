@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sun, 21 Jun 2026 12:15:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 24 Jun 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 74 -->
+    <item>
+      <title>Folge 74: OpenAI Codex 0.142 stabil, Daybreak Sicherheitssuite, Samsung führt Codex ein, Nex-N2-Pro, Reflection AI x SpaceX</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep074/episode_074.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-74/</link>
+      <description><![CDATA[OpenAI Codex 0.142 ist das neue stabile Release mit Nutzungslimit-Reset-Gutschriften, organisierten Plugins und konfigurierbaren Rollout-Token-Budgets. OpenAIs Daybreak-Initiative bringt Codex Security und GPT-5.5-Cyber zur Schwachstellenfindung sowie das Patch-the-Planet-Programm für Open-Source-Maintainer. Samsung führt ChatGPT Enterprise und Codex weltweit ein, und Nex AGI hat Nex-N2-Pro auf OpenRouter gelistet. sqlite-utils liefert in Version 4.0rc1 Schema-Migrationen und verschachtelte Transaktionen, iOS 27 bringt praktische KI-Funktionen unter der Siri-Oberfläche, Spa.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-74/]]></description>
+      <pubDate>Wed, 24 Jun 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_074.mp3" length="26331890" type="audio/mpeg"/>
+      <itunes:duration>27:25</itunes:duration>
+      <itunes:episode>74</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep074/episode_074_cover.png"/>
+    </item>
+
     <!-- Episode 73 -->
     <item>
       <title>Folge 73: OpenClaw v2026.6.9, Hermes v2026.6.19, Claude Code 2.1.176 veröffentlicht; Poolside fügt Laguna XS.2 und M.1 hinzu</title>
