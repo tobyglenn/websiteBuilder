@@ -65,10 +65,6 @@ const reviewCheckpoints = [
   { id: 'day14', offset: 14 },
 ];
 
-const publishedVideos = {
-  '1-1': 'fAZyZzWWtHc',
-};
-
 // [keyword pattern (matches English KJV text), cue key into the i18n catalog]
 const cueLexicon = [
   ['strangers|scattered|pontus|galatia|cappadocia|asia|bithynia', 'scatteredMap'],
@@ -152,6 +148,9 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
   const [mode, setMode] = useState('read');
   const [progress, setProgress] = useState({});
   const [unitProgress, setUnitProgress] = useState({});
+  const [chapterProgress, setChapterProgress] = useState({});
+  const [reviewChapter, setReviewChapter] = useState(null);
+  const [reviewTab, setReviewTab] = useState('hide');
   const [activeVerseIndex, setActiveVerseIndex] = useState(0);
   const [reciteScope, setReciteScope] = useState('unit');
   const [attempt, setAttempt] = useState('');
@@ -167,6 +166,7 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
       const stored = JSON.parse(localStorage.getItem(STORE_KEY));
       if (stored?.progress) setProgress(stored.progress);
       if (stored?.unitProgress) setUnitProgress(stored.unitProgress);
+      if (stored?.chapterProgress) setChapterProgress(stored.chapterProgress);
       if (stored?.selectedVoiceId && voiceProfiles.some((profile) => profile.id === stored.selectedVoiceId)) {
         setSelectedVoiceId(stored.selectedVoiceId);
       }
@@ -183,8 +183,22 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(STORE_KEY, JSON.stringify({ progress, unitProgress, selectedUnitId, selectedVoiceId }));
-  }, [progress, unitProgress, selectedUnitId, selectedVoiceId]);
+    localStorage.setItem(STORE_KEY, JSON.stringify({ progress, unitProgress, chapterProgress, selectedUnitId, selectedVoiceId }));
+  }, [progress, unitProgress, chapterProgress, selectedUnitId, selectedVoiceId]);
+
+  useEffect(() => {
+    setChapterProgress((current) => {
+      let changed = false;
+      const next = { ...current };
+      for (const { chapter } of onePeterData.chapters) {
+        if (isChapterLearned(chapter, unitProgress) && !next[chapter]?.learnedOn) {
+          next[chapter] = { ...(next[chapter] || {}), learnedOn: todayKey() };
+          changed = true;
+        }
+      }
+      return changed ? next : current;
+    });
+  }, [unitProgress]);
 
   const verseById = useMemo(() => new Map(onePeterData.verses.map((verse) => [verse.id, verse])), []);
   const selectedUnit = onePeterData.units.find((unit) => unit.id === selectedUnitId) || onePeterData.units[0];
@@ -193,10 +207,12 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
   const chapterVerses = onePeterData.verses.filter((verse) => verse.chapter === selectedUnit.chapter);
   const phrases = getPhrases(unitVerses);
   const activeVerse = unitVerses[Math.min(activeVerseIndex, unitVerses.length - 1)];
-  const dueUnits = getDueUnits(unitProgress);
-  const stats = getStats(progress, unitProgress);
+  const dueChapters = getDueChapters(unitProgress, chapterProgress);
+  const stats = getStats(unitProgress, chapterProgress);
   const selectedVoice = voiceProfiles.find((voice) => voice.id === selectedVoiceId) || voiceProfiles[0];
-  const selectedChecklist = getUnitChecklist(selectedUnit, unitProgress);
+  const selectedLearning = getUnitLearning(selectedUnit, unitProgress);
+  const reviewChapterData = reviewChapter != null ? getChapterReview(reviewChapter, unitProgress, chapterProgress) : null;
+  const reviewVerses = reviewChapter != null ? versesOfChapter(reviewChapter) : [];
 
   const selectUnit = (unit) => {
     stopAudio();
@@ -258,40 +274,57 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
     setLastScore(score);
     markVerses(targetVerses, score.score);
     if (reciteScope === 'unit' && score.score >= 0.92) {
-      setUnitProgress((current) => {
-        const previous = current[selectedUnit.id] || {};
-        const nextRecord = {
-          ...previous,
-          startedOn: previous.startedOn || todayKey(),
-          sections: {
-            ...(previous.sections || {}),
-            recite: true,
-          },
-        };
-        const next = {
-          ...current,
-          [selectedUnit.id]: nextRecord,
-        };
-        const checklist = getUnitChecklist(selectedUnit, next);
-        const dueReview = checklist.reviews.find((review) => review.available && !review.completed);
-        if (!dueReview) return next;
-        return {
-          ...next,
-          [selectedUnit.id]: {
-            ...nextRecord,
-            reviews: {
-              ...(nextRecord.reviews || {}),
-              [dueReview.id]: todayKey(),
-            },
-          },
-        };
-      });
+      markUnitSection(selectedUnit.id, 'recite');
     }
   };
 
   const completeHide = () => {
     markUnitSection(selectedUnit.id, 'hide');
     markVerses(unitVerses, 1);
+  };
+
+  const enterReview = (chapter) => {
+    stopAudio();
+    setReviewChapter(chapter);
+    setSelectedChapter(chapter);
+    const firstUnit = onePeterData.units.find((unit) => unit.chapter === chapter);
+    if (firstUnit) setSelectedUnitId(firstUnit.id);
+    setReviewTab('hide');
+    setAttempt('');
+    setLastScore(null);
+  };
+
+  const exitReview = () => {
+    setReviewChapter(null);
+    setAttempt('');
+    setLastScore(null);
+    setMode('route');
+  };
+
+  const markChapterReviewPart = (chapter, part) => {
+    setChapterProgress((prev) => {
+      const record = prev[chapter] || {};
+      const current = { ...(record.current || {}), [part]: true };
+      if (current.hide && current.recite) {
+        const review = getChapterReview(chapter, unitProgress, prev);
+        if (review.nextDue) {
+          return {
+            ...prev,
+            [chapter]: { ...record, reviews: { ...(record.reviews || {}), [review.nextDue.id]: todayKey() }, current: {} },
+          };
+        }
+      }
+      return { ...prev, [chapter]: { ...record, current } };
+    });
+  };
+
+  const scoreReview = () => {
+    const targetVerses = versesOfChapter(reviewChapter);
+    const target = targetVerses.map((verse) => verse.text).join(' ');
+    const score = compareText(target, attempt);
+    setLastScore(score);
+    markVerses(targetVerses, score.score);
+    if (score.score >= 0.92) markChapterReviewPart(reviewChapter, 'recite');
   };
 
   const stopAudio = () => {
@@ -477,20 +510,18 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
               </button>
             </div>
             <div className="mt-3 space-y-2">
-              {dueUnits.slice(0, 3).map((unit) => (
+              {dueChapters.slice(0, 5).map((review) => (
                 <button
-                  key={unit.id}
+                  key={review.chapter}
                   type="button"
-                  onClick={() => {
-                    selectUnit(unit);
-                    setMode('route');
-                  }}
+                  onClick={() => enterReview(review.chapter)}
                   className="w-full border-l-4 border-red-700 bg-red-50 px-3 py-2 text-left text-sm font-bold"
                 >
-                  {unit.reference} - {unit.title}
+                  1 Peter {review.chapter} — {t.fullChapterReview}
+                  <span className="mt-1 block text-xs font-normal text-stone-600">{t[`cp_${review.nextDue.id}`]}</span>
                 </button>
               ))}
-              {!dueUnits.length && <p className="rounded-lg border border-dashed border-stone-300 p-3 text-sm text-stone-600">{t.noReviewsDueShort}</p>}
+              {!dueChapters.length && <p className="rounded-lg border border-dashed border-stone-300 p-3 text-sm text-stone-600">{t.noReviewsDueShort}</p>}
             </div>
           </div>
         </aside>
@@ -514,104 +545,126 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-2 border-b border-stone-300 bg-stone-100 p-3">
-            {modes.map(({ id, icon: Icon }) => {
-              const done = Boolean(selectedChecklist.sections[id]);
-              return (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => {
-                    setMode(id);
-                    setLastScore(null);
-                  }}
-                  className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-black ${
-                    mode === id
-                      ? 'border-[#233127] bg-[#233127] text-white'
-                      : 'border-stone-300 bg-white text-[#18201b] hover:bg-stone-50'
-                  }`}
-                >
-                  {done
-                    ? <CheckCircle2 size={16} className={mode === id ? 'text-emerald-300' : 'text-teal-700'} />
-                    : <Icon size={16} />}
-                  {t[`mode_${id}`]}
-                </button>
-              );
-            })}
-          </div>
+          {reviewChapter == null && (
+            <div className="flex flex-wrap gap-2 border-b border-stone-300 bg-stone-100 p-3">
+              {modes.map(({ id, icon: Icon }) => {
+                const done = Boolean(selectedLearning.sections[id]);
+                return (
+                  <button
+                    key={id}
+                    type="button"
+                    onClick={() => {
+                      setMode(id);
+                      setLastScore(null);
+                    }}
+                    className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-black ${
+                      mode === id
+                        ? 'border-[#233127] bg-[#233127] text-white'
+                        : 'border-stone-300 bg-white text-[#18201b] hover:bg-stone-50'
+                    }`}
+                  >
+                    {done
+                      ? <CheckCircle2 size={16} className={mode === id ? 'text-emerald-300' : 'text-teal-700'} />
+                      : <Icon size={16} />}
+                    {t[`mode_${id}`]}
+                  </button>
+                );
+              })}
+            </div>
+          )}
 
           <div className="p-5">
-            <UnitChecklistBar t={t} checklist={selectedChecklist} />
-            {mode === 'route' && (
-              <RoutePanel
+            {reviewChapter != null ? (
+              <ChapterReviewView
                 t={t}
-                unit={selectedUnit}
-                checklist={selectedChecklist}
-                dueUnits={dueUnits}
-                unitProgress={unitProgress}
-              />
-            )}
-            {mode === 'read' && (
-              <ReadPanel
-                t={t}
-                verses={unitVerses}
-                completed={selectedChecklist.sections.read}
-                audioMessage={audioMessage}
-                onPlayAudio={playReadAudio}
-                playing={audioPlaying('read')}
-              />
-            )}
-            {mode === 'film' && (
-              <FilmPanel
-                t={t}
-                verse={activeVerse}
-                unit={selectedUnit}
-                completed={selectedChecklist.sections.film}
-                progress={(activeVerseIndex + 1) / unitVerses.length}
-                videoId={publishedVideos[selectedUnit.id]}
-                onPrev={() => advanceFilm(-1)}
-                onNext={() => advanceFilm(1)}
-                onSpeak={toggleFilmAudio}
-                playing={audioPlaying('film')}
-              />
-            )}
-            {mode === 'echo' && (
-              <EchoPanel
-                t={t}
-                phrases={phrases}
-                completed={selectedChecklist.sections.echo}
-                audioState={audioState}
-                activeIndex={getAudioPhraseIndex(phrases.length, audioState, 'echo')}
-                progress={getAudioProgress(audioState, 'echo')}
-                rate={echoRate}
-                onTogglePlay={toggleEchoAudio}
-                onRateChange={changeEchoRate}
-              />
-            )}
-            {mode === 'hide' && (
-              <HidePanel
-                key={selectedUnit.id}
-                t={t}
-                verses={unitVerses}
-                completed={selectedChecklist.sections.hide}
-                onComplete={completeHide}
-              />
-            )}
-            {mode === 'recite' && (
-              <RecitePanel
-                t={t}
+                chapter={reviewChapter}
+                verses={reviewVerses}
+                review={reviewChapterData}
+                reviewTab={reviewTab}
+                setReviewTab={setReviewTab}
+                onExit={exitReview}
                 attempt={attempt}
                 setAttempt={setAttempt}
-                scope={reciteScope}
-                setScope={setReciteScope}
-                label={reciteScope === 'chapter' ? `1 Peter ${selectedUnit.chapter}` : selectedUnit.reference}
-                score={lastScore}
-                onScore={scoreAttempt}
-                onClear={() => {
-                  setAttempt('');
-                  setLastScore(null);
-                }}
+                lastScore={lastScore}
+                onScoreRecite={scoreReview}
+                onClearRecite={() => { setAttempt(''); setLastScore(null); }}
+                onHideComplete={() => markChapterReviewPart(reviewChapter, 'hide')}
               />
+            ) : (
+              <>
+                {mode === 'route' && (
+                  <RoutePanel
+                    t={t}
+                    chapter={selectedUnit.chapter}
+                    learning={selectedLearning}
+                    review={getChapterReview(selectedUnit.chapter, unitProgress, chapterProgress)}
+                    dueChapters={dueChapters}
+                    chapterLearned={isChapterLearned(selectedUnit.chapter, unitProgress)}
+                    onEnterReview={enterReview}
+                  />
+                )}
+                {mode === 'read' && (
+                  <ReadPanel
+                    t={t}
+                    verses={unitVerses}
+                    completed={selectedLearning.sections.read}
+                    audioMessage={audioMessage}
+                    onPlayAudio={playReadAudio}
+                    playing={audioPlaying('read')}
+                  />
+                )}
+                {mode === 'film' && (
+                  <FilmPanel
+                    t={t}
+                    verse={activeVerse}
+                    unit={selectedUnit}
+                    completed={selectedLearning.sections.film}
+                    progress={(activeVerseIndex + 1) / unitVerses.length}
+                    onPrev={() => advanceFilm(-1)}
+                    onNext={() => advanceFilm(1)}
+                    onSpeak={toggleFilmAudio}
+                    playing={audioPlaying('film')}
+                  />
+                )}
+                {mode === 'echo' && (
+                  <EchoPanel
+                    t={t}
+                    phrases={phrases}
+                    completed={selectedLearning.sections.echo}
+                    audioState={audioState}
+                    activeIndex={getAudioPhraseIndex(phrases.length, audioState, 'echo')}
+                    progress={getAudioProgress(audioState, 'echo')}
+                    rate={echoRate}
+                    onTogglePlay={toggleEchoAudio}
+                    onRateChange={changeEchoRate}
+                  />
+                )}
+                {mode === 'hide' && (
+                  <HidePanel
+                    key={selectedUnit.id}
+                    t={t}
+                    verses={unitVerses}
+                    completed={selectedLearning.sections.hide}
+                    onComplete={completeHide}
+                  />
+                )}
+                {mode === 'recite' && (
+                  <RecitePanel
+                    t={t}
+                    attempt={attempt}
+                    setAttempt={setAttempt}
+                    scope={reciteScope}
+                    setScope={setReciteScope}
+                    label={reciteScope === 'chapter' ? `1 Peter ${selectedUnit.chapter}` : selectedUnit.reference}
+                    score={lastScore}
+                    onScore={scoreAttempt}
+                    onClear={() => {
+                      setAttempt('');
+                      setLastScore(null);
+                    }}
+                  />
+                )}
+              </>
             )}
           </div>
         </section>
@@ -674,24 +727,6 @@ function VoicePicker({ t, voices, selectedVoiceId, setSelectedVoiceId, onPreview
   );
 }
 
-function UnitChecklistBar({ t, checklist }) {
-  const done = checklist.completedCount;
-  const total = checklist.totalCount;
-  return (
-    <section className="mb-5 rounded-lg border border-stone-300 bg-stone-50 p-4">
-      <div className="flex flex-col gap-1 md:flex-row md:items-center md:justify-between">
-        <h3 className="font-black">{t.unitChecklist}</h3>
-        <p className="text-sm text-stone-600">{fillTemplate(t.checksComplete, { done, total })}</p>
-      </div>
-      <div className="mt-3 grid gap-2 md:grid-cols-5">
-        {checklist.reviews.map((review) => (
-          <ChecklistPill key={review.id} label={t[`cp_${review.id}`]} completed={review.completed} muted={!review.available && !review.completed} />
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function ChecklistPill({ label, completed, muted = false }) {
   return (
     <span className={`inline-flex min-h-10 items-center gap-2 rounded-md border px-3 py-2 text-sm font-black ${
@@ -707,70 +742,121 @@ function ChecklistPill({ label, completed, muted = false }) {
   );
 }
 
-function RoutePanel({ t, unit, checklist, dueUnits, unitProgress }) {
+function RoutePanel({ t, chapter, learning, review, dueChapters, chapterLearned, onEnterReview }) {
   return (
-    <div className="grid gap-4 lg:grid-cols-[1fr_330px]">
+    <div className="space-y-4">
       <section className="rounded-lg border border-stone-300 bg-stone-50 p-4">
         <div className="flex flex-col gap-2 border-b border-stone-300 pb-4 md:flex-row md:items-end md:justify-between">
           <div>
-            <h3 className="text-2xl font-black tracking-normal">{unit.reference} {t.routeSuffix}</h3>
-            <p className="mt-1 text-sm leading-5 text-stone-600">{unit.focus}</p>
+            <h3 className="text-2xl font-black tracking-normal">1 Peter {chapter} {t.routeSuffix}</h3>
+            <p className="mt-1 text-sm leading-5 text-stone-600">{t.chapterReviewNote}</p>
           </div>
-          <strong className="text-4xl text-red-800">{Math.round(checklist.score * 100)}%</strong>
+          <strong className="text-4xl text-red-800">{Math.round(review.score * 100)}%</strong>
         </div>
-        <div className="mt-4 space-y-3">
-          {learningSectionIds.map((id) => (
-            <div key={id} className="grid grid-cols-[auto_1fr] gap-3 rounded-lg border border-stone-300 bg-white p-3">
-              <StatusDot completed={checklist.sections[id]} />
-              <span>
-                <b className="block">{t[`section_${id}_label`]}</b>
-                <span className="mt-1 block text-sm leading-5 text-stone-600">{t[`section_${id}_detail`]}</span>
-              </span>
-            </div>
-          ))}
-        </div>
+        {chapterLearned ? (
+          <button
+            type="button"
+            onClick={() => onEnterReview(chapter)}
+            className={`mt-4 inline-flex items-center gap-2 rounded-md border px-4 py-3 font-black ${review.nextDue ? 'border-red-800 bg-red-50 text-red-900 hover:bg-red-100' : 'border-stone-300 bg-white hover:bg-stone-100'}`}
+          >
+            <Shield size={16} />
+            {t.chapterReviewTitle}{review.nextDue ? ` · ${t[`cp_${review.nextDue.id}`]}` : ''}
+          </button>
+        ) : (
+          <p className="mt-4 rounded-lg border border-dashed border-stone-300 bg-white p-3 text-sm text-stone-600">{t.reviewLocked}</p>
+        )}
       </section>
       <aside className="rounded-lg border border-stone-300 bg-stone-50 p-4">
         <h3 className="font-black">{t.timedReviews}</h3>
-        <p className="mt-1 text-sm leading-5 text-stone-600">{t.timedReviewsNote}</p>
-        <div className="mt-4 space-y-3">
-          {checklist.reviews.map((review) => (
+        <p className="mt-1 text-sm leading-5 text-stone-600">{t.chapterReviewNote}</p>
+        <div className="mt-4 grid gap-2 md:grid-cols-5">
+          {review.reviews.map((r) => (
             <div
-              key={review.id}
-              className={`grid w-full grid-cols-[1fr_auto] items-center gap-3 rounded-lg border p-3 text-left ${
-                review.completed
+              key={r.id}
+              className={`rounded-lg border p-3 text-left ${
+                r.completed
                   ? 'border-teal-800 bg-teal-800 text-white'
-                : review.available
+                : r.available
                     ? 'border-red-800 bg-red-50 text-[#18201b]'
                     : 'border-stone-300 bg-white text-stone-400'
               }`}
             >
-              <span>
-                <b className="block">{t[`cp_${review.id}`]}</b>
-                <span className="mt-1 block text-xs">{review.completed ? t.completed : fillTemplate(t.dueDate, { date: review.dueDate })}</span>
-              </span>
-              <CheckCircle2 size={20} />
+              <b className="block">{t[`cp_${r.id}`]}</b>
+              <span className="mt-1 block text-xs">{r.completed ? t.completed : r.dueDate ? fillTemplate(t.dueDate, { date: r.dueDate }) : '—'}</span>
             </div>
           ))}
         </div>
       </aside>
-      <section className="rounded-lg border border-stone-300 bg-stone-50 p-4 lg:col-span-2">
+      <section className="rounded-lg border border-stone-300 bg-stone-50 p-4">
         <h3 className="font-black">{t.reviewQueue}</h3>
         <div className="mt-3 grid gap-3 md:grid-cols-2">
-          {dueUnits.map((dueUnit) => {
-            const dueChecklist = getUnitChecklist(dueUnit, unitProgress);
-            const dueReview = dueChecklist.reviews.find((review) => review.available && !review.completed);
-            const reviewLabel = dueReview ? t[`cp_${dueReview.id}`] : t.review;
-            return (
-              <div key={dueUnit.id} className="rounded-lg border border-red-200 bg-red-50 p-3">
-                <b className="block">{dueUnit.reference} - {dueUnit.title}</b>
-                <span className="mt-1 block text-sm text-stone-600">{fillTemplate(t.dueFromRecite, { label: reviewLabel })}</span>
-              </div>
-            );
-          })}
-          {!dueUnits.length && <p className="rounded-lg border border-dashed border-stone-300 bg-white p-3 text-sm text-stone-600">{t.noReviewsDueToday}</p>}
+          {dueChapters.map((r) => (
+            <button
+              key={r.chapter}
+              type="button"
+              onClick={() => onEnterReview(r.chapter)}
+              className="rounded-lg border border-red-200 bg-red-50 p-3 text-left hover:bg-red-100"
+            >
+              <b className="block">1 Peter {r.chapter} — {t.fullChapterReview}</b>
+              <span className="mt-1 block text-sm text-stone-600">{t[`cp_${r.nextDue.id}`]}</span>
+            </button>
+          ))}
+          {!dueChapters.length && <p className="rounded-lg border border-dashed border-stone-300 bg-white p-3 text-sm text-stone-600">{t.noReviewsDueToday}</p>}
         </div>
       </section>
+    </div>
+  );
+}
+
+function ChapterReviewView({ t, chapter, verses, review, reviewTab, setReviewTab, onExit, attempt, setAttempt, lastScore, onScoreRecite, onClearRecite, onHideComplete }) {
+  const hideDone = Boolean(review?.current?.hide);
+  const reciteDone = Boolean(review?.current?.recite);
+  return (
+    <div className="space-y-4">
+      <div className="flex flex-col gap-3 rounded-lg border-2 border-amber-500/60 bg-amber-50 p-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p className="text-sm font-black uppercase tracking-widest text-amber-700">{fillTemplate(t.reviewBanner, { chapter: `1 Peter ${chapter}` })}</p>
+          <p className="mt-1 text-sm text-stone-600">{t.chapterReviewNote}</p>
+        </div>
+        <button type="button" onClick={onExit} className="self-start rounded-md border border-stone-300 bg-white px-3 py-2 text-sm font-bold hover:bg-stone-100">{t.exitReview}</button>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {['hide', 'recite'].map((id) => {
+          const done = id === 'hide' ? hideDone : reciteDone;
+          return (
+            <button
+              key={id}
+              type="button"
+              onClick={() => setReviewTab(id)}
+              className={`inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-black ${
+                reviewTab === id ? 'border-[#233127] bg-[#233127] text-white' : 'border-stone-300 bg-white text-[#18201b] hover:bg-stone-50'
+              }`}
+            >
+              {done
+                ? <CheckCircle2 size={16} className={reviewTab === id ? 'text-emerald-300' : 'text-teal-700'} />
+                : (id === 'hide' ? <EyeOff size={16} /> : <Shield size={16} />)}
+              {t[`mode_${id}`]} · {t.wholeChapter}
+            </button>
+          );
+        })}
+      </div>
+      {reviewTab === 'hide' && (
+        <HidePanel key={`review-${chapter}`} t={t} verses={verses} completed={hideDone} onComplete={onHideComplete} />
+      )}
+      {reviewTab === 'recite' && (
+        <RecitePanel
+          t={t}
+          attempt={attempt}
+          setAttempt={setAttempt}
+          scope="chapter"
+          setScope={() => {}}
+          label={`1 Peter ${chapter}`}
+          score={lastScore}
+          onScore={onScoreRecite}
+          onClear={onClearRecite}
+          lockScope
+        />
+      )}
     </div>
   );
 }
@@ -810,10 +896,9 @@ function ReadPanel({ t, verses, onPlayAudio, completed, audioMessage, playing })
   );
 }
 
-function FilmPanel({ t, verse, unit, completed, progress, videoId, onPrev, onNext, onSpeak, playing }) {
+function FilmPanel({ t, verse, unit, completed, progress, onPrev, onNext, onSpeak, playing }) {
   const cues = getCues(verse, t);
   const PlayIcon = playing ? Pause : Play;
-  const videoTitle = `${unit.reference} KJV memorization video`;
   return (
     <div className="grid overflow-hidden rounded-lg border border-stone-300 bg-[#233127] lg:grid-cols-[1.15fr_0.85fr]">
       <section className="relative min-h-[480px] bg-[linear-gradient(135deg,#236b68,#233127_55%,#7f352d)] p-6 text-white md:p-8">
@@ -849,30 +934,9 @@ function FilmPanel({ t, verse, unit, completed, progress, videoId, onPrev, onNex
           <ActionButton icon={ChevronRight} label={t.next} onClick={onNext} />
         </div>
         {completed && <p className="rounded-md bg-teal-800 px-3 py-2 text-sm font-black text-white">{t.filmChecked}</p>}
-        {videoId ? (
-          <div className="overflow-hidden rounded-lg border border-stone-300 bg-black">
-            <iframe
-              className="aspect-video w-full"
-              src={`https://www.youtube.com/embed/${videoId}`}
-              title={videoTitle}
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-            <a
-              href={`https://www.youtube.com/watch?v=${videoId}`}
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-2 bg-white px-3 py-2 text-sm font-black text-red-800 hover:bg-stone-50"
-            >
-              <Youtube size={16} />
-              YouTube
-            </a>
-          </div>
-        ) : (
-          <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-3 text-sm text-stone-600">
-            {t.youtubeSlot}
-          </div>
-        )}
+        <div className="rounded-lg border border-dashed border-stone-300 bg-stone-50 p-3 text-sm text-stone-600">
+          {t.youtubeSlot}
+        </div>
       </aside>
     </div>
   );
@@ -1031,15 +1095,17 @@ function HidePanel({ t, verses, completed, onComplete }) {
   );
 }
 
-function RecitePanel({ t, attempt, setAttempt, scope, setScope, label, score, onScore, onClear }) {
+function RecitePanel({ t, attempt, setAttempt, scope, setScope, label, score, onScore, onClear, lockScope = false }) {
   return (
     <div className="grid gap-4 lg:grid-cols-[1fr_330px]">
       <section className="rounded-lg border border-stone-300 bg-stone-50 p-4">
         <div className="mb-4 flex flex-wrap gap-2">
-          <select value={scope} onChange={(event) => setScope(event.target.value)} className="rounded-md border border-stone-300 bg-white px-3 py-2">
-            <option value="unit">{t.currentUnit}</option>
-            <option value="chapter">{t.wholeChapter}</option>
-          </select>
+          {!lockScope && (
+            <select value={scope} onChange={(event) => setScope(event.target.value)} className="rounded-md border border-stone-300 bg-white px-3 py-2">
+              <option value="unit">{t.currentUnit}</option>
+              <option value="chapter">{t.wholeChapter}</option>
+            </select>
+          )}
           <ActionButton icon={CheckCircle2} label={t.score} onClick={onScore} />
           <ActionButton icon={RotateCcw} label={t.clear} onClick={onClear} />
         </div>
@@ -1188,24 +1254,63 @@ function lcsLength(a, b) {
   return previous[b.length];
 }
 
-function getStats(progress, unitProgress) {
-  const scores = onePeterData.units.map((unit) => unitScore(unit, unitProgress));
+function unitsOfChapter(chapter) {
+  return onePeterData.units.filter((unit) => unit.chapter === chapter);
+}
+
+function versesOfChapter(chapter) {
+  return onePeterData.verses.filter((verse) => verse.chapter === chapter);
+}
+
+function isChapterLearned(chapter, unitProgress) {
+  const units = unitsOfChapter(chapter);
+  return units.length > 0 && units.every((unit) => getUnitLearning(unit, unitProgress).learned);
+}
+
+function getChapterReview(chapter, unitProgress, chapterProgress) {
+  const record = chapterProgress[chapter] || {};
+  const learnedOn = record.learnedOn || null;
+  const today = todayKey();
+  const reviews = reviewCheckpoints.map((checkpoint) => {
+    const dueDate = learnedOn ? addDaysKey(learnedOn, checkpoint.offset) : null;
+    return {
+      ...checkpoint,
+      dueDate,
+      completed: Boolean(record.reviews?.[checkpoint.id]),
+      available: Boolean(learnedOn && dueDate <= today && !record.reviews?.[checkpoint.id]),
+    };
+  });
+  const nextDue = reviews.find((review) => review.available) || null;
+  const completedCount = reviews.filter((review) => review.completed).length;
   return {
-    mastered: scores.filter((score) => score >= 1).length,
-    due: getDueUnits(unitProgress).length,
-    best: scores.reduce((best, score) => Math.max(best, score), 0),
+    chapter,
+    learnedOn,
+    reviews,
+    nextDue,
+    completedCount,
+    total: reviewCheckpoints.length,
+    current: record.current || {},
+    score: completedCount / reviewCheckpoints.length,
   };
 }
 
-function getDueUnits(unitProgress) {
-  return onePeterData.units.filter((unit) => {
-    const checklist = getUnitChecklist(unit, unitProgress);
-    return checklist.reviews.some((review) => review.available && !review.completed);
-  });
+function getDueChapters(unitProgress, chapterProgress) {
+  return onePeterData.chapters
+    .map(({ chapter }) => getChapterReview(chapter, unitProgress, chapterProgress))
+    .filter((review) => review.nextDue);
+}
+
+function getStats(unitProgress, chapterProgress) {
+  const reviews = onePeterData.chapters.map(({ chapter }) => getChapterReview(chapter, unitProgress, chapterProgress));
+  return {
+    mastered: reviews.filter((review) => review.completedCount >= reviewCheckpoints.length).length,
+    due: reviews.filter((review) => review.nextDue).length,
+    best: reviews.reduce((best, review) => Math.max(best, review.score), 0),
+  };
 }
 
 function unitScore(unit, unitProgress) {
-  return getUnitChecklist(unit, unitProgress).score;
+  return getUnitLearning(unit, unitProgress).score;
 }
 
 function unitAudioPath(voiceId, unitId) {
@@ -1222,36 +1327,19 @@ function nextInterval(previous, score) {
   return 0;
 }
 
-function getUnitChecklist(unit, unitProgress) {
+function getUnitLearning(unit, unitProgress) {
   const record = unitProgress[unit.id] || {};
   const sections = learningSectionIds.reduce((items, id) => ({
     ...items,
     [id]: Boolean(record.sections?.[id]),
   }), {});
-  const learningDone = learningSectionIds.every((id) => sections[id]);
-  const baseDate = record.startedOn || todayKey();
-  const today = todayKey();
-  const reviews = reviewCheckpoints.map((checkpoint) => {
-    const dueDate = addDaysKey(baseDate, checkpoint.offset);
-    return {
-      ...checkpoint,
-      dueDate,
-      completed: Boolean(record.reviews?.[checkpoint.id]),
-      available: learningDone && dueDate <= today,
-    };
-  });
-  const completedCount =
-    learningSectionIds.filter((id) => sections[id]).length +
-    reviews.filter((review) => review.completed).length;
-  const totalCount = learningSectionIds.length + reviewCheckpoints.length;
-
+  const done = learningSectionIds.filter((id) => sections[id]).length;
   return {
     sections,
-    reviews,
-    learningDone,
-    completedCount,
-    totalCount,
-    score: completedCount / totalCount,
+    done,
+    total: learningSectionIds.length,
+    score: done / learningSectionIds.length,
+    learned: done === learningSectionIds.length,
   };
 }
 

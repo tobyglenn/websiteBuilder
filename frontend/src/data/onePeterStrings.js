@@ -151,7 +151,13 @@ export const STRINGS = {
     "blanksTitle": "Fill In The Blanks",
     "blanksInstructions": "Type each missing word. When every blank is correct, this step checks off automatically.",
     "blanksComplete": "Complete — every blank filled correctly.",
-    "blanksRemaining": "{remaining} of {total} blanks remaining."
+    "blanksRemaining": "{remaining} of {total} blanks remaining.",
+    "chapterReviewTitle": "Full Chapter Review",
+    "chapterReviewNote": "Review the whole chapter with Hide and Recite — completing both clears the due review.",
+    "reviewBanner": "Reviewing {chapter} — full chapter",
+    "exitReview": "Exit review",
+    "fullChapterReview": "full chapter review",
+    "reviewLocked": "Finish learning every unit in this chapter to unlock its review."
   },
   "es": {
     "alertPrep": "Prep Alert Academy",
@@ -301,7 +307,13 @@ export const STRINGS = {
     "blanksTitle": "Completa los Espacios",
     "blanksInstructions": "Escribe cada palabra faltante. Cuando todos estén correctos, se marca automáticamente.",
     "blanksComplete": "¡Completado! Todos los espacios correctos.",
-    "blanksRemaining": "{remaining} de {total} espacios restantes."
+    "blanksRemaining": "{remaining} de {total} espacios restantes.",
+    "chapterReviewTitle": "Revisión de Capítulo Completo",
+    "chapterReviewNote": "Revisa todo el capítulo con Ocultar y Recitar — completar ambos limpia la revisión pendiente.",
+    "reviewBanner": "Repasando {chapter} — capítulo completo",
+    "exitReview": "Salir de la revisión",
+    "fullChapterReview": "repaso del capítulo completo",
+    "reviewLocked": "Completa el aprendizaje de cada unidad de este capítulo para desbloquear su revisión."
   },
   "de": {
     "alertPrep": "Alert Academy-Vorbereitung",
@@ -451,7 +463,13 @@ export const STRINGS = {
     "blanksTitle": "Lücken füllen",
     "blanksInstructions": "Gib jedes fehlende Wort ein. Wenn alle Lücken korrekt ausgefüllt sind, wird dieser Schritt automatisch abgehakt.",
     "blanksComplete": "Fertig — alle Lücken richtig ausgefüllt.",
-    "blanksRemaining": "{remaining} von {total} Lücken übrig."
+    "blanksRemaining": "{remaining} von {total} Lücken übrig.",
+    "chapterReviewTitle": "Vollständige Kapitelüberprüfung",
+    "chapterReviewNote": "Überprüfen Sie das gesamte Kapitel mit Hide und Recite — beides abschließen entfernt die fällige Überprüfung.",
+    "reviewBanner": "Überprüfung von {chapter} — ganzes Kapitel",
+    "exitReview": "Überprüfung beenden",
+    "fullChapterReview": "Kapitelüberprüfung",
+    "reviewLocked": "Lernen Sie jede Einheit dieses Kapitels, um die Überprüfung freizuschalten."
   },
   "pt": {
     "alertPrep": "Preparação Alert Academy",
@@ -601,7 +619,13 @@ export const STRINGS = {
     "blanksTitle": "Preencha os Espaços",
     "blanksInstructions": "Digite cada palavra faltante. Quando todos os espaços estiverem corretos, esta etapa é marcada automaticamente.",
     "blanksComplete": "Completo — todos os espaços preenchidos corretamente.",
-    "blanksRemaining": "{remaining} de {total} espaços restantes."
+    "blanksRemaining": "{remaining} de {total} espaços restantes.",
+    "chapterReviewTitle": "Revisão do Capítulo Completo",
+    "chapterReviewNote": "Revise todo o capítulo com Hide e Recite — completar ambos limpa a revisão pendente.",
+    "reviewBanner": "Revisando {chapter} — capítulo completo",
+    "exitReview": "Sair da revisão",
+    "fullChapterReview": "revisão do capítulo completo",
+    "reviewLocked": "Termine de aprender cada unidade neste capítulo para desbloquear sua revisão."
   },
   "hi": {
     "alertPrep": "Alert Academy तैयारी",
@@ -751,7 +775,13 @@ export const STRINGS = {
     "blanksTitle": "रिक्त स्थान भरें",
     "blanksInstructions": "प्रत्येक छूटा हुआ शब्द टाइप करें। जब प्रत्येक रिक्त स्थान सही हो, तो यह चरण स्वचालित रूप से चेक हो जाता है।",
     "blanksComplete": "पूर्ण — प्रत्येक रिक्त स्थान सही ढंग से भरा गया।",
-    "blanksRemaining": "{remaining} में से {total} रिक्त स्थान शेष।"
+    "blanksRemaining": "{remaining} में से {total} रिक्त स्थान शेष।",
+    "chapterReviewTitle": "पूर्ण अध्याय समीक्षा",
+    "chapterReviewNote": "Hide और Recite के साथ पूरे अध्याय की समीक्षा करें — दोनों पूर्ण करने पर बकाया समीक्षा मिट जाती है।",
+    "reviewBanner": "{chapter} समीक्षा — पूर्ण अध्याय",
+    "exitReview": "समीक्षा से बाहर निकलें",
+    "fullChapterReview": "पूर्ण अध्याय समीक्षा",
+    "reviewLocked": "इसकी समीक्षा खोलने के लिए इस अध्याय की प्रत्येक इकाई सीखें।"
   }
 };
 
