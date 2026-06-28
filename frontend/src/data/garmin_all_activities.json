@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-06-28T09:15:40.782492",
-  "total_activities": 1542,
+  "generated_at": "2026-06-28T19:50:06.660598",
+  "total_activities": 1543,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-06-21"
+    "end": "2026-06-28"
   },
   "activities": [
     {
@@ -31393,6 +31393,52 @@
         {
           "zoneNumber": 1,
           "secsInZone": 390.0,
+          "zoneLowBoundary": 115
+        },
+        {
+          "zoneNumber": 2,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 131
+        },
+        {
+          "zoneNumber": 3,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 149
+        },
+        {
+          "zoneNumber": 4,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 165
+        },
+        {
+          "zoneNumber": 5,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 168
+        }
+      ],
+      "avgPace": 0
+    },
+    {
+      "date": "2026-06-28",
+      "startTimeLocal": "2026-06-28 08:13:12",
+      "activityType": "running",
+      "activityName": "Camp Hill - Base",
+      "distance": 1.3201,
+      "distance_miles": 1.3201,
+      "duration": 27.1,
+      "averageHR": 103.0,
+      "maxHR": 130.0,
+      "calories": 177.0,
+      "aerobicTrainingEffect": 0.8999999761581421,
+      "anaerobicTrainingEffect": 0,
+      "averageSpeed": 1.3070000410079956,
+      "avgPower": 141.0,
+      "maxPower": 341.0,
+      "averageRunningCadenceInStepsPerMinute": 100.171875,
+      "hrTimeInZones": [
+        {
+          "zoneNumber": 1,
+          "secsInZone": 126.0,
           "zoneLowBoundary": 115
         },
         {
