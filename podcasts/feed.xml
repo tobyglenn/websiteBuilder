@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Wed, 24 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2026 15:02:47 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 75 -->
+    <item>
+      <title>Episode 75: OpenClaw 2026.6.10 ships; OpenAI previews GPT-5.6 Sol, White House asks slowdown, Patronus raises $50M</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep075/episode_075.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-75/</link>
+      <description><![CDATA[Today's AgentStack Daily covers OpenAI's GPT-5.6 Sol preview for coding and science, and the White House asking OpenAI to slow-roll the launch. Tooling updates: OpenClaw v2026.6.10, OpenAI Codex rust-v0.142.3, and Claude Code CLI 2.1.181. Patronus AI raises $50M for agent stress-test 'digital worlds.' OpenAI reports median Codex output tokens grew 56x in Research, 32x in Customer Support. Databricks' Matei Zaharia and Reynold Xin argue the frontier ecosystem must stay open as OpenAI, SpaceX, and others build custom chips, with OpenAI's Jalapeño turning up heat on Nvidia. New data suggests engineering jobs are the most AI-resilient.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-75/]]></description>
+      <pubDate>Sun, 28 Jun 2026 15:02:47 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep075/episode_075.mp3" length="29352063" type="audio/mpeg"/>
+      <itunes:duration>30:34</itunes:duration>
+      <itunes:episode>75</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep075/episode_075_cover.png"/>
+    </item>
+
     <!-- Episode 74 -->
     <item>
       <title>Episode 74: OpenAI Codex 0.142 Stable, Daybreak Security Suite, Samsung Rolls Out Codex, Nex-N2-Pro, Reflection AI x SpaceX</title>
