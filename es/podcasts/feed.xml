@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 24 Jun 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 28 Jun 2026 15:02:47 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 75 -->
+    <item>
+      <title>Episodio 75: OpenClaw 2026.6.10 se lanza; OpenAI presenta vista previa de GPT-5.6 Sol, la Casa Blanca pide un frenado, Patronus recauda $50M</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep075/episode_075.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-75/</link>
+      <description><![CDATA[Hoy, AgentStack Daily cubre la vista previa de GPT-5.6 Sol de OpenAI para programación y ciencia, mientras la Casa Blanca pide a OpenAI que retrase el lanzamiento. Actualizaciones de herramientas: OpenClaw v2026.6.10, OpenAI Codex rust-v0.142.3 y Claude Code CLI 2.1.181. Patronus AI recauda $50M para crear 'mundos digitales' que ponen a prueba a los agentes.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-75/]]></description>
+      <pubDate>Sun, 28 Jun 2026 15:02:47 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_075.mp3" length="33959227" type="audio/mpeg"/>
+      <itunes:duration>35:22</itunes:duration>
+      <itunes:episode>75</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep075/episode_075_cover.png"/>
+    </item>
+
     <!-- Episode 74 -->
     <item>
       <title>Episodio 74: OpenAI Codex 0.142 Estable, Daybreak Security Suite, Samsung Lanza Codex, Nex-N2-Pro, Reflection AI x SpaceX</title>
