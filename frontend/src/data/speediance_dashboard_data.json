@@ -1034,6 +1034,31 @@
       "totalSessions": 1,
       "avgVolume": 11494.0,
       "totalVolume": 11494.0
+    },
+    "ARIA Rope Recovery Stamina 20260629": {
+      "name": "ARIA Rope Recovery Stamina 20260629",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-06-29",
+          "totalCapacity": 4890.0,
+          "durationMinute": 22,
+          "calorie": 403,
+          "actionNum": 12
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-06-29",
+        "totalCapacity": 4890.0,
+        "durationMinute": 22,
+        "calorie": 403,
+        "actionNum": 12
+      },
+      "totalSessions": 1,
+      "avgVolume": 4890.0,
+      "totalVolume": 4890.0
     }
   },
   "exercisePRs": {
@@ -1350,11 +1375,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 99,
-  "totalVolumeLbs": 939234.9,
+  "totalWorkouts": 100,
+  "totalVolumeLbs": 944124.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-06-21"
+    "end": "2026-06-29"
   },
   "allSessions": [
     {
@@ -2148,6 +2173,14 @@
       "durationMinute": 26,
       "calorie": 453,
       "actionNum": 10
+    },
+    {
+      "date": "2026-06-29",
+      "title": "ARIA Rope Recovery Stamina 20260629",
+      "totalCapacity": 4890.0,
+      "durationMinute": 22,
+      "calorie": 403,
+      "actionNum": 12
     }
   ]
 }
