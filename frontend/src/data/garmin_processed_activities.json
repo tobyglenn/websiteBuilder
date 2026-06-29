@@ -17,5 +17,24 @@
         ],
         "weight_kg": null,
         "weight_lbs": null
+    },
+    {
+        "date": "2026-06-29",
+        "runs": [
+            {
+                "activity_id": 23420276094,
+                "start_time_local": "2026-06-29 12:34:16",
+                "type": "running",
+                "distance_meters": 2348.820068359375,
+                "distance_miles": 1.46,
+                "duration_seconds": 1495.35205078125,
+                "pace_min_mile": "17:04",
+                "avg_speed_mps": 1.5709999799728394,
+                "avg_heart_rate": 123.0,
+                "calories": 215.0
+            }
+        ],
+        "weight_kg": null,
+        "weight_lbs": null
     }
 ]
