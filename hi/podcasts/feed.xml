@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 28 Jun 2026 15:02:47 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2026 18:30:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 76 -->
+    <item>
+      <title>एपिसोड 76: Codex rust-v0.142.4, HP-OpenAI Frontier समझौता, Micron AI स्मृति पर दांव, Claude कर्करोग कारक</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep076/episode_076.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-76/</link>
+      <description><![CDATA[OpenAI ships Codex rust-v0.142.4 as a chores-only maintenance release, while HP Inc. announces a Frontier strategic partnership with OpenAI that wires ChatGPT and Codex into the WXP device platform and HP Partner Portal. A founder publicly documents how Claude became a personal cancer treatment coordinator across labs, scans, and journals, and OpenAI + Broadcom unveil the Jalapeño inference chip — the third prong of OpenAI's silicon roadmap after Cerebras and the internal stack. Ford rehires senior engineers after its AI quality push stumbled on launch timelines, Micron draws Wall Street's next Nvidia-style bets on HBM-led AI memory, and SoftBank's CEO and Sam Altman publicly question Musk's orbital data center economics. Apple Vision Pro VP Paul Meade reportedly moves to OpenAI's hardware team as the Apple+OpenAI+Jony Ive device rumor heats up.
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-76/]]></description>
+      <pubDate>Mon, 29 Jun 2026 18:30:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_076.mp3" length="31470280" type="audio/mpeg"/>
+      <itunes:duration>32:46</itunes:duration>
+      <itunes:episode>76</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep076/episode_076_cover.png"/>
+    </item>
+
     <!-- Episode 75 -->
     <item>
       <title>एपिसोड 75: OpenClaw 2026.6.10 जहाज; OpenAI ने GPT-5.6 Sol का पूर्वावलोकन किया, व्हाइट हाउस ने धीमे प्रसार की मांग की, Patronus ने $50M जुटाए</title>
