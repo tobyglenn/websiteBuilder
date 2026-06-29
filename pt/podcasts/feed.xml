@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 28 Jun 2026 15:02:47 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 29 Jun 2026 18:30:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 76 -->
+    <item>
+      <title>Episódio 76: Codex rust-v0.142.4, pacto HP-OpenAI Frontier, aposta de memória de IA da Micron, agente de câncer Claude</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep076/episode_076.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-76/</link>
+      <description><![CDATA[O AgentStack Daily de hoje cobre o lançamento do OpenAI Codex rust-v0.142.4 como uma versão de manutenção apenas para tarefas menores, a HP Inc. lançando uma parceria estratégica Frontier com a OpenAI em engenharia e no portal de parceiros com mais de 100 mil, e a OpenAI + Broadcom revelando o chip de inferência Jalapeño. Acompanhamos o caso de um fundador que usa o Claude como coordenador pessoal de tratamento de câncer, a Ford recontratando engenheiros seniores após falhas na qualidade da IA e a Micron se tornando a próxima aposta da Wall Street em memória de IA baseada em HBM. Encerramos com a SoftBank.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-76/]]></description>
+      <pubDate>Mon, 29 Jun 2026 18:30:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_076.mp3" length="27862457" type="audio/mpeg"/>
+      <itunes:duration>29:01</itunes:duration>
+      <itunes:episode>76</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep076/episode_076_cover.png"/>
+    </item>
+
     <!-- Episode 75 -->
     <item>
       <title>Episódio 75: OpenClaw 2026.6.10 é lançado; OpenAI antecipa GPT-5.6 Sol, Casa Branca pede desaceleração, Patronus levanta US$ 50M</title>
