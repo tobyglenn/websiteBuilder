@@ -1,44 +1,44 @@
 {
-  "generatedAt": "2026-06-29T23:50:32.529Z",
+  "generatedAt": "2026-06-30T11:30:25.626Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Jun 29, 2026",
-    "hubTodayKey": "2026-06-29",
-    "analysisDateKey": "2026-06-29",
+    "hubTodayLabel": "Jun 30, 2026",
+    "hubTodayKey": "2026-06-30",
+    "analysisDateKey": "2026-06-30",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-06-29T19:50:02.516774"
+    "whoopLastSynced": "2026-06-30T07:30:06.160799"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9788245,
     "totalMilesRun": 3784.3,
-    "totalWorkouts": 2708,
+    "totalWorkouts": 2709,
     "sourceBreakdown": {
       "strengthSessions": 1002,
       "garminRuns": 1373,
       "currentYearLiftingSessions": 64,
-      "allTimeBjjSessions": 269
+      "allTimeBjjSessions": 270
     }
   },
   "trainingFocus": {
     "focus": "bjj",
     "runCount": 2,
     "workoutCount": 1,
-    "bjjCount": 3,
-    "windowStart": "2026-06-23",
-    "windowEnd": "2026-06-29"
+    "bjjCount": 4,
+    "windowStart": "2026-06-24",
+    "windowEnd": "2026-06-30"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-06-29",
+    "anchorDate": "2026-06-30",
     "dateRange": {
-      "thisWeekStart": "2026-06-23",
-      "thisWeekEnd": "2026-06-29",
-      "lastWeekStart": "2026-06-16",
-      "lastWeekEnd": "2026-06-22"
+      "thisWeekStart": "2026-06-24",
+      "thisWeekEnd": "2026-06-30",
+      "lastWeekStart": "2026-06-17",
+      "lastWeekEnd": "2026-06-23"
     },
     "workouts": {
-      "thisWeek": 6,
+      "thisWeek": 7,
       "lastWeek": 9
     },
     "runs": {
@@ -54,7 +54,7 @@
       "lastWeek": 7.7
     },
     "bjj": {
-      "thisWeek": 3,
+      "thisWeek": 4,
       "lastWeek": 3
     }
   },
@@ -73,13 +73,13 @@
     },
     "workouts": {
       "icon": "💪",
-      "current": 164,
+      "current": 165,
       "target": 500,
       "unit": "workouts"
     },
     "bjj": {
       "icon": "🥋",
-      "current": 30,
+      "current": 31,
       "target": 100,
       "unit": "sessions",
       "comingSoon": false
@@ -89,16 +89,9 @@
     "totalActive": 1764,
     "currentStreak": 4,
     "longestStreak": 60,
-    "rangeStart": "2025-07-01",
-    "rangeEnd": "2026-06-29",
+    "rangeStart": "2025-07-02",
+    "rangeEnd": "2026-06-30",
     "days": [
-      {
-        "date": "2025-07-01",
-        "count": 1,
-        "runs": 1,
-        "lifting": 0,
-        "bjj": 0
-      },
       {
         "date": "2025-07-02",
         "count": 4,
@@ -1396,10 +1389,10 @@
       },
       {
         "date": "2026-06-29",
-        "count": 3,
+        "count": 4,
         "runs": 1,
         "lifting": 1,
-        "bjj": 1
+        "bjj": 2
       }
     ]
   },
@@ -1407,17 +1400,17 @@
     "trainingStreak": 4,
     "lastWorkoutData": {
       "date": "2026-06-29",
-      "type": "Running"
+      "type": "BJJ"
     },
     "thisWeekVolume": 4890,
     "thisMonthMiles": 27.4
   },
   "recovery": {
-    "currentScore": 51,
-    "lastSleepScore": 81
+    "currentScore": 82,
+    "lastSleepScore": 51
   },
   "labels": {
-    "thisWeek": "June 23, 2026 - June 29, 2026",
-    "lastWeek": "June 16, 2026 - June 22, 2026"
+    "thisWeek": "June 24, 2026 - June 30, 2026",
+    "lastWeek": "June 17, 2026 - June 23, 2026"
   }
 }
