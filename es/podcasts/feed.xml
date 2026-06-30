@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Mon, 29 Jun 2026 18:30:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 14:00:20 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 77 -->
+    <item>
+      <title>Episodio 77: Claude Code 2.1.185, Cursor Mobile para Agentes de Codificación, Imagen Gemini Gratis</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep077/episode_077.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-77/</link>
+      <description><![CDATA[Hoy, AgentStack Daily cubre Claude Code CLI 2.1.185, la nueva aplicación móvil de Cursor para dirigir agentes de codificación y la decisión de Google de ofrecer la generación de imágenes personalizadas de Gemini de forma gratuita para usuarios en EE.UU. También: el plan de OKX para que los agentes de IA contraten y paguen a otros mediante rails de criptomonedas, el lanzamiento del modelo personalizado de Base44 y el recorte de precios de Claude para el gobierno de California por parte de Anthropic. Además, la apuesta de Corea del Sur con una inversión de 550.000 millones de dólares en fábricas de memorias, el debate sobre los empleos en IA, la lucha contra el cáncer de un fundador utilizando IA y un segmento de AINews con pocas novedades.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-77/]]></description>
+      <pubDate>Tue, 30 Jun 2026 14:00:20 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_077.mp3" length="25235165" type="audio/mpeg"/>
+      <itunes:duration>26:17</itunes:duration>
+      <itunes:episode>77</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep077/episode_077_cover.png"/>
+    </item>
+
     <!-- Episode 76 -->
     <item>
       <title>Episodio 76: Codex rust-v0.142.4, Pacto HP-OpenAI Frontier, Apuesta de memoria AI de Micron, Agente de cáncer de Claude</title>
