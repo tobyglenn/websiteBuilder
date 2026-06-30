@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 29 Jun 2026 18:30:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 30 Jun 2026 14:00:20 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 77 -->
+    <item>
+      <title>Episode 77: Claude Code 2.1.185, Cursor Mobile for Coding Agents, Gemini Image Goes Free</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep077/episode_077.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-77/</link>
+      <description><![CDATA[Today's AgentStack Daily covers Claude Code CLI 2.1.185, Cursor's new mobile app for steering coding agents, and Google making Gemini's personalized image generation free for US users. Also: OKX's plan to let AI agents hire and pay each other on crypto rails, Base44's custom model release, and Anthropic's California government Claude pricing cut. Plus South Korea's $550B memory fab bet, the AI jobs debate, a founder's cancer fight using AI, and an AINews segment with little to report.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-77/]]></description>
+      <pubDate>Tue, 30 Jun 2026 14:00:20 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep077/episode_077.mp3" length="22272253" type="audio/mpeg"/>
+      <itunes:duration>23:11</itunes:duration>
+      <itunes:episode>77</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep077/episode_077_cover.png"/>
+    </item>
+
     <!-- Episode 76 -->
     <item>
       <title>Episode 76: Codex rust-v0.142.4, HP-OpenAI Frontier pact, Micron AI memory bet, Claude cancer agent</title>
