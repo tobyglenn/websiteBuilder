@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 30 Jun 2026 14:00:20 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2026 11:43:07 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 78 -->
+    <item>
+      <title>एपिसोड 78: क्लॉड फेबल 5 की वापसी: अमेरिकी प्रतिबंध हटाए गए; OpenClaw v2026.6.11, Codex rust-v0.142.5, OpenRouter पर क्लॉड सोनेट 5</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep078/episode_078.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-78/</link>
+      <description><![CDATA[एजेंट स्टैक डेली क्लॉड फेबल 5 की वापसी कवर करती है: 30 जून को Anthropic के Mythos और Fable मॉडल पर अमेरिकी प्रतिबंध हटा दिए गए, और Mythos-क्लास फ्लैगशिप OpenRouter पर 1M कॉन्टेक्स्ट, मल्टीमॉडल इनपुट और रीजनिंग सपोर्ट के साथ वापस आ गया। OpenClaw v2026.6.11 और OpenAI Codex rust-v0.142.5 शिप हुए, और क्लॉड सोनेट 5 Google के Nano Banana 2 Lite के साथ OpenRouter पर 1M कॉन्टेक्स्ट के साथ आया। शोध में Orca यूनिफाइड वर्ल्ड लेटेंट स्पेस पेपर, Agents-A1 35B MoE, BlockPilot ऑन डिफ्यूशन शामिल हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-78/]]></description>
+      <pubDate>Thu, 02 Jul 2026 11:43:07 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_078.mp3" length="32224697" type="audio/mpeg"/>
+      <itunes:duration>33:33</itunes:duration>
+      <itunes:episode>78</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep078/episode_078_cover.png"/>
+    </item>
+
     <!-- Episode 77 -->
     <item>
       <title>एपिसोड 77: क्लॉड कोड 2.1.185, कोडिंग एजेंट्स के लिए कर्सर मोबाइल, जेमिनी इमेज फ्री हुई</title>
