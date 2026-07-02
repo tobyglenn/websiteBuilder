@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 30 Jun 2026 14:00:20 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Jul 2026 11:43:07 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 78 -->
+    <item>
+      <title>Folge 78: Die Rückkehr von Claude Fable 5: US-Beschränkungen aufgehoben; OpenClaw v2026.6.11, Codex rust-v0.142.5, Claude Sonnet 5 auf OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep078/episode_078.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-78/</link>
+      <description><![CDATA[Agent Stack Daily berichtet über die Rückkehr von Claude Fable 5: Die US-Beschränkungen für Anthropics Mythos- und Fable-Modelle wurden am 30. Juni aufgehoben, und das Flaggschiff der Mythos-Klasse ist zurück auf OpenRouter mit 1M Kontext, multimodaler Eingabe und Reasoning-Unterstützung. OpenClaw v2026.6.11 und OpenAI Codex rust-v0.142.5 wurden veröffentlicht, und Claude Sonnet 5 erschien auf OpenRouter mit 1M Kontext neben Googles Nano Banana 2 Lite. Die Forschung umfasst das Orca-Paper zum einheitischen Welt-Latent-Raum, das 35B MoE von Agents-A1 und BlockPilot zur Diffusion...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-78/]]></description>
+      <pubDate>Thu, 02 Jul 2026 11:43:07 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_078.mp3" length="29214555" type="audio/mpeg"/>
+      <itunes:duration>30:25</itunes:duration>
+      <itunes:episode>78</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep078/episode_078_cover.png"/>
+    </item>
+
     <!-- Episode 77 -->
     <item>
       <title>Folge 77: Claude Code 2.1.185, Cursor Mobile für Coding-Agenten, Gemini-Bild wird kostenlos</title>
