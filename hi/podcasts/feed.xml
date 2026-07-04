@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 02 Jul 2026 11:43:07 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 79 -->
+    <item>
+      <title>एपिसोड 79: Hermes Agent 2026.7.1 और Claude Code 2.1.193 शिप; Kimi K2.7 Copilot में आया</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep079/episode_079.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-79/</link>
+      <description><![CDATA[इस सप्ताह का एजेंट स्टैक रिलीज़ रीडआउट Hermes Agent v2026.7.1 के साथ-साथ Claude Code CLI 2.1.193 शिपिंग के साथ शुरू होता है, Kimi K2.7 Code GitHub Copilot में GA पहुंच गया। ZCode GLM-5.2 रैप करता है और Hacker News फ्रंट पेज पर आया, Leanstral 1.5 ओपन-वेट्स Lean प्रूफ जनरेशन लाता है, और Alibaba बैकडोर जोखिम का हवाला देते हुए काम पर Claude Code पर प्रतिबंध लगाता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-79/]]></description>
+      <pubDate>Sat, 04 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_079.mp3" length="46067505" type="audio/mpeg"/>
+      <itunes:duration>47:59</itunes:duration>
+      <itunes:episode>79</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep079/episode_079_cover.png"/>
+    </item>
+
     <!-- Episode 78 -->
     <item>
       <title>एपिसोड 78: क्लॉड फेबल 5 की वापसी: अमेरिकी प्रतिबंध हटाए गए; OpenClaw v2026.6.11, Codex rust-v0.142.5, OpenRouter पर क्लॉड सोनेट 5</title>
