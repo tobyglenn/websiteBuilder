@@ -2,6 +2,29 @@
   command = "npm run build"
   publish = "dist"
 
+# Canonicalize legacy tab query URLs. The transcript remains available via the
+# fragment URL, which does not create a separate crawlable server URL.
+[[redirects]]
+  from = "/podcasts/episode-:episode/"
+  to = "/podcasts/episode-:episode/#transcript"
+  status = 301
+  force = true
+  query = {tab = "transcript"}
+
+[[redirects]]
+  from = "/:lang/podcasts/episode-:episode/"
+  to = "/:lang/podcasts/episode-:episode/#transcript"
+  status = 301
+  force = true
+  query = {tab = "transcript"}
+
+[[redirects]]
+  from = "/podcasts/toft-:episode/"
+  to = "/podcasts/toft-:episode/#transcript"
+  status = 301
+  force = true
+  query = {tab = "transcript"}
+
 # ── Language-based redirects (browser Accept-Language → locale) ──────────────
 # Only applies when visiting the root path — deep links stay as-is.
 # Netlify evaluates conditions top-to-bottom; first match wins.

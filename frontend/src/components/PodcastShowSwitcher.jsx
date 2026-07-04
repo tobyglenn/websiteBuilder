@@ -65,7 +65,7 @@ function EpisodeCard({ ep }) {
             📄 Show Notes
           </a>
           <a
-            href={`/podcasts/episode-${ep.episodeNum}/?tab=transcript`}
+            href={`/podcasts/episode-${ep.episodeNum}/#transcript`}
             className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
           >
             📝 Transcript
@@ -115,7 +115,7 @@ function FitnessEpisodeCard({ ep }) {
             📄 Show Notes
           </a>
           <a
-            href={`/podcasts/toft-${ep.index}/?tab=transcript`}
+            href={`/podcasts/toft-${ep.index}/#transcript`}
             className="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
           >
             📝 Transcript

@@ -11,9 +11,28 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
   const [activeTab, setActiveTab] = useState('shownotes');
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('tab') === 'transcript') setActiveTab('transcript');
+    const syncTabFromUrl = () => {
+      const params = new URLSearchParams(window.location.search);
+      const isTranscript = window.location.hash === '#transcript' || params.get('tab') === 'transcript';
+      setActiveTab(isTranscript ? 'transcript' : 'shownotes');
+
+      if (params.get('tab') === 'transcript') {
+        window.history.replaceState(null, '', `${window.location.pathname}#transcript`);
+      }
+    };
+
+    syncTabFromUrl();
+    window.addEventListener('hashchange', syncTabFromUrl);
+    return () => window.removeEventListener('hashchange', syncTabFromUrl);
   }, []);
+
+  const selectTab = (tabId) => {
+    setActiveTab(tabId);
+    const nextUrl = tabId === 'transcript'
+      ? `${window.location.pathname}#transcript`
+      : window.location.pathname;
+    window.history.replaceState(null, '', nextUrl);
+  };
 
   return (
     <div className="min-h-screen">
@@ -95,7 +114,7 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
             ].map(tab => (
               <button
                 key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
+                onClick={() => selectTab(tab.id)}
                 className={`px-5 py-4 text-sm font-medium border-b-2 transition-all duration-200 ${
                   activeTab === tab.id
                     ? 'border-blue-500 text-blue-400'
@@ -151,7 +170,7 @@ function SectionHeading({ icon, label }) {
 
 function ShowNotes({ episode }) {
   return (
-    <div className="space-y-12">
+    <div id="shownotes" className="space-y-12">
       {episode.showNotesHtml ? (
         <div
           className="show-notes-content prose prose-invert prose-sm max-w-none text-neutral-300"
@@ -204,7 +223,7 @@ function ShowNotes({ episode }) {
 
 function FullTranscript({ episode }) {
   return (
-    <div>
+    <div id="transcript">
       <div
         className="max-w-[65ch] text-neutral-300 text-[1.0625rem] leading-[1.85] transcript-content"
         dangerouslySetInnerHTML={{ __html: episode.transcriptHtml }}
