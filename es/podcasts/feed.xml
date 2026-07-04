@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 02 Jul 2026 11:43:07 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 79 -->
+    <item>
+      <title>Episodio 79: Hermes Agent 2026.7.1 y Claude Code 2.1.193 Envían; Kimi K2.7 Llega a Copilot</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep079/episode_079.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-79/</link>
+      <description><![CDATA[El Resumen de Lanzamientos del Agent Stack de esta semana lidera con Hermes Agent v2026.7.1 enviando junto a Claude Code CLI 2.1.193, con Kimi K2.7 Code alcanzando GA dentro de GitHub Copilot. ZCode envuelve GLM-5.2 y llega a la portada de Hacker News, Leanstral 1.5 trae generación de pruebas Lean con pesos abiertos, y Alibaba bloquea Claude Code en el trabajo por preocupaciones de puerta trasera. La guía de GitHub de Jamesobcura LLMs SOTA ejecutables localmente, WebBrain envía un agente de navegador local-primero para Chrome y Firefox, ReContext publica.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-79/]]></description>
+      <pubDate>Sat, 04 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_079.mp3" length="38569317" type="audio/mpeg"/>
+      <itunes:duration>40:10</itunes:duration>
+      <itunes:episode>79</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep079/episode_079_cover.png"/>
+    </item>
+
     <!-- Episode 78 -->
     <item>
       <title>Episodio 78: El Regreso de Claude Fable 5: Restricciones de EE.UU. Levantadas; OpenClaw v2026.6.11, Codex rust-v0.142.5, Claude Sonnet 5 en OpenRouter</title>
