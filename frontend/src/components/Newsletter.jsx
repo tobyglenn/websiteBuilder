@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { captureEvent } from '../lib/analytics.js';
 
 export default function Newsletter() {
   const [email, setEmail] = useState('');
@@ -19,6 +20,9 @@ export default function Newsletter() {
 
       if (response.ok) {
         setSubmitted(true);
+        captureEvent('newsletter_signup', {
+          form_location: 'newsletter_section',
+        });
       }
     } catch (error) {
       console.error('Subscription error:', error);

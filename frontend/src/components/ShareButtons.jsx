@@ -1,6 +1,12 @@
+import { captureEvent } from '../lib/analytics.js';
+
 export default function ShareButtons({ url, title }) {
   const encodedUrl = encodeURIComponent(url);
   const encodedTitle = encodeURIComponent(title);
+  const trackShare = (platform) => captureEvent('share_click', {
+    platform,
+    shared_url: url,
+  });
 
   return (
     <div class="flex gap-3 mt-4">
@@ -10,6 +16,7 @@ export default function ShareButtons({ url, title }) {
         rel="noopener noreferrer"
         class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors"
         aria-label="Share on Twitter"
+        onClick={() => trackShare('twitter')}
       >
         𝕏
       </a>
@@ -19,6 +26,7 @@ export default function ShareButtons({ url, title }) {
         rel="noopener noreferrer"
         class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors"
         aria-label="Share on Facebook"
+        onClick={() => trackShare('facebook')}
       >
         f
       </a>
@@ -28,11 +36,15 @@ export default function ShareButtons({ url, title }) {
         rel="noopener noreferrer"
         class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors"
         aria-label="Share on LinkedIn"
+        onClick={() => trackShare('linkedin')}
       >
         in
       </a>
       <button
-        onclick={`navigator.clipboard.writeText('${url}')`}
+        onClick={() => {
+          navigator.clipboard.writeText(url);
+          trackShare('copy_link');
+        }}
         class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors"
         aria-label="Copy link"
       >

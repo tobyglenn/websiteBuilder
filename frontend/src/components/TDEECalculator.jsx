@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { captureEvent } from '../lib/analytics.js';
 
 const activityLevels = [
   { value: '1.2', label: 'Sedentary (little or no exercise)' },
@@ -66,6 +67,11 @@ export default function TDEECalculator() {
       targetCalories,
       macros: { protein, carbs, fat },
       maxCalories,
+    });
+    captureEvent('calculator_completed', {
+      calculator: 'tdee',
+      goal,
+      activity_level: activityLevel,
     });
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Menu, X, ChevronDown, Globe } from 'lucide-react';
 import Search from './Search.jsx';
+import { captureEvent } from '../lib/analytics.js';
 
 const LOCALE_STORAGE_KEY = 'site-lang';
 const LEGACY_LOCALE_STORAGE_KEY = 'preferredLang';
@@ -154,6 +155,10 @@ export default function Header() {
 
   const handleLanguageChoice = (code) => {
     if (typeof window === 'undefined') return;
+    captureEvent('language_switch', {
+      previous_language: locale,
+      next_language: code,
+    });
     persistLocalePreference(code);
     // Strip current locale prefix to get the base path, then re-prefix with new locale
     const currentPath = window.location.pathname;

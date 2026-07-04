@@ -5,6 +5,7 @@ import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
 import { ViewTransitions } from 'astro:transitions';
 import LangDetect from '../components/LangDetect.astro';
+import PostHogAnalytics from '../components/PostHogAnalytics.astro';
 
 interface Props {
   title: string;
@@ -517,6 +518,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     />
     
     <LangDetect />
+    <PostHogAnalytics />
     
     <ViewTransitions />
     

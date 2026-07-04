@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { captureEvent } from '../lib/analytics.js';
 
 export default function VideoPlayer({ videoId }) {
   const [startTime, setStartTime] = useState(0);
@@ -31,6 +32,10 @@ export default function VideoPlayer({ videoId }) {
         className="absolute top-0 left-0 w-full h-full"
         src={src}
         title="YouTube video player"
+        onLoad={() => captureEvent('video_embed_loaded', {
+          video_id: videoId,
+          start_time: startTime,
+        })}
         frameBorder="0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         allowFullScreen

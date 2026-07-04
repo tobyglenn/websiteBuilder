@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Youtube, Twitter, Instagram, Mail, ArrowRight } from 'lucide-react';
+import { captureEvent } from '../lib/analytics.js';
 
 export default function Footer() {
   const [email, setEmail] = useState('');
@@ -26,6 +27,9 @@ export default function Footer() {
       if (response.ok) {
         setSubmitted(true);
         setEmail('');
+        captureEvent('newsletter_signup', {
+          form_location: 'footer',
+        });
       } else {
         setError('Something went wrong. Please try again.');
       }

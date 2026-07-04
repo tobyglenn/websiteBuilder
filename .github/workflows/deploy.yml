@@ -40,6 +40,8 @@ jobs:
         working-directory: frontend
         env:
           SITE: https://tobyonfitnesstech.com
+          PUBLIC_POSTHOG_KEY: ${{ vars.PUBLIC_POSTHOG_KEY }}
+          PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com' }}
 
       - name: Submit to IndexNow
         run: |

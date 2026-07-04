@@ -1,7 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Play, Filter, Clock, SortDesc, Eye } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
 import { isLikelyShortVideo, isLiveVideo as isLiveVideoMeta, parseVideoDurationSeconds } from '../lib/videoMeta.js';
+import { captureEvent, cleanAnalyticsText } from '../lib/analytics.js';
 
 const CATEGORIES = [
   { id: 'all', name: 'All' },
@@ -111,6 +112,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
+  const lastSearchEvent = useRef('');
 
   // Read #category or legacy ?category= from URL on mount and apply filter.
   useEffect(() => {
@@ -251,6 +253,16 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
     return result;
   }, [visibleSourceVideos, selectedCategory, sortBy, durationFilter, searchQuery, limit]);
 
+  useEffect(() => {
+    if (!searchQuery || lastSearchEvent.current === searchQuery) return;
+    lastSearchEvent.current = searchQuery;
+    captureEvent('search_performed', {
+      search_query: cleanAnalyticsText(searchQuery, 80),
+      result_count: filteredVideos.length,
+      content_type: 'video',
+    });
+  }, [searchQuery, filteredVideos.length]);
+
   return (
     <div className="space-y-6">
       {showFilters && (
@@ -266,6 +278,10 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
                     ? window.location.pathname
                     : `${window.location.pathname}#${cat.id}`;
                   window.history.replaceState(null, '', nextUrl);
+                  captureEvent('filter_changed', {
+                    filter_type: 'video_category',
+                    filter_value: cat.id,
+                  });
                 }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === cat.id
@@ -279,7 +295,14 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
             {hideShortsByDefault && shortsCount > 0 && (
               <button
                 type="button"
-                onClick={() => setIncludeShorts(current => !current)}
+                onClick={() => {
+                  const nextValue = !includeShorts;
+                  setIncludeShorts(nextValue);
+                  captureEvent('filter_changed', {
+                    filter_type: 'include_shorts',
+                    filter_value: nextValue ? 'show' : 'hide',
+                  });
+                }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all border ${
                   includeShorts
                     ? 'bg-sky-600 text-white border-sky-500'
@@ -306,10 +329,13 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
                 {searchInput && (
                   <button
                     type="button"
-                    onClick={() => {
-                      setSearchInput('');
-                      setSearchQuery('');
-                    }}
+                  onClick={() => {
+                    setSearchInput('');
+                    setSearchQuery('');
+                    captureEvent('search_cleared', {
+                      content_type: 'video',
+                    });
+                  }}
                     className="absolute right-2 top-1/2 -translate-y-1/2 px-2 py-1 text-xs rounded-md bg-neutral-800 border border-neutral-700 text-neutral-300 hover:text-white hover:border-neutral-600"
                   >
                     Clear
@@ -341,7 +367,13 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
                 <button
                   key={filter.id}
                   type="button"
-                  onClick={() => setDurationFilter(filter.id)}
+                  onClick={() => {
+                    setDurationFilter(filter.id);
+                    captureEvent('filter_changed', {
+                      filter_type: 'video_duration',
+                      filter_value: filter.id,
+                    });
+                  }}
                   className={`px-3 py-2 rounded-lg text-sm border transition-colors ${
                     durationFilter === filter.id
                       ? 'bg-[#3b82f6] border-[#3b82f6] text-white'
@@ -400,6 +432,16 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
               <a
                 key={video.id}
                 href={`/video/${video.id}/`}
+                onClick={() => {
+                  if (searchQuery) {
+                    captureEvent('search_result_click', {
+                      search_query: cleanAnalyticsText(searchQuery, 80),
+                      content_type: 'video',
+                      content_slug: video.id,
+                      position: filteredVideos.findIndex(item => item.id === video.id) + 1,
+                    });
+                  }
+                }}
                 className="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl hover:border-neutral-700"
               >
                 {/* Thumbnail Container */}
