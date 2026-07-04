@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Jul 2026 11:43:07 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 79 -->
+    <item>
+      <title>Episode 79: Hermes Agent 2026.7.1 and Claude Code 2.1.193 Ship; Kimi K2.7 Lands in Copilot</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep079/episode_079.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-79/</link>
+      <description><![CDATA[The Agent Stack Release Readout this week leads with Hermes Agent v2026.7.1 shipping alongside Claude Code CLI 2.1.193, with Kimi K2.7 Code reaching GA inside GitHub Copilot. ZCode wraps GLM-5.2 and lands on the Hacker News front page, Leanstral 1.5 brings open-weights Lean proof generation, and Alibaba bars Claude Code at work over backdoor concerns. Jamesob's GitHub guide curates locally-runnable SOTA LLMs, WebBrain ships a local-first browser agent for Chrome and Firefox, ReContext publishes a training-free long-context harness, and Snorkel releases Senior SWE-Bench. Plus ghealth CLI, Program-as-Weights, DramaSR-532K, AgenticSTS, and the Safari MCP server.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-79/]]></description>
+      <pubDate>Sat, 04 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep079/episode_079.mp3" length="34028608" type="audio/mpeg"/>
+      <itunes:duration>35:26</itunes:duration>
+      <itunes:episode>79</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep079/episode_079_cover.png"/>
+    </item>
+
     <!-- Episode 78 -->
     <item>
       <title>Episode 78: The Return of Claude Fable 5: US Restrictions Lifted; OpenClaw v2026.6.11, Codex rust-v0.142.5, Claude Sonnet 5 on OpenRouter</title>
