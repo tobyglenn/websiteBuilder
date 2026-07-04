@@ -5,6 +5,7 @@ const ZONE_NAME = process.env.CLOUDFLARE_ZONE_NAME || 'tobyonfitnesstech.com';
 const ZONE_ID = process.env.CLOUDFLARE_ZONE_ID;
 const API_TOKEN = process.env.CLOUDFLARE_API_TOKEN || process.env.CF_API_TOKEN;
 const MANAGED_RULE_REFS = new Set([
+  'site_app_redirects_to_external_hosts',
   'podcast_transcript_query_to_hash',
   'videos_category_query_to_clean_path',
   'blog_category_query_to_hash',
@@ -30,6 +31,9 @@ const MANAGED_RULE_REFS = new Set([
 
 const RECLAIMED_RULE_DESCRIPTIONS = new Set([
   'Redirect /gridbound-realms to GitHub Pages',
+  'Redirect /mma-rpg to GitHub Pages',
+  'Redirect /bjj-buddy to GitHub Pages',
+  'Redirect /nutritrack to GitHub Pages',
 ]);
 
 const podcastPrefixes = [
@@ -114,7 +118,37 @@ const legacyBlogSlugTargetPathExpression = legacyBlogSlugRedirects.reduce(
   'http.request.uri.path'
 );
 
+const appRedirects = [
+  {
+    from: `https://${ZONE_NAME}/mma-rpg*`,
+    to: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
+  },
+  {
+    from: `https://${ZONE_NAME}/bjj-buddy*`,
+    to: 'https://bjj-buddy.tobyonfitnesstech.com/',
+  },
+  {
+    from: `https://${ZONE_NAME}/nutritrack*`,
+    to: 'https://nutritrack.tobyonfitnesstech.com/',
+  },
+];
+
+const appRedirectExpression = appRedirects
+  .map(({ from }) => `(http.request.full_uri wildcard r"${from}")`)
+  .join(' or ');
+
+const appRedirectTargetExpression = appRedirects.reduce(
+  (expression, { from, to }) => `wildcard_replace(${expression}, r"${from}", r"${to}")`,
+  'http.request.full_uri'
+);
+
 const managedRules = [
+  redirectRule({
+    ref: 'site_app_redirects_to_external_hosts',
+    description: 'Redirect app paths to hosted app origins',
+    expression: appRedirectExpression,
+    targetExpression: appRedirectTargetExpression,
+  }),
   redirectRule({
     ref: 'podcast_transcript_query_to_hash',
     description: 'Canonicalize podcast transcript tab query URLs',
