@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "refresh:homepage-hero-video": "node ./scripts/refresh-homepage-hero-video.mjs",
     "refresh:homepage-data": "node ./scripts/refresh-homepage-fitness-data.mjs",
+    "cloudflare:redirect:podcast-transcripts": "node ./scripts/setup-cloudflare-transcript-redirect.mjs",
     "build": "astro build && npx pagefind --site dist",
     "preview": "astro preview",
     "astro": "astro"
