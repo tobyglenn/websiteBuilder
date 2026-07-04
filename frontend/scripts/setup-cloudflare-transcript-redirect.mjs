@@ -5,7 +5,6 @@ const ZONE_NAME = process.env.CLOUDFLARE_ZONE_NAME || 'tobyonfitnesstech.com';
 const ZONE_ID = process.env.CLOUDFLARE_ZONE_ID;
 const API_TOKEN = process.env.CLOUDFLARE_API_TOKEN || process.env.CF_API_TOKEN;
 const MANAGED_RULE_REFS = new Set([
-  'site_app_redirects_to_external_hosts',
   'podcast_transcript_query_to_hash',
   'videos_category_query_to_clean_path',
   'blog_category_query_to_hash',
@@ -18,7 +17,6 @@ const MANAGED_RULE_REFS = new Set([
   'podcasts_reversed_language_dirs_to_index',
   'podcasts_malformed_detail_paths_to_index',
   'podcasts_localized_toft_aliases_to_fitness_tech',
-  'blog_legacy_slug_aliases_to_canonical',
   'legacy_feed_paths_to_rss',
   'videos_category_all_query_to_clean_path',
   'videos_category_speediance_query_to_hash',
@@ -31,9 +29,6 @@ const MANAGED_RULE_REFS = new Set([
 
 const RECLAIMED_RULE_DESCRIPTIONS = new Set([
   'Redirect /gridbound-realms to GitHub Pages',
-  'Redirect /mma-rpg to GitHub Pages',
-  'Redirect /bjj-buddy to GitHub Pages',
-  'Redirect /nutritrack to GitHub Pages',
 ]);
 
 const podcastPrefixes = [
@@ -88,67 +83,7 @@ const startsWithAnyExtraPathExpression = (paths) => (
   `(http.host eq "${ZONE_NAME}") and (${paths.map((path) => `(starts_with(http.request.uri.path, "${path}") and http.request.uri.path ne "${path}")`).join(' or ')})`
 );
 
-const legacyBlogSlugRedirects = [
-  {
-    from: '/blog/speediance-broke-partner-mode-lost-free-lift-feature',
-    to: '/blog/speediance-broke-partner-mode-lost-freelift-feature-demo-daughter/',
-  },
-  {
-    from: '/blog/speediance-2s-260-lb-lat-pulldown',
-    to: '/blog/speediance-2s-max-lat-pulldown-260lbs/',
-  },
-  {
-    from: '/blog/2025-09-09-discover-the-truth-behind-workout-tech-transparency',
-    to: '/blog/2026-04-08-discover-the-truth-behind-workout-tech-transparency/',
-  },
-  {
-    from: '/blog/why-running-might-have-saved-my-life',
-    to: '/blog/running-might-have-saved-my-life/',
-  },
-  {
-    from: '/blog/the-submission-that-could-have-ended-everything',
-    to: '/blog/submission-that-could-have-ended-everything/',
-  },
-];
-
-const legacyBlogSlugPaths = legacyBlogSlugRedirects.flatMap(({ from }) => [from, `${from}/`]);
-
-const legacyBlogSlugTargetPathExpression = legacyBlogSlugRedirects.reduce(
-  (expression, { from, to }) => `regex_replace(${expression}, r"^${from}/?$", r"${to}")`,
-  'http.request.uri.path'
-);
-
-const appRedirects = [
-  {
-    from: `https://${ZONE_NAME}/mma-rpg*`,
-    to: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
-  },
-  {
-    from: `https://${ZONE_NAME}/bjj-buddy*`,
-    to: 'https://bjj-buddy.tobyonfitnesstech.com/',
-  },
-  {
-    from: `https://${ZONE_NAME}/nutritrack*`,
-    to: 'https://nutritrack.tobyonfitnesstech.com/',
-  },
-];
-
-const appRedirectExpression = appRedirects
-  .map(({ from }) => `(http.request.full_uri wildcard r"${from}")`)
-  .join(' or ');
-
-const appRedirectTargetExpression = appRedirects.reduce(
-  (expression, { from, to }) => `wildcard_replace(${expression}, r"${from}", r"${to}")`,
-  'http.request.full_uri'
-);
-
 const managedRules = [
-  redirectRule({
-    ref: 'site_app_redirects_to_external_hosts',
-    description: 'Redirect app paths to hosted app origins',
-    expression: appRedirectExpression,
-    targetExpression: appRedirectTargetExpression,
-  }),
   redirectRule({
     ref: 'podcast_transcript_query_to_hash',
     description: 'Canonicalize podcast transcript tab query URLs',
@@ -222,12 +157,6 @@ const managedRules = [
       '/de/podcasts/toft-',
     ]),
     targetUrl: `https://${ZONE_NAME}/podcasts/fitness-tech/`,
-  }),
-  redirectRule({
-    ref: 'blog_legacy_slug_aliases_to_canonical',
-    description: 'Redirect legacy blog slug aliases to canonical articles',
-    expression: exactPathExpression(legacyBlogSlugPaths),
-    targetExpression: `concat("https://${ZONE_NAME}", ${legacyBlogSlugTargetPathExpression})`,
   }),
   redirectRule({
     ref: 'legacy_feed_paths_to_rss',

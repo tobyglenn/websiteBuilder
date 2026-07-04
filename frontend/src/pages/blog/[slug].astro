@@ -23,6 +23,7 @@ const redirectSlug = BLOG_REDIRECTS[post.slug];
 // For redirect posts, render a proper page with meta description and H1 instead of a bare
 // Astro.redirect() stub (which generates minimal HTML without meta tags).
 // We use status 200 so Astro writes our body directly instead of overriding with its redirect template.
+// Keep these pages indexable so crawlers can consolidate the canonical URL instead of dropping the signal.
 if (redirectSlug) {
   const redirectUrl = `/blog/${redirectSlug}/`;
   const redirectDescription = (post.excerpt?.slice(0, 155) || post.title).replace(/"/g, '&quot;');
@@ -32,7 +33,6 @@ if (redirectSlug) {
 <meta charset="UTF-8">
 <title>${escapedTitle} - TobyOnFitnessTech</title>
 <meta name="description" content="${redirectDescription}">
-<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://tobyonfitnesstech.com${redirectUrl}">
 <meta http-equiv="refresh" content="0;url=${redirectUrl}">
 </head><body>
