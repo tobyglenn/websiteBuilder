@@ -337,7 +337,7 @@ relatedVideos = relatedVideos.slice(0, 8);
                 ))}
               </div>
               {relatedVideos.length > 4 && (
-                <a href={`/videos/?category=${encodeURIComponent(videoCategory || 'all')}`} class="inline-block mt-4 text-sm text-blue-400 hover:text-blue-300 font-medium">
+                <a href={`/videos/#${encodeURIComponent(String(videoCategory || 'all').toLowerCase())}`} class="inline-block mt-4 text-sm text-blue-400 hover:text-blue-300 font-medium">
                   View all {relatedVideos.length} videos →
                 </a>
               )}

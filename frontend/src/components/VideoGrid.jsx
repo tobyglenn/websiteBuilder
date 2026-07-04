@@ -38,6 +38,16 @@ const DURATION_FILTERS = [
   { id: 'long', name: 'Long (20+ min)' },
 ];
 
+const getCategoryFromLocation = () => {
+  const hashCategory = window.location.hash.replace(/^#/, '').toLowerCase();
+  if (hashCategory && CATEGORIES.some(c => c.id === hashCategory)) {
+    return hashCategory;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+  return params.get('category')?.toLowerCase() || null;
+};
+
 function categorizeVideo(title, description = '') {
   if (!title) return ['training'];
 
@@ -102,12 +112,18 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
   const [searchQuery, setSearchQuery] = useState('');
   const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
 
-  // Read ?category= from URL on mount and apply filter
+  // Read #category or legacy ?category= from URL on mount and apply filter.
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cat = params.get('category');
+    const cat = getCategoryFromLocation();
     if (cat && CATEGORIES.some(c => c.id === cat)) {
       setSelectedCategory(cat);
+    }
+
+    if (window.location.search.includes('category=')) {
+      const nextUrl = cat && cat !== 'all'
+        ? `${window.location.pathname}#${cat}`
+        : window.location.pathname;
+      window.history.replaceState(null, '', nextUrl);
     }
   }, []);
 
@@ -244,7 +260,13 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
             {visibleCategories.map(cat => (
               <button
                 key={cat.id}
-                onClick={() => setSelectedCategory(cat.id)}
+                onClick={() => {
+                  setSelectedCategory(cat.id);
+                  const nextUrl = cat.id === 'all'
+                    ? window.location.pathname
+                    : `${window.location.pathname}#${cat.id}`;
+                  window.history.replaceState(null, '', nextUrl);
+                }}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === cat.id
                     ? 'bg-blue-600 text-white'
@@ -356,7 +378,13 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
           <h3 className="text-xl font-bold text-white mb-2">No videos found</h3>
           <p className="text-neutral-400">Try adjusting filters or categories.</p>
           {selectedCategory !== 'all' && (
-            <button onClick={() => setSelectedCategory('all')} className="mt-4 text-blue-400 hover:underline">
+            <button
+              onClick={() => {
+                setSelectedCategory('all');
+                window.history.replaceState(null, '', window.location.pathname);
+              }}
+              className="mt-4 text-blue-400 hover:underline"
+            >
               Clear Filters
             </button>
           )}
