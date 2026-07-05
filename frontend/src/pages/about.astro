@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { weightData, getStats } from '../data/weight.js';
+import { weightData, getStats, formatWeight } from '../data/weight.js';
 import homepageFitnessData from '../data/homepageFitnessData.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
@@ -12,6 +12,8 @@ const totalLbsLiftedCompact = totalLbsLifted >= 1000000
 
 // Weight chart
 const weightStats = getStats();
+const currentWeightDisplay = formatWeight(weightStats.current);
+const currentWeightRoundedDisplay = Math.round(weightStats.current).toLocaleString('en-US');
 const latestWeightDate = new Date(`${weightStats.currentDate}T12:00:00Z`).toLocaleDateString('en-US', {
   month: 'short',
   day: 'numeric',
@@ -25,6 +27,7 @@ const weights = weightData.map(d => d.weight);
 const minW = Math.min(...weights) - 10;
 const maxW = Math.max(...weights) + 10;
 const wRange = maxW - minW;
+const wLabelStep = Math.max(1, Math.ceil((weightData.length - 1) / 5));
 const wPoints = weightData.map((d, i) => {
   const x = wPadding + (i / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
   const y = chartHeight - wPadding - ((d.weight - minW) / wRange) * (chartHeight - 2 * wPadding);
@@ -296,8 +299,9 @@ const profilePageSchema = {
                   </g>
                 );
               })}
-              {weightData.filter((_, i) => i % 2 === 0).map((d, i) => {
-                const x = wPadding + ((i * 2) / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
+              {weightData.map((d, i) => {
+                if (i !== 0 && i !== weightData.length - 1 && i % wLabelStep !== 0) return null;
+                const x = wPadding + (i / (weightData.length - 1)) * (chartWidth - 2 * wPadding);
                 const label = new Date(d.date).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
                 return <text x={x} y={chartHeight - 8} text-anchor="middle" fill="#525252" font-size="10">{label}</text>;
               })}
@@ -313,7 +317,7 @@ const profilePageSchema = {
           {/* Narrative */}
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 mt-6 space-y-4 text-neutral-300 leading-relaxed">
             <p><strong class="text-white">242 → 188:</strong> In 2023 into early 2024, I dropped 54 lbs using pharmaceutical support (GLP-1, TRT, Anavar), aggressive calorie restriction, and high-volume training. The focus: get lean, build the habit, prove to myself I could do it.</p>
-            <p><strong class="text-white">188 → 218.4:</strong> After hitting 188 lbs, I pivoted to rebuilding. The latest measured weight in the body-composition report is <strong class="text-white">218.4 lbs on {latestWeightDate}</strong>. I ate more, prioritized protein and progressive overload, and balanced lifting with running and BJJ.</p>
+            <p><strong class="text-white">188 → {currentWeightDisplay}:</strong> After hitting 188 lbs, I pivoted to rebuilding. The latest measured weight in the body-composition report is <strong class="text-white">{currentWeightDisplay} lbs on {latestWeightDate}</strong>. I ate more, prioritized protein and progressive overload, and balanced lifting with running and BJJ.</p>
             <p><strong class="text-white">The lesson:</strong> The scale is a tool, not a judge. Each phase had purpose. The transformation isn't over — it's just entered a new chapter.</p>
           </div>
         </div>
@@ -386,7 +390,7 @@ const profilePageSchema = {
             <p>
               I hit 188 lbs on January 4, 2024, and immediately understood that the cut was just phase one.
               Losing weight is a subtraction problem. Building something on top of it is a different challenge entirely — and honestly,
-              the more interesting one. The scale has been climbing since. 188 → 205 → 218-229 lbs as of early 2026.
+              the more interesting one. The scale has been climbing since. 188 → 205 → {currentWeightDisplay} lbs as of {latestWeightDate}.
               That's not a setback. That's the plan working.
             </p>
             <p>
@@ -596,7 +600,7 @@ const profilePageSchema = {
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
               <span class="text-xs uppercase tracking-widest text-blue-500">Latest Measured</span>
-              <p class="text-3xl font-black text-white mt-3">218.4 lbs</p>
+              <p class="text-3xl font-black text-white mt-3">{currentWeightDisplay} lbs</p>
               <p class="text-neutral-400 text-sm mt-2">Measured on {latestWeightDate}; rebuild phase balancing strength training, running, and rolling.</p>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
@@ -700,7 +704,7 @@ const profilePageSchema = {
               <div class="text-xs text-neutral-600 mt-2">54 lbs lost — BJJ accelerated fat loss</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-              <div class="text-4xl font-bold text-white mb-2">218 lbs</div>
+              <div class="text-4xl font-bold text-white mb-2">{currentWeightRoundedDisplay} lbs</div>
               <div class="text-sm text-neutral-400 uppercase tracking-wider">Latest Measured (2026)</div>
               <div class="text-xs text-neutral-600 mt-2">Measured on {latestWeightDate}</div>
             </div>
@@ -791,7 +795,7 @@ const profilePageSchema = {
               that held me accountable.
             </p>
             <p>
-              At the latest measured <strong class="text-white">218.4 pounds</strong> in 2026, I'm in the rebuild phase.
+              At the latest measured <strong class="text-white">{currentWeightDisplay} pounds</strong> in 2026, I'm in the rebuild phase.
               The difference this time: I train smarter. WHOOP recovery scores tell me when to push and when to rest.
               My BJJ training has evolved from "survive every round" to "dominate positions." I've competed at brown belt
               in both Gi and No-Gi, and the drive to keep improving keeps me showing up at 6:30 AM — even when the

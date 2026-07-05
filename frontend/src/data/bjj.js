@@ -1,6 +1,8 @@
 // BJJ data — sourced from video transcripts and real match history
 // Toby is a brown belt who competes in Gi, No-Gi, and Absolute divisions
 
+import { latestBodyComposition } from './weight.js';
+
 export const beltTimeline = [
   {
     belt: 'White',
@@ -148,7 +150,7 @@ export const bjjStats = {
   beltsSinceStart: 4,
   compsEntered: 3,
   compsWithMedal: 3,
-  currentWeight: 218.4,
+  currentWeight: latestBodyComposition?.weight || 218.4,
   signatureSubmission: 'Reverse Triangle',
   currentInjury: 'Broken finger (grip battle vs upper belt)',
   trainingPartners: ['purple belts', 'brown belts', 'black belts'],
