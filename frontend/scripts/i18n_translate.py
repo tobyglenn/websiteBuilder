@@ -3,7 +3,7 @@ import json, re, sys, time
 from pathlib import Path
 import requests
 
-ROOT = Path('/Users/tobyglennpeters/.openclaw/workspace/websiteBuilder/frontend')
+ROOT = Path(__file__).resolve().parents[1]
 PAGES = ROOT / 'src/pages'
 MODEL = 'mlx-community/Qwen3.5-122B-A10B-4bit'
 API = 'http://localhost:52415/v1/chat/completions'

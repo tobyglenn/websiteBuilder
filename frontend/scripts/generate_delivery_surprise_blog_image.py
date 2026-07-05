@@ -2,8 +2,8 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 from pathlib import Path
 
 W, H = 1200, 630
-OUT = Path('/Users/tobyglennpeters/.openclaw/workspace/websiteBuilder/frontend/public/images/blog/2025-09-09-unbox-the-excitement-the-speediance-2s-delivery-surprise.jpg')
-SRC = Path('/Users/tobyglennpeters/.openclaw/workspace/websiteBuilder/frontend/public/images/gear/speediance-gym-monster-2s.jpg')
+OUT = Path(__file__).resolve().parents[1] / 'public/images/blog/2025-09-09-unbox-the-excitement-the-speediance-2s-delivery-surprise.jpg'
+SRC = Path(__file__).resolve().parents[1] / 'public/images/gear/speediance-gym-monster-2s.jpg'
 
 bg = Image.new('RGB', (W, H), '#0b0d12')
 d = ImageDraw.Draw(bg)

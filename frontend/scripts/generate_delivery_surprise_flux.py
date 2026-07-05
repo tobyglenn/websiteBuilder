@@ -3,7 +3,7 @@ import json, re, torch
 from pathlib import Path
 from diffusers import FluxPipeline
 
-OUT = Path('/Users/tobyglennpeters/.openclaw/workspace/websiteBuilder/frontend/public/images/blog/2025-09-09-unbox-the-excitement-the-speediance-2s-delivery-surprise.jpg')
+OUT = Path(__file__).resolve().parents[1] / 'public/images/blog/2025-09-09-unbox-the-excitement-the-speediance-2s-delivery-surprise.jpg'
 OUT.parent.mkdir(parents=True, exist_ok=True)
 
 cfg = json.load(open(Path.home() / '.openclaw/openclaw.json'))
