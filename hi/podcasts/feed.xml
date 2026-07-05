@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sat, 04 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 17:18:59 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 80 -->
+    <item>
+      <title>एपिसोड 80: GPT-5.5 Codex तर्क त्रुटि, Claude Code कैश रिसाव, Mistral 1.5 उतरा</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep080/episode_080.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-80/</link>
+      <description><![CDATA[GPT-5.5 Codex users are reporting a reasoning-token clustering regression that degrades long-context reasoning chains. A cross-contamination report documents Claude Code session and cache isolation failures on shared hosts, leaking prompts and responses between users. Mistral has shipped version 1.5. Transformers 5.13 lands with native Kimi K2.5 through K2.7 architecture support, and the USAF published a method for MoE fine-tuning that fits within 12GB of consumer GPU memory.
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-80/]]></description>
+      <pubDate>Sun, 05 Jul 2026 17:18:59 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_080.mp3" length="45198986" type="audio/mpeg"/>
+      <itunes:duration>47:04</itunes:duration>
+      <itunes:episode>80</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep080/episode_080_cover.png"/>
+    </item>
+
     <!-- Episode 79 -->
     <item>
       <title>एपिसोड 79: Hermes Agent 2026.7.1 और Claude Code 2.1.193 शिप; Kimi K2.7 Copilot में आया</title>
