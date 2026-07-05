@@ -10,6 +10,8 @@ const totalLbsLiftedFormatted = totalLbsLifted.toLocaleString('en-US');
 const totalLbsLiftedCompact = totalLbsLifted >= 1000000
   ? `${(totalLbsLifted / 1000000).toFixed(1)}M+`
   : `${Math.round(totalLbsLifted / 1000)}K+`;
+const strengthSessions = Number(homepageFitnessData.lifetimeStats?.sourceBreakdown?.strengthSessions || 0);
+const strengthSessionsFormatted = strengthSessions.toLocaleString('en-US');
 
 // Weight chart
 const weightStats = getStats();
@@ -368,12 +370,12 @@ const profilePageSchema = {
             <h3 class="text-xl font-bold mb-6 text-blue-400">The Build Phase Numbers</h3>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
               <div>
-                <div class="text-3xl font-bold text-white mb-1">1,296,447</div>
-                <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs Lifted Since July 2025</div>
+                <div class="text-3xl font-bold text-white mb-1">{totalLbsLiftedFormatted}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Logged Lifting Volume</div>
               </div>
               <div>
-                <div class="text-3xl font-bold text-white mb-1">125</div>
-                <div class="text-xs text-neutral-500 uppercase tracking-wider">Speediance Sessions</div>
+                <div class="text-3xl font-bold text-white mb-1">{strengthSessionsFormatted}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Strength Sessions</div>
               </div>
               <div>
                 <div class="text-3xl font-bold text-white mb-1">265.1 mi</div>
@@ -395,8 +397,8 @@ const profilePageSchema = {
               That's not a setback. That's the plan working.
             </p>
             <p>
-              The <strong class="text-white">Speediance</strong> became the anchor of phase two. In the seven months between July 2025 and February 2026 alone,
-              I logged 125 sessions and moved <strong class="text-white">1,296,447 lbs</strong> of total volume. My best single session:
+              The <strong class="text-white">Speediance</strong> became the anchor of phase two. Across the logged training history,
+              I've moved <strong class="text-white">{totalLbsLiftedFormatted} lbs</strong> of total lifting volume. My best single session:
               35,305 lbs in 50 minutes on February 2, 2026. Top lifts tracked by the machine — barbell lat pulldown at a 294 lb 1RM,
               bent over row at 198 lbs, bench press at 90 lbs via the cable system. These aren't estimates. The machine logs every rep.
             </p>
