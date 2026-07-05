@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 05 Jul 2026 17:18:59 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 80 -->
+    <item>
+      <title>Episode 80: GPT-5.5 Codex Reasoning Glitch, Claude Code Cache Leak, Mistral 1.5 Lands</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep080/episode_080.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-80/</link>
+      <description><![CDATA[Today's AgentStack Daily covers a GPT-5.5 Codex reasoning-token regression, a Claude Code session and cache cross-contamination issue on shared hosts, and Mistral 1.5 going out the door. Transformers 5.13 adds Kimi K2.5 through K2.7 architecture support. The USAF releases a method for MoE fine-tuning on 12GB consumer GPUs. Cheyenne pulls Meta data center water discharge permits after contamination findings, and Interfaze open-sources a diffusion ASR adapter for DiffusionGemma.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-80/]]></description>
+      <pubDate>Sun, 05 Jul 2026 17:18:59 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep080/episode_080.mp3" length="32823632" type="audio/mpeg"/>
+      <itunes:duration>34:11</itunes:duration>
+      <itunes:episode>80</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep080/episode_080_cover.png"/>
+    </item>
+
     <!-- Episode 79 -->
     <item>
       <title>Episode 79: Hermes Agent 2026.7.1 and Claude Code 2.1.193 Ship; Kimi K2.7 Lands in Copilot</title>
