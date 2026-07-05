@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 import { ArrowRight } from 'lucide-react';
+import { bjjStats } from '../data/bjj.js';
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
@@ -42,41 +43,43 @@ const totalBjjPosts = CANONICAL_BLOG_POSTS.filter(post => {
 // BJJ Stats
 const stats = {
   rank: "Brown Belt",
-  startedYear: 2023,
-  competitions: 1,
+  startedYear: 2017,
+  startedDate: "Apr 4, 2017",
+  brownBeltDate: "Apr 9, 2024",
+  competitions: 3,
   bjjDaysPerWeek: "2-3"
 };
 
 // Journey timeline data from /about page
 const journeyTimeline = [
   {
-    year: "2023",
+    year: "Apr 4, 2017",
     title: "Started BJJ Journey",
-    description: "Began Brazilian Jiu-Jitsu as part of a 242→188 lb transformation. Used BJJ as both a physical outlet and mental anchor during the weight loss journey.",
+    description: "Started Brazilian Jiu-Jitsu at Harrisburg Brazilian Jiu-Jitsu and Judo. The early years built the survival layer, guard basics, and the humility every white belt needs.",
     highlight: true
   },
   {
-    year: "2023",
+    year: "2017-2019",
     title: "White Belt",
-    description: "Learned fundamentals, positional hierarchy, and basic submissions. Focused on survival and getting comfortable guard.",
+    description: "Learned fundamentals, positional hierarchy, and basic submissions. Focused on survival, guard, and getting comfortable under pressure.",
     highlight: false
   },
   {
-    year: "2024",
+    year: "Sep 22, 2019",
     title: "Blue Belt",
-    description: "Promoted to blue belt. Started developing more sophisticated guard game and began regular competition.",
+    description: "Promoted at the Frederic Rabert seminar at Harrisburg Brazilian Jiu-Jitsu and Judo. Started developing a more connected guard and positional game.",
     highlight: false
   },
   {
-    year: "2024-2025",
+    year: "Dec 7, 2020",
     title: "Purple Belt",
-    description: "Intermediate belt phase. Continued refining techniques while balancing with strength training.",
+    description: "Promoted at The Factory Dillsburg by Ademir Oliveira and Jeff Galino. Continued refining technique while balancing training, coaching, and life.",
     highlight: false
   },
   {
-    year: "2025",
+    year: "Apr 9, 2024",
     title: "Promoted to Brown Belt",
-    description: "Earned the brown belt at a regional tournament with a third-place finish and a reverse triangle submission.",
+    description: "Promoted at The Factory Dillsburg by Ademir Oliveira and Jeff Galino. Current rank: brown belt.",
     highlight: true
   },
   {
@@ -113,10 +116,12 @@ const philosophy = [
 
 // Notable moments
 const notableMoments = [
-  { year: "2023", event: "Started BJJ - 242 lbs" },
+  { year: "2017", event: "Started BJJ at Harrisburg BJJ and Judo" },
+  { year: "2019", event: "Blue belt promotion" },
+  { year: "2020", event: "Purple belt promotion" },
   { year: "2023", event: "54 lb transformation complete - 188 lbs" },
-  { year: "2025", event: "Brown belt promotion" },
-  { year: "2025", event: "3rd place regional tournament - reverse triangle" }
+  { year: "2024", event: "Brown belt promotion" },
+  { year: "2024", event: "3rd place regional tournament - reverse triangle" }
 ];
 
 // JSON-LD Schema
@@ -124,7 +129,7 @@ const webPageSchema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "name": "Brazilian Jiu-Jitsu - Toby on Fitness Tech",
-  "description": "Follow Toby's BJJ journey: started in 2023, brown belt, competed at regional tournaments, training 2-3x per week. Training philosophy, lessons learned, and progression.",
+  "description": "Follow Toby's BJJ journey: started in 2017, brown belt since April 2024, competed at regional tournaments, training 2-3x per week. Training philosophy, lessons learned, and progression.",
   "url": "https://tobyonfitnesstech.com/bjj",
   "inLanguage": "en",
   "isPartOf": {
@@ -133,7 +138,7 @@ const webPageSchema = {
   "about": {
     "@type": "Person",
     "name": "Toby Peters",
-    "description": "Brown belt in Brazilian Jiu-Jitsu, training since 2023"
+    "description": "Brown belt in Brazilian Jiu-Jitsu, training since 2017"
   },
   "keywords": "BJJ, Brazilian Jiu-Jitsu, jiu-jitsu, brown belt, grappling, martial arts, training, competition"
 };
@@ -141,7 +146,7 @@ const webPageSchema = {
 
 <Layout
   title="Brazilian Jiu-Jitsu - Brown Belt Journey | Toby on Fitness Tech"
-  description="Follow Toby's BJJ journey: started in 2023, brown belt, competed at regional tournaments, training 2-3x per week. Training philosophy, lessons learned, and progression."
+  description="Follow Toby's BJJ journey: started in 2017, brown belt since April 2024, competed at regional tournaments, training 2-3x per week. Training philosophy, lessons learned, and progression."
   jsonLd={webPageSchema}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
@@ -158,7 +163,7 @@ const webPageSchema = {
             <span class="text-blue-500">Jiu-Jitsu</span>
           </h1>
           <p class="text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl">
-            Started in 2023. Brown belt. Competed at regional tournaments.
+            Started in 2017. Brown belt since April 2024. Competed at regional tournaments.
             The technical journey of leveraging technique over raw strength, with a focus on safety and longevity.
           </p>
 
@@ -178,10 +183,10 @@ const webPageSchema = {
               <span class="text-sm font-semibold text-white">{stats.rank}</span>
             </div>
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
-              <span class="text-sm font-semibold text-white">Started {stats.startedYear}</span>
+              <span class="text-sm font-semibold text-white">Started {stats.startedDate}</span>
             </div>
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
-              <span class="text-sm font-semibold text-white">{stats.competitions} Competition</span>
+              <span class="text-sm font-semibold text-white">{stats.competitions} Competitions</span>
             </div>
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
               <span class="text-sm font-semibold text-white">{stats.bjjDaysPerWeek}x / week</span>
@@ -299,7 +304,7 @@ const webPageSchema = {
                 <div class="text-sm text-neutral-400">+ Rolling</div>
               </div>
               <div>
-                <div class="text-2xl font-bold text-blue-400">242</div>
+                <div class="text-2xl font-bold text-blue-400">{bjjStats.trainingSessionsLogged}</div>
                 <div class="text-sm text-neutral-400">sessions logged</div>
               </div>
             </div>

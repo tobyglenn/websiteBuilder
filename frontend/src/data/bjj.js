@@ -5,18 +5,18 @@ export const beltTimeline = [
   {
     belt: 'White',
     color: '#e5e7eb',
-    period: 'Early 2010s',
+    period: 'Apr 4, 2017',
     highlights: [
-      'Lost a ton of tournament matches at 170',
-      'Spent a ton of time at white belt and needed a lot of it to improve',
-      'Began developing triangle attacks',
+      'Started at Harrisburg Brazilian Jiu-Jitsu and Judo',
+      'Built the survival layer, guard basics, and early triangle attacks',
+      'Spent the time at white belt that the fundamentals needed',
     ],
     competed: true,
   },
   {
     belt: 'Blue',
     color: '#3b82f6',
-    period: 'Mid 2010s',
+    period: 'Sep 22, 2019',
     highlights: [
       'Competed and medaled at blue belt',
       'Developed positional dominance game',
@@ -27,7 +27,7 @@ export const beltTimeline = [
   {
     belt: 'Purple',
     color: '#8b5cf6',
-    period: 'Late 2010s',
+    period: 'Dec 7, 2020',
     highlights: [
       'Transitioned focus to coaching',
       'Guided white belt student with 60+ wins to compete against blue belts',
@@ -40,7 +40,7 @@ export const beltTimeline = [
   {
     belt: 'Brown',
     color: '#92400e',
-    period: '2023–Present',
+    period: 'Apr 9, 2024–Present',
     highlights: [
       'Competed in Gi, No-Gi, and Absolute Cash Prize division',
       'Finished with 3rd place — won via reverse triangle submission',
@@ -148,14 +148,17 @@ export const bjjStats = {
   beltsSinceStart: 4,
   compsEntered: 3,
   compsWithMedal: 3,
-  currentWeight: 220,
+  currentWeight: 218.4,
   signatureSubmission: 'Reverse Triangle',
   currentInjury: 'Broken finger (grip battle vs upper belt)',
   trainingPartners: ['purple belts', 'brown belts', 'black belts'],
   grappleStyle: 'Gi & No-Gi',
-  yearsTraining: '10+',
+  yearsTraining: '9+',
+  startedDate: '2017-04-04',
+  currentBeltDate: '2024-04-09',
+  academy: 'The Factory Dillsburg',
   // WHOOP-tracked data (sport_id: 98, jiu-jitsu)
-  trainingSessionsLogged: 242,
+  trainingSessionsLogged: 272,
   totalMatHours: 165.7,
   avgStrain: 10.2,
   avgHeartRate: 139,

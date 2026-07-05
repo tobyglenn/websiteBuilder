@@ -1,11 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { weightData, getStats } from '../data/weight.js';
+import homepageFitnessData from '../data/homepageFitnessData.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const totalLbsLifted = Number(homepageFitnessData.lifetimeStats?.totalLbsLifted || 0);
+const totalLbsLiftedFormatted = totalLbsLifted.toLocaleString('en-US');
+const totalLbsLiftedCompact = totalLbsLifted >= 1000000
+  ? `${(totalLbsLifted / 1000000).toFixed(1)}M+`
+  : `${Math.round(totalLbsLifted / 1000)}K+`;
 
 // Weight chart
 const weightStats = getStats();
+const latestWeightDate = new Date(`${weightStats.currentDate}T12:00:00Z`).toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
 const chartWidth = 600;
 const chartHeight = 260;
 const wPadding = 44;
@@ -87,7 +99,7 @@ const profilePageSchema = {
 };
 ---
 
-<Layout 
+<Layout
   title="About Toby Glenn Peters - TobyOnFitnessTech"
   description="Toby Glenn Peters dropped from 242 to 188 lbs using obsessive data tracking, Speediance, Tonal, and Brazilian Jiu-Jitsu. Independent fitness tech reviewer — no programs, no fluff."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "About", url: "/about" }]}
@@ -194,7 +206,7 @@ const profilePageSchema = {
                    <div class="text-sm text-neutral-500 uppercase tracking-wider">Total Lost</div>
                  </div>
                  <div>
-                   <div class="text-4xl font-bold text-white mb-1">1M+</div>
+                   <div class="text-4xl font-bold text-white mb-1">{totalLbsLiftedCompact}</div>
                    <div class="text-sm text-neutral-500 uppercase tracking-wider">Lbs Lifted</div>
                  </div>
                </div>
@@ -203,27 +215,27 @@ const profilePageSchema = {
           <div class="md:w-1/2 space-y-6 text-neutral-300 leading-relaxed text-lg">
             <h2 class="text-3xl font-bold text-white">The Turnaround</h2>
             <p>
-              In late 2024, I was 242 pounds. Traditional cardio — the thing most people lean on to lose weight — wasn't cutting it. 
+              In 2023, I was 242 pounds. Traditional cardio — the thing most people lean on to lose weight — wasn't cutting it.
               I decided to engineer a smarter solution.
             </p>
             <p>
-              I chose to to be a computer programmer. I went deep on the data: WHOOP recovery scores, Garmin activity tracking, 8Sleep sleep quality, and meticulous calorie logging via Cronometer. 
+              I chose to to be a computer programmer. I went deep on the data: WHOOP recovery scores, Garmin activity tracking, 8Sleep sleep quality, and meticulous calorie logging via Cronometer.
               Every variable that I could control, I controlled. Every variable I could, I measured.
             </p>
             <p>
-              The anchor of my training became a <strong class="text-white">digital cable machine</strong> — a smart home gym that let me train heavy from home. 
-              I've now logged over 1,000,000 lbs of lifting volume on it. No hype — I have the data to prove it.
+              The anchor of my training became <strong class="text-white">smart cable machines</strong> — first Tonal, then Speediance — that let me train heavy from home.
+              I've now logged <strong class="text-white">{totalLbsLiftedFormatted} lbs</strong> of lifetime lifting volume. No hype — I have the data to prove it.
             </p>
             <p>
-              Alongside the machine work, I returned to <strong class="text-white">Brazilian Jiu-Jitsu</strong> as both a physical outlet and a mental anchor. 
-              BJJ forced me to stay disciplined, stay humble, and keep showing up — even when the scale wasn't moving the way I wanted.
+              Alongside the machine work, I returned to <strong class="text-white">Brazilian Jiu-Jitsu</strong> as both a physical outlet and a mental anchor.
+              BJJ was already part of my life by then. It forced me to stay disciplined, stay humble, and keep showing up — even when the scale wasn't moving the way I wanted.
             </p>
             <p>
               Six months later: 188 lbs. 54 lbs lost.
             </p>
             <div class="pt-2">
               <a href="/videos/#transformation" class="inline-flex items-center gap-2 text-blue-400 hover:text-blue-300 font-semibold transition-colors group">
-                Watch the transformation videos 
+                Watch the transformation videos
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
               </a>
               <span class="mx-2 text-neutral-600">|</span>
@@ -253,7 +265,7 @@ const profilePageSchema = {
               <p class="text-3xl font-bold text-green-400">{weightStats.lowest} lbs</p>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
-              <p class="text-sm text-neutral-400 mb-1">Current</p>
+              <p class="text-sm text-neutral-400 mb-1">Latest Measured</p>
               <p class="text-3xl font-bold text-blue-400">{weightStats.current} lbs</p>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 text-center">
@@ -300,8 +312,8 @@ const profilePageSchema = {
 
           {/* Narrative */}
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 mt-6 space-y-4 text-neutral-300 leading-relaxed">
-            <p><strong class="text-white">242 → 188:</strong> From January 2023 to March 2024, I dropped 54 lbs using pharmaceutical support (GLP-1, TRT, Anavar), aggressive calorie restriction, and high-volume training. The focus: get lean, build the habit, prove to myself I could do it.</p>
-            <p><strong class="text-white">188 → 218:</strong> After hitting 188 lbs, I pivoted to building. Ate more, prioritized protein and progressive overload on the Speediance, and added BJJ. The scale went up 30 lbs — and I'm stronger, more conditioned, and more capable than ever.</p>
+            <p><strong class="text-white">242 → 188:</strong> In 2023 into early 2024, I dropped 54 lbs using pharmaceutical support (GLP-1, TRT, Anavar), aggressive calorie restriction, and high-volume training. The focus: get lean, build the habit, prove to myself I could do it.</p>
+            <p><strong class="text-white">188 → 218.4:</strong> After hitting 188 lbs, I pivoted to rebuilding. The latest measured weight in the body-composition report is <strong class="text-white">218.4 lbs on {latestWeightDate}</strong>. I ate more, prioritized protein and progressive overload, and balanced lifting with running and BJJ.</p>
             <p><strong class="text-white">The lesson:</strong> The scale is a tool, not a judge. Each phase had purpose. The transformation isn't over — it's just entered a new chapter.</p>
           </div>
         </div>
@@ -372,27 +384,27 @@ const profilePageSchema = {
           {/* Prose */}
           <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
             <p>
-              I hit 188 lbs on January 4, 2024, and immediately understood that the cut was just phase one. 
-              Losing weight is a subtraction problem. Building something on top of it is a different challenge entirely — and honestly, 
-              the more interesting one. The scale has been climbing since. 188 → 205 → 218-229 lbs as of early 2026. 
+              I hit 188 lbs on January 4, 2024, and immediately understood that the cut was just phase one.
+              Losing weight is a subtraction problem. Building something on top of it is a different challenge entirely — and honestly,
+              the more interesting one. The scale has been climbing since. 188 → 205 → 218-229 lbs as of early 2026.
               That's not a setback. That's the plan working.
             </p>
             <p>
-              The <strong class="text-white">Speediance</strong> became the anchor of phase two. In the seven months between July 2025 and February 2026 alone, 
-              I logged 125 sessions and moved <strong class="text-white">1,296,447 lbs</strong> of total volume. My best single session: 
-              35,305 lbs in 50 minutes on February 2, 2026. Top lifts tracked by the machine — barbell lat pulldown at a 294 lb 1RM, 
+              The <strong class="text-white">Speediance</strong> became the anchor of phase two. In the seven months between July 2025 and February 2026 alone,
+              I logged 125 sessions and moved <strong class="text-white">1,296,447 lbs</strong> of total volume. My best single session:
+              35,305 lbs in 50 minutes on February 2, 2026. Top lifts tracked by the machine — barbell lat pulldown at a 294 lb 1RM,
               bent over row at 198 lbs, bench press at 90 lbs via the cable system. These aren't estimates. The machine logs every rep.
             </p>
             <p>
-              Running got rebuilt from scratch in parallel. I started with 1-mile sessions — genuinely just trying to not stop. 
-              By early 2026 I'm doing 5-mile runs. 111 runs logged over the past year: 84 outdoor, 27 treadmill, 2 open water swims. 
-              <strong class="text-white">265.1 miles total.</strong> Not fast. But consistent, progressive, and building. 
+              Running got rebuilt from scratch in parallel. I started with 1-mile sessions — genuinely just trying to not stop.
+              By early 2026 I'm doing 5-mile runs. 111 runs logged over the past year: 84 outdoor, 27 treadmill, 2 open water swims.
+              <strong class="text-white">265.1 miles total.</strong> Not fast. But consistent, progressive, and building.
               The weight going up isn't something to explain away — muscle weighs something. That's the point.
             </p>
             <p>
-              Every training decision now runs through the stack: WHOOP gives me a recovery score each morning, 
-              8Sleep tells me how the night actually went, and the AI assistant I built on <strong class="text-white">OpenClaw</strong> reads all of it — 
-              Garmin activity, sleep data, HRV trends — and generates a daily readiness recommendation before I decide whether to push or pull back. 
+              Every training decision now runs through the stack: WHOOP gives me a recovery score each morning,
+              8Sleep tells me how the night actually went, and the AI assistant I built on <strong class="text-white">OpenClaw</strong> reads all of it —
+              Garmin activity, sleep data, HRV trends — and generates a daily readiness recommendation before I decide whether to push or pull back.
               The system makes the decisions defensible. No guessing, no going on feel when the data says otherwise.
             </p>
           </div>
@@ -443,7 +455,7 @@ const profilePageSchema = {
           <div>
             <h3 class="text-xl font-bold text-white mb-2">Every data point logged</h3>
             <p class="text-neutral-400">
-              These photos don't tell the whole story. Behind each one: daily WHOOP recovery scores, Garmin training load, 8Sleep sleep quality data, 
+              These photos don't tell the whole story. Behind each one: daily WHOOP recovery scores, Garmin training load, 8Sleep sleep quality data,
               and Cronometer nutrition logs. The transformation was systematic, not accidental.
             </p>
           </div>
@@ -459,21 +471,21 @@ const profilePageSchema = {
           <div class="space-y-4">
             <h3 class="text-xl font-bold text-white">Home Gym Tech</h3>
             <p class="text-neutral-400">
-              I've lifted over 1,000,000 lbs on my digital cable machine. I test firmware updates, compare modes, and find the bugs 
+              I've lifted {totalLbsLiftedFormatted} lbs across smart cable machines. I test firmware updates, compare modes, and find the bugs
               so you don't have to. If a machine says it replaces a gym, I verify it.
             </p>
           </div>
           <div class="space-y-4">
             <h3 class="text-xl font-bold text-white">BJJ & Grappling</h3>
             <p class="text-neutral-400">
-              Jiu-Jitsu isn't just a sport; it's a system. I analyze match footage, discuss belt culture, and break down the "why" 
+              Jiu-Jitsu isn't just a sport; it's a system. I analyze match footage, discuss belt culture, and break down the "why"
               behind the techniques.
             </p>
           </div>
           <div class="space-y-4">
             <h3 class="text-xl font-bold text-white">Data & Automation</h3>
             <p class="text-neutral-400">
-              From Whoop recovery scores to building my own AI assistant (OpenClaw) to manage my schedule and training. 
+              From Whoop recovery scores to building my own AI assistant (OpenClaw) to manage my schedule and training.
               If it can be measured and automated, I'm interested.
             </p>
           </div>
@@ -492,8 +504,8 @@ const profilePageSchema = {
               <div>
                 <h3 class="text-xl font-bold text-white mb-2">Why I Train at 6:30 AM</h3>
                 <p class="text-neutral-400">
-                  Mornings are for training before the day steals your energy. 6:30 AM means I'm done lifting or on the mat 
-                  by 8:00, leaving the rest of the day for work, family, and recovery. Training at night has never worked for me — 
+                  Mornings are for training before the day steals your energy. 6:30 AM means I'm done lifting or on the mat
+                  by 8:00, leaving the rest of the day for work, family, and recovery. Training at night has never worked for me —
                   I get second winds that mess with sleep, and by 9 PM I'm too tired to roll hard.
                 </p>
               </div>
@@ -503,8 +515,8 @@ const profilePageSchema = {
               <div>
                 <h3 class="text-xl font-bold text-white mb-2">BJJ + Lifting + Running = The Stack</h3>
                 <p class="text-neutral-400">
-                  I don't choose between them — I do all three. BJJ 3-4x/week keeps my grappling sharp and provides cardio. 
-                  Speediance lifting 4x/week builds muscle and strength. Running 2-3x/week maintains cardiovascular base. 
+                  I don't choose between them — I do all three. BJJ 3-4x/week keeps my grappling sharp and provides cardio.
+                  Speediance lifting 4x/week builds muscle and strength. Running 2-3x/week maintains cardiovascular base.
                   The key is not doing too much of any one: 10 hours total training/week is my ceiling before recovery suffers.
                 </p>
               </div>
@@ -567,7 +579,7 @@ const profilePageSchema = {
             As a brown belt BJJ practitioner, the mat is where I reset. Training out of a dedicated BJJ gym means 3-4 classes a week, regular rolling sessions, and a circuit of positional drilling that keeps the game sharp even when the rest of life is busy. Those classes are a ritual — technique, live sparring, and cleaning up mistakes with training partners who expect the work.
           </p>
           <p class="text-neutral-300 text-base md:text-lg mb-4">
-            The story that brought me here started in 2023 with a 242→188 lb cut that leaned heavily on jiu-jitsu, WHOOP recovery signals, and calculated caloric control. Since then the focus has flipped: I spent 2024 and 2025 rebuilding strength and muscle, climbing from 205 to 218 lbs while still showing up for the mat and letting BJJ keep my conditioning honest.
+            The mat story started much earlier: April 4, 2017 at Harrisburg Brazilian Jiu-Jitsu and Judo, according to my Beltchecker profile. The 2023 cut happened years into that journey, not at the beginning of it, and BJJ stayed one of the anchors while I rebuilt around WHOOP recovery signals, running, lifting, and calculated caloric control.
           </p>
           <p class="text-neutral-300 text-base md:text-lg mb-4">
             Competition has been a compass. At brown belt I earned third place at a regional tournament with a reverse triangle finish that reminded me grit beats perfection. That night is logged in detail in my <a href="/blog/speediance-customization-why-it-breaks-settings/" class="text-blue-500 hover:text-cyan-400 font-semibold">tournament recap</a>, and the lessons from that scramble still shape how I stack strength work with rolling.
@@ -580,12 +592,12 @@ const profilePageSchema = {
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
               <span class="text-xs uppercase tracking-widest text-blue-500">2023 Fat Loss</span>
               <p class="text-3xl font-black text-white mt-3">242→188 lbs</p>
-              <p class="text-neutral-400 text-sm mt-2">Lean, disciplined, and jiu-jitsu fueled. WHOOP recovery kept the deficit honest.</p>
+              <p class="text-neutral-400 text-sm mt-2">Lean, disciplined, and supported by years of mat time. WHOOP recovery kept the deficit honest.</p>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
-              <span class="text-xs uppercase tracking-widest text-blue-500">Current Build</span>
-              <p class="text-3xl font-black text-white mt-3">205→218 lbs</p>
-              <p class="text-neutral-400 text-sm mt-2">Muscle gain phase that still honors BJJ volume — strength training, running, and rolling in harmony.</p>
+              <span class="text-xs uppercase tracking-widest text-blue-500">Latest Measured</span>
+              <p class="text-3xl font-black text-white mt-3">218.4 lbs</p>
+              <p class="text-neutral-400 text-sm mt-2">Measured on {latestWeightDate}; rebuild phase balancing strength training, running, and rolling.</p>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
               <span class="text-xs uppercase tracking-widest text-blue-500">Weekly Mat Time</span>
@@ -595,7 +607,7 @@ const profilePageSchema = {
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
               <span class="text-xs uppercase tracking-widest text-blue-500">Competition</span>
               <p class="text-3xl font-black text-white mt-3">Brown belt</p>
-              <p class="text-neutral-400 text-sm mt-2">Tournaments, ranking matches, and the humility of overtime bouts that remind me to keep evolving.</p>
+              <p class="text-neutral-400 text-sm mt-2">Brown belt since April 9, 2024; tournaments and hard rounds keep the skill honest.</p>
             </div>
           </div>
 
@@ -606,24 +618,24 @@ const profilePageSchema = {
             </div>
             <div class="grid mt-6 gap-4 md:grid-cols-4">
               <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
-                <p class="text-xs uppercase tracking-widest text-neutral-500">Foundation</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Apr 4, 2017</p>
                 <p class="text-base font-semibold text-white mt-3">White belt</p>
-                <p class="text-neutral-400 text-sm mt-1">Installed the basics with hourly guard retention drills at the gym.</p>
+                <p class="text-neutral-400 text-sm mt-1">Started BJJ at Harrisburg Brazilian Jiu-Jitsu and Judo.</p>
               </div>
               <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
-                <p class="text-xs uppercase tracking-widest text-neutral-500">Momentum</p>
-                <p class="text-base font-semibold text-white mt-3">Blue → Purple</p>
-                <p class="text-neutral-400 text-sm mt-1">Built pressure passing and entered the tournament circuit to test what stuck.</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Sep 22, 2019</p>
+                <p class="text-base font-semibold text-white mt-3">Blue belt</p>
+                <p class="text-neutral-400 text-sm mt-1">Promotion listed from the Frederic Rabert seminar at Harrisburg BJJ and Judo.</p>
               </div>
               <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
-                <p class="text-xs uppercase tracking-widest text-neutral-500">Recognition</p>
-                <p class="text-base font-semibold text-white mt-3">Purple → Brown</p>
-                <p class="text-neutral-400 text-sm mt-1">Earned the brown belt, third-place finish, and a reverse triangle that still lives in the logs.</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Dec 7, 2020</p>
+                <p class="text-base font-semibold text-white mt-3">Purple belt</p>
+                <p class="text-neutral-400 text-sm mt-1">Promoted at The Factory Dillsburg by Ademir Oliveira and Jeff Galino.</p>
               </div>
               <div class="rounded-lg border border-neutral-800 bg-neutral-950/50 p-4">
-                <p class="text-xs uppercase tracking-widest text-neutral-500">Daily grind</p>
-                <p class="text-base font-semibold text-white mt-3">Brown belt now</p>
-                <p class="text-neutral-400 text-sm mt-1">Each week balances technique, conditioning, and recovery — the gym, the mat, and WHOOP all in sync.</p>
+                <p class="text-xs uppercase tracking-widest text-neutral-500">Apr 9, 2024</p>
+                <p class="text-base font-semibold text-white mt-3">Brown belt</p>
+                <p class="text-neutral-400 text-sm mt-1">Promoted at The Factory Dillsburg by Ademir Oliveira and Jeff Galino.</p>
               </div>
             </div>
           </div>
@@ -639,11 +651,11 @@ const profilePageSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-10 text-center">Personal Lifestyle</h2>
-          
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
-              <img 
-                src="/images/about/fishing.jpg" 
+              <img
+                src="/images/about/fishing.jpg"
                 alt="Fishing landscape: rod on river bank, scenic, no people"
                 class="w-full object-contain aspect-video bg-neutral-950"
                 loading="lazy"
@@ -653,8 +665,8 @@ const profilePageSchema = {
               </div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
-              <img 
-                src="/images/about/selfie_dbz.jpg" 
+              <img
+                src="/images/about/selfie_dbz.jpg"
                 alt="Solo selfie: Dragon Ball Z shirt, smiling, outdoor with painted rabbit sculpture"
                 class="w-full object-contain aspect-video bg-neutral-950"
                 loading="lazy"
@@ -674,7 +686,7 @@ const profilePageSchema = {
         <div class="max-w-5xl mx-auto">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">BJJ + Transformation</p>
           <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">How BJJ Fueled My Transformation</h2>
-          
+
           {/* Weight Journey Stats */}
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
@@ -689,8 +701,8 @@ const profilePageSchema = {
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
               <div class="text-4xl font-bold text-white mb-2">218 lbs</div>
-              <div class="text-sm text-neutral-400 uppercase tracking-wider">Current Weight (2026)</div>
-              <div class="text-xs text-neutral-600 mt-2">+30 lbs muscle — stronger than ever</div>
+              <div class="text-sm text-neutral-400 uppercase tracking-wider">Latest Measured (2026)</div>
+              <div class="text-xs text-neutral-600 mt-2">Measured on {latestWeightDate}</div>
             </div>
           </div>
 
@@ -706,10 +718,10 @@ const profilePageSchema = {
                 <div class="text-center">
                   <div class="text-white font-bold">White Belt</div>
                   <div class="text-neutral-500 text-sm">Started BJJ</div>
-                  <div class="text-blue-400 text-xs mt-1">2022</div>
+                  <div class="text-blue-400 text-xs mt-1">Apr 4, 2017</div>
                 </div>
               </div>
-              
+
               {/* Arrow */}
               <div class="hidden md:block text-neutral-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -722,8 +734,8 @@ const profilePageSchema = {
                 </div>
                 <div class="text-center">
                   <div class="text-white font-bold">Blue Belt</div>
-                  <div class="text-neutral-500 text-sm">First stripe earned</div>
-                  <div class="text-blue-400 text-xs mt-1">2023</div>
+                  <div class="text-neutral-500 text-sm">Promoted at seminar</div>
+                  <div class="text-blue-400 text-xs mt-1">Sep 22, 2019</div>
                 </div>
               </div>
 
@@ -739,8 +751,8 @@ const profilePageSchema = {
                 </div>
                 <div class="text-center">
                   <div class="text-white font-bold">Purple Belt</div>
-                  <div class="text-neutral-500 text-sm">Competition ready</div>
-                  <div class="text-blue-400 text-xs mt-1">2024</div>
+                  <div class="text-neutral-500 text-sm">The Factory Dillsburg</div>
+                  <div class="text-blue-400 text-xs mt-1">Dec 7, 2020</div>
                 </div>
               </div>
 
@@ -757,7 +769,7 @@ const profilePageSchema = {
                 <div class="text-center">
                   <div class="text-white font-bold">Brown Belt</div>
                   <div class="text-neutral-500 text-sm">Current rank</div>
-                  <div class="text-blue-400 text-xs mt-1">2025-Present</div>
+                  <div class="text-blue-400 text-xs mt-1">Apr 9, 2024-Present</div>
                 </div>
               </div>
             </div>
@@ -766,29 +778,29 @@ const profilePageSchema = {
           {/* BJJ Journey Narrative */}
           <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
             <p>
-              <strong class="text-white">BJJ wasn't just part of my transformation — it was the catalyst.</strong> 
-              When I started training jiu-jitsu in 2022, I was 242 pounds and honestly in the worst shape of my life. 
-              But something clicked on the mat. The technical nature of BJJ — solving positional puzzles, 
+              <strong class="text-white">BJJ wasn't just part of my transformation — it was the catalyst.</strong>
+              When I started training jiu-jitsu on April 4, 2017, I was learning the same lesson everyone learns early: the mat does not negotiate with excuses.
+              But something clicked on the mat. The technical nature of BJJ — solving positional puzzles,
               against opponents who don't care about your excuses — changed how I approached fitness entirely.
             </p>
             <p>
-              The weight loss happened faster than I expected. Between training 3-4x per week, the consistent 
-              caloric deficit tracked via Cronometer, and the mental clarity that comes from regular mat time, 
-              I dropped from 242 to 188 pounds by January 2024. That's not just cardio — that's the compound 
-              effect of consistency, competition (I competed at both Gi and No-Gi), and having a community 
+              The weight loss happened faster than I expected. Between training 3-4x per week, the consistent
+              caloric deficit tracked via Cronometer, and the mental clarity that comes from regular mat time,
+              I dropped from 242 to 188 pounds by January 2024. That's not just cardio — that's the compound
+              effect of consistency, competition (I competed at both Gi and No-Gi), and having a community
               that held me accountable.
             </p>
             <p>
-              Now at <strong class="text-white">218 pounds</strong> in 2026, I'm in the muscle-building phase. 
-              The difference this time: I train smarter. WHOOP recovery scores tell me when to push and when to rest. 
-              My BJJ training has evolved from "survive every round" to "dominate positions." I've competed at brown belt 
-              in both Gi and No-Gi, and the drive to keep improving keeps me showing up at 6:30 AM — even when the 
+              At the latest measured <strong class="text-white">218.4 pounds</strong> in 2026, I'm in the rebuild phase.
+              The difference this time: I train smarter. WHOOP recovery scores tell me when to push and when to rest.
+              My BJJ training has evolved from "survive every round" to "dominate positions." I've competed at brown belt
+              in both Gi and No-Gi, and the drive to keep improving keeps me showing up at 6:30 AM — even when the
               bed is warm and the mat is cold.
             </p>
             <p>
-              BJJ taught me that progress isn't linear. There will be plateaus, injuries, and rounds where you get submitted 
-              by someone who trained for half as long. That's the point. The mat doesn't care about your excuses. 
-              Neither do I. That's why I document everything — the lifts, the runs, the rolls, the data. 
+              BJJ taught me that progress isn't linear. There will be plateaus, injuries, and rounds where you get submitted
+              by someone who trained for half as long. That's the point. The mat doesn't care about your excuses.
+              Neither do I. That's why I document everything — the lifts, the runs, the rolls, the data.
               Because what gets measured gets managed.
             </p>
           </div>
@@ -808,8 +820,8 @@ const profilePageSchema = {
               <div class="text-xs text-neutral-500 uppercase tracking-wide">Competition</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5 text-center">
-              <div class="text-3xl font-black text-white mb-1">4+</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Stripes Earned</div>
+              <div class="text-3xl font-black text-white mb-1">9+</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wide">Years Training</div>
             </div>
           </div>
         </div>
