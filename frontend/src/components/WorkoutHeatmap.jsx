@@ -1,6 +1,16 @@
 import { useMemo } from 'react';
 import homepageFitnessData from '../data/homepageFitnessData.json';
 
+const WEEK_COUNT = 52;
+
+const HEAT_LEVELS = [
+  { label: '0', className: 'bg-neutral-800', title: '0 sessions' },
+  { label: '1', className: 'bg-emerald-900/90', title: '1 session' },
+  { label: '2', className: 'bg-emerald-700', title: '2 sessions' },
+  { label: '3', className: 'bg-green-500', title: '3 sessions' },
+  { label: '4+', className: 'bg-lime-400', title: '4+ sessions' },
+];
+
 function toLocalDateKey(rawDate) {
   if (!rawDate) return null;
   const d = new Date(rawDate);
@@ -10,9 +20,8 @@ function toLocalDateKey(rawDate) {
 }
 
 function getColorClass(count) {
-  if (count === 0) return 'bg-neutral-800';
-  if (count <= 2) return 'bg-green-600';
-  return 'bg-green-500';
+  const sessions = Number(count) || 0;
+  return HEAT_LEVELS[Math.min(Math.max(sessions, 0), HEAT_LEVELS.length - 1)].className;
 }
 
 export default function WorkoutHeatmap() {
@@ -37,7 +46,7 @@ export default function WorkoutHeatmap() {
     });
 
     const summaryStats = {
-      totalActive: consistency.totalActive ?? 0,
+      totalActive: (consistency.days || []).length || consistency.totalActive || 0,
       current: consistency.currentStreak ?? 0,
       longest: consistency.longestStreak ?? 0,
     };
@@ -45,18 +54,19 @@ export default function WorkoutHeatmap() {
     const end = consistency.rangeEnd ? new Date(`${consistency.rangeEnd}T12:00:00Z`) : new Date();
     end.setHours(0, 0, 0, 0);
 
-    // Anchor from today's Saturday (end of current week) going back 52 weeks.
-    // This ensures the current week is always the last column, no label collisions.
+    // Anchor to the Saturday ending the current week and render exactly 52
+    // Sunday-to-Saturday columns. The old 53-column range leaked the prior
+    // partial June week, which made the month labels read like “JunJulAug…”.
     const endSaturday = new Date(end);
-    endSaturday.setDate(endSaturday.getDate() + (6 - endSaturday.getDay())); // advance to Saturday
+    endSaturday.setDate(endSaturday.getDate() + (6 - endSaturday.getDay()));
 
     const startSunday = new Date(endSaturday);
-    startSunday.setDate(startSunday.getDate() - 52 * 7 - 6); // 52 full weeks back to Sunday
+    startSunday.setDate(startSunday.getDate() - (WEEK_COUNT - 1) * 7 - 6);
 
     const weeksData = [];
     const cursor = new Date(startSunday);
 
-    for (let w = 0; w < 53; w++) {
+    for (let w = 0; w < WEEK_COUNT; w++) {
       const week = [];
       for (let d = 0; d < 7; d++) {
         const key = toLocalDateKey(cursor);
@@ -76,11 +86,14 @@ export default function WorkoutHeatmap() {
     const labels = [];
     let lastMonthKey = '';
     weeksData.forEach((week, weekIndex) => {
-      const d = week[0].date;
-      const monthKey = `${d.getFullYear()}-${d.getMonth()}`;
+      const firstOfMonth = week.find((day) => day.date.getDate() === 1);
+      const labelDate = weekIndex === 0 ? week[0].date : firstOfMonth?.date;
+      if (!labelDate) return;
+
+      const monthKey = `${labelDate.getFullYear()}-${labelDate.getMonth()}`;
       if (monthKey !== lastMonthKey) {
         labels.push({
-          label: d.toLocaleDateString('en-US', { month: 'short' }),
+          label: labelDate.toLocaleDateString('en-US', { month: 'short' }),
           weekIndex,
         });
         lastMonthKey = monthKey;
@@ -89,16 +102,18 @@ export default function WorkoutHeatmap() {
 
     return { weeks: weeksData, monthLabels: labels, stats: summaryStats };
   }, []);
+
   const headingId = 'training-consistency-heading';
+  const weekGridStyle = { gridTemplateColumns: `repeat(${weeks.length}, minmax(0.85rem, 1fr))` };
 
   return (
     <section
       id="training-consistency"
       aria-labelledby={headingId}
       data-section-title="Training Consistency"
-      className="py-16 bg-neutral-950 border-t border-neutral-800"
+      className="py-16 bg-neutral-950 border-t border-neutral-800 w-full"
     >
-      <div className="container mx-auto px-4">
+      <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
           <span className="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Track Your Progress</span>
           <h2 id={headingId} className="text-3xl md:text-4xl font-bold text-white">Training Consistency</h2>
@@ -122,14 +137,14 @@ export default function WorkoutHeatmap() {
           </div>
         </div>
 
-        <div className="bg-neutral-900 rounded-lg p-4 md:p-6 border border-neutral-800 overflow-x-auto">
-          <div className="min-w-max">
-            <div className="flex mb-2 ml-8 h-4 text-xs text-neutral-500 relative">
+        <div className="bg-neutral-900 rounded-lg p-4 md:p-6 border border-neutral-800 w-full overflow-x-auto">
+          <div className="min-w-[48rem] w-full">
+            <div className="grid mb-2 ml-10 h-4 text-xs text-neutral-500" style={weekGridStyle}>
               {monthLabels.map((month) => (
                 <span
                   key={`${month.label}-${month.weekIndex}`}
-                  className="absolute"
-                  style={{ left: `${month.weekIndex * 14}px` }}
+                  className="truncate leading-4"
+                  style={{ gridColumn: `${month.weekIndex + 1} / span 3` }}
                 >
                   {month.label}
                 </span>
@@ -137,7 +152,7 @@ export default function WorkoutHeatmap() {
             </div>
 
             <div className="flex gap-2">
-              <div className="grid grid-rows-7 h-[98px] text-xs text-neutral-500">
+              <div className="grid grid-rows-7 h-[98px] w-8 shrink-0 text-xs text-neutral-500">
                 <span className="h-[14px] leading-[14px]">Sun</span>
                 <span className="h-[14px] leading-[14px]"></span>
                 <span className="h-[14px] leading-[14px]">Tue</span>
@@ -147,36 +162,40 @@ export default function WorkoutHeatmap() {
                 <span className="h-[14px] leading-[14px]">Sat</span>
               </div>
 
-              <div className="grid grid-rows-7 grid-flow-col gap-0.5">
-                {weeks.flat().map((day) => {
-                  const breakdown = [
-                    day.runs > 0 ? `${day.runs} run${day.runs === 1 ? '' : 's'}` : null,
-                    day.lifting > 0 ? `${day.lifting} lift${day.lifting === 1 ? '' : 's'}` : null,
-                    day.bjj > 0 ? `${day.bjj} BJJ session${day.bjj === 1 ? '' : 's'}` : null,
-                  ].filter(Boolean).join(', ');
-                  const tooltip = `${day.count} session${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString('en-US', {
-                    weekday: 'short',
-                    month: 'short',
-                    day: 'numeric',
-                    year: 'numeric',
-                  })}${breakdown ? ` (${breakdown})` : ''}`;
+              <div className="grid flex-1 gap-0.5" style={weekGridStyle}>
+                {weeks.map((week, weekIndex) => (
+                  <div key={`week-${weekIndex}`} className="grid grid-rows-7 gap-0.5">
+                    {week.map((day) => {
+                      const breakdown = [
+                        day.runs > 0 ? `${day.runs} run${day.runs === 1 ? '' : 's'}` : null,
+                        day.lifting > 0 ? `${day.lifting} lift${day.lifting === 1 ? '' : 's'}` : null,
+                        day.bjj > 0 ? `${day.bjj} BJJ session${day.bjj === 1 ? '' : 's'}` : null,
+                      ].filter(Boolean).join(', ');
+                      const tooltip = `${day.count} session${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      })}${breakdown ? ` (${breakdown})` : ''}`;
 
-                  return (
-                    <div
-                      key={day.key + day.date.getTime()}
-                      title={tooltip}
-                      className={`w-3 h-3 rounded-sm ${getColorClass(day.count)} hover:ring-1 hover:ring-white/40 transition`}
-                    />
-                  );
-                })}
+                      return (
+                        <div
+                          key={day.key + day.date.getTime()}
+                          title={tooltip}
+                          className={`h-3 rounded-sm ${getColorClass(day.count)} hover:ring-1 hover:ring-white/40 transition`}
+                        />
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
             </div>
 
             <div className="flex items-center justify-end gap-2 mt-4 text-xs text-neutral-500">
               <span>Less</span>
-              <div className="w-3 h-3 rounded-sm bg-neutral-800" title="0 sessions" />
-              <div className="w-3 h-3 rounded-sm bg-green-600" title="1-2 sessions" />
-              <div className="w-3 h-3 rounded-sm bg-green-500" title="3+ sessions" />
+              {HEAT_LEVELS.map((level) => (
+                <div key={level.label} className={`w-3 h-3 rounded-sm ${level.className}`} title={level.title} />
+              ))}
               <span>More</span>
             </div>
           </div>

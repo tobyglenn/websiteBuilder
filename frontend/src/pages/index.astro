@@ -204,12 +204,8 @@ const webPageSchema = {
 
 	<YearlyGoals client:visible lang="en" />
 
-	<section class="py-16 bg-neutral-950 border-t border-neutral-800">
-		<div class="container mx-auto px-4">
-			<WorkoutHeatmap client:load />
-			<ThisWeekWidget client:load />
-		</div>
-	</section>
+	<WorkoutHeatmap client:load />
+	<ThisWeekWidget client:load />
 
 	{/* Latest from the Blog */}
 	<section id="blog" class="py-16 bg-neutral-950 border-t border-neutral-800">
