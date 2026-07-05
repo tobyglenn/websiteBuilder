@@ -16,7 +16,8 @@ function formatPostDate(
   value = '',
   options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' }
 ) {
-  const timestamp = Date.parse(value);
+  const normalized = /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value;
+  const timestamp = Date.parse(normalized);
   return Number.isNaN(timestamp)
     ? 'Undated'
     : new Date(timestamp).toLocaleDateString(undefined, options);

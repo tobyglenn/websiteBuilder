@@ -24,6 +24,14 @@ function readTime(content = '') {
   const words = String(content).split(/\s+/).filter(Boolean).length;
   return `${Math.max(1, Math.round(words / 200))} min read`;
 }
+
+function formatPostDate(value = '') {
+  const normalized = /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value;
+  const timestamp = Date.parse(normalized);
+  return Number.isNaN(timestamp)
+    ? 'Draft'
+    : new Date(timestamp).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+}
 ---
 
 <Layout
@@ -73,7 +81,7 @@ function readTime(content = '') {
           </div>
           <div class="flex items-center gap-2">
             <Calendar size={16} />
-            <span>{post.date ? new Date(post.date).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : 'Draft'}</span>
+            <span>{formatPostDate(post.date)}</span>
           </div>
         </div>
 

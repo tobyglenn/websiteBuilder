@@ -10,6 +10,14 @@ function readTime(content = '') {
   return `${Math.max(1, Math.round(words / 200))} min read`;
 }
 
+function formatPostDate(value = '') {
+  const normalized = /^\d{4}-\d{2}-\d{2}$/.test(value) ? `${value}T12:00:00Z` : value;
+  const timestamp = Date.parse(normalized);
+  return Number.isNaN(timestamp)
+    ? 'Undated'
+    : new Date(timestamp).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
 export function getStaticPaths() {
   return DYNAMIC_BLOG_POSTS.map(post => ({
     params: { slug: post.slug },
@@ -227,7 +235,7 @@ const articleJsonLd = {
             </div>
             <div class="flex items-center gap-2">
                 <Calendar size={16} />
-                <span>{new Date(post.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                <span>{formatPostDate(post.published_at)}</span>
             </div>
         </div>
 
@@ -311,7 +319,7 @@ const articleJsonLd = {
                     {relatedPost.title}
                   </h4>
                   <div class="flex flex-wrap items-center gap-2 text-xs text-neutral-500">
-                    <span>{new Date(relatedPost.published_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                    <span>{formatPostDate(relatedPost.published_at)}</span>
                     <span>•</span>
                     <span>{readTime(relatedPost.content)}</span>
                   </div>
