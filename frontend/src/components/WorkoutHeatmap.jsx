@@ -86,10 +86,10 @@ export default function WorkoutHeatmap() {
     const labels = [];
     let lastMonthKey = '';
     weeksData.forEach((week, weekIndex) => {
-      const firstOfMonth = week.find((day) => day.date.getDate() === 1);
-      const labelDate = weekIndex === 0 ? week[0].date : firstOfMonth?.date;
-      if (!labelDate) return;
-
+      // Label by the Sunday that starts each column. If a new month begins
+      // mid-week, don't put its label over the prior month's Sunday-Tuesday
+      // cells; wait until the first full week that starts in that month.
+      const labelDate = week[0].date;
       const monthKey = `${labelDate.getFullYear()}-${labelDate.getMonth()}`;
       if (monthKey !== lastMonthKey) {
         labels.push({
