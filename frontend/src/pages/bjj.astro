@@ -4,6 +4,8 @@ import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 import { ArrowRight } from 'lucide-react';
 import { bjjStats } from '../data/bjj.js';
 
+const beltcheckerUrl = "https://www.beltchecker.com/profile.php?id=11297";
+
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
   return `${Math.max(1, Math.round(words / 200))} min read`;
@@ -191,6 +193,15 @@ const webPageSchema = {
             <div class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 rounded-full px-4 py-2">
               <span class="text-sm font-semibold text-white">{stats.bjjDaysPerWeek}x / week</span>
             </div>
+            <a
+              href={beltcheckerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 bg-neutral-900 border border-neutral-800 hover:border-blue-500 rounded-full px-4 py-2 transition-colors"
+            >
+              <span class="text-sm font-semibold text-white">Beltchecker profile</span>
+              <span class="text-blue-400 text-sm">↗</span>
+            </a>
           </div>
         </div>
       </div>

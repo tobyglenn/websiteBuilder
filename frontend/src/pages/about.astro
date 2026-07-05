@@ -4,6 +4,7 @@ import { weightData, getStats, formatWeight } from '../data/weight.js';
 import homepageFitnessData from '../data/homepageFitnessData.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const beltcheckerUrl = "https://www.beltchecker.com/profile.php?id=11297";
 const totalLbsLifted = Number(homepageFitnessData.lifetimeStats?.totalLbsLifted || 0);
 const totalLbsLiftedFormatted = totalLbsLifted.toLocaleString('en-US');
 const totalLbsLiftedCompact = totalLbsLifted >= 1000000
@@ -583,7 +584,7 @@ const profilePageSchema = {
             As a brown belt BJJ practitioner, the mat is where I reset. Training out of a dedicated BJJ gym means 3-4 classes a week, regular rolling sessions, and a circuit of positional drilling that keeps the game sharp even when the rest of life is busy. Those classes are a ritual — technique, live sparring, and cleaning up mistakes with training partners who expect the work.
           </p>
           <p class="text-neutral-300 text-base md:text-lg mb-4">
-            The mat story started much earlier: April 4, 2017 at Harrisburg Brazilian Jiu-Jitsu and Judo, according to my Beltchecker profile. The 2023 cut happened years into that journey, not at the beginning of it, and BJJ stayed one of the anchors while I rebuilt around WHOOP recovery signals, running, lifting, and calculated caloric control.
+            The mat story started much earlier: April 4, 2017 at Harrisburg Brazilian Jiu-Jitsu and Judo, according to my <a href={beltcheckerUrl} target="_blank" rel="noopener noreferrer" class="text-blue-500 hover:text-cyan-400 font-semibold">Beltchecker profile</a>. The 2023 cut happened years into that journey, not at the beginning of it, and BJJ stayed in the picture while I rebuilt around WHOOP recovery signals, running, lifting, and calculated caloric control.
           </p>
           <p class="text-neutral-300 text-base md:text-lg mb-4">
             Competition has been a compass. At brown belt I earned third place at a regional tournament with a reverse triangle finish that reminded me grit beats perfection. That night is logged in detail in my <a href="/blog/speediance-customization-why-it-breaks-settings/" class="text-blue-500 hover:text-cyan-400 font-semibold">tournament recap</a>, and the lessons from that scramble still shape how I stack strength work with rolling.
@@ -596,7 +597,7 @@ const profilePageSchema = {
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
               <span class="text-xs uppercase tracking-widest text-blue-500">2023 Fat Loss</span>
               <p class="text-3xl font-black text-white mt-3">242→188 lbs</p>
-              <p class="text-neutral-400 text-sm mt-2">Lean, disciplined, and supported by years of mat time. WHOOP recovery kept the deficit honest.</p>
+              <p class="text-neutral-400 text-sm mt-2">Done while managing hard mat sessions, fatigue, injuries, and WHOOP recovery signals.</p>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
               <span class="text-xs uppercase tracking-widest text-blue-500">Latest Measured</span>
@@ -689,7 +690,7 @@ const profilePageSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-5xl mx-auto">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-3">BJJ + Transformation</p>
-          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">How BJJ Fueled My Transformation</h2>
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-10">Where BJJ Fit Into My Transformation</h2>
 
           {/* Weight Journey Stats */}
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
@@ -701,7 +702,7 @@ const profilePageSchema = {
             <div class="bg-neutral-900 border border-blue-500/30 rounded-2xl p-6 text-center">
               <div class="text-4xl font-bold text-blue-500 mb-2">188 lbs</div>
               <div class="text-sm text-neutral-400 uppercase tracking-wider">Lowest Weight (Jan 2024)</div>
-              <div class="text-xs text-neutral-600 mt-2">54 lbs lost — BJJ accelerated fat loss</div>
+              <div class="text-xs text-neutral-600 mt-2">54 lbs lost while BJJ complicated the cut</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
               <div class="text-4xl font-bold text-white mb-2">{currentWeightRoundedDisplay} lbs</div>
@@ -782,30 +783,24 @@ const profilePageSchema = {
           {/* BJJ Journey Narrative */}
           <div class="space-y-6 text-neutral-300 leading-relaxed text-lg">
             <p>
-              <strong class="text-white">BJJ wasn't just part of my transformation — it was the catalyst.</strong>
-              When I started training jiu-jitsu on April 4, 2017, I was learning the same lesson everyone learns early: the mat does not negotiate with excuses.
-              But something clicked on the mat. The technical nature of BJJ — solving positional puzzles,
-              against opponents who don't care about your excuses — changed how I approached fitness entirely.
+              <strong class="text-white">BJJ was not the simple hero story of the transformation.</strong>
+              I had already been training for years when I made the hard cut from 242 to 188 pounds, and there were stretches where jiu-jitsu made the process harder.
+              Hard rounds left me banged up, injuries piled up, and the mat sometimes moved me away from the bodybuilding work I was trying to prioritize.
             </p>
             <p>
-              The weight loss happened faster than I expected. Between training 3-4x per week, the consistent
-              caloric deficit tracked via Cronometer, and the mental clarity that comes from regular mat time,
-              I dropped from 242 to 188 pounds by January 2024. That's not just cardio — that's the compound
-              effect of consistency, competition (I competed at both Gi and No-Gi), and having a community
-              that held me accountable.
+              During that cut, I seriously thought about quitting BJJ. I was trying to become the leanest and fittest version of myself,
+              but rolling while hurt, under-recovered, and deep in a deficit was not some clean motivational montage.
+              The weight loss came from deliberate calorie control, lifting, recovery tracking, and staying consistent even when I was not easy to live with.
             </p>
             <p>
               At the latest measured <strong class="text-white">{currentWeightDisplay} pounds</strong> in 2026, I'm in the rebuild phase.
-              The difference this time: I train smarter. WHOOP recovery scores tell me when to push and when to rest.
-              My BJJ training has evolved from "survive every round" to "dominate positions." I've competed at brown belt
-              in both Gi and No-Gi, and the drive to keep improving keeps me showing up at 6:30 AM — even when the
-              bed is warm and the mat is cold.
+              The difference this time: I am more honest about the tradeoffs. BJJ gives me a mentally and physically demanding practice,
+              but I have to balance it against strength training, running, recovery, and the simple fact that hard rolls can beat up a 39-year-old body.
             </p>
             <p>
-              BJJ taught me that progress isn't linear. There will be plateaus, injuries, and rounds where you get submitted
-              by someone who trained for half as long. That's the point. The mat doesn't care about your excuses.
-              Neither do I. That's why I document everything — the lifts, the runs, the rolls, the data.
-              Because what gets measured gets managed.
+              What keeps me on the mat is not a slogan about discipline. It is the people.
+              Adult relationships that last are hard to build, and jiu-jitsu creates a room full of people trying to get stronger, faster, better, and more technical together.
+              That community, plus the physical and mental puzzle of the sport, is why I still train even after the injuries, the doubts, and the days where everything hurts.
             </p>
           </div>
 
