@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sun, 05 Jul 2026 17:18:59 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 81 -->
+    <item>
+      <title>एपिसोड 81: GPT-5.6 Sol Ultra Codex के लिए, OpenScience शिपिंग, 270M LM और Qwen स्टैगर</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep081/episode_081.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-81/</link>
+      <description><![CDATA[आज का एजेंटस्टैक डेली GPT-5.6 Sol Ultra को Codex में जाने के साथ, GitHub-सूचीबद्ध कोड वर्कस्पेस अपडेट के साथ-साथ Synthetic Sciences के वैज्ञानिक अनुसंधान के लिए OpenScience AI वर्कबेंच को भी शामिल करता है। Independent Build ने 270M-पैरामीटर वाला एक ओपन-वेट्स भाषा मॉडल लॉन्च किया, Qwen के स्टैगर्ड रिलीज ने स्थानीय मॉडल व्यवहार्यता पर सवाल फिर से उठाए, और एक Ollama-केवल स्थानीय वेब एजेंट ने r/ollama के फ्रंट पेज पर जगह बनाई। शोध चयन में क्रॉस-PR हमले, मल्टी-एजेंट ऑफ-द-रिकॉर्ड बहस चैनल, और सेल्फ-एवोल्विंग रूब्रिक्स शामिल हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-81/]]></description>
+      <pubDate>Mon, 06 Jul 2026 16:05:02 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_081.mp3" length="43959737" type="audio/mpeg"/>
+      <itunes:duration>45:47</itunes:duration>
+      <itunes:episode>81</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep081/episode_081_cover.png"/>
+    </item>
+
     <!-- Episode 80 -->
     <item>
       <title>एपिसोड 80: GPT-5.5 Codex तर्क त्रुटि, Claude Code कैश रिसाव, Mistral 1.5 उतरा</title>
