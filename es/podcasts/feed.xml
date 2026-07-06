@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Sun, 05 Jul 2026 17:18:59 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 81 -->
+    <item>
+      <title>Episodio 81: GPT-5.6 Sol Ultra para Codex, OpenScience se lanza, 270M LM y lanzamiento escalonado de Qwen</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep081/episode_081.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-81/</link>
+      <description><![CDATA[Hoy, AgentStack Daily informa sobre GPT-5.6 Sol Ultra camino a Codex junto con una actualización de espacio de trabajo de código listada en GitHub, además del banco de trabajo de IA OpenScience de Synthetic Sciences para la investigación científica. Independent Build lanza un modelo de lenguaje de 270 M parámetros con pesos abiertos, el lanzamiento escalonado de Qwen reaviva las dudas sobre la viabilidad de modelos locales, y un agente web local que funciona exclusivamente con Ollama llegó a la portada de r/ollama. Las selecciones de investigación incluyen ataques entre PR en agentes de codificación, canales de debate extraoficiales en sistemas multiagente y rúbricas autoevolutivas.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-81/]]></description>
+      <pubDate>Mon, 06 Jul 2026 16:05:02 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_081.mp3" length="38123355" type="audio/mpeg"/>
+      <itunes:duration>39:42</itunes:duration>
+      <itunes:episode>81</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep081/episode_081_cover.png"/>
+    </item>
+
     <!-- Episode 80 -->
     <item>
       <title>Episodio 80: GPT-5.5 Codex Fallo de Razonamiento, Fuga de Caché en Claude Code, Mistral 1.5 Llega</title>
