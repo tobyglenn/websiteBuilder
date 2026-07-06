@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sun, 05 Jul 2026 17:18:59 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 81 -->
+    <item>
+      <title>Folge 81: GPT-5.6 Sol Ultra für Codex, OpenScience startet, 270M LM und Qwen-Staffelung</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep081/episode_081.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-81/</link>
+      <description><![CDATA[Heute berichtet AgentStack Daily über GPT-5.6 Sol Ultra, das auf dem Weg zu Codex ist, zusammen mit einem GitHub-gelisteten Code-Arbeitsbereich-Update, sowie die OpenScience AI-Workbench von Synthetic Sciences für die wissenschaftliche Forschung. Independent Build liefert ein 270M-Parameter-Open-Weight-LM aus, Qwens gestaffelte Veröffentlichung weckt erneut Fragen zur lokalen Modellvielfalt, und ein ausschließlich über Ollama laufender lokaler Web-Agent hat die Frontseite von r/ollama erklommen. Forschungshighlights umfassen Cross-PR-Angriffe auf Coding-Agenten, Multi-Agenten-Deabattkanäle außerhalb der Akten und selbstentwickelnde Rubriken.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-81/]]></description>
+      <pubDate>Mon, 06 Jul 2026 16:05:02 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_081.mp3" length="40133738" type="audio/mpeg"/>
+      <itunes:duration>41:48</itunes:duration>
+      <itunes:episode>81</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep081/episode_081_cover.png"/>
+    </item>
+
     <!-- Episode 80 -->
     <item>
       <title>Folge 80: GPT-5.5 Codex Reasoning-Fehler, Claude Code Cache-Leck, Mistral 1.5 Veröffentlicht</title>
