@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-05T09:46:40.055285",
-  "total_activities": 1548,
+  "generated_at": "2026-07-06T07:30:14.759555",
+  "total_activities": 1549,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-07-04"
+    "end": "2026-07-05"
   },
   "activities": [
     {
@@ -31693,6 +31693,52 @@
         }
       ],
       "avgPace": 0
+    },
+    {
+      "date": "2026-07-05",
+      "startTimeLocal": "2026-07-05 17:30:41",
+      "activityType": "running",
+      "activityName": "Camp Hill - Base",
+      "distance": 2.7309,
+      "distance_miles": 2.7309,
+      "duration": 46.85,
+      "averageHR": 121.0,
+      "maxHR": 153.0,
+      "calories": 401.0,
+      "aerobicTrainingEffect": 2.299999952316284,
+      "anaerobicTrainingEffect": 1.100000023841858,
+      "averageSpeed": 1.5640000104904175,
+      "avgPower": 205.0,
+      "maxPower": 707.0,
+      "averageRunningCadenceInStepsPerMinute": 124.296875,
+      "hrTimeInZones": [
+        {
+          "zoneNumber": 1,
+          "secsInZone": 1200.0,
+          "zoneLowBoundary": 118
+        },
+        {
+          "zoneNumber": 2,
+          "secsInZone": 380.0,
+          "zoneLowBoundary": 134
+        },
+        {
+          "zoneNumber": 3,
+          "secsInZone": 17.0,
+          "zoneLowBoundary": 152
+        },
+        {
+          "zoneNumber": 4,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 168
+        },
+        {
+          "zoneNumber": 5,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 172
+        }
+      ],
+      "avgPace": 0
     }
   ],
   "weight_history": [
@@ -38920,6 +38966,26 @@
       "date": "2026-02-13",
       "weight_lbs": 218.4,
       "weight_kg": 99.06
+    },
+    {
+      "date": "2026-06-27",
+      "weight_lbs": 213.6,
+      "weight_kg": 96.89
+    },
+    {
+      "date": "2026-06-28",
+      "weight_lbs": 215.6,
+      "weight_kg": 97.79
+    },
+    {
+      "date": "2026-07-02",
+      "weight_lbs": 217.2,
+      "weight_kg": 98.52
+    },
+    {
+      "date": "2026-07-05",
+      "weight_lbs": 216.6,
+      "weight_kg": 98.25
     }
   ]
 }
