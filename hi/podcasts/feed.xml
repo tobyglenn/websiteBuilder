@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 18:23:51 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 82 -->
+    <item>
+      <title>एपिसोड 82: Claude Code 2.1.195, Tencent Hy3, Nex-N2-Mini, GLM 5.2, और Anthropic's वैश्विक कार्यस्थान शोधपत्र</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep082/episode_082.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-82/</link>
+      <description><![CDATA[Claude Code CLI 2.1.195 ships alongside Tencent's Hy3, a 295B MoE with configurable reasoning effort, and Nex AGI's open-weight Nex-N2-Mini, both on OpenRouter. GLM 5.2 lands amid AI margin-collapse debates. Anthropic publishes a Global Workspace Theory interpretability analysis; a Claude Code workspace session leak and a goodwill-erosion post trend on Hacker News. Ternlight ships a 7MB browser-side WASM embedding model, and an archive of leaked agent system prompts climbs GitHub. Research: Graph Sparse Sampling, weak-to-strong on-policy distillation, Cortex's bidirectional VLM-VLA paper, Graph-as-Policy multi-agent robot training, and a study on style and coding agents.
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-82/]]></description>
+      <pubDate>Tue, 07 Jul 2026 18:23:51 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_082.mp3" length="48669301" type="audio/mpeg"/>
+      <itunes:duration>50:41</itunes:duration>
+      <itunes:episode>82</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep082/episode_082_cover.png"/>
+    </item>
+
     <!-- Episode 81 -->
     <item>
       <title>एपिसोड 81: GPT-5.6 Sol Ultra Codex के लिए, OpenScience शिपिंग, 270M LM और Qwen स्टैगर</title>
