@@ -1109,6 +1109,63 @@
       "totalSessions": 1,
       "avgVolume": 9297.0,
       "totalVolume": 9297.0
+    },
+    "ARIA Handles Recovery Stamina 20260707": {
+      "name": "ARIA Handles Recovery Stamina 20260707",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-07-07",
+          "totalCapacity": 5076.5,
+          "durationMinute": 16,
+          "calorie": 437,
+          "actionNum": 12
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-07-07",
+        "totalCapacity": 5076.5,
+        "durationMinute": 16,
+        "calorie": 437,
+        "actionNum": 12
+      },
+      "totalSessions": 1,
+      "avgVolume": 5076.5,
+      "totalVolume": 5076.5
+    },
+    "ARIA Barbell Build Stamina 20260705": {
+      "name": "ARIA Barbell Build Stamina 20260705",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-07-07",
+          "totalCapacity": 0.0,
+          "durationMinute": 18,
+          "calorie": 20,
+          "actionNum": 13
+        },
+        {
+          "date": "2026-07-07",
+          "totalCapacity": 1823.0,
+          "durationMinute": 18,
+          "calorie": 191,
+          "actionNum": 13
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-07-07",
+        "totalCapacity": 1823.0,
+        "durationMinute": 18,
+        "calorie": 191,
+        "actionNum": 13
+      },
+      "totalSessions": 2,
+      "avgVolume": 911.5,
+      "totalVolume": 1823.0
     }
   },
   "exercisePRs": {
@@ -1425,11 +1482,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 102,
-  "totalVolumeLbs": 962133.4,
+  "totalWorkouts": 105,
+  "totalVolumeLbs": 969032.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-07-04"
+    "end": "2026-07-07"
   },
   "allSessions": [
     {
@@ -2246,6 +2303,30 @@
       "totalCapacity": 9297.0,
       "durationMinute": 19,
       "calorie": 398,
+      "actionNum": 13
+    },
+    {
+      "date": "2026-07-07",
+      "title": "ARIA Handles Recovery Stamina 20260707",
+      "totalCapacity": 5076.5,
+      "durationMinute": 16,
+      "calorie": 437,
+      "actionNum": 12
+    },
+    {
+      "date": "2026-07-07",
+      "title": "ARIA Barbell Build Stamina 20260705",
+      "totalCapacity": 0.0,
+      "durationMinute": 18,
+      "calorie": 20,
+      "actionNum": 13
+    },
+    {
+      "date": "2026-07-07",
+      "title": "ARIA Barbell Build Stamina 20260705",
+      "totalCapacity": 1823.0,
+      "durationMinute": 18,
+      "calorie": 191,
       "actionNum": 13
     }
   ]
