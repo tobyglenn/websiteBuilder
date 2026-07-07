@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 18:23:51 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 82 -->
+    <item>
+      <title>Episódio 82: Claude Code 2.1.195, Tencent Hy3, Nex-N2-Mini, GLM 5.2 e Artigo Global Workspace da Anthropic</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep082/episode_082.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-82/</link>
+      <description><![CDATA[Claude Code CLI 2.1.195 é lançado junto com o Hy3 da Tencent e o Nex-N2-Mini da Nex AGI no OpenRouter. O GLM 5.2 alimenta o debate sobre o colapso das margens de IA; a Anthropic publica uma análise de interpretabilidade da Teoria do Workspace Global. Um vazamento de sessão de workspace do Claude Code e uma postagem de erosão de boa vontade entram em alta no Hacker News, e um arquivo de prompts de sistema de agentes vazados sobe no GitHub. A Ternlight lança um modelo de embeddings WASM de 7 MB no navegador. Pesquisa: Amostragem Esparsa em Grafos, destilação on-policy fraco-para-forte, artigo VLM-VLA bidirecional do Cortex, treinamento de robôs multiagente Graph-as-Policy e um estudo sobre estilo e agentes de codificação.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-82/]]></description>
+      <pubDate>Tue, 07 Jul 2026 18:23:51 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_082.mp3" length="41181980" type="audio/mpeg"/>
+      <itunes:duration>42:53</itunes:duration>
+      <itunes:episode>82</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep082/episode_082_cover.png"/>
+    </item>
+
     <!-- Episode 81 -->
     <item>
       <title>Episódio 81: GPT-5.6 Sol Ultra para Codex, OpenScience Lança, LM de 270M e Stagger da Qwen</title>
