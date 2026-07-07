@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 18:23:51 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 82 -->
+    <item>
+      <title>Episode 82: Claude Code 2.1.195, Tencent Hy3, Nex-N2-Mini, GLM 5.2, and Anthropic's Global Workspace Paper</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep082/episode_082.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-82/</link>
+      <description><![CDATA[Claude Code CLI 2.1.195 ships as Tencent's Hy3 and Nex AGI's Nex-N2-Mini land on OpenRouter. GLM 5.2 stokes margin-collapse debate; Anthropic publishes a Global Workspace Theory interpretability analysis. A Claude Code workspace session leak and a goodwill-erosion post trend on Hacker News, and an archive of leaked agent system prompts climbs GitHub. Ternlight ships a 7MB browser-side WASM embedding model. Research: Graph Sparse Sampling, weak-to-strong on-policy distillation, Cortex's bidirectional VLM-VLA paper, Graph-as-Policy multi-agent industrial training, and a cleanliness study on style and coding agents.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-82/]]></description>
+      <pubDate>Tue, 07 Jul 2026 18:23:51 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep082/episode_082.mp3" length="36089565" type="audio/mpeg"/>
+      <itunes:duration>37:35</itunes:duration>
+      <itunes:episode>82</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep082/episode_082_cover.png"/>
+    </item>
+
     <!-- Episode 81 -->
     <item>
       <title>Episode 81: GPT-5.6 Sol Ultra for Codex, OpenScience Ships, 270M LM and Qwen Stagger</title>
