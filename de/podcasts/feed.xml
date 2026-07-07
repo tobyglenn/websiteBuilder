@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 06 Jul 2026 16:05:02 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Jul 2026 18:23:51 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 82 -->
+    <item>
+      <title>Folge 82: Claude Code 2.1.195, Tencent Hy3, Nex-N2-Mini, GLM 5.2 und Anthropics Global Workspace Paper</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep082/episode_082.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-82/</link>
+      <description><![CDATA[Claude Code CLI 2.1.195 erscheint zusammen mit Tencent Hy3 und Nex AGIs Nex-N2-Mini auf OpenRouter. GLM 5.2 entfacht die Debatte über KI-Margenkollaps, während Anthropic eine interpretierbare Analyse zur Global Workspace Theory veröffentlicht. Ein Leak einer Claude-Code-Workspace-Sitzung und ein Goodwill-Erosion-Post trending auf Hacker News, sowie ein Archiv geleakter Agent-System-Prompts auf GitHub.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-82/]]></description>
+      <pubDate>Tue, 07 Jul 2026 18:23:51 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_082.mp3" length="42232311" type="audio/mpeg"/>
+      <itunes:duration>43:59</itunes:duration>
+      <itunes:episode>82</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep082/episode_082_cover.png"/>
+    </item>
+
     <!-- Episode 81 -->
     <item>
       <title>Folge 81: GPT-5.6 Sol Ultra für Codex, OpenScience startet, 270M LM und Qwen-Staffelung</title>
