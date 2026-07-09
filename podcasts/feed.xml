@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Jul 2026 18:23:51 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Jul 2026 23:53:42 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 83 -->
+    <item>
+      <title>Episode 83: Hermes Agent v2026.7.7, OpenAI Codex rust-v0.143.0, Claude Code 2.1.197, Aion-3.0-Mini</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep083/episode_083.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-83/</link>
+      <description><![CDATA[Today's AgentStack Daily: Hermes Agent v2026.7.7 ships, OpenAI Codex lands rust-v0.143.0, and Claude Code CLI releases 2.1.197. AionLabs ships Aion-3.0-Mini roleplay on OpenRouter. Kokoro runs high-fidelity TTS on low-power CPUs. Rowboat debuts on Show HN with 162 points as a Claude Desktop alternative. Security: GitHub AI agent prompt injection leaks private repositories. Plus early-failure probes for agent loops, Danus fact-graph memory, FreqDepthKV, DepthWeave-KV, RuBench 1.0, VAORA, and the Anthropic developer-relations API migration story.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-83/]]></description>
+      <pubDate>Thu, 09 Jul 2026 23:53:42 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep083/episode_083.mp3" length="33940001" type="audio/mpeg"/>
+      <itunes:duration>35:21</itunes:duration>
+      <itunes:episode>83</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep083/episode_083_cover.png"/>
+    </item>
+
     <!-- Episode 82 -->
     <item>
       <title>Episode 82: Claude Code 2.1.195, Tencent Hy3, Nex-N2-Mini, GLM 5.2, and Anthropic's Global Workspace Paper</title>
