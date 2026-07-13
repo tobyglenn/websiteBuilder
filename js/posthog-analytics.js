@@ -313,12 +313,150 @@
     }
   };
 
+  let homepageSectionObserver = null;
+  let homepageSectionStates = new Map();
+  let homepageSectionStartedAt = Date.now();
+  let homepageSectionSummarySent = false;
+
+  const homepageSectionProperties = (section) => ({
+    homepage_section_id: section.dataset.homepageSection || "",
+    homepage_section_title: cleanText(section.dataset.homepageTitle || "", 100),
+    homepage_section_purpose: section.dataset.homepagePurpose || "",
+    homepage_section_position: Number(section.dataset.homepagePosition || 0),
+    homepage_total_sections: document.querySelectorAll("[data-homepage-section]").length,
+  });
+
+  const clearHomepageSectionTimers = (state) => {
+    window.clearTimeout(state.viewTimer);
+    window.clearTimeout(state.engagementTimer);
+    state.viewTimer = null;
+    state.engagementTimer = null;
+  };
+
+  const captureHomepageSectionEngagement = (section, state) => {
+    if (state.engaged || !state.viewed) return;
+    const currentVisibleMs = state.visibleSince ? performance.now() - state.visibleSince : 0;
+    const visibleMs = state.visibleMs + currentVisibleMs;
+    if (visibleMs < 5000) return;
+    state.engaged = true;
+    window.toftAnalytics.capture("homepage_section_engaged", {
+      ...homepageSectionProperties(section),
+      visible_seconds: Math.round(visibleMs / 1000),
+      time_to_engagement_ms: Date.now() - homepageSectionStartedAt,
+    });
+  };
+
+  const setupHomepageSectionTracking = () => {
+    if (homepageSectionObserver) homepageSectionObserver.disconnect();
+    homepageSectionStates.forEach(clearHomepageSectionTimers);
+    homepageSectionStates = new Map();
+    homepageSectionStartedAt = Date.now();
+    homepageSectionSummarySent = false;
+
+    if (window.location.pathname !== "/" || !("IntersectionObserver" in window)) return;
+
+    const sections = [...document.querySelectorAll("[data-homepage-section]")];
+    sections.forEach((section, index) => {
+      section.dataset.homepagePosition = String(index + 1);
+      homepageSectionStates.set(section, {
+        viewed: false,
+        engaged: false,
+        visibleSince: 0,
+        visibleMs: 0,
+        viewTimer: null,
+        engagementTimer: null,
+      });
+    });
+
+    homepageSectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const section = entry.target;
+        const state = homepageSectionStates.get(section);
+        if (!state) return;
+
+        if (entry.isIntersecting) {
+          if (!state.visibleSince) state.visibleSince = performance.now();
+          if (!state.viewed && !state.viewTimer) {
+            state.viewTimer = window.setTimeout(() => {
+              state.viewTimer = null;
+              if (!state.visibleSince || state.viewed) return;
+              state.viewed = true;
+              window.toftAnalytics.capture("homepage_section_viewed", {
+                ...homepageSectionProperties(section),
+                time_to_view_ms: Date.now() - homepageSectionStartedAt,
+                scroll_percent_at_view: maximumScrollPercent,
+              });
+            }, 800);
+          }
+          if (!state.engaged && !state.engagementTimer) {
+            state.engagementTimer = window.setTimeout(() => {
+              state.engagementTimer = null;
+              captureHomepageSectionEngagement(section, state);
+            }, Math.max(0, 5000 - state.visibleMs));
+          }
+          return;
+        }
+
+        if (state.visibleSince) {
+          state.visibleMs += performance.now() - state.visibleSince;
+          state.visibleSince = 0;
+        }
+        clearHomepageSectionTimers(state);
+        captureHomepageSectionEngagement(section, state);
+      });
+    }, { rootMargin: "-15% 0px -15% 0px", threshold: 0.01 });
+
+    sections.forEach((section) => homepageSectionObserver.observe(section));
+  };
+
+  const captureHomepageSectionClick = (target) => {
+    if (window.location.pathname !== "/") return;
+    const section = target.closest("[data-homepage-section]");
+    if (!section) return;
+    const interactiveElements = [...section.querySelectorAll("a, button")];
+    const href = target.getAttribute("href") || "";
+    const parsedUrl = toUrl(href);
+    window.toftAnalytics.capture("homepage_section_click", {
+      ...homepageSectionProperties(section),
+      element_label: cleanText(target.getAttribute("aria-label") || target.textContent, 100),
+      element_position: Math.max(1, interactiveElements.indexOf(target) + 1),
+      destination: destinationType(href),
+      destination_url: parsedUrl && href ? parsedUrl.href : "",
+      time_to_click_ms: Date.now() - homepageSectionStartedAt,
+    });
+  };
+
+  const captureHomepageSectionSummary = () => {
+    if (window.location.pathname !== "/" || homepageSectionSummarySent || homepageSectionStates.size === 0) return;
+    homepageSectionSummarySent = true;
+    const viewedSections = [...homepageSectionStates.entries()]
+      .filter(([, state]) => state.viewed)
+      .map(([section]) => homepageSectionProperties(section));
+    const deepestSection = viewedSections.reduce((deepest, section) => (
+      section.homepage_section_position > (deepest?.homepage_section_position || 0) ? section : deepest
+    ), null);
+    window.toftAnalytics.capture("homepage_sections_summary", {
+      homepage_sections_viewed: viewedSections.length,
+      homepage_total_sections: homepageSectionStates.size,
+      homepage_deepest_section_id: deepestSection?.homepage_section_id || "",
+      homepage_deepest_section_position: deepestSection?.homepage_section_position || 0,
+      homepage_engaged_sections: [...homepageSectionStates.values()].filter((state) => state.engaged).length,
+      maximum_scroll_percent: maximumScrollPercent,
+      active_seconds: activeSeconds,
+    });
+  };
+
   capturePageview();
   document.addEventListener("astro:page-load", capturePageview);
+  setupHomepageSectionTracking();
+  document.addEventListener("astro:page-load", setupHomepageSectionTracking);
+  document.addEventListener("astro:before-swap", captureHomepageSectionSummary);
+  window.addEventListener("pagehide", captureHomepageSectionSummary);
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
     const target = event.target.closest("a, button");
     if (!target) return;
+    captureHomepageSectionClick(target);
     captureClick(target);
   });
 
