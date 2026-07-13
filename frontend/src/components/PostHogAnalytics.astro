@@ -1,6 +1,7 @@
 ---
 const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY;
 const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
+const analyticsLoaderSrc = '/js/posthog-analytics.2026-07-13.js';
 ---
 
 {posthogKey && (
@@ -11,6 +12,6 @@ const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog
         host: posthogHost,
       };
     </script>
-    <script src="/js/posthog-analytics.js" defer></script>
+    <script src={analyticsLoaderSrc} defer></script>
   </>
 )}
