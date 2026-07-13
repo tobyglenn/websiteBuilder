@@ -347,7 +347,13 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
               <div className="relative group">
                 <select
                   value={sortBy}
-                  onChange={e => setSortBy(e.target.value)}
+                  onChange={e => {
+                    setSortBy(e.target.value);
+                    captureEvent('filter_changed', {
+                      filter_type: 'video_sort',
+                      filter_value: e.target.value,
+                    });
+                  }}
                   className="appearance-none bg-neutral-900 border border-neutral-800 text-neutral-300 py-2 pl-4 pr-10 rounded-lg text-sm focus:outline-none focus:border-blue-500 cursor-pointer hover:text-white"
                 >
                   {SORT_OPTIONS.map(opt => (
@@ -423,7 +429,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredVideos.map(video => {
+          {filteredVideos.map((video, index) => {
             const primaryCategory = video.categories?.[0];
             const categoryStyle = CATEGORY_BADGE_STYLES[primaryCategory] || 'bg-neutral-800 text-white';
             const isLive = Boolean(video.is_live);
@@ -438,10 +444,14 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
                       search_query: cleanAnalyticsText(searchQuery, 80),
                       content_type: 'video',
                       content_slug: video.id,
-                      position: filteredVideos.findIndex(item => item.id === video.id) + 1,
+                      position: index + 1,
                     });
                   }
                 }}
+                data-analytics-event="content_card_click"
+                data-analytics-content-type="video"
+                data-analytics-content-slug={video.id}
+                data-analytics-content-title={video.title}
                 className="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl hover:border-neutral-700"
               >
                 {/* Thumbnail Container */}

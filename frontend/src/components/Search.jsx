@@ -1,5 +1,6 @@
 import React, { Suspense, lazy, useState, useEffect, useCallback } from 'react';
 import SearchButton from './SearchButton.jsx';
+import { captureEvent } from '../lib/analytics.js';
 
 const SearchModal = lazy(() => import('./SearchModal.jsx'));
 
@@ -25,9 +26,13 @@ export default function Search() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasLoadedModal, setHasLoadedModal] = useState(false);
 
-  const openSearch = useCallback(() => {
+  const openSearch = useCallback((source = 'button') => {
     setHasLoadedModal(true);
     setIsOpen(true);
+    captureEvent('search_opened', {
+      search_surface: 'site_modal',
+      trigger: source,
+    });
   }, []);
   const closeSearch = useCallback(() => setIsOpen(false), []);
 
@@ -43,14 +48,14 @@ export default function Search() {
         if (isOpen) {
           closeSearch();
         } else {
-          openSearch();
+          openSearch('keyboard');
         }
       }
       
       // Also support "/" to open search
       if (e.key === '/' && !isInput && !isOpen) {
         e.preventDefault();
-        openSearch();
+        openSearch('keyboard');
       }
     };
 
@@ -60,7 +65,7 @@ export default function Search() {
 
   return (
     <>
-      <SearchButton onClick={openSearch} />
+      <SearchButton onClick={() => openSearch('button')} />
       {hasLoadedModal && (
         <Suspense fallback={isOpen ? <SearchModalFallback onClose={closeSearch} /> : null}>
           <SearchModal isOpen={isOpen} onClose={closeSearch} />

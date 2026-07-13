@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { captureEvent } from '../lib/analytics.js';
 
 const activityLevels = [
@@ -26,6 +26,15 @@ export default function TDEECalculator() {
   const [activityLevel, setActivityLevel] = useState('1.55');
   const [goal, setGoal] = useState('0');
   const [results, setResults] = useState(null);
+  const hasStarted = useRef(false);
+
+  const markStarted = () => {
+    if (hasStarted.current) return;
+    hasStarted.current = true;
+    captureEvent('calculator_started', {
+      calculator: 'tdee',
+    });
+  };
 
   const calculate = () => {
     const heightCm = ((parseInt(heightFt) * 12) + parseInt(heightIn)) * 2.54;
@@ -79,7 +88,12 @@ export default function TDEECalculator() {
 
   return (
     <div className="bg-neutral-900/50 border border-neutral-800 rounded-2xl p-6 md:p-8">
-      <form onSubmit={(e) => { e.preventDefault(); calculate(); }} className="space-y-6">
+      <form
+        onFocusCapture={markStarted}
+        onChangeCapture={markStarted}
+        onSubmit={(e) => { e.preventDefault(); markStarted(); calculate(); }}
+        className="space-y-6"
+      >
         {/* Gender Toggle */}
         <div>
           <label className="block text-sm font-medium text-neutral-300 mb-2">Gender</label>

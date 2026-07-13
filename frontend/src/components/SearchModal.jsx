@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Search, X, FileText, Video, Clock } from 'lucide-react';
+import { captureEvent, cleanAnalyticsText } from '../lib/analytics.js';
 
 const EMPTY_RESULTS = { blogPosts: [], videos: [] };
 let searchIndexPromise;
@@ -64,6 +65,7 @@ export default function SearchModal({ isOpen, onClose }) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const inputRef = useRef(null);
+  const lastSearchEvent = useRef('');
   
   const debouncedQuery = useDebounce(query, 200);
 
@@ -91,12 +93,37 @@ export default function SearchModal({ isOpen, onClose }) {
     loadSearchIndex()
       .then((searchIndex) => {
         if (!isCurrent) return;
-        setResults(searchContent(searchIndex, debouncedQuery));
+        const nextResults = searchContent(searchIndex, debouncedQuery);
+        setResults(nextResults);
+        const resultCount = nextResults.blogPosts.length + nextResults.videos.length;
+        const searchKey = `${debouncedQuery}:${resultCount}`;
+        if (lastSearchEvent.current !== searchKey) {
+          lastSearchEvent.current = searchKey;
+          captureEvent('search_performed', {
+            search_surface: 'site_modal',
+            search_query: cleanAnalyticsText(debouncedQuery, 80),
+            result_count: resultCount,
+            blog_result_count: nextResults.blogPosts.length,
+            video_result_count: nextResults.videos.length,
+            content_type: 'site',
+          });
+          if (resultCount === 0) {
+            captureEvent('search_no_results', {
+              search_surface: 'site_modal',
+              search_query: cleanAnalyticsText(debouncedQuery, 80),
+              content_type: 'site',
+            });
+          }
+        }
       })
       .catch(() => {
         if (!isCurrent) return;
         setResults(EMPTY_RESULTS);
         setError('Search is unavailable right now.');
+        captureEvent('search_error', {
+          search_surface: 'site_modal',
+          content_type: 'site',
+        });
       })
       .finally(() => {
         if (!isCurrent) return;
@@ -138,7 +165,14 @@ export default function SearchModal({ isOpen, onClose }) {
     }
   };
 
-  const handleResultClick = () => {
+  const handleResultClick = ({ contentType, slug, position }) => {
+    captureEvent('search_result_click', {
+      search_surface: 'site_modal',
+      search_query: cleanAnalyticsText(query, 80),
+      content_type: contentType,
+      content_slug: slug,
+      position,
+    });
     onClose();
     setQuery('');
   };
@@ -182,7 +216,13 @@ export default function SearchModal({ isOpen, onClose }) {
             />
             {query && (
               <button
-                onClick={() => setQuery('')}
+                onClick={() => {
+                  captureEvent('search_cleared', {
+                    search_surface: 'site_modal',
+                    content_type: 'site',
+                  });
+                  setQuery('');
+                }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white"
               >
                 <X size={16} />
@@ -223,11 +263,15 @@ export default function SearchModal({ isOpen, onClose }) {
                     Blog Posts
                   </div>
                   <div className="space-y-1">
-                    {results.blogPosts.map((post) => (
+                    {results.blogPosts.map((post, index) => (
                       <a
                         key={post.slug}
                         href={`/blog/${post.slug}/`}
-                        onClick={handleResultClick}
+                        onClick={() => handleResultClick({
+                          contentType: 'blog',
+                          slug: post.slug,
+                          position: index + 1,
+                        })}
                         className="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800 transition-colors group"
                       >
                         <div className="flex-1 min-w-0">
@@ -257,11 +301,15 @@ export default function SearchModal({ isOpen, onClose }) {
                     Videos
                   </div>
                   <div className="space-y-1">
-                    {results.videos.map((video) => (
+                    {results.videos.map((video, index) => (
                       <a
                         key={video.id}
                         href={`/video/${video.id}/`}
-                        onClick={handleResultClick}
+                        onClick={() => handleResultClick({
+                          contentType: 'video',
+                          slug: video.id,
+                          position: results.blogPosts.length + index + 1,
+                        })}
                         className="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800 transition-colors group"
                       >
                         <div className="w-24 h-16 bg-neutral-800 rounded-lg overflow-hidden flex-shrink-0">

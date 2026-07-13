@@ -252,12 +252,34 @@ const jsonLd = {
       rmBtn.className = 'flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all bg-blue-600 text-white';
       tdeeBtn.className = 'flex-1 py-2.5 px-4 rounded-lg text-sm font-semibold transition-all text-neutral-400 hover:text-white';
     }
+
+    captureAnalytics('calculator_selected', {
+      calculator: tab === '1rm' ? 'one_rep_max' : 'tdee',
+    });
   }
   (window as any).switchTab = switchTab;
+
+  function captureAnalytics(eventName: string, properties: Record<string, string | number | boolean> = {}) {
+    const analytics = (window as any).toftAnalytics;
+    if (!analytics || typeof analytics.capture !== 'function') return;
+    analytics.capture(eventName, properties);
+  }
+
+  const startedCalculators = new Set<string>();
+  function markCalculatorStarted(calculator: string) {
+    if (startedCalculators.has(calculator)) return;
+    startedCalculators.add(calculator);
+    captureAnalytics('calculator_started', { calculator });
+  }
+
+  document.getElementById('tdee-form')?.addEventListener('input', () => markCalculatorStarted('tdee'), { once: true });
+  document.getElementById('panel-1rm')?.addEventListener('input', () => markCalculatorStarted('one_rep_max'), { once: true });
+  document.getElementById('panel-1rm')?.addEventListener('change', () => markCalculatorStarted('one_rep_max'), { once: true });
 
   // TDEE calculator
   document.getElementById('tdee-form')?.addEventListener('submit', (e) => {
     e.preventDefault();
+    markCalculatorStarted('tdee');
     const gender = (document.querySelector('input[name="gender"]:checked') as HTMLInputElement)?.value;
     const age = parseInt((document.getElementById('t-age') as HTMLInputElement).value);
     const height = parseInt((document.getElementById('t-height') as HTMLInputElement).value);
@@ -288,6 +310,12 @@ const jsonLd = {
     document.getElementById('t-carbs')!.textContent = `${Math.round((targetCalories * carbsPct / 100) / 4)}g`;
     document.getElementById('t-carbs-pct')!.textContent = `${carbsPct}%`;
     document.getElementById('tdee-results')!.classList.remove('hidden');
+
+    captureAnalytics('calculator_completed', {
+      calculator: 'tdee',
+      goal,
+      activity_level: activity.toString(),
+    });
   });
 
   // 1RM calculator
@@ -295,6 +323,7 @@ const jsonLd = {
   const rmWeight = document.getElementById('rm-weight') as HTMLInputElement;
 
   rmExercise?.addEventListener('change', () => {
+    markCalculatorStarted('one_rep_max');
     if (rmExercise.value) {
       const ex = JSON.parse(rmExercise.value);
       rmWeight.value = ex.best1RM.toString();
@@ -302,10 +331,15 @@ const jsonLd = {
   });
 
   document.getElementById('rm-calculate-btn')?.addEventListener('click', () => {
+    markCalculatorStarted('one_rep_max');
     const weight = parseFloat(rmWeight.value);
     const reps = parseInt((document.getElementById('rm-reps') as HTMLInputElement).value);
 
     if (!weight || weight < 1 || !reps || reps < 1 || reps > 15) {
+      captureAnalytics('calculator_error', {
+        calculator: 'one_rep_max',
+        error_type: 'invalid_input',
+      });
       alert('Please enter valid weight (min 1) and reps (1–15)');
       return;
     }
@@ -324,5 +358,11 @@ const jsonLd = {
     });
 
     document.getElementById('rm-results')!.classList.remove('hidden');
+
+    captureAnalytics('calculator_completed', {
+      calculator: 'one_rep_max',
+      preset_used: Boolean(rmExercise.value),
+      reps_bucket: reps <= 5 ? '1-5' : reps <= 10 ? '6-10' : '11-15',
+    });
   });
 </script>
