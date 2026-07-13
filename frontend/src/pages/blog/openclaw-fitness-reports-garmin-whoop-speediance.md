@@ -7,8 +7,6 @@ categories: ["Field Reports"]
 tags: ["openclaw", "garmin", "whoop", "speediance", "fitness reports", "ai systems"]
 ---
 
-# Agent Brief: Build OpenClaw Fitness Report Connectors for Garmin, WHOOP, Speediance, and More
-
 This article is meant to be handed to an AI coding agent as an implementation brief.
 
 The goal is **not** to transplant my private machine or reverse-engineer my files. The goal is for an agent to read this page and build working connectors to the fitness systems: Garmin, WHOOP, Speediance, Cronometer, 8Sleep, and optional Open Wearables.

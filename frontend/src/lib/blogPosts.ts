@@ -24,6 +24,17 @@ type RawFallbackBlogPost = Partial<BlogPost> & {
   tags?: unknown;
 };
 
+const SEO_OVERRIDES: Record<string, Pick<BlogPost, 'title' | 'excerpt'>> = {
+  'whoop-5-not-smaller-review': {
+    title: 'WHOOP 5 vs WHOOP 4.0: Size, Thickness and Battery Life',
+    excerpt: 'A hands-on WHOOP 5 vs WHOOP 4.0 comparison covering thickness, wrist comfort, battery life, and band compatibility.',
+  },
+  'garmin-and-whoop-what-each-is-actually-for': {
+    title: 'Garmin vs WHOOP: What Each Tracker Is Actually For',
+    excerpt: 'Garmin and WHOOP overlap, but they answer different training questions. Here is where each tracker is more useful.',
+  },
+};
+
 const markdownRawModules = import.meta.glob('../pages/blog/*.md', {
   eager: true,
   query: '?raw',
@@ -208,14 +219,15 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
   );
   const tags = Array.isArray(post.tags) ? post.tags.map((tag) => String(tag)) : [];
   const slug = String(post.slug || '');
-  const title = String(post.title || post.slug || '');
+  const override = SEO_OVERRIDES[slug];
+  const title = String(override?.title || post.title || post.slug || '');
   const category = String(post.category || 'Analysis');
   const image = resolveCoverImage(String(post.image || post.thumbnail || ''), slug, title, category);
 
   return {
     slug,
     title,
-    excerpt: String(post.excerpt || post.description || post.title || post.slug || ''),
+    excerpt: String(override?.excerpt || post.excerpt || post.description || post.title || post.slug || ''),
     category,
     published_at,
     image,

@@ -14,6 +14,7 @@ import { videos as youtube } from '../data/youtube.js';
 import { Play, ArrowRight, Clock, Eye, Video } from 'lucide-react';
 import { trainingStreak, lastWorkoutData, thisWeekVolume, thisMonthMiles } from '../lib/trainingStats.js';
 import { lifetimeStats } from '../data/stats.js';
+import homepageFitnessData from '../data/homepageFitnessData.json';
 import { recentActivity } from '../data/recentActivity.js';
 import weeklyProgress from '../data/weeklyProgress.js';
 import { isLikelyShortVideo } from '../lib/videoMeta.js';
@@ -101,6 +102,10 @@ const formattedLifetimeStats = {
   }).format(lifetimeStats.totalMilesRun),
   workouts: new Intl.NumberFormat('en-US').format(lifetimeStats.totalWorkouts),
 };
+
+const strengthSessions = new Intl.NumberFormat('en-US').format(
+  homepageFitnessData.lifetimeStats?.sourceBreakdown?.strengthSessions || 0,
+);
 
 const weeklyRange = weeklyProgress.dateRange || {};
 const thisWeekDateRange = `${formatRangeDate(weeklyRange.thisWeekStart)}–${formatRangeDate(weeklyRange.thisWeekEnd)}, ${weeklyRange.thisWeekEnd?.slice(0, 4) || ''}`;
@@ -550,7 +555,7 @@ const webPageSchema = {
 				<a href="/speediance/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">
 					<div class="text-2xl mb-3">🏋️</div>
 					<h3 class="font-bold text-white mb-1 group-hover:text-blue-400 transition-colors">Lifting</h3>
-					<p class="text-xs text-neutral-500">1.29M lbs · 125 workouts</p>
+					<p class="text-xs text-neutral-500">{formattedLifetimeStats.lbsLifted} lbs · {strengthSessions} strength sessions</p>
 				</a>
 				{/* Sleep */}
 				<a href="/sleep/" class="bg-neutral-950 rounded-xl p-5 border border-neutral-800 hover:border-blue-500/50 transition-all group">

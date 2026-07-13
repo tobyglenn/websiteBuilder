@@ -1,5 +1,26 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import { Menu, X, ChevronDown, Globe } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Activity,
+  BarChart3,
+  Calculator,
+  ChevronDown,
+  Cpu,
+  Dumbbell,
+  FileText,
+  Footprints,
+  Globe,
+  HeartPulse,
+  Menu,
+  Mic2,
+  PackageSearch,
+  PlaySquare,
+  Scale,
+  Shield,
+  Trophy,
+  User,
+  Watch,
+  X,
+} from 'lucide-react';
 import Search from './Search.jsx';
 import { captureEvent } from '../lib/analytics.js';
 
@@ -13,96 +34,166 @@ const LOCALE_LABELS = {
   pt: 'Português',
   hi: 'हिन्दी',
 };
-const LOCALE_FLAGS = { en: '🇺🇸', de: '🇩🇪', es: '🇪🇸', pt: '🇧🇷', hi: '🇮🇳' };
 
 const NAV_TRANSLATIONS = {
   en: {
-    home: 'Home', videos: 'Videos', blog: 'Blog & Articles', games: 'Playground', about: 'About', faq: 'FAQ',
-    startHere: 'Start Here', allArticles: 'All Articles', nutrition: 'Nutrition', consistency: 'Consistency', exercises: 'Exercises',
-    transformation: 'Transformation', prBoard: 'PR Board', running: 'Running', heartRate: 'Heart Rate', races: 'Races', speediance: 'Speediance',
-    sleep: 'Sleep', whoop: 'WHOOP', training: 'Training', trainingLog: 'Training Log', bjj: 'BJJ', dayInWeek: 'Day in a Week', yearReview: 'Year Review',
-    gear: 'Gear', contact: 'Contact', hrZones: 'HR Zones', podcasts: 'Podcasts', openclaw: 'AgentStack Daily', fitness: 'Fitness Tech Podcast',
+    reviews: 'Reviews', training: 'Training Data', articles: 'Articles', videos: 'Videos', podcasts: 'Podcasts', about: 'About',
+    speediance: 'Speediance', wearables: 'Wearables', gear: 'Gear', compare: 'Compare Trackers', calculators: 'Calculators',
+    trainingOverview: 'Training Overview', running: 'Running', recovery: 'Recovery', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR Board',
+    agentstack: 'AgentStack', fitnessPodcast: 'Fitness Tech Podcast', allPodcasts: 'All Podcasts', startHere: 'Start Here',
   },
   de: {
-    home: 'Startseite', videos: 'Videos', blog: 'Blog & Artikel', games: 'Spielplatz', about: 'Über', faq: 'FAQ',
-    startHere: 'Hier starten', allArticles: 'Alle Artikel', nutrition: 'Ernährung', consistency: 'Konstanz', exercises: 'Übungen',
-    transformation: 'Transformation', prBoard: 'PR-Tafel', running: 'Laufen', heartRate: 'Herzfrequenz', races: 'Rennen', speediance: 'Speediance',
-    sleep: 'Schlaf', whoop: 'WHOOP', training: 'Training', trainingLog: 'Trainingsprotokoll', bjj: 'BJJ', dayInWeek: 'Ein Tag in der Woche', yearReview: 'Jahresrückblick',
-    gear: 'Ausrüstung', contact: 'Kontakt', hrZones: 'HF-Zonen', podcasts: 'Podcasts', openclaw: 'AgentStack Daily', fitness: 'Fitness-Tech-Podcast',
+    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Podcasts', about: 'Über mich',
+    speediance: 'Speediance', wearables: 'Wearables', gear: 'Ausrüstung', compare: 'Tracker vergleichen', calculators: 'Rechner',
+    trainingOverview: 'Training', running: 'Laufen', recovery: 'Erholung', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR-Tafel',
+    agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'Alle Podcasts', startHere: 'Hier starten',
   },
   es: {
-    home: 'Inicio', videos: 'Videos', blog: 'Blog y Artículos', games: 'Zona de Juegos', about: 'Acerca de', faq: 'Preguntas frecuentes',
-    startHere: 'Empieza aquí', allArticles: 'Todos los artículos', nutrition: 'Nutrición', consistency: 'Constancia', exercises: 'Ejercicios',
-    transformation: 'Transformación', prBoard: 'Tabla PR', running: 'Running', heartRate: 'Frecuencia cardiaca', races: 'Carreras', speediance: 'Speediance',
-    sleep: 'Sueño', whoop: 'WHOOP', training: 'Entrenamiento', trainingLog: 'Registro de entrenamiento', bjj: 'BJJ', dayInWeek: 'Un día en la semana', yearReview: 'Resumen del año',
-    gear: 'Equipo', contact: 'Contacto', hrZones: 'Zonas FC', podcasts: 'Podcasts', openclaw: 'AgentStack Daily', fitness: 'Podcast Fitness Tech',
+    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Podcasts', about: 'Acerca de',
+    speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipo', compare: 'Comparar trackers', calculators: 'Calculadoras',
+    trainingOverview: 'Entrenamiento', running: 'Running', recovery: 'Recuperación', transformation: 'Transformación', bjj: 'BJJ', prs: 'Tabla PR',
+    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'Todos los podcasts', startHere: 'Empieza aquí',
   },
   pt: {
-    home: 'Início', videos: 'Vídeos', blog: 'Blog e Artigos', games: 'Área de Jogos', about: 'Sobre', faq: 'FAQ',
-    startHere: 'Comece aqui', allArticles: 'Todos os artigos', nutrition: 'Nutrição', consistency: 'Consistência', exercises: 'Exercícios',
-    transformation: 'Transformação', prBoard: 'Quadro de PR', running: 'Corrida', heartRate: 'Frequência cardíaca', races: 'Provas', speediance: 'Speediance',
-    sleep: 'Sono', whoop: 'WHOOP', training: 'Treino', trainingLog: 'Log de treino', bjj: 'BJJ', dayInWeek: 'Um dia na semana', yearReview: 'Resumo do ano',
-    gear: 'Equipamento', contact: 'Contato', hrZones: 'Zonas FC', podcasts: 'Podcasts', openclaw: 'AgentStack Daily', fitness: 'Podcast Fitness Tech',
+    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Podcasts', about: 'Sobre',
+    speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipamento', compare: 'Comparar trackers', calculators: 'Calculadoras',
+    trainingOverview: 'Treino', running: 'Corrida', recovery: 'Recuperação', transformation: 'Transformação', bjj: 'BJJ', prs: 'Quadro de PR',
+    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'Todos os podcasts', startHere: 'Comece aqui',
   },
   hi: {
-    home: 'होम', videos: 'वीडियो', blog: 'ब्लॉग और लेख', games: 'खेल क्षेत्र', about: 'परिचय', faq: 'FAQ',
-    startHere: 'यहाँ से शुरू करें', allArticles: 'सभी लेख', nutrition: 'पोषण', consistency: 'नियमितता', exercises: 'व्यायाम',
-    transformation: 'परिवर्तन', prBoard: 'PR बोर्ड', running: 'दौड़', heartRate: 'हार्ट रेट', races: 'रेस', speediance: 'स्पीडियन्स',
-    sleep: 'नींद', whoop: 'WHOOP', training: 'ट्रेनिंग', trainingLog: 'ट्रेनिंग लॉग', bjj: 'BJJ', dayInWeek: 'सप्ताह का एक दिन', yearReview: 'साल का रिव्यू',
-    gear: 'गियर', contact: 'संपर्क', hrZones: 'HR ज़ोन', podcasts: 'पॉडकास्ट', openclaw: 'AgentStack Daily', fitness: 'फिटनेस टेक पॉडकास्ट',
+    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'पॉडकास्ट', about: 'परिचय',
+    speediance: 'Speediance', wearables: 'वेयरेबल्स', gear: 'गियर', compare: 'ट्रैकर तुलना', calculators: 'कैलकुलेटर',
+    trainingOverview: 'ट्रेनिंग', running: 'दौड़', recovery: 'रिकवरी', transformation: 'परिवर्तन', bjj: 'BJJ', prs: 'PR बोर्ड',
+    agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'सभी पॉडकास्ट', startHere: 'यहाँ से शुरू करें',
   },
 };
 
 const getLocaleFromPath = (path = '') => path.match(/^\/(es|pt|hi|de)(?:\/|$)/)?.[1] || 'en';
 const localePrefix = (locale) => (locale === 'en' ? '' : `/${locale}`);
 const localizedHref = (locale, href) => {
-  if (!href.startsWith('/')) return href;
-  if (locale === 'en') return href;
+  if (!href.startsWith('/') || locale === 'en') return href;
   return href === '/' ? `/${locale}/` : `/${locale}${href}`;
 };
-const getStoredLocalePreference = () =>
-  window.localStorage.getItem(LOCALE_STORAGE_KEY) || window.localStorage.getItem(LEGACY_LOCALE_STORAGE_KEY);
 
-const persistLocalePreference = (locale) => {
-  window.localStorage.setItem(LOCALE_STORAGE_KEY, locale);
-  window.localStorage.setItem(LEGACY_LOCALE_STORAGE_KEY, locale);
-};
+function NavAnchor({ item, pathname, surface = 'desktop', onNavigate }) {
+  const Icon = item.icon;
+  const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
+
+  return (
+    <a
+      href={item.href}
+      onClick={onNavigate}
+      data-analytics-event="navigation_click"
+      data-analytics-content-type="navigation"
+      data-analytics-content-slug={item.href}
+      data-analytics-content-title={`${surface}:${item.name}`}
+      className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
+        active ? 'bg-neutral-800 text-white' : 'text-neutral-300 hover:bg-neutral-900 hover:text-white'
+      }`}
+    >
+      {Icon && <Icon size={16} aria-hidden="true" />}
+      <span>{item.name}</span>
+    </a>
+  );
+}
+
+function DesktopMenu({ label, items, pathname, menuName }) {
+  const [open, setOpen] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const close = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) setOpen(false);
+    };
+    document.addEventListener('pointerdown', close);
+    return () => document.removeEventListener('pointerdown', close);
+  }, []);
+
+  const toggle = () => {
+    setOpen((current) => !current);
+    if (!open) {
+      captureEvent('navigation_menu_opened', { menu_name: menuName, navigation_surface: 'desktop' });
+    }
+  };
+
+  return (
+    <div className="relative" ref={ref} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+      <button
+        type="button"
+        onClick={toggle}
+        className="flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-900 hover:text-white"
+        aria-expanded={open}
+      >
+        {label}
+        <ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <div className="absolute left-1/2 top-full z-[200] w-72 -translate-x-1/2 pt-2">
+          <div className="grid gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
+            {items.map((item) => (
+              <NavAnchor key={item.href} item={item} pathname={pathname} onNavigate={() => setOpen(false)} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function MobileSection({ label, items, pathname, menuName, onNavigate }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="border-b border-neutral-800">
+      <button
+        type="button"
+        onClick={() => {
+          setOpen((current) => !current);
+          if (!open) captureEvent('navigation_menu_opened', { menu_name: menuName, navigation_surface: 'mobile' });
+        }}
+        className="flex w-full items-center justify-between px-1 py-4 text-left font-semibold text-white"
+        aria-expanded={open}
+      >
+        {label}
+        <ChevronDown size={18} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
+      </button>
+      {open && (
+        <div className="grid gap-1 pb-4 sm:grid-cols-2">
+          {items.map((item) => (
+            <NavAnchor key={item.href} item={item} pathname={pathname} surface="mobile" onNavigate={onNavigate} />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [pathname, setPathname] = useState('');
-  const [isBlogDropdownOpen, setIsBlogDropdownOpen] = useState(false);
-  const [isPodcastDropdownOpen, setIsPodcastDropdownOpen] = useState(false);
-  const [isDesktopBlogOpen, setIsDesktopBlogOpen] = useState(false);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
-  const blogDropdownRef = useRef(null);
-  const languageDropdownRef = useRef(null);
+  const languageRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
     setPathname(window.location.pathname);
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const lastBlogToggle = useRef(0);
   useEffect(() => {
-    const close = (e) => {
-      if (Date.now() - lastBlogToggle.current < 300) return;
-      if (blogDropdownRef.current && !blogDropdownRef.current.contains(e.target)) setIsDesktopBlogOpen(false);
-      if (languageDropdownRef.current && !languageDropdownRef.current.contains(e.target)) setIsLanguageOpen(false);
+    const close = (event) => {
+      if (languageRef.current && !languageRef.current.contains(event.target)) setIsLanguageOpen(false);
     };
-    document.addEventListener('click', close);
-    return () => document.removeEventListener('click', close);
+    document.addEventListener('pointerdown', close);
+    return () => document.removeEventListener('pointerdown', close);
   }, []);
 
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-    const currentPath = window.location.pathname;
-    const storedLocale = getStoredLocalePreference();
-    if (currentPath === '/' && storedLocale && storedLocale !== 'en' && SUPPORTED_LOCALES.includes(storedLocale)) {
-      persistLocalePreference(storedLocale);
+    const storedLocale = window.localStorage.getItem(LOCALE_STORAGE_KEY) || window.localStorage.getItem(LEGACY_LOCALE_STORAGE_KEY);
+    if (window.location.pathname === '/' && storedLocale && storedLocale !== 'en' && SUPPORTED_LOCALES.includes(storedLocale)) {
       window.location.replace(`/${storedLocale}/`);
     }
   }, []);
@@ -111,114 +202,90 @@ export default function Header() {
   const t = NAV_TRANSLATIONS[locale] || NAV_TRANSLATIONS.en;
   const podcastBase = localePrefix(locale);
 
-  const navLinks = useMemo(() => ([
-    { name: t.home, href: localizedHref(locale, '/'), icon: '🏠' },
-    { name: t.videos, href: localizedHref(locale, '/videos/'), icon: '🎬' },
-    { name: t.blog, href: localizedHref(locale, '/blog/'), hasDropdown: true, icon: '📝' },
-    { name: t.openclaw, href: `${podcastBase}/podcasts/agentstack/`, icon: '🎙️' },
-    { name: t.fitness, href: `${podcastBase}/podcasts/fitness-tech/`, icon: '💪' },
-    { name: t.games, href: localizedHref(locale, '/games/'), icon: '🎮' },
-    { name: t.about, href: localizedHref(locale, '/about/'), icon: '👤' },
-    { name: t.faq, href: localizedHref(locale, '/faq/'), icon: '❓' },
-  ]), [locale]);
+  const reviewItems = useMemo(() => [
+    { name: t.speediance, href: localizedHref(locale, '/speediance/'), icon: Dumbbell },
+    { name: t.wearables, href: '/wearables/', icon: Watch },
+    { name: t.gear, href: localizedHref(locale, '/gear/'), icon: PackageSearch },
+    { name: t.compare, href: localizedHref(locale, '/compare-trackers/'), icon: Scale },
+    { name: t.calculators, href: localizedHref(locale, '/calculators/'), icon: Calculator },
+  ], [locale, t]);
 
-  const subNavItems = useMemo(() => ([
-    { name: t.startHere, href: localizedHref(locale, '/start-here/'), icon: '🚀' },
-    { name: t.allArticles, href: localizedHref(locale, '/blog/'), icon: '📰' },
-    { name: t.nutrition, href: localizedHref(locale, '/nutrition/'), icon: '🥗' },
-    { name: t.consistency, href: localizedHref(locale, '/blog/consistency/'), icon: '🔁' },
-    { name: t.exercises, href: localizedHref(locale, '/blog/exercises/'), icon: '🏋️' },
-    { name: t.transformation, href: localizedHref(locale, '/transformation/'), icon: '🏆' },
-    { name: t.prBoard, href: localizedHref(locale, '/prs/'), icon: '🥇' },
-    { name: t.running, href: localizedHref(locale, '/running/'), icon: '🏃' },
-    { name: t.heartRate, href: localizedHref(locale, '/heart-rate/'), icon: '💓' },
-    { name: t.races, href: localizedHref(locale, '/races/'), icon: '⏱' },
-    { name: t.speediance, href: localizedHref(locale, '/speediance/'), icon: '⚡' },
-    { name: t.sleep, href: localizedHref(locale, '/sleep/'), icon: '😴' },
-    { name: t.whoop, href: localizedHref(locale, '/whoop/'), icon: '⌚' },
-    { name: t.training, href: localizedHref(locale, '/training/'), icon: '💪' },
-    { name: t.trainingLog, href: localizedHref(locale, '/training-log/'), icon: '📈' },
-    { name: t.bjj, href: localizedHref(locale, '/bjj/'), icon: '🥋' },
-    { name: t.dayInWeek, href: localizedHref(locale, '/day/'), icon: '📅' },
-    { name: t.yearReview, href: localizedHref(locale, '/year-in-review/'), icon: '📊' },
-    { name: t.gear, href: localizedHref(locale, '/gear/'), icon: '🛠' },
-    { name: t.contact, href: localizedHref(locale, '/contact/'), icon: '📧' },
-    { name: t.hrZones, href: localizedHref(locale, '/hr-zones/'), icon: '🫀' },
-  ]), [locale]);
+  const trainingItems = useMemo(() => [
+    { name: t.trainingOverview, href: localizedHref(locale, '/training/'), icon: Activity },
+    { name: t.running, href: localizedHref(locale, '/running/'), icon: Footprints },
+    { name: t.recovery, href: localizedHref(locale, '/whoop/'), icon: HeartPulse },
+    { name: t.transformation, href: localizedHref(locale, '/transformation/'), icon: Trophy },
+    { name: t.bjj, href: localizedHref(locale, '/bjj/'), icon: Shield },
+    { name: t.prs, href: localizedHref(locale, '/prs/'), icon: BarChart3 },
+  ], [locale, t]);
 
-  const languageLinks = SUPPORTED_LOCALES.map((code) => ({
-    code,
-    label: LOCALE_LABELS[code],
-    flag: LOCALE_FLAGS[code],
-    href: code === 'en' ? '/' : `/${code}/`,
-  }));
+  const podcastItems = useMemo(() => [
+    { name: t.agentstack, href: `${podcastBase}/podcasts/agentstack/`, icon: Cpu },
+    { name: t.fitnessPodcast, href: `${podcastBase}/podcasts/fitness-tech/`, icon: Mic2 },
+    { name: t.allPodcasts, href: `${podcastBase}/podcasts/`, icon: Mic2 },
+  ], [podcastBase, t]);
+
+  const primaryItems = useMemo(() => [
+    { name: t.articles, href: localizedHref(locale, '/blog/'), icon: FileText },
+    { name: t.videos, href: localizedHref(locale, '/videos/'), icon: PlaySquare },
+    { name: t.agentstack, href: '/agentstack/', icon: Cpu },
+    { name: t.about, href: localizedHref(locale, '/about/'), icon: User },
+  ], [locale, t]);
 
   const handleLanguageChoice = (code) => {
-    if (typeof window === 'undefined') return;
-    captureEvent('language_switch', {
-      previous_language: locale,
-      next_language: code,
-    });
-    persistLocalePreference(code);
-    // Strip current locale prefix to get the base path, then re-prefix with new locale
-    const currentPath = window.location.pathname;
-    const basePath = currentPath.replace(/^\/(en|de|es|pt|hi)(\/|$)/, '/');
-    const normalized = basePath || '/';
-    const targetPath = code === 'en' ? normalized : `/${code}${normalized}`;
-    window.location.href = targetPath;
+    captureEvent('language_switch', { previous_language: locale, next_language: code });
+    window.localStorage.setItem(LOCALE_STORAGE_KEY, code);
+    window.localStorage.setItem(LEGACY_LOCALE_STORAGE_KEY, code);
+    const basePath = window.location.pathname.replace(/^\/(en|de|es|pt|hi)(\/|$)/, '/');
+    window.location.href = code === 'en' ? basePath || '/' : `/${code}${basePath || '/'}`;
   };
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-neutral-950/80 backdrop-blur-md border-b border-neutral-800' : 'bg-transparent'}`}>
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <a href={localizedHref(locale, '/')} className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent hover:opacity-80 transition-opacity shrink-0">
+      <header className={`fixed inset-x-0 top-0 z-50 border-b transition-colors ${isScrolled ? 'border-neutral-800 bg-neutral-950/95 backdrop-blur-md' : 'border-transparent bg-neutral-950/75 backdrop-blur-sm'}`}>
+        <div className="container mx-auto flex h-16 items-center justify-between px-4">
+          <a
+            href={localizedHref(locale, '/')}
+            className="shrink-0 text-lg font-bold text-white transition-colors hover:text-blue-400"
+            data-analytics-event="navigation_click"
+            data-analytics-content-type="navigation"
+            data-analytics-content-slug="/"
+            data-analytics-content-title="brand"
+          >
             TobyOnFitnessTech
           </a>
 
-          <nav className="hidden lg:flex items-center gap-3 xl:gap-5 mx-4 min-w-0">
-            {navLinks.map((link) => link.hasDropdown ? (
-              <div key={link.name} className="relative" ref={blogDropdownRef} onMouseEnter={() => setIsDesktopBlogOpen(true)} onMouseLeave={() => setIsDesktopBlogOpen(false)}>
-                <button onClick={() => { lastBlogToggle.current = Date.now(); setIsDesktopBlogOpen((o) => !o); }} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (pathname.startsWith(link.href) && link.href !== '/') ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
-                  {link.icon && <span>{link.icon}</span>}
-                  {link.name}
-                  <ChevronDown size={14} className={`transition-transform duration-200 ${isDesktopBlogOpen ? 'rotate-180' : ''}`} />
-                </button>
-                {isDesktopBlogOpen && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-80 z-[200] pt-2">
-                    <div className="grid grid-cols-2 gap-1.5 p-3 bg-neutral-900 border border-neutral-800 rounded-2xl shadow-xl shadow-black/40">
-                      {subNavItems.map((subLink) => (
-                        <a key={subLink.href} href={subLink.href} className={`flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors ${pathname === subLink.href || (pathname.startsWith(subLink.href) && subLink.href !== '/') ? 'bg-blue-500/20 text-blue-400' : 'text-neutral-400 hover:bg-neutral-800 hover:text-white'}`}>
-                          <span>{subLink.icon}</span><span>{subLink.name}</span>
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <a key={link.name} href={link.href} className={`text-sm font-medium transition-colors flex items-center gap-1.5 ${pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) ? 'text-white border-b border-blue-500 pb-0.5' : 'text-neutral-300 hover:text-white'}`}>
-                {link.icon && <span>{link.icon}</span>}
-                {link.name}
-              </a>
-            ))}
+          <nav className="mx-4 hidden min-w-0 items-center gap-1 xl:flex" aria-label="Primary navigation">
+            <DesktopMenu label={t.reviews} items={reviewItems} pathname={pathname} menuName="reviews" />
+            <DesktopMenu label={t.training} items={trainingItems} pathname={pathname} menuName="training" />
+            <NavAnchor item={primaryItems[0]} pathname={pathname} />
+            <NavAnchor item={primaryItems[1]} pathname={pathname} />
+            <DesktopMenu label={t.podcasts} items={podcastItems} pathname={pathname} menuName="podcasts" />
+            <NavAnchor item={primaryItems[2]} pathname={pathname} />
+            <NavAnchor item={primaryItems[3]} pathname={pathname} />
           </nav>
 
-          <div className="hidden lg:flex items-center gap-4 shrink-0">
-            <div className="relative" ref={languageDropdownRef}>
-              <button onClick={() => setIsLanguageOpen((o) => !o)} className="inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/90 px-3 py-2 text-sm text-neutral-200 hover:text-white hover:border-neutral-700 transition-colors" aria-label="Choose language">
-                <span>🌐</span>
-                <span>{LOCALE_FLAGS[locale]}</span>
-                <ChevronDown size={14} className={`transition-transform ${isLanguageOpen ? 'rotate-180' : ''}`} />
+          <div className="hidden items-center gap-2 xl:flex">
+            <div className="relative" ref={languageRef}>
+              <button
+                type="button"
+                onClick={() => setIsLanguageOpen((current) => !current)}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-800 bg-neutral-900 text-neutral-300 hover:text-white"
+                aria-label="Choose language"
+                title="Choose language"
+              >
+                <Globe size={17} />
               </button>
               {isLanguageOpen && (
-                <div className="absolute right-0 mt-2 w-44 rounded-2xl border border-neutral-800 bg-neutral-900 p-2 shadow-xl shadow-black/40">
-                  {languageLinks.map((item) => (
-                    <button key={item.code} onClick={() => handleLanguageChoice(item.code)} className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-colors ${locale === item.code ? 'bg-blue-500/20 text-blue-400' : 'text-neutral-300 hover:bg-neutral-800 hover:text-white'}`}>
-                      <span className="inline-flex items-center gap-2">
-                        <span>{item.flag}</span>
-                        <span>{item.label}</span>
-                      </span>
+                <div className="absolute right-0 mt-2 w-44 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
+                  {SUPPORTED_LOCALES.map((code) => (
+                    <button
+                      type="button"
+                      key={code}
+                      onClick={() => handleLanguageChoice(code)}
+                      className={`w-full rounded-md px-3 py-2 text-left text-sm ${locale === code ? 'bg-blue-600 text-white' : 'text-neutral-300 hover:bg-neutral-900 hover:text-white'}`}
+                    >
+                      {LOCALE_LABELS[code]}
                     </button>
                   ))}
                 </div>
@@ -227,76 +294,58 @@ export default function Header() {
             <Search />
           </div>
 
-          <button className="lg:hidden text-neutral-300 hover:text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <button
+            type="button"
+            className="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white xl:hidden"
+            onClick={() => {
+              setIsMenuOpen((current) => !current);
+              if (!isMenuOpen) captureEvent('navigation_menu_opened', { menu_name: 'primary', navigation_surface: 'mobile' });
+            }}
+            aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
+            aria-expanded={isMenuOpen}
+          >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </header>
 
       {isMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-[100] bg-neutral-950 overflow-y-auto">
-          <div className="flex flex-col min-h-full p-6">
-            <div className="flex justify-between items-center mb-8">
-              <a href={localizedHref(locale, '/')} className="text-xl font-bold bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">TobyOnFitnessTech</a>
-              <button onClick={() => setIsMenuOpen(false)} className="text-neutral-300 hover:text-white p-2"><X size={24} /></button>
+        <div className="fixed inset-0 z-[100] overflow-y-auto bg-neutral-950 xl:hidden">
+          <div className="mx-auto flex min-h-full max-w-3xl flex-col px-5 pb-8 pt-5">
+            <div className="mb-6 flex items-center justify-between">
+              <a href={localizedHref(locale, '/')} className="text-lg font-bold text-white">TobyOnFitnessTech</a>
+              <button type="button" onClick={() => setIsMenuOpen(false)} className="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" aria-label="Close navigation">
+                <X size={24} />
+              </button>
             </div>
 
-            <div className="mb-6 rounded-xl border border-neutral-800 bg-neutral-900/60 p-3">
-              <div className="flex items-center gap-2 text-sm font-medium text-neutral-200 mb-3"><Globe size={16} /> {LOCALE_LABELS[locale]}</div>
-              <div className="grid grid-cols-2 gap-2">
-                {languageLinks.map((item) => (
-                  <button key={item.code} onClick={() => handleLanguageChoice(item.code)} className={`rounded-xl px-3 py-2 text-sm text-left transition-colors ${locale === item.code ? 'bg-blue-500/20 text-blue-400' : 'bg-neutral-800 text-neutral-300 hover:text-white'}`}>
-                    {item.label}
+            <div className="grid grid-cols-2 gap-1 border-y border-neutral-800 py-3 sm:grid-cols-4">
+              {primaryItems.map((item) => (
+                <NavAnchor key={item.href} item={item} pathname={pathname} surface="mobile" onNavigate={() => setIsMenuOpen(false)} />
+              ))}
+            </div>
+
+            <MobileSection label={t.reviews} items={reviewItems} pathname={pathname} menuName="reviews" onNavigate={() => setIsMenuOpen(false)} />
+            <MobileSection label={t.training} items={trainingItems} pathname={pathname} menuName="training" onNavigate={() => setIsMenuOpen(false)} />
+            <MobileSection label={t.podcasts} items={podcastItems} pathname={pathname} menuName="podcasts" onNavigate={() => setIsMenuOpen(false)} />
+
+            <div className="mt-6">
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-neutral-300"><Globe size={16} /> Language</div>
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+                {SUPPORTED_LOCALES.map((code) => (
+                  <button
+                    type="button"
+                    key={code}
+                    onClick={() => handleLanguageChoice(code)}
+                    className={`rounded-md px-3 py-2 text-sm ${locale === code ? 'bg-blue-600 text-white' : 'bg-neutral-900 text-neutral-300 hover:text-white'}`}
+                  >
+                    {LOCALE_LABELS[code]}
                   </button>
                 ))}
               </div>
             </div>
 
-            <nav className="flex flex-col space-y-1 mb-6">
-              {[
-                { name: t.home, href: localizedHref(locale, '/'), icon: '🏠' },
-                { name: t.videos, href: localizedHref(locale, '/videos/'), icon: '🎬' },
-                { name: t.games, href: localizedHref(locale, '/games/'), icon: '🎮' },
-                { name: t.about, href: localizedHref(locale, '/about/'), icon: '👤' },
-                { name: t.faq, href: localizedHref(locale, '/faq/'), icon: '❓' },
-              ].map((link) => (
-                <a key={link.href} href={link.href} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 px-4 py-3 rounded-xl text-lg font-medium text-neutral-200 hover:bg-neutral-800 hover:text-white transition-colors">
-                  {link.icon && <span>{link.icon}</span>}
-                  {link.name}
-                </a>
-              ))}
-            </nav>
-
-            <div className="mb-3 border border-neutral-800 rounded-xl overflow-hidden">
-              <button onClick={() => setIsBlogDropdownOpen(!isBlogDropdownOpen)} className="w-full flex justify-between items-center px-4 py-3 text-neutral-200 hover:bg-neutral-800 transition-colors">
-                <span className="flex items-center gap-2 font-medium">📝 {t.blog}</span>
-                <ChevronDown size={18} className={`transition-transform duration-200 ${isBlogDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isBlogDropdownOpen && (
-                <div className="border-t border-neutral-800 px-4 py-3 grid grid-cols-2 gap-2">
-                  {subNavItems.map((sub) => (
-                    <a key={sub.href} href={sub.href} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">
-                      <span>{sub.icon}</span><span>{sub.name}</span>
-                    </a>
-                  ))}
-                </div>
-              )}
-            </div>
-
-            <div className="border border-neutral-800 rounded-xl overflow-hidden">
-              <button onClick={() => setIsPodcastDropdownOpen(!isPodcastDropdownOpen)} className="w-full flex justify-between items-center px-4 py-3 text-neutral-200 hover:bg-neutral-800 transition-colors">
-                <span className="flex items-center gap-2 font-medium">{t.podcasts}</span>
-                <ChevronDown size={18} className={`transition-transform duration-200 ${isPodcastDropdownOpen ? 'rotate-180' : ''}`} />
-              </button>
-              {isPodcastDropdownOpen && (
-                <div className="border-t border-neutral-800 px-4 py-3 space-y-2">
-                  <a href={`${podcastBase}/podcasts/agentstack/`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">{t.openclaw}</a>
-                  <a href={`${podcastBase}/podcasts/fitness-tech/`} onClick={() => setIsMenuOpen(false)} className="flex items-center gap-2 py-2 text-sm text-neutral-400 hover:text-white transition-colors">{t.fitness}</a>
-                </div>
-              )}
-            </div>
-
-            <div className="mt-auto pt-6"><Search /></div>
+            <div className="mt-auto pt-8"><Search /></div>
           </div>
         </div>
       )}

@@ -1,0 +1,113 @@
+---
+import { ArrowRight, BarChart3, Cpu, Dumbbell, FileText, HeartPulse, PlaySquare, Shield, Watch } from 'lucide-react';
+
+interface Props {
+  context?: string;
+  sourceType?: string;
+  sourceSlug?: string;
+}
+
+const {
+  context = '',
+  sourceType = 'content',
+  sourceSlug = Astro.url.pathname,
+} = Astro.props;
+
+const haystack = context.toLowerCase();
+
+const topic = /openclaw|agentstack|agent stack|claude|anthropic|local ai|\bai\b/.test(haystack)
+  ? 'agentstack'
+  : /whoop|oura|garmin|wearable|recovery|sleep|hrv/.test(haystack)
+    ? 'wearables'
+    : /speediance|tonal|gym monster|smart gym|voltra|aeke/.test(haystack)
+      ? 'speediance'
+      : /bjj|jiu.?jitsu|grappling|black belt/.test(haystack)
+        ? 'bjj'
+        : 'training';
+
+const routes = {
+  speediance: {
+    eyebrow: 'Keep comparing',
+    title: 'Make the next smart-gym decision with the full picture',
+    description: 'Move from one review into model comparisons, real lifting data, and the matching video demonstrations.',
+    items: [
+      { title: 'Speediance comparison hub', description: 'Models, settings, ownership notes, and real training volume.', href: '/speediance/#comparison-guide', icon: Dumbbell },
+      { title: 'Watch Speediance tests', description: 'Firmware, modes, safety, and heavy-lifting demonstrations.', href: '/videos/?q=speediance', icon: PlaySquare },
+      { title: 'Compare fitness trackers', description: 'See how recovery data fits around strength training.', href: '/compare-trackers/', icon: BarChart3 },
+    ],
+  },
+  wearables: {
+    eyebrow: 'Use the data',
+    title: 'Compare the wearable, then see what the numbers look like',
+    description: 'Continue into hands-on comparisons, live WHOOP recovery data, and the broader tracker guide.',
+    items: [
+      { title: 'Wearable review hub', description: 'WHOOP, Oura, Garmin, sleep, and recovery comparisons.', href: '/wearables/', icon: Watch },
+      { title: 'Live WHOOP recovery', description: 'Daily HRV, recovery, sleep performance, and trends.', href: '/whoop/', icon: HeartPulse },
+      { title: 'Compare trackers', description: 'Choose a device based on training goals and tradeoffs.', href: '/compare-trackers/', icon: BarChart3 },
+    ],
+  },
+  agentstack: {
+    eyebrow: 'Go deeper',
+    title: 'Follow the AgentStack system from build notes to daily episodes',
+    description: 'The AI work has its own path now: implementation reports, daily analysis, and the podcast archive.',
+    items: [
+      { title: 'AgentStack hub', description: 'Projects, field reports, workflows, and the daily show.', href: '/agentstack/', icon: Cpu },
+      { title: 'AgentStack Daily', description: 'Daily AI systems, model, hardware, and security episodes.', href: '/podcasts/agentstack/', icon: PlaySquare },
+      { title: 'Fitness connector brief', description: 'Build Garmin, WHOOP, Speediance, and nutrition connectors.', href: '/blog/openclaw-fitness-reports-garmin-whoop-speediance/', icon: FileText },
+    ],
+  },
+  bjj: {
+    eyebrow: 'Continue the training story',
+    title: 'Put this BJJ story in the context of the full training record',
+    description: 'See the belt timeline, competition notes, and the videos behind the written analysis.',
+    items: [
+      { title: 'BJJ journey', description: 'Belt progression, training history, and competition context.', href: '/bjj/', icon: Shield },
+      { title: 'Watch BJJ videos', description: 'Matches, breakdowns, grading debates, and training clips.', href: '/videos/?q=bjj', icon: PlaySquare },
+      { title: 'Transformation timeline', description: 'Weight, training, setbacks, and the long-term record.', href: '/transformation/', icon: BarChart3 },
+    ],
+  },
+  training: {
+    eyebrow: 'Choose the next view',
+    title: 'Move from the story into the underlying training data',
+    description: 'Explore the weekly plan, video library, and the best place to start with the site.',
+    items: [
+      { title: 'Training overview', description: 'Lifting, running, recovery, and BJJ in one weekly view.', href: '/training/', icon: BarChart3 },
+      { title: 'Browse videos', description: 'Reviews, experiments, workouts, and practical demonstrations.', href: '/videos/', icon: PlaySquare },
+      { title: 'Start here', description: 'The transformation, the method, and the core site paths.', href: '/start-here/', icon: FileText },
+    ],
+  },
+};
+
+const selected = routes[topic];
+---
+
+<section class="mt-14 border-y border-neutral-800 py-10" aria-labelledby="topic-next-steps-heading">
+  <div class="mb-7 max-w-2xl">
+    <p class="mb-2 text-xs font-semibold uppercase text-blue-400">{selected.eyebrow}</p>
+    <h2 id="topic-next-steps-heading" class="mb-3 text-2xl font-bold text-white">{selected.title}</h2>
+    <p class="text-sm leading-relaxed text-neutral-400">{selected.description}</p>
+  </div>
+
+  <div class="grid gap-3 md:grid-cols-3">
+    {selected.items.map((item) => {
+      const Icon = item.icon;
+      return (
+        <a
+          href={item.href}
+          class="group rounded-lg border border-neutral-800 bg-neutral-900 p-5 transition-colors hover:border-blue-500/60 hover:bg-neutral-800"
+          data-analytics-event="content_next_step_click"
+          data-analytics-content-type={sourceType}
+          data-analytics-content-slug={sourceSlug}
+          data-analytics-content-title={item.title}
+        >
+          <div class="mb-4 flex items-center justify-between">
+            <Icon size={19} class="text-blue-400" aria-hidden="true" />
+            <ArrowRight size={17} class="text-neutral-600 transition-transform group-hover:translate-x-1 group-hover:text-blue-400" aria-hidden="true" />
+          </div>
+          <h3 class="mb-2 text-sm font-semibold text-white group-hover:text-blue-300">{item.title}</h3>
+          <p class="text-xs leading-relaxed text-neutral-500">{item.description}</p>
+        </a>
+      );
+    })}
+  </div>
+</section>

@@ -3,6 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { marked } from 'marked';
 import { BLOG_POSTS, BLOG_REDIRECTS, DYNAMIC_BLOG_POSTS } from '../../lib/blogPosts';
 import ShareButtons from '../../components/ShareButtons.jsx';
+import TopicNextSteps from '../../components/TopicNextSteps.astro';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
 function readTime(content = '') {
@@ -87,6 +88,7 @@ if (relatedPosts.length < 3) {
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const postUrl = `${siteUrl}/blog/${post.slug}/`;
+const topicContext = [post.title, post.category, ...(post.tags || [])].join(' ');
 
 // Extract FAQ schema from blog post content (## headings become Q&A pairs)
 function extractFAQSchema(content: string): object | null {
@@ -140,8 +142,9 @@ function extractFAQSchema(content: string): object | null {
 
 const faqSchema = extractFAQSchema(post.content || '');
 
-const wordCount = (post.content || '').split(/\s+/).filter(Boolean).length;
-const articleHtml = marked.parse(post.content || '');
+const articleMarkdown = (post.content || '').replace(/^#\s+.+(?:\r?\n)+/, '');
+const wordCount = articleMarkdown.split(/\s+/).filter(Boolean).length;
+const articleHtml = marked.parse(articleMarkdown);
 
 const authorSchema = {
   "@type": "Person",
@@ -266,6 +269,12 @@ const articleJsonLd = {
           </div>
         </div>
       )}
+
+      <TopicNextSteps
+        context={topicContext}
+        sourceType="blog"
+        sourceSlug={`/blog/${post.slug}/`}
+      />
 
       {/* Next/Previous Post Navigation */}
       {(prevPost || nextPost) && (

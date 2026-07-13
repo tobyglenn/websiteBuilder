@@ -6,8 +6,6 @@ description: "A deep dive into WHOOP recovery scores, HRV, what green, yellow, a
 tags: ["fitness", "health", "whoop", "recovery"]
 ---
 
-# WHOOP Recovery Scores Explained: Complete Guide to HRV-Based Readiness
-
 If you’ve ever woken up feeling like a million bucks only to check your WHOOP strap and see a glaring red 22% recovery score, you’re not alone. The discrepancy between how we feel and what our biometric data tells us is one of the most common—and frustrating—experiences for fitness enthusiasts and biohackers alike. 
 
 WHOOP has revolutionized the way we look at training readiness by shifting the focus from simply tracking what we do (strain) to understanding how our bodies respond (recovery). But what exactly goes into that percentage? Is it gospel, or is it just a guide?

@@ -1,8 +1,54 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { getSpeedianceData } from '../data/speediance.js';
+import { LISTING_BLOG_POSTS } from '../lib/blogPosts';
+import { ArrowRight, BarChart3, Dumbbell, PlaySquare, Settings, ShieldCheck } from 'lucide-react';
 
 const { stats, chartData, donutData, workoutTypeBreakdown, exercisePRs, recentSessions } = getSpeedianceData();
+
+const comparisonSlugs = [
+  'gym-monster-2-vs-original',
+  '2025-11-07-speediance-2s-vs-original-real-user-review-tips-upgrades-after-600000-lbs-lifted',
+  'speediance-vs-tonal-comparison',
+  '2026-02-04-speediance-2s-v31-review-new-safety-start-firmware-changes-realworld-lifting',
+  '2026-01-24-speediance-broke-partner-mode-the-lost-free-lift-feature-demo-with-my-daughter',
+  '2025-09-01-speediance-first-thing-to-do-immediately-change-this-setting',
+];
+
+const comparisonPosts = comparisonSlugs
+  .map((slug) => LISTING_BLOG_POSTS.find((post) => post.slug === slug))
+  .filter((post): post is (typeof LISTING_BLOG_POSTS)[number] => Boolean(post));
+
+const comparisonFaq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Should I upgrade from the original Speediance Gym Monster to the Gym Monster 2 or 2S?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Start with the resistance ceiling, hardware changes, safety behavior, and the features you use today. The linked model comparisons separate meaningful training differences from upgrades that may not change your workouts.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does Speediance compare with Tonal?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Speediance is a freestanding platform with a different subscription and ownership model, while Tonal is wall mounted and built around its coaching ecosystem. The comparison guide covers installation, resistance, software, support, and total ownership experience.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How does Speediance compare with Voltra?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Speediance makes sense when the integrated screen, workout history, programming, and compact platform are central to the purchase. Voltra is more flexible for an existing rack and a more manual training setup. The right choice depends on how much programming and tracking you want the machine to handle.',
+      },
+    },
+  ],
+};
 
 // ── Heatmap data ──────────────────────────────────────────────────────────
 import rawSpeediance from '../data/speediance_dashboard_data.json';
@@ -88,18 +134,18 @@ const donutJSON = JSON.stringify(donutData);
 ---
 
 <Layout
-  title={`${stats.totalVolumeFmt} lbs Lifted: My Speediance Journey — TobyOnFitnessTech`}
-  description={`${stats.totalWorkouts} workouts, ${stats.totalVolumeFmt} lbs lifted on Speediance. Real data from Toby's home gym — monthly volume trends, top exercises, and personal records.`}
+  title="Speediance Gym Monster Reviews, Comparisons and Data"
+  description={`Speediance Gym Monster 2 and 2S comparisons, settings, firmware notes, and ${stats.totalVolumeFmt} lbs of real training data across ${stats.totalWorkouts} workouts.`}
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "Speediance Journey", url: "/speediance" }]}
-  jsonLd={{
+  jsonLd={[{
     "@context": "https://schema.org",
-    "@type": "Article",
-    "headline": "Speediance Journey",
-    "description": `${stats.totalWorkouts} workouts, ${stats.totalVolumeFmt} lbs lifted on Speediance. Real data from Toby's home gym.`,
+    "@type": "CollectionPage",
+    "name": "Speediance Gym Monster Reviews, Comparisons and Real Training Data",
+    "description": `${stats.totalWorkouts} workouts, ${stats.totalVolumeFmt} lbs lifted, plus model comparisons and ownership notes.`,
     "author": { "@type": "Person", "name": "Toby Glenn Peters" },
     "datePublished": "2026-03-04",
-    "url": "https://tobyonfitnesstech.com/speediance"
-  }}
+    "url": "https://tobyonfitnesstech.com/speediance/"
+  }, comparisonFaq]}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
 
@@ -109,36 +155,98 @@ const donutJSON = JSON.stringify(donutData);
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.08),_transparent_70%)] pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
-          <p class="text-xs font-bold tracking-widest text-orange-500 uppercase mb-4">Speediance Data · Jul 2025 – Feb 2026</p>
+          <p class="text-xs font-bold text-orange-500 uppercase mb-4">Independent Speediance owner data · {stats.dateStart} to {stats.dateEnd}</p>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            {stats.totalVolumeFmt} lbs Lifted:<br />
+            Speediance Gym Monster<br />
             <span class="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-              My Speediance Journey
+              Reviews and Real Data
             </span>
           </h1>
           <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
-            I swapped the commercial gym for a Speediance smart home gym and haven't looked back.
-            {stats.totalWorkouts} workouts, {stats.totalVolumeFmt} lbs of volume, and a body that's gone from
-            188 lbs to 218 lbs of muscle. Every session logged, every PR tracked.
+            Model comparisons, software and safety notes, and the training record behind the opinions:
+            {stats.totalWorkouts} workouts and {stats.totalVolumeFmt} lbs lifted since {stats.dateStart}.
           </p>
           <div class="flex flex-wrap gap-4">
             <a
-              href="https://www.speediance.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 bg-orange-600/20 hover:bg-orange-600/30 border border-orange-500/30 hover:border-orange-500/60 text-orange-400 hover:text-orange-300 font-medium rounded-full transition-all text-sm"
+              href="#comparison-guide"
+              class="inline-flex items-center gap-2 rounded-md bg-orange-600 px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-500"
+              data-analytics-event="hub_path_selected"
+              data-analytics-content-type="speediance"
+              data-analytics-content-slug="comparison-guide"
+              data-analytics-content-title="comparison guide"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4v6a6 6 0 0 0 12 0V4"/><line x1="4" x2="20" y1="20" y2="20"/></svg>
-              Speediance.com
+              <Dumbbell size={17} />
+              Compare models and settings
             </a>
             <a
-              href="/videos/?q=speediance"
-              class="inline-flex items-center gap-2 px-5 py-2.5 bg-neutral-800/60 hover:bg-neutral-800 border border-neutral-700/50 hover:border-neutral-600 text-neutral-300 hover:text-white font-medium rounded-full transition-all text-sm"
+              href="#summary-stats"
+              class="inline-flex items-center gap-2 rounded-md border border-neutral-700 bg-neutral-900 px-5 py-2.5 text-sm font-semibold text-neutral-200 transition-colors hover:border-neutral-500 hover:text-white"
+              data-analytics-event="hub_path_selected"
+              data-analytics-content-type="speediance"
+              data-analytics-content-slug="training-data"
+              data-analytics-content-title="real training data"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-              Watch My Speediance Videos
+              <BarChart3 size={17} />
+              See the training data
             </a>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="comparison-guide" class="border-t border-neutral-900 py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
+          <div class="max-w-2xl">
+            <p class="mb-2 text-xs font-semibold uppercase text-orange-400">Comparison guide</p>
+            <h2 class="mb-3 text-3xl font-bold text-white">Choose the machine, model, and settings that fit your training</h2>
+            <p class="leading-relaxed text-neutral-400">Start with the decision you are making. These guides cover the model differences, ownership tradeoffs, safety behavior, and settings that changed my actual workouts.</p>
+          </div>
+          <a href="/videos/?q=speediance" class="inline-flex items-center gap-2 text-sm font-semibold text-orange-400 hover:text-orange-300" data-analytics-event="hub_path_selected" data-analytics-content-type="speediance" data-analytics-content-slug="videos" data-analytics-content-title="Speediance video library">
+            <PlaySquare size={17} /> Watch every Speediance test <ArrowRight size={15} />
+          </a>
+        </div>
+
+        <div class="mb-10 grid gap-4 md:grid-cols-3">
+          <a href="/blog/gym-monster-2-vs-original/" class="rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-orange-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="speediance" data-analytics-content-slug="model-upgrade" data-analytics-content-title="Gym Monster 2 vs Original">
+            <Dumbbell size={22} class="mb-4 text-orange-400" />
+            <h3 class="mb-2 font-semibold text-white">Gym Monster 2 vs Original</h3>
+            <p class="mb-4 text-sm leading-relaxed text-neutral-400">Hardware, resistance, ergonomics, and whether the upgrade changes enough to matter.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-orange-400">Compare the models <ArrowRight size={15} /></span>
+          </a>
+          <a href="/blog/speediance-vs-tonal-comparison/" class="rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-blue-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="speediance" data-analytics-content-slug="tonal-comparison" data-analytics-content-title="Speediance vs Tonal">
+            <ShieldCheck size={22} class="mb-4 text-blue-400" />
+            <h3 class="mb-2 font-semibold text-white">Speediance vs Tonal</h3>
+            <p class="mb-4 text-sm leading-relaxed text-neutral-400">Installation, subscription, resistance, coaching, support, and long-term ownership.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400">Compare ownership <ArrowRight size={15} /></span>
+          </a>
+          <a href="/blog/2025-09-01-speediance-first-thing-to-do-immediately-change-this-setting/" class="rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-emerald-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="speediance" data-analytics-content-slug="settings" data-analytics-content-title="Speediance settings guide">
+            <Settings size={22} class="mb-4 text-emerald-400" />
+            <h3 class="mb-2 font-semibold text-white">Settings that change the workout</h3>
+            <p class="mb-4 text-sm leading-relaxed text-neutral-400">Unlimited sets, progressive overload, eccentric mode, warm-ups, and safety behavior.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">Fix the defaults <ArrowRight size={15} /></span>
+          </a>
+        </div>
+
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {comparisonPosts.map((post) => (
+            <a
+              href={`/blog/${post.slug}/`}
+              class="group flex gap-4 rounded-lg border border-neutral-800 bg-neutral-900 p-4 hover:border-orange-500/50"
+              data-analytics-event="content_card_click"
+              data-analytics-content-type="blog"
+              data-analytics-content-slug={post.slug}
+              data-analytics-content-title={post.title}
+            >
+              <div class="h-20 w-24 shrink-0 overflow-hidden rounded-md bg-neutral-800">
+                {post.image && <img src={post.image} alt="" class="h-full w-full object-cover" loading="lazy" />}
+              </div>
+              <div class="min-w-0">
+                <p class="mb-1 text-xs font-semibold text-orange-400">{post.category}</p>
+                <h3 class="line-clamp-3 text-sm font-semibold leading-snug text-white group-hover:text-orange-300">{post.title}</h3>
+              </div>
+            </a>
+          ))}
         </div>
       </div>
     </section>

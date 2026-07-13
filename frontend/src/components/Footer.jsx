@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Youtube, Twitter, Instagram, Mail, ArrowRight } from 'lucide-react';
+import { Youtube, Twitter, Instagram, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { captureEvent } from '../lib/analytics.js';
 
 export default function Footer() {
@@ -7,11 +7,13 @@ export default function Footer() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [intentCaptured, setIntentCaptured] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
+    captureEvent('newsletter_submit_attempt', { form_location: 'footer' });
 
     try {
       const response = await fetch('https://app.kit.com/forms/cbadc25c13/subscriptions', {
@@ -32,9 +34,11 @@ export default function Footer() {
         });
       } else {
         setError('Something went wrong. Please try again.');
+        captureEvent('newsletter_signup_error', { form_location: 'footer', error_type: 'response' });
       }
     } catch (err) {
       setError('Network error. Please try again.');
+      captureEvent('newsletter_signup_error', { form_location: 'footer', error_type: 'network' });
     } finally {
       setLoading(false);
     }
@@ -49,7 +53,7 @@ export default function Footer() {
             <h3 className="text-xl font-bold text-white mb-4">TobyOnFitnessTech</h3>
             <p className="text-neutral-400 text-sm leading-relaxed max-w-sm mb-6">
               Dedicated to cutting through the marketing hype and delivering data-driven 
-              reviews of fitness technology. Helping you train smarter, not harder.
+              reviews of fitness technology, smart gyms, wearables, and the real training data behind each recommendation.
             </p>
             <div className="flex gap-2">
               <a 
@@ -57,6 +61,8 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 text-neutral-400 hover:text-red-500 transition-colors"
+                aria-label="YouTube"
+                title="YouTube"
               >
                 <Youtube size={20} />
               </a>
@@ -65,6 +71,8 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 text-neutral-400 hover:text-blue-400 transition-colors"
+                aria-label="X"
+                title="X"
               >
                 <Twitter size={20} />
               </a>
@@ -73,12 +81,16 @@ export default function Footer() {
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="p-2 text-neutral-400 hover:text-pink-500 transition-colors"
+                aria-label="Instagram"
+                title="Instagram"
               >
                 <Instagram size={20} />
               </a>
               <a 
                 href="mailto:admin@tobyonfitnesstech.com" 
                 className="p-2 text-neutral-400 hover:text-white transition-colors"
+                aria-label="Email Toby"
+                title="Email Toby"
               >
                 <Mail size={20} />
               </a>
@@ -87,19 +99,20 @@ export default function Footer() {
 
           {/* Links */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Content</h4>
+            <h4 className="font-semibold text-white mb-4">Explore</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
-              <li><a href="/videos/" className="hover:text-blue-400 transition-colors">Video Reviews</a></li>
-              <li><a href="/blog/" className="hover:text-blue-400 transition-colors">Written Analysis</a></li>
-              <li><a href="/live/" className="hover:text-blue-400 transition-colors">Live Streams</a></li>
+              <li><a href="/speediance/" className="hover:text-blue-400 transition-colors">Speediance</a></li>
+              <li><a href="/wearables/" className="hover:text-blue-400 transition-colors">Wearables</a></li>
+              <li><a href="/agentstack/" className="hover:text-blue-400 transition-colors">AgentStack</a></li>
+              <li><a href="/blog/" className="hover:text-blue-400 transition-colors">Articles</a></li>
+              <li><a href="/videos/" className="hover:text-blue-400 transition-colors">Videos</a></li>
               <li><a href="/podcasts/" className="hover:text-blue-400 transition-colors">Podcasts</a></li>
-              <li><a href="/gear/" className="hover:text-blue-400 transition-colors">My Gear</a></li>
             </ul>
           </div>
 
           {/* Data Pages */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Data Pages</h4>
+            <h4 className="font-semibold text-white mb-4">Training Data</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
               <li><a href="/running/" className="hover:text-blue-400 transition-colors">Running Log</a></li>
               <li><a href="/speediance/" className="hover:text-blue-400 transition-colors">Lifting Stats</a></li>
@@ -115,8 +128,12 @@ export default function Footer() {
 
           {/* Legal/Other */}
           <div>
-            <h4 className="font-semibold text-white mb-4">Legal</h4>
+            <h4 className="font-semibold text-white mb-4">About</h4>
             <ul className="space-y-2 text-sm text-neutral-400">
+              <li><a href="/about/" className="hover:text-blue-400 transition-colors">Toby's Story</a></li>
+              <li><a href="/gear/" className="hover:text-blue-400 transition-colors">Gear Setup</a></li>
+              <li><a href="/faq/" className="hover:text-blue-400 transition-colors">FAQ</a></li>
+              <li><a href="/contact/" className="hover:text-blue-400 transition-colors">Contact</a></li>
               <li><a href="/privacy/" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
               <li><a href="/terms/" className="hover:text-blue-400 transition-colors">Terms of Service</a></li>
               <li><a href="/affiliate/" className="hover:text-blue-400 transition-colors">Affiliate Disclosure</a></li>
@@ -125,7 +142,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter - Kit Integration */}
-        <div className="bg-neutral-900/50 border border-neutral-800 rounded-xl p-6 mb-12">
+        <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 mb-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h4 className="font-bold text-white mb-1 flex items-center gap-2">
@@ -138,8 +155,8 @@ export default function Footer() {
             </div>
             
             {submitted ? (
-              <div className="flex items-center gap-2 text-green-400 font-medium bg-green-400/10 px-6 py-3 rounded-lg border border-green-400/20">
-                ✅ You're subscribed! Check your inbox.
+              <div className="flex items-center gap-2 text-green-400 font-medium bg-green-400/10 px-6 py-3 rounded-md border border-green-400/20">
+                <CheckCircle2 size={18} /> You're subscribed. Check your inbox.
               </div>
             ) : (
               <form 
@@ -150,6 +167,12 @@ export default function Footer() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onFocus={() => {
+                    if (!intentCaptured) {
+                      setIntentCaptured(true);
+                      captureEvent('newsletter_form_started', { form_location: 'footer' });
+                    }
+                  }}
                   placeholder="your@email.com"
                   required
                   disabled={loading}
@@ -184,9 +207,7 @@ export default function Footer() {
 
         <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-600">
           <p>&copy; {new Date().getFullYear()} Toby on Fitness Tech. All rights reserved.</p>
-          <p className="flex items-center gap-1">
-            Built with <span className="text-red-500">♥</span> using Astro & React
-          </p>
+          <p>Built with Astro and React</p>
         </div>
       </div>
     </footer>

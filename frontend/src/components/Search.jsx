@@ -13,7 +13,7 @@ function SearchModalFallback({ onClose }) {
       }}
     >
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-2xl bg-neutral-900 border border-neutral-700 rounded-2xl shadow-2xl overflow-hidden z-10">
+      <div className="relative w-full max-w-2xl bg-neutral-900 border border-neutral-700 rounded-lg shadow-2xl overflow-hidden z-10">
         <div className="p-8 text-center text-neutral-500">
           <div className="animate-pulse">Loading search...</div>
         </div>

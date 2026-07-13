@@ -1,8 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
-import { Activity, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
+import { Activity, ArrowRight, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
 import {
   RECOVERY_RECORDS,
   AVG_RECOVERY,
@@ -66,12 +64,10 @@ const redDash = (redPct / 100) * circumference;
 ---
 
 <Layout 
-  title="WHOOP Recovery Data | TobyOnFitnessTech"
-  description="Live WHOOP recovery scores, HRV trends, sleep performance, and strain data from Toby's real training. Updated daily."
+  title="WHOOP Recovery Data, Sleep Trends and Reviews"
+  description="Live WHOOP recovery, HRV, sleep and strain data, plus hands-on WHOOP 5 comparisons with Garmin and Oura. Updated daily."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "WHOOP Data", url: "/whoop" }]}
 >
-  <Header client:load />
-  
   <main class="bg-neutral-950 min-h-screen pb-20">
     <!-- Hero Section -->
     <section class="pt-20 pb-10 px-4">
@@ -85,8 +81,35 @@ const redDash = (redPct / 100) * circumference;
         </div>
         <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">WHOOP Recovery</h1>
         <p class="text-lg text-neutral-400 max-w-2xl">
-          Real recovery data from my WHOOP 4.0 — sleep-based recovery scores, HRV, RHR, and strain analysis.
+          Real recovery data from my current WHOOP, with sleep-based recovery scores, HRV, RHR, and the comparisons that explain what the numbers are useful for.
         </p>
+        <a href="/wearables/" class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300" data-analytics-event="hub_path_selected" data-analytics-content-type="wearables" data-analytics-content-slug="wearables-hub" data-analytics-content-title="wearables hub">
+          Compare WHOOP with Garmin and Oura <ArrowRight class="h-4 w-4" />
+        </a>
+      </div>
+    </section>
+
+    <section class="border-y border-neutral-900 px-4 py-12">
+      <div class="mx-auto max-w-6xl">
+        <div class="mb-7 max-w-2xl">
+          <p class="mb-2 text-xs font-semibold uppercase text-blue-400">Reader guides</p>
+          <h2 class="mb-3 text-3xl font-bold text-white">Put the recovery score in context</h2>
+          <p class="leading-relaxed text-neutral-400">The dashboard shows what WHOOP measured. These hands-on comparisons explain the tradeoffs, what changed with WHOOP 5, and when another wearable tells the story better.</p>
+        </div>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            { title: 'WHOOP 5 vs WHOOP 4.0', description: 'Size, thickness, battery life, and the band-compatibility tradeoff.', href: '/blog/whoop-5-not-smaller-review/' },
+            { title: 'Oura vs WHOOP for sleep', description: 'Comfort, sleep tracking, recovery guidance, and day-to-day usefulness.', href: '/blog/oura-vs-whoop-sleep-comparison/' },
+            { title: 'Garmin and WHOOP together', description: 'What each platform is actually for when running and lifting overlap.', href: '/blog/garmin-and-whoop-what-each-is-actually-for/' },
+            { title: 'Recovery scores explained', description: 'How HRV, sleep, strain, and baseline behavior shape the daily score.', href: '/blog/whoop-recovery-scores-explained/' },
+          ].map((guide) => (
+            <a href={guide.href} class="group rounded-lg border border-neutral-800 bg-neutral-900 p-5 transition-colors hover:border-blue-500/60" data-analytics-event="content_card_click" data-analytics-content-type="blog" data-analytics-content-slug={guide.href} data-analytics-content-title={guide.title}>
+              <h3 class="mb-2 font-semibold text-white group-hover:text-blue-300">{guide.title}</h3>
+              <p class="mb-4 text-sm leading-relaxed text-neutral-400">{guide.description}</p>
+              <span class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400">Read the guide <ArrowRight class="h-4 w-4" /></span>
+            </a>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -322,7 +345,7 @@ const redDash = (redPct / 100) * circumference;
     <!-- CTA Section -->
     <section class="px-4 pb-20">
       <div class="max-w-6xl mx-auto">
-        <div class="bg-gradient-to-r from-blue-900/30 to-purple-900/30 rounded-xl p-8 border border-blue-800/30">
+        <div class="rounded-lg border border-blue-800/30 bg-neutral-900 p-8">
           <h2 class="text-2xl font-bold text-white mb-4">Track Your Recovery</h2>
           <p class="text-neutral-400 mb-6">
             See how WHOOP data integrates with my broader fitness ecosystem.
@@ -352,6 +375,4 @@ const redDash = (redPct / 100) * circumference;
       </div>
     </section>
   </main>
-
-  <Footer />
 </Layout>

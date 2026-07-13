@@ -66,12 +66,14 @@ export default function SearchModal({ isOpen, onClose }) {
   const [error, setError] = useState('');
   const inputRef = useRef(null);
   const lastSearchEvent = useRef('');
+  const resultClicked = useRef(false);
   
   const debouncedQuery = useDebounce(query, 200);
 
   // Focus input when modal opens
   useEffect(() => {
     if (isOpen && inputRef.current) {
+      resultClicked.current = false;
       setTimeout(() => {
         inputRef.current?.focus();
       }, 50);
@@ -135,19 +137,33 @@ export default function SearchModal({ isOpen, onClose }) {
     };
   }, [debouncedQuery]);
 
+  const closeWithTracking = useCallback((reason) => {
+    if (query.trim() && !resultClicked.current) {
+      captureEvent('search_abandoned', {
+        search_surface: 'site_modal',
+        search_query: cleanAnalyticsText(query, 80),
+        result_count: results.blogPosts.length + results.videos.length,
+        close_reason: reason,
+        content_type: 'site',
+      });
+    }
+    setQuery('');
+    onClose();
+  }, [onClose, query, results]);
+
   // Keyboard shortcuts
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (!isOpen) return;
       
       if (e.key === 'Escape') {
-        onClose();
+        closeWithTracking('escape');
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, onClose]);
+  }, [isOpen, closeWithTracking]);
 
   // Lock body scroll when open
   useEffect(() => {
@@ -161,11 +177,12 @@ export default function SearchModal({ isOpen, onClose }) {
 
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      onClose();
+      closeWithTracking('overlay');
     }
   };
 
   const handleResultClick = ({ contentType, slug, position }) => {
+    resultClicked.current = true;
     captureEvent('search_result_click', {
       search_surface: 'site_modal',
       search_query: cleanAnalyticsText(query, 80),
@@ -187,16 +204,17 @@ export default function SearchModal({ isOpen, onClose }) {
       onClick={handleOverlayClick}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={() => closeWithTracking('backdrop')} />
 
       {/* Modal panel */}
-      <div className="relative w-full max-w-2xl bg-neutral-900 border border-neutral-700 rounded-2xl shadow-2xl overflow-hidden z-10">
+      <div className="relative w-full max-w-2xl bg-neutral-900 border border-neutral-700 rounded-lg shadow-2xl overflow-hidden z-10">
         {/* Header */}
         <div className="flex items-center justify-between px-4 py-3 border-b border-neutral-800">
           <span className="text-sm font-semibold text-neutral-400 uppercase tracking-wider">Search</span>
           <button
-            onClick={onClose}
+            onClick={() => closeWithTracking('close_button')}
             className="text-neutral-500 hover:text-white transition-colors p-1 rounded-lg hover:bg-neutral-800"
+            aria-label="Close search"
           >
             <X size={16} />
           </button>
@@ -212,7 +230,7 @@ export default function SearchModal({ isOpen, onClose }) {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Search blog posts and videos..."
-              className="w-full bg-neutral-800 border border-neutral-700 rounded-xl py-3 pl-10 pr-4 text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+              className="w-full bg-neutral-800 border border-neutral-700 rounded-md py-3 pl-10 pr-4 text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
             />
             {query && (
               <button
@@ -224,6 +242,7 @@ export default function SearchModal({ isOpen, onClose }) {
                   setQuery('');
                 }}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-500 hover:text-white"
+                aria-label="Clear search"
               >
                 <X size={16} />
               </button>
@@ -272,7 +291,7 @@ export default function SearchModal({ isOpen, onClose }) {
                           slug: post.slug,
                           position: index + 1,
                         })}
-                        className="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800 transition-colors group"
+                        className="flex items-start gap-3 p-3 rounded-md hover:bg-neutral-800 transition-colors group"
                       >
                         <div className="flex-1 min-w-0">
                           <h4 className="text-sm font-medium text-white truncate group-hover:text-blue-400 transition-colors">
@@ -310,9 +329,9 @@ export default function SearchModal({ isOpen, onClose }) {
                           slug: video.id,
                           position: results.blogPosts.length + index + 1,
                         })}
-                        className="flex items-start gap-3 p-3 rounded-xl hover:bg-neutral-800 transition-colors group"
+                        className="flex items-start gap-3 p-3 rounded-md hover:bg-neutral-800 transition-colors group"
                       >
-                        <div className="w-24 h-16 bg-neutral-800 rounded-lg overflow-hidden flex-shrink-0">
+                        <div className="w-24 h-16 bg-neutral-800 rounded-md overflow-hidden flex-shrink-0">
                           {video.thumbnail ? (
                             <img 
                               src={video.thumbnail} 
@@ -356,13 +375,6 @@ export default function SearchModal({ isOpen, onClose }) {
           )}
         </div>
 
-        {/* Footer */}
-        <div className="px-4 py-3 border-t border-neutral-800 bg-neutral-900/50">
-          <div className="flex items-center justify-between text-xs text-neutral-600">
-            <span>Press <kbd className="bg-neutral-800 px-1.5 py-0.5 rounded">Esc</kbd> to close</span>
-            <span>Search by title, description, or category</span>
-          </div>
-        </div>
       </div>
     </div>
   );

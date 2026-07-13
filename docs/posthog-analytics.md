@@ -36,6 +36,18 @@ Use GitHub repo variables for the production deploy because GitHub Pages builds 
 - `filter_changed`
 - `share_click`
 - `language_switch`
+- `qualified_engagement`
+- `content_scroll_depth`
+- `content_next_step_click`
+- `hub_path_selected`
+- `navigation_click`
+- `navigation_menu_opened`
+- `search_abandoned`
+- `newsletter_form_started`
+- `newsletter_submit_attempt`
+- `newsletter_signup_error`
+- `frontend_resource_error`
+- `frontend_long_task`
 
 ## Weekly Review
 
@@ -48,4 +60,6 @@ Every Monday compare the last 7 days with the prior 7 days:
 - video playback/progress and calculator started-to-completed engagement
 - weak high-traffic pages that need a clearer CTA
 
-Make one to three focused website improvements from the review.
+Rank 5-10 possible improvements and implement the highest-confidence changes that fit the week.
+
+PostHog project settings also enable privacy-masked session replay, exception capture, Web Vitals, dead-click detection, and heatmaps. Stored client IP data is discarded.

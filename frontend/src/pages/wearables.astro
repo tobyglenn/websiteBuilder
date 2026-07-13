@@ -1,0 +1,171 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { LISTING_BLOG_POSTS } from '../lib/blogPosts';
+import { ArrowRight, BarChart3, HeartPulse, Moon, Scale, Watch } from 'lucide-react';
+
+const wearablePosts = LISTING_BLOG_POSTS
+  .filter((post) => /whoop|oura|garmin|wearable|recovery|sleep|hrv/i.test([
+    post.title,
+    post.excerpt,
+    post.category,
+    ...(post.tags || []),
+  ].join(' ')))
+  .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime());
+
+const preferredSlugs = [
+  'whoop-5-not-smaller-review',
+  'oura-vs-whoop-sleep-comparison',
+  'garmin-and-whoop-what-each-is-actually-for',
+  'whoop-recovery-scores-explained',
+];
+
+const featuredPosts = preferredSlugs
+  .map((slug) => wearablePosts.find((post) => post.slug === slug))
+  .filter((post): post is (typeof wearablePosts)[number] => Boolean(post));
+
+for (const post of wearablePosts) {
+  if (featuredPosts.length >= 4) break;
+  if (!featuredPosts.some((featured) => featured?.slug === post.slug)) featuredPosts.push(post);
+}
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Wearable Reviews and Recovery Data',
+  description: 'Hands-on WHOOP, Oura, Garmin, sleep, and recovery comparisons backed by Toby Peters real training data.',
+  url: 'https://tobyonfitnesstech.com/wearables/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: featuredPosts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: `https://tobyonfitnesstech.com/blog/${post.slug}/`,
+      name: post.title,
+    })),
+  },
+};
+---
+
+<Layout
+  title="Wearable Reviews: WHOOP, Oura and Garmin Compared"
+  description="Hands-on WHOOP, Oura, and Garmin comparisons with live recovery, HRV, sleep, and training data from one athlete using the devices together."
+  image="/images/gear/whoop-5.0.jpg"
+  jsonLd={articleSchema}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Wearables', url: '/wearables/' }]}
+>
+  <section class="relative flex min-h-[460px] items-end overflow-hidden border-b border-neutral-800">
+    <img
+      src="/images/gear/whoop-5.0.jpg"
+      alt="WHOOP wearable used for Toby's recovery tracking"
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-black/70"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/55 to-transparent"></div>
+    <div class="container relative z-10 mx-auto px-4 pb-14 pt-32">
+      <div class="max-w-3xl">
+        <div class="mb-4 flex items-center gap-2 text-sm font-semibold text-cyan-300">
+          <Watch size={18} />
+          Independent wearable testing
+        </div>
+        <h1 class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">
+          Wearable Reviews and Recovery Data
+        </h1>
+        <p class="max-w-2xl text-lg leading-relaxed text-neutral-200 md:text-xl">
+          WHOOP, Oura, and Garmin tested in the same training life. The comparisons here connect product claims to sleep, HRV, running, lifting, and BJJ data.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <main class="bg-neutral-950">
+    <section class="border-b border-neutral-900 py-12">
+      <div class="container mx-auto px-4">
+        <div class="mb-7 max-w-2xl">
+          <p class="mb-2 text-xs font-semibold uppercase text-cyan-400">Start with the decision</p>
+          <h2 class="text-2xl font-bold text-white md:text-3xl">What are you actually trying to measure?</h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-3">
+          <a href="/blog/oura-vs-whoop-sleep-comparison/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-cyan-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="wearables" data-analytics-content-slug="sleep-comparison" data-analytics-content-title="sleep and recovery">
+            <Moon size={22} class="mb-5 text-cyan-400" />
+            <h3 class="mb-2 font-semibold text-white group-hover:text-cyan-300">Sleep and recovery</h3>
+            <p class="mb-5 text-sm leading-relaxed text-neutral-400">Oura versus WHOOP when nightly sleep and readiness are the main decision.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400">Compare sleep tracking <ArrowRight size={15} /></span>
+          </a>
+          <a href="/blog/garmin-and-whoop-what-each-is-actually-for/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-green-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="wearables" data-analytics-content-slug="training-comparison" data-analytics-content-title="training and running">
+            <HeartPulse size={22} class="mb-5 text-green-400" />
+            <h3 class="mb-2 font-semibold text-white group-hover:text-green-300">Training and running</h3>
+            <p class="mb-5 text-sm leading-relaxed text-neutral-400">Garmin for the workout itself, WHOOP for the recovery response around it.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-green-400">Compare training roles <ArrowRight size={15} /></span>
+          </a>
+          <a href="/compare-trackers/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-amber-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="wearables" data-analytics-content-slug="tracker-guide" data-analytics-content-title="choose a tracker">
+            <Scale size={22} class="mb-5 text-amber-400" />
+            <h3 class="mb-2 font-semibold text-white group-hover:text-amber-300">Choose one device</h3>
+            <p class="mb-5 text-sm leading-relaxed text-neutral-400">Use the tracker guide when budget, subscriptions, and training goals matter together.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-amber-400">Open tracker guide <ArrowRight size={15} /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p class="mb-2 text-xs font-semibold uppercase text-blue-400">Reader guides</p>
+            <h2 class="text-2xl font-bold text-white md:text-3xl">Wearable comparisons and field notes</h2>
+          </div>
+          <a href="/blog/" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">All articles <ArrowRight size={15} /></a>
+        </div>
+
+        <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {featuredPosts.map((post) => (
+            <a
+              href={`/blog/${post.slug}/`}
+              class="group overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 hover:border-blue-500/60"
+              data-analytics-event="content_card_click"
+              data-analytics-content-type="blog"
+              data-analytics-content-slug={post.slug}
+              data-analytics-content-title={post.title}
+            >
+              <div class="aspect-video overflow-hidden bg-neutral-800">
+                {post.image && <img src={post.image} alt="" class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />}
+              </div>
+              <div class="p-5">
+                <p class="mb-2 text-xs font-semibold text-blue-400">{post.category}</p>
+                <h3 class="mb-3 line-clamp-3 text-sm font-semibold leading-snug text-white group-hover:text-blue-300">{post.title}</h3>
+                <p class="line-clamp-3 text-xs leading-relaxed text-neutral-500">{post.excerpt}</p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="py-14">
+      <div class="container mx-auto grid gap-10 px-4 lg:grid-cols-[1fr_1.2fr] lg:items-center">
+        <div>
+          <p class="mb-2 text-xs font-semibold uppercase text-emerald-400">The numbers behind the reviews</p>
+          <h2 class="mb-4 text-3xl font-bold text-white">See the recovery data, not just the product opinion</h2>
+          <p class="max-w-xl leading-relaxed text-neutral-400">
+            The live pages show the same recovery, sleep, and training signals discussed in the reviews. That makes it possible to see how the devices behave across real weeks instead of one controlled test.
+          </p>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <a href="/whoop/" class="rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-emerald-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="wearables" data-analytics-content-slug="/whoop/" data-analytics-content-title="live WHOOP data">
+            <HeartPulse size={22} class="mb-4 text-emerald-400" />
+            <h3 class="mb-2 font-semibold text-white">Live WHOOP recovery</h3>
+            <p class="mb-4 text-sm text-neutral-400">HRV, resting heart rate, sleep performance, and recovery trends.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">View recovery data <ArrowRight size={15} /></span>
+          </a>
+          <a href="/sleep/" class="rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-violet-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="wearables" data-analytics-content-slug="/sleep/" data-analytics-content-title="sleep data">
+            <BarChart3 size={22} class="mb-4 text-violet-400" />
+            <h3 class="mb-2 font-semibold text-white">Sleep data</h3>
+            <p class="mb-4 text-sm text-neutral-400">Nightly patterns and the recovery context around training load.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-violet-400">View sleep trends <ArrowRight size={15} /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import VideoPlayer from '../../components/VideoPlayer.jsx';
 import RelatedVideos from '../../components/RelatedVideos.jsx';
+import TopicNextSteps from '../../components/TopicNextSteps.astro';
 import { VIDEOS } from '../../data/mock.js';
 import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText, ListVideo } from 'lucide-react';
 import { parseVideoChapters } from '../../lib/videoChapters';
@@ -95,6 +96,7 @@ if (video.transcript_file) {
 
 // Extract category from video tags (first tag that looks like a category)
 const videoCategory = video.tags && video.tags.length > 0 ? video.tags[0] : null;
+const topicContext = [video.title, video.description, ...(video.tags || [])].join(' ');
 
 // Calculate "related" videos - filter by category if available, excluding current
 let relatedVideos = VIDEOS.filter(v => v.id !== video.id);
@@ -313,6 +315,12 @@ relatedVideos = relatedVideos.slice(0, 8);
                 </div>
             </details>
           </div>
+
+          <TopicNextSteps
+            context={topicContext}
+            sourceType="video"
+            sourceSlug={`/video/${video.id}/`}
+          />
 
           {/* More Videos in Category */}
           {relatedVideos.length > 0 && (
