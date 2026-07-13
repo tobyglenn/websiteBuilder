@@ -115,10 +115,13 @@
 
   posthog.init(config.key, {
     api_host: config.host || "https://us.i.posthog.com",
-    autocapture: false,
+    autocapture: true,
     capture_pageview: false,
     capture_pageleave: true,
-    disable_session_recording: true,
+    capture_exceptions: true,
+    capture_performance: true,
+    disable_session_recording: false,
+    person_profiles: "identified_only",
     persistence: "localStorage+cookie",
     mask_all_text: true,
     mask_all_element_attributes: true,
@@ -146,6 +149,92 @@
       referrer_path: document.referrer || "",
     });
   };
+
+  let activeSeconds = 0;
+  let maximumScrollPercent = 0;
+  let qualifiedEngagementCaptured = false;
+  let scrollMilestonesCaptured = new Set();
+  let currentEngagementPath = window.location.pathname;
+
+  const resetEngagementState = () => {
+    activeSeconds = 0;
+    maximumScrollPercent = 0;
+    qualifiedEngagementCaptured = false;
+    scrollMilestonesCaptured = new Set();
+    currentEngagementPath = window.location.pathname;
+  };
+
+  const updateScrollDepth = () => {
+    if (currentEngagementPath !== window.location.pathname) resetEngagementState();
+    const scrollableHeight = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+    const percent = Math.min(100, Math.round((window.scrollY / scrollableHeight) * 100));
+    maximumScrollPercent = Math.max(maximumScrollPercent, percent);
+
+    [25, 50, 75, 90].forEach((milestone) => {
+      if (maximumScrollPercent >= milestone && !scrollMilestonesCaptured.has(milestone)) {
+        scrollMilestonesCaptured.add(milestone);
+        window.toftAnalytics.capture("content_scroll_depth", {
+          scroll_percent: milestone,
+          active_seconds: activeSeconds,
+          content_type: contentTypeFromPath(window.location.pathname) || "page",
+        });
+      }
+    });
+  };
+
+  const evaluateQualifiedEngagement = () => {
+    if (qualifiedEngagementCaptured || activeSeconds < 30 || maximumScrollPercent < 50) return;
+    qualifiedEngagementCaptured = true;
+    window.toftAnalytics.capture("qualified_engagement", {
+      active_seconds: activeSeconds,
+      maximum_scroll_percent: maximumScrollPercent,
+      content_type: contentTypeFromPath(window.location.pathname) || "page",
+    });
+  };
+
+  window.addEventListener("scroll", updateScrollDepth, { passive: true });
+  window.addEventListener("resize", updateScrollDepth, { passive: true });
+  document.addEventListener("astro:page-load", () => {
+    resetEngagementState();
+    updateScrollDepth();
+  });
+  updateScrollDepth();
+  window.setInterval(() => {
+    if (document.visibilityState !== "visible") return;
+    activeSeconds += 1;
+    evaluateQualifiedEngagement();
+  }, 1000);
+
+  const failedResources = new Set();
+  window.addEventListener("error", (event) => {
+    const resource = event.target;
+    if (!(resource instanceof HTMLImageElement || resource instanceof HTMLScriptElement || resource instanceof HTMLLinkElement)) return;
+    const resourceUrl = resource.currentSrc || resource.src || resource.href || "";
+    if (!resourceUrl || failedResources.has(resourceUrl)) return;
+    failedResources.add(resourceUrl);
+    window.toftAnalytics.capture("frontend_resource_error", {
+      resource_type: resource.tagName.toLowerCase(),
+      resource_url: resourceUrl,
+    });
+  }, true);
+
+  if ("PerformanceObserver" in window) {
+    try {
+      let longTaskCaptured = false;
+      const observer = new PerformanceObserver((list) => {
+        if (longTaskCaptured) return;
+        const longestTask = list.getEntries().reduce((longest, entry) => Math.max(longest, entry.duration), 0);
+        if (longestTask < 100) return;
+        longTaskCaptured = true;
+        window.toftAnalytics.capture("frontend_long_task", {
+          duration_ms: Math.round(longestTask),
+        });
+      });
+      observer.observe({ type: "longtask", buffered: true });
+    } catch {
+      // Long-task observation is not supported in every browser.
+    }
+  }
 
   const captureClick = (target) => {
     const href = target.getAttribute("href") || "";
