@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 13 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 18:21:54 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 85 -->
+    <item>
+      <title>Folge 85: Codex rust-v0.144.3 erscheint, vLLM 0.25.0 macht Model Runner V2 zum Standard für Dense-Modelle, Apple verklagt OpenAI</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep085/episode_085.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-85/</link>
+      <description><![CDATA[OpenAI veröffentlicht Codex rust-v0.144.3 und rust-v0.144.2; vLLM 0.25.0 macht Model Runner V2 zum Standard für Dense-Modelle. Apple verklagt OpenAI wegen angeblichen Diebstahls von Geschäftsgeheimnissen durch ehemalige Mitarbeiter. Zudem erzeugt Freya‑TTS türkische Sprache mit einem 183M Flow‑Matching‑DiT, reduziert SAGEAgent die Gliom‑Diagnoselast um 55 %, wechselt Agora von einem Router zu einer Auktion über Reasoning‑Schritte, erreicht ein Zwei‑Agenten‑System 0,402 auf QANTA 2026, trainiert PAC‑ACT Action‑Chunking‑Transformer‑Richtlinien mit Chunk‑Level‑RL und Semantic Pareto‑DQN.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-85/]]></description>
+      <pubDate>Mon, 13 Jul 2026 18:21:54 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_085.mp3" length="39161565" type="audio/mpeg"/>
+      <itunes:duration>40:47</itunes:duration>
+      <itunes:episode>85</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep085/episode_085_cover.png"/>
+    </item>
+
     <!-- Episode 84 -->
     <item>
       <title>Folge 84: Codex 0.144, GPT-5.6 Sol, Grok 4.5, GPT-Live und Robostral Navigate</title>
