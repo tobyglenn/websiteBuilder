@@ -452,11 +452,18 @@
   document.addEventListener("astro:page-load", setupHomepageSectionTracking);
   document.addEventListener("astro:before-swap", captureHomepageSectionSummary);
   window.addEventListener("pagehide", captureHomepageSectionSummary);
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") captureHomepageSectionSummary();
+  });
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
     const target = event.target.closest("a, button");
     if (!target) return;
     captureHomepageSectionClick(target);
+    const href = target.getAttribute("href") || "";
+    if (target instanceof HTMLAnchorElement && href && !href.startsWith("#")) {
+      captureHomepageSectionSummary();
+    }
     captureClick(target);
   });
 
