@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 09 Jul 2026 23:53:42 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 13 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 84 -->
+    <item>
+      <title>Folge 84: Codex 0.144, GPT-5.6 Sol, Grok 4.5, GPT-Live und Robostral Navigate</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep084/episode_084.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-84/</link>
+      <description><![CDATA[Heute untersucht AgentStack Daily Codex 0.144, OpenAIs GPT-5.6 Sol-, Terra- und Luna-Lineup sowie SpaceXAI's Grok 4.5. Außerdem werden GPT-Lives gleichzeitiges Hören und Sprechen, Mistral's 8B Robostral Navigate-Modell, ChatGPT Work, Microsoft Flint und neue Forschung zu kontinuierlicher Kontrollspeicherung, Zitationsbewertung, Codebewertungen, proaktiven Agenten, delegierter Webrecherche, prozeduraler Codeabfrage und Energiemarkt-Agententests behandelt.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-84/]]></description>
+      <pubDate>Mon, 13 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_084.mp3" length="42770643" type="audio/mpeg"/>
+      <itunes:duration>44:33</itunes:duration>
+      <itunes:episode>84</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep084/episode_084_cover.png"/>
+    </item>
+
     <!-- Episode 83 -->
     <item>
       <title>Folge 83: Hermes-Agent v2026.7.7, OpenAI Codex rust-v0.143.0, Claude Code 2.1.197, Aion-3.0-Mini</title>
