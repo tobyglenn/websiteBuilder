@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { captureEvent } from '../lib/analytics.js';
 
 export default function NewsletterSignup() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
+  const started = useRef(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    captureEvent('newsletter_submit_attempt', { form_location: 'newsletter_signup_section' });
     setLoading(true);
     try {
       const response = await fetch('https://app.kit.com/forms/cbadc25c13/subscriptions', {
@@ -25,9 +27,18 @@ export default function NewsletterSignup() {
         captureEvent('newsletter_signup', {
           form_location: 'newsletter_signup_section',
         });
+      } else {
+        captureEvent('newsletter_signup_error', {
+          form_location: 'newsletter_signup_section',
+          error_type: 'response',
+        });
       }
     } catch (error) {
       console.error('Subscription error:', error);
+      captureEvent('newsletter_signup_error', {
+        form_location: 'newsletter_signup_section',
+        error_type: 'network',
+      });
     } finally {
       setLoading(false);
     }
@@ -65,6 +76,11 @@ export default function NewsletterSignup() {
                 className="flex-1 bg-neutral-900 border border-neutral-800 rounded-xl px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500 transition-colors"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => {
+                  if (started.current) return;
+                  started.current = true;
+                  captureEvent('newsletter_form_started', { form_location: 'newsletter_signup_section' });
+                }}
                 required
               />
               <button

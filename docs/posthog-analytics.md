@@ -18,6 +18,13 @@ Use GitHub repo variables for the production deploy because GitHub Pages builds 
 - `contact_intent`
 - `newsletter_signup`
 - `podcast_subscribe_click`
+- `podcast_audio_click`
+- `podcast_audio_play`
+- `podcast_audio_resume`
+- `podcast_audio_pause`
+- `podcast_audio_progress`
+- `podcast_audio_complete`
+- `podcast_audio_error`
 - `content_card_click`
 - `video_embed_loaded`
 - `video_play`

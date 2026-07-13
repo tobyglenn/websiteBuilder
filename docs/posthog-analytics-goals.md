@@ -10,6 +10,8 @@ Track these as the main signals that the website is doing its job:
 - `newsletter_signup`: visitor submits a newsletter signup form.
 - `video_play`: visitor starts an embedded video.
 - `podcast_subscribe_click`: visitor clicks through to a podcast platform.
+- `podcast_audio_play`: visitor starts a native episode player.
+- `podcast_audio_complete`: visitor reaches the end of a native episode.
 - `affiliate_click`: visitor clicks an affiliate, product, gear, or partner link.
 - `search_performed`: visitor searches the site.
 - `search_result_click`: visitor clicks a result after searching.
@@ -35,6 +37,8 @@ Use these to diagnose where improvements should happen:
 - `newsletter_signup_error`: newsletter submission fails without collecting the address.
 - `frontend_resource_error`: a script, stylesheet, or image fails to load.
 - `frontend_long_task`: a browser main-thread task lasts at least 100ms.
+- `podcast_audio_click`: visitor opens a directly hosted episode audio file.
+- `podcast_audio_progress`: visitor reaches 25%, 50%, or 75% of a native episode.
 
 ## Recommended Properties
 

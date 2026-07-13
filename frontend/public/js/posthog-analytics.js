@@ -255,6 +255,21 @@
       return;
     }
 
+    const currentContentType = contentTypeFromPath(window.location.pathname);
+    const isPodcastAudio = currentContentType === "podcast"
+      && parsedUrl
+      && /\.(?:mp3|m4a|wav)(?:$|\?)/i.test(`${parsedUrl.pathname}${parsedUrl.search}`);
+    if (isPodcastAudio) {
+      window.toftAnalytics.capture("podcast_audio_click", {
+        cta_label: label,
+        content_type: "podcast",
+        content_slug: normalizedPath(window.location.pathname),
+        destination: "podcast_audio",
+        audio_host: parsedUrl.hostname,
+      });
+      return;
+    }
+
     const properties = {
       cta_label: label,
       destination,
@@ -405,4 +420,58 @@
   setupYoutubeIframes();
   document.addEventListener("astro:page-load", setupYoutubeIframes);
   new MutationObserver(setupYoutubeIframes).observe(document.documentElement, { childList: true, subtree: true });
+
+  const podcastAudioElements = new WeakSet();
+  const podcastAudioMilestones = new WeakMap();
+  const capturePodcastAudioEvent = (eventName, audio, extra = {}) => {
+    const parsed = toUrl(audio.currentSrc || audio.src);
+    window.toftAnalytics.capture(eventName, {
+      content_type: "podcast",
+      content_slug: normalizedPath(window.location.pathname),
+      audio_host: parsed ? parsed.hostname : "",
+      ...extra,
+    });
+  };
+  const setupPodcastAudio = (audio) => {
+    if (!(audio instanceof HTMLAudioElement) || podcastAudioElements.has(audio)) return;
+    if (contentTypeFromPath(window.location.pathname) !== "podcast") return;
+    podcastAudioElements.add(audio);
+    podcastAudioMilestones.set(audio, new Set());
+
+    audio.addEventListener("play", () => {
+      const eventName = audio.dataset.analyticsPlayed ? "podcast_audio_resume" : "podcast_audio_play";
+      audio.dataset.analyticsPlayed = "true";
+      capturePodcastAudioEvent(eventName, audio);
+    });
+    audio.addEventListener("pause", () => {
+      if (!audio.ended && audio.currentTime > 0) {
+        capturePodcastAudioEvent("podcast_audio_pause", audio, {
+          progress_percent: audio.duration ? Math.round((audio.currentTime / audio.duration) * 100) : 0,
+        });
+      }
+    });
+    audio.addEventListener("timeupdate", () => {
+      if (!Number.isFinite(audio.duration) || audio.duration <= 0) return;
+      const progress = (audio.currentTime / audio.duration) * 100;
+      const seen = podcastAudioMilestones.get(audio) || new Set();
+      [25, 50, 75].forEach((milestone) => {
+        if (progress >= milestone && !seen.has(milestone)) {
+          seen.add(milestone);
+          capturePodcastAudioEvent("podcast_audio_progress", audio, { progress_percent: milestone });
+        }
+      });
+      podcastAudioMilestones.set(audio, seen);
+    });
+    audio.addEventListener("ended", () => {
+      capturePodcastAudioEvent("podcast_audio_complete", audio, { progress_percent: 100 });
+    });
+    audio.addEventListener("error", () => capturePodcastAudioEvent("podcast_audio_error", audio));
+  };
+  const setupPodcastAudioElements = () => {
+    document.querySelectorAll("audio").forEach(setupPodcastAudio);
+  };
+
+  setupPodcastAudioElements();
+  document.addEventListener("astro:page-load", setupPodcastAudioElements);
+  new MutationObserver(setupPodcastAudioElements).observe(document.documentElement, { childList: true, subtree: true });
 })();
