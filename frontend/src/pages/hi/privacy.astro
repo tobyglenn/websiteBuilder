@@ -105,8 +105,9 @@ const privacySchema = {
         <p class="mt-4">
           TobyOnFitnessTech privacy-conscious website और product analytics के लिए PostHog का उपयोग कर सकता है। इससे हमें समझने में मदद मिलती है
           कि कौन से pages, videos, podcast links, searches, calculators, newsletter forms, और contact links उपयोगी हैं ताकि हम साइट को सुधार सकें।
-          हम analytics को conservative तरीके से configure करते हैं: session replay बंद है, broad autocapture बंद है, और form field values,
-          email addresses, names, health records, तथा free-text messages को analytics के लिए जानबूझकर collect नहीं किया जाता।
+          navigation, performance और interface problems को diagnose करने के लिए session replay और interaction autocapture चालू हैं,
+          लेकिन replay text, images और element attributes masked रहते हैं। Form values, email addresses, names, health records और
+          free-text messages जानबूझकर collect नहीं किए जाते, और client IP addresses ingestion के समय discard कर दिए जाते हैं।
         </p>
       </section>
 

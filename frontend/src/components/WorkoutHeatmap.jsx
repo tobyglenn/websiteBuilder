@@ -11,12 +11,11 @@ const HEAT_LEVELS = [
   { label: '4+', className: 'bg-lime-400', title: '4+ sessions' },
 ];
 
-function toLocalDateKey(rawDate) {
+function toDateKey(rawDate) {
   if (!rawDate) return null;
   const d = new Date(rawDate);
   if (Number.isNaN(d.getTime())) return null;
-  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
-  return local.toISOString().split('T')[0];
+  return d.toISOString().split('T')[0];
 }
 
 function getColorClass(count) {
@@ -51,17 +50,17 @@ export default function WorkoutHeatmap() {
       longest: consistency.longestStreak ?? 0,
     };
 
-    const end = consistency.rangeEnd ? new Date(`${consistency.rangeEnd}T12:00:00Z`) : new Date();
-    end.setHours(0, 0, 0, 0);
+    const end = consistency.rangeEnd ? new Date(`${consistency.rangeEnd}T00:00:00Z`) : new Date();
+    end.setUTCHours(0, 0, 0, 0);
 
     // Anchor to the Saturday ending the current week and render exactly 52
     // Sunday-to-Saturday columns. The old 53-column range leaked the prior
     // partial June week, which made the month labels read like “JunJulAug…”.
     const endSaturday = new Date(end);
-    endSaturday.setDate(endSaturday.getDate() + (6 - endSaturday.getDay()));
+    endSaturday.setUTCDate(endSaturday.getUTCDate() + (6 - endSaturday.getUTCDay()));
 
     const startSunday = new Date(endSaturday);
-    startSunday.setDate(startSunday.getDate() - (WEEK_COUNT - 1) * 7 - 6);
+    startSunday.setUTCDate(startSunday.getUTCDate() - (WEEK_COUNT - 1) * 7 - 6);
 
     const weeksData = [];
     const cursor = new Date(startSunday);
@@ -69,7 +68,7 @@ export default function WorkoutHeatmap() {
     for (let w = 0; w < WEEK_COUNT; w++) {
       const week = [];
       for (let d = 0; d < 7; d++) {
-        const key = toLocalDateKey(cursor);
+        const key = toDateKey(cursor);
         week.push({
           key,
           date: new Date(cursor),
@@ -78,7 +77,7 @@ export default function WorkoutHeatmap() {
           lifting: key ? (counts.get(key)?.lifting ?? 0) : 0,
           bjj: key ? (counts.get(key)?.bjj ?? 0) : 0,
         });
-        cursor.setDate(cursor.getDate() + 1);
+        cursor.setUTCDate(cursor.getUTCDate() + 1);
       }
       weeksData.push(week);
     }
@@ -90,10 +89,10 @@ export default function WorkoutHeatmap() {
       // mid-week, don't put its label over the prior month's Sunday-Tuesday
       // cells; wait until the first full week that starts in that month.
       const labelDate = week[0].date;
-      const monthKey = `${labelDate.getFullYear()}-${labelDate.getMonth()}`;
+      const monthKey = `${labelDate.getUTCFullYear()}-${labelDate.getUTCMonth()}`;
       if (monthKey !== lastMonthKey) {
         labels.push({
-          label: labelDate.toLocaleDateString('en-US', { month: 'short' }),
+          label: labelDate.toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' }),
           weekIndex,
         });
         lastMonthKey = monthKey;
@@ -176,6 +175,7 @@ export default function WorkoutHeatmap() {
                         month: 'short',
                         day: 'numeric',
                         year: 'numeric',
+                        timeZone: 'UTC',
                       })}${breakdown ? ` (${breakdown})` : ''}`;
 
                       return (

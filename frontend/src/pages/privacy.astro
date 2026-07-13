@@ -105,9 +105,10 @@ const privacySchema = {
         <p class="mt-4">
           TobyOnFitnessTech may use PostHog for privacy-conscious website and product analytics. This helps
           us understand which pages, videos, podcast links, searches, calculators, newsletter forms, and
-          contact links are useful so we can improve the site. We configure analytics conservatively: session
-          replay is disabled, broad autocapture is disabled, and form field values, email addresses, names,
-          health records, and free-text messages are not intentionally collected for analytics.
+          contact links are useful so we can improve the site. Session replay and interaction autocapture are
+          enabled to diagnose navigation, performance, and broken-interface problems, but replay text, images,
+          and element attributes are masked. Form values, email addresses, names, health records, and free-text
+          messages are not intentionally collected for analytics, and client IP addresses are discarded at ingestion.
         </p>
       </section>
 

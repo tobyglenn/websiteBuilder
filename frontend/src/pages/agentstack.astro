@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { LISTING_BLOG_POSTS } from '../lib/blogPosts';
-import { ArrowRight, BookOpen, Cpu, FileCode2, Headphones, Radio, ServerCog } from 'lucide-react';
+import { ArrowRight, BookOpen, Cpu, FileCode2, Headphones, PlaySquare, Radio, ServerCog } from 'lucide-react';
 
 const agentPosts = LISTING_BLOG_POSTS
   .filter((post) => /openclaw|agentstack|agent stack|local ai|ai fitness assistant|fitness report connector/i.test([
@@ -64,7 +64,7 @@ const pageSchema = {
   <div class="bg-neutral-950">
     <section class="border-b border-neutral-900 py-12">
       <div class="container mx-auto px-4">
-        <div class="grid gap-4 md:grid-cols-3">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <a href="/podcasts/agentstack/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-fuchsia-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="podcast" data-analytics-content-title="AgentStack Daily podcast">
             <Headphones size={23} class="mb-5 text-fuchsia-400" />
             <p class="mb-2 text-xs font-semibold uppercase text-fuchsia-400">Listen</p>
@@ -85,6 +85,13 @@ const pageSchema = {
             <h2 class="mb-3 text-xl font-bold text-white group-hover:text-emerald-300">AI fitness assistant</h2>
             <p class="mb-6 text-sm leading-relaxed text-neutral-400">How the fitness-data assistant was assembled, what it automates, and where the hard edges still are.</p>
             <span class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">Read the build story <ArrowRight size={15} /></span>
+          </a>
+          <a href="/videos/?q=agentstack" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-rose-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="videos" data-analytics-content-title="AgentStack videos">
+            <PlaySquare size={23} class="mb-5 text-rose-400" />
+            <p class="mb-2 text-xs font-semibold uppercase text-rose-400">Watch</p>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-rose-300">AgentStack videos</h2>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Build walkthroughs, model tests, local hardware, failures, and the systems behind the daily show.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-rose-400">Browse videos <ArrowRight size={15} /></span>
           </a>
         </div>
       </div>

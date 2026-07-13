@@ -193,3 +193,18 @@ Use:
 - live page and mobile QA
 
 Produce 5-10 ranked improvements. Each recommendation should include evidence, the page or workflow affected, expected reader/discovery impact, effort, and the exact measurement used the following week. Implement the highest-confidence changes that fit the week rather than producing a report only.
+
+### Search Console API readiness
+
+Chrome remains the authenticated fallback for Search Console until API credentials are installed. The frontend also includes an API-ready weekly report command:
+
+```bash
+cd /home/toby/.openclaw/workspace/websiteBuilder/frontend
+GSC_ACCESS_TOKEN="$(gcloud auth application-default print-access-token)" npm run report:gsc
+```
+
+The command compares the latest complete seven-day window with the prior seven days and returns top pages and queries as JSON. It accepts `GSC_SITE_URL` when a property other than `sc-domain:tobyonfitnesstech.com` is needed. The Google account or service account supplying the token must have Search Console access and the Search Console API enabled.
+
+### Indexability build gate
+
+Every production build runs `npm run audit:indexability` after Astro and Pagefind. The gate checks sitemap URLs for generated HTML, one matching canonical, one H1, and a meta description; it also fails on broken same-site links or junk sitemap paths. Fix the source rather than bypassing the gate when it catches a new publishing or navigation error.

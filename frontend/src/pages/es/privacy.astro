@@ -105,9 +105,10 @@ const privacySchema = {
         <p class="mt-4">
           TobyOnFitnessTech puede usar PostHog para analítica web y de producto con enfoque de privacidad. Esto nos ayuda
           a entender qué páginas, videos, enlaces de podcast, búsquedas, calculadoras, formularios de newsletter y enlaces de contacto
-          son útiles para poder mejorar el sitio. Configuramos la analítica de forma conservadora: la grabación de sesiones está desactivada,
-          la autocaptura amplia está desactivada, y no recopilamos intencionalmente valores de formularios, correos electrónicos, nombres,
-          datos de salud ni mensajes de texto libre para analítica.
+          son útiles para poder mejorar el sitio. La grabación de sesiones y la autocaptura de interacciones están activadas para diagnosticar
+          problemas de navegación, rendimiento e interfaz, pero el texto, las imágenes y los atributos de los elementos quedan ocultos en las
+          grabaciones. No recopilamos intencionalmente valores de formularios, correos electrónicos, nombres, datos de salud ni texto libre,
+          y las direcciones IP del cliente se descartan durante la ingesta.
         </p>
       </section>
 

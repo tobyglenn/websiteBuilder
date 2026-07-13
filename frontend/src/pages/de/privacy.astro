@@ -105,9 +105,10 @@ const privacySchema = {
         <p class="mt-4">
           TobyOnFitnessTech kann PostHog für datenschutzbewusste Website- und Produktanalysen verwenden. So verstehen wir,
           welche Seiten, Videos, Podcast-Links, Suchvorgänge, Rechner, Newsletter-Formulare und Kontaktlinks hilfreich sind,
-          damit wir die Website verbessern können. Wir konfigurieren die Analysen bewusst zurückhaltend: Session Replay ist deaktiviert,
-          breites Autocapture ist deaktiviert, und Formularwerte, E-Mail-Adressen, Namen, Gesundheitsdaten und Freitextnachrichten werden
-          nicht absichtlich für Analysen erfasst.
+          damit wir die Website verbessern können. Session Replay und Interaktions-Autocapture sind aktiviert, um Navigations-, Leistungs-
+          und Oberflächenprobleme zu erkennen; Texte, Bilder und Elementattribute in Replays werden jedoch maskiert. Formularwerte,
+          E-Mail-Adressen, Namen, Gesundheitsdaten und Freitextnachrichten werden nicht absichtlich erfasst, und Client-IP-Adressen
+          werden bei der Erfassung verworfen.
         </p>
       </section>
 

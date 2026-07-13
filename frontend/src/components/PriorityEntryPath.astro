@@ -1,0 +1,74 @@
+---
+import { ArrowRight, Cpu, Dumbbell, Watch } from 'lucide-react';
+
+interface Props {
+  context?: string;
+  sourceType?: string;
+  sourceSlug?: string;
+}
+
+const {
+  context = '',
+  sourceType = 'content',
+  sourceSlug = Astro.url.pathname,
+} = Astro.props;
+
+const haystack = `${Astro.url.pathname} ${context}`.toLowerCase();
+
+const route = /speediance|tonal|gym monster|smart gym|voltra|aeke/.test(haystack)
+  ? {
+      eyebrow: 'Comparing smart gyms?',
+      title: 'Start with Gym Monster 1 vs 2 vs 2S',
+      description: 'See the resistance, hardware, accessory, and upgrade differences in one canonical guide.',
+      href: '/speediance/gym-monster-1-vs-2-vs-2s/',
+      label: 'Open the model comparison',
+      icon: Dumbbell,
+    }
+  : /whoop|oura|garmin|wearable|recovery|sleep|hrv/.test(haystack)
+    ? {
+        eyebrow: 'Choosing a wearable?',
+        title: 'Compare WHOOP 5, WHOOP 4.0, Oura, and Garmin',
+        description: 'Use the decision guide to separate recovery, sleep, workout, comfort, and subscription tradeoffs.',
+        href: '/wearables/whoop-5-vs-4-vs-oura/',
+        label: 'Open the wearable comparison',
+        icon: Watch,
+      }
+    : /openclaw|agentstack|agent stack|claude|anthropic|local ai|ai fitness/.test(haystack)
+      ? {
+          eyebrow: 'Following the AI work?',
+          title: 'Start with the AgentStack and OpenClaw pillar',
+          description: 'Connect this report to the implementation notes, podcast episodes, and working fitness automations.',
+          href: '/agentstack/',
+          label: 'Explore AgentStack',
+          icon: Cpu,
+        }
+      : null;
+
+const Icon = route?.icon;
+---
+
+{route && Icon && (
+  <aside class="mb-6 border-y border-neutral-800 py-5" aria-label="Recommended next step">
+    <a
+      href={route.href}
+      class="group flex flex-col justify-between gap-4 sm:flex-row sm:items-center"
+      data-analytics-event="content_next_step_click"
+      data-analytics-content-type={sourceType}
+      data-analytics-content-slug={sourceSlug}
+      data-analytics-content-title={route.title}
+      data-analytics-position="article_intro"
+    >
+      <div class="flex min-w-0 gap-4">
+        <Icon size={21} class="mt-1 shrink-0 text-blue-400" aria-hidden="true" />
+        <div>
+          <p class="mb-1 text-xs font-semibold uppercase text-blue-400">{route.eyebrow}</p>
+          <h2 class="mb-1 text-base font-semibold text-white group-hover:text-blue-300">{route.title}</h2>
+          <p class="text-sm leading-relaxed text-neutral-400">{route.description}</p>
+        </div>
+      </div>
+      <span class="inline-flex shrink-0 items-center gap-2 text-sm font-semibold text-blue-400">
+        {route.label} <ArrowRight size={16} class="transition-transform group-hover:translate-x-1" />
+      </span>
+    </a>
+  </aside>
+)}
