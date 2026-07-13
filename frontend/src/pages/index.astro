@@ -141,10 +141,14 @@ const webPageSchema = {
   jsonLd={webPageSchema}
 >
 	
-	<Hero client:load lang="en" />
-	<TrainingFocus client:load lang="en" />
+	<div data-homepage-section="hero" data-homepage-title="Hero and featured story" data-homepage-purpose="orientation">
+		<Hero client:load lang="en" />
+	</div>
+	<div data-homepage-section="weekly-focus" data-homepage-title="This week's focus" data-homepage-purpose="current-training">
+		<TrainingFocus client:load lang="en" />
+	</div>
 
-	<section id="this-week" class="py-12 bg-neutral-950">
+	<section id="this-week" data-homepage-section="week-over-week" data-homepage-title="This week vs last week" data-homepage-purpose="current-training" class="py-12 bg-neutral-950">
   <div class="max-w-6xl mx-auto px-4">
     <div class="mb-8">
       <h2 class="text-2xl font-bold text-white">This Week vs Last Week</h2>
@@ -183,7 +187,7 @@ const webPageSchema = {
 </section>
 
 	{/* Lifetime Stats Section */}
-	<section id="lifetime-stats" class="py-16 bg-neutral-950 border-y border-neutral-800">
+	<section id="lifetime-stats" data-homepage-section="lifetime-stats" data-homepage-title="Lifetime training totals" data-homepage-purpose="proof" class="py-16 bg-neutral-950 border-y border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
 				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Lifetime Totals</span>
@@ -207,13 +211,19 @@ const webPageSchema = {
 		</div>
 	</section>
 
-	<YearlyGoals client:visible lang="en" />
+	<div data-homepage-section="yearly-goals" data-homepage-title="2026 goal progress" data-homepage-purpose="current-training">
+		<YearlyGoals client:visible lang="en" />
+	</div>
 
-	<WorkoutHeatmap client:load />
-	<ThisWeekWidget client:load />
+	<div data-homepage-section="training-consistency" data-homepage-title="Training consistency heatmap" data-homepage-purpose="proof">
+		<WorkoutHeatmap client:load />
+	</div>
+	<div data-homepage-section="weekly-progress" data-homepage-title="Detailed weekly progress" data-homepage-purpose="current-training">
+		<ThisWeekWidget client:load />
+	</div>
 
 	{/* Latest from the Blog */}
-	<section id="blog" class="py-16 bg-neutral-950 border-t border-neutral-800">
+	<section id="blog" data-homepage-section="latest-articles" data-homepage-title="Latest articles" data-homepage-purpose="content-discovery" class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10">
 				<div>
@@ -263,7 +273,7 @@ const webPageSchema = {
 
 
 	<!-- Featured Video Section -->
-	<section id="featured-video" class="py-16 bg-neutral-900">
+	<section id="featured-video" data-homepage-section="featured-video" data-homepage-title="Featured video" data-homepage-purpose="video-discovery" class="py-16 bg-neutral-900">
 	  <div class="max-w-4xl mx-auto px-4">
 	    <h2 class="text-2xl font-bold mb-6 text-white">Featured Video</h2>
 	    <div class="aspect-video rounded-xl overflow-hidden bg-neutral-800">
@@ -281,10 +291,12 @@ const webPageSchema = {
 	  </div>
 	</section>
 
-	<NewsletterSignup client:visible />
+	<div data-homepage-section="newsletter-midpage" data-homepage-title="Mid-page newsletter signup" data-homepage-purpose="conversion">
+		<NewsletterSignup client:visible />
+	</div>
 
 	{/* Latest Videos Section */}
-	<section id="latest-videos" class="py-16 bg-neutral-950 border-t border-neutral-800">
+	<section id="latest-videos" data-homepage-section="latest-videos" data-homepage-title="Latest videos" data-homepage-purpose="video-discovery" class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="flex items-end justify-between mb-10">
 				<div>
@@ -314,10 +326,12 @@ const webPageSchema = {
 		</div>
 	</section>
 
-	<LatestActivity client:load lang="en" />
+	<div data-homepage-section="latest-activity-card" data-homepage-title="Latest activity card" data-homepage-purpose="current-training">
+		<LatestActivity client:load lang="en" />
+	</div>
 
 	{/* YouTube Social Proof Section */}
-	<section class="py-12 bg-neutral-950 border-t border-neutral-900">
+	<section data-homepage-section="youtube-social-proof" data-homepage-title="YouTube social proof" data-homepage-purpose="proof" class="py-12 bg-neutral-950 border-t border-neutral-900">
 		<div class="container mx-auto px-4">
 			<div class="bg-neutral-900 rounded-2xl p-6 md:p-8 border border-neutral-800">
 				<div class="flex flex-col md:flex-row items-center justify-between gap-6">
@@ -358,7 +372,7 @@ const webPageSchema = {
 	</section>
 
 	{/* YouTube Channel Stats Section */}
-	<section id="channel-stats" class="py-16 bg-neutral-950 border-t border-neutral-800">
+	<section id="channel-stats" data-homepage-section="youtube-channel-stats" data-homepage-title="YouTube channel stats" data-homepage-purpose="proof" class="py-16 bg-neutral-950 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
 				<span class="text-red-500 font-bold uppercase tracking-widest text-sm mb-2 block">Channel Stats</span>
@@ -412,7 +426,7 @@ const webPageSchema = {
 	</section>
 
 	{/* Popular Videos Section */}
-	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+	<section data-homepage-section="popular-videos" data-homepage-title="Most popular videos" data-homepage-purpose="video-discovery" class="py-16 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
 				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Watch Next</span>
@@ -447,7 +461,7 @@ const webPageSchema = {
 	</section>
 
 	{/* Training Activity Section */}
-	<section id="training-activity" class="py-20 bg-neutral-900 border-t border-neutral-800">
+	<section id="training-activity" data-homepage-section="today-training-stats" data-homepage-title="Today's training stats" data-homepage-purpose="current-training" class="py-20 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">
 				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Training Activity</span>
@@ -476,7 +490,7 @@ const webPageSchema = {
 		</div>
 	</section>
 	{/* Recent Activity Section */}
-	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+	<section data-homepage-section="recent-activity-summary" data-homepage-title="Recent activity summary" data-homepage-purpose="current-training" class="py-16 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
 				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Recent Activity</span>
@@ -504,7 +518,7 @@ const webPageSchema = {
 	</section>
 
 	{/* Recent Activity Section */}
-	<section class="py-16 bg-neutral-900 border-t border-neutral-800">
+	<section data-homepage-section="recent-activity-grid" data-homepage-title="Recent activity device grid" data-homepage-purpose="current-training" class="py-16 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-10">
 				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Live Data</span>
@@ -536,7 +550,7 @@ const webPageSchema = {
 
 
 	{/* Data Deep Dive Section */}
-	<section id="data-deep-dive" class="py-20 bg-neutral-900 border-t border-neutral-800">
+	<section id="data-deep-dive" data-homepage-section="data-deep-dive" data-homepage-title="Training data navigation" data-homepage-purpose="content-discovery" class="py-20 bg-neutral-900 border-t border-neutral-800">
 		<div class="container mx-auto px-4">
 			<div class="text-center mb-12">
 				<span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Dive Deeper</span>
@@ -615,7 +629,7 @@ const webPageSchema = {
 		</div>
 	</section>
 	{/* Featured Shorts Section */}
-	<section class="py-20 bg-neutral-950 border-t border-neutral-800">
+	<section data-homepage-section="featured-shorts" data-homepage-title="Featured Shorts" data-homepage-purpose="video-discovery" class="py-20 bg-neutral-950 border-t border-neutral-800">
 	  <div class="container mx-auto px-4">
 	    <div class="flex items-end justify-between mb-10">
 	      <div>
@@ -654,7 +668,9 @@ const webPageSchema = {
 	    </div>
 	  </div>
 	</section>
-	<Newsletter client:visible />
+	<div data-homepage-section="newsletter-footer" data-homepage-title="Footer newsletter signup" data-homepage-purpose="conversion">
+		<Newsletter client:visible />
+	</div>
 
 
 </Layout>
