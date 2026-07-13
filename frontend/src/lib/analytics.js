@@ -1,6 +1,13 @@
 export function captureEvent(eventName, properties = {}) {
-  if (typeof window === 'undefined' || !window.toftAnalytics) return;
-  window.toftAnalytics.capture(eventName, properties);
+  if (typeof window === 'undefined') return;
+
+  if (window.toftAnalytics) {
+    window.toftAnalytics.capture(eventName, properties);
+    return;
+  }
+
+  window.__TOFT_ANALYTICS_QUEUE__ ||= [];
+  window.__TOFT_ANALYTICS_QUEUE__.push([eventName, properties]);
 }
 
 export function cleanAnalyticsText(value, maxLength = 120) {

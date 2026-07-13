@@ -140,6 +140,12 @@
     },
   };
 
+  const queuedEvents = window.__TOFT_ANALYTICS_QUEUE__ || [];
+  window.__TOFT_ANALYTICS_QUEUE__ = [];
+  queuedEvents.forEach(([eventName, properties]) => {
+    window.toftAnalytics.capture(eventName, properties);
+  });
+
   let lastPageviewKey = "";
   const capturePageview = () => {
     const pageviewKey = `${window.location.pathname}${window.location.search}`;
