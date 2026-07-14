@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-13T23:51:37.824Z",
+  "generatedAt": "2026-07-14T11:30:30.418Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Jul 13, 2026",
-    "hubTodayKey": "2026-07-13",
-    "analysisDateKey": "2026-07-13",
+    "hubTodayLabel": "Jul 14, 2026",
+    "hubTodayKey": "2026-07-14",
+    "analysisDateKey": "2026-07-14",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-07-13T19:50:02.321751"
+    "whoopLastSynced": "2026-07-14T07:30:06.089790"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9813153,
@@ -21,37 +21,37 @@
     }
   },
   "trainingFocus": {
-    "focus": "lifting",
-    "runCount": 1,
-    "workoutCount": 3,
+    "focus": "bjj",
+    "runCount": 0,
+    "workoutCount": 0,
     "bjjCount": 2,
-    "windowStart": "2026-07-07",
-    "windowEnd": "2026-07-13"
+    "windowStart": "2026-07-08",
+    "windowEnd": "2026-07-14"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-07-13",
+    "anchorDate": "2026-07-14",
     "dateRange": {
-      "thisWeekStart": "2026-07-07",
-      "thisWeekEnd": "2026-07-13",
-      "lastWeekStart": "2026-06-30",
-      "lastWeekEnd": "2026-07-06"
+      "thisWeekStart": "2026-07-08",
+      "thisWeekEnd": "2026-07-14",
+      "lastWeekStart": "2026-07-01",
+      "lastWeekEnd": "2026-07-07"
     },
     "workouts": {
-      "thisWeek": 6,
-      "lastWeek": 11
+      "thisWeek": 2,
+      "lastWeek": 13
     },
     "runs": {
-      "thisWeek": 1,
+      "thisWeek": 0,
       "lastWeek": 6
     },
     "volume": {
-      "thisWeek": 6900,
-      "lastWeek": 18009
+      "thisWeek": 0,
+      "lastWeek": 16197
     },
     "miles": {
-      "thisWeek": 1.3,
-      "lastWeek": 14.1
+      "thisWeek": 0,
+      "lastWeek": 13.5
     },
     "bjj": {
       "thisWeek": 2,
@@ -89,8 +89,8 @@
     "totalActive": 1774,
     "currentStreak": 1,
     "longestStreak": 60,
-    "rangeStart": "2025-07-15",
-    "rangeEnd": "2026-07-13",
+    "rangeStart": "2025-07-16",
+    "rangeEnd": "2026-07-14",
     "days": [
       {
         "date": "2025-07-18",
@@ -1423,15 +1423,15 @@
       "date": "2026-07-13",
       "type": "BJJ"
     },
-    "thisWeekVolume": 6900,
+    "thisWeekVolume": 0,
     "thisMonthMiles": 13.5
   },
   "recovery": {
-    "currentScore": 65,
-    "lastSleepScore": 79
+    "currentScore": 93,
+    "lastSleepScore": 93
   },
   "labels": {
-    "thisWeek": "July 7, 2026 - July 13, 2026",
-    "lastWeek": "June 30, 2026 - July 6, 2026"
+    "thisWeek": "July 8, 2026 - July 14, 2026",
+    "lastWeek": "July 1, 2026 - July 7, 2026"
   }
 }
