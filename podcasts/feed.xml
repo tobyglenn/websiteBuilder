@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Jul 2026 18:21:54 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 86 -->
+    <item>
+      <title>Episode 86: OpenClaw v2026.7.1, OpenAI Codex rust-v0.144.4, Claude Code 2.1.202 Ship; Kwaipilot Lands on OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep086/episode_086.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-86/</link>
+      <description><![CDATA[Today's AgentStack Daily covers three harness releases — OpenClaw v2026.7.1, OpenAI Codex rust-v0.144.4, and Claude Code CLI 2.1.202 — plus Kwaipilot joining OpenRouter. New agent research includes ABot-AgentOS for robot control, Amap's ABot-N1 for visual navigation, LightMem-Ego for wearable multimodal memory, and JobHop v2 for career trajectory reasoning. We also examine a multi-agent backdoor study, evidence-backed video QA from Salesforce, the MM-ToolSandBox visual grounding benchmark, Requential Coding's generalization bounds, and AdvancedMathBench for doctoral-level mathematical proofs.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-86/]]></description>
+      <pubDate>Tue, 14 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep086/episode_086.mp3" length="33253712" type="audio/mpeg"/>
+      <itunes:duration>34:38</itunes:duration>
+      <itunes:episode>86</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep086/episode_086_cover.png"/>
+    </item>
+
     <!-- Episode 85 -->
     <item>
       <title>Episode 85: Codex rust-v0.144.3 Lands, vLLM 0.25.0 Defaults Model Runner V2, Apple Sues OpenAI</title>
