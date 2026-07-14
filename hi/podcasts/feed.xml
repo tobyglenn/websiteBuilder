@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 13 Jul 2026 18:21:54 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 86 -->
+    <item>
+      <title>एपिसोड 86: OpenClaw v2026.7.1, OpenAI Codex rust-v0.144.4, Claude Code 2.1.202 Ship; Kwaipilot OpenRouter पर उतरता है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep086/episode_086.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-86/</link>
+      <description><![CDATA[आज का एजेंटस्टैक डेली तीन हार्नेस रिलीज़ — OpenClaw v2026.7.1, OpenAI Codex rust-v0.144.4, और Claude Code CLI 2.1.202 — के साथ-साथ OpenRouter में शामिल होने वाले Kwaipilot को भी शामिल करता है। नए एजेंट शोध में रोबोट नियंत्रण के लिए ABot-AgentOS, विज़ुअल नेविगेशन के लिए Amap का ABot-N1, पहनने योग्य बहु-मॉडल स्मृति के लिए LightMem-Ego, और करियर ट्रैजेक्टरी रीज़निंग के लिए JobHop v2 शामिल हैं। हम बहु-एजेंट बैकडोर अध्ययन, Salesforce से साक्ष्य-आधारित वीडियो QA, MM-ToolSandBox विज़ुअल ग्राउंडिंग बेंचमार्क और Reque पर भी नज़र डालते हैं।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-86/]]></description>
+      <pubDate>Tue, 14 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_086.mp3" length="43649611" type="audio/mpeg"/>
+      <itunes:duration>45:28</itunes:duration>
+      <itunes:episode>86</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep086/episode_086_cover.png"/>
+    </item>
+
     <!-- Episode 85 -->
     <item>
       <title>एपिसोड 85: Codex rust-v0.144.3 उतरा, vLLM 0.25.0 Model Runner V2 डिफ़ॉल्ट, Apple ने OpenAI पर मुकदमा किया</title>
