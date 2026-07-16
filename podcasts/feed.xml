@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 14 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 16 Jul 2026 13:19:12 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 87 -->
+    <item>
+      <title>Episode 87: GPT-5.6 Sol, Bonsai 27B, Gemini 3.5 Flash, and AMD 128GB PCs</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep087/episode_087.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-87/</link>
+      <description><![CDATA[GPT-5.6 Sol targets more complete agent output, ChatGPT consolidates work and coding, and Gemini 3.5 Flash operates screens and builds software. We also examine Bonsai 27B, offline Pixel AI, AMD’s 128GB desktops, JetBrains Copilot backend support, Anthropic’s risk-based model access, small-business results, Claude’s robotics boundary, government action in New York, Australia, and GOLD EAGLE, plus Google’s AI reconstruction of Pelé’s lost 1959 goal.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-87/]]></description>
+      <pubDate>Thu, 16 Jul 2026 13:19:12 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep087/episode_087.mp3" length="32230130" type="audio/mpeg"/>
+      <itunes:duration>33:34</itunes:duration>
+      <itunes:episode>87</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep087/episode_087_cover.png"/>
+    </item>
+
     <!-- Episode 86 -->
     <item>
       <title>Episode 86: OpenClaw v2026.7.1, OpenAI Codex rust-v0.144.4, Claude Code 2.1.202 Ship; Kwaipilot Lands on OpenRouter</title>
