@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-17T11:30:29.358Z",
+  "generatedAt": "2026-07-17T23:50:37.001Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
     "hubTodayLabel": "Jul 17, 2026",
@@ -7,7 +7,7 @@
     "analysisDateKey": "2026-07-17",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-07-17T07:30:04.852361"
+    "whoopLastSynced": "2026-07-17T19:50:02.499559"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9829980,
@@ -1442,7 +1442,7 @@
   },
   "recovery": {
     "currentScore": 55,
-    "lastSleepScore": 94
+    "lastSleepScore": 93
   },
   "labels": {
     "thisWeek": "July 11, 2026 - July 17, 2026",
