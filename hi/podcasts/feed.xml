@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 16 Jul 2026 13:19:12 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 14:40:29 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 88 -->
+    <item>
+      <title>एपिसोड 88: किमी K3, मेटा म्यूज़ स्पार्क, और द मिलियन-टोकन युग</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep088/episode_088.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-88/</link>
+      <description><![CDATA[आज का एजेंटस्टैक डेली OpenAI Codex rust-v0.144.5 और Claude Code CLI 2.1.205 के साथ-साथ किमी K3 और मेटा के म्यूज़ स्पार्क 1.1 को कवर करता है — दोनों मिलियन-टोकन कॉन्टेक्स्ट विंडो के साथ OpenRouter पर आ रहे हैं। हम 98 प्रतिशत टोकन बचत का दावा करने वाले एक कोड-सर्च टूल, clidey की whodb 0.121.0, दो Inkling फिक्सेस के साथ Transformers 5.14.1, और ऑनलाइन ट्रेंड करने वाले एक 2-बिट 27B चैट मॉडल पर नज़र डालते हैं। NVIDIA Nemotron 3 Embed RTEB में शीर्ष पर है, FastMCP 26K स्टार्स पार कर गया है, और OpenAI 'रिवर्स फेडरलिज़्म' AI सुरक्षा दृष्टिकोण के लिए तर्क देता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-88/]]></description>
+      <pubDate>Sat, 18 Jul 2026 14:40:29 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_088.mp3" length="44208840" type="audio/mpeg"/>
+      <itunes:duration>46:02</itunes:duration>
+      <itunes:episode>88</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep088/episode_088_cover.png"/>
+    </item>
+
     <!-- Episode 87 -->
     <item>
       <title>एपिसोड 87: GPT-5.6 Sol, Bonsai 27B, Gemini 3.5 Flash, और AMD 128GB PCs</title>
