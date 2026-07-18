@@ -18,6 +18,8 @@ const MANAGED_RULE_REFS = new Set([
   'podcasts_malformed_detail_paths_to_index',
   'podcasts_localized_toft_aliases_to_fitness_tech',
   'legacy_feed_paths_to_rss',
+  'indexing_junk_paths_to_home',
+  'nutritrack_stale_routes_to_root',
   'videos_category_all_query_to_clean_path',
   'videos_category_speediance_query_to_hash',
   'videos_category_bjj_query_to_hash',
@@ -134,6 +136,13 @@ const managedRules = [
     expression: [
       startsWithAnyExtraPathExpression([
         '/podcasts/episode-12/',
+        '/pt/podcasts/episode-30/',
+        '/hi/podcasts/episode-58/',
+        '/hi/podcasts/episode-36/',
+        '/es/podcasts/episode-28/',
+        '/es/podcasts/episode-10/',
+        '/hi/podcasts/episode-27/',
+        '/de/podcasts/episode-39/',
         '/es/podcasts/episode-72/',
         '/hi/podcasts/episode-28/',
         '/de/podcasts/episode-59/',
@@ -169,6 +178,31 @@ const managedRules = [
       '/blog/rss.xml',
     ]),
     targetUrl: `https://${ZONE_NAME}/rss.xml`,
+  }),
+  redirectRule({
+    ref: 'indexing_junk_paths_to_home',
+    description: 'Retire crawler-discovered template and email-protection URLs',
+    expression: exactPathExpression([
+      '/video/${v.id}/',
+      '/video/$v.id/',
+      '/cdn-cgi/l/email-protection',
+    ]),
+    targetUrl: `https://${ZONE_NAME}/`,
+  }),
+  redirectRule({
+    ref: 'nutritrack_stale_routes_to_root',
+    description: 'Redirect retired NutriTrack deep links to the app root',
+    expression: `(http.host eq "nutritrack.${ZONE_NAME}") and (${[
+      '/profile',
+      '/profile/',
+      '/biometrics',
+      '/biometrics/',
+      '/diary',
+      '/diary/',
+      '/trends',
+      '/trends/',
+    ].map((path) => `http.request.uri.path eq "${path}"`).join(' or ')})`,
+    targetUrl: `https://nutritrack.${ZONE_NAME}/`,
   }),
 ];
 

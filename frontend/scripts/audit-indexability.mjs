@@ -89,8 +89,13 @@ for (const urlString of sitemapUrls) {
 
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
-  const staticHtml = html.replace(/<script\b[\s\S]*?<\/script>/gi, '');
   const sourceRoute = routeForHtml(file);
+  const dynamicUrlAttributes = [...html.matchAll(/\bhref=["'`][^"'`]*\$\{[^}]+\}/g)];
+  for (const match of dynamicUrlAttributes) {
+    failures.push(`Unresolved URL template in ${sourceRoute}: ${match[0]}`);
+  }
+
+  const staticHtml = html.replace(/<script\b[\s\S]*?<\/script>/gi, '');
   for (const match of staticHtml.matchAll(/<a\b[^>]*\bhref=["']([^"']+)["']/gi)) {
     const href = match[1].trim();
     if (!href || href.startsWith('#') || /^(?:mailto|tel|javascript|data):/i.test(href)) continue;

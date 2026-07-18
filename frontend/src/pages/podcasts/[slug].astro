@@ -3,6 +3,7 @@ import { marked } from 'marked';
 import Layout from '../../layouts/Layout.astro';
 import EpisodeDetail from '../../components/EpisodeDetail.jsx';
 import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
+import { getFitnessEpisodeNumber, getFitnessEpisodeSlug } from '../../lib/fitnessPodcast';
 import {
   englishShowNotesCandidates,
   englishTranscriptCandidates,
@@ -200,9 +201,11 @@ export async function getStaticPaths() {
     const toftRes = await fetch('https://anchor.fm/s/108bc95a4/podcast/rss');
     const toftXml = await toftRes.text();
     const toftItems = toftXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
-    toftItems.forEach((item, idx) => {
-      const index = idx + 1;
-      const slug = `toft-${index}`;
+    toftItems.forEach((item) => {
+      const guid = extractTag(item, 'guid');
+      const spotifyUrl = extractTag(item, 'link');
+      const index = getFitnessEpisodeNumber(guid);
+      const slug = getFitnessEpisodeSlug(guid, spotifyUrl);
       const title = extractTag(item, 'title');
       const rawDesc = extractTag(item, 'description');
       const showNotesHtml = canonicalizeInternalPodcastUrls(rawDesc
@@ -223,9 +226,9 @@ export async function getStaticPaths() {
           episode: {
             slug, isToft: true, index, title, description, date, isoDate, duration, season, audioUrl,
             coverImage: 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg',
-            videoId: TOFT_VIDEOS[index] ?? null,
+            videoId: index ? TOFT_VIDEOS[index] ?? null : null,
             showNotesHtml,
-            transcriptHtml: getToftTranscript(index),
+            transcriptHtml: index ? getToftTranscript(index) : '',
           }
         }
       });

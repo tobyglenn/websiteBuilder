@@ -1,6 +1,7 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import PodcastSubscribeButtons from '../../../components/PodcastSubscribeButtons.jsx';
+import { getFitnessEpisodeSlug } from '../../../lib/fitnessPodcast';
 
 const FITNESS_FEED = 'https://anchor.fm/s/108bc95a4/podcast/rss';
 const FITNESS_COVER = 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg';
@@ -11,7 +12,7 @@ const FITNESS_IHEART = 'https://www.iheart.com/podcast/269-toby-on-fitness-tech-
 const FITNESS_AMAZON = 'https://music.amazon.com/podcasts/0b8655b3-ecde-4762-9cf8-a78ef72030fd/toby-on-fitness-tech';
 
 interface FitnessEpisode {
-  index: number;
+  slug: string;
   title: string;
   description: string;
   pubDate: string;
@@ -52,7 +53,7 @@ try {
 
   const fitnessItems = fitnessXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
 
-  fitnessItems.forEach((item, idx) => {
+  fitnessItems.forEach((item) => {
     const title = extractTag(item, 'title');
     const rawDesc = extractTag(item, 'description');
     const description = rawDesc
@@ -76,7 +77,7 @@ try {
     const coverImage = itunesImageMatch ? itunesImageMatch[1].trim() : FITNESS_COVER;
 
     fitnessEpisodes.push({
-      index: idx + 1,
+      slug: getFitnessEpisodeSlug(extractTag(item, 'guid'), spotifyUrl),
       title,
       description,
       pubDate,
@@ -169,13 +170,13 @@ try {
                 🎧 Escuchar
               </a>
               <a
-                href={`/podcasts/toft-${ep.index}/`}
+                href={`/podcasts/${ep.slug}/`}
                 class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
               >
                 📄 Notas del episodio
               </a>
               <a
-                href={`/podcasts/toft-${ep.index}/#transcript`}
+                href={`/podcasts/${ep.slug}/#transcript`}
                 class="flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-xs font-medium bg-neutral-800 border border-neutral-700 text-neutral-400 hover:text-white hover:border-neutral-500 transition-all"
               >
                 📝 Transcripción
