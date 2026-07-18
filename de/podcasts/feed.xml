@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 16 Jul 2026 13:19:12 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Jul 2026 14:40:29 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 88 -->
+    <item>
+      <title>Folge 88: Kimi K3, Meta Muse Spark und die Ära der Million-Token</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep088/episode_088.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-88/</link>
+      <description><![CDATA[Heute berichtet AgentStack Daily über OpenAI Codex rust-v0.144.5 und Claude Code CLI 2.1.205, sowie Kimi K3 und Metas Muse Spark 1.1 – beide erscheinen auf OpenRouter mit Million-Token-Kontextfenstern. Wir betrachten ein Code-Such-Tool, das 98 Prozent Token-Einsparungen beansprucht, clideys whodb 0.121.0, Transformers 5.14.1 mit zwei Inkling-Fixes und ein 2-Bit-27B-Chatmodell, das online im Trend liegt. NVIDIA Nemotron 3 Embed führt die RTEB an, FastMCP überschreitet 26K Stars, und OpenAI argumentiert für einen KI-Sicherheitsansatz des 'umgekehrten Föderalismus'.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-88/]]></description>
+      <pubDate>Sat, 18 Jul 2026 14:40:29 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_088.mp3" length="39025728" type="audio/mpeg"/>
+      <itunes:duration>40:39</itunes:duration>
+      <itunes:episode>88</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep088/episode_088_cover.png"/>
+    </item>
+
     <!-- Episode 87 -->
     <item>
       <title>Folge 87: GPT-5.6 Sol, Bonsai 27B, Gemini 3.5 Flash und AMD 128GB-PCs</title>
