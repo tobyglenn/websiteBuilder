@@ -7,8 +7,6 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
 const SITE_URL = 'https://tobyonfitnesstech.com';
-const BUILD_LASTMOD = new Date();
-const BUILD_LASTMOD_ISO = BUILD_LASTMOD.toISOString();
 
 const EXCLUDED_SITEMAP_PATHS = [
   /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)(?:\/|\.html)?$/,
@@ -88,7 +86,7 @@ const LIVE_DATA_LASTMOD = [
   './src/data/garmin_all_activities.json',
   './src/data/whoop_v2_latest.json',
   './src/data/recentActivity.js',
-].map(fileLastmod).filter(Boolean).sort().at(-1) ?? BUILD_LASTMOD_ISO;
+].map(fileLastmod).filter(Boolean).sort().at(-1);
 
 const sitemapLastmod = (item) => {
   const pathname = new URL(item.url).pathname;
@@ -109,7 +107,7 @@ const sitemapLastmod = (item) => {
     return LIVE_DATA_LASTMOD;
   }
 
-  return item.lastmod || BUILD_LASTMOD_ISO;
+  return item.lastmod;
 };
 
 // https://astro.build/config
@@ -125,7 +123,6 @@ export default defineConfig({
     react(),
     sitemap({
       filter: shouldIncludeInSitemap,
-      lastmod: BUILD_LASTMOD,
       serialize(item) {
         return {
           ...item,

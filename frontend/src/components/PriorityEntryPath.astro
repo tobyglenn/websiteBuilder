@@ -48,7 +48,15 @@ const Icon = route?.icon;
 ---
 
 {route && Icon && (
-  <aside class="mb-6 border-y border-neutral-800 py-5" aria-label="Recommended next step">
+  <aside
+    class="mb-6 border-y border-neutral-800 py-5"
+    aria-label="Recommended next step"
+    data-content-next-step
+    data-analytics-content-type={sourceType}
+    data-analytics-content-slug={sourceSlug}
+    data-analytics-content-title={route.title}
+    data-analytics-position="article_intro"
+  >
     <a
       href={route.href}
       class="group flex flex-col justify-between gap-4 sm:flex-row sm:items-center"

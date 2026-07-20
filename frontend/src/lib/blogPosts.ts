@@ -1,3 +1,7 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 import { BLOG_POSTS as FALLBACK_BLOG_POSTS } from '../data/mock.js';
 
 export type BlogPost = {
@@ -127,8 +131,8 @@ function imageExists(imagePath: string): boolean {
     return false;
   }
 
-  // Assume paths starting with '/' that passed the check above exist in public/
-  return true;
+  const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
+  return existsSync(join(publicDir, imagePath.slice(1)));
 }
 
 function defaultCoverImage(slug: string, title: string, category: string): string {

@@ -79,17 +79,31 @@ const routes = {
 };
 
 const selected = routes[topic];
+const normalizePath = (value: string) => {
+  const pathname = value.split(/[?#]/, 1)[0] || '/';
+  return pathname === '/' ? pathname : pathname.replace(/\/+$/, '');
+};
+const currentPath = normalizePath(sourceSlug || Astro.url.pathname);
+const selectedItems = selected.items.filter((item) => normalizePath(item.href) !== currentPath);
 ---
 
-<section class="mt-14 border-y border-neutral-800 py-10" aria-labelledby="topic-next-steps-heading">
+<section
+  class="mt-14 border-y border-neutral-800 py-10"
+  aria-labelledby="topic-next-steps-heading"
+  data-content-next-step
+  data-analytics-content-type={sourceType}
+  data-analytics-content-slug={sourceSlug}
+  data-analytics-content-title={selected.title}
+  data-analytics-position="article_footer"
+>
   <div class="mb-7 max-w-2xl">
     <p class="mb-2 text-xs font-semibold uppercase text-blue-400">{selected.eyebrow}</p>
     <h2 id="topic-next-steps-heading" class="mb-3 text-2xl font-bold text-white">{selected.title}</h2>
     <p class="text-sm leading-relaxed text-neutral-400">{selected.description}</p>
   </div>
 
-  <div class="grid gap-3 md:grid-cols-3">
-    {selected.items.map((item) => {
+  <div class:list={["grid gap-3", selectedItems.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"]}>
+    {selectedItems.map((item) => {
       const Icon = item.icon;
       return (
         <a
@@ -99,6 +113,7 @@ const selected = routes[topic];
           data-analytics-content-type={sourceType}
           data-analytics-content-slug={sourceSlug}
           data-analytics-content-title={item.title}
+          data-analytics-position="article_footer"
         >
           <div class="mb-4 flex items-center justify-between">
             <Icon size={19} class="text-blue-400" aria-hidden="true" />
