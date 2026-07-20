@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 18 Jul 2026 14:40:29 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 89 -->
+    <item>
+      <title>Folge 89: Kimi K3 landet bei 2,8 Billionen Parametern, Preis schmerzt</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep089/episode_089.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-89/</link>
+      <description><![CDATA[Heute im Überblick: Moonshot startet Kimi K3 mit 2,8 Billionen Parametern zu saftigen Preisen. Codebase Memory MCP meldet einen Rückgang des Token-Verbrauchs um 99%, während Prism-MLs Ternary-Bonsai-27B die lokale-KI-Charts anführt. Medicare's WISeR-Pilot bringt KI-Agenten in die Priorisierungs-Autorisierung in sechs Bundesstaaten, NVIDIA kooperiert mit Hugging Face an einem Fine-Tuning-Leitfaden für Video- und Bildmodelle, und LongStraw sowie VideoChat3 erweitern die Forschungsgrenzen, ergänzt durch die Agent-Stack-Release-Readout mit Codex rust-v0.144.6.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-89/]]></description>
+      <pubDate>Mon, 20 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_089.mp3" length="38940465" type="audio/mpeg"/>
+      <itunes:duration>40:33</itunes:duration>
+      <itunes:episode>89</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep089/episode_089_cover.png"/>
+    </item>
+
     <!-- Episode 88 -->
     <item>
       <title>Folge 88: Kimi K3, Meta Muse Spark und die Ära der Million-Token</title>
