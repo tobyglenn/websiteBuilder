@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Sat, 18 Jul 2026 14:40:29 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 89 -->
+    <item>
+      <title>Episodio 89: Kimi K3 aterriza con 2.8T parámetros, precios que pican</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep089/episode_089.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-89/</link>
+      <description><![CDATA[Moonshot lanza Kimi K3 con 2.8 billones de parámetros y precios elevados que presionan a los laboratorios occidentales. Codebase Memory MCP reporta una reducción del 99% en el consumo de tokens de coding‑agents, mientras que Prism‑ML's Ternary‑Bonsai‑27B escala en las gráficas de IA local y el piloto WISeR de Medicare introduce agentes de IA en la autorización previa en seis estados. NVIDIA y Hugging Face publican una guía de escalamiento para el ajuste fino de modelos de video e imagen, LongStraw y VideoChat3 amplían los límites de la investigación, y el resumen de versiones del Agent Stack incluye Codex rust‑v0.144.6, FastMCP 3.4.4 y Unity‑MCP 10.1.0.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-89/]]></description>
+      <pubDate>Mon, 20 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_089.mp3" length="35823325" type="audio/mpeg"/>
+      <itunes:duration>37:18</itunes:duration>
+      <itunes:episode>89</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep089/episode_089_cover.png"/>
+    </item>
+
     <!-- Episode 88 -->
     <item>
       <title>Episodio 88: Kimi K3, Meta Muse Spark y la Era del Millón de Tokens</title>
