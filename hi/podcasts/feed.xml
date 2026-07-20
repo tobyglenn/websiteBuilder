@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Sat, 18 Jul 2026 14:40:29 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 20 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 89 -->
+    <item>
+      <title>एपिसोड 89: किमी के-3 2.8T पैरामीटर पर पहुंचता है, मूल्य अधिक है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep089/episode_089.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-89/</link>
+      <description><![CDATA[Moonshot's Kimi K3 arrives at 2.8 trillion parameters with pricing that pressures Western frontier labs. Prism-ML's Ternary-Bonsai-27B trends on the leaderboards as a local-AI power move for resource-constrained setups. Codebase Memory MCP slashes coding-agent token consumption by 99%, reshaping how developers budget context. NVIDIA and Hugging Face publish a fine-tuning scaling guide for video and image models. Medicare's WISeR pilot places AI in prior-authorization workflows across six states. Research spotlights: LongStraw pushes RL training beyond two million tokens, while VideoChat3 advances open video models toward generalist use. Plus the Agent Stack Release Readout with Codex rust-v0.144.6, FastMCP 3.4.4, and Unity-MCP 10.1.0.
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-89/]]></description>
+      <pubDate>Mon, 20 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_089.mp3" length="43907074" type="audio/mpeg"/>
+      <itunes:duration>45:44</itunes:duration>
+      <itunes:episode>89</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep089/episode_089_cover.png"/>
+    </item>
+
     <!-- Episode 88 -->
     <item>
       <title>एपिसोड 88: किमी K3, मेटा म्यूज़ स्पार्क, और द मिलियन-टोकन युग</title>
