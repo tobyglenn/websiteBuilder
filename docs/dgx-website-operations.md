@@ -194,16 +194,32 @@ Use:
 
 Produce 5-10 ranked improvements. Each recommendation should include evidence, the page or workflow affected, expected reader/discovery impact, effort, and the exact measurement used the following week. Implement the highest-confidence changes that fit the week rather than producing a report only.
 
-### Search Console API readiness
+### Search Console API
 
-Chrome remains the authenticated fallback for Search Console until API credentials are installed. The frontend also includes an API-ready weekly report command:
+The DGX has Google application-default credentials for `tobypeters@gmail.com` and a user-local Google Cloud CLI at `/home/toby/google-cloud-sdk/bin/gcloud`. The credentials are stored with mode `600` at:
+
+```text
+/home/toby/.config/gcloud/application_default_credentials.json
+```
+
+The weekly report runs every Monday before the website growth review:
+
+```bash
+/home/toby/.openclaw/workspace/websiteBuilder/frontend/scripts/run-gsc-weekly-report.sh
+```
+
+The wrapper saves the current artifact at `/home/toby/.openclaw/logs/analytics/gsc/latest.json`, preserves a dated copy, and writes its cron log to `/home/toby/.openclaw/logs/pipeline/gsc_weekly_report.cron.log`. Failures post to `#build-log-errors` and Hermes Telegram; successful refreshes post a short line to `#build-log`.
+
+The report compares the latest complete seven-day window with the prior seven days. It includes top, rising, and declining pages and queries; low-CTR opportunities; daily/device performance; and Search Console sitemap status. The API client must send the credential's `quota_project_id` through the `x-goog-user-project` header. Omitting that header produces a misleading 403 even when the Google account is a verified site owner.
+
+For a manual run:
 
 ```bash
 cd /home/toby/.openclaw/workspace/websiteBuilder/frontend
-GSC_ACCESS_TOKEN="$(gcloud auth application-default print-access-token)" npm run report:gsc
+npm run report:gsc | jq '.periods, .lowCtrQueries[0:10], .sitemaps'
 ```
 
-The command compares the latest complete seven-day window with the prior seven days and returns top pages and queries as JSON. It accepts `GSC_SITE_URL` when a property other than `sc-domain:tobyonfitnesstech.com` is needed. The Google account or service account supplying the token must have Search Console access and the Search Console API enabled.
+Chrome remains the fallback for indexing-reason totals, validation progress, Core Web Vitals reports, and video indexing because those aggregate reports are not exposed by the Search Analytics API.
 
 ### Indexability build gate
 

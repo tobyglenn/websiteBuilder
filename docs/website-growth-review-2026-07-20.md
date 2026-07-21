@@ -1,5 +1,7 @@
 # Website Growth Review: July 20, 2026
 
+> **July 21 Search Console update:** The access gap is resolved. `tobypeters@gmail.com` is confirmed as a site owner, application-default credentials are installed on the DGX, and a quota-aware API report now runs every Monday at 6:30 AM. The first current report covers July 13-19: 59 clicks, 7,388 impressions, 0.8% CTR, and average position 9.7. Search Console shows both submitted sitemaps as successful with 1,255 discovered pages; the page-indexing reason report remains stale with a July 9 update date.
+
 ## Decision Summary
 
 This week's highest-confidence changes are measurement and crawl-quality fixes, not a wholesale homepage deletion. Only 21 visitors generated homepage section-view data, and just one reached below the second section. The evidence does support moving fresh articles from position 8 to position 3, making video and next-step exposure measurable, and stopping the sitemap from claiming that every page changes daily. Those changes are implemented.
