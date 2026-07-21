@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 20 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 21 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 90 -->
+    <item>
+      <title>Folge 90: NVIDIA Cosmos 3 Edge landet auf Hugging Face für Physical AI</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep090/episode_090.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-90/</link>
+      <description><![CDATA[Cosmos 3 Edge von NVIDIA landet auf Hugging Face, während Unitys MCP v10.1.0 KI-Assistenten direkten Zugriff auf den Editor gibt und Sentrys XcodeBuildMCP 6.100 Sterne erreicht. Die Transparenzvorschriften der EU-KI-Verordnung vom 2. August treten diese Woche in Kraft, Microsofts MCP-Lehrplan erscheint in sechs Sprachen und OpenAI erklärt, was schiefgeht, wenn Agenten stundenlang ohne Überwachung laufen. Außerdem: Ternary auf Hugging Face, whodb 0.121.0, codebase-memory-mcp, holaOS mit 5.500 Sternen und Upsonic 0.77.3.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-90/]]></description>
+      <pubDate>Tue, 21 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_090.mp3" length="39157386" type="audio/mpeg"/>
+      <itunes:duration>40:47</itunes:duration>
+      <itunes:episode>90</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep090/episode_090_cover.png"/>
+    </item>
+
     <!-- Episode 89 -->
     <item>
       <title>Folge 89: Kimi K3 landet bei 2,8 Billionen Parametern, Preis schmerzt</title>
