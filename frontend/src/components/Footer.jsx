@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Youtube, Twitter, Instagram, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { captureEvent } from '../lib/analytics.js';
 
-export default function Footer() {
+export default function Footer({ showNewsletter = true }) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -142,7 +142,7 @@ export default function Footer() {
         </div>
 
         {/* Newsletter - Kit Integration */}
-        <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 mb-12">
+        {showNewsletter && <div className="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 mb-12">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <h4 className="font-bold text-white mb-1 flex items-center gap-2">
@@ -203,7 +203,7 @@ export default function Footer() {
           {error && (
             <p className="text-red-400 text-sm mt-3">{error}</p>
           )}
-        </div>
+        </div>}
 
         <div className="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-600">
           <p>&copy; {new Date().getFullYear()} Toby on Fitness Tech. All rights reserved.</p>

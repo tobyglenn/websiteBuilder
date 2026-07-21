@@ -1,9 +1,9 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
-title: "Anthropic Refund Denied: What Claude's Policy Actually Did"
+title: "Anthropic Refund Policy: Why Claude Denied My Request"
 date: 2026-04-06
 image: "/images/anthropic-refund-scam.jpg"
-description: "Anthropic offered a Claude Pro refund after an account lockout. Here is what happened when I followed the promised process and why it failed."
+description: "Anthropic promised a Claude Pro refund after an account lockout. Here is the policy, support timeline, denial, and what happened when I followed the process."
 categories: ["AI Tech", "Rant"]
 tags: ["AI", "Claude", "Anthropic", "Customer Experience", "Subscription", "Scam"]
 ---
