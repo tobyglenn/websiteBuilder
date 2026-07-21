@@ -1230,6 +1230,31 @@
       "totalSessions": 2,
       "avgVolume": 5056.5,
       "totalVolume": 10113.0
+    },
+    "ARIA Barbell Build Stamina 20260721": {
+      "name": "ARIA Barbell Build Stamina 20260721",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-07-21",
+          "totalCapacity": 2935.0,
+          "durationMinute": 21,
+          "calorie": 330,
+          "actionNum": 13
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-07-21",
+        "totalCapacity": 2935.0,
+        "durationMinute": 21,
+        "calorie": 330,
+        "actionNum": 13
+      },
+      "totalSessions": 1,
+      "avgVolume": 2935.0,
+      "totalVolume": 2935.0
     }
   },
   "exercisePRs": {
@@ -1546,11 +1571,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 109,
-  "totalVolumeLbs": 985859.9,
+  "totalWorkouts": 110,
+  "totalVolumeLbs": 988794.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-07-16"
+    "end": "2026-07-21"
   },
   "allSessions": [
     {
@@ -2424,6 +2449,14 @@
       "durationMinute": 72,
       "calorie": 254,
       "actionNum": 40
+    },
+    {
+      "date": "2026-07-21",
+      "title": "ARIA Barbell Build Stamina 20260721",
+      "totalCapacity": 2935.0,
+      "durationMinute": 21,
+      "calorie": 330,
+      "actionNum": 13
     }
   ]
 }
