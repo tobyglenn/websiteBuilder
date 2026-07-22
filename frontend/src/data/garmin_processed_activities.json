@@ -1,24 +1,5 @@
 [
     {
-        "date": "2026-07-15",
-        "runs": [
-            {
-                "activity_id": 23609563187,
-                "start_time_local": "2026-07-15 12:38:10",
-                "type": "running",
-                "distance_meters": 3226.2900390625,
-                "distance_miles": 2.0,
-                "duration_seconds": 1627.1390380859375,
-                "pace_min_mile": "13:33",
-                "avg_speed_mps": 1.9830000400543213,
-                "avg_heart_rate": 139.0,
-                "calories": 318.0
-            }
-        ],
-        "weight_kg": null,
-        "weight_lbs": null
-    },
-    {
         "date": "2026-07-16",
         "runs": [
             {
@@ -32,6 +13,25 @@
                 "avg_speed_mps": 1.7020000219345093,
                 "avg_heart_rate": 109.0,
                 "calories": 225.0
+            }
+        ],
+        "weight_kg": null,
+        "weight_lbs": null
+    },
+    {
+        "date": "2026-07-21",
+        "runs": [
+            {
+                "activity_id": 23680018140,
+                "start_time_local": "2026-07-21 12:08:54",
+                "type": "running",
+                "distance_meters": 2864.35009765625,
+                "distance_miles": 1.78,
+                "duration_seconds": 1625.2750244140625,
+                "pace_min_mile": "15:13",
+                "avg_speed_mps": 1.7619999647140505,
+                "avg_heart_rate": 118.0,
+                "calories": 258.0
             }
         ],
         "weight_kg": null,
