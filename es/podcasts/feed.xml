@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 21 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2026 19:14:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 91 -->
+    <item>
+      <title>Episodio 91: Modelo 27B de peso abierto ahora cabe en la RAM de un portátil, Dorsey lanza Buzz, Anthropic llega a un acuerdo por $1.5B</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep091/episode_091.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-91/</link>
+      <description><![CDATA[Un modelo de peso abierto con 27 mil millones de parámetros ahora cabe en la RAM de un portátil, algo que hace dos años habría parecido ficticio. Jack Dorsey lanza Buzz, una fusión de chat, agentes de IA y Git en un mismo feed, mientras Anthropic obtiene la aprobación judicial final para su acuerdo de $1.5B por libros pirata. Semble presenta un motor de búsqueda de código un 98% más ligero para agentes de IA, XcodeBuildMCP 2.6.2 permite compilar en iOS, Gemini 3.6 Flash aparece en listados, OpenAI y Hugging Face revelan un incidente de seguridad en la evaluación de modelos, y Bristol Myers Squibb despliega Vera Rubin para el descubrimiento de fármacos.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-91/]]></description>
+      <pubDate>Thu, 23 Jul 2026 19:14:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_091.mp3" length="36750359" type="audio/mpeg"/>
+      <itunes:duration>38:16</itunes:duration>
+      <itunes:episode>91</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep091/episode_091_cover.png"/>
+    </item>
+
     <!-- Episode 90 -->
     <item>
       <title>Episodio 90: NVIDIA Cosmos 3 Edge aterriza en Hugging Face para la IA física</title>
