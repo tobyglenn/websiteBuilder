@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 21 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2026 19:14:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 91 -->
+    <item>
+      <title>Episode 91: 27B Open-Weight Model Now Fits in Laptop RAM, Dorsey Ships Buzz, Anthropic Settles $1.5B Case</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep091/episode_091.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-91/</link>
+      <description><![CDATA[A 27-billion-parameter open-weight model now fits in laptop RAM. Jack Dorsey launches Buzz, a chat, AI agents, and Git mashup. Anthropic's $1.5B pirated-books settlement clears final court approval. Semble's 98% leaner code search engine targets AI agents. XcodeBuildMCP 2.6.2 gives coding agents real Apple build access. Plus Gemini 3.6 Flash surfaces in listings, OpenAI and Hugging Face disclose a model-evaluation security incident, and Bristol Myers Squibb deploys Vera Rubin for drug discovery.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-91/]]></description>
+      <pubDate>Thu, 23 Jul 2026 19:14:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep091/episode_091.mp3" length="33221529" type="audio/mpeg"/>
+      <itunes:duration>34:36</itunes:duration>
+      <itunes:episode>91</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep091/episode_091_cover.png"/>
+    </item>
+
     <!-- Episode 90 -->
     <item>
       <title>Episode 90: NVIDIA Cosmos 3 Edge Lands on Hugging Face for Physical AI</title>
