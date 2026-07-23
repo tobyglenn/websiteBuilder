@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 21 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 23 Jul 2026 19:14:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 91 -->
+    <item>
+      <title>एपिसोड 91: 27B मुक्त-भार मॉडल अब लैपटॉप RAM में समा सकता है, डॉर्सी ने Buzz जारी किया, एंथ्रोपिक ने $1.5 अरब का मामला निपटाया</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep091/episode_091.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-91/</link>
+      <description><![CDATA[A 27-billion-parameter open-weight model now fits inside laptop RAM, a feat that would have sounded fictional two years ago. Jack Dorsey's new app Buzz fuses chat, AI agents, and Git into a single feed. Anthropic's $1.5 billion pirated-books settlement cleared final court approval. Semble shipped a code search engine 98% leaner than peers for AI agents. XcodeBuildMCP 2.6.2 unlocks real iOS build pipelines for coding agents, while OpenAI and Hugging Face disclosed a model-evaluation security incident. Plus Gemini 3.6 Flash surfaces in listings, and Bristol Myers Squibb is building a Vera Rubin SuperPOD for drug discovery.
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-91/]]></description>
+      <pubDate>Thu, 23 Jul 2026 19:14:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_091.mp3" length="45535443" type="audio/mpeg"/>
+      <itunes:duration>47:25</itunes:duration>
+      <itunes:episode>91</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep091/episode_091_cover.png"/>
+    </item>
+
     <!-- Episode 90 -->
     <item>
       <title>एपिसोड 90: एनविडिया का Cosmos 3 Edge फिजिकल AI के लिए हगिंग फेस पर आता है</title>
