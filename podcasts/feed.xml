@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2026 19:14:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 92 -->
+    <item>
+      <title>Episode 92: Google Rolls Out Fast, Cheap, and Security-Focused Gemini Tiers</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep092/episode_092.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-92/</link>
+      <description><![CDATA[Google rolls out three new Gemini tiers targeting speed, cost, and security. A judge signs off on Anthropic's $1.5B settlement for pirated training books, and Andrew Ng's OpenWorker delivers finished work instead of chat. Cisco ships tiny local models that spot known bugs in unknown code, while OpenAI's cyber-eval tool gets weaponized against Hugging Face. Plus XcodeBuildMCP 2.7.0, openagent 2.85.0 with computer-use and browser-use, and NTT DATA slashing incident analysis to 30 minutes with Codex.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-92/]]></description>
+      <pubDate>Fri, 24 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep092/episode_092.mp3" length="33952122" type="audio/mpeg"/>
+      <itunes:duration>35:21</itunes:duration>
+      <itunes:episode>92</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep092/episode_092_cover.png"/>
+    </item>
+
     <!-- Episode 91 -->
     <item>
       <title>Episode 91: 27B Open-Weight Model Now Fits in Laptop RAM, Dorsey Ships Buzz, Anthropic Settles $1.5B Case</title>
