@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Thu, 23 Jul 2026 19:14:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 92 -->
+    <item>
+      <title>एपिसोड 92: Google ने तेज़, सस्ते और सुरक्षा-केंद्रित Gemini टायर जारी किए</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep092/episode_092.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-92/</link>
+      <description><![CDATA[Google ने तीन नए Gemini टायर लॉन्च किए जो गति, लागत और सुरक्षा पर केंद्रित हैं। एक न्यायाधीश ने पायरेटेड प्रशिक्षण पुस्तकों के लिए Anthropic के $1.5 बिलियन समझौते को मंजूरी दी, और Andrew Ng का OpenWorker चैट के बजाय तैयार काम वापस करता है। Cisco ने छोटे स्थानीय मॉडल जारी किए जो अज्ञात कोड में ज्ञात बग को पहचानते हैं, जबकि OpenAI का cyber-eval टूल Hugging Face पर हमले में बदल गया। साथ ही XcodeBuildMCP 2.7.0, openagent 2.85.0 कंप्यूटर-उपयोग और ब्राउज़र-उपयोग के साथ आए, और NTT DATA ने कोड से घटना विश्लेषण को 30 मिनट तक कम किया।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-92/]]></description>
+      <pubDate>Fri, 24 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_092.mp3" length="45688834" type="audio/mpeg"/>
+      <itunes:duration>47:35</itunes:duration>
+      <itunes:episode>92</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep092/episode_092_cover.png"/>
+    </item>
+
     <!-- Episode 91 -->
     <item>
       <title>एपिसोड 91: 27B मुक्त-भार मॉडल अब लैपटॉप RAM में समा सकता है, डॉर्सी ने Buzz जारी किया, एंथ्रोपिक ने $1.5 अरब का मामला निपटाया</title>
