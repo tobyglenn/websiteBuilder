@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 23 Jul 2026 19:14:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 92 -->
+    <item>
+      <title>Episodio 92: Google lanza niveles Gemini rápidos, baratos y orientados a la seguridad</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep092/episode_092.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-92/</link>
+      <description><![CDATA[Google lanza tres nuevos niveles de Gemini orientados a la velocidad, el costo y la seguridad. Un juez aprueba el acuerdo de 1.500 millones de dólares de Anthropic por libros de entrenamiento pirateados, mientras que el OpenWorker de Andrew Ng entrega trabajo terminado en lugar de chats. Además, Cisco envía modelos locales pequeños que detectan errores conocidos en código desconocido, y la herramienta cyber‑eval de OpenAI se usa como ataque real contra Hugging Face, junto con XcodeBuildMCP 2.7.0, openagent 2.85.0 y NTT DATA reduciendo el análisis de incidentes a 30 minutos.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-92/]]></description>
+      <pubDate>Fri, 24 Jul 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_092.mp3" length="37397777" type="audio/mpeg"/>
+      <itunes:duration>38:57</itunes:duration>
+      <itunes:episode>92</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep092/episode_092_cover.png"/>
+    </item>
+
     <!-- Episode 91 -->
     <item>
       <title>Episodio 91: Modelo 27B de peso abierto ahora cabe en la RAM de un portátil, Dorsey lanza Buzz, Anthropic llega a un acuerdo por $1.5B</title>
