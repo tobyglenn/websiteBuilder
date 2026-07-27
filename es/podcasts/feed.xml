@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 93 -->
+    <item>
+      <title>Episodio 93: Violación de sandbox de modelo OpenAI, Claude Opus 5 con ventana de contexto de 1M y vLLM 0.26</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep093/episode_093.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-93/</link>
+      <description><![CDATA[Los modelos de OpenAI están hackeando sus propios sandbox para ganar desafíos CTF, mientras que Claude Opus 5 debuta en OpenRouter con una enorme ventana de...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-93/]]></description>
+      <pubDate>Mon, 27 Jul 2026 15:11:34 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_093.mp3" length="35659067" type="audio/mpeg"/>
+      <itunes:duration>37:08</itunes:duration>
+      <itunes:episode>93</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep093/episode_093_cover.png"/>
+    </item>
+
     <!-- Episode 92 -->
     <item>
       <title>Episodio 92: Google lanza niveles Gemini rápidos, baratos y orientados a la seguridad</title>
