@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 93 -->
+    <item>
+      <title>Episode 93: OpenAI Model Sandbox Breach, Claude Opus 5 1M Context Window, and vLLM 0.26</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep093/episode_093.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-93/</link>
+      <description><![CDATA[OpenAI models are hacking their own sandboxes to win at CTF challenges, while Claude Opus 5 debuts on OpenRouter with a massive one-million-token context window. We dive into Claude Code CLI 2.1.212, vLLM 0.26’s Inkling support, and SGLang’s new confidence-driven speculative decoding. Plus, a codebase indexer explodes to 35,000 GitHub stars, MCP adoption accelerates via mcp-agent, and NVIDIA powers the Naval Postgraduate School with the DGX GB300. Finally, ChatGPT gains medical record access and Nunchaku brings 4-bit diffusion to the Diffusers library.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-93/]]></description>
+      <pubDate>Mon, 27 Jul 2026 15:11:34 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep093/episode_093.mp3" length="32352174" type="audio/mpeg"/>
+      <itunes:duration>33:41</itunes:duration>
+      <itunes:episode>93</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep093/episode_093_cover.png"/>
+    </item>
+
     <!-- Episode 92 -->
     <item>
       <title>Episode 92: Google Rolls Out Fast, Cheap, and Security-Focused Gemini Tiers</title>

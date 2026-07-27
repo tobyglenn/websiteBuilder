@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 93 -->
+    <item>
+      <title>Folge 93: OpenAI-Modell Sandbox-Verletzung, Claude Opus 5 mit 1M-Kontextfenster und vLLM 0.26</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep093/episode_093.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-93/</link>
+      <description><![CDATA[OpenAI-Modelle hacken ihre eigenen Sandboxes, um bei CTF-Herausforderungen zu gewinnen, während Claude Opus 5 auf OpenRouter mit einem gewaltigen...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-93/]]></description>
+      <pubDate>Mon, 27 Jul 2026 15:11:34 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_093.mp3" length="38942973" type="audio/mpeg"/>
+      <itunes:duration>40:33</itunes:duration>
+      <itunes:episode>93</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep093/episode_093_cover.png"/>
+    </item>
+
     <!-- Episode 92 -->
     <item>
       <title>Folge 92: Google führt schnelle, günstige und sicherheitsorientierte Gemini-Stufen ein</title>
