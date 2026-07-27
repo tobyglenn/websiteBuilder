@@ -50,12 +50,17 @@ rm -f "$TEMP_REPORT"
 TEMP_REPORT=''
 
 SUMMARY=$(jq -r '
-  "Search Console refreshed: "
+  (.decisionPeriods.current // .periods.current) as $decision
+  | "Search Console refreshed: "
   + (.periods.current.start + " to " + .periods.current.end)
-  + ", " + (.periods.current.clicks | tostring) + " clicks"
-  + ", " + (.periods.current.impressions | tostring) + " impressions"
-  + ", " + ((.periods.current.ctr * 10000 | round) / 100 | tostring) + "% CTR"
-  + ", position " + ((.periods.current.position * 10 | round) / 10 | tostring)
+  + "; raw " + (.periods.current.clicks | tostring) + " clicks / "
+  + (.periods.current.impressions | tostring) + " impressions / "
+  + ((.periods.current.ctr * 10000 | round) / 100 | tostring) + "% CTR"
+  + "; editorial " + ($decision.clicks | tostring) + " clicks / "
+  + ($decision.impressions | tostring) + " impressions / "
+  + (($decision.ctr * 10000 | round) / 100 | tostring) + "% CTR"
+  + "; isolated " + (.anomalies.summary.current.impressions | tostring)
+  + " anomalous impressions"
 ' "$LATEST_REPORT")
 
 python3 "$BUILD_LOG_HELPER" --info "OK: $SUMMARY" || true

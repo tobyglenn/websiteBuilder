@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import EpisodeDetail from '../../components/EpisodeDetail.jsx';
 import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
 import { getFitnessEpisodeNumber, getFitnessEpisodeSlug } from '../../lib/fitnessPodcast';
+import { buildPodcastMetaDescription } from '../../lib/podcastMeta';
 import {
   englishShowNotesCandidates,
   englishTranscriptCandidates,
@@ -171,6 +172,11 @@ export async function getStaticPaths() {
     }
 
     const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+    const metaDescription = buildPodcastMetaDescription({
+      title,
+      description,
+      showNotes: showNotesMd,
+    });
 
     return {
       params: { slug },
@@ -180,6 +186,7 @@ export async function getStaticPaths() {
           number: episodeNum,
           title,
           description,
+          metaDescription,
           date: formattedDate,
           isoDate,
           duration,
@@ -242,17 +249,21 @@ export async function getStaticPaths() {
 const { episode } = Astro.props;
 const episodeUrl = `https://tobyonfitnesstech.com/podcasts/${episode.slug}/`;
 const podcastSeriesUrl = 'https://tobyonfitnesstech.com/podcasts/';
+const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
+  title: episode.title,
+  description: episode.description,
+});
 ---
 
-<Layout 
+<Layout
   title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | AgentStack Daily`}
-  description={episode.description}
+  description={metaDescription}
   episodeSlug={episode.isToft ? undefined : episode.slug}
   jsonLd={{
     "@context": "https://schema.org",
     "@type": "PodcastEpisode",
     "name": episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`,
-    "description": episode.description,
+    "description": metaDescription,
     "datePublished": episode.isoDate || episode.date,
     "duration": episode.duration,
     "image": episode.coverImage,
