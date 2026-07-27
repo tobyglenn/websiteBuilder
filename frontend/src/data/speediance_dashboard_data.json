@@ -1255,6 +1255,31 @@
       "totalSessions": 1,
       "avgVolume": 2935.0,
       "totalVolume": 2935.0
+    },
+    "ARIA Handles Recovery Stamina 20260727": {
+      "name": "ARIA Handles Recovery Stamina 20260727",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-07-27",
+          "totalCapacity": 2737.0,
+          "durationMinute": 10,
+          "calorie": 199,
+          "actionNum": 5
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-07-27",
+        "totalCapacity": 2737.0,
+        "durationMinute": 10,
+        "calorie": 199,
+        "actionNum": 5
+      },
+      "totalSessions": 1,
+      "avgVolume": 2737.0,
+      "totalVolume": 2737.0
     }
   },
   "exercisePRs": {
@@ -1571,11 +1596,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 110,
-  "totalVolumeLbs": 988794.9,
+  "totalWorkouts": 111,
+  "totalVolumeLbs": 991531.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-07-21"
+    "end": "2026-07-27"
   },
   "allSessions": [
     {
@@ -2457,6 +2482,14 @@
       "durationMinute": 21,
       "calorie": 330,
       "actionNum": 13
+    },
+    {
+      "date": "2026-07-27",
+      "title": "ARIA Handles Recovery Stamina 20260727",
+      "totalCapacity": 2737.0,
+      "durationMinute": 10,
+      "calorie": 199,
+      "actionNum": 5
     }
   ]
 }
