@@ -71,6 +71,7 @@ No section should be promoted, reordered, consolidated again, moved off, or remo
 3. `frontend/public/js/posthog-analytics.js` now emits `content_next_step_item_viewed` only after an individual card is at least 25% visible for 800 ms. The event carries the same source, title, topic, position, destination type, and `destination_url` fields as the click event.
 4. `frontend/src/lib/blogPosts.ts` now targets current search wording with `WHOOP 5 vs 4: Size, Thickness and Upgrade Differences` and a concise hands-on description.
 5. Anthropic metadata was inspected but left unchanged. It already reflects refund-policy intent and improved to nine clicks from eight; another rewrite is not supported this week.
+6. PostHog insight `8bnZVO3A` now funnels item-level exposure to click within one day and breaks results down by `destination_url`. It remains pinned to dashboard `1840395`.
 
 ## Content Opportunities
 
@@ -89,7 +90,7 @@ No section should be promoted, reordered, consolidated again, moved off, or remo
 
 ## Analytics And Search Console Gaps
 
-- Update the saved next-step funnel to use `content_next_step_item_viewed` as its first step once production events arrive. Break down by `destination_url`.
+- The saved next-step funnel now uses `content_next_step_item_viewed` as its first step and breaks down by `destination_url`. Production data begins July 27, so historical container exposure remains a separate baseline.
 - Keep the existing video exposure-to-play funnel. It is present on dashboard 1840395 and currently has enough volume to monitor, not enough to redesign the player.
 - `homepage_sections_summary` has two orphan summary sessions without matching section-view events. Section events remain authoritative.
 - PostHog bot/virtual-traffic properties exist in schema but are not populated, so reader and crawler traffic cannot yet be separated reliably.
@@ -103,9 +104,10 @@ No section should be promoted, reordered, consolidated again, moved off, or remo
 - Indexability audit: 1,295 sitemap URLs, 1,323 HTML files, zero broken internal links.
 - Desktop 1440x900: both Speediance charts render, zero horizontal overflow, no console errors.
 - Mobile 390x844: both charts and all next-step cards render without overlap or horizontal overflow, no console errors.
+- Production PostHog validation: `content_next_step_item_viewed` arrived with the expected WHOOP destination URL, and saved insight `8bnZVO3A` returned the new event.
 
 ## First Actions
 
-1. Deploy the three implemented fixes and verify the production chart and WHOOP metadata.
-2. Confirm `content_next_step_item_viewed` arrives in PostHog, then update the existing next-step funnel to item exposure-to-click by destination.
-3. Rewrite the Gym Monster original-vs-2 entry page and AgentStack podcast descriptions in the next implementation pass.
+1. Let the five-section homepage and destination-level next-step events collect one complete week before another structural decision.
+2. Rewrite the Gym Monster original-vs-2 entry page around current comparison demand and its canonical three-model next step.
+3. Replace raw AgentStack podcast descriptions and add query-page anomaly handling to the GSC report.
