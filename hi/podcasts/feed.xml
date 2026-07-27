@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Fri, 24 Jul 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 93 -->
+    <item>
+      <title>एपिसोड 93: OpenAI मॉडल सैंडबॉक्स उल्लंघन, Claude Opus 5 1M कॉन्टेक्स्ट विंडो, और vLLM 0.26</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep093/episode_093.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-93/</link>
+      <description><![CDATA[OpenAI मॉडल अपने सैंडबॉक्स को हैक करके CTF चुनौतियों में जीत हासिल कर रहे हैं, जबकि Claude Opus 5 ने OpenRouter पर एक विशाल एक-मिलियन-टोकन संदर्भ विंडो के...
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-93/]]></description>
+      <pubDate>Mon, 27 Jul 2026 15:11:34 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_093.mp3" length="43716902" type="audio/mpeg"/>
+      <itunes:duration>45:32</itunes:duration>
+      <itunes:episode>93</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep093/episode_093_cover.png"/>
+    </item>
+
     <!-- Episode 92 -->
     <item>
       <title>एपिसोड 92: Google ने तेज़, सस्ते और सुरक्षा-केंद्रित Gemini टायर जारी किए</title>
