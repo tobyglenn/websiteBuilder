@@ -256,6 +256,8 @@
         content_slug: target.getAttribute("data-analytics-content-slug") || (parsedUrl ? normalizedPath(parsedUrl.pathname) : ""),
         content_title: cleanText(target.getAttribute("data-analytics-content-title") || "", 100),
         content_position: target.getAttribute("data-analytics-position") || "",
+        next_step_topic: target.getAttribute("data-analytics-topic") || "",
+        next_step_item_position: Number(target.getAttribute("data-analytics-item-position") || 0),
         destination,
         destination_url: destinationUrl,
       });
@@ -495,9 +497,10 @@
   let contentNextStepObserver = null;
   const contentNextStepViewed = new WeakSet();
   const contentNextStepTimers = new WeakMap();
+  const contentNextStepSelector = "[data-content-next-step], [data-content-next-step-item]";
   const setupContentNextStepTracking = () => {
     if (contentNextStepObserver) contentNextStepObserver.disconnect();
-    document.querySelectorAll("[data-content-next-step]").forEach((element) => {
+    document.querySelectorAll(contentNextStepSelector).forEach((element) => {
       window.clearTimeout(contentNextStepTimers.get(element));
     });
     if (!("IntersectionObserver" in window)) return;
@@ -516,18 +519,36 @@
           contentNextStepTimers.delete(element);
           if (contentNextStepViewed.has(element)) return;
           contentNextStepViewed.add(element);
+          if (element.matches("[data-content-next-step-item]")) {
+            const href = element.getAttribute("href") || "";
+            const parsedUrl = toUrl(href);
+            window.toftAnalytics.capture("content_next_step_item_viewed", {
+              cta_label: cleanText(element.getAttribute("aria-label") || element.textContent),
+              content_type: element.getAttribute("data-analytics-content-type") || "",
+              content_slug: element.getAttribute("data-analytics-content-slug") || normalizedPath(window.location.pathname),
+              content_title: cleanText(element.getAttribute("data-analytics-content-title") || "", 100),
+              content_position: element.getAttribute("data-analytics-position") || "",
+              next_step_topic: element.getAttribute("data-analytics-topic") || "",
+              next_step_item_position: Number(element.getAttribute("data-analytics-item-position") || 0),
+              destination: destinationType(href),
+              destination_url: parsedUrl && href ? parsedUrl.href : "",
+            });
+            return;
+          }
           window.toftAnalytics.capture("content_next_step_viewed", {
             content_type: element.getAttribute("data-analytics-content-type") || "",
             content_slug: element.getAttribute("data-analytics-content-slug") || normalizedPath(window.location.pathname),
             content_title: cleanText(element.getAttribute("data-analytics-content-title") || "", 100),
             content_position: element.getAttribute("data-analytics-position") || "",
+            next_step_topic: element.getAttribute("data-analytics-topic") || "",
+            next_step_item_count: Number(element.getAttribute("data-analytics-item-count") || 0),
           });
         }, 800);
         contentNextStepTimers.set(element, timer);
       });
     }, { threshold: [0.25] });
 
-    document.querySelectorAll("[data-content-next-step]").forEach((element) => contentNextStepObserver.observe(element));
+    document.querySelectorAll(contentNextStepSelector).forEach((element) => contentNextStepObserver.observe(element));
   };
 
   setupContentNextStepTracking();

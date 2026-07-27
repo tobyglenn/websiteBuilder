@@ -95,6 +95,8 @@ const selectedItems = selected.items.filter((item) => normalizePath(item.href) !
   data-analytics-content-slug={sourceSlug}
   data-analytics-content-title={selected.title}
   data-analytics-position="article_footer"
+  data-analytics-topic={topic}
+  data-analytics-item-count={selectedItems.length}
 >
   <div class="mb-7 max-w-2xl">
     <p class="mb-2 text-xs font-semibold uppercase text-blue-400">{selected.eyebrow}</p>
@@ -103,17 +105,20 @@ const selectedItems = selected.items.filter((item) => normalizePath(item.href) !
   </div>
 
   <div class:list={["grid gap-3", selectedItems.length === 2 ? "md:grid-cols-2" : "md:grid-cols-3"]}>
-    {selectedItems.map((item) => {
+    {selectedItems.map((item, index) => {
       const Icon = item.icon;
       return (
         <a
           href={item.href}
           class="group rounded-lg border border-neutral-800 bg-neutral-900 p-5 transition-colors hover:border-blue-500/60 hover:bg-neutral-800"
+          data-content-next-step-item
           data-analytics-event="content_next_step_click"
           data-analytics-content-type={sourceType}
           data-analytics-content-slug={sourceSlug}
           data-analytics-content-title={item.title}
           data-analytics-position="article_footer"
+          data-analytics-topic={topic}
+          data-analytics-item-position={index + 1}
         >
           <div class="mb-4 flex items-center justify-between">
             <Icon size={19} class="text-blue-400" aria-hidden="true" />

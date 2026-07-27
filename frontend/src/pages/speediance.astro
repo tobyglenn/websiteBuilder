@@ -535,10 +535,10 @@ const donutJSON = JSON.stringify(donutData);
   window.__SPEEDIANCE_DONUT_DATA__ = donutData;
 </script>
 
-<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+<script>
+  import Chart from 'chart.js/auto';
 
-<script is:inline>
-  (function () {
+  const buildSpeedianceCharts = () => {
     Chart.defaults.color = '#737373';
     Chart.defaults.borderColor = '#262626';
     Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
@@ -549,7 +549,8 @@ const donutJSON = JSON.stringify(donutData);
     // ── Monthly Volume Bar Chart ───────────────────────────────────────────
     (function buildVolumeChart() {
       const canvas = document.getElementById('volumeChart');
-      if (!canvas) return;
+      if (!(canvas instanceof HTMLCanvasElement)) return;
+      Chart.getChart(canvas)?.destroy();
 
       const labels = chartData.map(d => d.label);
       const volumes = chartData.map(d => d.volume);
@@ -614,7 +615,8 @@ const donutJSON = JSON.stringify(donutData);
     // ── Workout Type Donut Chart ───────────────────────────────────────────
     (function buildDonutChart() {
       const canvas = document.getElementById('donutChart');
-      if (!canvas) return;
+      if (!(canvas instanceof HTMLCanvasElement)) return;
+      Chart.getChart(canvas)?.destroy();
 
       const colors = [
         'rgba(249,115,22,0.85)',
@@ -662,5 +664,8 @@ const donutJSON = JSON.stringify(donutData);
         },
       });
     })();
-  })();
+  };
+
+  buildSpeedianceCharts();
+  document.addEventListener('astro:page-load', buildSpeedianceCharts);
 </script>
