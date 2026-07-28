@@ -89,6 +89,7 @@ const shortTitleFallbacks: Record<string, string> = {
   '/day': 'Routine, training and creator workflow',
   '/faq': 'Answers on gear, data and training',
   '/games': 'Apps, experiments and side projects',
+  '/projects': 'Games, tools and story experiments',
   '/gear': 'Fitness tech gear, wearables and setup',
   '/wearables': 'WHOOP, Garmin and Oura comparisons',
   '/agentstack': 'Local AI agents, workflows and field notes',
@@ -372,7 +373,7 @@ const siteNavigationSchema = {
     { "@type": "ListItem", "position": 4, "name": "Training Data", "url": pageUrl('/training/') },
     { "@type": "ListItem", "position": 5, "name": "Articles", "url": pageUrl('/blog/') },
     { "@type": "ListItem", "position": 6, "name": "Videos", "url": pageUrl('/videos/') },
-    { "@type": "ListItem", "position": 7, "name": "Podcasts", "url": pageUrl('/podcasts/') },
+    { "@type": "ListItem", "position": 7, "name": "Projects", "url": pageUrl('/projects/') },
     { "@type": "ListItem", "position": 8, "name": "AgentStack", "url": pageUrl('/agentstack/') },
     { "@type": "ListItem", "position": 9, "name": "About", "url": pageUrl('/about/') }
   ]
@@ -395,6 +396,7 @@ const staticBreadcrumbNameMap: Record<string, string> = {
   pr: 'PR Board',
   transformation: 'Transformation',
   training: 'Training',
+  projects: 'Projects',
 };
 
 const toTitleCase = (segment: string) => segment

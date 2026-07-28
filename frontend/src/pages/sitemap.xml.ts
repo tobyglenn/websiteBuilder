@@ -10,6 +10,7 @@ export async function GET() {
   const mainPages = [
     { loc: '/', changefreq: 'daily', priority: 1.0 },
     { loc: '/videos/', changefreq: 'weekly', priority: 0.9 },
+    { loc: '/projects/', changefreq: 'weekly', priority: 0.9 },
     { loc: '/podcasts/', changefreq: 'weekly', priority: 0.9 },
     { loc: '/blog/', changefreq: 'daily', priority: 0.8 },
     { loc: '/gear/', changefreq: 'monthly', priority: 0.7 },

@@ -4,14 +4,16 @@ import {
   BarChart3,
   Calculator,
   ChevronDown,
+  BookOpen,
+  Clapperboard,
   Cpu,
   Dumbbell,
   FileText,
   Footprints,
+  Gamepad2,
   Globe,
   HeartPulse,
   Menu,
-  Mic2,
   PackageSearch,
   PlaySquare,
   Scale,
@@ -37,39 +39,43 @@ const LOCALE_LABELS = {
 
 const NAV_TRANSLATIONS = {
   en: {
-    reviews: 'Reviews', training: 'Training Data', articles: 'Articles', videos: 'Videos', podcasts: 'Podcasts', about: 'About',
+    reviews: 'Reviews', training: 'Training Data', articles: 'Articles', videos: 'Videos', podcasts: 'Projects', about: 'About',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Gear', compare: 'Compare Trackers', calculators: 'Calculators',
     trainingOverview: 'Training Overview', running: 'Running', recovery: 'Recovery', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR Board',
-    agentstack: 'AgentStack', fitnessPodcast: 'Fitness Tech Podcast', allPodcasts: 'All Podcasts', startHere: 'Start Here',
+    agentstack: 'AgentStack', fitnessPodcast: 'Fitness Tech Podcast', allPodcasts: 'All Projects', startHere: 'Start Here',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   de: {
-    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Podcasts', about: 'Über mich',
+    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Projects', about: 'Über mich',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Ausrüstung', compare: 'Tracker vergleichen', calculators: 'Rechner',
     trainingOverview: 'Training', running: 'Laufen', recovery: 'Erholung', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR-Tafel',
-    agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'Alle Podcasts', startHere: 'Hier starten',
+    agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'All Projects', startHere: 'Hier starten',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   es: {
-    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Podcasts', about: 'Acerca de',
+    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Projects', about: 'Acerca de',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipo', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Entrenamiento', running: 'Running', recovery: 'Recuperación', transformation: 'Transformación', bjj: 'BJJ', prs: 'Tabla PR',
-    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'Todos los podcasts', startHere: 'Empieza aquí',
+    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Empieza aquí',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   pt: {
-    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Podcasts', about: 'Sobre',
+    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Projects', about: 'Sobre',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipamento', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Treino', running: 'Corrida', recovery: 'Recuperação', transformation: 'Transformação', bjj: 'BJJ', prs: 'Quadro de PR',
-    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'Todos os podcasts', startHere: 'Comece aqui',
+    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Comece aqui',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   hi: {
-    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'पॉडकास्ट', about: 'परिचय',
+    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'Projects', about: 'परिचय',
     speediance: 'Speediance', wearables: 'वेयरेबल्स', gear: 'गियर', compare: 'ट्रैकर तुलना', calculators: 'कैलकुलेटर',
     trainingOverview: 'ट्रेनिंग', running: 'दौड़', recovery: 'रिकवरी', transformation: 'परिवर्तन', bjj: 'BJJ', prs: 'PR बोर्ड',
-    agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'सभी पॉडकास्ट', startHere: 'यहाँ से शुरू करें',
+    agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'All Projects', startHere: 'यहाँ से शुरू करें',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
 };
 
 const getLocaleFromPath = (path = '') => path.match(/^\/(es|pt|hi|de)(?:\/|$)/)?.[1] || 'en';
-const localePrefix = (locale) => (locale === 'en' ? '' : `/${locale}`);
 const localizedHref = (locale, href) => {
   if (!href.startsWith('/') || locale === 'en') return href;
   return href === '/' ? `/${locale}/` : `/${locale}${href}`;
@@ -200,8 +206,6 @@ export default function Header() {
 
   const locale = getLocaleFromPath(pathname);
   const t = NAV_TRANSLATIONS[locale] || NAV_TRANSLATIONS.en;
-  const podcastBase = localePrefix(locale);
-
   const reviewItems = useMemo(() => [
     { name: t.speediance, href: localizedHref(locale, '/speediance/'), icon: Dumbbell },
     { name: t.wearables, href: '/wearables/', icon: Watch },
@@ -219,11 +223,14 @@ export default function Header() {
     { name: t.prs, href: localizedHref(locale, '/prs/'), icon: BarChart3 },
   ], [locale, t]);
 
-  const podcastItems = useMemo(() => [
-    { name: t.agentstack, href: `${podcastBase}/podcasts/agentstack/`, icon: Cpu },
-    { name: t.fitnessPodcast, href: `${podcastBase}/podcasts/fitness-tech/`, icon: Mic2 },
-    { name: t.allPodcasts, href: `${podcastBase}/podcasts/`, icon: Mic2 },
-  ], [podcastBase, t]);
+  const projectItems = useMemo(() => [
+    { name: t.allPodcasts, href: '/projects/', icon: PackageSearch },
+    { name: t.mmaRpg, href: '/projects/#mma-rpg', icon: Gamepad2 },
+    { name: t.gridboundRealms, href: '/projects/#gridbound-realms', icon: Gamepad2 },
+    { name: t.churchSite, href: '/projects/#one-peter-memory', icon: BookOpen },
+    { name: t.ironvane, href: '/projects/#ironvane', icon: Clapperboard },
+    { name: t.liminal, href: '/projects/#liminal', icon: PlaySquare },
+  ], [t]);
 
   const primaryItems = useMemo(() => [
     { name: t.articles, href: localizedHref(locale, '/blog/'), icon: FileText },
@@ -260,7 +267,7 @@ export default function Header() {
             <DesktopMenu label={t.training} items={trainingItems} pathname={pathname} menuName="training" />
             <NavAnchor item={primaryItems[0]} pathname={pathname} />
             <NavAnchor item={primaryItems[1]} pathname={pathname} />
-            <DesktopMenu label={t.podcasts} items={podcastItems} pathname={pathname} menuName="podcasts" />
+            <DesktopMenu label={t.podcasts} items={projectItems} pathname={pathname} menuName="projects" />
             <NavAnchor item={primaryItems[2]} pathname={pathname} />
             <NavAnchor item={primaryItems[3]} pathname={pathname} />
           </nav>
@@ -327,7 +334,7 @@ export default function Header() {
 
             <MobileSection label={t.reviews} items={reviewItems} pathname={pathname} menuName="reviews" onNavigate={() => setIsMenuOpen(false)} />
             <MobileSection label={t.training} items={trainingItems} pathname={pathname} menuName="training" onNavigate={() => setIsMenuOpen(false)} />
-            <MobileSection label={t.podcasts} items={podcastItems} pathname={pathname} menuName="podcasts" onNavigate={() => setIsMenuOpen(false)} />
+            <MobileSection label={t.podcasts} items={projectItems} pathname={pathname} menuName="projects" onNavigate={() => setIsMenuOpen(false)} />
 
             <div className="mt-6">
               <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-neutral-300"><Globe size={16} /> Language</div>

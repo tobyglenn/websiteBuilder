@@ -100,6 +100,7 @@
     const path = normalizedPath(pathname);
     if (/^\/video\//.test(path)) return "video";
     if (/^\/blog(?:\/|$)/.test(path)) return "blog";
+    if (/^\/(?:projects|games)(?:\/|$)/.test(path)) return "project";
     if (/^\/podcasts(?:\/|$)/.test(path)) return "podcast";
     if (/^\/gear(?:\/|$)/.test(path)) return "gear";
     if (/^\/calculators(?:\/|$)/.test(path)) return "calculator";
@@ -553,6 +554,47 @@
 
   setupContentNextStepTracking();
   document.addEventListener("astro:page-load", setupContentNextStepTracking);
+
+  let projectCardObserver = null;
+  const projectCardsViewed = new WeakSet();
+  const projectCardTimers = new WeakMap();
+  const setupProjectCardTracking = () => {
+    if (projectCardObserver) projectCardObserver.disconnect();
+    document.querySelectorAll("[data-project-card]").forEach((element) => {
+      window.clearTimeout(projectCardTimers.get(element));
+    });
+    if (!("IntersectionObserver" in window)) return;
+
+    projectCardObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const element = entry.target;
+        if (projectCardsViewed.has(element)) return;
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.35) {
+          window.clearTimeout(projectCardTimers.get(element));
+          projectCardTimers.delete(element);
+          return;
+        }
+        if (projectCardTimers.has(element)) return;
+        const timer = window.setTimeout(() => {
+          projectCardTimers.delete(element);
+          if (projectCardsViewed.has(element)) return;
+          projectCardsViewed.add(element);
+          window.toftAnalytics.capture("project_card_viewed", {
+            content_type: "project",
+            content_slug: element.getAttribute("data-project-card") || "",
+            content_title: cleanText(element.getAttribute("data-analytics-content-title") || "", 100),
+            content_position: element.getAttribute("data-analytics-position") || "",
+          });
+        }, 800);
+        projectCardTimers.set(element, timer);
+      });
+    }, { threshold: [0.35] });
+
+    document.querySelectorAll("[data-project-card]").forEach((element) => projectCardObserver.observe(element));
+  };
+
+  setupProjectCardTracking();
+  document.addEventListener("astro:page-load", setupProjectCardTracking);
 
   let youtubeApiPromise = null;
   const youtubePlayers = new WeakMap();

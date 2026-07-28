@@ -106,7 +106,7 @@ export default function Footer({ showNewsletter = true }) {
               <li><a href="/agentstack/" className="hover:text-blue-400 transition-colors">AgentStack</a></li>
               <li><a href="/blog/" className="hover:text-blue-400 transition-colors">Articles</a></li>
               <li><a href="/videos/" className="hover:text-blue-400 transition-colors">Videos</a></li>
-              <li><a href="/podcasts/" className="hover:text-blue-400 transition-colors">Podcasts</a></li>
+              <li><a href="/projects/" className="hover:text-blue-400 transition-colors">Projects</a></li>
             </ul>
           </div>
 
