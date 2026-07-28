@@ -12,7 +12,6 @@ import {
   Dumbbell,
   Eye,
   Flame,
-  HeartPulse,
   Play,
   Trophy,
   Youtube,
@@ -134,7 +133,6 @@ const goalRows = [
 ].filter((goal) => Number(goal.target) > 0);
 const latestTrainingActivity = recentActivity.slice(0, 3);
 const trainingSnapshot = homepageFitnessData.trainingStats || {};
-const recoverySnapshot = homepageFitnessData.recovery || {};
 const trainingFocus = homepageFitnessData.trainingFocus || {};
 const trainingUpdatedAt = new Date(homepageFitnessData.generatedAt || Date.now()).toLocaleString('en-US', {
   month: 'short',
@@ -232,7 +230,7 @@ const webPageSchema = {
           </div>
           <h2 class="text-3xl font-bold text-white md:text-4xl">What the work looks like right now</h2>
           <p class="mt-3 max-w-3xl text-neutral-400">
-            A single current view of weekly training, recent activity, recovery, yearly progress, and the lifetime totals behind the reviews.
+            A single current view of weekly training, recent workouts, yearly progress, and the lifetime totals behind the reviews.
           </p>
         </div>
         <div class="flex items-center gap-2 text-sm text-neutral-400">
@@ -267,7 +265,7 @@ const webPageSchema = {
             <div>
               <div class="mb-4 flex items-center gap-2">
                 <Flame size={18} className="text-orange-400" />
-                <h3 class="font-bold text-white">Latest activity</h3>
+                <h3 class="font-bold text-white">Recent training</h3>
               </div>
               <div class="divide-y divide-neutral-700 border-y border-neutral-700">
                 {latestTrainingActivity.map((item) => (
@@ -285,8 +283,8 @@ const webPageSchema = {
 
             <div>
               <div class="mb-4 flex items-center gap-2">
-                <HeartPulse size={18} className="text-rose-400" />
-                <h3 class="font-bold text-white">Current signals</h3>
+                <Clock size={18} className="text-blue-400" />
+                <h3 class="font-bold text-white">Training snapshot</h3>
               </div>
               <dl class="divide-y divide-neutral-700 border-y border-neutral-700">
                 <div class="flex items-center justify-between gap-4 py-4">
@@ -298,12 +296,12 @@ const webPageSchema = {
                   <dd class="text-right font-bold text-white">{trainingSnapshot.lastWorkoutData?.type || 'N/A'} / {trainingSnapshot.lastWorkoutData?.date || 'N/A'}</dd>
                 </div>
                 <div class="flex items-center justify-between gap-4 py-4">
-                  <dt class="text-sm text-neutral-400">WHOOP recovery</dt>
-                  <dd class="font-bold text-white">{recoverySnapshot.currentScore ?? 'N/A'}%</dd>
+                  <dt class="text-sm text-neutral-400">This week's workouts</dt>
+                  <dd class="font-bold text-white">{weeklyProgress.workouts?.thisWeek || 0}</dd>
                 </div>
                 <div class="flex items-center justify-between gap-4 py-4">
-                  <dt class="text-sm text-neutral-400">Last sleep score</dt>
-                  <dd class="font-bold text-white">{recoverySnapshot.lastSleepScore ?? 'N/A'}</dd>
+                  <dt class="text-sm text-neutral-400">Current focus</dt>
+                  <dd class="text-right font-bold capitalize text-white">{trainingFocus.focus || 'mixed training'}</dd>
                 </div>
               </dl>
             </div>
@@ -354,7 +352,6 @@ const webPageSchema = {
         <a href="/training/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Training trends <ArrowRight size={15} /></a>
         <a href="/running/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Running data <ArrowRight size={15} /></a>
         <a href="/speediance/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Lifting data <ArrowRight size={15} /></a>
-        <a href="/whoop/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Recovery data <ArrowRight size={15} /></a>
         <a href="/bjj/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">BJJ history <ArrowRight size={15} /></a>
         <a href="/prs/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">PR board <ArrowRight size={15} /></a>
       </nav>

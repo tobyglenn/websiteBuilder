@@ -1,6 +1,5 @@
 import garminRaw from './garmin_all_activities.json';
 import speedianceRaw from './speediance_dashboard_data.json';
-import whoopRaw from './whoop_v2_latest.json';
 
 function loadJson(data) {
   return data ?? null;
@@ -72,25 +71,6 @@ export function getRecentActivity() {
         subtitle: `${formatDuration(duration)} • ${new Intl.NumberFormat('en-US').format(Math.round(volume))} lbs`,
       });
     });
-
-  const whoop = loadJson(whoopRaw);
-  const whoopRecoveryRecords = Array.isArray(whoop?.recovery)
-    ? whoop.recovery
-    : whoop?.recovery?.records || whoop?.recovery?.data || whoop?.recovery?.items || [];
-
-  whoopRecoveryRecords.forEach((entry) => {
-    const dateObj = toDate(entry.created_at || entry.updated_at || entry.date);
-    if (!dateObj) return;
-    const score = entry?.score?.recovery_score ?? entry?.recovery_score;
-    const hrv = entry?.score?.hrv_rmssd_milli ?? entry?.hrv_rmssd_milli;
-    items.push({
-      type: 'recovery',
-      date: formatDate(dateObj),
-      dateValue: dateObj,
-      title: `Recovery ${typeof score === 'number' ? `${score}%` : 'N/A'}`,
-      subtitle: `HRV ${typeof hrv === 'number' ? Math.round(hrv) : 'N/A'} ms`,
-    });
-  });
 
   return items
     .sort((a, b) => b.dateValue - a.dateValue)
