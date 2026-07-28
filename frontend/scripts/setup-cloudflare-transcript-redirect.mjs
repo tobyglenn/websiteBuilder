@@ -94,9 +94,23 @@ const managedRules = [
   }),
   redirectRule({
     ref: 'videos_category_query_to_clean_path',
-    description: 'Canonicalize videos category query URLs',
-    expression: queryPathExpression(['/videos', '/videos/'], ['category=']),
-    targetUrl: `https://${ZONE_NAME}/videos/`,
+    description: 'Canonicalize video library filter and search query URLs',
+    expression: queryPathExpression(
+      [
+        '/videos',
+        '/videos/',
+        '/es/videos',
+        '/es/videos/',
+        '/pt/videos',
+        '/pt/videos/',
+        '/hi/videos',
+        '/hi/videos/',
+        '/de/videos',
+        '/de/videos/',
+      ],
+      ['category=', 'q='],
+    ),
+    targetExpression: `concat("https://${ZONE_NAME}", http.request.uri.path)`,
   }),
   redirectRule({
     ref: 'podcasts_openclaw_aliases_to_agentstack',
