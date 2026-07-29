@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 17:56:12 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 94 -->
+    <item>
+      <title>Episodio 94: Codex se muda a ChatGPT mientras la IA local se extiende a placas de $8 y servidores</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep094/episode_094.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-94/</link>
+      <description><![CDATA[Microsoft añade un modelo de ciberdefensa a su arnés MDASH, un LLM de 28,9 millones de parámetros se ejecuta en una placa de $8, y Nanbeige lanza un modelo...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-94/]]></description>
+      <pubDate>Wed, 29 Jul 2026 17:56:12 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_094.mp3" length="32317066" type="audio/mpeg"/>
+      <itunes:duration>33:39</itunes:duration>
+      <itunes:episode>94</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep094/episode_094_cover.png"/>
+    </item>
+
     <!-- Episode 93 -->
     <item>
       <title>Episodio 93: Violación de sandbox de modelo OpenAI, Claude Opus 5 con ventana de contexto de 1M y vLLM 0.26</title>
