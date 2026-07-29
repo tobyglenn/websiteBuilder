@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 17:56:12 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 94 -->
+    <item>
+      <title>Folge 94: Codex zieht in ChatGPT ein, während lokale KI $8-Boards bis zu Servern umspannt</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep094/episode_094.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-94/</link>
+      <description><![CDATA[Microsoft fügt seinem MDASH-Harness ein Cyber-Verteidigungsmodell hinzu, ein 28,9-Millionen-Parameter-LLM läuft auf einem 8-Dollar-Board, und Nanbeige...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-94/]]></description>
+      <pubDate>Wed, 29 Jul 2026 17:56:12 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_094.mp3" length="35933666" type="audio/mpeg"/>
+      <itunes:duration>37:25</itunes:duration>
+      <itunes:episode>94</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep094/episode_094_cover.png"/>
+    </item>
+
     <!-- Episode 93 -->
     <item>
       <title>Folge 93: OpenAI-Modell Sandbox-Verletzung, Claude Opus 5 mit 1M-Kontextfenster und vLLM 0.26</title>
