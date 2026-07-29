@@ -1,0 +1,18 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SpeedianceWorkoutHub from '../../components/SpeedianceWorkoutHub.jsx';
+---
+
+<Layout
+  title="Speediance Workout Hub | Share and Compare Workouts"
+  description="Private prototype for sharing custom Speediance workouts, installing them to connected accounts, syncing verified completions, and ranking workout volume."
+  canonicalUrl="https://tobyonfitnesstech.com/speediance/workouts/"
+  noindex={true}
+  breadcrumbs={[
+    { name: 'Home', url: '/' },
+    { name: 'Speediance', url: '/speediance/' },
+    { name: 'Workout Hub', url: '/speediance/workouts/' },
+  ]}
+>
+  <SpeedianceWorkoutHub client:load />
+</Layout>

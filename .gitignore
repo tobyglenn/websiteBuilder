@@ -38,7 +38,10 @@ __pycache__/
 
 # Database files
 *.db
+*.db-wal
+*.db-shm
 backend/toby_site.db
+backend/.workout-hub-key
 
 # Internal tracking files (not for public repo)
 PROGRESS.json

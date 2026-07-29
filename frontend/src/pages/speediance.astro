@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getSpeedianceData } from '../data/speediance.js';
 import { LISTING_BLOG_POSTS } from '../lib/blogPosts';
-import { ArrowRight, BarChart3, Dumbbell, PlaySquare, Settings, ShieldCheck } from 'lucide-react';
+import { ArrowRight, BarChart3, Dumbbell, PlaySquare, Settings, ShieldCheck, Trophy } from 'lucide-react';
 
 const { stats, chartData, donutData, workoutTypeBreakdown, exercisePRs, recentSessions } = getSpeedianceData();
 
@@ -188,6 +188,17 @@ const donutJSON = JSON.stringify(donutData);
             >
               <BarChart3 size={17} />
               See the training data
+            </a>
+            <a
+              href="/speediance/workouts/"
+              class="inline-flex items-center gap-2 rounded-md border border-orange-500/40 bg-orange-500/10 px-5 py-2.5 text-sm font-semibold text-orange-300 transition-colors hover:bg-orange-500/20 hover:text-orange-200"
+              data-analytics-event="hub_path_selected"
+              data-analytics-content-type="speediance"
+              data-analytics-content-slug="workout-hub"
+              data-analytics-content-title="Speediance Workout Hub"
+            >
+              <Trophy size={17} />
+              Open Workout Hub
             </a>
           </div>
         </div>

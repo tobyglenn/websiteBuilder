@@ -1,0 +1,6 @@
+# Speediance Workout Hub API
+fastapi==0.133.1
+uvicorn==0.41.0
+pydantic==2.13.4
+requests==2.33.0
+cryptography==46.0.7
