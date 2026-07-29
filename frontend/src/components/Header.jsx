@@ -75,6 +75,8 @@ const NAV_TRANSLATIONS = {
   },
 };
 
+const WORKOUT_HUB_ENABLED = import.meta.env.PUBLIC_WORKOUT_HUB_ENABLED === 'true';
+
 const getLocaleFromPath = (path = '') => path.match(/^\/(es|pt|hi|de)(?:\/|$)/)?.[1] || 'en';
 const localizedHref = (locale, href) => {
   if (!href.startsWith('/') || locale === 'en') return href;
@@ -208,7 +210,9 @@ export default function Header() {
   const t = NAV_TRANSLATIONS[locale] || NAV_TRANSLATIONS.en;
   const reviewItems = useMemo(() => [
     { name: t.speediance, href: localizedHref(locale, '/speediance/'), icon: Dumbbell },
-    { name: t.workoutHub, href: '/speediance/workouts/', icon: Trophy },
+    ...(WORKOUT_HUB_ENABLED
+      ? [{ name: t.workoutHub, href: '/speediance/workouts/', icon: Trophy }]
+      : []),
     { name: t.wearables, href: '/wearables/', icon: Watch },
     { name: t.gear, href: localizedHref(locale, '/gear/'), icon: PackageSearch },
     { name: t.compare, href: localizedHref(locale, '/compare-trackers/'), icon: Scale },

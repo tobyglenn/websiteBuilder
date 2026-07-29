@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 from collections import defaultdict, deque
+from threading import Lock
 from typing import Annotated, Any
 
 from fastapi import Depends, FastAPI, HTTPException, Request, status
@@ -14,6 +15,73 @@ from pydantic import BaseModel, Field, SecretStr
 from .service import WorkoutHubService
 from .speediance_gateway import SpeedianceProviderError
 
+MAX_REQUEST_BODY_BYTES = 2_000_000
+
+
+class BodySizeLimitMiddleware:
+    def __init__(self, app, max_body_bytes: int = MAX_REQUEST_BODY_BYTES):
+        self.app = app
+        self.max_body_bytes = max_body_bytes
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http" or scope.get("method") not in {"POST", "PUT", "PATCH"}:
+            await self.app(scope, receive, send)
+            return
+
+        headers = {
+            key.lower(): value
+            for key, value in scope.get("headers", [])
+        }
+        raw_content_length = headers.get(b"content-length")
+        if raw_content_length is not None:
+            try:
+                content_length = int(raw_content_length)
+            except ValueError:
+                content_length = -1
+            if content_length < 0 or content_length > self.max_body_bytes:
+                await self._reject(scope, receive, send)
+                return
+
+        received = 0
+        body_too_large = False
+        response_started = False
+
+        async def limited_receive():
+            nonlocal received, body_too_large
+            message = await receive()
+            if message["type"] == "http.request":
+                received += len(message.get("body", b""))
+                if received > self.max_body_bytes:
+                    body_too_large = True
+                    return {
+                        "type": "http.request",
+                        "body": b"",
+                        "more_body": False,
+                    }
+            return message
+
+        async def tracked_send(message):
+            nonlocal response_started
+            if body_too_large:
+                return
+            if message["type"] == "http.response.start":
+                response_started = True
+            await send(message)
+
+        await self.app(scope, limited_receive, tracked_send)
+        if body_too_large:
+            if response_started:
+                return
+            await self._reject(scope, receive, send)
+
+    @staticmethod
+    async def _reject(scope, receive, send):
+        response = JSONResponse(
+            status_code=413,
+            content={"detail": "Request body must be smaller than 2 MB"},
+        )
+        await response(scope, receive, send)
+
 
 class ConnectRequest(BaseModel):
     display_name: str = Field(min_length=2, max_length=40)
@@ -21,6 +89,7 @@ class ConnectRequest(BaseModel):
     password: SecretStr
     region: str = Field(pattern="^(Global|EU)$")
     device_type: int = Field(default=1)
+    unit: int = Field(default=1, ge=0, le=1)
 
 
 class SetPayload(BaseModel):
@@ -28,6 +97,7 @@ class SetPayload(BaseModel):
     weight: float
     mode: int = 1
     rest: int = 60
+    unit: str | None = None
 
 
 class ExercisePayload(BaseModel):
@@ -36,13 +106,17 @@ class ExercisePayload(BaseModel):
     title: str = ""
     preset: int | None = None
     preset_id: int | None = None
+    data_stat_type: int | None = None
+    dataStatType: int | None = None
     isUnilateralExpanded: bool = False
-    sets: list[SetPayload]
+    sets: list[SetPayload] = Field(min_length=1, max_length=100)
 
 
 class WorkoutPayload(BaseModel):
     name: str = Field(min_length=1, max_length=80)
     description: str = Field(default="", max_length=500)
+    weight_unit: int | None = Field(default=None, ge=0, le=1)
+    weightUnit: int | None = Field(default=None, ge=0, le=1)
     exercises: list[ExercisePayload] = Field(min_length=1, max_length=60)
 
 
@@ -52,19 +126,38 @@ class SyncRequest(BaseModel):
 
 
 class LoginLimiter:
-    def __init__(self, max_attempts: int = 10, window_seconds: int = 900):
+    def __init__(
+        self,
+        max_attempts: int = 10,
+        window_seconds: int = 900,
+        max_keys: int = 10_000,
+    ):
         self.max_attempts = max_attempts
         self.window_seconds = window_seconds
+        self.max_keys = max_keys
         self.attempts: dict[str, deque[float]] = defaultdict(deque)
+        self._lock = Lock()
 
     def check(self, key: str) -> None:
-        now = time.monotonic()
-        attempts = self.attempts[key]
-        while attempts and attempts[0] < now - self.window_seconds:
-            attempts.popleft()
-        if len(attempts) >= self.max_attempts:
-            raise HTTPException(status_code=429, detail="Too many connection attempts; try again later")
-        attempts.append(now)
+        with self._lock:
+            now = time.monotonic()
+            if key not in self.attempts and len(self.attempts) >= self.max_keys:
+                stale_before = now - self.window_seconds
+                stale_keys = [
+                    stored_key
+                    for stored_key, stored_attempts in self.attempts.items()
+                    if not stored_attempts or stored_attempts[-1] < stale_before
+                ]
+                for stale_key in stale_keys:
+                    self.attempts.pop(stale_key, None)
+                if len(self.attempts) >= self.max_keys:
+                    self.attempts.pop(next(iter(self.attempts)), None)
+            attempts = self.attempts[key]
+            while attempts and attempts[0] < now - self.window_seconds:
+                attempts.popleft()
+            if len(attempts) >= self.max_attempts:
+                raise HTTPException(status_code=429, detail="Too many connection attempts; try again later")
+            attempts.append(now)
 
 
 def create_app(service: WorkoutHubService, allowed_origins: list[str]) -> FastAPI:
@@ -129,8 +222,10 @@ def create_app(service: WorkoutHubService, allowed_origins: list[str]) -> FastAP
 
     @app.post("/api/workout-hub/connect", status_code=status.HTTP_201_CREATED)
     def connect(payload: ConnectRequest, request: Request):
-        key = request.client.host if request.client else "unknown"
-        app.state.login_limiter.check(key)
+        client_host = request.client.host if request.client else "unknown"
+        identity_key = service.vault.blind_index(payload.email.strip().lower())
+        app.state.login_limiter.check(f"ip:{client_host}")
+        app.state.login_limiter.check(f"identity:{identity_key}")
         try:
             return service.connect_speediance(
                 display_name=payload.display_name,
@@ -138,6 +233,7 @@ def create_app(service: WorkoutHubService, allowed_origins: list[str]) -> FastAP
                 password=payload.password.get_secret_value(),
                 region=payload.region,
                 device_type=payload.device_type,
+                unit=payload.unit,
             )
         except Exception as exc:
             raise translate_error(exc) from exc
@@ -199,4 +295,10 @@ def create_app(service: WorkoutHubService, allowed_origins: list[str]) -> FastAP
         except Exception as exc:
             raise translate_error(exc) from exc
 
+    # Add last so the limit wraps every other user middleware, including
+    # BaseHTTPMiddleware, and sees the raw ASGI receive stream first.
+    app.add_middleware(
+        BodySizeLimitMiddleware,
+        max_body_bytes=MAX_REQUEST_BODY_BYTES,
+    )
     return app

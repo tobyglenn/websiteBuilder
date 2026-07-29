@@ -12,15 +12,23 @@ from workout_hub.service import WorkoutHubService
 
 class ApiGateway:
     records = []
+    last_auth = None
 
     def __init__(self, auth):
         self.auth = auth
+        self.__class__.last_auth = dict(auth)
 
     def login(self, email, password):
         return {"app_user_id": email, "token": "token", "region": self.auth["region"], "device_type": self.auth["device_type"]}
 
+    def confirm_account_unit(self, unit):
+        return int(unit)
+
     def save_workout(self, name, exercises):
         return {"template_id": 77, "template_code": "code-77"}
+
+    def get_user_workouts(self):
+        return [{"id": 77, "code": "code-77"}]
 
     def get_training_records(self, start_date, end_date):
         return list(self.records)
@@ -87,6 +95,57 @@ class WorkoutHubApiTests(unittest.TestCase):
         })
         self.assertEqual(response.status_code, 422)
         self.assertNotIn(secret, response.text)
+
+    def test_connect_passes_selected_device_and_unit(self):
+        response = self.client.post("/api/workout-hub/connect", json={
+            "display_name": "Metric Athlete",
+            "email": "metric@example.com",
+            "password": "pw",
+            "region": "Global",
+            "device_type": 6,
+            "unit": 0,
+        })
+        self.assertEqual(response.status_code, 201, response.text)
+        self.assertEqual(ApiGateway.last_auth["device_type"], 6)
+        self.assertEqual(ApiGateway.last_auth["unit"], 0)
+
+    def test_large_request_body_is_rejected_before_validation(self):
+        response = self.client.post(
+            "/api/workout-hub/workouts",
+            content=b"{}",
+            headers={
+                **self.headers,
+                "content-type": "application/json",
+                "content-length": "2000001",
+            },
+        )
+        self.assertEqual(response.status_code, 413)
+
+    def test_large_chunked_request_body_is_rejected(self):
+        chunks = [b'{"name":"', b"x" * 2_000_000, b'"}']
+        response = self.client.post(
+            "/api/workout-hub/workouts",
+            headers={
+                **self.headers,
+                "content-type": "application/json",
+                "transfer-encoding": "chunked",
+            },
+            content=iter(chunks),
+        )
+        self.assertEqual(response.status_code, 413, response.text)
+
+    def test_understated_content_length_does_not_bypass_body_limit(self):
+        chunks = [b'{"name":"', b"x" * 2_000_000, b'"}']
+        response = self.client.post(
+            "/api/workout-hub/workouts",
+            headers={
+                **self.headers,
+                "content-type": "application/json",
+                "content-length": "1",
+            },
+            content=iter(chunks),
+        )
+        self.assertEqual(response.status_code, 413, response.text)
 
 
 if __name__ == "__main__":

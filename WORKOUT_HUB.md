@@ -10,7 +10,10 @@ A working separate application for:
 - matching completed sessions to installed shared workouts;
 - producing device-verified per-workout leaderboards ranked by total weight/volume.
 
-The page is intentionally `noindex` and has **not** been deployed. Local route: `http://localhost:4321/speediance/workouts/`.
+The static prototype route was inadvertently committed and reached the public site.
+`noindex` is not access control. This revision makes new builds default to a redirect
+and hides all navigation unless `PUBLIC_WORKOUT_HUB_ENABLED=true` is explicitly set.
+Local route: `http://localhost:4321/speediance/workouts/`.
 
 ## Run locally
 
@@ -18,7 +21,10 @@ Terminal 1:
 
 ```bash
 cd backend
-python3 workout_hub_server.py
+python3 -m venv .venv-workout-hub
+. .venv-workout-hub/bin/activate
+python -m pip install -r requirements-workout-hub.txt
+python workout_hub_server.py
 ```
 
 In development, the server creates `backend/.workout-hub-key` with mode `0600` and `backend/workout_hub.db`. Both are gitignored. Production refuses to start without `WORKOUT_HUB_MASTER_KEY`.
@@ -28,7 +34,9 @@ Terminal 2:
 ```bash
 cd frontend
 npm install
-PUBLIC_WORKOUT_HUB_API_URL=http://127.0.0.1:8787/api/workout-hub npm run dev
+PUBLIC_WORKOUT_HUB_ENABLED=true \
+PUBLIC_WORKOUT_HUB_API_URL=http://127.0.0.1:8787/api/workout-hub \
+npm run dev
 ```
 
 Open `http://localhost:4321/speediance/workouts/`.
@@ -37,7 +45,14 @@ Open `http://localhost:4321/speediance/workouts/`.
 
 ```bash
 cd backend
-python3 -m unittest discover -s tests -v
+python3 -m venv .venv-workout-hub
+. .venv-workout-hub/bin/activate
+python -m pip install -r requirements-workout-hub.txt
+python -m unittest discover -s tests -v
+
+# Optional read-only smoke test using an existing authorized account.
+SPEEDIANCE_LIVE_CONFIG=/secure/path/config.json \
+  python -m unittest tests.test_speediance_gateway_live -v
 
 cd ../frontend
 npm run test:workout-hub
@@ -47,11 +62,13 @@ npm run build
 ## Credential and leaderboard security
 
 - Passwords are accepted only by `POST /connect`, passed to Speediance login, and immediately discarded.
+- The selected kg/lb account unit is confirmed through Speediance on connect and re-confirmed before installs or leaderboard syncs; client input alone is never used as scoring authority.
 - Passwords and email addresses are never written to SQLite or logs.
 - The returned Speediance token and account identifier are encrypted with Fernet using a server-only key.
 - Hub session tokens are returned once and stored only as SHA-256 hashes server-side.
 - The browser keeps the hub token in `sessionStorage`, not persistent `localStorage`.
 - Validation responses omit submitted input, preventing credential reflection.
+- Request bodies are bounded to 2 MB at the ASGI receive stream even when `Content-Length` is absent or false; production should enforce the same limit at the reverse proxy.
 - Connection attempts are rate limited.
 - Leaderboards only include completed (`isFinish == 1`) sessions fetched from Speediance for a workout the user installed through the hub. There is no manual leaderboard-write endpoint.
 - Provider summary storage is deliberately minimized to identifiers and completion metadata.
@@ -66,6 +83,7 @@ See `backend/.env.workout-hub.example`. Required production settings:
 - `WORKOUT_HUB_DB_PATH` on an encrypted persistent volume with backups
 - `WORKOUT_HUB_ALLOWED_ORIGINS` set to the exact frontend origin
 - `PUBLIC_WORKOUT_HUB_API_URL` set during the Astro build
+- `PUBLIC_WORKOUT_HUB_ENABLED=true` only after the API and access controls are ready
 
 Place the API behind HTTPS and a reverse proxy. Run one application instance per SQLite database; SQLite WAL is appropriate for this initial community beta. Move the service repository layer to PostgreSQL before horizontal scaling.
 

@@ -1,6 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import SpeedianceWorkoutHub from '../../components/SpeedianceWorkoutHub.jsx';
+
+if (import.meta.env.PUBLIC_WORKOUT_HUB_ENABLED !== 'true') {
+  return Astro.redirect('/speediance/', 302);
+}
 ---
 
 <Layout

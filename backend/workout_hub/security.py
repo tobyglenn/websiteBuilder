@@ -1,4 +1,5 @@
 import hashlib
+import hmac
 import json
 import secrets
 from cryptography.fernet import Fernet, InvalidToken
@@ -14,6 +15,9 @@ class CredentialVault:
             self._fernet = Fernet(master_key.encode("ascii"))
         except (ValueError, TypeError) as exc:
             raise RuntimeError("WORKOUT_HUB_MASTER_KEY must be a valid Fernet key") from exc
+        self._index_key = hashlib.sha256(
+            b"workout-hub-blind-index-v1\0" + master_key.encode("ascii")
+        ).digest()
 
     def encrypt_json(self, value: dict) -> str:
         payload = json.dumps(value, separators=(",", ":"), sort_keys=True).encode("utf-8")
@@ -25,6 +29,14 @@ class CredentialVault:
         except InvalidToken as exc:
             raise RuntimeError("Stored Speediance connection cannot be decrypted") from exc
         return json.loads(payload.decode("utf-8"))
+
+    def blind_index(self, value: str) -> str:
+        """Return a deterministic, keyed lookup value for low-entropy identifiers."""
+        return hmac.new(
+            self._index_key,
+            value.encode("utf-8"),
+            hashlib.sha256,
+        ).hexdigest()
 
 
 def sha256_text(value: str) -> str:
