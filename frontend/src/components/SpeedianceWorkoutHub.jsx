@@ -605,8 +605,9 @@ export default function SpeedianceWorkoutHub() {
                 Share custom workouts. Compete on real data.
               </h1>
               <p className="mt-4 text-lg text-neutral-400">
-                Export community routines, install workouts to your device,
-                and sync verified volume to the global leaderboard.
+                {HUB_ONLINE
+                  ? "Export community routines, install workouts to your device, and sync verified volume to the global leaderboard."
+                  : "Browse every set of 53 shared Speediance routines, export any of them as JSON, or open one straight in the app."}
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">

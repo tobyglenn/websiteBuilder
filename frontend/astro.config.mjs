@@ -11,7 +11,6 @@ const SITE_URL = 'https://tobyonfitnesstech.com';
 const EXCLUDED_SITEMAP_PATHS = [
   /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)(?:\/|\.html)?$/,
   /^\/(?:mma-rpg|gridbound-realms|bjj-buddy|nutritrack)\/?$/,
-  /^\/speediance\/workouts\/?$/,
   /^\/blog\/(?:2025-09-09-discover-the-truth-behind-workout-tech-transparency|i-pulled-260-pounds-on-the-speediance-2s-did-it-break|speediance-2s-260-lb-lat-pulldown|speediance-broke-partner-mode-lost-free-lift-feature|the-submission-that-could-have-ended-everything|why-running-might-have-saved-my-life)\/$/,
 ];
 
