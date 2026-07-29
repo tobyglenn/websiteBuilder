@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 17:56:12 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 94 -->
+    <item>
+      <title>Episode 94: Codex Moves into ChatGPT as Local AI Spans $8 Boards to Servers</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep094/episode_094.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-94/</link>
+      <description><![CDATA[Microsoft adds a cyber-defense model to its MDASH harness, a 28.9M-parameter LLM runs on an $8 board, and Nanbeige ships a 3B agent model for local runtimes.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-94/]]></description>
+      <pubDate>Wed, 29 Jul 2026 17:56:12 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep094/episode_094.mp3" length="28848840" type="audio/mpeg"/>
+      <itunes:duration>30:02</itunes:duration>
+      <itunes:episode>94</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep094/episode_094_cover.png"/>
+    </item>
+
     <!-- Episode 93 -->
     <item>
       <title>Episode 93: OpenAI Model Sandbox Breach, Claude Opus 5 1M Context Window, and vLLM 0.26</title>
