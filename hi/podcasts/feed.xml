@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 27 Jul 2026 15:11:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Jul 2026 17:56:12 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 94 -->
+    <item>
+      <title>एपिसोड 94: Codex चैटजीपीटी में प्रवेश करता है जैसे स्थानीय AI आठ-डॉलर बोर्डों से सर्वर तक फैलता है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep094/episode_094.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-94/</link>
+      <description><![CDATA[Microsoft ने अपने MDASH हार्नेस में एक साइबर-रक्षा मॉडल जोड़ा है। एक 28.9 मिलियन पैरामीटर LLM आठ-डॉलर के बोर्ड पर चलता है। Nanbeige ने स्थानीय रनटाइम के लिए...
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-94/]]></description>
+      <pubDate>Wed, 29 Jul 2026 17:56:12 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_094.mp3" length="39906368" type="audio/mpeg"/>
+      <itunes:duration>41:34</itunes:duration>
+      <itunes:episode>94</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep094/episode_094_cover.png"/>
+    </item>
+
     <!-- Episode 93 -->
     <item>
       <title>एपिसोड 93: OpenAI मॉडल सैंडबॉक्स उल्लंघन, Claude Opus 5 1M कॉन्टेक्स्ट विंडो, और vLLM 0.26</title>
