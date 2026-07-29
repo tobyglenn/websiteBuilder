@@ -33,16 +33,26 @@ import {
   sortLeaderboard,
 } from "../lib/workoutHub.js";
 import samWorkouts from "../data/samWorkouts.json";
+import {
+  SpeedianceError,
+  installTemplate,
+  login as speedianceLogin,
+} from "../lib/speediance.js";
 
 // The hub backend is optional. With no PUBLIC_WORKOUT_HUB_API_URL set at build
 // time the page runs as a static catalogue: it makes no network calls at all,
 // so a public build never reports a failed connection to a backend that is not
-// deployed. Account connect additionally requires PUBLIC_WORKOUT_HUB_CONNECT.
+// deployed. The leaderboard and workout sharing need that backend.
 const API_BASE = import.meta.env.PUBLIC_WORKOUT_HUB_API_URL || "";
 const HUB_ONLINE = API_BASE !== "";
-const CONNECT_ENABLED =
-  HUB_ONLINE && import.meta.env.PUBLIC_WORKOUT_HUB_CONNECT === "true";
+// Account connect deliberately does *not* depend on the backend: the browser
+// talks to Speediance directly (see lib/speediance.js), so direct install works
+// on the plain static build.
+const CONNECT_ENABLED = import.meta.env.PUBLIC_WORKOUT_HUB_CONNECT === "true";
 const SESSION_KEY = "speediance-workout-hub-session";
+// The provider session lives in sessionStorage only: it is gone when the tab
+// closes, and it is never sent anywhere except Speediance.
+const PROVIDER_SESSION_KEY = "speediance-provider-session";
 
 
 const defaultTobyWorkouts = [
@@ -226,6 +236,8 @@ export default function SpeedianceWorkoutHub() {
     password: "",
     region: "Global",
   });
+  // The live Speediance session, held in memory + sessionStorage for this tab.
+  const [session, setSession] = useState(null);
 
   const api = async (path, options = {}, useToken = true) => {
     const headers = {
@@ -259,8 +271,23 @@ export default function SpeedianceWorkoutHub() {
 
   useEffect(() => {
     if (!CONNECT_ENABLED) return;
-    const saved = window.sessionStorage.getItem(SESSION_KEY) || "";
-    setToken(saved);
+    if (HUB_ONLINE) {
+      setToken(window.sessionStorage.getItem(SESSION_KEY) || "");
+    }
+    // Restore the provider session so a reload inside the same tab keeps the
+    // account connected without asking for the password again.
+    try {
+      const raw = window.sessionStorage.getItem(PROVIDER_SESSION_KEY);
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (saved && saved.token && saved.appUserId) {
+          setSession(saved);
+          setMe({ display_name: saved.displayName });
+        }
+      }
+    } catch {
+      window.sessionStorage.removeItem(PROVIDER_SESSION_KEY);
+    }
   }, []);
 
 
@@ -297,10 +324,13 @@ export default function SpeedianceWorkoutHub() {
     };
   }, []);
 
+  // Hub-account identity. The provider session drives `me` when the backend is
+  // offline, so this must not clear an identity it does not own.
   useEffect(() => {
+    if (!HUB_ONLINE) return undefined;
     if (!token) {
-      setMe(null);
-      return;
+      if (!session) setMe(null);
+      return undefined;
     }
     let cancelled = false;
     api("/me")
@@ -311,13 +341,13 @@ export default function SpeedianceWorkoutHub() {
         if (!cancelled) {
           window.sessionStorage.removeItem(SESSION_KEY);
           setToken("");
-          setMe(null);
+          if (!session) setMe(null);
         }
       });
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, session]);
 
   useEffect(() => {
     if (!HUB_ONLINE || !selectedId) {
@@ -456,37 +486,35 @@ export default function SpeedianceWorkoutHub() {
       await action();
     } catch (err) {
       setError(err.message);
+      // A rejected provider token is unusable, so drop it rather than leaving
+      // the page looking connected.
+      if (err instanceof SpeedianceError && /session expired/i.test(err.message)) {
+        window.sessionStorage.removeItem(PROVIDER_SESSION_KEY);
+        setSession(null);
+        setMe(null);
+      }
     } finally {
       setBusy("");
     }
   };
 
+  // Login happens browser-to-Speediance. The password lives in component state
+  // for the duration of the request and is cleared as soon as it succeeds; it is
+  // never persisted and never sent to this site.
   const connect = (event) => {
     event.preventDefault();
     run("connect", async () => {
-      const payload = {
+      const result = await speedianceLogin({
         email: connectForm.email,
         password: connectForm.password,
         region: connectForm.region || "Global",
-        display_name: connectForm.email ? connectForm.email.split("@")[0] : "Toby",
-        device_type: 1,
-        unit: 1,
-      };
-      const result = await api(
-        "/connect",
-        { method: "POST", body: JSON.stringify(payload) },
-        false,
-      );
-      window.sessionStorage.setItem(SESSION_KEY, result.session_token);
-      setConnectForm((current) => ({ ...current, password: "" }));
-      setToken(result.session_token);
-      setMe({
-        id: result.user_id,
-        display_name: result.display_name,
-        expires_at: result.expires_at,
       });
+      setConnectForm((current) => ({ ...current, password: "" }));
+      window.sessionStorage.setItem(PROVIDER_SESSION_KEY, JSON.stringify(result));
+      setSession(result);
+      setMe({ display_name: result.displayName });
       setNotice(
-        "Speediance connected. Your password was discarded after login.",
+        `Connected to Speediance as ${result.displayName}. Your password was not stored.`,
       );
       setActiveTab("library");
     });
@@ -494,30 +522,39 @@ export default function SpeedianceWorkoutHub() {
 
   const disconnect = () =>
     run("disconnect", async () => {
-      await api("/connection", { method: "DELETE" });
-      window.sessionStorage.removeItem(SESSION_KEY);
-      setToken("");
+      window.sessionStorage.removeItem(PROVIDER_SESSION_KEY);
+      setSession(null);
       setMe(null);
-      setNotice(
-        "Speediance connection removed from this browser and the credential vault.",
-      );
+      if (HUB_ONLINE && token) {
+        await api("/connection", { method: "DELETE" }).catch(() => {});
+        window.sessionStorage.removeItem(SESSION_KEY);
+        setToken("");
+      }
+      setNotice("Speediance session cleared from this browser.");
     });
 
   const install = (workoutId) => {
     if (!CONNECT_ENABLED) {
       setNotice(
-        "Direct install is off while the hub backend is offline. Use the JSON export or open the program in the Speediance app.",
+        "Direct install is off on this build. Use the JSON export or open the program in the Speediance app.",
       );
       return;
     }
-    if (!me) {
+    if (!session) {
       setActiveTab("account");
       setNotice("Connect your Speediance account before installing a workout.");
       return;
     }
     run(`install-${workoutId}`, async () => {
-      await api(`/workouts/${workoutId}/install`, { method: "POST" });
-      setNotice("Workout installed to your Speediance custom workout library.");
+      const workout = allAvailableWorkouts.find((item) => item.id === workoutId);
+      const code = workout && (workout.code || workout.provider_template_code);
+      if (!code) {
+        throw new Error("This workout has no Speediance share code to install from.");
+      }
+      const installed = await installTemplate({ session, code, name: workout.name });
+      setNotice(
+        `"${installed.name}" is now in your Speediance custom workout library.`,
+      );
     });
   };
 
@@ -607,7 +644,9 @@ export default function SpeedianceWorkoutHub() {
               <p className="mt-4 text-lg text-neutral-400">
                 {HUB_ONLINE
                   ? "Export community routines, install workouts to your device, and sync verified volume to the global leaderboard."
-                  : "Browse every set of 53 shared Speediance routines, export any of them as JSON, or open one straight in the app."}
+                  : CONNECT_ENABLED
+                    ? "Browse every set of 53 shared Speediance routines, install any of them straight to your own account, or export one as JSON."
+                    : "Browse every set of 53 shared Speediance routines, export any of them as JSON, or open one straight in the app."}
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -644,17 +683,30 @@ export default function SpeedianceWorkoutHub() {
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                   {me.display_name} connected
                 </span>
+                {/* Syncing completions writes to the shared hub, so it needs the
+                    backend even though connect itself does not. */}
+                {HUB_ONLINE && (
+                  <button
+                    type="button"
+                    onClick={sync}
+                    disabled={Boolean(busy)}
+                    className="inline-flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-neutral-200 hover:bg-white/[0.07] disabled:opacity-50"
+                  >
+                    <RefreshCw
+                      size={15}
+                      className={busy === "sync" ? "animate-spin" : ""}
+                    />{" "}
+                    Sync 90 days
+                  </button>
+                )}
                 <button
                   type="button"
-                  onClick={sync}
+                  onClick={disconnect}
                   disabled={Boolean(busy)}
-                  className="inline-flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-neutral-200 hover:bg-white/[0.07] disabled:opacity-50"
+                  className="inline-flex items-center gap-2 rounded-md border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-neutral-300 hover:bg-white/[0.07] disabled:opacity-50"
                 >
-                  <RefreshCw
-                    size={15}
-                    className={busy === "sync" ? "animate-spin" : ""}
-                  />{" "}
-                  Sync 90 days
+                  <Unplug size={15} />
+                  Disconnect
                 </button>
               </>
             ) : CONNECT_ENABLED ? (
@@ -1026,9 +1078,17 @@ export default function SpeedianceWorkoutHub() {
                 Connect your Speediance account
               </h2>
               <p className="mt-3 max-w-2xl leading-7 text-neutral-400">
-                Your login is sent directly to the local Workout Hub backend to
-                obtain a Speediance session. The password is immediately
-                discarded. Only the provider session token is encrypted at rest.
+                Your browser signs in to Speediance directly. This site is static
+                — the request goes from your device to{" "}
+                <span className="font-mono text-xs text-neutral-300">
+                  {connectForm.region === "EU"
+                    ? "euapi.speediance.com"
+                    : "api2.speediance.com"}
+                </span>{" "}
+                and nothing is sent to tobyonfitnesstech.com. Your password is
+                used for that one request and never stored; the session it
+                returns is kept in this tab only and disappears when you close
+                it.
               </p>
               {me ? (
                 <div className="mt-8 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.06] p-5">
@@ -1039,8 +1099,9 @@ export default function SpeedianceWorkoutHub() {
                         Connected as {me.display_name}
                       </h3>
                       <p className="mt-1 text-sm leading-6 text-neutral-400">
-                        You can install shared workouts and sync verified
-                        completions.
+                        {HUB_ONLINE
+                          ? "You can install shared workouts and sync verified completions."
+                          : "Open any workout in the library and use Install to my device to copy it into your Speediance account."}
                       </p>
                       <button
                         type="button"
@@ -1049,7 +1110,7 @@ export default function SpeedianceWorkoutHub() {
                         className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-red-300 hover:text-red-200"
                       >
                         <Unplug size={15} />
-                        Disconnect and delete stored provider token
+                        Disconnect and clear this session
                       </button>
                     </div>
                   </div>
@@ -1127,17 +1188,17 @@ export default function SpeedianceWorkoutHub() {
               <SecurityItem
                 icon={LockKeyhole}
                 title="Password never stored"
-                body="Used once for provider login and immediately discarded."
+                body="Used once for the Speediance login request, then cleared from the form."
               />
               <SecurityItem
                 icon={Database}
-                title="Encrypted provider token"
-                body="Fernet encryption with a server-only master key."
+                title="No server in the middle"
+                body="A static page cannot receive your credentials. Your browser calls Speediance itself — check the Network tab."
               />
               <SecurityItem
                 icon={ShieldCheck}
-                title="Device-verified results"
-                body="Leaderboards accept completed sessions synced from Speediance—not manual entries."
+                title="Session ends with the tab"
+                body="The Speediance session is held in sessionStorage, so closing the tab signs you out."
               />
             </div>
           </section>
@@ -1249,6 +1310,9 @@ function WorkoutDetail({
     );
 
   const hasStructure = Boolean(workout.exercises && workout.exercises.length > 0);
+  // Install re-posts the program from its Speediance share code, so both the
+  // code and a resolved structure have to be present.
+  const canInstall = hasStructure && Boolean(workout.code || workout.provider_template_code);
 
   return (
     <section className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 sm:p-7">
@@ -1313,7 +1377,7 @@ function WorkoutDetail({
             <button
               type="button"
               onClick={() => onInstall(workout.id)}
-              disabled={Boolean(busy) || !hasStructure}
+              disabled={Boolean(busy) || !canInstall}
               className="inline-flex items-center gap-2 rounded-md bg-orange-600 px-3.5 py-2.5 text-xs font-semibold text-white hover:bg-orange-500 disabled:opacity-50 transition"
             >
               {busy === `install-${workout.id}` ? (
