@@ -1,0 +1,1 @@
+function e(e,t={}){if(!(typeof window>`u`)){if(window.toftAnalytics){window.toftAnalytics.capture(e,t);return}window.__TOFT_ANALYTICS_QUEUE__||=[],window.__TOFT_ANALYTICS_QUEUE__.push([e,t])}}function t(e,t=120){return String(e||``).replace(/\s+/g,` `).trim().slice(0,t)}export{t as n,e as t};

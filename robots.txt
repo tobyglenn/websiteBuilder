@@ -1,8 +1,15 @@
+# TobyOnFitnessTech.com Robots.txt
+# Optimized for search, answer engines, and AI discovery
+
 User-agent: *
 Allow: /
+
+# Disallow private/admin paths (if any exist)
 Disallow: /api/
 Disallow: /admin/
 Disallow: /private/
+Disallow: /*?utm_*
+Disallow: /*?ref=
 
 User-agent: Googlebot
 Allow: /
@@ -40,5 +47,5 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+# Sitemaps
 Sitemap: https://tobyonfitnesstech.com/sitemap-index.xml
-Sitemap: https://tobyonfitnesstech.com/sitemap.xml
