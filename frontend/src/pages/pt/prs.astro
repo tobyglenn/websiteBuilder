@@ -1,7 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import speedianceData from '../../data/speediance_dashboard_data.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
+
+const { totalWorkouts = 0, totalVolumeLbs = 0 } = speedianceData;
+const SPEEDIANCE_MAX_LBS = 260;
 
 // Dados de PR extraídos do painel da Speediance
 const prsByMuscle = {
@@ -58,7 +62,14 @@ const allPRs = [
   { name: "Pushdown inclinado com braços retos", weight: 168, muscle: "Costas e dorsais" },
 ];
 
-const totalPRVolume = allPRs.reduce((sum, pr) => sum + pr.weight, 0);
+const heaviestPR = allPRs[0] || { name: '', weight: 0 };
+const estimatedPRs = allPRs.filter((pr) => pr.weight > SPEEDIANCE_MAX_LBS);
+const estimateSummary = estimatedPRs.map((pr) => `${pr.name} (${pr.weight} lbs)`).join(', ');
+const lifetimeVolumeLbs = Math.round(totalVolumeLbs);
+const compactVolume =
+  lifetimeVolumeLbs >= 1000
+    ? `${Math.round(lifetimeVolumeLbs / 1000).toLocaleString()}K`
+    : lifetimeVolumeLbs.toLocaleString();
 const totalPRs = allPRs.length;
 
 const profilePageSchema = {
@@ -66,7 +77,7 @@ const profilePageSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/pt/prs#collection`,
   "name": "Painel de PR - Toby on Fitness Tech",
-  "description": `Recordes pessoais do treino com Speediance: ${totalPRs} PRs somando ${totalPRVolume} lbs. Levantamento terra de 388 lbs, supino de 232 lbs e mais.`,
+  "description": `Recordes pessoais do treino com Speediance: ${totalPRs} levantamentos registrados em ${totalWorkouts} treinos. Levantamento terra de ${heaviestPR.weight} lbs${heaviestPR.weight > SPEEDIANCE_MAX_LBS ? ' (estimativa da Speediance)' : ''}, supino de 232 lbs e mais.`,
   "url": `${siteUrl}/pt/prs`,
   "inLanguage": "pt",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -88,7 +99,7 @@ const profilePageSchema = {
 
 <Layout 
   title="Painel de PR - Toby on Fitness Tech"
-  description={`Recordes pessoais do treino com Speediance: ${totalPRs} PRs somando ${totalPRVolume} lbs. Levantamento terra de 388 lbs, supino de 232 lbs e mais dados reais de mais de 125 treinos.`}
+  description={`Recordes pessoais do treino com Speediance: ${totalPRs} levantamentos registrados em ${totalWorkouts} treinos. Levantamento terra de ${heaviestPR.weight} lbs${heaviestPR.weight > SPEEDIANCE_MAX_LBS ? ' (estimativa da Speediance)' : ''}, supino de 232 lbs e mais dados reais de ${totalWorkouts} treinos.`}
   breadcrumbs={[{ name: "Início", url: "/pt/" }, { name: "Painel de PR", url: "/pt/prs" }]}
   jsonLd={profilePageSchema}
 >
@@ -105,8 +116,7 @@ const profilePageSchema = {
             Números não mentem.
           </h1>
           <p class="text-xl text-neutral-400 max-w-2xl mx-auto leading-relaxed mb-10">
-            {totalPRs} recordes pessoais ao longo de {totalPRVolume.toLocaleString()} lbs de peso total. 
-            Cada repetição rastreada, cada PR registrado. É assim que {totalPRVolume.toLocaleString()} lbs de sobrecarga progressiva se parecem.
+            {totalPRs} recordes pessoais em {totalWorkouts} treinos registrados e {lifetimeVolumeLbs.toLocaleString()} lbs de volume total de treino. Cada repetição rastreada, cada PR registrado.
           </p>
           
           <div class="grid grid-cols-3 gap-4 max-w-lg mx-auto">
@@ -115,11 +125,11 @@ const profilePageSchema = {
               <div class="text-xs text-neutral-500 uppercase tracking-wider">PRs totais</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
-              <div class="text-2xl md:text-3xl font-black text-yellow-400">{totalPRVolume.toLocaleString()}</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wider">Lbs totais</div>
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{compactVolume}</div>
+              <div class="text-xs text-neutral-500 uppercase tracking-wider">Lbs acumulados</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-4">
-              <div class="text-2xl md:text-3xl font-black text-yellow-400">388</div>
+              <div class="text-2xl md:text-3xl font-black text-yellow-400">{heaviestPR.weight}{heaviestPR.weight > SPEEDIANCE_MAX_LBS && <span class="text-yellow-300" title="Speediance estimate">*</span>}</div>
               <div class="text-xs text-neutral-500 uppercase tracking-wider">Mais pesado</div>
             </div>
           </div>
@@ -158,7 +168,7 @@ const profilePageSchema = {
                   <div class="text-sm text-neutral-500">{pr.muscle}</div>
                 </div>
                 <div class="text-right">
-                  <div class="text-2xl md:text-3xl font-black text-white">{pr.weight}</div>
+                  <div class="text-2xl md:text-3xl font-black text-white">{pr.weight}{pr.weight > SPEEDIANCE_MAX_LBS && <span class="text-yellow-400" title="Speediance estimate">*</span>}</div>
                   <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs</div>
                 </div>
               </div>
@@ -188,7 +198,7 @@ const profilePageSchema = {
                         <span class="font-medium text-white">{pr.name}</span>
                       </div>
                       <div class="flex items-center gap-2">
-                        <span class="text-xl font-bold text-white">{pr.weight}</span>
+                        <span class="text-xl font-bold text-white">{pr.weight}{pr.weight > SPEEDIANCE_MAX_LBS && <span class="text-yellow-400" title="Speediance estimate">*</span>}</span>
                         <span class="text-neutral-500 text-sm">{pr.unit}</span>
                       </div>
                     </div>
@@ -205,9 +215,15 @@ const profilePageSchema = {
       <div class="container mx-auto px-4">
         <div class="max-w-2xl mx-auto text-center">
           <p class="text-neutral-500 text-sm">
-            Todos os PRs registrados no <strong class="text-white">Speediance Gym Monster 2S</strong> desde julho de 2025. 
-            Volume total: <strong class="text-white">1,296,447 lbs</strong> em <strong class="text-white">125+ treinos</strong>.
+            Todos os PRs registrados no <strong class="text-white">Speediance Gym Monster 2S</strong>.
+            Volume total: <strong class="text-white">{lifetimeVolumeLbs.toLocaleString()} lbs</strong> em <strong class="text-white">{totalWorkouts} treinos</strong>.
           </p>
+          {estimatedPRs.length > 0 && (
+            <p class="mt-4 text-neutral-500 text-xs leading-relaxed">
+              <span class="text-yellow-400">*</span> Estimativa da Speediance. A Gym Monster 2S vai até {SPEEDIANCE_MAX_LBS} lbs, portanto qualquer recorde acima disso é um 1RM estimado, extrapolado a partir das repetições completadas no máximo de {SPEEDIANCE_MAX_LBS} lbs — não um peso realmente carregado na máquina.
+              Aplica-se a: {estimateSummary}.
+            </p>
+          )}
           <div class="mt-6 flex flex-wrap justify-center gap-3">
             <a href="/pt/speediance/" class="text-blue-400 hover:text-blue-300 text-sm font-medium">Ver dados de volume →</a>
             <span class="text-neutral-700">•</span>

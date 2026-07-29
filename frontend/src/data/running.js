@@ -4,6 +4,11 @@
  */
 import rawData from './garmin_all_activities.json';
 
+// Garmin exports store minutes in `duration`; older records used `duration_min`.
+function durMin(r) {
+  return (r?.duration_min ?? r?.duration ?? 0) || 0;
+}
+
 function fmtPace(paceDecimal) {
   const m = Math.floor(paceDecimal);
   const s = Math.round((paceDecimal - m) * 60);
@@ -35,7 +40,7 @@ function cleanRunName(name) {
   return name;
 }
 
-export function getRunningData() {
+export function getRunningData(locale = 'en-US') {
   const raw = rawData;
   const all = raw.activities || [];
 
@@ -45,16 +50,23 @@ export function getRunningData() {
 
   const totalRuns = runs.length;
   const totalDist = runs.reduce((s, r) => s + (r.distance_miles || 0), 0);
-  const totalMin = runs.reduce((s, r) => s + ((r.duration_min ?? r.duration ?? 0) || 0), 0);
+  const totalMin = runs.reduce((s, r) => s + durMin(r), 0);
   const totalCal = runs.reduce((s, r) => s + (r.calories || 0), 0);
   const avgPace = totalDist > 0 ? totalMin / totalDist : 0;
   const outdoorRuns = runs.filter(r => r.activityType === 'running').length;
   const treadmillRuns = runs.filter(r => r.activityType === 'treadmill_running').length;
   const longest = [...runs].sort((a, b) => b.distance_miles - a.distance_miles)[0];
 
+  // runs is sorted ascending by date, so the ends give the covered range
+  const monthYear = (d) =>
+    new Date(d + 'T00:00:00').toLocaleDateString(locale, { month: 'short', year: 'numeric' });
+  const firstRun = runs[0];
+  const lastRun = runs[runs.length - 1];
+
   const stats = {
     totalRuns,
     totalDistMi: +totalDist.toFixed(1),
+    totalDistLabel: Math.round(totalDist).toLocaleString(locale),
     totalHrs: +(totalMin / 60).toFixed(1),
     totalCal: Math.round(totalCal),
     avgPace: fmtPace(avgPace),
@@ -62,6 +74,9 @@ export function getRunningData() {
     treadmillRuns,
     longestMi: +(longest?.distance_miles || 0).toFixed(2),
     longestDate: longest ? fmtDate(longest.date, 'long') : '',
+    firstDate: firstRun?.date || '',
+    lastDate: lastRun?.date || '',
+    rangeLabel: firstRun && lastRun ? `${monthYear(firstRun.date)} – ${monthYear(lastRun.date)}` : '',
   };
 
   // Monthly rollup
@@ -88,14 +103,14 @@ export function getRunningData() {
 
   // PRs by distance bracket
   function prFor(lo, hi) {
-    const cands = runs.filter(r => r.distance_miles >= lo && r.distance_miles < hi && (r.duration_min ?? r.duration ?? 0) > 0);
+    const cands = runs.filter(r => r.distance_miles >= lo && r.distance_miles < hi && durMin(r) > 0);
     if (!cands.length) return null;
-    const best = cands.reduce((b, r) => ((r.duration_min ?? r.duration ?? 0) / r.distance_miles) < (b.duration_min / b.distance_miles) ? r : b);
-    const pace = best.duration_min / best.distance_miles;
+    const best = cands.reduce((b, r) => (durMin(r) / r.distance_miles) < (durMin(b) / b.distance_miles) ? r : b);
+    const pace = durMin(best) / best.distance_miles;
     return {
       label: `${lo} mi`,
       dist: `${best.distance_miles.toFixed(2)} mi`,
-      duration: fmtDur(best.duration_min),
+      duration: fmtDur(durMin(best)),
       pace: fmtPace(pace),
       date: fmtDate(best.date, 'long'),
       type: best.activityType === 'running' ? 'Outdoor' : 'Treadmill',
@@ -106,7 +121,7 @@ export function getRunningData() {
 
   // Recent 10 runs
   const recentRuns = [...runs].reverse().slice(0, 10).map(r => {
-    const pace = r.distance_miles > 0 ? (r.duration_min ?? r.duration ?? 0) / r.distance_miles : 0;
+    const pace = r.distance_miles > 0 ? durMin(r) / r.distance_miles : 0;
     const tz = {
       z1: r.hrTimeInZone_1 || 0,
       z2: r.hrTimeInZone_2 || 0,
@@ -120,7 +135,7 @@ export function getRunningData() {
       name: cleanRunName(r.activityName),
       dist: +r.distance_miles.toFixed(2),
       pace: fmtPace(pace),
-      dur: fmtDur((r.duration_min ?? r.duration ?? 0)),
+      dur: fmtDur(durMin(r)),
       hr: r.averageHR ? Math.round(r.averageHR) : null,
       cal: r.calories ? Math.round(r.calories) : null,
       type: r.activityType === 'treadmill_running' ? 'Treadmill' : 'Outdoor',

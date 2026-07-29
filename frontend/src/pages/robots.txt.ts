@@ -43,7 +43,6 @@ User-agent: Google-Extended
 Allow: /
 
 Sitemap: ${sitemapURL.href}
-Sitemap: https://tobyonfitnesstech.com/sitemap.xml
 `;
 
 export const GET: APIRoute = ({ site }) => {

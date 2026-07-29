@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 import LangDetect from '../components/LangDetect.astro';
 import PostHogAnalytics from '../components/PostHogAnalytics.astro';
 
@@ -458,7 +458,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="sitemap" href="/sitemap.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
     
@@ -530,7 +530,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <LangDetect />
     <PostHogAnalytics />
     
-    <ViewTransitions />
+    <ClientRouter />
     
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />

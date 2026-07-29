@@ -2,13 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import { getRunningData } from '../data/running.js';
 
-const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData();
+const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData('en-US');
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Running Log: 265 Miles on Garmin",
-  "description": "111 runs, 265 miles tracked on Garmin Fenix 7. Monthly mileage charts, activity heatmap, pace PRs, and full run log.",
+  "headline": `Running Log: ${stats.totalDistLabel} Miles on Garmin`,
+  "description": `${stats.totalRuns} runs, ${stats.totalDistLabel} miles tracked on Garmin. Monthly mileage charts, activity heatmap, pace PRs, and full run log.`,
   "author": { "@type": "Person", "name": "Toby Glenn Peters" },
   "datePublished": "2026-03-04",
   "url": "https://tobyonfitnesstech.com/running"
@@ -102,8 +102,8 @@ weeks.forEach((week, wi) => {
 ---
 
 <Layout
-  title="Running Log: 265 Miles on Garmin — TobyOnFitnessTech"
-  description="111 runs, 265 miles tracked on Garmin Fenix 7. Monthly mileage charts, activity heatmap, pace PRs, and full run log."
+  title={`Running Log: ${stats.totalDistLabel} Miles on Garmin — TobyOnFitnessTech`}
+  description={`${stats.totalRuns} runs, ${stats.totalDistLabel} miles tracked on Garmin. Monthly mileage charts, activity heatmap, pace PRs, and full run log.`}
   jsonLd={allSchemas}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
@@ -115,10 +115,10 @@ weeks.forEach((week, wi) => {
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">
-            Garmin Fenix 7 · Feb 2025 – Feb 2026
+            Garmin · {stats.rangeLabel}
           </p>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight">
-            265 Miles.<br />
+            {stats.totalDistLabel} Miles.<br />
             <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               Every Run Logged.
             </span>
@@ -186,7 +186,7 @@ weeks.forEach((week, wi) => {
     <section id="monthly-mileage" class="py-14 border-t border-neutral-900">
       <div class="container mx-auto px-4">
         <h2 class="text-2xl font-bold mb-1">Monthly Mileage</h2>
-        <p class="text-neutral-500 text-sm mb-8">Feb 2025 – Feb 2026 · {stats.totalRuns} total runs</p>
+        <p class="text-neutral-500 text-sm mb-8">{stats.rangeLabel} · {stats.totalRuns} total runs</p>
 
         <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
           <svg
@@ -470,25 +470,19 @@ weeks.forEach((week, wi) => {
         <h2 class="text-2xl font-bold mb-1">Running Gear</h2>
         <p class="text-neutral-500 text-sm mb-8">What's in my rotation</p>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
               icon: '👟',
               category: 'Shoes',
-              items: ['Hoka Clifton 9', 'Nike Pegasus 40'],
-              note: 'Rotating to reduce injury risk',
+              items: ['Barefoot shoes (Amazon)'],
+              note: 'Cheap minimalist pair — nothing fancy',
             },
             {
               icon: '⌚',
               category: 'Watch',
-              items: ['Garmin Fenix 7'],
+              items: ['Garmin Forerunner 265S'],
               note: 'GPS, HR, training load, recovery',
-            },
-            {
-              icon: '💡',
-              category: 'Safety',
-              items: ['Noxgear Tracer Vizy'],
-              note: 'For early morning outdoor runs',
             },
             {
               icon: '📊',

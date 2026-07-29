@@ -13,8 +13,8 @@ import {
   RotateCcw,
   Shield,
   Volume2,
-  Youtube,
 } from 'lucide-react';
+import { Youtube } from './BrandIcons.jsx';
 import onePeterData from '../data/onePeterKjv.json';
 import { STRINGS } from '../data/onePeterStrings.js';
 

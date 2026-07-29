@@ -2,13 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import { getRunningData } from '../../data/running.js';
 
-const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData();
+const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData('pt-BR');
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Registro de corrida: 265 milhas no Garmin",
-  "description": "111 corridas, 265 milhas registradas no Garmin Fenix 7. Gráficos mensais de quilometragem, mapa de calor de atividade, recordes de pace e registro completo das corridas.",
+  "headline": `Registro de corrida: ${stats.totalDistLabel} milhas no Garmin`,
+  "description": `${stats.totalRuns} corridas, ${stats.totalDistLabel} milhas registradas no Garmin. Gráficos mensais de quilometragem, mapa de calor de atividade, recordes de pace e registro completo das corridas.`,
   "author": { "@type": "Person", "name": "Toby Glenn Peters" },
   "datePublished": "2026-03-04",
   "url": "https://tobyonfitnesstech.com/running"
@@ -102,8 +102,8 @@ weeks.forEach((week, wi) => {
 ---
 
 <Layout
-  title="Registro de corrida: 265 milhas no Garmin — TobyOnFitnessTech"
-  description="111 corridas, 265 milhas registradas no Garmin Fenix 7. Gráficos mensais de quilometragem, mapa de calor de atividade, recordes de pace e registro completo das corridas."
+  title={`Registro de corrida: ${stats.totalDistLabel} milhas no Garmin — TobyOnFitnessTech`}
+  description={`${stats.totalRuns} corridas, ${stats.totalDistLabel} milhas registradas no Garmin. Gráficos mensais de quilometragem, mapa de calor de atividade, recordes de pace e registro completo das corridas.`}
   jsonLd={allSchemas}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
@@ -115,10 +115,10 @@ weeks.forEach((week, wi) => {
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">
-            Garmin Fenix 7 · fev 2025 – fev 2026
+            Garmin · {stats.rangeLabel}
           </p>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight">
-            265 milhas.<br />
+            {stats.totalDistLabel} milhas.<br />
             <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               Cada corrida registrada.
             </span>
@@ -186,7 +186,7 @@ weeks.forEach((week, wi) => {
     <section id="monthly-mileage" class="py-14 border-t border-neutral-900">
       <div class="container mx-auto px-4">
         <h2 class="text-2xl font-bold mb-1">Quilometragem mensal</h2>
-        <p class="text-neutral-500 text-sm mb-8">fev 2025 – fev 2026 · {stats.totalRuns} corridas no total</p>
+        <p class="text-neutral-500 text-sm mb-8">{stats.rangeLabel} · {stats.totalRuns} corridas no total</p>
 
         <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
           <svg
@@ -470,25 +470,19 @@ weeks.forEach((week, wi) => {
         <h2 class="text-2xl font-bold mb-1">Equipamento de corrida</h2>
         <p class="text-neutral-500 text-sm mb-8">O que está na minha rotação</p>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
               icon: '👟',
               category: 'Tênis',
-              items: ['Hoka Clifton 9', 'Nike Pegasus 40'],
-              note: 'Alternando para reduzir o risco de lesão',
+              items: ['Tênis barefoot (Amazon)'],
+              note: 'Par minimalista barato — nada especial',
             },
             {
               icon: '⌚',
               category: 'Relógio',
-              items: ['Garmin Fenix 7'],
+              items: ['Garmin Forerunner 265S'],
               note: 'GPS, FC, carga de treino, recuperação',
-            },
-            {
-              icon: '💡',
-              category: 'Segurança',
-              items: ['Noxgear Tracer Vizy'],
-              note: 'Para corridas ao ar livre no começo da manhã',
             },
             {
               icon: '📊',

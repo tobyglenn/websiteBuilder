@@ -2,13 +2,13 @@
 import Layout from '../../layouts/Layout.astro';
 import { getRunningData } from '../../data/running.js';
 
-const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData();
+const { stats, monthly, dailyMap, prs, recentRuns } = getRunningData('hi-IN');
 
 const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "रनिंग लॉग: Garmin पर 265 मील",
-  "description": "111 रन, Garmin Fenix 7 पर ट्रैक की गई 265 मील। मासिक माइलेज चार्ट, एक्टिविटी हीटमैप, पेस PRs और पूरा रन लॉग।",
+  "headline": `रनिंग लॉग: Garmin पर ${stats.totalDistLabel} मील`,
+  "description": `${stats.totalRuns} रन, Garmin पर ट्रैक की गई ${stats.totalDistLabel} मील। मासिक माइलेज चार्ट, एक्टिविटी हीटमैप, पेस PRs और पूरा रन लॉग।`,
   "author": { "@type": "Person", "name": "Toby Glenn Peters" },
   "datePublished": "2026-03-04",
   "url": "https://tobyonfitnesstech.com/running"
@@ -102,8 +102,8 @@ weeks.forEach((week, wi) => {
 ---
 
 <Layout
-  title="रनिंग लॉग: Garmin पर 265 मील — TobyOnFitnessTech"
-  description="111 रन, Garmin Fenix 7 पर ट्रैक की गई 265 मील। मासिक माइलेज चार्ट, एक्टिविटी हीटमैप, पेस PRs और पूरा रन लॉग।"
+  title={`रनिंग लॉग: Garmin पर ${stats.totalDistLabel} मील — TobyOnFitnessTech`}
+  description={`${stats.totalRuns} रन, Garmin पर ट्रैक की गई ${stats.totalDistLabel} मील। मासिक माइलेज चार्ट, एक्टिविटी हीटमैप, पेस PRs और पूरा रन लॉग।`}
   jsonLd={allSchemas}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
@@ -115,10 +115,10 @@ weeks.forEach((week, wi) => {
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">
-            Garmin Fenix 7 · फ़रवरी 2025 – फ़रवरी 2026
+            Garmin · {stats.rangeLabel}
           </p>
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight">
-            265 मील।<br />
+            {stats.totalDistLabel} मील।<br />
             <span class="bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
               हर रन दर्ज।
             </span>
@@ -186,7 +186,7 @@ weeks.forEach((week, wi) => {
     <section id="monthly-mileage" class="py-14 border-t border-neutral-900">
       <div class="container mx-auto px-4">
         <h2 class="text-2xl font-bold mb-1">मासिक माइलेज</h2>
-        <p class="text-neutral-500 text-sm mb-8">फ़रवरी 2025 – फ़रवरी 2026 · कुल {stats.totalRuns} रन</p>
+        <p class="text-neutral-500 text-sm mb-8">{stats.rangeLabel} · कुल {stats.totalRuns} रन</p>
 
         <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
           <svg
@@ -470,25 +470,19 @@ weeks.forEach((week, wi) => {
         <h2 class="text-2xl font-bold mb-1">रनिंग गियर</h2>
         <p class="text-neutral-500 text-sm mb-8">मेरी रोटेशन में क्या है</p>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {[
             {
               icon: '👟',
               category: 'जूते',
-              items: ['Hoka Clifton 9', 'Nike Pegasus 40'],
-              note: 'चोट के जोखिम को कम करने के लिए रोटेशन',
+              items: ['बेयरफुट शूज़ (Amazon)'],
+              note: 'सस्ता मिनिमलिस्ट पेयर — कुछ खास नहीं',
             },
             {
               icon: '⌚',
               category: 'घड़ी',
-              items: ['Garmin Fenix 7'],
+              items: ['Garmin Forerunner 265S'],
               note: 'GPS, HR, ट्रेनिंग लोड, रिकवरी',
-            },
-            {
-              icon: '💡',
-              category: 'सुरक्षा',
-              items: ['Noxgear Tracer Vizy'],
-              note: 'सुबह जल्दी आउटडोर रन के लिए',
             },
             {
               icon: '📊',

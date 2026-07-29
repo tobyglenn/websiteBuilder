@@ -1,75 +1,121 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-// Weekly training schedule - full body minus legs, prioritized: Running > Lifting > BJJ
+// Disciplines are declared once; every colour, label and blurb on the page
+// comes from here so nothing has to be kept in sync by hand.
+const disciplines = {
+  bjj: {
+    label: "BJJ",
+    daysLabel: "BJJ Days",
+    icon: "🥋",
+    stat: "text-orange-400",
+    focus: "text-orange-400",
+    card: "border-orange-500/30 hover:border-orange-500/60",
+    panel: "border-orange-500/20",
+    blurb: "Mat time is the priority. Technique, drilling and live rolling — Jiu-Jitsu keeps me humble and doubles as the best anaerobic conditioning I get.",
+  },
+  running: {
+    label: "Running",
+    daysLabel: "Running Days",
+    icon: "🏃",
+    stat: "text-blue-400",
+    focus: "text-blue-400",
+    card: "border-blue-500/30 hover:border-blue-500/60",
+    panel: "border-blue-500/20",
+    blurb: "Cardio is the engine behind everything else. Easy miles, tempo runs and intervals build the aerobic base that keeps me going deep into a roll.",
+  },
+  lifting: {
+    label: "Lifting",
+    daysLabel: "Lifting Days",
+    icon: "💪",
+    stat: "text-purple-400",
+    focus: "text-purple-400",
+    card: "border-purple-500/30 hover:border-purple-500/60",
+    panel: "border-purple-500/20",
+    blurb: "Full-body sessions minus legs (Speediance handles the heavy compounds). Pressing, pulling and hypertrophy to keep the frame durable.",
+  },
+};
+
+// Weekly training schedule — the single source of truth for this page.
+// Stats and priority order below are derived from it, so they can't drift.
 const weeklySchedule = [
   {
     day: "Monday",
-    focus: "Running + Lifting",
-    icon: "🏃",
-    exercises: ["5K easy run", "Bench Press", "Lat Pulldown", "Overhead Press", "Barbell Row"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj", "lifting"],
+    exercises: ["Gi drilling", "Positional rounds", "Bench Press", "Lat Pulldown", "Overhead Press"],
   },
   {
     day: "Tuesday",
-    focus: "BJJ",
-    icon: "🥋",
-    exercises: ["Gi drilling", "Sparring rounds", "positional work"],
-    priority: 3
+    icon: "🏃",
+    trains: ["running"],
+    exercises: ["5K easy run", "Zone 2 effort", "Mobility work"],
   },
   {
     day: "Wednesday",
-    focus: "Running + Lifting",
-    icon: "🏃",
-    exercises: ["6K tempo run", "Deadlift", "Hip Thrust", "Pull-ups", "Face Pulls"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj"],
+    exercises: ["No-gi drilling", "Sparring rounds", "Guard retention"],
   },
   {
     day: "Thursday",
-    focus: "Active Recovery",
-    icon: "🔄",
-    exercises: ["Easy 3K jog", "mobility work", "stretching"],
-    priority: 0
+    icon: "🏃",
+    trains: ["running", "lifting"],
+    exercises: ["6K tempo run", "Deadlift", "Hip Thrust", "Pull-ups", "Face Pulls"],
   },
   {
     day: "Friday",
-    focus: "Running + Lifting",
-    icon: "🏃",
-    exercises: ["Interval speedwork", "Incline Bench", "Lat Pulldown", "Bicep Curls", "Tricep Extensions"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj"],
+    exercises: ["Gi drilling", "Live rolling", "Submission chains"],
   },
   {
     day: "Saturday",
-    focus: "BJJ",
     icon: "🥋",
-    exercises: ["Open mat", "technical drilling", "live rolling"],
-    priority: 3
+    trains: ["bjj", "running"],
+    exercises: ["Open mat", "Technical drilling", "Easy shakeout run"],
   },
   {
     day: "Sunday",
-    focus: "Rest",
     icon: "😴",
-    exercises: ["Rest day", "sleep recovery", "light walking"],
-    priority: 0
-  }
+    trains: [],
+    exercises: ["Rest day", "Sleep recovery", "Light walking"],
+  },
 ];
 
-const stats = {
-  workoutsPerWeek: 6,
-  restDays: 1,
-  runningDays: 4,
-  liftingDays: 3,
-  bjjDays: 2
-};
+// ── Everything below is derived from weeklySchedule ──────────────────
+const dayCount = (key) => weeklySchedule.filter((d) => d.trains.includes(key)).length;
+
+// Priority = whatever gets the most days on the mat/road/rack this week.
+const priority = Object.keys(disciplines)
+  .map((key) => ({ key, ...disciplines[key], days: dayCount(key) }))
+  .sort((a, b) => b.days - a.days);
+
+const priorityLabel = priority.map((d) => d.label).join(" > ");
+
+const trainingDays = weeklySchedule.filter((d) => d.trains.length > 0);
+const workoutsPerWeek = trainingDays.length;
+const restDays = weeklySchedule.length - workoutsPerWeek;
+
+// A day takes its colour from the highest-priority discipline it trains.
+const leadDiscipline = (day) => priority.find((d) => day.trains.includes(d.key));
+const focusLabel = (day) =>
+  day.trains.length === 0
+    ? "Rest"
+    : day.trains
+        .slice()
+        .sort((a, b) => priority.findIndex((p) => p.key === a) - priority.findIndex((p) => p.key === b))
+        .map((k) => disciplines[k].label)
+        .join(" + ");
 
 const pageTitle = "Training Week";
-const pageDescription = "A typical training week: running, full-body lifting (minus legs), and BJJ. My prioritized approach to fitness: Running > Lifting > BJJ.";
+const pageDescription = `A typical training week: BJJ, running and full-body lifting (minus legs). My prioritized approach to fitness: ${priorityLabel}.`;
 
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "Toby's Training Week",
-  "description": "A weekly training program combining running, full-body lifting, and Brazilian Jiu-Jitsu.",
+  "description": `A weekly training program combining Brazilian Jiu-Jitsu, running and full-body lifting, prioritized ${priorityLabel}.`,
   "provider": {
     "@type": "Person",
     "name": "Toby"
@@ -77,7 +123,7 @@ const courseSchema = {
   "hasCourseInstance": {
     "@type": "CourseInstance",
     "courseMode": "https://schema.org/OfflineMode",
-    "courseWorkload": "P6D"
+    "courseWorkload": `P${workoutsPerWeek}D`
   }
 };
 ---
@@ -88,8 +134,8 @@ const courseSchema = {
     <section class="text-center mb-16">
       <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Training Week</h1>
       <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
-        A typical week balancing my three pillars: running, full-body lifting (minus legs), and BJJ.
-        Everything's prioritized: <span class="text-blue-400 font-semibold">Running &gt; Lifting &gt; BJJ</span>
+        A typical week balancing my three pillars: BJJ, running, and full-body lifting (minus legs).
+        Everything's prioritized: <span class="text-blue-400 font-semibold">{priorityLabel}</span>
       </p>
     </section>
 
@@ -97,25 +143,19 @@ const courseSchema = {
     <section class="mb-12">
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
+          <div class="text-3xl font-bold text-green-400 mb-1">{workoutsPerWeek}</div>
           <div class="text-sm text-neutral-400">Workouts/Week</div>
         </div>
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
+          <div class="text-3xl font-bold text-white mb-1">{restDays}</div>
           <div class="text-sm text-neutral-400">Rest Days</div>
         </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-green-400 mb-1">{stats.runningDays}</div>
-          <div class="text-sm text-neutral-400">Running Days</div>
-        </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-purple-400 mb-1">{stats.liftingDays}</div>
-          <div class="text-sm text-neutral-400">Lifting Days</div>
-        </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-orange-400 mb-1">{stats.bjjDays}</div>
-          <div class="text-sm text-neutral-400">BJJ Days</div>
-        </div>
+        {priority.map((d) => (
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+            <div class={`text-3xl font-bold mb-1 ${d.stat}`}>{d.days}</div>
+            <div class="text-sm text-neutral-400">{d.daysLabel}</div>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -124,38 +164,31 @@ const courseSchema = {
       <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
         <span>📅</span> Weekly Schedule
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
-        {weeklySchedule.map((day) => (
-          <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
-            day.priority === 0 
-              ? 'border-neutral-800 opacity-70' 
-              : day.priority === 1 
-                ? 'border-blue-500/30 hover:border-blue-500/60' 
-                : day.priority === 2 
-                  ? 'border-purple-500/30 hover:border-purple-500/60'
-                  : 'border-orange-500/30 hover:border-orange-500/60'
-          }`}>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-2xl">{day.icon}</span>
-              <h3 class="text-lg font-bold text-white">{day.day}</h3>
-            </div>
-            <div class={`text-sm font-semibold mb-3 ${
-              day.priority === 1 ? 'text-blue-400' : 
-              day.priority === 2 ? 'text-purple-400' : 
-              day.priority === 3 ? 'text-orange-400' : 'text-neutral-500'
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {weeklySchedule.map((day) => {
+          const lead = leadDiscipline(day);
+          return (
+            <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+              lead ? lead.card : 'border-neutral-800 opacity-70'
             }`}>
-              {day.focus}
+              <div class="flex items-center gap-2 mb-3 min-w-0">
+                <span class="text-2xl shrink-0">{day.icon}</span>
+                <h3 class="text-lg font-bold text-white truncate">{day.day}</h3>
+              </div>
+              <div class={`text-sm font-semibold mb-3 ${lead ? lead.focus : 'text-neutral-500'}`}>
+                {focusLabel(day)}
+              </div>
+              <ul class="space-y-1">
+                {day.exercises.map((ex) => (
+                  <li class="text-sm text-neutral-400 flex items-start gap-2">
+                    <span class="text-neutral-600 mt-1 shrink-0">•</span>
+                    <span class="min-w-0">{ex}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul class="space-y-1">
-              {day.exercises.map((ex) => (
-                <li class="text-sm text-neutral-400 flex items-start gap-2">
-                  <span class="text-neutral-600 mt-1">•</span>
-                  <span>{ex}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
 
@@ -166,33 +199,18 @@ const courseSchema = {
       </h2>
       <div class="space-y-4">
         <p class="text-neutral-300 text-lg">
-          My training is organized by priority: <span class="text-blue-400 font-bold">Running &gt; Lifting &gt; BJJ</span>
+          My training is organized by priority: <span class="text-blue-400 font-bold">{priorityLabel}</span>
         </p>
         <div class="grid md:grid-cols-3 gap-6 mt-6">
-          <div class="bg-neutral-950 rounded-xl p-5 border border-blue-500/20">
-            <div class="text-3xl mb-2">🏆</div>
-            <h3 class="text-blue-400 font-bold mb-2">#1 Running</h3>
-            <p class="text-neutral-400 text-sm">
-              Cardio is the foundation. Whether it's easy miles, tempo runs, or intervals, running comes first. 
-              A strong aerobic base supports everything else.
-            </p>
-          </div>
-          <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
-            <div class="text-3xl mb-2">💪</div>
-            <h3 class="text-purple-400 font-bold mb-2">#2 Lifting</h3>
-            <p class="text-neutral-400 text-sm">
-              Full-body sessions minus legs (Speediance handles the heavy compounds). 
-              Focus on pressing, pulling, and hypertrophy. Three days per week.
-            </p>
-          </div>
-          <div class="bg-neutral-950 rounded-xl p-5 border border-orange-500/20">
-            <div class="text-3xl mb-2">🥋</div>
-            <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
-            <p class="text-neutral-400 text-sm">
-              Two days per week for technique and rolling. Jiu-Jitsu keeps me humble and provides 
-              excellent anaerobic conditioning and skill work.
-            </p>
-          </div>
+          {priority.map((d, i) => (
+            <div class={`bg-neutral-950 rounded-xl p-5 border ${d.panel}`}>
+              <div class="text-3xl mb-2">{i === 0 ? '🏆' : d.icon}</div>
+              <h3 class={`font-bold mb-2 ${d.focus}`}>#{i + 1} {d.label}</h3>
+              <p class="text-neutral-400 text-sm">
+                {d.blurb} {`${d.days} ${d.days === 1 ? 'day' : 'days'} per week.`}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

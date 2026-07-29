@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Youtube, Twitter, Instagram, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { Youtube, Twitter, Instagram } from './BrandIcons.jsx';
 import { captureEvent } from '../lib/analytics.js';
 
 export default function Footer({ showNewsletter = true }) {

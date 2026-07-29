@@ -1,75 +1,121 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// Weekly training schedule - full body minus legs, prioritized: Running > Lifting > BJJ
+// Disciplines are declared once; every colour, label and blurb on the page
+// comes from here so nothing has to be kept in sync by hand.
+const disciplines = {
+  bjj: {
+    label: "BJJ",
+    daysLabel: "BJJ-Tage",
+    icon: "🥋",
+    stat: "text-orange-400",
+    focus: "text-orange-400",
+    card: "border-orange-500/30 hover:border-orange-500/60",
+    panel: "border-orange-500/20",
+    blurb: "Mattenzeit hat Vorrang. Technik, Drills und freies Rollen — Jiu-Jitsu hält mich demütig und ist das beste anaerobe Konditionstraining, das ich bekomme.",
+  },
+  running: {
+    label: "Laufen",
+    daysLabel: "Lauftage",
+    icon: "🏃",
+    stat: "text-blue-400",
+    focus: "text-blue-400",
+    card: "border-blue-500/30 hover:border-blue-500/60",
+    panel: "border-blue-500/20",
+    blurb: "Ausdauer ist der Motor für alles andere. Lockere Kilometer, Tempoläufe und Intervalle bauen die aerobe Basis auf, die mich tief in eine Rolle trägt.",
+  },
+  lifting: {
+    label: "Krafttraining",
+    daysLabel: "Krafttrainingstage",
+    icon: "💪",
+    stat: "text-purple-400",
+    focus: "text-purple-400",
+    card: "border-purple-500/30 hover:border-purple-500/60",
+    panel: "border-purple-500/20",
+    blurb: "Ganzkörpereinheiten ohne Beine (Speediance übernimmt die schweren Grundübungen). Drücken, Ziehen und Hypertrophie, damit der Körper belastbar bleibt.",
+  },
+};
+
+// Weekly training schedule — the single source of truth for this page.
+// Stats and priority order below are derived from it, so they can't drift.
 const weeklySchedule = [
   {
     day: "Montag",
-    focus: "Laufen + Krafttraining",
-    icon: "🏃",
-    exercises: ["Leichter 5-km-Lauf", "Bankdrücken", "Latzug", "Schulterdrücken", "Langhantelrudern"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj", "lifting"],
+    exercises: ["Gi-Drills", "Positionsrunden", "Bankdrücken", "Latzug", "Schulterdrücken"],
   },
   {
     day: "Dienstag",
-    focus: "BJJ",
-    icon: "🥋",
-    exercises: ["Gi-Drills", "Sparringsrunden", "Positionsarbeit"],
-    priority: 3
+    icon: "🏃",
+    trains: ["running"],
+    exercises: ["Leichter 5-km-Lauf", "Zone-2-Einheit", "Mobilitätsarbeit"],
   },
   {
     day: "Mittwoch",
-    focus: "Laufen + Krafttraining",
-    icon: "🏃",
-    exercises: ["6-km-Tempolauf", "Kreuzheben", "Hip Thrust", "Klimmzüge", "Face Pulls"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj"],
+    exercises: ["No-Gi-Drills", "Sparringsrunden", "Guard-Retention"],
   },
   {
     day: "Donnerstag",
-    focus: "Aktive Erholung",
-    icon: "🔄",
-    exercises: ["Lockerer 3-km-Jog", "Mobilitätsarbeit", "Dehnen"],
-    priority: 0
+    icon: "🏃",
+    trains: ["running", "lifting"],
+    exercises: ["6-km-Tempolauf", "Kreuzheben", "Hip Thrust", "Klimmzüge", "Face Pulls"],
   },
   {
     day: "Freitag",
-    focus: "Laufen + Krafttraining",
-    icon: "🏃",
-    exercises: ["Intervall-Speedwork", "Schrägbankdrücken", "Latzug", "Bizepscurls", "Trizepsstrecken"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj"],
+    exercises: ["Gi-Drills", "Freies Rollen", "Submission-Ketten"],
   },
   {
     day: "Samstag",
-    focus: "BJJ",
     icon: "🥋",
-    exercises: ["Open Mat", "Technik-Drills", "Freies Rollen"],
-    priority: 3
+    trains: ["bjj", "running"],
+    exercises: ["Open Mat", "Technik-Drills", "Lockerer Auslaufjog"],
   },
   {
     day: "Sonntag",
-    focus: "Ruhe",
     icon: "😴",
+    trains: [],
     exercises: ["Ruhetag", "Erholungsschlaf", "Leichtes Gehen"],
-    priority: 0
-  }
+  },
 ];
 
-const stats = {
-  workoutsPerWeek: 6,
-  restDays: 1,
-  runningDays: 4,
-  liftingDays: 3,
-  bjjDays: 2
-};
+// ── Everything below is derived from weeklySchedule ──────────────────
+const dayCount = (key) => weeklySchedule.filter((d) => d.trains.includes(key)).length;
+
+// Priority = whatever gets the most days on the mat/road/rack this week.
+const priority = Object.keys(disciplines)
+  .map((key) => ({ key, ...disciplines[key], days: dayCount(key) }))
+  .sort((a, b) => b.days - a.days);
+
+const priorityLabel = priority.map((d) => d.label).join(" > ");
+
+const trainingDays = weeklySchedule.filter((d) => d.trains.length > 0);
+const workoutsPerWeek = trainingDays.length;
+const restDays = weeklySchedule.length - workoutsPerWeek;
+
+// A day takes its colour from the highest-priority discipline it trains.
+const leadDiscipline = (day) => priority.find((d) => day.trains.includes(d.key));
+const focusLabel = (day) =>
+  day.trains.length === 0
+    ? "Ruhe"
+    : day.trains
+        .slice()
+        .sort((a, b) => priority.findIndex((p) => p.key === a) - priority.findIndex((p) => p.key === b))
+        .map((k) => disciplines[k].label)
+        .join(" + ");
 
 const pageTitle = "Trainingswoche";
-const pageDescription = "Eine typische Trainingswoche: Laufen, Ganzkörper-Krafttraining (ohne Beine) und BJJ. Mein priorisierter Fitnessansatz: Laufen > Krafttraining > BJJ.";
+const pageDescription = `Eine typische Trainingswoche: BJJ, Laufen und Ganzkörper-Krafttraining (ohne Beine). Mein priorisierter Fitnessansatz: ${priorityLabel}.`;
 
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "Tobys Trainingswoche",
-  "description": "Ein wöchentliches Trainingsprogramm, das Laufen, Ganzkörper-Krafttraining und Brazilian Jiu-Jitsu kombiniert.",
+  "description": `Ein wöchentliches Trainingsprogramm aus brasilianischem Jiu-Jitsu, Laufen und Ganzkörper-Krafttraining, priorisiert ${priorityLabel}.`,
   "provider": {
     "@type": "Person",
     "name": "Toby"
@@ -77,7 +123,7 @@ const courseSchema = {
   "hasCourseInstance": {
     "@type": "CourseInstance",
     "courseMode": "https://schema.org/OfflineMode",
-    "courseWorkload": "P6D"
+    "courseWorkload": `P${workoutsPerWeek}D`
   }
 };
 ---
@@ -88,8 +134,8 @@ const courseSchema = {
     <section class="text-center mb-16">
       <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Trainingswoche</h1>
       <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
-        Eine typische Woche, in der ich meine drei Säulen balanciere: Laufen, Ganzkörper-Krafttraining (ohne Beine) und BJJ.
-        Alles ist priorisiert: <span class="text-blue-400 font-semibold">Laufen &gt; Krafttraining &gt; BJJ</span>
+        Eine typische Woche mit meinen drei Säulen: BJJ, Laufen und Ganzkörper-Krafttraining (ohne Beine).
+        Alles ist priorisiert: <span class="text-blue-400 font-semibold">{priorityLabel}</span>
       </p>
     </section>
 
@@ -97,25 +143,19 @@ const courseSchema = {
     <section class="mb-12">
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
+          <div class="text-3xl font-bold text-green-400 mb-1">{workoutsPerWeek}</div>
           <div class="text-sm text-neutral-400">Workouts/Woche</div>
         </div>
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
+          <div class="text-3xl font-bold text-white mb-1">{restDays}</div>
           <div class="text-sm text-neutral-400">Ruhetage</div>
         </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-green-400 mb-1">{stats.runningDays}</div>
-          <div class="text-sm text-neutral-400">Lauftage</div>
-        </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-purple-400 mb-1">{stats.liftingDays}</div>
-          <div class="text-sm text-neutral-400">Krafttrainingstage</div>
-        </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-orange-400 mb-1">{stats.bjjDays}</div>
-          <div class="text-sm text-neutral-400">BJJ-Tage</div>
-        </div>
+        {priority.map((d) => (
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+            <div class={`text-3xl font-bold mb-1 ${d.stat}`}>{d.days}</div>
+            <div class="text-sm text-neutral-400">{d.daysLabel}</div>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -124,38 +164,31 @@ const courseSchema = {
       <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
         <span>📅</span> Wochenplan
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
-        {weeklySchedule.map((day) => (
-          <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
-            day.priority === 0 
-              ? 'border-neutral-800 opacity-70' 
-              : day.priority === 1 
-                ? 'border-blue-500/30 hover:border-blue-500/60' 
-                : day.priority === 2 
-                  ? 'border-purple-500/30 hover:border-purple-500/60'
-                  : 'border-orange-500/30 hover:border-orange-500/60'
-          }`}>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-2xl">{day.icon}</span>
-              <h3 class="text-lg font-bold text-white">{day.day}</h3>
-            </div>
-            <div class={`text-sm font-semibold mb-3 ${
-              day.priority === 1 ? 'text-blue-400' : 
-              day.priority === 2 ? 'text-purple-400' : 
-              day.priority === 3 ? 'text-orange-400' : 'text-neutral-500'
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {weeklySchedule.map((day) => {
+          const lead = leadDiscipline(day);
+          return (
+            <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+              lead ? lead.card : 'border-neutral-800 opacity-70'
             }`}>
-              {day.focus}
+              <div class="flex items-center gap-2 mb-3 min-w-0">
+                <span class="text-2xl shrink-0">{day.icon}</span>
+                <h3 class="text-lg font-bold text-white truncate">{day.day}</h3>
+              </div>
+              <div class={`text-sm font-semibold mb-3 ${lead ? lead.focus : 'text-neutral-500'}`}>
+                {focusLabel(day)}
+              </div>
+              <ul class="space-y-1">
+                {day.exercises.map((ex) => (
+                  <li class="text-sm text-neutral-400 flex items-start gap-2">
+                    <span class="text-neutral-600 mt-1 shrink-0">•</span>
+                    <span class="min-w-0">{ex}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul class="space-y-1">
-              {day.exercises.map((ex) => (
-                <li class="text-sm text-neutral-400 flex items-start gap-2">
-                  <span class="text-neutral-600 mt-1">•</span>
-                  <span>{ex}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
 
@@ -166,33 +199,18 @@ const courseSchema = {
       </h2>
       <div class="space-y-4">
         <p class="text-neutral-300 text-lg">
-          Mein Training ist nach Priorität organisiert: <span class="text-blue-400 font-bold">Laufen &gt; Krafttraining &gt; BJJ</span>
+          Mein Training ist nach Priorität organisiert: <span class="text-blue-400 font-bold">{priorityLabel}</span>
         </p>
         <div class="grid md:grid-cols-3 gap-6 mt-6">
-          <div class="bg-neutral-950 rounded-xl p-5 border border-blue-500/20">
-            <div class="text-3xl mb-2">🏆</div>
-            <h3 class="text-blue-400 font-bold mb-2">#1 Laufen</h3>
-            <p class="text-neutral-400 text-sm">
-              Ausdauer ist das Fundament. Ob lockere Kilometer, Tempoläufe oder Intervalle – Laufen kommt zuerst. 
-              Eine starke aerobe Basis unterstützt alles andere.
-            </p>
-          </div>
-          <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
-            <div class="text-3xl mb-2">💪</div>
-            <h3 class="text-purple-400 font-bold mb-2">#2 Krafttraining</h3>
-            <p class="text-neutral-400 text-sm">
-              Ganzkörpereinheiten ohne Beine (Speediance übernimmt die schweren Grundübungen). 
-              Fokus auf Drücken, Ziehen und Hypertrophie. Drei Tage pro Woche.
-            </p>
-          </div>
-          <div class="bg-neutral-950 rounded-xl p-5 border border-orange-500/20">
-            <div class="text-3xl mb-2">🥋</div>
-            <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
-            <p class="text-neutral-400 text-sm">
-              Zwei Tage pro Woche für Technik und Rollen. Jiu-Jitsu hält mich demütig und bietet 
-              ausgezeichnete anaerobe Kondition sowie Technikarbeit.
-            </p>
-          </div>
+          {priority.map((d, i) => (
+            <div class={`bg-neutral-950 rounded-xl p-5 border ${d.panel}`}>
+              <div class="text-3xl mb-2">{i === 0 ? '🏆' : d.icon}</div>
+              <h3 class={`font-bold mb-2 ${d.focus}`}>#{i + 1} {d.label}</h3>
+              <p class="text-neutral-400 text-sm">
+                {d.blurb} {`${d.days} ${d.days === 1 ? 'Tag' : 'Tage'} pro Woche.`}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

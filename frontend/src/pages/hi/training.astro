@@ -1,75 +1,121 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-// Weekly training schedule - full body minus legs, prioritized: Running > Lifting > BJJ
+// Disciplines are declared once; every colour, label and blurb on the page
+// comes from here so nothing has to be kept in sync by hand.
+const disciplines = {
+  bjj: {
+    label: "BJJ",
+    daysLabel: "BJJ के दिन",
+    icon: "🥋",
+    stat: "text-orange-400",
+    focus: "text-orange-400",
+    card: "border-orange-500/30 hover:border-orange-500/60",
+    panel: "border-orange-500/20",
+    blurb: "मैट पर बिताया गया समय सर्वोच्च प्राथमिकता है। तकनीक, ड्रिलिंग और लाइव रोलिंग — जिउ-जित्सु मुझे विनम्र रखता है और यही मेरी सबसे बेहतरीन एनारोबिक कंडीशनिंग है।",
+  },
+  running: {
+    label: "दौड़",
+    daysLabel: "दौड़ के दिन",
+    icon: "🏃",
+    stat: "text-blue-400",
+    focus: "text-blue-400",
+    card: "border-blue-500/30 hover:border-blue-500/60",
+    panel: "border-blue-500/20",
+    blurb: "कार्डियो ही बाकी सब कुछ चलाने वाला इंजन है। आसान माइल्स, टेम्पो रन और इंटरवल वह एरोबिक बेस बनाते हैं जो लंबे रोल में भी साथ देता है।",
+  },
+  lifting: {
+    label: "वेट ट्रेनिंग",
+    daysLabel: "वेट ट्रेनिंग के दिन",
+    icon: "💪",
+    stat: "text-purple-400",
+    focus: "text-purple-400",
+    card: "border-purple-500/30 hover:border-purple-500/60",
+    panel: "border-purple-500/20",
+    blurb: "फुल-बॉडी सेशन, पैरों को छोड़कर (भारी कंपाउंड Speediance संभालता है)। प्रेसिंग, पुलिंग और हाइपरट्रॉफी ताकि शरीर मज़बूत बना रहे।",
+  },
+};
+
+// Weekly training schedule — the single source of truth for this page.
+// Stats and priority order below are derived from it, so they can't drift.
 const weeklySchedule = [
   {
     day: "सोमवार",
-    focus: "दौड़ + वेट ट्रेनिंग",
-    icon: "🏃",
-    exercises: ["आसान 5K दौड़", "बेंच प्रेस", "लैट पुलडाउन", "ओवरहेड प्रेस", "बारबेल रो"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj", "lifting"],
+    exercises: ["गी ड्रिलिंग", "पोज़िशनल राउंड्स", "बेंच प्रेस", "लैट पुलडाउन", "ओवरहेड प्रेस"],
   },
   {
     day: "मंगलवार",
-    focus: "BJJ",
-    icon: "🥋",
-    exercises: ["गी ड्रिलिंग", "स्पैरिंग राउंड्स", "पोज़िशनल वर्क"],
-    priority: 3
+    icon: "🏃",
+    trains: ["running"],
+    exercises: ["आसान 5K दौड़", "ज़ोन 2 एफर्ट", "मोबिलिटी वर्क"],
   },
   {
     day: "बुधवार",
-    focus: "दौड़ + वेट ट्रेनिंग",
-    icon: "🏃",
-    exercises: ["6K टेम्पो रन", "डेडलिफ्ट", "हिप थ्रस्ट", "पुल-अप्स", "फेस पुल्स"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj"],
+    exercises: ["नो-गी ड्रिलिंग", "स्पैरिंग राउंड्स", "गार्ड रिटेंशन"],
   },
   {
     day: "गुरुवार",
-    focus: "सक्रिय रिकवरी",
-    icon: "🔄",
-    exercises: ["आसान 3K जॉग", "मोबिलिटी वर्क", "स्ट्रेचिंग"],
-    priority: 0
+    icon: "🏃",
+    trains: ["running", "lifting"],
+    exercises: ["6K टेम्पो रन", "डेडलिफ्ट", "हिप थ्रस्ट", "पुल-अप्स", "फेस पुल्स"],
   },
   {
     day: "शुक्रवार",
-    focus: "दौड़ + वेट ट्रेनिंग",
-    icon: "🏃",
-    exercises: ["इंटरवल स्पीडवर्क", "इनक्लाइन बेंच", "लैट पुलडाउन", "बाइसेप कर्ल्स", "ट्राइसेप एक्सटेंशन्स"],
-    priority: 1
+    icon: "🥋",
+    trains: ["bjj"],
+    exercises: ["गी ड्रिलिंग", "लाइव रोलिंग", "सबमिशन चेन्स"],
   },
   {
     day: "शनिवार",
-    focus: "BJJ",
     icon: "🥋",
-    exercises: ["ओपन मैट", "टेक्निकल ड्रिलिंग", "लाइव रोलिंग"],
-    priority: 3
+    trains: ["bjj", "running"],
+    exercises: ["ओपन मैट", "टेक्निकल ड्रिलिंग", "आसान शेकआउट रन"],
   },
   {
     day: "रविवार",
-    focus: "आराम",
     icon: "😴",
+    trains: [],
     exercises: ["आराम का दिन", "नींद से रिकवरी", "हल्की वॉकिंग"],
-    priority: 0
-  }
+  },
 ];
 
-const stats = {
-  workoutsPerWeek: 6,
-  restDays: 1,
-  runningDays: 4,
-  liftingDays: 3,
-  bjjDays: 2
-};
+// ── Everything below is derived from weeklySchedule ──────────────────
+const dayCount = (key) => weeklySchedule.filter((d) => d.trains.includes(key)).length;
+
+// Priority = whatever gets the most days on the mat/road/rack this week.
+const priority = Object.keys(disciplines)
+  .map((key) => ({ key, ...disciplines[key], days: dayCount(key) }))
+  .sort((a, b) => b.days - a.days);
+
+const priorityLabel = priority.map((d) => d.label).join(" > ");
+
+const trainingDays = weeklySchedule.filter((d) => d.trains.length > 0);
+const workoutsPerWeek = trainingDays.length;
+const restDays = weeklySchedule.length - workoutsPerWeek;
+
+// A day takes its colour from the highest-priority discipline it trains.
+const leadDiscipline = (day) => priority.find((d) => day.trains.includes(d.key));
+const focusLabel = (day) =>
+  day.trains.length === 0
+    ? "आराम"
+    : day.trains
+        .slice()
+        .sort((a, b) => priority.findIndex((p) => p.key === a) - priority.findIndex((p) => p.key === b))
+        .map((k) => disciplines[k].label)
+        .join(" + ");
 
 const pageTitle = "ट्रेनिंग वीक";
-const pageDescription = "एक सामान्य ट्रेनिंग वीक: दौड़, फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर), और BJJ। फिटनेस के प्रति मेरा प्राथमिकता-आधारित दृष्टिकोण: दौड़ > वेट ट्रेनिंग > BJJ।";
+const pageDescription = `एक सामान्य ट्रेनिंग वीक: BJJ, दौड़, और फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर)। फिटनेस के प्रति मेरा प्राथमिकता-आधारित दृष्टिकोण: ${priorityLabel}।`;
 
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "टोबी का ट्रेनिंग वीक",
-  "description": "एक साप्ताहिक ट्रेनिंग प्रोग्राम जो दौड़, फुल-बॉडी वेट ट्रेनिंग और ब्राज़ीलियन जिउ-जित्सु को मिलाता है।",
+  "description": `एक साप्ताहिक ट्रेनिंग प्रोग्राम जिसमें ब्राज़ीलियन जिउ-जित्सु, दौड़ और फुल-बॉडी वेट ट्रेनिंग शामिल हैं, प्राथमिकता क्रम: ${priorityLabel}।`,
   "provider": {
     "@type": "Person",
     "name": "Toby"
@@ -77,7 +123,7 @@ const courseSchema = {
   "hasCourseInstance": {
     "@type": "CourseInstance",
     "courseMode": "https://schema.org/OfflineMode",
-    "courseWorkload": "P6D"
+    "courseWorkload": `P${workoutsPerWeek}D`
   }
 };
 ---
@@ -88,8 +134,8 @@ const courseSchema = {
     <section class="text-center mb-16">
       <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">ट्रेनिंग वीक</h1>
       <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
-        एक सामान्य सप्ताह जिसमें मेरे तीन स्तंभ संतुलित रहते हैं: दौड़, फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर), और BJJ।
-        सब कुछ प्राथमिकता के अनुसार है: <span class="text-blue-400 font-semibold">दौड़ &gt; वेट ट्रेनिंग &gt; BJJ</span>
+        एक सामान्य सप्ताह जिसमें मेरे तीन स्तंभ संतुलित रहते हैं: BJJ, दौड़, और फुल-बॉडी वेट ट्रेनिंग (पैरों को छोड़कर)।
+        सब कुछ प्राथमिकता के अनुसार: <span class="text-blue-400 font-semibold">{priorityLabel}</span>
       </p>
     </section>
 
@@ -97,25 +143,19 @@ const courseSchema = {
     <section class="mb-12">
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-blue-400 mb-1">{stats.workoutsPerWeek}</div>
+          <div class="text-3xl font-bold text-green-400 mb-1">{workoutsPerWeek}</div>
           <div class="text-sm text-neutral-400">वर्कआउट्स/सप्ताह</div>
         </div>
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-white mb-1">{stats.restDays}</div>
+          <div class="text-3xl font-bold text-white mb-1">{restDays}</div>
           <div class="text-sm text-neutral-400">आराम के दिन</div>
         </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-green-400 mb-1">{stats.runningDays}</div>
-          <div class="text-sm text-neutral-400">दौड़ के दिन</div>
-        </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-purple-400 mb-1">{stats.liftingDays}</div>
-          <div class="text-sm text-neutral-400">वेट ट्रेनिंग के दिन</div>
-        </div>
-        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-          <div class="text-3xl font-bold text-orange-400 mb-1">{stats.bjjDays}</div>
-          <div class="text-sm text-neutral-400">BJJ के दिन</div>
-        </div>
+        {priority.map((d) => (
+          <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
+            <div class={`text-3xl font-bold mb-1 ${d.stat}`}>{d.days}</div>
+            <div class="text-sm text-neutral-400">{d.daysLabel}</div>
+          </div>
+        ))}
       </div>
     </section>
 
@@ -124,38 +164,31 @@ const courseSchema = {
       <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
         <span>📅</span> साप्ताहिक कार्यक्रम
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
-        {weeklySchedule.map((day) => (
-          <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
-            day.priority === 0 
-              ? 'border-neutral-800 opacity-70' 
-              : day.priority === 1 
-                ? 'border-blue-500/30 hover:border-blue-500/60' 
-                : day.priority === 2 
-                  ? 'border-purple-500/30 hover:border-purple-500/60'
-                  : 'border-orange-500/30 hover:border-orange-500/60'
-          }`}>
-            <div class="flex items-center gap-2 mb-3">
-              <span class="text-2xl">{day.icon}</span>
-              <h3 class="text-lg font-bold text-white">{day.day}</h3>
-            </div>
-            <div class={`text-sm font-semibold mb-3 ${
-              day.priority === 1 ? 'text-blue-400' : 
-              day.priority === 2 ? 'text-purple-400' : 
-              day.priority === 3 ? 'text-orange-400' : 'text-neutral-500'
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {weeklySchedule.map((day) => {
+          const lead = leadDiscipline(day);
+          return (
+            <div class={`bg-neutral-900 border rounded-xl p-5 transition-all hover:scale-[1.02] ${
+              lead ? lead.card : 'border-neutral-800 opacity-70'
             }`}>
-              {day.focus}
+              <div class="flex items-center gap-2 mb-3 min-w-0">
+                <span class="text-2xl shrink-0">{day.icon}</span>
+                <h3 class="text-lg font-bold text-white truncate">{day.day}</h3>
+              </div>
+              <div class={`text-sm font-semibold mb-3 ${lead ? lead.focus : 'text-neutral-500'}`}>
+                {focusLabel(day)}
+              </div>
+              <ul class="space-y-1">
+                {day.exercises.map((ex) => (
+                  <li class="text-sm text-neutral-400 flex items-start gap-2">
+                    <span class="text-neutral-600 mt-1 shrink-0">•</span>
+                    <span class="min-w-0">{ex}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-            <ul class="space-y-1">
-              {day.exercises.map((ex) => (
-                <li class="text-sm text-neutral-400 flex items-start gap-2">
-                  <span class="text-neutral-600 mt-1">•</span>
-                  <span>{ex}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
 
@@ -166,33 +199,18 @@ const courseSchema = {
       </h2>
       <div class="space-y-4">
         <p class="text-neutral-300 text-lg">
-          मेरी ट्रेनिंग प्राथमिकता के अनुसार व्यवस्थित है: <span class="text-blue-400 font-bold">दौड़ &gt; वेट ट्रेनिंग &gt; BJJ</span>
+          मेरी ट्रेनिंग प्राथमिकता के अनुसार व्यवस्थित है: <span class="text-blue-400 font-bold">{priorityLabel}</span>
         </p>
         <div class="grid md:grid-cols-3 gap-6 mt-6">
-          <div class="bg-neutral-950 rounded-xl p-5 border border-blue-500/20">
-            <div class="text-3xl mb-2">🏆</div>
-            <h3 class="text-blue-400 font-bold mb-2">#1 दौड़</h3>
-            <p class="text-neutral-400 text-sm">
-              कार्डियो नींव है। चाहे आसान मील हों, टेम्पो रन हों या इंटरवल्स, दौड़ सबसे पहले आती है। 
-              एक मजबूत एरोबिक बेस बाकी हर चीज़ को सहारा देता है।
-            </p>
-          </div>
-          <div class="bg-neutral-950 rounded-xl p-5 border border-purple-500/20">
-            <div class="text-3xl mb-2">💪</div>
-            <h3 class="text-purple-400 font-bold mb-2">#2 वेट ट्रेनिंग</h3>
-            <p class="text-neutral-400 text-sm">
-              फुल-बॉडी सेशंस, पैरों को छोड़कर (Speediance भारी कंपाउंड एक्सरसाइज़ संभालता है)। 
-              फोकस प्रेसिंग, पुलिंग और हाइपरट्रॉफी पर है। सप्ताह में तीन दिन।
-            </p>
-          </div>
-          <div class="bg-neutral-950 rounded-xl p-5 border border-orange-500/20">
-            <div class="text-3xl mb-2">🥋</div>
-            <h3 class="text-orange-400 font-bold mb-2">#3 BJJ</h3>
-            <p class="text-neutral-400 text-sm">
-              तकनीक और रोलिंग के लिए सप्ताह में दो दिन। जिउ-जित्सु मुझे विनम्र बनाए रखता है और 
-              बेहतरीन एनएरोबिक कंडीशनिंग और स्किल वर्क देता है।
-            </p>
-          </div>
+          {priority.map((d, i) => (
+            <div class={`bg-neutral-950 rounded-xl p-5 border ${d.panel}`}>
+              <div class="text-3xl mb-2">{i === 0 ? '🏆' : d.icon}</div>
+              <h3 class={`font-bold mb-2 ${d.focus}`}>#{i + 1} {d.label}</h3>
+              <p class="text-neutral-400 text-sm">
+                {d.blurb} {`सप्ताह में ${d.days} दिन।`}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
