@@ -40,10 +40,13 @@ jobs:
         working-directory: frontend
         env:
           SITE: https://tobyonfitnesstech.com
-          # Workout hub ships as a static catalogue: no API URL and no connect
-          # flag, so the page makes no network calls and never reports a failed
-          # backend connection. Set PUBLIC_WORKOUT_HUB_API_URL (https) and
-          # PUBLIC_WORKOUT_HUB_CONNECT=true once the hub backend is deployed.
+          # Workout hub ships as a static catalogue: no Supabase credentials
+          # and no connect flag, so the page makes no network calls and never
+          # reports a failed backend connection. To turn on leaderboards and
+          # Speediance connect, add PUBLIC_SUPABASE_URL (https) and
+          # PUBLIC_SUPABASE_ANON_KEY as repository variables and set
+          # PUBLIC_WORKOUT_HUB_CONNECT=true, once a hosted Supabase project
+          # exists. Pointing these at a machine on the LAN will not work.
           PUBLIC_WORKOUT_HUB_ENABLED: "true"
           PUBLIC_POSTHOG_KEY: ${{ vars.PUBLIC_POSTHOG_KEY }}
           PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com' }}
