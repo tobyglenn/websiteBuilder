@@ -29,7 +29,8 @@ try {
 
 try {
   const whoopData: any = whoopJson;
-  const recoveries: any[] = whoopData?.recoveries || whoopData?.data || [];
+  const allRecoveries: any[] = whoopData?.recovery?.records || whoopData?.recoveries || whoopData?.data || [];
+  const recoveries = [...allRecoveries].sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
   const scores: number[] = [], hrvs: number[] = [], rhrs: number[] = [];
   for (const d of recoveries.slice(0, 30)) {
     const score = d.score?.recovery_score ?? d.recovery_score ?? d.score;
@@ -135,7 +136,7 @@ const verdictClasses: Record<string, string> = {
               <div class="text-4xl">⌚</div>
               <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Multisport</span>
             </div>
-            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">Garmin Fenix 7</h3>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">Garmin Forerunner 265S</h3>
             <p class="text-sm text-neutral-400 mb-6">Premium multisport GPS watch for running and training.</p>
             <div class="grid grid-cols-2 gap-4">
               <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
@@ -154,7 +155,7 @@ const verdictClasses: Record<string, string> = {
               <div class="text-4xl">💓</div>
               <span class="text-xs font-semibold px-3 py-1 rounded-full bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Recovery</span>
             </div>
-            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">WHOOP 4.0</h3>
+            <h3 class="text-xl md:text-2xl font-bold mb-2 group-hover:text-cyan-300 transition-colors">WHOOP 5.0</h3>
             <p class="text-sm text-neutral-400 mb-6">Continuous health monitoring with recovery tracking.</p>
             <div class="grid grid-cols-3 gap-3">
               <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">

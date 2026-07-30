@@ -210,9 +210,6 @@ export default function Header() {
   const t = NAV_TRANSLATIONS[locale] || NAV_TRANSLATIONS.en;
   const reviewItems = useMemo(() => [
     { name: t.speediance, href: localizedHref(locale, '/speediance/'), icon: Dumbbell },
-    ...(WORKOUT_HUB_ENABLED
-      ? [{ name: t.workoutHub, href: '/speediance/workouts/', icon: Trophy }]
-      : []),
     { name: t.wearables, href: '/wearables/', icon: Watch },
     { name: t.gear, href: localizedHref(locale, '/gear/'), icon: PackageSearch },
     { name: t.compare, href: localizedHref(locale, '/compare-trackers/'), icon: Scale },

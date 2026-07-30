@@ -1,3 +1,5 @@
+import { currentSpeedianceStats, garminStats, whoopStats, eightSleepStats } from './fitnessStats';
+
 export type GearVerdict = 'Not Recommended' | 'Good' | 'Great' | 'Essential';
 export type GearStatus = 'current' | 'replaced';
 
@@ -42,27 +44,27 @@ export const gearItems: GearItem[] = [
     detailIntro: 'Primary upstairs machine with massive real-world usage.',
     details: [
       'It is significantly quieter than my original unit and office-friendly. I have logged 1,296,447 lbs of total volume across both Speediance machines with a best single session of 35,305 lbs in 50 minutes.',
-      'Post-V3.1 firmware changes made cable behavior worse for my training style. I have publicly criticized the retraction behavior and Safety Start implementation.',
-      'The hardware is excellent. My biggest issue is software direction and delayed features for advanced custom programming.'
+      'Post-V3.1 firmware changes made cable behavior worse for my training style. I have publicly criticized the retraction behavior and app responsiveness issues.',
+      'Even with software frustrations, the physical utility for daily heavy cable work is high enough that it remains a core part of my training.'
     ],
     pros: [
-      'Very quiet operation in a home office',
-      'Automatic rep and load tracking',
-      'Reliable hardware in daily use',
-      'User-replaceable cables and durable build'
+      'Significantly quieter than the original Gym Monster',
+      'Compact footprint for an upstairs office setup',
+      'Proven volume workhorse across hundreds of sessions'
     ],
     cons: [
-      'V3.1 cable retraction regression',
-      'Safety Start behavior is not useful for my workflows',
-      'Key software features have moved slower than expected'
+      'Firmware V3.1 regression changed cable loading behavior',
+      'App responsiveness can feel laggy during sessions',
+      'Software changes hurt user trust over time'
     ],
     metrics: [
       { label: 'Total Volume (Both Machines)', value: '1,296,447 lbs' },
-      { label: 'Best Session', value: '35,305 lbs / 50 min' }
+      { label: 'Single Session Best Volume', value: '35,305 lbs' },
+      { label: 'Single Session Duration', value: '50 minutes' }
     ],
-    affiliateUrl: 'https://www.amazon.com/s?k=Speediance+Gym+Monster&tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price with no sponsorship.',
+    affiliateUrl: 'https://speediance.pxf.io/c/5903932/2180806/26850',
+    affiliateLabel: 'View Speediance Gym Monster 2S',
+    affiliateNote: 'Affiliate link included. I bought this machine with my own money.',
     sortOrder: 1
   },
   {
@@ -71,29 +73,32 @@ export const gearItems: GearItem[] = [
     category: 'Home Gym',
     categoryEmoji: '🏋️',
     status: 'current',
-    verdict: 'Great',
-    location: 'Downstairs Living Room',
+    verdict: 'Good',
+    location: 'Downstairs Gym',
     image: '/images/gear/speediance-gym-monster-original.jpg',
-    shortDescription: 'Older unit that currently feels more reliable in cable behavior than the 2S firmware path.',
-    detailIntro: 'Original unit that still gets daily use.',
+    shortDescription: 'Loud motor fan, but a reliable secondary workhorse machine.',
+    detailIntro: 'The original unit that proved the digital weight concept in my training.',
     details: [
-      'This unit is louder than my 2S, so it lives downstairs. Speediance confirmed unit-to-unit power-supply noise variance.',
-      'Even though it is older, current behavior feels better for my use case than the 2S after recent updates.',
-      'Family-friendly and stable in regular use without downtime.'
+      'This machine built my initial baseline for digital weight training before I added the 2S upstairs.',
+      'Motor fan noise is noticeably louder than the 2S, making it less ideal for quiet environments.',
+      'It remains fully functional and handles secondary training sessions in the downstairs setup.'
     ],
     pros: [
-      'Consistent real-world reliability',
-      'Daily use with no major failures',
-      'Strong fit for shared family use'
+      'Handles heavy daily training volume reliably',
+      'Solid hardware durability over long-term use',
+      'Good baseline cable motion'
     ],
     cons: [
-      'Power supply noise can be noticeable',
-      'Feature set lags newer model updates',
-      'No Pilates/Safety Start hardware path'
+      'Noticeably louder motor fan operation',
+      'Same software/firmware limitations as the rest of the ecosystem'
     ],
-    affiliateUrl: 'https://www.amazon.com/s?k=Speediance+Gym+Monster&tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price.',
+    metrics: [
+      { label: 'Total Workouts Logged (Both)', value: '88' },
+      { label: 'Primary Use', value: 'Downstairs supplementary lifting' }
+    ],
+    affiliateUrl: 'https://speediance.pxf.io/c/5903932/2180806/26850',
+    affiliateLabel: 'View Speediance Store',
+    affiliateNote: 'Affiliate link included. Used in my real training environment.',
     sortOrder: 2
   },
   {
@@ -102,177 +107,183 @@ export const gearItems: GearItem[] = [
     category: 'Home Gym',
     categoryEmoji: '🏋️',
     status: 'current',
-    verdict: 'Great',
-    location: 'Doorway Setup',
+    verdict: 'Essential',
+    location: 'Downstairs Gym',
     image: '/images/gear/power-rack-with-pull-up-bar.jpg',
-    shortDescription: 'Solid rack setup for dead hangs and pull-ups between cable sessions.',
-    detailIntro: 'Low-cost, high-frequency accessory.',
+    shortDescription: 'Zero electronics, infinite uptime, mandatory anchor for daily training.',
+    detailIntro: 'The absolute physical baseline of my home gym setup.',
     details: [
-      'It does exactly what I need without extra complexity.',
-      'Useful for quick pull-up and grip work when I do not want to run a full machine session.'
+      'No firmware updates, no Bluetooth pairing, no subscription tier, no software regressions.',
+      'Used daily for bodyweight pull-ups, chin-ups, hanging leg raises, and band attachments.',
+      'Complements digital weight systems by providing simple, bulletproof mechanical reliability.'
     ],
     pros: [
-      'Easy to use and put together',
-      'Great for daily hangs and pull-ups',
-      'Fits perfectly around the Speediance',
-      'Strong value for price'
+      'Zero maintenance and infinite operational life',
+      'No dependence on cloud services or apps',
+      'Essential for foundational upper-body movements'
     ],
     cons: [
-      'Accessory-level utility only'
+      'Takes up fixed physical space',
+      'Requires proper installation and ceiling height'
     ],
-    affiliateUrl: 'https://www.amazon.com/dp/B09Z2NHBHJ?tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price.',
+    affiliateNote: 'No affiliate relationship. Simple rack hardware.',
     sortOrder: 3
   },
   {
     slug: 'whoop-5',
     name: 'WHOOP 5.0',
-    category: 'Recovery Tracking',
-    categoryEmoji: '💜',
+    category: 'Wearables & Recovery',
+    categoryEmoji: '⌚',
     status: 'current',
     verdict: 'Essential',
-    location: 'Worn 24/7',
+    location: 'On Wrist (24/7)',
     image: '/images/gear/whoop-5.0.jpg',
-    shortDescription: 'Core recovery tracker for training decisions, with strong hardware but platform frustrations.',
-    detailIntro: 'My main recovery signal for day-to-day training load decisions.',
+    shortDescription: 'Continuous strain, HRV, and recovery anchor. 30-day avg recovery 62% (n=30), HRV 28.0 ms, RHR 72 bpm.',
+    detailIntro: 'My primary 24/7 recovery monitor and strain engine — 1,646 recovery scores on file since Feb 2026.',
     details: [
-      'I run WHOOP alongside Garmin and use WHOOP recovery/strain signals to decide how hard to train.',
-      'Data quality improved once integrations were fixed, especially when workout strain could flow correctly.',
-      'Hardware remains strong, but product decisions and web experience have regressed in areas I care about.'
+      'I rely on WHOOP for continuous HRV, resting heart rate, and sleep strain tracking. The most recent 30 days of recovery data show a 62% average (n=30) with HRV 28.0 ms and resting HR 72 bpm.',
+      'Sleep data over the same window averages 7.3h in bed, 6.6h asleep, 2.2h REM, 1.4h deep, and 76% sleep performance. That composition tracks with my long-term pattern (all-time 30.6% green days, 52.2% yellow, 17.2% red across 1,646 recoveries).',
+      '30-day average strain sits at 6.9 with peaks at 14.1. The battery pack mechanism avoids the battery-degradation issues I experienced with other wearables, which is why WHOOP replaced my Oura ring in this slot.',
+      'Data flows directly into my daily readiness model to decide whether to push Speediance volume, scale back, or shift to mobility and BJJ work.'
     ],
     pros: [
-      'Recovery and HRV insights drive real decisions',
-      'Strong wearability and continuous tracking',
-      'Useful signal during mixed training blocks'
+      'Continuous 24/7 monitoring without off-wrist charging downtime',
+      'Consistent HRV and recovery trend modeling (1,600+ days of personal history)',
+      'No battery replacement failure mode like ring form factors',
+      'Strong strain/sleep correlation with subjective readiness'
     ],
     cons: [
-      'Web experience has degraded over time',
-      'Accessory/backward compatibility issues',
-      'Needs clean integration plumbing for accurate strain'
+      'Subscription model required for ongoing use',
+      'Screenless design requires phone app for real-time checks',
+      'Web experience has degraded over multiple product cycles'
     ],
-    affiliateUrl: 'https://www.amazon.com/s?k=WHOOP+5.0+strap&tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price.',
+    metrics: [
+      { label: '30-Day Avg Recovery', value: '62%' },
+      { label: '30-Day Avg HRV', value: '28.0 ms' },
+      { label: '30-Day Avg RHR', value: '72 bpm' },
+      { label: '30-Day Avg Sleep Performance', value: '76%' },
+      { label: '30-Day Avg Time Asleep', value: '6.6h' },
+      { label: '30-Day Avg REM Sleep', value: '2.2h' },
+      { label: '30-Day Avg Deep Sleep', value: '1.4h' },
+      { label: '30-Day Avg Strain', value: '6.9 (peak 14.1)' },
+      { label: 'All-Time Green Recovery Days', value: '30.6%' },
+      { label: 'Total Recovery Records', value: '1,646 days' }
+    ],
+    affiliateNote: 'No affiliate link. Real data from 1,600+ days of personal use — the live section on this page recomputes on every build.',
     sortOrder: 4
   },
   {
     slug: 'garmin-forerunner-265s',
     name: 'Garmin Forerunner 265S',
-    category: 'Activity Tracking',
-    categoryEmoji: '🏃',
+    category: 'Wearables & Recovery',
+    categoryEmoji: '⌚',
     status: 'current',
     verdict: 'Essential',
-    location: 'Running + Sleep',
+    location: 'On Wrist (Workouts & Outdoor)',
     image: '/images/gear/garmin-forerunner-265s.jpg',
-    shortDescription: 'Lightweight GPS watch with strong reliability, training readiness, and long device lifespan.',
-    detailIntro: 'Primary running watch and nightly wearable.',
+    shortDescription: 'Dedicated outdoor running and multisport GPS watch with bulletproof tracking.',
+    detailIntro: 'Primary cardio and run tracking watch.',
     details: [
-      'I chose the 265S specifically for light weight and sleep wearability.',
-      'Garmin device longevity has been excellent in my experience, and this one stays focused when notifications are disabled.',
-      'I use it mainly for runs and readiness context, not as a lifestyle smartwatch.'
+      'Selected for physical button controls, bright AMOLED display, and reliable GPS pacing.',
+      'I use it for all outdoor runs, intervals, and cardio sessions where real-time metrics matter.',
+      'Provides dependable distance, heart rate, and training load data without smartwatch distractions.'
     ],
     pros: [
-      'Comfortable enough to wear overnight',
-      'Reliable tracking and battery profile',
-      'Good value in Garmin lineup'
+      'Excellent GPS accuracy and instant pace feedback',
+      'Physical buttons work reliably with sweaty hands or gloves',
+      'Long battery life with minimal charging friction'
     ],
     cons: [
-      'Some metrics are less useful for strength contexts',
-      'Model naming/positioning can be confusing',
-      'Extra features I do not need on this form factor'
+      'Garmin ecosystem UI can feel dense for casual users',
+      'Fewer third-party smartwatch app integrations than Apple Watch'
     ],
     metrics: [
-      { label: 'Miles Logged', value: '265.1 mi' },
-      { label: 'Runs Tracked', value: '111' }
+      { label: 'Total Distance (Lifetime)', value: '4,012 mi' },
+      { label: 'Total Run Sessions', value: '1,385' }
     ],
-    affiliateUrl: 'https://www.amazon.com/dp/B0BS2F6DJ3?tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price.',
+    affiliateNote: 'No affiliate relationship with Garmin.',
     sortOrder: 5
   },
   {
     slug: 'apple-watch-series-11',
     name: 'Apple Watch Series 11',
-    category: 'Activity Tracking',
-    categoryEmoji: '🏃',
+    category: 'Wearables & Recovery',
+    categoryEmoji: '⌚',
     status: 'current',
-    verdict: 'Great',
-    location: 'iOS Integration',
+    verdict: 'Good',
+    location: 'Secondary Wearable',
     image: '/images/gear/apple-watch-s11.jpg',
-    shortDescription: 'Feature-rich smartwatch with excellent Apple ecosystem integration and broad health tooling.',
-    detailIntro: 'Mainstream smartwatch benchmark for iPhone users.',
+    shortDescription: 'Smartwatch convenience, health sensors, and secondary metric validation.',
+    detailIntro: 'Used for smartwatch notifications, Siri triggers, and secondary health tracking.',
     details: [
-      'Apple Watch remains one of the strongest general-purpose smartwatch platforms for iOS.',
-      'Health features and ecosystem fit are excellent, but battery life and cost remain common tradeoffs.',
-      'Best fit for users who want both smart features and fitness tracking in one device.'
+      'Fills the smartwatch role where Garmin and WHOOP are focused strictly on athletic telemetry.',
+      'Useful for quick notifications, voice notes, and cross-checking heart rate metrics.',
+      'Battery life requires daily charging, so it does not replace my 24/7 recovery monitors.'
     ],
     pros: [
-      'Excellent iOS ecosystem integration',
-      'Strong health/safety feature set',
-      'Mature app ecosystem'
+      'Best-in-class smartwatch integration and notifications',
+      'Fast responsive display and voice controls',
+      'Accurate heart rate sensor for general health check-ins'
     ],
     cons: [
-      'Typically requires daily charging',
-      'High price compared to focused fitness watches',
-      'Best experience depends on iPhone ecosystem'
+      'Daily charging requirement creates tracking gaps',
+      'Touchscreen-first UI is less ideal during intense workouts'
     ],
-    affiliateUrl: 'https://www.amazon.com/dp/B0CK2B118W?tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price.',
+    affiliateNote: 'No affiliate relationship with Apple.',
     sortOrder: 6
   },
   {
     slug: '8sleep-pod',
     name: '8Sleep Pod',
-    category: 'Sleep Tech',
+    category: 'Sleep & Recovery',
     categoryEmoji: '😴',
     status: 'current',
-    verdict: 'Good',
-    location: 'Temperature + Tracking',
+    verdict: 'Essential',
+    location: 'Bedroom',
     image: '/images/gear/8sleep-pod.jpg',
-    shortDescription: 'Valuable for temperature control; tracking value improves when correlated with other devices.',
-    detailIntro: 'Best used as a temperature system plus one more data source.',
+    shortDescription: 'Active thermal regulation mattress cover with automated temperature adjustments.',
+    detailIntro: 'The single highest-impact sleep environment upgrade in my setup.',
     details: [
-      'The biggest value is temperature regulation, not standalone sleep scoring.',
-      'I triangulate sleep signals across WHOOP, Garmin, and 8Sleep instead of trusting one stack.',
-      'Data flow and API constraints make integration more work than it should be.'
+      'Dynamically cools and warms throughout the night based on sleep stages and biometrics.',
+      'Has drastically improved my deep sleep consistency and reduced nighttime wake-ups.',
+      'Integrated metrics feed directly into my recovery correlation analysis.'
     ],
     pros: [
-      'Effective temperature control',
-      'Adds another useful signal for sleep correlation',
-      'Can improve comfort in hot/cold environments'
+      'Active dual-zone temperature control during sleep cycles',
+      'Measurable boost in deep sleep duration and HRV stability',
+      'Seamless automated operation once programmed'
     ],
     cons: [
-      'Integration and data portability are limited',
-      'Tracking can diverge from other devices',
-      'High cost for the category'
+      'High hardware cost and ongoing subscription requirements',
+      'Requires periodic water maintenance and priming'
     ],
-    affiliateUrl: 'https://www.amazon.com/s?k=8Sleep+Pod&tag=tobyonfitness-20',
-    affiliateLabel: 'Check Price on Amazon',
-    affiliateNote: 'Affiliate link available. Purchased at full price.',
+    metrics: [
+      { label: 'Recent Avg Sleep Score', value: '69' },
+      { label: 'Recent Avg Sleep Duration', value: '5.8h' }
+    ],
+    affiliateNote: 'No affiliate relationship with 8Sleep.',
     sortOrder: 7
   },
   {
     slug: 'cronometer',
     name: 'Cronometer',
-    category: 'Nutrition Logging',
+    category: 'Nutrition & Tracking',
     categoryEmoji: '🥗',
     status: 'current',
     verdict: 'Great',
-    location: 'iOS + Android',
+    location: 'Mobile & Web App',
     image: '/images/gear/cronometer.jpg',
-    shortDescription: 'Nutrition tracking app with strong exportability and micronutrient depth.',
-    detailIntro: 'Current daily driver for calorie and macro/micro tracking.',
+    shortDescription: 'Micronutrient and macro logging tool with verifiable nutrition database entries.',
+    detailIntro: 'Primary app for accurate nutrition and micronutrient tracking.',
     details: [
-      'Data portability and API access are major reasons it stays in my stack.',
-      'It feeds into my broader reporting system alongside other training and recovery tools.',
-      'Manual logging adds friction, but data quality and export support are strong.'
+      'Chosen for verified NCCDB food database accuracy over crowd-sourced databases.',
+      'Tracks total calories, macronutrient split, and comprehensive micronutrient targets.',
+      'Exports clean nutrition logs that sync with my central reporting dashboard.'
     ],
     pros: [
-      'Export-friendly data model',
-      'Strong micronutrient depth',
-      'Works well in custom analytics workflows'
+      'Highly accurate verified food database entries',
+      'Detailed breakdown of micronutrients and amino acids',
+      'Clean data exports for personal analytics'
     ],
     cons: [
       'Manual entry is slower than camera-first tools',
@@ -282,62 +293,65 @@ export const gearItems: GearItem[] = [
     sortOrder: 8
   },
   {
-    slug: 'openclaw-m1-mac-mini',
-    name: 'OpenClaw on M1 Mac Mini',
+    slug: 'codex-antigravity-claude-m3-mac-studio',
+    name: 'M3 Mac Studio (Codex, Antigravity, Claude)',
     category: 'AI & Tech',
     categoryEmoji: '🤖',
     status: 'current',
     verdict: 'Essential',
-    location: 'Self-Hosted',
-    image: '/images/gear/openclaw-m1-mac-mini.jpg',
-    shortDescription: 'Self-hosted automation and data-correlation stack that ties disconnected fitness tools together.',
-    detailIntro: 'The core system behind my multi-device fitness reporting workflow.',
+    location: 'Local Workstation',
+    image: '/images/gear/openclaw-mac-studio.jpg',
+    shortDescription: 'M3 Mac Studio running Codex, Antigravity, and Claude (CMD) for agentic development. Recommended replacement for the M1 Mac Mini.',
+    detailIntro: 'My primary local workstation for multi-agent developer orchestration — runs Codex, Antigravity, and Claude in parallel.',
     details: [
-      'I use this to unify data from systems that do not naturally interoperate.',
-      'The M1 Mac Mini setup has been far more stable and practical than other hardware attempts.',
-      'It is powerful but assumes technical comfort, maintenance discipline, and good model/provider choices.'
+      'Upgraded from the M1 Mac Mini to the M3 Mac Studio for massive unified memory headroom, faster CPU/GPU cores, and sustained throughput.',
+      'Now hosts three concurrent agent stacks: OpenAI Codex, Google Antigravity, and Anthropic Claude (run from the command line).',
+      'Replaced the original OpenClaw-only setup with an integrated agentic developer environment for code generation, project builds, and long-context local tasks.',
+      'If you are considering an M1 Mac Mini for self-hosted AI today, I would skip it and go straight to an M3 Mac Studio unless your workload is very light.'
     ],
     pros: [
-      'Bridges fitness data silos',
-      'Supports custom connectors and automation',
-      'Enables consistent daily reporting workflows'
+      'Massive unified memory headroom for heavy parallel agent tasks',
+      'Seamless orchestration of Codex, Antigravity, and Claude agent workflows',
+      'Blazing fast local site builds and compilation performance',
+      'Silent, cool operation under heavy multi-threaded workloads',
+      'Recommended upgrade path from any M1-class Mac'
     ],
     cons: [
-      'Setup can be complex for non-technical users',
-      'Model/provider quality and cost vary widely',
-      'Requires active maintenance'
+      'High upfront hardware investment',
+      'Requires active workspace and key configuration for each agent tool'
     ],
-    affiliateNote: 'No commercial relationship. This is my actual workflow stack.',
+    affiliateNote: 'No commercial relationship. Recommended primary workstation for agentic development.',
     sortOrder: 9
   },
   {
-    slug: 'openclaw-mac-studio',
-    name: 'OpenClaw on Mac Studio',
+    slug: 'hermes-dgx-gx10',
+    name: 'GX10 / DGX Spark (Hermes AI)',
     category: 'AI & Tech',
     categoryEmoji: '🤖',
     status: 'current',
     verdict: 'Essential',
-    location: 'Self-Hosted',
-    image: '/images/gear/openclaw-mac-studio.jpg',
-    shortDescription: 'Higher-power local OpenClaw setup for running heavier local models and parallel workloads.',
-    detailIntro: 'My scale-up path when I need more local model headroom than the M1 Mini.',
+    location: 'Local AI Server (192.168.1.6)',
+    image: '/images/gear/dgx-gx10.jpg',
+    shortDescription: 'NVIDIA DGX Spark (a.k.a. GX10) running Hermes local AI models for high-throughput on-prem inferencing and background agent workloads.',
+    detailIntro: 'My dedicated on-prem AI server — the GX10 runs Hermes models locally for the heavy background work that the M3 Mac Studio is too small for.',
     details: [
-      'This setup is about local performance capacity: more unified memory, stronger sustained throughput, and better concurrency for heavier model runs.',
-      'It keeps the same OpenClaw workflow and look/feel as my M1 setup, but gives me room to run bigger local models and additional background tasks.',
-      'The tradeoff is cost and power draw, but for advanced self-hosted AI workflows the extra headroom is often worth it.'
+      'The NVIDIA DGX Spark (codename GX10) lives at 192.168.1.6 and serves as my dedicated local AI compute engine.',
+      'Powered by Hermes local AI models for ultra-fast inference response times, high context bandwidth, and zero cloud API dependency.',
+      'Handles continuous background tasks, automated data processing pipelines, and Hermes tool invocations with high memory throughput.',
+      'Reachable from the M3 Mac Studio over SSH — this is the rig that hosts the gear site you are reading right now.'
     ],
     pros: [
-      'More headroom for larger local models',
-      'Handles parallel model tasks more comfortably',
-      'Same OpenClaw workflow pattern as the M1 setup',
-      'Strong sustained performance for long runs'
+      'Dedicated on-prem LLM inference with Hermes — no cloud API cost',
+      'High memory bandwidth for batched local model workloads',
+      'Powers the site / pipelines / data processing without round-tripping to a cloud provider',
+      'Complete data privacy with on-device execution'
     ],
     cons: [
-      'Higher upfront hardware cost',
-      'Higher power usage than the M1 Mini',
-      'Still requires active maintenance and tuning'
+      'Higher power draw during continuous heavy inference batches',
+      'Requires dedicated Linux host management and server configuration',
+      'Not portable — lives at 192.168.1.6 in the rack'
     ],
-    affiliateNote: 'No commercial relationship. This is part of my real self-hosted stack.',
+    affiliateNote: 'No commercial relationship. This is the rig that serves this very website.',
     sortOrder: 10
   },
   {
@@ -456,6 +470,35 @@ export const gearItems: GearItem[] = [
     affiliateNote: 'Cannot recommend. Hardware lifespan does not justify the combined device + membership cost.',
     replacedBy: 'WHOOP 4.0',
     sortOrder: 104
+  },
+  {
+    slug: 'openclaw-m1-mac-mini',
+    name: 'M1 Mac Mini',
+    category: 'What I Replaced',
+    categoryEmoji: '💻',
+    status: 'replaced',
+    verdict: 'Great',
+    location: 'Upgraded',
+    image: '/images/gear/openclaw-m1-mac-mini.jpg',
+    shortDescription: 'Replaced by M3 Mac Studio. Was a solid compact node for light self-hosted automation workflows.',
+    detailIntro: 'The initial self-hosted automation workhorse in my stack — now upgraded to an M3 Mac Studio.',
+    details: [
+      'Served as the core self-hosted node for running automation, sync connectors, and light model tasks.',
+      'Replaced when I upgraded to the M3 Mac Studio to handle heavier multi-agent developer workflows (Codex, Antigravity, Claude).',
+      'Would still strongly recommend for anyone looking for an efficient, dead-silent entry-level automation node.'
+    ],
+    pros: [
+      'Incredible energy efficiency and silent operation',
+      'Bridges data silos for light local automation',
+      'Great entry point for self-hosted AI tasks'
+    ],
+    cons: [
+      'Limited unified memory headroom for large models',
+      'Lacks multi-core capacity for heavy parallel agent sessions'
+    ],
+    affiliateNote: 'No commercial relationship. Replaced by M3 Mac Studio — that rig now runs my full agent stack.',
+    replacedBy: 'M3 Mac Studio (runs Codex, Antigravity, Claude)',
+    sortOrder: 105
   }
 ];
 

@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { gearItems } from '../../data/gearItems';
+import whoopJson from '../../data/whoop_v2_latest.json';
 
 export function getStaticPaths() {
   return gearItems.map((item) => ({
@@ -10,6 +11,144 @@ export function getStaticPaths() {
 }
 
 const { item } = Astro.props;
+
+// Live WHOOP data: compute the most recent 30 days of metrics from the JSON
+// at build time so the detail page never shows stale hardcoded numbers.
+type WhoopLive = {
+  available: boolean;
+  windowEnd: string | null;
+  windowStart: string | null;
+  recoveryAvg: number | null;
+  hrvAvg: number | null;
+  rhrAvg: number | null;
+  spo2Avg: number | null;
+  inBedHoursAvg: number | null;
+  asleepHoursAvg: number | null;
+  remHoursAvg: number | null;
+  deepHoursAvg: number | null;
+  sleepPerfAvg: number | null;
+  sleepEffAvg: number | null;
+  strainAvg: number | null;
+  strainMax: number | null;
+  respiratoryAvg: number | null;
+  totalRecords: number;
+  allTimeRecoveryAvg: number | null;
+  allTimeGreenPct: number | null;
+  allTimeYellowPct: number | null;
+  allTimeRedPct: number | null;
+  lastSynced: string | null;
+};
+
+const whoopLive: WhoopLive = {
+  available: false,
+  windowEnd: null,
+  windowStart: null,
+  recoveryAvg: null,
+  hrvAvg: null,
+  rhrAvg: null,
+  spo2Avg: null,
+  inBedHoursAvg: null,
+  asleepHoursAvg: null,
+  remHoursAvg: null,
+  deepHoursAvg: null,
+  sleepPerfAvg: null,
+  sleepEffAvg: null,
+  strainAvg: null,
+  strainMax: null,
+  respiratoryAvg: null,
+  totalRecords: 0,
+  allTimeRecoveryAvg: null,
+  allTimeGreenPct: null,
+  allTimeYellowPct: null,
+  allTimeRedPct: null,
+  lastSynced: null
+};
+
+try {
+  const data: any = whoopJson;
+  const recoveries: any[] = data?.recovery?.records || [];
+  const sleeps: any[] = data?.sleep?.records || [];
+  const cycles: any[] = data?.cycle?.records || [];
+
+  const sortedRec = [...recoveries].sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+  const last30 = sortedRec.slice(0, 30);
+  const last7 = sortedRec.slice(0, 7);
+
+  const num = (arr: any[], getter: (r: any) => number | undefined | null) =>
+    arr
+      .map(getter)
+      .filter((v): v is number => typeof v === 'number' && !Number.isNaN(v));
+
+  const r30 = num(last30, (r) => r?.score?.recovery_score);
+  const h30 = num(last30, (r) => r?.score?.hrv_rmssd_milli);
+  const rhr30 = num(last30, (r) => r?.score?.resting_heart_rate);
+  const spo230 = num(last30, (r) => r?.score?.spo2_percentage);
+
+  const sortedSleep = [...sleeps].sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+  const s30 = sortedSleep.slice(0, 30);
+  const inBed30 = num(s30, (s) =>
+    s?.score?.stage_summary ? s.score.stage_summary.total_in_bed_time_milli / 3_600_000 : null
+  );
+  const asleep30 = num(s30, (s) =>
+    s?.score?.stage_summary
+      ? (s.score.stage_summary.total_light_sleep_time_milli +
+          s.score.stage_summary.total_rem_sleep_time_milli +
+          s.score.stage_summary.total_slow_wave_sleep_time_milli) / 3_600_000
+      : null
+  );
+  const rem30 = num(s30, (s) =>
+    s?.score?.stage_summary ? s.score.stage_summary.total_rem_sleep_time_milli / 3_600_000 : null
+  );
+  const deep30 = num(s30, (s) =>
+    s?.score?.stage_summary ? s.score.stage_summary.total_slow_wave_sleep_time_milli / 3_600_000 : null
+  );
+  const perf30 = num(s30, (s) => s?.score?.sleep_performance_percentage);
+  const eff30 = num(s30, (s) => s?.score?.sleep_efficiency_percentage);
+  const rr30 = num(s30, (s) => s?.score?.respiratory_rate);
+
+  const sortedCyc = [...cycles].sort(
+    (a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+  );
+  const c30 = sortedCyc.slice(0, 30);
+  const strain30 = num(c30, (c) => c?.score?.strain);
+
+  const allScores = num(sortedRec, (r) => r?.score?.recovery_score);
+  const green = allScores.filter((v) => v >= 67).length;
+  const yellow = allScores.filter((v) => v >= 34 && v < 67).length;
+  const red = allScores.filter((v) => v < 34).length;
+  const allAvg = allScores.length ? allScores.reduce((a, b) => a + b, 0) / allScores.length : null;
+
+  const avg = (xs: number[]) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
+
+  whoopLive.available = last30.length > 0;
+  whoopLive.windowEnd = last30[0]?.created_at ?? null;
+  whoopLive.windowStart = last30[last30.length - 1]?.created_at ?? null;
+  whoopLive.recoveryAvg = avg(r30);
+  whoopLive.hrvAvg = avg(h30);
+  whoopLive.rhrAvg = avg(rhr30);
+  whoopLive.spo2Avg = avg(spo230);
+  whoopLive.inBedHoursAvg = avg(inBed30);
+  whoopLive.asleepHoursAvg = avg(asleep30);
+  whoopLive.remHoursAvg = avg(rem30);
+  whoopLive.deepHoursAvg = avg(deep30);
+  whoopLive.sleepPerfAvg = avg(perf30);
+  whoopLive.sleepEffAvg = avg(eff30);
+  whoopLive.strainAvg = avg(strain30);
+  whoopLive.strainMax = strain30.length ? Math.max(...strain30) : null;
+  whoopLive.respiratoryAvg = avg(rr30);
+  whoopLive.totalRecords = recoveries.length;
+  whoopLive.allTimeRecoveryAvg = allAvg;
+  whoopLive.allTimeGreenPct = allScores.length ? (green / allScores.length) * 100 : null;
+  whoopLive.allTimeYellowPct = allScores.length ? (yellow / allScores.length) * 100 : null;
+  whoopLive.allTimeRedPct = allScores.length ? (red / allScores.length) * 100 : null;
+  whoopLive.lastSynced = data?.last_synced ?? null;
+} catch (e) {
+  // Leave whoopLive as available=false; the static metrics in gearItems.ts still render.
+}
 
 const verdictClasses: Record<string, string> = {
   'Not Recommended': 'bg-red-500/15 text-red-300 border-red-500/25',
@@ -98,6 +237,85 @@ const productJsonLd = {
                 <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">{metric.label}</div>
               </div>
             ))}
+          </div>
+        )}
+
+        {item.slug === 'whoop-5' && whoopLive.available && (
+          <div class="rounded-2xl border border-cyan-500/30 bg-cyan-950/20 p-6 md:p-8 mb-8">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="text-xs font-bold tracking-widest text-cyan-300 uppercase">Live Data</span>
+              <span class="text-xs text-neutral-500">Auto-calculated from my WHOOP JSON at build time</span>
+            </div>
+            <h2 class="text-xl md:text-2xl font-bold mb-2 text-cyan-100">My Last 30 Days of WHOOP Data</h2>
+            {whoopLive.windowEnd && (
+              <p class="text-xs text-neutral-500 mb-6">
+                Window: {whoopLive.windowStart?.slice(0, 10)} → {whoopLive.windowEnd.slice(0, 10)}
+                {' · '}
+                {whoopLive.totalRecords.toLocaleString()} recovery records on file
+                {whoopLive.lastSynced && (
+                  <span> · last WHOOP sync {whoopLive.lastSynced.slice(0, 10)}</span>
+                )}
+              </p>
+            )}
+
+            <div class="grid gap-3 sm:grid-cols-2 md:grid-cols-3 mb-4">
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.recoveryAvg?.toFixed(0)}%</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg Recovery (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.hrvAvg?.toFixed(1)} ms</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg HRV (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.rhrAvg?.toFixed(0)} bpm</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg RHR (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.asleepHoursAvg?.toFixed(1)}h</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg Time Asleep (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.remHoursAvg?.toFixed(1)}h</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg REM (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.deepHoursAvg?.toFixed(1)}h</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg Deep (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.sleepPerfAvg?.toFixed(0)}%</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg Sleep Performance (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">
+                  {whoopLive.strainAvg?.toFixed(1)}
+                  {whoopLive.strainMax !== null && <span class="text-base text-neutral-500"> (peak {whoopLive.strainMax.toFixed(1)})</span>}
+                </div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg Daily Strain (30d)</div>
+              </div>
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-4">
+                <div class="text-2xl font-bold text-cyan-300">{whoopLive.respiratoryAvg?.toFixed(1)}</div>
+                <div class="text-xs text-neutral-500 mt-1 uppercase tracking-wide">Avg Respiratory Rate</div>
+              </div>
+            </div>
+
+            {whoopLive.allTimeRecoveryAvg !== null && whoopLive.allTimeGreenPct !== null && (
+              <div class="rounded-xl border border-cyan-500/20 bg-neutral-900/70 p-5">
+                <h3 class="text-sm font-bold uppercase tracking-wide text-cyan-200 mb-3">All-time Recovery Distribution</h3>
+                <div class="flex flex-wrap gap-3 text-sm">
+                  <span class="text-green-300">● Green: {whoopLive.allTimeGreenPct.toFixed(1)}%</span>
+                  <span class="text-yellow-300">● Yellow: {whoopLive.allTimeYellowPct?.toFixed(1)}%</span>
+                  <span class="text-red-300">● Red: {whoopLive.allTimeRedPct?.toFixed(1)}%</span>
+                  <span class="text-neutral-500">· avg recovery {whoopLive.allTimeRecoveryAvg.toFixed(0)}% across {whoopLive.totalRecords.toLocaleString()} days</span>
+                </div>
+              </div>
+            )}
+
+            <p class="text-xs text-neutral-500 mt-4">
+              These numbers come from my actual WHOOP 5.0 device and are recomputed on every site rebuild.
+              If the values look stale, run <code class="text-neutral-300 bg-neutral-800/60 px-1.5 py-0.5 rounded">npm run build</code> after the WHOOP sync finishes.
+            </p>
           </div>
         )}
 
