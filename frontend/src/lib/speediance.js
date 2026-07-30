@@ -147,6 +147,11 @@ export const fetchTemplateByCode = async ({ session, code }) => {
   return detail;
 };
 
+// The share URL the Speediance app itself hands out for a program code. Opening
+// it on a phone deep-links into the app.
+export const shareLinkForCode = (code) =>
+  `https://web2.speediance.com/redirectApp?code=${encodeURIComponent(code)}&language=en&version=40004`;
+
 export const listUserTemplates = async ({ session }) => {
   const payload = await request(
     session.region,

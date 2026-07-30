@@ -36,7 +36,9 @@ import samWorkouts from "../data/samWorkouts.json";
 import {
   SpeedianceError,
   installTemplate,
+  listUserTemplates,
   login as speedianceLogin,
+  shareLinkForCode,
 } from "../lib/speediance.js";
 
 // The hub backend is optional. With no PUBLIC_WORKOUT_HUB_API_URL set at build
@@ -178,6 +180,54 @@ const buildExportPayload = (workout) => ({
   })),
 });
 
+// Hub records carry no Speediance share code, so a workout served from the
+// backend loses the code that direct install needs. Restore it from the bundled
+// entry of the same name.
+const bundledByName = new Map(
+  defaultTobyWorkouts.map((workout) => [
+    String(workout.name || "").trim().toLowerCase(),
+    workout,
+  ]),
+);
+
+const withProviderCode = (list) =>
+  list.map((workout) => {
+    if (workout.code || workout.provider_template_code) return workout;
+    const match = bundledByName.get(String(workout.name || "").trim().toLowerCase());
+    return match ? { ...workout, code: match.code, link: match.link } : workout;
+  });
+
+// navigator.clipboard only exists in a secure context, and the LAN preview is
+// served over plain http, so fall back to the legacy selection copy.
+const writeToClipboard = async (value) => {
+  try {
+    if (window.isSecureContext && navigator.clipboard) {
+      await navigator.clipboard.writeText(value);
+      return true;
+    }
+  } catch {
+    // Fall through to the textarea path below.
+  }
+  try {
+    const holder = document.createElement("textarea");
+    holder.value = value;
+    holder.setAttribute("readonly", "");
+    holder.style.position = "fixed";
+    holder.style.top = "-1000px";
+    holder.style.opacity = "0";
+    document.body.appendChild(holder);
+    holder.select();
+    holder.setSelectionRange(0, value.length);
+    const copied = document.execCommand("copy");
+    document.body.removeChild(holder);
+    return copied;
+  } catch {
+    return false;
+  }
+};
+
+// `mine` is appended at render time because it only exists once an account is
+// actually connected.
 const tabs = [
   { id: "library", label: "Workout Library", icon: Dumbbell },
   ...(HUB_ONLINE
@@ -238,6 +288,8 @@ export default function SpeedianceWorkoutHub() {
   });
   // The live Speediance session, held in memory + sessionStorage for this tab.
   const [session, setSession] = useState(null);
+  // The connected account's own custom templates, read straight from Speediance.
+  const [myTemplates, setMyTemplates] = useState(null);
 
   const api = async (path, options = {}, useToken = true) => {
     const headers = {
@@ -247,6 +299,16 @@ export default function SpeedianceWorkoutHub() {
     if (useToken && token) headers.Authorization = `Bearer ${token}`;
     const response = await fetch(`${API_BASE}${path}`, { ...options, headers });
     if (!response.ok) {
+      if (response.status === 401 && useToken) {
+        // A hub session that never opened, or has aged out, comes back as a bare
+        // "Authentication required" that reads as a bug to someone who is plainly
+        // signed in. Drop the dead token and say what to do about it.
+        window.sessionStorage.removeItem(SESSION_KEY);
+        setToken("");
+        throw new Error(
+          "Your leaderboard session has expired. Disconnect, then connect again to refresh it.",
+        );
+      }
       const payload = await response.json().catch(() => ({}));
       const detail = Array.isArray(payload.detail)
         ? payload.detail.map((item) => item.msg).join(" ")
@@ -304,7 +366,7 @@ export default function SpeedianceWorkoutHub() {
         if (response.ok) {
           const data = await response.json();
           if (!cancelled && Array.isArray(data) && data.length > 0) {
-            setWorkouts(data);
+            setWorkouts(withProviderCode(data));
             setSelectedId(data[0]?.id || null);
           }
         }
@@ -431,6 +493,14 @@ export default function SpeedianceWorkoutHub() {
       .filter((batch) => batch.workouts.length > 0);
   }, [formattedSamBatches, query]);
 
+  const visibleTabs = useMemo(
+    () =>
+      session
+        ? [...tabs, { id: "mine", label: "My Workouts", icon: UserRoundCheck }]
+        : tabs,
+    [session],
+  );
+
   const allAvailableWorkouts = useMemo(() => {
     const samFlat = formattedSamBatches.flatMap((b) => b.workouts);
     return [...formattedTobyWorkouts, ...samFlat];
@@ -509,6 +579,37 @@ export default function SpeedianceWorkoutHub() {
         password: connectForm.password,
         region: connectForm.region || "Global",
       });
+
+      // The leaderboard is server state, so when a hub backend is present the
+      // same login also opens a hub session. Without one, connect is provider
+      // only and the page stays a catalogue plus direct install.
+      if (HUB_ONLINE) {
+        try {
+          const hub = await api(
+            "/connect",
+            {
+              method: "POST",
+              body: JSON.stringify({
+                email: connectForm.email,
+                password: connectForm.password,
+                region: connectForm.region || "Global",
+                display_name: result.displayName,
+                device_type: 1,
+                unit: 1,
+              }),
+            },
+            false,
+          );
+          window.sessionStorage.setItem(SESSION_KEY, hub.session_token);
+          setToken(hub.session_token);
+        } catch (hubError) {
+          // A provider login that works is still worth keeping.
+          setNotice(
+            `Connected to Speediance, but the hub backend refused the session (${hubError.message}). Leaderboard actions are unavailable.`,
+          );
+        }
+      }
+
       setConnectForm((current) => ({ ...current, password: "" }));
       window.sessionStorage.setItem(PROVIDER_SESSION_KEY, JSON.stringify(result));
       setSession(result);
@@ -516,7 +617,9 @@ export default function SpeedianceWorkoutHub() {
       setNotice(
         `Connected to Speediance as ${result.displayName}. Your password was not stored.`,
       );
-      setActiveTab("library");
+      // Land on the account's own library: it is the one view that only exists
+      // because you connected, so connecting visibly does something.
+      setActiveTab("mine");
     });
   };
 
@@ -532,6 +635,66 @@ export default function SpeedianceWorkoutHub() {
       }
       setNotice("Speediance session cleared from this browser.");
     });
+
+  const copyText = async (value) => {
+    if (!value) return;
+    if (await writeToClipboard(value)) {
+      setCopiedCode(value);
+      setTimeout(() => setCopiedCode(""), 2000);
+      return;
+    }
+    setError(
+      "This browser blocked the clipboard. Select the text below and copy it manually.",
+    );
+  };
+
+  // Reading your own library needs nothing but the provider session, so this
+  // works on the static build exactly as it does against the hub backend.
+  const loadMyTemplates = () =>
+    run("my-templates", async () => {
+      const templates = await listUserTemplates({ session });
+      setMyTemplates(templates);
+      if (templates.length === 0) {
+        setNotice("Speediance returned no custom workouts for this account.");
+      }
+    });
+
+  useEffect(() => {
+    if (!session) {
+      setMyTemplates(null);
+      return;
+    }
+    if (myTemplates === null && activeTab === "mine") loadMyTemplates();
+  }, [session, activeTab, myTemplates]);
+
+  // Joining a leaderboard shares the program if nobody has yet, and otherwise
+  // attaches to the existing entry matched on name and exercises.
+  const addToLeaderboard = (workoutId) => {
+    if (!HUB_ONLINE) {
+      setNotice("Leaderboards need the hub backend, which is not running.");
+      return;
+    }
+    if (!token) {
+      setActiveTab("account");
+      setNotice("Connect your Speediance account to join a leaderboard.");
+      return;
+    }
+    run(`leaderboard-${workoutId}`, async () => {
+      const workout = allAvailableWorkouts.find((item) => item.id === workoutId);
+      if (!workout) throw new Error("That workout is no longer in the catalogue.");
+      const result = await api("/workouts/claim", {
+        method: "POST",
+        body: JSON.stringify(buildExportPayload(workout)),
+      });
+      setNotice(
+        result.matched_existing
+          ? `Joined the existing leaderboard for "${workout.name}" — another member had already shared it.`
+          : `"${workout.name}" is now shared and has its own leaderboard.`,
+      );
+      setSelectedId(result.id || workoutId);
+      setActiveTab("leaderboard");
+    });
+  };
 
   const install = (workoutId) => {
     if (!CONNECT_ENABLED) {
@@ -664,7 +827,7 @@ export default function SpeedianceWorkoutHub() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex gap-1 overflow-x-auto rounded-lg border border-white/[0.08] bg-white/[0.02] p-1">
-            {tabs.map(({ id, label, icon: Icon }) => (
+            {visibleTabs.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
                 type="button"
@@ -683,9 +846,10 @@ export default function SpeedianceWorkoutHub() {
                   <span className="h-2 w-2 rounded-full bg-emerald-400" />
                   {me.display_name} connected
                 </span>
-                {/* Syncing completions writes to the shared hub, so it needs the
-                    backend even though connect itself does not. */}
-                {HUB_ONLINE && (
+                {/* Syncing completions writes to the shared hub, so it needs a hub
+                    session — not just the provider login that connect always does.
+                    Without one the button could only ever return a 401. */}
+                {HUB_ONLINE && token && (
                   <button
                     type="button"
                     onClick={sync}
@@ -870,17 +1034,14 @@ export default function SpeedianceWorkoutHub() {
               busy={busy}
               connected={Boolean(me)}
               copiedCode={copiedCode}
-              onCopyCode={(code) => {
-                navigator.clipboard.writeText(code);
-                setCopiedCode(code);
-                setTimeout(() => setCopiedCode(""), 2000);
-              }}
+              onCopyCode={copyText}
               onInstall={install}
               onExport={exportJson}
               onLeaderboard={(id) => {
                 setSelectedId(id);
                 setActiveTab("leaderboard");
               }}
+              onAddToLeaderboard={addToLeaderboard}
             />
           </div>
         )}
@@ -1065,6 +1226,117 @@ export default function SpeedianceWorkoutHub() {
                 />
               )}
             </div>
+          </section>
+        )}
+
+        {activeTab === "mine" && (
+          <section className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-6 sm:p-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+              <div className="min-w-0">
+                <p className="text-xs font-medium uppercase tracking-[0.14em] text-orange-400">
+                  Your Speediance account
+                </p>
+                <h2 className="mt-2 text-3xl font-medium tracking-tight">
+                  My custom workouts
+                </h2>
+                <p className="mt-3 max-w-2xl leading-7 text-neutral-400">
+                  Read live from your Speediance library. Every custom workout
+                  carries a share code — copy its link to send the program to
+                  anyone, and it opens straight in their app.
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={loadMyTemplates}
+                disabled={Boolean(busy)}
+                className="inline-flex shrink-0 items-center gap-2 rounded-md border border-white/[0.09] bg-white/[0.03] px-3.5 py-2.5 text-xs font-semibold text-neutral-200 hover:bg-white/[0.07] disabled:opacity-50 transition"
+              >
+                <RefreshCw
+                  size={14}
+                  className={busy === "my-templates" ? "animate-spin" : ""}
+                />
+                Refresh
+              </button>
+            </div>
+
+            {busy === "my-templates" && myTemplates === null ? (
+              <Loading label="Reading your Speediance library" />
+            ) : myTemplates && myTemplates.length > 0 ? (
+              <div className="mt-7 space-y-3">
+                {myTemplates.map((template) => {
+                  const code = template.code || "";
+                  const link = code ? shareLinkForCode(code) : "";
+                  return (
+                    <div
+                      key={template.id}
+                      className="rounded-xl border border-white/[0.07] bg-black/20 p-4 sm:p-5"
+                    >
+                      <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="min-w-0">
+                          <p className="font-medium text-white">{template.name}</p>
+                          <p className="mt-1 text-xs text-neutral-500">
+                            {(template.actionLibraryList || []).length || "—"} exercises
+                            {code ? "" : " · not shared yet"}
+                          </p>
+                        </div>
+                        {code && (
+                          <div className="flex flex-wrap items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => copyText(code)}
+                              className="inline-flex items-center gap-2 rounded-md border border-white/[0.09] bg-white/[0.03] px-3 py-2 text-xs font-semibold text-neutral-200 hover:bg-white/[0.07] transition"
+                              title="Copy the bare program code to paste into the Speediance app"
+                            >
+                              {copiedCode === code ? (
+                                <Check size={14} className="text-green-400" />
+                              ) : (
+                                <Copy size={14} />
+                              )}
+                              Copy code
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => copyText(link)}
+                              className="inline-flex items-center gap-2 rounded-md bg-orange-600 px-3 py-2 text-xs font-semibold text-white hover:bg-orange-500 transition"
+                              title="Copy shareable link"
+                            >
+                              {copiedCode === link ? (
+                                <Check size={14} />
+                              ) : (
+                                <ArrowUpFromLine size={14} />
+                              )}
+                              Copy share link
+                            </button>
+                            <a
+                              href={link}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="inline-flex items-center gap-2 rounded-md border border-white/[0.09] bg-white/[0.03] px-3 py-2 text-xs font-semibold text-neutral-200 hover:bg-white/[0.07] transition"
+                            >
+                              <ExternalLink size={14} />
+                              Open
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                      {code && (
+                        <p className="mt-3 break-all font-mono text-[11px] text-neutral-500">
+                          {link}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div className="mt-7">
+                <Empty
+                  icon={Dumbbell}
+                  title="No custom workouts found"
+                  body="This Speediance account has no custom templates, or they are stored under a different device type."
+                />
+              </div>
+            )}
           </section>
         )}
 
@@ -1297,6 +1569,7 @@ function WorkoutDetail({
   onInstall,
   onExport,
   onLeaderboard,
+  onAddToLeaderboard,
 }) {
   if (!workout)
     return (
@@ -1378,6 +1651,13 @@ function WorkoutDetail({
               type="button"
               onClick={() => onInstall(workout.id)}
               disabled={Boolean(busy) || !canInstall}
+              title={
+                canInstall
+                  ? "Copy this program into your Speediance library"
+                  : hasStructure
+                    ? "This entry has no Speediance share code, so it cannot be installed"
+                    : "This program is no longer shared on Speediance"
+              }
               className="inline-flex items-center gap-2 rounded-md bg-orange-600 px-3.5 py-2.5 text-xs font-semibold text-white hover:bg-orange-500 disabled:opacity-50 transition"
             >
               {busy === `install-${workout.id}` ? (
@@ -1434,14 +1714,30 @@ function WorkoutDetail({
                 Workout structure
               </h3>
               {HUB_ONLINE && (
-                <button
-                  type="button"
-                  onClick={() => onLeaderboard(workout.id)}
-                  className="inline-flex items-center gap-1.5 text-sm font-medium text-orange-300 hover:text-orange-200"
-                >
-                  <Users size={15} />
-                  View leaderboard
-                </button>
+                <div className="flex flex-wrap items-center gap-4">
+                  <button
+                    type="button"
+                    onClick={() => onAddToLeaderboard(workout.id)}
+                    disabled={Boolean(busy)}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-orange-300 hover:text-orange-200 disabled:opacity-50"
+                    title="Share this workout if nobody has yet, then join its leaderboard"
+                  >
+                    {busy === `leaderboard-${workout.id}` ? (
+                      <LoaderCircle size={15} className="animate-spin" />
+                    ) : (
+                      <Medal size={15} />
+                    )}
+                    Add to leaderboard
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => onLeaderboard(workout.id)}
+                    className="inline-flex items-center gap-1.5 text-sm font-medium text-orange-300 hover:text-orange-200"
+                  >
+                    <Users size={15} />
+                    View leaderboard
+                  </button>
+                </div>
               )}
             </div>
             <div className="space-y-2">

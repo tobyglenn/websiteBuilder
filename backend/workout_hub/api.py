@@ -272,6 +272,15 @@ def create_app(service: WorkoutHubService, allowed_origins: list[str]) -> FastAP
         except Exception as exc:
             raise translate_error(exc) from exc
 
+    @app.post("/api/workout-hub/workouts/claim", status_code=status.HTTP_201_CREATED)
+    def claim_workout(payload: WorkoutPayload, user: dict = Depends(current_user)):
+        try:
+            return service.claim_or_publish_workout(
+                user["id"], payload.model_dump(exclude_none=True)
+            )
+        except Exception as exc:
+            raise translate_error(exc) from exc
+
     @app.post("/api/workout-hub/workouts/{workout_id}/install", status_code=status.HTTP_201_CREATED)
     def install_workout(workout_id: str, user: dict = Depends(current_user)):
         try:

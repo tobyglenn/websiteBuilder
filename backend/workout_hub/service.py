@@ -372,6 +372,69 @@ class WorkoutHubService:
                         f"Exercise {position}, set {set_position} has an invalid preset counter"
                     )
 
+    @staticmethod
+    def _workout_fingerprint(name: str, exercises: list[dict]) -> str:
+        """Identify a program by its name and exercise make-up, ignoring loads.
+
+        Two people running the same routine at different weights belong on the
+        same leaderboard, so set weights are deliberately left out of the key.
+        Exercise order is ignored too; only which exercises appear, and how many
+        sets each carries, decide identity.
+        """
+        key = " ".join(str(name or "").split()).lower()
+        shape = sorted(
+            (int(exercise["id"]), len(exercise["sets"])) for exercise in exercises
+        )
+        return sha256_text(json.dumps([key, shape], separators=(",", ":")))
+
+    def claim_or_publish_workout(self, user_id: str, payload: dict) -> dict:
+        """Put the caller on a workout's leaderboard, publishing it if needed.
+
+        When another member has already shared the same program the caller joins
+        that entry rather than creating a near-duplicate. Matching is on name and
+        exercises, not on the Speediance share code, because each account gets a
+        different code for the same routine.
+        """
+        workout = self._normalize_workout(payload)
+        fingerprint = self._workout_fingerprint(workout["name"], workout["exercises"])
+
+        with self._connect() as connection:
+            rows = connection.execute(
+                "SELECT id, name, exercises_json FROM workouts WHERE visibility = 'public'"
+            ).fetchall()
+
+        matched_id = None
+        for row in rows:
+            try:
+                existing = json.loads(row["exercises_json"])
+            except (TypeError, ValueError):
+                continue
+            if self._workout_fingerprint(row["name"], existing) == fingerprint:
+                matched_id = row["id"]
+                break
+
+        if matched_id is None:
+            published = self.publish_workout(user_id, payload)
+            return {**published, "matched_existing": False}
+
+        with self._connect() as connection:
+            already = connection.execute(
+                "SELECT id FROM workout_installs WHERE user_id = ? AND workout_id = ?",
+                (user_id, matched_id),
+            ).fetchone()
+            if already is None:
+                # No provider template id: the caller already owns this routine on
+                # their own account, so sync falls back to matching by name.
+                connection.execute(
+                    """INSERT INTO workout_installs(
+                           id, user_id, workout_id, provider_template_id,
+                           provider_template_code, status, installed_at
+                       ) VALUES (?, ?, ?, NULL, NULL, 'installed', ?)""",
+                    (str(uuid.uuid4()), user_id, matched_id, iso_now()),
+                )
+
+        return {**self.get_workout(matched_id), "matched_existing": True}
+
     def publish_workout(self, user_id: str, payload: dict) -> dict:
         workout = self._normalize_workout(payload)
         workout_id = str(uuid.uuid4())
