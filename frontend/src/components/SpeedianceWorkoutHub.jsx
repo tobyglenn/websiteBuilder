@@ -227,17 +227,7 @@ const writeToClipboard = async (value) => {
 };
 
 // `mine` is appended at render time because it only exists once an account is
-// actually connected.
-const tabs = [
-  { id: "library", label: "Workout Library", icon: Dumbbell },
-  ...(HUB_ONLINE
-    ? [
-        { id: "leaderboard", label: "Leaderboard", icon: Trophy },
-        { id: "share", label: "Share Workout", icon: ArrowUpFromLine },
-      ]
-    : []),
-  ...(CONNECT_ENABLED ? [{ id: "account", label: "Connect", icon: Link2 }] : []),
-];
+
 
 // Sam's programs are resolved from Speediance at build time by
 // backend/scripts/fetch_sam_workouts.py, so weights, sets and volumes are the
@@ -462,12 +452,34 @@ export default function SpeedianceWorkoutHub() {
       .filter((batch) => batch.workouts.length > 0);
   }, [formattedSamBatches, query]);
 
+  const tabs = useMemo(
+    () => [
+      { id: "library", label: "Workout Library", icon: Dumbbell },
+      ...(HUB_ONLINE
+        ? [
+            { id: "leaderboard", label: "Leaderboard", icon: Trophy },
+            { id: "share", label: "Share Workout", icon: ArrowUpFromLine },
+          ]
+        : []),
+      ...(CONNECT_ENABLED
+        ? [
+            {
+              id: me ? "__disconnect" : "account",
+              label: me ? "Disconnect" : "Connect",
+              icon: me ? Unplug : Link2,
+            },
+          ]
+        : []),
+    ],
+    [me],
+  );
+
   const visibleTabs = useMemo(
     () =>
       session
         ? [...tabs, { id: "mine", label: "My Workouts", icon: UserRoundCheck }]
         : tabs,
-    [session],
+    [session, tabs],
   );
 
   const allAvailableWorkouts = useMemo(() => {
@@ -788,7 +800,7 @@ export default function SpeedianceWorkoutHub() {
               <button
                 key={id}
                 type="button"
-                onClick={() => setActiveTab(id)}
+                onClick={() => (id === "__disconnect" ? disconnect() : setActiveTab(id))}
                 className={`inline-flex min-h-10 shrink-0 items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition ${activeTab === id ? "bg-white/[0.09] text-white" : "text-neutral-400 hover:bg-white/[0.04] hover:text-white"}`}
               >
                 <Icon size={16} />
@@ -1250,20 +1262,7 @@ export default function SpeedianceWorkoutHub() {
                         </div>
                         {code && (
                           <div className="flex flex-wrap items-center gap-2">
-                            <button
-                              type="button"
-                              onClick={() => copyText(code)}
-                              className="inline-flex items-center gap-2 rounded-md border border-white/[0.09] bg-white/[0.03] px-3 py-2 text-xs font-semibold text-neutral-200 hover:bg-white/[0.07] transition"
-                              title="Copy the bare program code to paste into the Speediance app"
-                            >
-                              {copiedCode === code ? (
-                                <Check size={14} className="text-green-400" />
-                              ) : (
-                                <Copy size={14} />
-                              )}
-                              Copy code
-                            </button>
-                            <button
+<button
                               type="button"
                               onClick={() => copyText(link)}
                               className="inline-flex items-center gap-2 rounded-md bg-orange-600 px-3 py-2 text-xs font-semibold text-white hover:bg-orange-500 transition"
