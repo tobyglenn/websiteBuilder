@@ -17,6 +17,7 @@ import {
   LoaderCircle,
   LockKeyhole,
   Medal,
+  Play,
   RefreshCw,
   Search,
   ShieldCheck,
@@ -40,18 +41,17 @@ import {
   login as speedianceLogin,
   shareLinkForCode,
 } from "../lib/speediance.js";
+import * as hub from "../lib/hubClient.js";
 
-// The hub backend is optional. With no PUBLIC_WORKOUT_HUB_API_URL set at build
-// time the page runs as a static catalogue: it makes no network calls at all,
-// so a public build never reports a failed connection to a backend that is not
+// The hub backend is optional. With no PUBLIC_SUPABASE_URL set at build time
+// the page runs as a static catalogue: it makes no network calls at all, so a
+// public build never reports a failed connection to a backend that is not
 // deployed. The leaderboard and workout sharing need that backend.
-const API_BASE = import.meta.env.PUBLIC_WORKOUT_HUB_API_URL || "";
-const HUB_ONLINE = API_BASE !== "";
+const HUB_ONLINE = hub.HUB_ONLINE;
 // Account connect deliberately does *not* depend on the backend: the browser
 // talks to Speediance directly (see lib/speediance.js), so direct install works
 // on the plain static build.
 const CONNECT_ENABLED = import.meta.env.PUBLIC_WORKOUT_HUB_CONNECT === "true";
-const SESSION_KEY = "speediance-workout-hub-session";
 // The provider session lives in sessionStorage only: it is gone when the tab
 // closes, and it is never sent anywhere except Speediance.
 const PROVIDER_SESSION_KEY = "speediance-provider-session";
@@ -291,39 +291,11 @@ export default function SpeedianceWorkoutHub() {
   // The connected account's own custom templates, read straight from Speediance.
   const [myTemplates, setMyTemplates] = useState(null);
 
-  const api = async (path, options = {}, useToken = true) => {
-    const headers = {
-      ...(options.body ? { "Content-Type": "application/json" } : {}),
-      ...(options.headers || {}),
-    };
-    if (useToken && token) headers.Authorization = `Bearer ${token}`;
-    const response = await fetch(`${API_BASE}${path}`, { ...options, headers });
-    if (!response.ok) {
-      if (response.status === 401 && useToken) {
-        // A hub session that never opened, or has aged out, comes back as a bare
-        // "Authentication required" that reads as a bug to someone who is plainly
-        // signed in. Drop the dead token and say what to do about it.
-        window.sessionStorage.removeItem(SESSION_KEY);
-        setToken("");
-        throw new Error(
-          "Your leaderboard session has expired. Disconnect, then connect again to refresh it.",
-        );
-      }
-      const payload = await response.json().catch(() => ({}));
-      const detail = Array.isArray(payload.detail)
-        ? payload.detail.map((item) => item.msg).join(" ")
-        : payload.detail;
-      throw new Error(detail || `Request failed (${response.status})`);
-    }
-    if (response.status === 204) return null;
-    return response.json();
-  };
-
   const loadWorkouts = async () => {
     try {
-      const data = await api("/workouts", {}, false);
+      const data = await hub.listWorkouts();
       if (Array.isArray(data) && data.length > 0) {
-        setWorkouts(data);
+        setWorkouts(withProviderCode(data));
         setSelectedId((current) => current || data[0]?.id || null);
       }
     } catch {
@@ -334,7 +306,9 @@ export default function SpeedianceWorkoutHub() {
   useEffect(() => {
     if (!CONNECT_ENABLED) return;
     if (HUB_ONLINE) {
-      setToken(window.sessionStorage.getItem(SESSION_KEY) || "");
+      // A hub session outlives a reload within the same tab, so pick it back up
+      // rather than making a connected visitor sign in again.
+      hub.isSignedIn().then((signedIn) => setToken(signedIn ? "hub" : ""));
     }
     // Restore the provider session so a reload inside the same tab keeps the
     // account connected without asking for the password again.
@@ -359,16 +333,10 @@ export default function SpeedianceWorkoutHub() {
     const boot = async () => {
       setLoading(true);
       try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2500);
-        const response = await fetch(`${API_BASE}/workouts`, { signal: controller.signal });
-        clearTimeout(timeoutId);
-        if (response.ok) {
-          const data = await response.json();
-          if (!cancelled && Array.isArray(data) && data.length > 0) {
-            setWorkouts(withProviderCode(data));
-            setSelectedId(data[0]?.id || null);
-          }
+        const data = await hub.listWorkouts();
+        if (!cancelled && Array.isArray(data) && data.length > 0) {
+          setWorkouts(withProviderCode(data));
+          setSelectedId(data[0]?.id || null);
         }
       } catch {
         // Quiet fallback to embedded pre-loaded static workouts
@@ -395,13 +363,13 @@ export default function SpeedianceWorkoutHub() {
       return undefined;
     }
     let cancelled = false;
-    api("/me")
+    hub
+      .getMe()
       .then((data) => {
-        if (!cancelled) setMe(data);
+        if (!cancelled && data) setMe(data);
       })
       .catch(() => {
         if (!cancelled) {
-          window.sessionStorage.removeItem(SESSION_KEY);
           setToken("");
           if (!session) setMe(null);
         }
@@ -417,7 +385,8 @@ export default function SpeedianceWorkoutHub() {
       return undefined;
     }
     let cancelled = false;
-    api(`/workouts/${selectedId}/leaderboard`, {}, false)
+    hub
+      .getLeaderboard(selectedId)
       .then((data) => {
         if (!cancelled) setLeaderboard(sortLeaderboard(data));
       })
@@ -585,23 +554,15 @@ export default function SpeedianceWorkoutHub() {
       // only and the page stays a catalogue plus direct install.
       if (HUB_ONLINE) {
         try {
-          const hub = await api(
-            "/connect",
-            {
-              method: "POST",
-              body: JSON.stringify({
-                email: connectForm.email,
-                password: connectForm.password,
-                region: connectForm.region || "Global",
-                display_name: result.displayName,
-                device_type: 1,
-                unit: 1,
-              }),
-            },
-            false,
-          );
-          window.sessionStorage.setItem(SESSION_KEY, hub.session_token);
-          setToken(hub.session_token);
+          // Only the provider token crosses to the hub. The password stays in
+          // this function's scope and is cleared as soon as login succeeds.
+          await hub.connect({
+            providerSession: result,
+            region: connectForm.region || "Global",
+            unit: 1,
+            deviceType: 1,
+          });
+          setToken("hub");
         } catch (hubError) {
           // A provider login that works is still worth keeping.
           setNotice(
@@ -629,8 +590,7 @@ export default function SpeedianceWorkoutHub() {
       setSession(null);
       setMe(null);
       if (HUB_ONLINE && token) {
-        await api("/connection", { method: "DELETE" }).catch(() => {});
-        window.sessionStorage.removeItem(SESSION_KEY);
+        await hub.disconnect().catch(() => {});
         setToken("");
       }
       setNotice("Speediance session cleared from this browser.");
@@ -682,10 +642,7 @@ export default function SpeedianceWorkoutHub() {
     run(`leaderboard-${workoutId}`, async () => {
       const workout = allAvailableWorkouts.find((item) => item.id === workoutId);
       if (!workout) throw new Error("That workout is no longer in the catalogue.");
-      const result = await api("/workouts/claim", {
-        method: "POST",
-        body: JSON.stringify(buildExportPayload(workout)),
-      });
+      const result = await hub.claimWorkout(buildExportPayload(workout));
       setNotice(
         result.matched_existing
           ? `Joined the existing leaderboard for "${workout.name}" — another member had already shared it.`
@@ -733,29 +690,32 @@ export default function SpeedianceWorkoutHub() {
       if (!HUB_ONLINE) {
         throw new Error("This workout has no structure available to export.");
       }
-      const payload = await api(`/workouts/${workoutId}/export`, {}, false);
+      const payload = await hub.exportWorkout(workoutId);
       downloadWorkout(payload);
     });
 
   const sync = () =>
     run("sync", async () => {
-      const result = await api("/sync", {
-        method: "POST",
-        body: JSON.stringify({
-          start_date: daysAgoIso(90),
-          end_date: todayIso(),
-        }),
+      // Sync reads the provider's own record of what was finished, so it needs
+      // the Speediance session as well as the hub one.
+      if (!session) {
+        throw new Error(
+          "Connect your Speediance account before syncing completions.",
+        );
+      }
+      const result = await hub.syncCompletions({
+        providerSession: session,
+        region: connectForm.region || "Global",
+        unit: 1,
+        startDate: daysAgoIso(90),
+        endDate: todayIso(),
       });
       setNotice(
         `Synced ${result.imported} verified completions from your Speediance history.`,
       );
       await loadWorkouts();
       if (selectedId) {
-        const updatedLeaderboard = await api(
-          `/workouts/${selectedId}/leaderboard`,
-          {},
-          false,
-        );
+        const updatedLeaderboard = await hub.getLeaderboard(selectedId);
         setLeaderboard(sortLeaderboard(updatedLeaderboard));
       }
     });
@@ -779,10 +739,7 @@ export default function SpeedianceWorkoutHub() {
   const publishImport = () => {
     if (!imported) return;
     run("publish", async () => {
-      const created = await api("/workouts", {
-        method: "POST",
-        body: JSON.stringify(imported.payload),
-      });
+      const created = await hub.publishWorkout(imported.payload);
       setNotice(`Workout "${created.name}" published to the shared hub.`);
       setImported(null);
       await loadWorkouts();
@@ -965,7 +922,19 @@ export default function SpeedianceWorkoutHub() {
                   >
                     <span className="flex items-center gap-2 text-sm font-semibold tracking-wide">
                       <Users size={16} className="text-orange-400" />
-                      Sam ({samWorkoutCount})
+                      <span>Sam ({samWorkoutCount})</span>
+                      <a
+                        href="https://www.youtube.com/@SpeedyHomeGains"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        title="Sam on YouTube — @SpeedyHomeGains"
+                        aria-label="Sam on YouTube — @SpeedyHomeGains"
+                        className="ml-1 inline-flex items-center gap-1 rounded-full border border-red-500/30 bg-red-500/10 px-2 py-0.5 text-[11px] font-medium text-red-300 transition hover:bg-red-500/20 hover:text-red-200 hover:border-red-500/50"
+                      >
+                        <Play size={12} className="fill-current" />
+                        <span>Speedy Home Gains</span>
+                      </a>
                     </span>
                     {accordionOpen.sam ? <ChevronDown size={16} className="text-neutral-400" /> : <ChevronRight size={16} className="text-neutral-400" />}
                   </button>
