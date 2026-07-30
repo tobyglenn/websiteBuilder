@@ -292,6 +292,19 @@ grant select, insert, delete on public.workout_installs to authenticated;
 -- so even a policy mistake cannot let a browser state its own numbers.
 revoke insert, update, delete on public.completions from anon, authenticated;
 
+-- The Edge Functions connect as service_role. It bypasses RLS but not grants,
+-- so its verbs are spelled out too. This is what makes the revoke above a
+-- boundary rather than a wall: writing completions is not forbidden outright,
+-- it is reserved for the one role that only ever runs server-side.
+grant usage on schema public to service_role;
+grant select, insert, update, delete on
+  public.profiles,
+  public.workouts,
+  public.workout_installs,
+  public.speediance_links,
+  public.completions
+  to service_role;
+
 -- ---------------------------------------------------------------------------
 -- Claiming a leaderboard
 --
@@ -409,4 +422,4 @@ where best.effort_rank = 1;
 -- Read the view as the caller, so the policies above still apply through it.
 alter view public.workout_leaderboard set (security_invoker = on);
 
-grant select on public.workout_leaderboard to anon, authenticated;
+grant select on public.workout_leaderboard to anon, authenticated, service_role;
