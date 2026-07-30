@@ -35,7 +35,11 @@ const MOBILE_DEVICES = JSON.stringify({
 });
 
 const KG_TO_LB = 2.2046226218;
-const MAX_RANGE_DAYS = 90;
+// Wide enough for a first sync to reach the whole provider history, which is
+// what seeds a newly claimed workout with a real best effort. Still a bound:
+// the provider returns two years in one call (a few hundred records), and the
+// import is an upsert, so a long range costs a scan rather than rows.
+const MAX_RANGE_DAYS = 800;
 
 const CORS = {
   "Access-Control-Allow-Origin": Deno.env.get("HUB_ALLOWED_ORIGIN") ?? "*",

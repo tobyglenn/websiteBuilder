@@ -29,11 +29,21 @@ const MOBILE_DEVICES = JSON.stringify({
 const hostFor = (region) => HOSTS[region] || HOSTS.Global;
 
 export class SpeedianceError extends Error {
-  constructor(message) {
+  constructor(message, { expired = false } = {}) {
     super(message);
     this.name = "SpeedianceError";
+    // Set when the provider token is no longer usable. Callers key off this to
+    // drop the connection rather than matching on wording the provider owns.
+    this.expired = expired;
   }
 }
+
+// Speediance reports an expired token as HTTP 200 with this business code and
+// its own copy ("Login expired. Please re-login."), so the code is the reliable
+// signal; the wording is only a fallback for codes we have not seen yet.
+const EXPIRED_CODE = 91;
+const EXPIRED_MESSAGE = /login expired|re-?login|not logged in|session (?:expired|invalid)|invalid token|token (?:expired|invalid)/i;
+const SESSION_EXPIRED = "Your Speediance session expired. Connect your account again.";
 
 // Host and User-Agent are forbidden header names in a browser and get dropped.
 // The provider ignores the User-Agent, so only the app headers below matter.
@@ -67,9 +77,7 @@ const request = async (region, method, path, { session, body } = {}) => {
     );
   }
   if (response.status === 401 || response.status === 403) {
-    throw new SpeedianceError(
-      "Your Speediance session expired. Connect your account again.",
-    );
+    throw new SpeedianceError(SESSION_EXPIRED, { expired: true });
   }
   if (!response.ok) {
     throw new SpeedianceError(`Speediance rejected the request (${response.status}).`);
@@ -82,6 +90,11 @@ const request = async (region, method, path, { session, body } = {}) => {
   }
   // The provider returns HTTP 200 with a non-zero `code` for business errors.
   if (payload && payload.code !== 0 && payload.code != null) {
+    const expired =
+      Number(payload.code) === EXPIRED_CODE || EXPIRED_MESSAGE.test(payload.message || "");
+    if (expired) {
+      throw new SpeedianceError(SESSION_EXPIRED, { expired: true });
+    }
     throw new SpeedianceError(payload.message || "Speediance rejected the request.");
   }
   return payload || {};

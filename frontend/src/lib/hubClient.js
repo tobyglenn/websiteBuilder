@@ -204,6 +204,16 @@ export const connect = async ({ providerSession, region, unit = 1, deviceType = 
   return { id: data.user_id, display_name: data.display_name };
 };
 
+/**
+ * End the hub session but keep the link row. Used when the provider token
+ * expires: the account is still linked, only the browser's copy went stale.
+ */
+export const signOut = async () => {
+  const supabase = db();
+  if (!supabase) return;
+  await supabase.auth.signOut();
+};
+
 /** Drop the link row as well as the session, so the account is fully released. */
 export const disconnect = async () => {
   const supabase = db();

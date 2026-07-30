@@ -399,6 +399,11 @@ const formatDate = (value) =>
     : "—";
 
 const todayIso = () => new Date().toISOString().slice(0, 10);
+
+// Far enough back to cover the athlete's whole Speediance history, so claiming a
+// workout seeds its board with their real best effort rather than the last
+// quarter's. The import is an upsert, so a wide window costs a scan, not rows.
+const SYNC_LOOKBACK_DAYS = 730;
 const daysAgoIso = (days) => {
   const date = new Date();
   date.setDate(date.getDate() - days);
@@ -463,6 +468,15 @@ export default function SpeedianceWorkoutHub() {
         if (saved && saved.token && saved.appUserId) {
           setSession(saved);
           setMe({ display_name: saved.displayName });
+          // A stored token can age out while the tab sits idle, so ask the
+          // provider once instead of waiting for the visitor's next click to
+          // discover that the header is claiming a connection that is gone.
+          listUserTemplates({ session: saved }).catch((err) => {
+            if (err instanceof SpeedianceError && err.expired) {
+              setError(err.message);
+              dropExpiredSession();
+            }
+          });
         }
       }
     } catch {
@@ -684,6 +698,19 @@ export default function SpeedianceWorkoutHub() {
     window.history.replaceState(null, "", `#${selectedId}`);
   }, [selectedId]);
 
+  const dropExpiredSession = async () => {
+    window.sessionStorage.removeItem(PROVIDER_SESSION_KEY);
+    setSession(null);
+    setMe(null);
+    setNotice("");
+    if (HUB_ONLINE) {
+      // signOut, not disconnect: the link row stays so reconnecting is one login.
+      await hub.signOut().catch(() => {});
+    }
+    setToken("");
+    setActiveTab("account");
+  };
+
   const run = async (label, action) => {
     setBusy(label);
     setError("");
@@ -691,12 +718,12 @@ export default function SpeedianceWorkoutHub() {
       await action();
     } catch (err) {
       setError(err.message);
-      // A rejected provider token is unusable, so drop it rather than leaving
-      // the page looking connected.
-      if (err instanceof SpeedianceError && /session expired/i.test(err.message)) {
-        window.sessionStorage.removeItem(PROVIDER_SESSION_KEY);
-        setSession(null);
-        setMe(null);
+      // An expired provider token cannot be renewed without the password, and
+      // this page deliberately never keeps one. So drop every trace of the
+      // connection at once instead of leaving the header claiming you are
+      // connected while every action fails.
+      if (err instanceof SpeedianceError && err.expired) {
+        await dropExpiredSession();
       }
     } finally {
       setBusy("");
@@ -828,6 +855,28 @@ export default function SpeedianceWorkoutHub() {
     return true;
   };
 
+  // Claiming only publishes the routine. Until the athlete's own finished
+  // sessions are imported the board has nothing to rank, which reads as though
+  // the button did nothing -- so seeding is part of joining, not a separate
+  // step the athlete has to know to press.
+  const seedLeaderboard = async (workoutId) => {
+    const result = await hub.syncCompletions({
+      providerSession: session,
+      region: connectForm.region || session.region || "Global",
+      unit: 1,
+      startDate: daysAgoIso(SYNC_LOOKBACK_DAYS),
+      endDate: todayIso(),
+    });
+    const entries = await hub.getLeaderboard(workoutId);
+    setLeaderboard(sortLeaderboard(entries));
+    return result.imported;
+  };
+
+  const seedNotice = (headline, imported) =>
+    imported > 0
+      ? `${headline} Imported ${imported} verified completion${imported === 1 ? "" : "s"} from your Speediance history.`
+      : `${headline} No finished sessions matched it in your Speediance history, so its board is empty for now.`;
+
   const addToLeaderboard = (workoutId) => {
     if (!requireConnected("Connect your Speediance account to join a leaderboard.")) return;
     run(`leaderboard-${workoutId}`, async () => {
@@ -835,12 +884,17 @@ export default function SpeedianceWorkoutHub() {
       if (!workout) throw new Error("That workout is no longer in the catalogue.");
       await ensureHubSession();
       const result = await hub.claimWorkout(buildExportPayload(workout));
+      const boardId = result.id || workoutId;
+      const imported = await seedLeaderboard(boardId);
       setNotice(
-        result.matched_existing
-          ? `Joined the existing leaderboard for "${workout.name}" — another member had already shared it.`
-          : `"${workout.name}" is now shared and has its own leaderboard.`,
+        seedNotice(
+          result.matched_existing
+            ? `Joined the existing leaderboard for "${workout.name}" — another member had already shared it.`
+            : `"${workout.name}" is now shared and has its own leaderboard.`,
+          imported,
+        ),
       );
-      setSelectedId(result.id || workoutId);
+      setSelectedId(boardId);
       setActiveTab("leaderboard");
     });
   };
@@ -867,10 +921,14 @@ export default function SpeedianceWorkoutHub() {
         throw new Error(`"${template.name}" has no readable exercises to publish.`);
       }
       const result = await hub.claimWorkout(payload);
+      const imported = await seedLeaderboard(result.id);
       setNotice(
-        result.matched_existing
-          ? `Joined the existing leaderboard for "${payload.name}" — another member had already shared it.`
-          : `"${payload.name}" is now shared and has its own leaderboard.`,
+        seedNotice(
+          result.matched_existing
+            ? `Joined the existing leaderboard for "${payload.name}" — another member had already shared it.`
+            : `"${payload.name}" is now shared and has its own leaderboard.`,
+          imported,
+        ),
       );
       await loadWorkouts();
       setSelectedId(result.id);
@@ -933,7 +991,7 @@ export default function SpeedianceWorkoutHub() {
         providerSession: session,
         region: connectForm.region || "Global",
         unit: 1,
-        startDate: daysAgoIso(90),
+        startDate: daysAgoIso(SYNC_LOOKBACK_DAYS),
         endDate: todayIso(),
       });
       setNotice(
