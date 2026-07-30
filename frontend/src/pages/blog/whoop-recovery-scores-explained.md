@@ -1,5 +1,6 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
+image: /images/blog/whoop-recovery-scores-explained.jpg
 title: "WHOOP Recovery Scores Explained: Complete Guide to HRV-Based Readiness"
 date: 2026-03-01
 description: "A deep dive into WHOOP recovery scores, HRV, what green, yellow, and red days actually mean, and how to optimize your readiness."

@@ -165,7 +165,7 @@ const donutJSON = JSON.stringify(donutData);
           </h1>
           <p class="text-xl text-neutral-400 leading-relaxed max-w-2xl mb-8">
             Model comparisons, software and safety notes, and the training record behind the opinions:
-            {stats.totalWorkouts} workouts and {stats.totalVolumeFmt} lbs lifted since {stats.dateStart}.
+            {stats.totalWorkouts} workouts and {stats.totalVolumeFmt} lbs lifted on Speediance since {stats.dateStart} ({stats.tonalWorkouts} workouts and {stats.tonalVolumeFmt} lbs on Tonal since {stats.tonalDateStart}).
           </p>
           <div class="flex flex-wrap gap-4">
             <a
@@ -271,13 +271,18 @@ const donutJSON = JSON.stringify(donutData);
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 col-span-2 sm:col-span-1 lg:col-span-1">
             <div class="text-3xl font-bold text-orange-400 mb-1">{stats.totalVolumeFmt}</div>
-            <div class="text-xs text-neutral-500 uppercase tracking-wider">lbs Lifted</div>
-            <div class="text-xs text-neutral-600 mt-1">Total volume</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Speediance lbs</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.totalWorkouts} workouts since {stats.dateStart}</div>
+          </div>
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5 col-span-2 sm:col-span-1 lg:col-span-1">
+            <div class="text-3xl font-bold text-blue-400 mb-1">{stats.tonalVolumeFmt}</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">Tonal lbs</div>
+            <div class="text-xs text-neutral-600 mt-1">{stats.tonalWorkouts} workouts since {stats.tonalDateStart}</div>
           </div>
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
             <div class="text-3xl font-bold text-white mb-1">{stats.totalWorkouts}</div>
-            <div class="text-xs text-neutral-500 uppercase tracking-wider">Workouts</div>
-            <div class="text-xs text-neutral-600 mt-1">Since Jul 2025</div>
+            <div class="text-xs text-neutral-500 uppercase tracking-wider">GM Workouts</div>
+            <div class="text-xs text-neutral-600 mt-1">Since {stats.dateStart}</div>
           </div>
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-5">
             <div class="text-3xl font-bold text-white mb-1">{stats.totalHours}h</div>

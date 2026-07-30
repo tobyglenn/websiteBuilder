@@ -131,8 +131,18 @@ function imageExists(imagePath: string): boolean {
     return false;
   }
 
-  const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
-  return existsSync(join(publicDir, imagePath.slice(1)));
+  const relPath = imagePath.slice(1);
+  const rootDir = process.cwd();
+  const candidatePaths = [
+    join(rootDir, 'public', relPath),
+    join(rootDir, 'dist', relPath),
+  ];
+  try {
+    const publicDir = fileURLToPath(new URL('../../public/', import.meta.url));
+    candidatePaths.push(join(publicDir, relPath));
+  } catch (e) {}
+
+  return candidatePaths.some((p) => existsSync(p));
 }
 
 function defaultCoverImage(slug: string, title: string, category: string): string {

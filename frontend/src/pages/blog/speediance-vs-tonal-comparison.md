@@ -1,5 +1,6 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
+image: /images/blog/speediance-vs-tonal-comparison.jpg
 title: "Speediance Gym Monster 2 vs Tonal: Connected Home Gym Showdown"
 date: "2026-03-01"
 author: "Toby"

@@ -1,5 +1,6 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
+image: /images/blog/openclaw-fitness-reports-garmin-whoop-speediance.jpg
 title: "Agent Brief: Build OpenClaw Fitness Report Connectors for Garmin, WHOOP, Speediance, and More"
 date: 2026-05-03
 description: "An agent-ready implementation brief for building OpenClaw fitness report connectors across Garmin, WHOOP, Speediance, Cronometer, 8Sleep, normalized JSON snapshots, and public GitHub repos."

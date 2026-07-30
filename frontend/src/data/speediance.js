@@ -2,6 +2,8 @@
  * speediance.js — server-side data processing for Speediance workout data.
  * Imported at build time by speediance.astro (Node.js context only).
  */
+import fs from 'node:fs';
+import path from 'node:path';
 import rawData from './speediance_dashboard_data.json';
 
 const MONTH_NAMES = {
@@ -105,10 +107,35 @@ export function getSpeedianceData() {
     pct: t.pct,
   }));
 
+  // Format GM volume: < 1.5M => whole number with commas (780,000), >= 1.5M => millions (X.XXM)
+  const totalVolumeFmt = totalVolumeLbs >= 1_500_000
+    ? (totalVolumeLbs / 1_000_000).toFixed(2) + 'M'
+    : (Math.round(totalVolumeLbs / 10000) * 10000).toLocaleString('en-US');
+
+  let tonalWorkouts = 1050;
+  let tonalVolumeLbs = 6530034;
+  let tonalDateStart = '2021-10-02';
+  try {
+    const tonalPath = '/home/toby/clawd/data/tonal/tonal_full_history.json';
+    if (fs.existsSync(tonalPath)) {
+      const tonalData = JSON.parse(fs.readFileSync(tonalPath, 'utf8'));
+      tonalWorkouts = tonalData.length;
+      tonalVolumeLbs = tonalData.reduce((sum, w) => sum + (w.totalVolume || 0), 0);
+      const dates = tonalData.map(w => w.beginTime ? w.beginTime.slice(0, 10) : '').filter(d => d > '2010').sort();
+      if (dates.length > 0) tonalDateStart = dates[0];
+    }
+  } catch (e) {}
+
+  const tonalVolumeFmt = (tonalVolumeLbs / 1_000_000).toFixed(2) + 'M';
+
   return {
     stats: {
       totalVolumeLbs: Math.round(totalVolumeLbs),
-      totalVolumeFmt: (totalVolumeLbs / 1_000_000).toFixed(2) + 'M',
+      totalVolumeFmt,
+      tonalWorkouts,
+      tonalVolumeLbs: Math.round(tonalVolumeLbs),
+      tonalVolumeFmt,
+      tonalDateStart,
       totalWorkouts,
       totalCalories,
       totalHours,

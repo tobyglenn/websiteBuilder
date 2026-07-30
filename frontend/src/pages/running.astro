@@ -50,22 +50,23 @@ function barHeight(d) {
 }
 
 // ── Activity heatmap SVG ───────────────────────────────────────────────────
-// Build 52 weeks × 7 days grid covering ~1 year back from today
-const today = new Date('2026-02-19');
+// Build weeks grid from earliest run date (2017) to latest run date (~2026)
+const dates = Object.keys(dailyMap).sort();
+const firstDateStr = dates[0] || '2017-04-12';
+const lastDateStr = dates[dates.length - 1] || '2026-07-28';
+
+const startDate = new Date(firstDateStr + 'T00:00:00');
+while (startDate.getDay() !== 0) startDate.setDate(startDate.getDate() - 1);
+
+const endDate = new Date(lastDateStr + 'T00:00:00');
+
 const cellSize = 12;
 const cellGap = 2;
 const step = cellSize + cellGap;
 
-// Start from the nearest Sunday >= 1 year ago
-const oneYearAgo = new Date(today);
-oneYearAgo.setFullYear(oneYearAgo.getFullYear() - 1);
-// Go back to last Sunday
-while (oneYearAgo.getDay() !== 0) oneYearAgo.setDate(oneYearAgo.getDate() - 1);
-
-// Generate all weeks
 const weeks = [];
-let cur = new Date(oneYearAgo);
-while (cur <= today) {
+let cur = new Date(startDate);
+while (cur <= endDate) {
   const week = [];
   for (let d = 0; d < 7; d++) {
     const dateStr = cur.toISOString().slice(0, 10);
@@ -88,15 +89,20 @@ function heatColor(mi) {
   return '#60a5fa';
 }
 
-// Month labels for heatmap
+// Month & Year labels for heatmap
 const monthLabels = [];
-let prevMonth = '';
+let prevYM = '';
 weeks.forEach((week, wi) => {
-  const month = week[0].date.slice(0, 7);
-  if (month !== prevMonth) {
-    const d = new Date(week[0].date + 'T00:00:00');
-    monthLabels.push({ x: wi * step, label: d.toLocaleDateString('en-US', { month: 'short' }) });
-    prevMonth = month;
+  const ym = week[0].date.slice(0, 7);
+  if (ym !== prevYM) {
+    const [y, m] = ym.split('-');
+    const d = new Date(+y, +m - 1, 1);
+    const showYear = m === '01' || prevYM === '';
+    const label = showYear
+      ? d.toLocaleDateString('en-US', { month: 'short', year: '2-digit' })
+      : d.toLocaleDateString('en-US', { month: 'short' });
+    monthLabels.push({ x: wi * step, label, year: y });
+    prevYM = ym;
   }
 });
 ---
@@ -193,7 +199,7 @@ weeks.forEach((week, wi) => {
             width={chartW}
             height={chartH + labelH + 30}
             viewBox={`0 0 ${chartW} ${chartH + labelH + 30}`}
-            class="min-w-full"
+            style={`width: ${chartW}px; min-width: ${chartW}px;`}
             aria-label="Monthly running mileage bar chart"
           >
             <defs>
@@ -266,7 +272,7 @@ weeks.forEach((week, wi) => {
     <section id="activity-heatmap" class="py-14 border-t border-neutral-900">
       <div class="container mx-auto px-4">
         <h2 class="text-2xl font-bold mb-1">Activity Heatmap</h2>
-        <p class="text-neutral-500 text-sm mb-8">One year of runs · darker = further</p>
+        <p class="text-neutral-500 text-sm mb-8">All-time run history (2017 – 2026) · darker = further · scroll horizontally →</p>
 
         <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
           <svg

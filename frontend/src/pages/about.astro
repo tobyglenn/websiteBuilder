@@ -1,6 +1,11 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { weightData, getStats, formatWeight } from '../data/weight.js';
+import { getRunningData } from '../data/running.js';
+const runningData = getRunningData();
+const allRunningStats = runningData.stats;
+const preRunningStats = runningData.preStats;
+const postRunningStats = runningData.postStats;
 import homepageFitnessData from '../data/homepageFitnessData.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
@@ -330,27 +335,61 @@ const profilePageSchema = {
     {/* Running Stats Section */}
     <section id="running-stats" class="py-16 border-t border-neutral-900">
       <div class="container mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">Running Stats</h2>
-        <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-            <div class="text-4xl font-bold text-white mb-2">111</div>
-            <div class="text-sm text-neutral-400 uppercase tracking-wider">Total Runs</div>
+        <div class="text-center mb-10">
+          <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">Garmin Activity Data</span>
+          <h2 class="text-3xl md:text-4xl font-bold text-white">Running Stats: Pre vs. Post Transformation</h2>
+          <p class="text-neutral-400 mt-3 max-w-2xl mx-auto">
+            Real Garmin activity history split between pre-transformation (2017 – Jan 2024) and post-transformation rebuild (Jan 2024 – Present).
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {/* Post-Transformation Card */}
+          <div class="bg-neutral-900 border border-blue-500/40 rounded-2xl p-6 relative overflow-hidden shadow-lg shadow-blue-950/20">
+            <div class="text-xs text-blue-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+              <span>Post-Transformation</span>
+              <span class="bg-blue-600/30 text-blue-300 text-[10px] px-2 py-0.5 rounded-full">Jan 2024 – Present</span>
+            </div>
+            <div class="text-4xl font-black text-white mb-1">{postRunningStats.totalDistMi.toLocaleString('en-US')} mi</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider mb-4">Post-Transformation Miles</div>
+            <div class="space-y-2.5 border-t border-neutral-800 pt-4 text-sm text-neutral-300">
+              <div class="flex justify-between"><span>Runs Logged:</span><strong class="text-white">{postRunningStats.totalRuns.toLocaleString('en-US')} ({postRunningStats.outdoorRuns} outdoor, {postRunningStats.treadmillRuns} treadmill)</strong></div>
+              <div class="flex justify-between"><span>Total Time:</span><strong class="text-white">{postRunningStats.totalHrs} h</strong></div>
+              <div class="flex justify-between"><span>Avg Pace:</span><strong class="text-white">{postRunningStats.avgPace} /mi</strong></div>
+              <div class="flex justify-between"><span>Longest Run:</span><strong class="text-white">{postRunningStats.longestMi} mi ({postRunningStats.longestDate})</strong></div>
+            </div>
           </div>
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-            <div class="text-4xl font-bold text-white mb-2">265.1 mi</div>
-            <div class="text-sm text-neutral-400 uppercase tracking-wider">Total Miles</div>
+
+          {/* Pre-Transformation Card */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <div class="text-xs text-neutral-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+              <span>Pre-Transformation</span>
+              <span class="bg-neutral-800 text-neutral-400 text-[10px] px-2 py-0.5 rounded-full">2017 – Jan 2024</span>
+            </div>
+            <div class="text-4xl font-black text-neutral-200 mb-1">{preRunningStats.totalDistMi.toLocaleString('en-US')} mi</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider mb-4">Pre-Transformation Miles</div>
+            <div class="space-y-2.5 border-t border-neutral-800 pt-4 text-sm text-neutral-400">
+              <div class="flex justify-between"><span>Runs Logged:</span><strong class="text-neutral-200">{preRunningStats.totalRuns.toLocaleString('en-US')} ({preRunningStats.outdoorRuns} outdoor, {preRunningStats.treadmillRuns} treadmill)</strong></div>
+              <div class="flex justify-between"><span>Total Time:</span><strong class="text-neutral-200">{preRunningStats.totalHrs} h</strong></div>
+              <div class="flex justify-between"><span>Avg Pace:</span><strong class="text-neutral-200">{preRunningStats.avgPace} /mi</strong></div>
+              <div class="flex justify-between"><span>Longest Run:</span><strong class="text-neutral-200">{preRunningStats.longestMi} mi ({preRunningStats.longestDate})</strong></div>
+            </div>
           </div>
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-            <div class="text-4xl font-bold text-white mb-2">67.2 h</div>
-            <div class="text-sm text-neutral-400 uppercase tracking-wider">Total Hours</div>
-          </div>
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-            <div class="text-4xl font-bold text-white mb-2">15:12/mi</div>
-            <div class="text-sm text-neutral-400 uppercase tracking-wider">Avg Pace</div>
-          </div>
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-            <div class="text-4xl font-bold text-white mb-2">5 mi</div>
-            <div class="text-sm text-neutral-400 uppercase tracking-wider">Longest Run (June 30, 2025)</div>
+
+          {/* All-Time Card */}
+          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
+            <div class="text-xs text-purple-400 font-bold uppercase tracking-wider mb-2 flex items-center justify-between">
+              <span>Lifetime Totals</span>
+              <span class="bg-purple-950 text-purple-300 text-[10px] px-2 py-0.5 rounded-full">2017 – Present</span>
+            </div>
+            <div class="text-4xl font-black text-white mb-1">{allRunningStats.totalDistMi.toLocaleString('en-US')} mi</div>
+            <div class="text-sm text-neutral-400 uppercase tracking-wider mb-4">All-Time Garmin Miles</div>
+            <div class="space-y-2.5 border-t border-neutral-800 pt-4 text-sm text-neutral-300">
+              <div class="flex justify-between"><span>Runs Logged:</span><strong class="text-white">{allRunningStats.totalRuns.toLocaleString('en-US')} ({allRunningStats.outdoorRuns} outdoor, {allRunningStats.treadmillRuns} treadmill)</strong></div>
+              <div class="flex justify-between"><span>Total Time:</span><strong class="text-white">{allRunningStats.totalHrs} h</strong></div>
+              <div class="flex justify-between"><span>Avg Pace:</span><strong class="text-white">{allRunningStats.avgPace} /mi</strong></div>
+              <div class="flex justify-between"><span>Longest Run:</span><strong class="text-white">{allRunningStats.longestMi} mi ({allRunningStats.longestDate})</strong></div>
+            </div>
           </div>
         </div>
       </div>
@@ -378,12 +417,12 @@ const profilePageSchema = {
                 <div class="text-xs text-neutral-500 uppercase tracking-wider">Strength Sessions</div>
               </div>
               <div>
-                <div class="text-3xl font-bold text-white mb-1">265.1 mi</div>
-                <div class="text-xs text-neutral-500 uppercase tracking-wider">Miles Run (Past Year)</div>
+                <div class="text-3xl font-bold text-white mb-1">{postRunningStats.totalDistMi.toLocaleString('en-US')} mi</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Post-Transformation Miles</div>
               </div>
               <div>
-                <div class="text-3xl font-bold text-white mb-1">111</div>
-                <div class="text-xs text-neutral-500 uppercase tracking-wider">Runs Logged</div>
+                <div class="text-3xl font-bold text-white mb-1">{postRunningStats.totalRuns.toLocaleString('en-US')}</div>
+                <div class="text-xs text-neutral-500 uppercase tracking-wider">Post-Transformation Runs</div>
               </div>
             </div>
           </div>
@@ -403,9 +442,9 @@ const profilePageSchema = {
               bent over row at 198 lbs, bench press at 90 lbs via the cable system. These aren't estimates. The machine logs every rep.
             </p>
             <p>
-              Running got rebuilt from scratch in parallel. I started with 1-mile sessions — genuinely just trying to not stop.
-              By early 2026 I'm doing 5-mile runs. 111 runs logged over the past year: 84 outdoor, 27 treadmill, 2 open water swims.
-              <strong class="text-white">265.1 miles total.</strong> Not fast. But consistent, progressive, and building.
+              Running got rebuilt from scratch in parallel post-transformation. I started with 1-mile sessions — genuinely just trying to not stop.
+              Across my post-transformation Garmin log, I've completed <strong class="text-white">{postRunningStats.totalRuns.toLocaleString('en-US')} runs</strong> ({postRunningStats.outdoorRuns} outdoor, {postRunningStats.treadmillRuns} treadmill), totaling <strong class="text-white">{postRunningStats.totalDistMi.toLocaleString('en-US')} miles</strong>.
+              Combined with pre-transformation training, my lifetime Garmin history spans <strong class="text-white">{allRunningStats.totalDistMi.toLocaleString('en-US')} miles</strong> across <strong class="text-white">{allRunningStats.totalRuns.toLocaleString('en-US')} runs</strong>. Not fast. But consistent, progressive, and building.
               The weight going up isn't something to explain away — muscle weighs something. That's the point.
             </p>
             <p>
@@ -539,35 +578,80 @@ const profilePageSchema = {
         <div class="max-w-5xl mx-auto">
           <div class="text-center mb-10">
             <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Miles</span>
-            <h2 class="text-3xl md:text-4xl font-bold text-white">Running Log</h2>
-            <p class="text-neutral-500 mt-3 max-w-xl mx-auto">I didn't run during the 54 lb weight loss. Running came later — and it might be what saved my life.</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-white">Running Log — Pre vs. Post Transformation</h2>
+            <p class="text-neutral-400 mt-3 max-w-xl mx-auto">I didn't run during the 54 lb weight loss cut. Running was rebuilt post-transformation — adding {postRunningStats.totalDistMi} miles onto a 3,808 mile lifetime foundation.</p>
           </div>
-          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
-            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
-              <div class="text-3xl font-black text-white mb-1">266</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Miles Total</div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+            {/* Post Transformation Breakdown */}
+            <div class="bg-neutral-900 border border-blue-500/30 rounded-xl p-6">
+              <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center justify-between">
+                <span>Post-Transformation (Rebuild)</span>
+                <span class="text-xs bg-blue-950 text-blue-300 font-semibold px-2.5 py-1 rounded-full">Jan 2024 – Present</span>
+              </h3>
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-white">{postRunningStats.totalDistMi}</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Miles</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-white">{postRunningStats.totalRuns}</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Runs</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-white">{postRunningStats.totalHrs}h</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Hours</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-white">{postRunningStats.avgPace}</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Avg Pace</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-white">{postRunningStats.longestMi} mi</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Longest</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-white">76.8 mi</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Peak Month</div>
+                </div>
+              </div>
             </div>
-            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
-              <div class="text-3xl font-black text-white mb-1">113</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Runs Logged</div>
-            </div>
-            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
-              <div class="text-3xl font-black text-white mb-1">67h</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Total Time</div>
-            </div>
-            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
-              <div class="text-3xl font-black text-white mb-1">15:12</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Avg Pace /mi</div>
-            </div>
-            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
-              <div class="text-3xl font-black text-white mb-1">5.0</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Longest Run (mi)</div>
-            </div>
-            <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800 text-center">
-              <div class="text-3xl font-black text-white mb-1">76.8</div>
-              <div class="text-xs text-neutral-500 uppercase tracking-wide">Peak Month (mi)</div>
+
+            {/* Pre Transformation Breakdown */}
+            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
+              <h3 class="text-lg font-bold text-neutral-300 mb-4 flex items-center justify-between">
+                <span>Pre-Transformation</span>
+                <span class="text-xs bg-neutral-800 text-neutral-400 font-semibold px-2.5 py-1 rounded-full">2017 – Jan 2024</span>
+              </h3>
+              <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.totalDistMi.toLocaleString('en-US')}</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Miles</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.totalRuns.toLocaleString('en-US')}</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Runs</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.totalHrs}h</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Hours</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.avgPace}</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Avg Pace</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.longestMi} mi</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Longest</div>
+                </div>
+                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
+                  <div class="text-2xl font-black text-neutral-200">155.2 mi</div>
+                  <div class="text-[10px] text-neutral-400 uppercase">Peak Month</div>
+                </div>
+              </div>
             </div>
           </div>
+
           <div class="text-center">
             <a href="/running/" class="inline-flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors text-sm">
               See Full Running Dashboard →

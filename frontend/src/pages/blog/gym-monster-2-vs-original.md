@@ -1,5 +1,6 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
+image: /images/blog/gym-monster-2-vs-original.jpg
 title: "Speediance Gym Monster 2 Upgrade Review: What Changed From the Original"
 date: 2026-03-09
 description: "A detailed Gym Monster 2 hardware review covering what changed from the original, what stayed the same, and when the upgrade is worth it."

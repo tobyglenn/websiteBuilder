@@ -1,5 +1,6 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
+image: /images/blog/oura-vs-whoop-sleep-comparison.jpg
 title: "Oura Ring vs WHOOP: Sleep and Recovery Comparison 2026"
 date: "2026-03-01"
 author: "Toby Peters"
