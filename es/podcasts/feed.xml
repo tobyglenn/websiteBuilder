@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 29 Jul 2026 17:56:12 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 30 Jul 2026 14:15:42 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 95 -->
+    <item>
+      <title>Episodio 95: AgentStack Diario: Lectura de Lanzamiento de Agent Stack: OpenAI Codex rust-v0.146.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep095/episode_095.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-95/</link>
+      <description><![CDATA[Esta semana en Agent Stack: OpenAI Codex rust-v0.146.0, GitHub Copilot para JetBrains incorpora controles de OpenTelemetry y gestión de modelos, dos...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-95/]]></description>
+      <pubDate>Thu, 30 Jul 2026 14:15:42 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_095.mp3" length="33824644" type="audio/mpeg"/>
+      <itunes:duration>35:13</itunes:duration>
+      <itunes:episode>95</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep095/episode_095_cover.png"/>
+    </item>
+
     <!-- Episode 94 -->
     <item>
       <title>Episodio 94: Codex se muda a ChatGPT mientras la IA local se extiende a placas de $8 y servidores</title>
