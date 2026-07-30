@@ -55,6 +55,30 @@ const providerHash = async (appUserId: string): Promise<string> => {
   return [...new Uint8Array(digest)].map((b) => b.toString(16).padStart(2, "0")).join("");
 };
 
+/**
+ * GoTrue has no get-user-by-email, but its admin list endpoint filters on one.
+ *
+ * Needed because the auth user can outlive its link row: if the upsert below
+ * ever fails after the user is created, the address -- derived from the salted
+ * hash, so never re-derivable as anything else -- is taken forever, and the
+ * account becomes a dead end nobody can connect again.
+ */
+const findUserIdByEmail = async (email: string): Promise<string | undefined> => {
+  const base = Deno.env.get("SUPABASE_URL");
+  const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!base || !key) return undefined;
+  const response = await fetch(
+    `${base}/auth/v1/admin/users?filter=${encodeURIComponent(email)}`,
+    { headers: { apikey: key, Authorization: `Bearer ${key}` } },
+  );
+  if (!response.ok) return undefined;
+  const payload = await response.json().catch(() => null);
+  const match = (payload?.users ?? []).find(
+    (user: { email?: string; id?: string }) => user.email === email,
+  );
+  return match?.id;
+};
+
 const cleanDisplayName = (value: unknown): string => {
   const text = String(value ?? "").trim().replace(/\s+/g, " ");
   // profiles.display_name is checked for 1..60 characters.
@@ -165,15 +189,15 @@ Deno.serve(async (request) => {
   let userId = link?.user_id as string | undefined;
 
   if (!userId) {
-    const { data: created, error: createError } = await admin.auth.admin.createUser({
+    const { data: created } = await admin.auth.admin.createUser({
       email,
       email_confirm: true,
       user_metadata: { display_name: name },
     });
-    if (createError || !created?.user) {
+    userId = created?.user?.id ?? (await findUserIdByEmail(email));
+    if (!userId) {
       return json({ error: "Could not open a hub account" }, 500);
     }
-    userId = created.user.id;
   }
 
   // Keep the link row fresh; on_auth_user_created already made the profile.
