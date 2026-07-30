@@ -1330,6 +1330,31 @@
       "totalSessions": 1,
       "avgVolume": 2045.9,
       "totalVolume": 2045.9
+    },
+    "ARIA Rope Build Stamina 20260730": {
+      "name": "ARIA Rope Build Stamina 20260730",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-07-30",
+          "totalCapacity": 1282.5,
+          "durationMinute": 7,
+          "calorie": 153,
+          "actionNum": 5
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-07-30",
+        "totalCapacity": 1282.5,
+        "durationMinute": 7,
+        "calorie": 153,
+        "actionNum": 5
+      },
+      "totalSessions": 1,
+      "avgVolume": 1282.5,
+      "totalVolume": 1282.5
     }
   },
   "exercisePRs": {
@@ -1646,11 +1671,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 113,
-  "totalVolumeLbs": 776502.4,
+  "totalWorkouts": 114,
+  "totalVolumeLbs": 777784.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-07-29"
+    "end": "2026-07-30"
   },
   "allSessions": [
     {
@@ -2555,6 +2580,14 @@
       "totalCapacity": 2045.9,
       "durationMinute": 7,
       "calorie": 205,
+      "actionNum": 5
+    },
+    {
+      "date": "2026-07-30",
+      "title": "ARIA Rope Build Stamina 20260730",
+      "totalCapacity": 1282.5,
+      "durationMinute": 7,
+      "calorie": 153,
       "actionNum": 5
     }
   ]

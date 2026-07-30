@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-07-30T07:30:32.265215",
-  "total_activities": 1556,
+  "generated_at": "2026-07-30T19:50:27.265297",
+  "total_activities": 1557,
   "date_range": {
     "start": "2017-04-12",
-    "end": "2026-07-28"
+    "end": "2026-07-30"
   },
   "activities": [
     {
@@ -32042,6 +32042,52 @@
         {
           "zoneNumber": 2,
           "secsInZone": 27.0,
+          "zoneLowBoundary": 134
+        },
+        {
+          "zoneNumber": 3,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 153
+        },
+        {
+          "zoneNumber": 4,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 167
+        },
+        {
+          "zoneNumber": 5,
+          "secsInZone": 0.0,
+          "zoneLowBoundary": 171
+        }
+      ],
+      "avgPace": 0
+    },
+    {
+      "date": "2026-07-30",
+      "startTimeLocal": "2026-07-30 17:57:54",
+      "activityType": "running",
+      "activityName": "Camp Hill - Recovery",
+      "distance": 1.3307,
+      "distance_miles": 1.3307,
+      "duration": 20.46,
+      "averageHR": 124.0,
+      "maxHR": 139.0,
+      "calories": 200.0,
+      "aerobicTrainingEffect": 2.0,
+      "anaerobicTrainingEffect": 0,
+      "averageSpeed": 1.7439999580383303,
+      "avgPower": 260.0,
+      "maxPower": 712.0,
+      "averageRunningCadenceInStepsPerMinute": 138.0625,
+      "hrTimeInZones": [
+        {
+          "zoneNumber": 1,
+          "secsInZone": 1044.2,
+          "zoneLowBoundary": 117
+        },
+        {
+          "zoneNumber": 2,
+          "secsInZone": 78.0,
           "zoneLowBoundary": 134
         },
         {

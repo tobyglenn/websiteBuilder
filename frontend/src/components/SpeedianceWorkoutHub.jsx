@@ -1136,9 +1136,9 @@ export default function SpeedianceWorkoutHub() {
         {notice && <Banner tone="success">{notice}</Banner>}
 
         {activeTab === "library" && (
-          <div className="grid gap-6 lg:grid-cols-[390px_1fr]">
-            <section className="overflow-hidden rounded-xl border border-white/[0.08] bg-white/[0.02]">
-              <div className="border-b border-white/[0.06] p-4">
+          <div className="grid items-stretch gap-6 lg:grid-cols-[390px_1fr]">
+            <section className="flex h-full flex-col rounded-xl border border-white/[0.08] bg-white/[0.02]">
+              <div className="flex-shrink-0 border-b border-white/[0.06] p-4">
                 <label className="flex items-center gap-2 rounded-md border border-white/[0.08] bg-black/20 px-3 py-2 text-neutral-400 focus-within:border-orange-400/50">
                   <Search size={16} />
                   <input
@@ -1149,7 +1149,7 @@ export default function SpeedianceWorkoutHub() {
                   />
                 </label>
               </div>
-              <div className="max-h-[680px] overflow-y-auto divide-y divide-white/[0.05]">
+              <div className="min-h-0 flex-1 overflow-y-auto divide-y divide-white/[0.05]">
                 {loading && <Loading label="Loading workout library" />}
 
                 {/* Toby Accordion Section */}
