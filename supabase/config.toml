@@ -385,6 +385,20 @@ deno_version = 2
 # [edge_runtime.secrets]
 # secret_key = "env(SECRET_VALUE)"
 
+[edge_runtime.secrets]
+PROVIDER_HASH_SALT = "env(PROVIDER_HASH_SALT)"
+HUB_ALLOWED_ORIGIN = "env(HUB_ALLOWED_ORIGIN)"
+
+# Both functions authenticate their own callers, and hub-connect must be
+# reachable before a session exists at all. hub-connect proves the caller holds
+# a working Speediance token; sync-completions resolves the caller from their
+# JWT and refuses anyone it cannot identify.
+[functions.hub-connect]
+verify_jwt = false
+
+[functions.sync-completions]
+verify_jwt = false
+
 [analytics]
 enabled = true
 port = 54327

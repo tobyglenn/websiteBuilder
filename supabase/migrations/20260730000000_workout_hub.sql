@@ -93,6 +93,7 @@ create function public.workout_fingerprint(p_name text, p_exercises jsonb)
 returns text
 language sql
 immutable
+set search_path = public
 as $$
   select encode(
     sha256(
@@ -123,6 +124,7 @@ $$;
 create function public.set_workout_fingerprint()
 returns trigger
 language plpgsql
+set search_path = public
 as $$
 begin
   new.fingerprint := public.workout_fingerprint(new.name, new.exercises);
@@ -309,6 +311,7 @@ create function public.claim_or_publish_workout(
 )
 returns table (workout_id uuid, matched_existing boolean)
 language plpgsql
+set search_path = public
 as $$
 declare
   v_uid uuid := (select auth.uid());

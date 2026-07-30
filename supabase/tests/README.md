@@ -1,8 +1,7 @@
-# Workout Hub on Supabase — draft
+# Workout Hub on Supabase
 
 Moves the leaderboard off the DGX so the public site has a backend without any
-machine here being reachable from the internet. Nothing in this directory has
-been applied anywhere; no Supabase project has been created.
+machine here being reachable from the internet.
 
 ## What moves and what doesn't
 
@@ -11,37 +10,97 @@ been applied anywhere; no Supabase project has been created.
 | Speediance login, template fetch, install, share links | Browser, unchanged (`src/lib/speediance.js`) |
 | Speediance password | Browser only — never sent to Supabase |
 | Workouts, installs, completions, leaderboard | Supabase Postgres |
-| Hub identity / sessions | Supabase Auth (replaces the bearer tokens in `sessions`) |
+| Hub identity / sessions | Supabase Auth, but minted by `hub-connect` — see below |
 | Completion import | `sync-completions` Edge Function |
 | FastAPI + SQLite backend on DGX | Stays running until the hosted path is proven, then retires |
 
 The Fernet `CredentialVault` disappears entirely — there is nothing left to
 encrypt once passwords never leave the browser.
 
+## Why sign-in looks unusual
+
+There is no email/password form, no confirmation mail, and no redirect to
+`<ref>.supabase.co`. That is deliberate: a credential step served from a domain
+that is not the site the visitor is looking at is the shape Google Safe Browsing
+flags as a deceptive site, and we have been on the wrong end of that
+interstitial before on another project.
+
+So the browser logs in to Speediance directly, hands `hub-connect` the resulting
+short-lived provider token, and gets back a single-use `token_hash` that
+`supabase.auth.verifyOtp` exchanges for a session in place. `generateLink` mints
+that credential without delivering it anywhere — no mail is sent, and the
+synthetic `@speediance.hub.invalid` address exists only because `auth.users`
+requires one.
+
+`hub-connect` verifies the provider token against Speediance before minting
+anything. Without that check the `App_user_id` would just be a number in a
+request body and anyone could open a session as anyone whose id they knew.
+
+**The residual risk is not Supabase's.** The page asks for a *Speediance*
+password on *tobyonfitnesstech.com*, and "credential form for a brand on a
+domain that isn't that brand" is itself a phishing signature. What keeps it safe
+is not dressing the form in Speediance's branding, saying plainly that the
+credential goes straight to them, and keeping the site verified in Google Search
+Console so a false positive is visible and can be sent for review.
+
 ## Files
 
 - `migrations/20260730000000_workout_hub.sql` — tables, RLS, the fingerprint
   trigger, `claim_or_publish_workout()`, and the `workout_leaderboard` view.
-- `functions/sync-completions/index.ts` — the one piece of server code.
-- `export_sqlite.py` — dumps the current DGX database as INSERTs.
+- `functions/hub-connect/index.ts` — proves a Speediance login and opens a hub
+  session.
+- `functions/sync-completions/index.ts` — the only writer of `completions`.
+- `tests/export_sqlite.py` — dumps the current DGX database as INSERTs.
 
 ## The integrity argument, in one paragraph
 
 `completions` has a `select` policy and no write policy, and `insert, update,
 delete` are revoked from `anon` and `authenticated` outright. The service role
-key exists only inside the Edge Function, which fetches the training records
-from Speediance itself using a provider token the caller supplies. So a row in
-`completions` is evidence that Speediance reported that session. A visitor can
-publish a workout and claim a leaderboard, but cannot state their own numbers.
+key exists only inside the Edge Functions, and `sync-completions` fetches the
+training records from Speediance itself using a provider token the caller
+supplies. So a row in `completions` is evidence that Speediance reported that
+session. A visitor can publish a workout and claim a leaderboard, but cannot
+state their own numbers.
 
 Two supporting details: the provider host is chosen from an allowlist rather
 than taken from the request body (otherwise the function is an open proxy
 carrying its own service role key), and the caller's identity comes from their
 JWT rather than the body.
 
-## Rollout
+Both functions set `verify_jwt = false`, because `hub-connect` must be reachable
+before a session exists and both do their own, stricter check on entry.
 
-1. `supabase init`, then create the project and `supabase link --project-ref …`.
+## Local development
+
+The whole stack runs on the DGX under Docker, so it can be exercised before any
+hosted project exists:
+
+```bash
+cd ~/.openclaw/workspace/websiteBuilder
+~/bin/supabase start          # applies migrations, serves functions with hot reload
+```
+
+Services bind `0.0.0.0`, so a browser elsewhere on the LAN reaches the API at
+`http://192.168.1.6:54321`. Secrets come from `supabase/.env` (gitignored) via
+the `[edge_runtime.secrets]` block in `config.toml`.
+
+**`supabase db reset` is broken in CLI 2.110.0** on this machine — it exits with
+"Could not find the supabase-go binary required to bootstrap the local
+database". Use `supabase stop && supabase start` for a clean re-apply.
+
+Build the frontend against it:
+
+```bash
+cd frontend
+PUBLIC_SUPABASE_URL=http://192.168.1.6:54321 \
+PUBLIC_SUPABASE_ANON_KEY=sb_publishable_... \
+PUBLIC_WORKOUT_HUB_CONNECT=true \
+npx astro build
+```
+
+## Rollout to a hosted project
+
+1. Create the project and `supabase link --project-ref …`.
 2. `supabase db push` to apply the migration.
 3. Set secrets — `PROVIDER_HASH_SALT` is any long random string, generated once
    and never rotated casually (rotating it orphans every existing link row):
@@ -51,8 +110,8 @@ JWT rather than the body.
    ```
    `SUPABASE_URL`, `SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` are
    pre-populated by the platform; do not set them yourself.
-4. `supabase functions deploy sync-completions`.
-5. Create your auth account, then seed:
+4. `supabase functions deploy hub-connect sync-completions`.
+5. Connect once through the site to create your profile, then seed:
    ```bash
    ssh dgx 'python3 export_sqlite.py <your-auth-uuid>' > seed.sql
    psql "$SUPABASE_DB_URL" -f seed.sql
@@ -79,12 +138,6 @@ is outbound only:
   "https://<project-ref>.supabase.co/rest/v1/workouts?select=id&limit=1"
 ```
 
-**Open question I could not close:** the pricing page says nothing either way
-about commercial use on the free plan. Vercel's Hobby tier states the
-restriction explicitly, which is what ruled it out; Supabase's silence is not
-the same as permission. Worth reading the terms of service before the site
-carries anything commercial. I am not comfortable asserting it either way.
-
 ## Behaviour changes worth knowing
 
 - **Claiming gets correct under concurrency.** The Python version reads every
@@ -94,15 +147,17 @@ carries anything commercial. I am not comfortable asserting it either way.
   `claim_or_publish_workout()` resolves to the winner's row.
 - **Fingerprints are recomputed, not carried over.** The SQL hash does not match
   the Python hash byte for byte; it only has to be self-consistent.
-- **Sign-in becomes two steps.** Supabase Auth for hub identity, Speediance
-  login for provider access. They are separate accounts, which is why
-  `speediance_links` exists. This is more honest than the current design, where
-  a Speediance password doubles as a hub credential.
+- **Connecting is still one action for the visitor.** One Speediance login opens
+  both the provider session and the hub session, so the two-account split does
+  not surface as two forms.
+- **Publishing an imported file now dedupes.** It routes through
+  `claim_or_publish_workout` rather than a bare insert, so importing a file for a
+  routine somebody already shared joins that leaderboard instead of forking it.
 - `total_volume_lbs` keeps its name and its kg→lb conversion on import.
 
 ## What has actually been tested
 
-Run against a throwaway `postgres:16` container on the DGX, using
+Schema and policies, against a throwaway `postgres:16` container using
 `prelude_test_only.sql` to stub `auth.users`, `auth.uid()` and the three
 Supabase roles. The container was removed afterwards.
 
@@ -117,24 +172,27 @@ Supabase roles. The container was removed afterwards.
   it tries to insert a completion, anonymous visitors can still read the
   leaderboard, one member cannot read another's `speediance_links` but can read
   their own, and a member cannot publish a workout owned by someone else.
-- `functions/sync-completions/index.ts` passes `deno check` with no type errors.
 
-Two real bugs were found this way and fixed:
+Against the local stack:
 
-1. `claim_or_publish_workout()`'s OUT parameter `workout_id` shadowed the column
-   in `on conflict (user_id, workout_id)` — Postgres refused the function body
-   as ambiguous. The unique constraint is now named and targeted by name.
-2. The `grant execute` on that function sat above its definition, so a clean
-   apply failed. Grants now follow what they grant on.
+- The migration applies on a fresh `supabase start`, and all four functions
+  report `search_path=public` — the Security Advisor's
+  `function_search_path_mutable` warning is pre-empted rather than triaged later.
+- `hub-connect` runs, reads its salt, calls Speediance and answers a deliberately
+  bogus token with `401 Speediance rejected that session`.
+- Over the LAN with only the publishable key: reading `workouts` and
+  `workout_leaderboard` succeeds; `POST /rest/v1/completions` is refused with
+  `42501 permission denied for table completions`, at the grant level, before RLS
+  is consulted.
+- `astro build` completes and the emitted bundle carries the API URL, the
+  publishable key, both function names, the claim RPC and the leaderboard view,
+  with no reference left to the old `workout-hub` routes.
 
-Not tested: the Edge Function's runtime behaviour. It typechecks, but no call
-has been made against Speediance or a real project, so the record-matching and
-import path is unproven at runtime. `supabase functions serve` with a real
-provider token is the way to close that.
+Not tested: a real end-to-end connect and sync, which needs an actual Speediance
+login. The record-matching and import path in `sync-completions` remains unproven
+at runtime.
 
 ## Not yet done
 
-- No frontend wiring — `SpeedianceWorkoutHub.jsx` still talks to the FastAPI
-  routes. That is the next chunk of work and it is not small: `api()` becomes
-  the supabase-js client, and connect grows a Supabase sign-in step.
 - No Supabase project exists. Nothing here has been applied to anything hosted.
+- The DGX FastAPI backend still runs and still owns the live site's data.
