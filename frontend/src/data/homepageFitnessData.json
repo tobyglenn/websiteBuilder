@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-07-31T23:50:39.872Z",
+  "generatedAt": "2026-08-01T11:30:34.059Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Jul 31, 2026",
-    "hubTodayKey": "2026-07-31",
-    "analysisDateKey": "2026-07-31",
+    "hubTodayLabel": "Aug 1, 2026",
+    "hubTodayKey": "2026-08-01",
+    "analysisDateKey": "2026-08-01",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-07-31T19:50:03.157884"
+    "whoopLastSynced": "2026-08-01T07:30:11.843490"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9621905,
@@ -25,17 +25,17 @@
     "runCount": 3,
     "workoutCount": 4,
     "bjjCount": 2,
-    "windowStart": "2026-07-25",
-    "windowEnd": "2026-07-31"
+    "windowStart": "2026-07-26",
+    "windowEnd": "2026-08-01"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-07-31",
+    "anchorDate": "2026-08-01",
     "dateRange": {
-      "thisWeekStart": "2026-07-25",
-      "thisWeekEnd": "2026-07-31",
-      "lastWeekStart": "2026-07-18",
-      "lastWeekEnd": "2026-07-24"
+      "thisWeekStart": "2026-07-26",
+      "thisWeekEnd": "2026-08-01",
+      "lastWeekStart": "2026-07-19",
+      "lastWeekEnd": "2026-07-25"
     },
     "workouts": {
       "thisWeek": 9,
@@ -89,16 +89,9 @@
     "totalActive": 1785,
     "currentStreak": 5,
     "longestStreak": 60,
-    "rangeStart": "2025-08-02",
-    "rangeEnd": "2026-07-31",
+    "rangeStart": "2025-08-03",
+    "rangeEnd": "2026-08-01",
     "days": [
-      {
-        "date": "2025-08-02",
-        "count": 1,
-        "runs": 0,
-        "lifting": 0,
-        "bjj": 1
-      },
       {
         "date": "2025-08-03",
         "count": 1,
@@ -1473,14 +1466,14 @@
       "type": "BJJ"
     },
     "thisWeekVolume": 5808,
-    "thisMonthMiles": 23.1
+    "thisMonthMiles": 0
   },
   "recovery": {
-    "currentScore": 33,
-    "lastSleepScore": 65
+    "currentScore": 42,
+    "lastSleepScore": 0
   },
   "labels": {
-    "thisWeek": "July 25, 2026 - July 31, 2026",
-    "lastWeek": "July 18, 2026 - July 24, 2026"
+    "thisWeek": "July 26, 2026 - August 1, 2026",
+    "lastWeek": "July 19, 2026 - July 25, 2026"
   }
 }
