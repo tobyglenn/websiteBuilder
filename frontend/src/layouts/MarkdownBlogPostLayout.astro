@@ -3,6 +3,7 @@ import Layout from './Layout.astro';
 import ShareButtons from '../components/ShareButtons.jsx';
 import PriorityEntryPath from '../components/PriorityEntryPath.astro';
 import TopicNextSteps from '../components/TopicNextSteps.astro';
+import { hasCompleteBlogTranslation } from '../lib/localizedBlogPosts';
 import { ArrowLeft, User, Calendar, Tag } from 'lucide-react';
 
 const { frontmatter } = Astro.props;
@@ -19,6 +20,7 @@ const post = {
 
 const category = String(post.categories[0] || 'Analysis');
 const topicContext = [post.title, category, ...post.tags].join(' ');
+const translationSlug = Astro.url.pathname.split('/').filter(Boolean).at(-1) || '';
 const rawBody = typeof Astro.props.rawContent === 'function'
   ? Astro.props.rawContent()
   : String(Astro.props.content || '');
@@ -45,6 +47,7 @@ function formatPostDate(value = '') {
   publishedTime={post.date}
   modifiedTime={post.date}
   author={post.author}
+  translationBase={hasCompleteBlogTranslation(translationSlug) ? `/blog/${translationSlug}/` : undefined}
   breadcrumbs={[
     { name: 'Home', url: '/' },
     { name: 'Blog', url: '/blog' },

@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { marked } from 'marked';
 import { BLOG_POSTS, BLOG_REDIRECTS, DYNAMIC_BLOG_POSTS } from '../../lib/blogPosts';
+import { hasCompleteBlogTranslation } from '../../lib/localizedBlogPosts';
 import ShareButtons from '../../components/ShareButtons.jsx';
 import PriorityEntryPath from '../../components/PriorityEntryPath.astro';
 import TopicNextSteps from '../../components/TopicNextSteps.astro';
@@ -199,6 +200,7 @@ const articleJsonLd = {
   publishedTime={post.published_at}
   modifiedTime={post.published_at}
   author="Toby Glenn Peters"
+  translationBase={hasCompleteBlogTranslation(post.slug) ? `/blog/${post.slug}/` : undefined}
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Blog", url: "/blog" },

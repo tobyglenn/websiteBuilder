@@ -34,10 +34,12 @@ export default function LanguageSwitcher({ currentLang = 'en' }: LanguageSwitche
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Only these paths have locale versions — everything else falls back to podcast index
+  // These paths have locale versions. Blog article targets are verified before navigation.
   const LOCALE_PATHS = [
     /^\/podcasts\/(?:agentstack|openclaw)\/?$/,
     /^\/podcasts\/episode-\d+\/?$/,
+    /^\/blog\/?$/,
+    /^\/blog\/[^/]+\/?$/,
   ];
 
   const getTargetPath = (langCode: string) => {
@@ -53,6 +55,25 @@ export default function LanguageSwitcher({ currentLang = 'en' }: LanguageSwitche
       ? normalized.replace(/^\/podcasts\/openclaw\/?$/, '/podcasts/agentstack/')
       : '/podcasts/agentstack/';
     return langCode === 'en' ? targetBase : `/${langCode}${targetBase}`;
+  };
+
+  const handleLanguageClick = async (
+    event: React.MouseEvent<HTMLAnchorElement>,
+    langCode: string,
+    targetPath: string,
+  ) => {
+    persistLocalePreference(langCode);
+    setActiveLang(langCode);
+    setIsOpen(false);
+
+    if (!/^\/(?:es|pt|hi|de)\/blog\/[^/]+\/?$/.test(targetPath)) return;
+    event.preventDefault();
+    try {
+      const response = await fetch(targetPath, { method: 'HEAD', cache: 'no-store' });
+      window.location.assign(response.ok ? targetPath : `/${langCode}/blog/`);
+    } catch {
+      window.location.assign(`/${langCode}/blog/`);
+    }
   };
 
   // Detect active language from URL path (most reliable source of truth)
@@ -103,7 +124,7 @@ export default function LanguageSwitcher({ currentLang = 'en' }: LanguageSwitche
                       ? 'bg-blue-400/10 text-blue-400 border-l-2 border-blue-400' 
                       : 'text-neutral-300 hover:bg-neutral-800 hover:text-white'
                   }`}
-                  onClick={() => { persistLocalePreference(lang.code); setActiveLang(lang.code); setIsOpen(false); }}
+                  onClick={(event) => handleLanguageClick(event, lang.code, targetPath)}
                 >
                   <span className="text-base">{lang.flag}</span>
                   <span>{lang.name}</span>

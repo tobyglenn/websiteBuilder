@@ -10,6 +10,10 @@
     "cloudflare:redirect:podcast-transcripts": "node ./scripts/setup-cloudflare-transcript-redirect.mjs",
     "audit:indexability": "node ./scripts/audit-indexability.mjs",
     "report:gsc": "node ./scripts/gsc-weekly-report.mjs",
+    "translate:blog:one": "node ./scripts/blog-translations.mjs translate-one",
+    "translate:blog:status": "node ./scripts/blog-translations.mjs status",
+    "translate:blog:promote": "node ./scripts/blog-translations.mjs promote",
+    "translate:blog:validate": "node ./scripts/blog-translations.mjs validate-output",
     "build": "astro build && npx pagefind --site dist && npm run audit:indexability",
     "preview": "astro preview",
     "astro": "astro"

@@ -1,0 +1,230 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import ShareButtons from '../../../components/ShareButtons.jsx';
+import { marked } from 'marked';
+import { ArrowLeft, ArrowRight, Calendar, Tag, User } from 'lucide-react';
+import {
+  BLOG_TRANSLATION_LOCALES,
+  getLocalizedBlogPosts,
+  type BlogTranslationLocale,
+  type LocalizedBlogPost,
+} from '../../../lib/localizedBlogPosts';
+
+const UI = {
+  de: {
+    back: 'Zurück zu den Analysen',
+    minute: 'Min. Lesezeit',
+    more: 'Weiter entdecken',
+    all: 'Alle Analysen',
+    speediance: 'Speediance-Analysen',
+    whoop: 'WHOOP und Erholung',
+    home: 'Startseite',
+    blog: 'Analysen',
+    dateLocale: 'de-DE',
+  },
+  es: {
+    back: 'Volver a los análisis',
+    minute: 'min de lectura',
+    more: 'Seguir explorando',
+    all: 'Todos los análisis',
+    speediance: 'Análisis de Speediance',
+    whoop: 'WHOOP y recuperación',
+    home: 'Inicio',
+    blog: 'Análisis',
+    dateLocale: 'es-ES',
+  },
+  pt: {
+    back: 'Voltar para as análises',
+    minute: 'min de leitura',
+    more: 'Continue explorando',
+    all: 'Todas as análises',
+    speediance: 'Análises da Speediance',
+    whoop: 'WHOOP e recuperação',
+    home: 'Início',
+    blog: 'Análises',
+    dateLocale: 'pt-BR',
+  },
+  hi: {
+    back: 'विश्लेषण पर वापस जाएं',
+    minute: 'मिनट में पढ़ें',
+    more: 'आगे पढ़ें',
+    all: 'सभी विश्लेषण',
+    speediance: 'Speediance विश्लेषण',
+    whoop: 'WHOOP और रिकवरी',
+    home: 'होम',
+    blog: 'विश्लेषण',
+    dateLocale: 'hi-IN',
+  },
+} as const;
+
+export function getStaticPaths() {
+  return BLOG_TRANSLATION_LOCALES.flatMap((lang) =>
+    getLocalizedBlogPosts(lang).map((post) => ({
+      params: { lang, slug: post.slug },
+      props: { lang, post },
+    })),
+  );
+}
+
+interface Props {
+  lang: BlogTranslationLocale;
+  post: LocalizedBlogPost;
+}
+
+const { lang, post } = Astro.props as Props;
+const ui = UI[lang];
+const articleHtml = await marked.parse(post.content || '');
+const wordCount = post.content.split(/\s+/).filter(Boolean).length;
+const readingMinutes = Math.max(1, Math.round(wordCount / 200));
+const postUrl = `https://tobyonfitnesstech.com/${lang}/blog/${post.slug}/`;
+const imageUrl = post.image
+  ? (post.image.startsWith('http') ? post.image : `https://tobyonfitnesstech.com${post.image}`)
+  : undefined;
+const publishedTimestamp = Date.parse(/^\d{4}-\d{2}-\d{2}$/.test(post.published_at)
+  ? `${post.published_at}T12:00:00Z`
+  : post.published_at);
+const publishedLabel = Number.isNaN(publishedTimestamp)
+  ? post.published_at
+  : new Date(publishedTimestamp).toLocaleDateString(ui.dateLocale, {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+const blogSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.title,
+  description: post.excerpt,
+  inLanguage: lang,
+  datePublished: post.published_at,
+  dateModified: post.translatedAt,
+  url: postUrl,
+  mainEntityOfPage: postUrl,
+  ...(imageUrl ? { image: imageUrl } : {}),
+  author: { '@id': 'https://tobyonfitnesstech.com/#toby' },
+  publisher: { '@id': 'https://tobyonfitnesstech.com/#organization' },
+};
+---
+
+<Layout
+  title={`${post.title} - TobyOnFitnessTech`}
+  description={post.excerpt}
+  image={post.image}
+  ogType="article"
+  publishedTime={post.published_at}
+  modifiedTime={post.translatedAt}
+  author="Toby Glenn Peters"
+  {lang}
+  translationBase={`/blog/${post.slug}/`}
+  jsonLd={blogSchema}
+  breadcrumbs={[
+    { name: ui.home, url: `/${lang}/` },
+    { name: ui.blog, url: `/${lang}/blog/` },
+    { name: post.title, url: `/${lang}/blog/${post.slug}/` },
+  ]}
+>
+  <article class="min-h-screen bg-neutral-950 pb-24" data-pagefind-body>
+    <header class="border-b border-neutral-800 bg-neutral-900 pb-14 pt-24 md:pt-32">
+      <div class="container mx-auto max-w-4xl px-4">
+        <a
+          href={`/${lang}/blog/`}
+          class="mb-8 inline-flex items-center text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300"
+        >
+          <ArrowLeft size={16} class="mr-2" aria-hidden="true" />
+          {ui.back}
+        </a>
+
+        <div class="mb-4 flex flex-wrap items-center gap-3 text-xs font-bold uppercase text-blue-400">
+          <span class="rounded-full border border-blue-500/30 bg-blue-900/30 px-3 py-1">{post.category}</span>
+          <span class="text-neutral-600" aria-hidden="true">/</span>
+          <span>{readingMinutes} {ui.minute}</span>
+        </div>
+
+        <h1 class="mb-6 max-w-4xl text-3xl font-bold leading-tight text-white md:text-5xl">{post.title}</h1>
+        <p class="mb-8 max-w-3xl text-lg leading-relaxed text-neutral-300 md:text-xl">{post.excerpt}</p>
+
+        <div class="flex flex-wrap items-center gap-6 border-t border-neutral-800 pt-6 text-sm text-neutral-400">
+          <span class="inline-flex items-center gap-2 text-white"><User size={16} aria-hidden="true" /> Toby</span>
+          <span class="inline-flex items-center gap-2"><Calendar size={16} aria-hidden="true" /> {publishedLabel}</span>
+        </div>
+        <ShareButtons url={postUrl} title={post.title} client:load />
+      </div>
+    </header>
+
+    <div class="container mx-auto max-w-3xl px-4 py-12">
+      <div class="markdown-shell rounded-lg border border-neutral-800 bg-neutral-900/55 px-6 py-8 md:px-10 md:py-10">
+        <div class="markdown-article" set:html={articleHtml} />
+      </div>
+
+      {post.tags.length > 0 && (
+        <div class="mt-12 flex flex-wrap items-center gap-2 border-t border-neutral-800 pt-8">
+          <Tag size={16} class="mr-2 text-neutral-500" aria-hidden="true" />
+          {post.tags.map((tag) => (
+            <span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#{tag}</span>
+          ))}
+        </div>
+      )}
+
+      <nav class="mt-14 border-y border-neutral-800 py-9" aria-label={ui.more}>
+        <h2 class="mb-5 text-xl font-bold text-white">{ui.more}</h2>
+        <div class="flex flex-wrap gap-x-6 gap-y-3">
+          <a href={`/${lang}/blog/`} class="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">
+            {ui.all} <ArrowRight size={15} aria-hidden="true" />
+          </a>
+          <a href={`/${lang}/speediance/`} class="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">
+            {ui.speediance} <ArrowRight size={15} aria-hidden="true" />
+          </a>
+          <a href={`/${lang}/whoop/`} class="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">
+            {ui.whoop} <ArrowRight size={15} aria-hidden="true" />
+          </a>
+        </div>
+      </nav>
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  .markdown-article {
+    color: rgb(212 212 216);
+    font-size: 1.075rem;
+    line-height: 1.9;
+  }
+  .markdown-article > :first-child { margin-top: 0; }
+  .markdown-article h1,
+  .markdown-article h2,
+  .markdown-article h3 {
+    color: white;
+    font-weight: 800;
+    line-height: 1.25;
+    margin: 2.5rem 0 1rem;
+  }
+  .markdown-article h1 { font-size: 2rem; }
+  .markdown-article h2 { font-size: 1.65rem; }
+  .markdown-article h3 { font-size: 1.3rem; }
+  .markdown-article p,
+  .markdown-article ul,
+  .markdown-article ol,
+  .markdown-article blockquote { margin: 1.25rem 0; }
+  .markdown-article ul,
+  .markdown-article ol { padding-left: 1.5rem; }
+  .markdown-article ul { list-style: disc; }
+  .markdown-article ol { list-style: decimal; }
+  .markdown-article a { color: rgb(96 165 250); text-decoration: underline; }
+  .markdown-article strong { color: white; }
+  .markdown-article img { height: auto; max-width: 100%; border-radius: 0.5rem; }
+  .markdown-article blockquote {
+    border-left: 3px solid rgb(59 130 246);
+    color: rgb(229 229 229);
+    padding-left: 1rem;
+  }
+  .markdown-article pre {
+    margin: 1.5rem 0;
+    max-width: 100%;
+    overflow-x: auto;
+    border: 1px solid rgb(38 38 38);
+    border-radius: 0.5rem;
+    background: rgb(10 10 10);
+    padding: 1rem;
+  }
+  .markdown-article code { overflow-wrap: anywhere; }
+</style>

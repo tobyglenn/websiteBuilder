@@ -16,6 +16,7 @@ interface Props {
   jsonLd?: object | object[];
   lang?: string;
   episodeSlug?: string;
+  translationBase?: string;
   breadcrumbs?: Array<{ name: string; url: string }>;
   noindex?: boolean;
   publishedTime?: string;
@@ -35,6 +36,7 @@ const {
   jsonLd,
   lang = 'en',
   episodeSlug,
+  translationBase,
   breadcrumbs,
   noindex = false,
   publishedTime,
@@ -250,7 +252,9 @@ seoTitle = trimTitleForSerp(seoTitle, MAX_TITLE_LENGTH);
 
 // Build hreflang links — only for pages with actual translated versions
 let hreflangBase: string | null = null;
-if (episodeSlug) {
+if (translationBase) {
+  hreflangBase = translationBase;
+} else if (episodeSlug) {
   // Podcast episode pages and AgentStack landing: /podcasts/[episodeSlug]/
   hreflangBase = `/podcasts/${episodeSlug}/`;
 } else if (lang !== 'en') {
