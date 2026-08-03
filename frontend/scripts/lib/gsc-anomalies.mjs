@@ -1,4 +1,5 @@
-const AGENTSTACK_EPISODE_PAGE_RE = /\/podcasts\/episode-\d+\/?$/i;
+const AGENTSTACK_PAGE_RE =
+  /\/(?:agentstack|podcasts\/(?:agentstack|episode-\d+))\/?$/i;
 const EXTERNAL_DOMAIN_ONLY_RE =
   /^["']?(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:com|dev|id|io|ai|app|net|org|co|xyz)["']?$/i;
 const URL_OR_API_RE =
@@ -6,7 +7,7 @@ const URL_OR_API_RE =
 const BOOLEAN_QUERY_RE = /(?:^|\s)(?:OR|AND)\s|["'][^"']+["']\s+(?:OR|AND)\s+/i;
 
 export const ANOMALY_RULES = {
-  scope: 'AgentStack episode query-page rows only',
+  scope: 'AgentStack hub and episode query-page rows only',
   url_or_api_reference:
     'URL, API endpoint, repository path, or parameterized request copied from episode transcript text.',
   external_domain_reference:
@@ -46,7 +47,7 @@ export const classifyQueryPageAnomaly = ({ query = '', page = '' } = {}) => {
   const normalizedQuery = String(query).trim();
   const normalizedPage = String(page).trim();
 
-  if (!normalizedQuery || !AGENTSTACK_EPISODE_PAGE_RE.test(normalizedPage)) {
+  if (!normalizedQuery || !AGENTSTACK_PAGE_RE.test(normalizedPage)) {
     return null;
   }
   if (/tobyonfitnesstech\.com/i.test(normalizedQuery)) {

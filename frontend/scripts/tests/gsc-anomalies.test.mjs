@@ -9,6 +9,9 @@ import {
 } from '../lib/gsc-anomalies.mjs';
 
 const episode26 = 'https://tobyonfitnesstech.com/podcasts/episode-26/';
+const agentStackHub = 'https://tobyonfitnesstech.com/agentstack/';
+const localizedAgentStackHub =
+  'https://tobyonfitnesstech.com/de/podcasts/agentstack/';
 
 test('classifies known transcript-reference query anomalies', () => {
   assert.equal(
@@ -31,9 +34,30 @@ test('classifies known transcript-reference query anomalies', () => {
   );
 });
 
+test('classifies API references on AgentStack hub and localized hub pages', () => {
+  assert.equal(
+    classifyQueryPageAnomaly({
+      query: 'api.github.com/repos/openai/codex/releases?per_page=10',
+      page: agentStackHub,
+    }),
+    'url_or_api_reference',
+  );
+  assert.equal(
+    classifyQueryPageAnomaly({
+      query: 'https://api.github.com/repos/openclaw/openclaw/releases/latest',
+      page: localizedAgentStackHub,
+    }),
+    'url_or_api_reference',
+  );
+});
+
 test('does not suppress legitimate AgentStack demand or unrelated site pages', () => {
   assert.equal(
     classifyQueryPageAnomaly({ query: 'openclaw fitness reports', page: episode26 }),
+    null,
+  );
+  assert.equal(
+    classifyQueryPageAnomaly({ query: 'agentstack daily', page: agentStackHub }),
     null,
   );
   assert.equal(

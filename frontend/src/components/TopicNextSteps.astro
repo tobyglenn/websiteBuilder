@@ -1,5 +1,6 @@
 ---
 import { ArrowRight, BarChart3, Cpu, Dumbbell, FileText, HeartPulse, PlaySquare, Shield, Watch } from 'lucide-react';
+import { classifyContentTopic } from '../lib/contentTopic.js';
 
 interface Props {
   context?: string;
@@ -13,17 +14,7 @@ const {
   sourceSlug = Astro.url.pathname,
 } = Astro.props;
 
-const haystack = context.toLowerCase();
-
-const topic = /openclaw|agentstack|agent stack|claude|anthropic|local ai|\bai\b/.test(haystack)
-  ? 'agentstack'
-  : /whoop|oura|garmin|wearable|recovery|sleep|hrv/.test(haystack)
-    ? 'wearables'
-    : /speediance|tonal|gym monster|smart gym|voltra|aeke/.test(haystack)
-      ? 'speediance'
-      : /bjj|jiu.?jitsu|grappling|black belt/.test(haystack)
-        ? 'bjj'
-        : 'training';
+const topic = classifyContentTopic(context);
 
 const routes = {
   speediance: {

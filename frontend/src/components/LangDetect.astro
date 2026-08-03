@@ -18,7 +18,28 @@
       localStorage.setItem(LEGACY_STORAGE_KEY, langCode);
     }
     
-    function init() {
+    async function redirectToLocalizedPage(langCode) {
+      persistLang(langCode);
+
+      const targetUrl = new URL(window.location.href);
+      targetUrl.pathname = `/${langCode}${window.location.pathname}`;
+
+      try {
+        const response = await fetch(`${targetUrl.pathname}${targetUrl.search}`, {
+          method: 'HEAD',
+          cache: 'no-store',
+          credentials: 'same-origin',
+        });
+        if (!response.ok) return false;
+
+        window.location.replace(targetUrl.href);
+        return true;
+      } catch {
+        return false;
+      }
+    }
+
+    async function init() {
       // Skip if already on a locale path
       if (LOCALE_PATH_REGEX.test(window.location.pathname)) {
         return;
@@ -32,9 +53,7 @@
       }
 
       if (storedLang && SUPPORTED_LANGS.includes(storedLang)) {
-        persistLang(storedLang);
-        const targetPath = `/${storedLang}${window.location.pathname}`;
-        window.location.replace(targetPath);
+        await redirectToLocalizedPage(storedLang);
         return;
       }
       
@@ -44,9 +63,7 @@
       
       // If detected language is supported, redirect
       if (SUPPORTED_LANGS.includes(langCode)) {
-        persistLang(langCode);
-        const targetPath = `/${langCode}${window.location.pathname}`;
-        window.location.replace(targetPath);
+        await redirectToLocalizedPage(langCode);
       }
     }
     
