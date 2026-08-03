@@ -53001,15 +53001,15 @@
                 "id": 1688388636,
                 "user_id": 1781625,
                 "created_at": "2026-08-03T09:05:08.351Z",
-                "updated_at": "2026-08-03T09:05:15.294Z",
+                "updated_at": "2026-08-03T22:06:04.176Z",
                 "start": "2026-08-03T02:39:09.670Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 5.634765,
-                    "kilojoule": 3630.7104,
-                    "average_heart_rate": 73,
+                    "strain": 7.9276657,
+                    "kilojoule": 8708.637,
+                    "average_heart_rate": 75,
                     "max_heart_rate": 167
                 }
             }
@@ -115946,6 +115946,41 @@
                     "sleep_consistency_percentage": 71.0,
                     "sleep_efficiency_percentage": 89.33751
                 }
+            },
+            {
+                "id": "6ca38231-544a-4589-943f-9051936742eb",
+                "cycle_id": 1688388636,
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-03T22:06:04.095Z",
+                "updated_at": "2026-08-03T22:06:04.095Z",
+                "start": "2026-08-03T18:30:29.490Z",
+                "end": "2026-08-03T19:50:10.600Z",
+                "timezone_offset": "-04:00",
+                "nap": true,
+                "score_state": "SCORED",
+                "score": {
+                    "stage_summary": {
+                        "total_in_bed_time_milli": 4781110,
+                        "total_awake_time_milli": 1088000,
+                        "total_no_data_time_milli": 0,
+                        "total_light_sleep_time_milli": 1622040,
+                        "total_slow_wave_sleep_time_milli": 2071070,
+                        "total_rem_sleep_time_milli": 0,
+                        "sleep_cycle_count": 0,
+                        "disturbance_count": 2
+                    },
+                    "sleep_needed": {
+                        "baseline_milli": 27060025,
+                        "need_from_sleep_debt_milli": 5185252,
+                        "need_from_recent_strain_milli": 426041,
+                        "need_from_recent_nap_milli": 0
+                    },
+                    "respiratory_rate": 14.941406,
+                    "sleep_performance_percentage": 16.0,
+                    "sleep_consistency_percentage": 57.0,
+                    "sleep_efficiency_percentage": 78.32517
+                }
             }
         ]
     },
@@ -176137,11 +176172,73 @@
                     }
                 },
                 "sport_id": 98
+            },
+            {
+                "id": "752d64e2-705a-4fff-a414-0cc88cc7d8fc",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-03T12:15:20.975Z",
+                "updated_at": "2026-08-03T12:15:24.980Z",
+                "start": "2026-08-03T11:37:00.490Z",
+                "end": "2026-08-03T11:56:59.490Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "jiu-jitsu",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 5.8028464,
+                    "average_heart_rate": 129,
+                    "max_heart_rate": 155,
+                    "kilojoule": 587.23016,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 334000,
+                        "zone_one_milli": 494000,
+                        "zone_two_milli": 371000,
+                        "zone_three_milli": 0,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 98
+            },
+            {
+                "id": "5d1b8e9b-f73e-4f6d-a708-cbc5d681e851",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-03T11:39:17.800Z",
+                "updated_at": "2026-08-03T11:39:22.182Z",
+                "start": "2026-08-03T11:06:00.490Z",
+                "end": "2026-08-03T11:24:59.490Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "jiu-jitsu",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 5.5413218,
+                    "average_heart_rate": 129,
+                    "max_heart_rate": 167,
+                    "kilojoule": 547.83276,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 111000,
+                        "zone_one_milli": 840000,
+                        "zone_two_milli": 154000,
+                        "zone_three_milli": 34000,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 98
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-08-03T07:30:13.337505"
+    "last_synced": "2026-08-03T19:50:03.051568"
 }
