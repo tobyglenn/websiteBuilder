@@ -457,6 +457,10 @@ const callMiniMax = (post, locale) => {
     }).join('\n\n');
     return restoreTranslationTokens({ ...metadata, content }, replacements);
   } catch (error) {
+    // Cached model output is written before assembly validation. If metadata,
+    // JSON, or protected-token validation fails, retaining those checkpoints
+    // makes every retry replay the same invalid response forever.
+    rmSync(cacheDirectory, { recursive: true, force: true });
     throw new Error(`MiniMax M3 translation assembly failed: ${error?.message || error}`);
   }
 };
