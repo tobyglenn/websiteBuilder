@@ -63,7 +63,7 @@ const modelAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_MODEL_ATTE
 const draftAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_DRAFT_ATTEMPTS || 3));
 const modelRetrySeconds = Math.max(0, Number(process.env.BLOG_TRANSLATION_MODEL_RETRY_SECONDS || 5));
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
-const promptVersion = '2026-08-03-v4';
+const promptVersion = '2026-08-03-v5';
 
 const parseArgs = (argv) => {
   const options = {};
@@ -184,6 +184,10 @@ const numericTokens = (value) => [
   ...new Set(String(value || '').match(/\b\d[\d,.]*(?:%|[a-z]{1,4})?\b/gi) || []),
 ];
 
+const numericUnitTokens = (value) => [
+  ...new Set(String(value || '').match(/\b\d[\d,.]*(?:%|[a-z]{1,4})(?![a-z0-9_])/gi) || []),
+];
+
 const localizedNumericVariants = (token) => {
   const variants = new Set([token]);
   if (/[.,]/.test(token)) {
@@ -211,6 +215,7 @@ export const shieldTranslationSource = (post) => {
   const candidates = [...new Set([
     ...linkTargets(source.content),
     ...PROTECTED_NAMES.filter((name) => translatableText.includes(name)),
+    ...numericUnitTokens(translatableText),
   ])]
     .filter(Boolean)
     .sort((a, b) => b.length - a.length);
