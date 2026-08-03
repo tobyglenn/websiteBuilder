@@ -60,7 +60,7 @@ const freecallRoot = process.env.FREECALL_ROOT || join(homedir(), '.openclaw/scr
 const modelTimeoutSeconds = Number(process.env.BLOG_TRANSLATION_MODEL_TIMEOUT || 900);
 const modelMaxTokens = Number(process.env.BLOG_TRANSLATION_MAX_TOKENS || 8192);
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
-const promptVersion = '2026-08-03-v3';
+const promptVersion = '2026-08-03-v4';
 
 const parseArgs = (argv) => {
   const options = {};
@@ -181,6 +181,14 @@ const numericTokens = (value) => [
   ...new Set(String(value || '').match(/\b\d[\d,.]*(?:%|[a-z]{1,4})?\b/gi) || []),
 ];
 
+const localizedNumericVariants = (token) => {
+  const variants = new Set([token]);
+  if (/[.,]/.test(token)) {
+    variants.add(token.replace(/[.,]/g, (separator) => (separator === ',' ? '.' : ',')));
+  }
+  return [...variants];
+};
+
 const occurrenceCount = (value, token) => String(value || '').split(token).length - 1;
 
 const placeholderLabel = (index) => {
@@ -295,7 +303,9 @@ export const validateTranslationDraft = (draft, source) => {
 
   const sourceNumbers = numericTokens(`${source.title}\n${source.excerpt}\n${source.content}`);
   const translatedText = `${title}\n${excerpt}\n${content}`;
-  const missingNumbers = sourceNumbers.filter((token) => !translatedText.includes(token));
+  const missingNumbers = sourceNumbers.filter((token) =>
+    !localizedNumericVariants(token).some((variant) => translatedText.includes(variant)),
+  );
   if (missingNumbers.length) errors.push(`missing preserved numbers: ${missingNumbers.slice(0, 5).join(', ')}`);
 
   const changedProtectedNames = PROTECTED_NAMES.filter((name) =>
@@ -349,7 +359,7 @@ Return ONLY one valid JSON object with exactly these keys:
   "tags": ["translated tag where natural", "product names unchanged"]
 }
 
-Use natural native-language phrasing. The excerpt is the search meta description, so keep it concise and useful. Do not add, remove, summarize, or invent claims. Tokens beginning with __TOFT_KEEP_ are immutable: copy every occurrence exactly, including underscores. Return JSON only, without Markdown fences.
+Use natural native-language phrasing. The excerpt is the search meta description, so keep it concise and useful. Do not add, remove, summarize, or invent claims. Preserve every numeric value and unit; do not spell numbers out or convert units. Locale-specific comma/period separators are allowed. Tokens beginning with __TOFT_KEEP_ are immutable: copy every occurrence exactly, including underscores. Return JSON only, without Markdown fences.
 
 SOURCE METADATA JSON:
 ${JSON.stringify({ title: post.title, excerpt: post.excerpt, category: post.category, tags: post.tags })}`;
@@ -362,6 +372,7 @@ Requirements:
 - Translate every heading, paragraph, list item, table label, caption, and visible link text.
 - Preserve Markdown and HTML structure.
 - Do not summarize, shorten, expand, reorder, or invent information.
+- Preserve every numeric value and unit. Do not spell numbers out or convert units. Locale-specific comma/period separators are allowed.
 - Tokens beginning with __TOFT_KEEP_ are immutable. Copy every occurrence exactly, including underscores.
 - Use natural native-language phrasing rather than word-for-word syntax.
 

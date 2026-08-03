@@ -71,6 +71,21 @@ test('rejects translations that drop source numbers', () => {
   assert.throws(() => validateTranslationDraft(translated, numberedSource), /missing preserved numbers/);
 });
 
+test('accepts equivalent locale-specific numeric separators', () => {
+  const numberedSource = {
+    ...source,
+    content: `${source.content}\n\nThe price is $2,400 to $2,600 with a 21.5-inch display.`,
+  };
+  const translated = {
+    title: 'WHOOP-Erholungstest',
+    excerpt: 'Eine klare Beschreibung des vollständigen Artikels für Leser.',
+    category: 'Wearables',
+    tags: ['WHOOP'],
+    content: `${'## Ergebnis\n\nLesen Sie die [WHOOP-Seite](/whoop/) und https://example.com/data.\n\nDer vollständige übersetzte Inhalt bleibt erhalten. '.repeat(8)}\n\nDer Preis liegt zwischen $2.400 und $2.600 mit einem 21,5-Zoll-Display.`,
+  };
+  assert.equal(validateTranslationDraft(translated, numberedSource).title, translated.title);
+});
+
 test('shields and restores links and product names without placeholder-heavy numeric substitution', () => {
   const protectedSource = {
     ...source,
