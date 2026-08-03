@@ -71,13 +71,14 @@ test('rejects translations that drop source numbers', () => {
   assert.throws(() => validateTranslationDraft(translated, numberedSource), /missing preserved numbers/);
 });
 
-test('shields and restores numbers, links, and product names', () => {
+test('shields and restores links and product names without placeholder-heavy numeric substitution', () => {
   const protectedSource = {
     ...source,
     content: `${source.content}\n\nWHOOP scored 83% after 7 days.`,
   };
   const { shielded, replacements } = shieldTranslationSource(protectedSource);
-  assert.doesNotMatch(shielded.content, /83%|\/whoop\/|WHOOP/);
+  assert.match(shielded.content, /83%|7 days/);
+  assert.doesNotMatch(shielded.content, /\/whoop\/|WHOOP/);
 
   const restored = restoreTranslationTokens({
     title: shielded.title.replace('Recovery Test', 'Erholungstest'),

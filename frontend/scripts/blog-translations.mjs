@@ -60,7 +60,7 @@ const freecallRoot = process.env.FREECALL_ROOT || join(homedir(), '.openclaw/scr
 const modelTimeoutSeconds = Number(process.env.BLOG_TRANSLATION_MODEL_TIMEOUT || 900);
 const modelMaxTokens = Number(process.env.BLOG_TRANSLATION_MAX_TOKENS || 8192);
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
-const promptVersion = '2026-08-03-v2';
+const promptVersion = '2026-08-03-v3';
 
 const parseArgs = (argv) => {
   const options = {};
@@ -199,7 +199,6 @@ export const shieldTranslationSource = (post) => {
   const translatableText = [source.title, source.excerpt, source.category, ...source.tags, source.content].join('\n');
   const candidates = [...new Set([
     ...linkTargets(source.content),
-    ...numericTokens(translatableText),
     ...PROTECTED_NAMES.filter((name) => translatableText.includes(name)),
   ])]
     .filter(Boolean)
