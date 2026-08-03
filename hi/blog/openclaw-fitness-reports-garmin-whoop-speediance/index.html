@@ -1,0 +1,793 @@
+<!DOCTYPE html><html lang="hi" class="dark scroll-smooth"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="sitemap" href="/sitemap-index.xml"><link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml"><meta name="generator" content="Astro v7.1.6"><!-- Preconnect to external domains for faster connection --><link rel="preconnect" href="https://www.youtube.com"><link rel="preconnect" href="https://www.instagram.com"><link rel="preconnect" href="https://x.com"><link rel="dns-prefetch" href="https://www.youtube.com"><link rel="dns-prefetch" href="https://www.instagram.com"><link rel="dns-prefetch" href="https://x.com"><title>एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए</title><link rel="canonical" href="https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><meta name="description" content="OpenClaw फिटनेस रिपोर्ट कनेक्टर्स को Garmin, WHOOP, Speediance, Cronometer, 8Sleep, सामान्यीकृत JSON स्नैपशॉट्स और सार्वजनिक GitHub रिपॉज़िटरीज़ में बनाने के लिए एक एजेंट-तैयार कार्यान्वयन ब्रीफ।"><meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta property="og:title" content="एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं - TobyOnFitnessTech"><meta property="og:type" content="article"><meta property="og:image" content="https://tobyonfitnesstech.com/images/blog/openclaw-fitness-reports-garmin-whoop-speediance.jpg"><meta property="og:url" content="https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><meta property="og:locale" content="hi_IN"><meta property="og:site_name" content="Toby on Fitness Tech"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं - TobyOnFitnessTech"><link rel="alternate" type="application/rss+xml" title="Blog Feed" href="https://tobyonfitnesstech.com/rss.xml"><link rel="alternate" hreflang="en" href="https://tobyonfitnesstech.com/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><link rel="alternate" hreflang="es" href="https://tobyonfitnesstech.com/es/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><link rel="alternate" hreflang="pt" href="https://tobyonfitnesstech.com/pt/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><link rel="alternate" hreflang="hi" href="https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><link rel="alternate" hreflang="de" href="https://tobyonfitnesstech.com/de/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><link rel="alternate" hreflang="x-default" href="https://tobyonfitnesstech.com/blog/openclaw-fitness-reports-garmin-whoop-speediance/"><meta name="twitter:site" content="@tobyonfitness"><meta name="twitter:creator" content="@tobyglenn"><meta name="twitter:title" content="एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं - TobyOnFitnessTech"><meta name="twitter:description" content="OpenClaw फिटनेस रिपोर्ट कनेक्टर्स को Garmin, WHOOP, Speediance, Cronometer, 8Sleep, सामान्यीकृत JSON स्नैपशॉट्स और सार्वजनिक GitHub रिपॉज़िटरीज़ में बनाने के लिए एक एजेंट-तैयार कार्यान्वयन ब्रीफ।"><meta name="twitter:image" content="https://tobyonfitnesstech.com/images/blog/openclaw-fitness-reports-garmin-whoop-speediance.jpg"><meta name="article:published_time" content="2026-05-03"><meta name="article:modified_time" content="2026-08-03T16:49:40.543Z"><meta name="article:author" content="Toby Glenn Peters"><meta name="author" content="Toby Glenn Peters"><meta name="ai-content-type" content="educational"><meta name="ai-purpose" content="product reviews, fitness analysis, tech comparison"><meta name="ai-target-audience" content="fitness enthusiasts, tech adopters, home gym owners"><meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1"><meta name="keywords" content="fitness tech, Speediance, Tonal, Whoop, Garmin, BJJ, home gym, smart fitness equipment, wearables"><script type="module">(function(){let e=`site-lang`,t=`preferredLang`,n=[`es`,`pt`,`hi`,`de`],r=/^\/(es|pt|hi|de)\//;function i(){return localStorage.getItem(e)||localStorage.getItem(t)}function a(n){localStorage.setItem(e,n),localStorage.setItem(t,n)}async function o(e){a(e);let t=new URL(window.location.href);t.pathname=`/${e}${window.location.pathname}`;try{return(await fetch(`${t.pathname}${t.search}`,{method:`HEAD`,cache:`no-store`,credentials:`same-origin`})).ok?(window.location.replace(t.href),!0):!1}catch{return!1}}async function s(){if(r.test(window.location.pathname))return;let e=i();if(e===`en`){a(`en`);return}if(e&&n.includes(e)){await o(e);return}let t=(navigator.language||navigator.languages?.[0]||``).split(`-`)[0].toLowerCase();n.includes(t)&&await o(t)}document.readyState===`loading`?document.addEventListener(`DOMContentLoaded`,s):s()})();</script><script>(function(){const posthogKey = "phc_sQ9ZdgKMw8s2bQdXPf9J6dLPk64MKABgGYCM6S8kCpnH";
+const posthogHost = "https://us.i.posthog.com";
+
+      window.__TOFT_POSTHOG_CONFIG__ = {
+        key: posthogKey,
+        host: posthogHost,
+      };
+    })();</script><script src="/js/posthog-analytics.js?v=20260728-projects" defer></script><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.aQfDf-Kh.js"></script><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="TobyOnFitnessTech"><meta name="theme-color" content="#0a0a0a"><meta name="referrer" content="strict-origin-when-cross-origin"><script type="application/ld+json">[{"@context":"https://schema.org","@type":"Person","@id":"https://tobyonfitnesstech.com/#toby","name":"Toby Glenn Peters","alternateName":"TobyOnFitnessTech","jobTitle":"Fitness Enthusiast & Tech Builder","description":"Independent fitness technology reviewer and builder. Dropped from 242 to 188 pounds, using data from Speediance, Garmin, WHOOP, and running to guide training decisions.","url":"https://tobyonfitnesstech.com","image":"https://tobyonfitnesstech.com/og-default.jpg","sameAs":["https://www.youtube.com/@tobyonfitness","https://www.instagram.com/tobyonfitness"],"knowsAbout":["Speediance","Brazilian Jiu-Jitsu","Garmin","WHOOP","8Sleep","Running","Fitness Technology","Home Gym Equipment"],"award":"242→188 lb transformation"},{"@context":"https://schema.org","@type":"WebSite","@id":"https://tobyonfitnesstech.com/#website","url":"https://tobyonfitnesstech.com","name":"Toby on Fitness Tech","description":"Independent fitness technology reviews, analysis, and deep dives.","publisher":{"@id":"https://tobyonfitnesstech.com/#organization"},"potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://tobyonfitnesstech.com/search/?q={search_term_string}"},"query-input":"required name=search_term_string"}},{"@context":"https://schema.org","@type":"Organization","@id":"https://tobyonfitnesstech.com/#organization","name":"Toby on Fitness Tech","alternateName":"TobyOnFitnessTech","description":"Independent fitness technology reviews, analysis, and deep dives. Covering Speediance, Tonal, Whoop, Garmin, and more with real athlete data.","url":"https://tobyonfitnesstech.com","logo":{"@type":"ImageObject","url":"https://tobyonfitnesstech.com/og-default.jpg","width":1200,"height":630},"founder":{"@id":"https://tobyonfitnesstech.com/#toby"},"foundingDate":"2024","sameAs":["https://www.youtube.com/@tobyonfitness","https://x.com/tobyglenn","https://www.instagram.com/tobyonfitness","https://tobyonfitnesstech.com"],"contactPoint":{"@type":"ContactPoint","email":"toby@tobyonfitnesstech.com","contactType":"customer service","availableLanguage":"English"},"knowsAbout":["Fitness Technology","Smart Home Gym Equipment","Wearable Technology","Strength Training","Brazilian Jiu-Jitsu","Speediance","Tonal","Whoop","Garmin"]},{"@context":"https://schema.org","@type":"SiteNavigationElement","name":"Main Navigation","description":"Primary navigation menu for Toby on Fitness Tech","mainEntityOfPage":"https://tobyonfitnesstech.com/","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","url":"https://tobyonfitnesstech.com/"},{"@type":"ListItem","position":2,"name":"Speediance","url":"https://tobyonfitnesstech.com/speediance/"},{"@type":"ListItem","position":3,"name":"Wearables","url":"https://tobyonfitnesstech.com/wearables/"},{"@type":"ListItem","position":4,"name":"Training Data","url":"https://tobyonfitnesstech.com/training/"},{"@type":"ListItem","position":5,"name":"Articles","url":"https://tobyonfitnesstech.com/blog/"},{"@type":"ListItem","position":6,"name":"Videos","url":"https://tobyonfitnesstech.com/videos/"},{"@type":"ListItem","position":7,"name":"Projects","url":"https://tobyonfitnesstech.com/projects/"},{"@type":"ListItem","position":8,"name":"AgentStack","url":"https://tobyonfitnesstech.com/agentstack/"},{"@type":"ListItem","position":9,"name":"About","url":"https://tobyonfitnesstech.com/about/"}]},{"@context":"https://schema.org","@type":"SpeakableSpecification","cssSelector":["h1","h2","[data-speakable]","article p:first-of-type","meta[name='description']"]},{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"होम","item":"https://tobyonfitnesstech.com/hi/"},{"@type":"ListItem","position":2,"name":"विश्लेषण","item":"https://tobyonfitnesstech.com/hi/blog/"},{"@type":"ListItem","position":3,"name":"एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं","item":"https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/"}]},{"@context":"https://schema.org","@type":"BlogPosting","headline":"एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं","description":"OpenClaw फिटनेस रिपोर्ट कनेक्टर्स को Garmin, WHOOP, Speediance, Cronometer, 8Sleep, सामान्यीकृत JSON स्नैपशॉट्स और सार्वजनिक GitHub रिपॉज़िटरीज़ में बनाने के लिए एक एजेंट-तैयार कार्यान्वयन ब्रीफ।","inLanguage":"hi","datePublished":"2026-05-03","dateModified":"2026-08-03T16:49:40.543Z","url":"https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/","mainEntityOfPage":"https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/","image":"https://tobyonfitnesstech.com/images/blog/openclaw-fitness-reports-garmin-whoop-speediance.jpg","author":{"@id":"https://tobyonfitnesstech.com/#toby"},"publisher":{"@id":"https://tobyonfitnesstech.com/#organization"}}]</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"TobyOnFitnessTech","url":"https://tobyonfitnesstech.com/","potentialAction":{"@type":"SearchAction","target":"https://tobyonfitnesstech.com/search/?q={search_term_string}","query-input":"required name=search_term_string"}}</script><link rel="stylesheet" href="/_astro/Layout.D2KkuKvC.css"><style>.markdown-article{color:#d4d4d8;font-size:1.075rem;line-height:1.9}.markdown-article>:first-child{margin-top:0}.markdown-article h1,.markdown-article h2,.markdown-article h3{color:#fff;margin:2.5rem 0 1rem;font-weight:800;line-height:1.25}.markdown-article h1{font-size:2rem}.markdown-article h2{font-size:1.65rem}.markdown-article h3{font-size:1.3rem}.markdown-article p,.markdown-article ul,.markdown-article ol,.markdown-article blockquote{margin:1.25rem 0}.markdown-article ul,.markdown-article ol{padding-left:1.5rem}.markdown-article ul{list-style:outside}.markdown-article ol{list-style:decimal}.markdown-article a{color:#60a5fa;text-decoration:underline}.markdown-article strong{color:#fff}.markdown-article img{border-radius:.5rem;max-width:100%;height:auto}.markdown-article blockquote{color:#e5e5e5;border-left:3px solid #3b82f6;padding-left:1rem}.markdown-article pre{background:#0a0a0a;border:1px solid #262626;border-radius:.5rem;max-width:100%;margin:1.5rem 0;padding:1rem;overflow-x:auto}.markdown-article code{overflow-wrap:anywhere}
+</style></head><body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30"><div data-pagefind-ignore><style>astro-island,astro-slot,astro-static-slot{display:contents}</style><script>(()=>{var e=async t=>{await(await t())()};(self.Astro||(self.Astro={})).load=e;window.dispatchEvent(new Event("astro:load"));})();</script><script>(()=>{var g=Object.defineProperty;var w=(a,s,c)=>s in a?g(a,s,{enumerable:!0,configurable:!0,writable:!0,value:c}):a[s]=c;var l=(a,s,c)=>w(a,typeof s!="symbol"?s+"":s,c);var E=new Set(["__proto__","constructor","prototype"]);{let a={0:t=>y(t),1:t=>c(t),2:t=>new RegExp(t),3:t=>new Date(t),4:t=>new Map(c(t)),5:t=>new Set(c(t)),6:t=>BigInt(t),7:t=>new URL(t),8:t=>new Uint8Array(t),9:t=>new Uint16Array(t),10:t=>new Uint32Array(t),11:t=>Number.POSITIVE_INFINITY*t},s=t=>{let[p,e]=t;return p in a?a[p](e):void 0},c=t=>t.map(s),y=t=>typeof t!="object"||t===null?t:Object.fromEntries(Object.entries(t).map(([p,e])=>[p,s(e)]));class f extends HTMLElement{constructor(){super(...arguments);l(this,"Component");l(this,"hydrator");l(this,"hydrate",async()=>{var b;if(!this.hydrator||!this.isConnected)return;let e=(b=this.parentElement)==null?void 0:b.closest("astro-island[ssr]");if(e){e.addEventListener("astro:hydrate",this.hydrate,{once:!0});return}let r=this.querySelectorAll("astro-slot"),n={},d=this.querySelectorAll("template[data-astro-template]");for(let o of d){let i=o.closest(this.tagName);i!=null&&i.isSameNode(this)&&(n[o.getAttribute("data-astro-template")||"default"]=o.innerHTML,o.remove())}for(let o of r){let i=o.closest(this.tagName);i!=null&&i.isSameNode(this)&&(n[o.getAttribute("name")||"default"]=o.innerHTML)}let u;try{u=this.hasAttribute("props")?y(JSON.parse(this.getAttribute("props"))):{}}catch(o){let i=this.getAttribute("component-url")||"<unknown>",v=this.getAttribute("component-export");throw v&&(i+=` (export ${v})`),console.error(`[hydrate] Error parsing props for component ${i}`,this.getAttribute("props"),o),o}let h;await this.hydrator(this)(this.Component,u,n,{client:this.getAttribute("client")}),this.removeAttribute("ssr"),this.dispatchEvent(new CustomEvent("astro:hydrate"))});l(this,"unmount",()=>{this.isConnected||this.dispatchEvent(new CustomEvent("astro:unmount"))})}disconnectedCallback(){document.removeEventListener("astro:after-swap",this.unmount),document.addEventListener("astro:after-swap",this.unmount,{once:!0})}connectedCallback(){if(!this.hasAttribute("await-children")||document.readyState==="interactive"||document.readyState==="complete")this.childrenConnectedCallback();else{let e=()=>{document.removeEventListener("DOMContentLoaded",e),r.disconnect(),this.childrenConnectedCallback()},r=new MutationObserver(()=>{var n;((n=this.lastChild)==null?void 0:n.nodeType)===Node.COMMENT_NODE&&this.lastChild.nodeValue==="astro:end"&&(this.lastChild.remove(),e())});r.observe(this,{childList:!0}),document.addEventListener("DOMContentLoaded",e)}}async childrenConnectedCallback(){let e=this.getAttribute("before-hydration-url");e&&await import(e),this.start()}getRetryImportUrl(e){let r=new URL(e,document.baseURI);return r.searchParams.set("astro-retry",Date.now().toString()),r.toString()}async importWithRetry(e){try{return await import(e)}catch(r){return await new Promise(n=>setTimeout(n,1e3)),import(this.getRetryImportUrl(e))}}handleHydrationError(e){let r=this.getAttribute("component-url"),n=new CustomEvent("astro:hydration-error",{cancelable:!0,bubbles:!0,composed:!0,detail:{error:e,componentUrl:r}});this.dispatchEvent(n)&&console.error(`[astro-island] Error hydrating ${r}`,e)}async start(){let e=JSON.parse(this.getAttribute("opts")),r=this.getAttribute("client");if(Astro[r]===void 0){window.addEventListener(`astro:${r}`,()=>this.start(),{once:!0});return}try{await Astro[r](async()=>{let n=this.getAttribute("renderer-url");try{let[d,{default:u}]=await Promise.all([this.importWithRetry(this.getAttribute("component-url")),n?this.importWithRetry(n):Promise.resolve({default:()=>()=>{}})]),h=this.getAttribute("component-export")||"default";if(h.includes(".")){this.Component=d;for(let m of h.split(".")){if(E.has(m)||!this.Component||typeof this.Component!="object"&&typeof this.Component!="function"||!Object.hasOwn(this.Component,m))throw new Error(`Invalid component export path: ${h}`);this.Component=this.Component[m]}}else{if(E.has(h))throw new Error(`Invalid component export path: ${h}`);this.Component=d[h]}return this.hydrator=u,this.hydrate}catch(d){return this.handleHydrationError(d),()=>{}}},e,this)}catch(n){this.handleHydrationError(n)}}attributeChangedCallback(){this.hydrate()}}l(f,"observedAttributes",["props"]),customElements.get("astro-island")||customElements.define("astro-island",f)}})();</script><astro-island uid="T5KNO" prefix="r11" component-url="/_astro/Header.B9J-bCUz.js" component-export="default" renderer-url="/_astro/client.BwWzwx6w.js" props="{}" ssr client="load" opts="{&quot;name&quot;:&quot;Header&quot;,&quot;value&quot;:true}" await-children><header class="fixed inset-x-0 top-0 z-50 border-b transition-colors border-transparent bg-neutral-950/75 backdrop-blur-sm"><div class="container mx-auto flex h-16 items-center justify-between px-4"><a href="/" class="shrink-0 text-lg font-bold text-white transition-colors hover:text-blue-400" data-analytics-event="navigation_click" data-analytics-content-type="navigation" data-analytics-content-slug="/" data-analytics-content-title="brand">TobyOnFitnessTech</a><nav class="mx-4 hidden min-w-0 items-center gap-1 xl:flex" aria-label="Primary navigation"><div class="relative"><button type="button" class="flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-900 hover:text-white" aria-expanded="false">Reviews<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down transition-transform" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div><div class="relative"><button type="button" class="flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-900 hover:text-white" aria-expanded="false">Training Data<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down transition-transform" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div><a href="/blog/" data-analytics-event="navigation_click" data-analytics-content-type="navigation" data-analytics-content-slug="/blog/" data-analytics-content-title="desktop:Articles" class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors text-neutral-300 hover:bg-neutral-900 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-text" aria-hidden="true"><path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"></path><path d="M14 2v5a1 1 0 0 0 1 1h5"></path><path d="M10 9H8"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg><span>Articles</span></a><a href="/videos/" data-analytics-event="navigation_click" data-analytics-content-type="navigation" data-analytics-content-slug="/videos/" data-analytics-content-title="desktop:Videos" class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors text-neutral-300 hover:bg-neutral-900 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-square-play" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M9 9.003a1 1 0 0 1 1.517-.859l4.997 2.997a1 1 0 0 1 0 1.718l-4.997 2.997A1 1 0 0 1 9 14.996z"></path></svg><span>Videos</span></a><div class="relative"><button type="button" class="flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-900 hover:text-white" aria-expanded="false">Projects<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-down transition-transform" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg></button></div><a href="/agentstack/" data-analytics-event="navigation_click" data-analytics-content-type="navigation" data-analytics-content-slug="/agentstack/" data-analytics-content-title="desktop:AgentStack" class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors text-neutral-300 hover:bg-neutral-900 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-cpu" aria-hidden="true"><path d="M12 20v2"></path><path d="M12 2v2"></path><path d="M17 20v2"></path><path d="M17 2v2"></path><path d="M2 12h2"></path><path d="M2 17h2"></path><path d="M2 7h2"></path><path d="M20 12h2"></path><path d="M20 17h2"></path><path d="M20 7h2"></path><path d="M7 20v2"></path><path d="M7 2v2"></path><rect x="4" y="4" width="16" height="16" rx="2"></rect><rect x="8" y="8" width="8" height="8" rx="1"></rect></svg><span>AgentStack</span></a><a href="/about/" data-analytics-event="navigation_click" data-analytics-content-type="navigation" data-analytics-content-slug="/about/" data-analytics-content-title="desktop:About" class="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors text-neutral-300 hover:bg-neutral-900 hover:text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg><span>About</span></a></nav><div class="hidden items-center gap-2 xl:flex"><div class="relative"><button type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-800 bg-neutral-900 text-neutral-300 hover:text-white" aria-label="Choose language" title="Choose language"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg></button></div><button class="flex items-center gap-2 rounded-md border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-400 transition-colors hover:border-neutral-600 hover:text-white" aria-label="Open search"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search" aria-hidden="true"><path d="m21 21-4.34-4.34"></path><circle cx="11" cy="11" r="8"></circle></svg><span class="hidden lg:inline">Search</span></button></div><button type="button" class="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white xl:hidden" aria-label="Open navigation" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h16"></path><path d="M4 19h16"></path></svg></button></div></header><!--astro:end--></astro-island></div><main class="flex-grow pt-16" data-pagefind-body><article class="min-h-screen bg-neutral-950 pb-24" data-pagefind-body><header class="border-b border-neutral-800 bg-neutral-900 pb-14 pt-24 md:pt-32"><div class="container mx-auto max-w-4xl px-4"><a href="/hi/blog/" class="mb-8 inline-flex items-center text-sm font-semibold text-blue-400 transition-colors hover:text-blue-300"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-left" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg>विश्लेषण पर वापस जाएं</a><div class="mb-4 flex flex-wrap items-center gap-3 text-xs font-bold uppercase text-blue-400"><span class="rounded-full border border-blue-500/30 bg-blue-900/30 px-3 py-1">फ़ील्ड रिपोर्ट्स</span><span class="text-neutral-600" aria-hidden="true">/</span><span>23 मिनट में पढ़ें</span></div><h1 class="mb-6 max-w-4xl text-3xl font-bold leading-tight text-white md:text-5xl">एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं</h1><p class="mb-8 max-w-3xl text-lg leading-relaxed text-neutral-300 md:text-xl">OpenClaw फिटनेस रिपोर्ट कनेक्टर्स को Garmin, WHOOP, Speediance, Cronometer, 8Sleep, सामान्यीकृत JSON स्नैपशॉट्स और सार्वजनिक GitHub रिपॉज़िटरीज़ में बनाने के लिए एक एजेंट-तैयार कार्यान्वयन ब्रीफ।</p><div class="flex flex-wrap items-center gap-6 border-t border-neutral-800 pt-6 text-sm text-neutral-400"><span class="inline-flex items-center gap-2 text-white"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user" aria-hidden="true"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Toby</span><span class="inline-flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-calendar" aria-hidden="true"><path d="M8 2v4"></path><path d="M16 2v4"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><path d="M3 10h18"></path></svg> 3 मई 2026</span></div><astro-island uid="ZXK1XL" prefix="r10" component-url="/_astro/ShareButtons.CrKwa-NB.js" component-export="default" renderer-url="/_astro/client.BwWzwx6w.js" props="{&quot;url&quot;:[0,&quot;https://tobyonfitnesstech.com/hi/blog/openclaw-fitness-reports-garmin-whoop-speediance/&quot;],&quot;title&quot;:[0,&quot;एजेंट ब्रीफ: Garmin, WHOOP, Speediance और अन्य के लिए OpenClaw फिटनेस रिपोर्ट कनेक्टर बनाएं&quot;]}" ssr client="load" opts="{&quot;name&quot;:&quot;ShareButtons&quot;,&quot;value&quot;:true}" await-children><div class="flex gap-3 mt-4"><a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Ftobyonfitnesstech.com%2Fhi%2Fblog%2Fopenclaw-fitness-reports-garmin-whoop-speediance%2F&amp;text=%E0%A4%8F%E0%A4%9C%E0%A5%87%E0%A4%82%E0%A4%9F%20%E0%A4%AC%E0%A5%8D%E0%A4%B0%E0%A5%80%E0%A4%AB%3A%20Garmin%2C%20WHOOP%2C%20Speediance%20%E0%A4%94%E0%A4%B0%20%E0%A4%85%E0%A4%A8%E0%A5%8D%E0%A4%AF%20%E0%A4%95%E0%A5%87%20%E0%A4%B2%E0%A4%BF%E0%A4%8F%20OpenClaw%20%E0%A4%AB%E0%A4%BF%E0%A4%9F%E0%A4%A8%E0%A5%87%E0%A4%B8%20%E0%A4%B0%E0%A4%BF%E0%A4%AA%E0%A5%8B%E0%A4%B0%E0%A5%8D%E0%A4%9F%20%E0%A4%95%E0%A4%A8%E0%A5%87%E0%A4%95%E0%A5%8D%E0%A4%9F%E0%A4%B0%20%E0%A4%AC%E0%A4%A8%E0%A4%BE%E0%A4%8F%E0%A4%82" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Share on Twitter">𝕏</a><a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ftobyonfitnesstech.com%2Fhi%2Fblog%2Fopenclaw-fitness-reports-garmin-whoop-speediance%2F" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Share on Facebook">f</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Ftobyonfitnesstech.com%2Fhi%2Fblog%2Fopenclaw-fitness-reports-garmin-whoop-speediance%2F" target="_blank" rel="noopener noreferrer" class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Share on LinkedIn">in</a><button class="p-2 rounded bg-neutral-800 hover:bg-neutral-700 text-white transition-colors" aria-label="Copy link">🔗</button></div><!--astro:end--></astro-island></div></header><div class="container mx-auto max-w-3xl px-4 py-12"><div class="markdown-shell rounded-lg border border-neutral-800 bg-neutral-900/55 px-6 py-8 md:px-10 md:py-10"><div class="markdown-article"><p>यह लेख एक AI कोडिंग एजेंट को कार्यान्वयन संक्षिप्त विवरण के रूप में सौंपे जाने के लिए है।</p>
+<p>लक्ष्य मेरी निजी मशीन को प्रतिरोपित करना या मेरी फ़ाइलों का रिवर्स-इंजीनियरिंग करना <strong>नहीं</strong> है। लक्ष्य यह है कि एजेंट इस पृष्ठ को पढ़े और फिटनेस सिस्टम के लिए कार्यशील कनेक्टर बनाए: Garmin, WHOOP, Speediance, Cronometer, 8Sleep, और वैकल्पिक Open Wearables।</p>
+<p>मूल निर्देश सरल है: <strong>प्रत्येक वेंडर को कनेक्टर के रूप में मानें, सामान्यीकृत JSON स्नैपशॉट को सतत रूप से संग्रहीत करें, और रिपोर्ट जनरेटर को केवल उन स्नैपशॉट्स का उपभोग करने दें।</strong> यह पृथक्करण वेंडर-विशिष्ट API की उलझन को एक एजेंट-निर्माण योग्य प्रणाली में बदल देता है।</p>
+<p>एजेंट को मेरे सटीक स्थानीय पथों पर निर्भर रहने के बजाय उसी श्रेणी के कनेक्शन बनाने चाहिए:</p>
+<ul>
+<li><strong>Garmin</strong> कार्डियो, प्रशिक्षण भार, गति, हृदय गति क्षेत्र, और गतिविधि विवरण के लिए</li>
+<li><strong>WHOOP</strong> रिकवरी, HRV, RHR, नींद, तनाव, और तत्परता संदर्भ के लिए</li>
+<li><strong>Speediance</strong> शक्ति सत्र इतिहास, मात्रा, कैलोरी, टेम्पलेट, और व्यायाम विवरण के लिए</li>
+<li>पोषण संदर्भ के लिए <strong>Cronometer</strong></li>
+<li>उपलब्ध होने पर देर से आने वाले नींद संदर्भ के लिए <strong>8Sleep</strong></li>
+<li>सिंक्स चलाने, डेटा सामान्यीकृत करने, और रिपोर्ट तैयार करने वाले ऑर्केस्ट्रेशन लेयर के रूप में <strong>OpenClaw</strong></li>
+</ul>
+<p>इसमें GitHub प्रोजेक्ट्स, सार्वजनिक API, डेटा अनुबंध, विफलता मोड, और स्वीकृति जांच भी शामिल है जिनकी एक कार्यान्वयन एजेंट को मेरा निजी रेपो देखे बिना कार्यशील स्टैक बनाने के लिए आवश्यकता होती है।</p>
+<hr>
+<h2>1. एजेंट कार्य</h2>
+<p>एक स्थानीय-प्रथम OpenClaw फिटनेस रिपोर्टिंग स्टैक बनाएं जो सिस्टम्स से जुड़ सके, उनके डेटा को सामान्यीकृत कर सके, और रेंडरिंग के दौरान लाइव वेंडर कॉल्स के बिना रिपोर्ट तैयार कर सके।</p>
+<p>एजेंट को निम्नलिखित उत्पन्न करना चाहिए:</p>
+<ol>
+<li><strong>कनेक्टर स्क्रिप्ट्स</strong><br>प्रति सिस्टम एक सिंक जॉब: Garmin, WHOOP, Speediance, Cronometer, और कॉन्फ़िगर किए जाने पर 8Sleep।</li>
+<li><strong>कच्चे स्नैपशॉट्स</strong><br>वेंडर परिवर्तनों के डिबगिंग के लिए दिनांकित कच्चे JSON या CSV-व्युत्पन्न पेलोड।</li>
+<li><strong>सामान्यीकृत अनुबंध</strong><br>स्थिर JSON फ़ाइलें जिन पर रिपोर्ट जनरेटर वेंडर पेलोड के बदलने पर भी भरोसा कर सके।</li>
+<li><strong>सुबह की रिपोर्ट</strong><br>एक रिपोर्ट जो रिकवरी, नींद, तत्परता, प्रशिक्षण भार, पोषण, और दिन की योजना को जोड़ती है।</li>
+<li><strong>अनुकूली प्रशिक्षण स्नैपशॉट</strong><br>उसी दिन की तत्परता और हाल के भार से प्राप्त दिनांकित Speediance/BJJ/रन योजना।</li>
+<li><strong>रात्रिकालीन रिपोर्ट</strong><br>योजना-बनाम-वास्तविकता समीक्षा जो यह तुलना करती है कि Garmin, WHOOP, और Speediance वास्तविकता के विरुद्ध क्या सुझाया गया था।</li>
+<li><strong>प्रकाशन योग्य आउटपुट</strong><br>स्थिर HTML और मशीन-पठनीय JSON जिसे GitHub Pages या किसी अन्य स्थिर होस्ट पर तैनात किया जा सकता है।</li>
+</ol>
+<p>इसे &quot;छह API को कॉल करने वाले और लाइव HTML रेंडर करने वाले एक स्क्रिप्ट&quot; के रूप में <strong>न</strong> बनाएं। यह नाज़ुक है।</p>
+<h2>2. --max-tokens 8192 --no-fallback --system You are a deterministic professional translator. Return only the requested final JSON object. Do not include reasoning or commentary.</h2>
+<h2>वह आर्किटेक्चर जिसे एजेंट को लागू करना चाहिए</h2>
+<p>इसे चार परतों में बनाएँ:</p>
+<ol>
+<li><strong>कनेक्टर परत</strong><br>प्रति प्लेटफ़ॉर्म एक समकालिक (sync) जॉब।</li>
+<li><strong>सामान्यीकृत डेटा परत</strong><br>प्रत्येक समकालिक कार्य स्थिर JSON स्नैपशॉट लिखता है।</li>
+<li><strong>विश्लेषण/रिपोर्ट परत</strong><br>रिपोर्ट कोड केवल सामान्यीकृत JSON पढ़ता है।</li>
+<li><strong>प्रस्तुति परत</strong><br>HTML, डैशबोर्ड, दैनिक ब्रीफ़िंग, Telegram पोस्ट, ध्वनि सारांश।</li>
+</ol>
+<p>यही पृथक्करण प्रणाली को अनुरक्षणीय (maintainable) बनाता है।</p>
+<h3>AI कार्यान्वयन अनुबंध</h3>
+<p>एजेंट, कोई भी डैशबोर्ड UI लिखने से पहले यह अनुबंध बनाएँ:</p>
+<ul>
+<li><strong>इनपुट:</strong> केवल पर्यावरण चर और वेंडर क्रेडेंशियल; स्रोत फ़ाइलों में कभी भी सीक्रेट को हार्ड-कोड न करें।</li>
+<li><strong>समकालिक आउटपुट:</strong> प्रति वेंडर पुल एक कच्चा JSON स्नैपशॉट, साथ ही प्रति वेंडर एक सामान्यीकृत JSON फ़ाइल।</li>
+<li><strong>रिपोर्ट इनपुट:</strong> केवल सामान्यीकृत JSON। रिपोर्ट बिल्डर को Garmin, WHOOP, Speediance, या Cronometer को सीधे कॉल नहीं करना चाहिए।</li>
+<li><strong>विफलता मोड:</strong> यदि कोई एक कनेक्टर विफल हो जाए, तो कल की अंतिम-ज्ञात-अच्छी (last-known-good) सामान्यीकृत फ़ाइल को सुरक्षित रखें और उस स्रोत को रिपोर्ट में पुरानी (stale) के रूप में चिह्नित करें।</li>
+<li><strong>ऑडिट-योग्यता:</strong> वेंडर API परिवर्तनों को डिबग करने के लिए पर्याप्त कच्चे पेलोड रखें, परंतु टोकन, कुकीज़, पासवर्ड, या निजी हेडर को लॉग न करें।</li>
+<li><strong>भेजने का गेट:</strong> ईमेल, ध्वनि, Telegram, और अनुकूली वर्कआउट कार्यों के लिए उसी-दिन के स्कोर किए गए रिकवरी डेटा की आवश्यकता होनी चाहिए। वेब रिपोर्ट अभी भी अवनत (degraded) मोड में बनाई जा सकती है, परंतु प्रणाली को पुरानी रिकवरी के आधार पर आत्मविश्वासपूर्ण कोचिंग नहीं भेजनी चाहिए।</li>
+<li><strong>योजना स्नैपशॉट:</strong> अनुकूली वर्कआउट योजनाओं को कहीं भी भेजने से पहले दैनिक JSON स्नैपशॉट के रूप में लिखा जाना चाहिए। इसके बाद रात्रिकालीन रिपोर्ट योजना की तुलना वास्तव में जो हुआ उससे कर सकती है।</li>
+</ul>
+<p>एजेंट-तैयार बिल्ड के लिए न्यूनतम पर्यावरण चर:</p>
+<pre><code class="language-text">GARMIN_EMAIL=
+GARMIN_PASSWORD=
+WHOOP_CLIENT_ID=
+WHOOP_CLIENT_SECRET=
+WHOOP_ACCESS_TOKEN=
+WHOOP_REFRESH_TOKEN=
+SPEEDIANCE_USER_ID=
+SPEEDIANCE_TOKEN=
+SPEEDIANCE_REGION=Global
+CRONOMETER_EXPORT_PATH=
+EIGHTSLEEP_EMAIL=
+EIGHTSLEEP_PASSWORD=
+</code></pre>
+<hr>
+<h2>3. पूर्णता की परिभाषा</h2>
+<p>एक कार्यान्वयन एजेंट तभी पूर्ण माना जाता है जब ये कलाकृतियाँ (artifacts) मौजूद हों और पुनः उत्पन्न की जा सकें:</p>
+<ul>
+<li><code>data/garmin/summary/latest.json</code></li>
+<li><code>data/whoop/normalized/latest.json</code></li>
+<li><code>data/speediance/normalized/history.json</code></li>
+<li><code>data/speediance/normalized/by_exercise.json</code></li>
+<li><code>data/nutrition/latest.json</code></li>
+<li><code>data/eightsleep/normalized/latest.json</code>, यदि 8Sleep कॉन्फ़िगर किया गया है</li>
+<li><code>data/training_plans/YYYY-MM-DD_morning.json</code></li>
+<li><code>reports/morning/latest.html</code></li>
+<li><code>reports/nightly/latest.html</code></li>
+<li>एक सेंड गेट जो उसी-दिन स्कोर किए गए WHOOP रिकवरी के गायब होने पर ईमेल, वॉइस, टेलीग्राम और अनुकूली वर्कआउट भेजने को रोकता है</li>
+<li>स्टेल-सोर्स चेतावनियाँ जब कोई कनेक्टर विफल हो जाता है लेकिन कल का अंतिम-ज्ञात-अच्छा सामान्यीकृत डेटा उपलब्ध होता है</li>
+<li>एक नो-सीक्रेट्स चेक जो साबित करता है कि टोकन, कुकीज़, पासवर्ड और निजी हेडर कमिट नहीं किए गए</li>
+</ul>
+<p>यदि एजेंट विकास के दौरान किसी वेंडर के लिए प्रमाणीकरण नहीं कर पाता है, तो उसे फिर भी कनेक्टर इंटरफ़ेस, <code>.env.example</code>, नकली फ़िक्सचर, नॉर्मलाइज़र, स्टेल-सोर्स हैंडलिंग और रिपोर्ट एकीकरण लागू करना चाहिए।</p>
+<hr>
+<h2>4. सार्वजनिक प्रोजेक्ट और स्रोत संदर्भ</h2>
+<p>ये वे सार्वजनिक टुकड़े हैं जिन्हें किसी एजेंट को कार्यान्वयन संदर्भ के रूप में उपयोग करना चाहिए।</p>
+<p>त्वरित GitHub/API चेकलिस्ट:</p>
+<ul>
+<li>Garmin कनेक्टर: `<a href="https://github.com/cyberjunky/python-garminconnect%60%60">https://github.com/cyberjunky/python-garminconnect``</a></li>
+<li>Garmin लेगसी ऑथ कॉन्टेक्स्ट: `<a href="https://github.com/matin/garth%60%60">https://github.com/matin/garth``</a></li>
+<li>WHOOP आधिकारिक डेवलपर API: `<a href="https://developer.whoop.com/api%60%60">https://developer.whoop.com/api``</a></li>
+<li>Speediance इस बिल्ड के लिए सार्वजनिक एक्सट्रैक्शन: `<a href="https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager%60%60">https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager``</a></li>
+<li>Speediance कार्यशील फ़ोर्क जिससे यह निकाला गया: `<a href="https://github.com/ANPC86/SmartGymWorkoutManager%60%60">https://github.com/ANPC86/SmartGymWorkoutManager``</a></li>
+<li>Speediance अपस्ट्रीम/मूल संदर्भ: `<a href="https://github.com/hbui3/UnofficialSpeedianceWorkoutManager%60%60">https://github.com/hbui3/UnofficialSpeedianceWorkoutManager``</a></li>
+<li>रिपोर्ट जनरेटर/टेम्पलेट संदर्भ: `<a href="https://github.com/tobyglenn/scriptsJinja%60%60">https://github.com/tobyglenn/scriptsJinja``</a></li>
+<li>Cronometer एक्सपोर्ट/एकीकरण: `<a href="https://cronometer.com/%60%60">https://cronometer.com/``</a></li>
+</ul>
+<h3>OpenClaw</h3>
+<ul>
+<li>प्लेटफ़ॉर्म/ऑर्केस्ट्रेटर: <strong>OpenClaw</strong></li>
+<li>भूमिका: सिंक जॉब शेड्यूल करना, ट्रांसफ़ॉर्मेशन चलाना, रिपोर्ट जनरेट करना, आउटपुट प्रकाशित करना</li>
+</ul>
+<h3>Garmin</h3>
+<ul>
+<li>प्राथमिक Python क्लाइंट: <strong>cyberjunky/python-garminconnect</strong><br>GitHub: `<a href="https://github.com/cyberjunky/python-garminconnect%60%60">https://github.com/cyberjunky/python-garminconnect``</a></li>
+<li>लेगसी ऑथ लाइब्रेरी जो पहले मायने रखती थी: <strong>matin/garth</strong><br>GitHub: `<a href="https://github.com/matin/garth%60%60">https://github.com/matin/garth``</a></li>
+<li>स्थिति नोट: <code>garth</code> अप्रचलित है; <code>python-garminconnect</code> अब नए Garmin ऑथ फ़्लो का उपयोग करता है और यही वह है जिसके आसपास बनाया जाना चाहिए।</li>
+</ul>
+<h3>WHOOP</h3>
+<ul>
+<li>आधिकारिक डेवलपर API दस्तावेज़: `<a href="https://developer.whoop.com/api%60%60">https://developer.whoop.com/api``</a></li>
+<li>सार्वजनिक API सतह: OAuth2 + रिकवरी, साइकल, नींद, वर्कआउट, प्रोफ़ाइल, शारीरिक माप के लिए REST एंडपॉइंट</li>
+<li>वैकल्पिक सामुदायिक रैपर मौजूद हैं, लेकिन किसी एजेंट-निर्मित कनेक्टर को जहाँ तक संभव हो आधिकारिक WHOOP डेवलपर API पर एंकर करना चाहिए।</li>
+</ul>
+<h3>Speediance</h3>
+<ul>
+<li>व्यावहारिक सार्वजनिक Speediance कार्यान्वयन संदर्भ: <strong>ANPC86/SmartGymWorkoutManager</strong><br>GitHub: `<a href="https://github.com/ANPC86/SmartGymWorkoutManager%60%60">https://github.com/ANPC86/SmartGymWorkoutManager``</a></li>
+<li>अपस्ट्रीम प्रोजेक्ट वंशावली / मूल सार्वजनिक संदर्भ: <strong>hbui3/UnofficialSpeedianceWorkoutManager</strong><br>GitHub: `<a href="https://github.com/hbui3/UnofficialSpeedianceWorkoutManager%60%60">https://github.com/hbui3/UnofficialSpeedianceWorkoutManager``</a></li>
+<li>ANPC86 SmartGymWorkoutManager फ़ोर्क को व्यावहारिक कनेक्शन संदर्भ के रूप में उपयोग करें क्योंकि इसमें इतिहास, एक्सपोर्ट, API डिबगिंग, टाइमज़ोन हैंडलिंग और यूनिट हैंडलिंग से जुड़ा उपयोगी कार्य है।</li>
+<li>यह एक <strong>अनौपचारिक</strong> Speediance एकीकरण है और इसे डिफ़ॉल्ट रूप से अस्थिर माना जाना चाहिए।</li>
+</ul>
+<h3>पोषण</h3>
+<ul>
+<li>Cronometer उत्पाद साइट / एक्सपोर्ट / एकीकरण: `<a href="https://cronometer.com/%60%60">https://cronometer.com/``</a></li>
+<li>Cronometer को जादुई सीधी रिपोर्ट निर्भरता न मानकर एक संरचित पोषण एक्सपोर्ट स्रोत की तरह मानें।</li>
+</ul>
+<hr>
+<h2>5. उत्पादन अपडेट जिन्हें एजेंट को संरक्षित करना चाहिए</h2>
+<p>इस स्टैक के वर्तमान संस्करण में कुछ महत्वपूर्ण व्यवहार हैं जिन्हें एजेंट को संरक्षित करना चाहिए।</p>
+<h3>एकल स्वामी मशीन</h3>
+<p>फिटनेस पाइपलाइन के पास एक प्राधिकृत सदैव-चालू मशीन होनी चाहिए। दो अलग-अलग कंप्यूटरों को एक ही आउटपुट रेपो के लिए रिपोर्ट उत्पन्न और तैनात न करने दें। सक्रिय मशीन वेंडर सिंक जॉब्स, रिपोर्ट जनरेशन, अनुकूली वर्कआउट जनरेशन, GitHub Pages पर डिप्लॉयमेंट और वॉचडॉग जाँच का स्वामित्व रखती है।</p>
+<p>अन्य मशीनें रिपोर्टें देख सकती हैं या स्थानीय डैशबोर्ड होस्ट कर सकती हैं, लेकिन उन्हें फिटनेस रिपोर्ट पुनः उत्पन्न नहीं करनी चाहिए।</p>
+<h3>स्टैगर्ड क्रोन अनुमानों के बजाय क्रमिक पाइपलाइन</h3>
+<p>सुबह और रात्रि की पाइपलाइनों को क्रमित चरणों के रूप में चलना चाहिए:</p>
+<ol>
+<li>वेंडर डेटा सिंक करें</li>
+<li>आवश्यक समान-दिन डेटा सत्यापित करें</li>
+<li>रिपोर्ट उत्पन्न करें</li>
+<li>तैनात करें</li>
+<li>सूचनाएँ भेजें</li>
+<li>वॉइस सारांश उत्पन्न करें, यदि उपयोग किया गया हो</li>
+<li>वॉचडॉग सत्यापन चलाएँ</li>
+</ol>
+<p>पुरानी गलती यह थी कि उन चरणों को निश्चित वॉल-क्लॉक ऑफ़सेट पर शेड्यूल किया जाता था और उम्मीद की जाती थी कि पिछला चरण पूरा हो गया होगा। बेहतर पैटर्न यह है कि एक ऑर्केस्ट्रेटर हो जो प्रत्येक चरण को तभी चलाए जब पिछला चरण सफलतापूर्वक समाप्त हो।</p>
+<h3>समान-दिन WHOOP रिकवरी गेट</h3>
+<p>इस स्टैक के लिए, समान-दिन WHOOP रिकवरी कोचिंग के लिए एक कठोर गेट है। यदि आज की रिकवरी गायब है, तो सिस्टम अभी भी पुराने-स्रोत चेतावनियों के साथ वेब रिपोर्ट प्रकाशित कर सकता है, लेकिन उसे ईमेल, वॉइस, टेलीग्राम कोचिंग और अनुकूली वर्कआउट भेजने से रोकना चाहिए।</p>
+<p>वह एक नियम सबसे बुरे विफलता मोड को रोकता है: कल की रिकवरी पर आधारित एक विश्वसनीय दिखने वाली सिफारिश।</p>
+<h3>8Sleep विलंबित-डेटा हैंडलिंग</h3>
+<p>8Sleep पहले सुबह रन के बाद भी अपडेट हो सकता है। पुनः रन को पुनः उत्पन्न करने से पहले आज और कल को बलपूर्वक रिफ्रेश करना चाहिए, बजाय इसके कि केवल इसलिए कि एक मौजूदा स्थानीय JSON फ़ाइल है, उस पर भरोसा किया जाए।</p>
+<h3>केवल वास्तविक Garmin HR ज़ोन</h3>
+<p>औसत हृदय गति से हृदय गति क्षेत्र वितरण का अनुमान न लगाएं। यदि Garmin गतिविधि विवरण में टाइम-इन-ज़ोन डेटा शामिल है, तो इसका उपयोग करें। यदि ऐसा नहीं है, तो उस चार्ट को छिपा दें या अनुपलब्ध के रूप में चिह्नित करें।</p>
+<h3>योजना निष्पादन समीक्षा</h3>
+<p>रात्रि रिपोर्ट अब बेहतर काम करती है जब यह दिन की योजना की तुलना दिन के वास्तविक डेटा से करती है:</p>
+<ul>
+<li>नियोजित BJJ बनाम WHOOP BJJ वर्कआउट</li>
+<li>नियोजित Speediance सत्र बनाम पूर्ण किए गए Speediance सत्र</li>
+<li>नियोजित रन बनाम Garmin रन दूरी</li>
+<li>नियोजित कदम बनाम Garmin कदम</li>
+</ul>
+<p>यह रात्रि रिपोर्ट को केवल सारांश के बजाय एक फीडबैक लूप में बदल देता है।</p>
+<h3>ओपन वियरेबल्स शैडो मोड</h3>
+<p>ओपन वियरेबल्स भविष्य के अमूर्तता परत के रूप में उपयोगी है, लेकिन मैं एक काम करने वाली व्यक्तिगत रिपोर्ट प्रणाली को एक साथ पूरी तरह से स्विच नहीं करूंगा। सुरक्षित माइग्रेशन शैडो मोड है:</p>
+<ol>
+<li>मौजूदा फ़ाइल-आधारित पाइपलाइन को अधिकृत रखें</li>
+<li>Garmin/WHOOP डेटा को ओपन वियरेबल्स में आयात या मिरर करें</li>
+<li>ओपन वियरेबल्स डेटा को वापस शैडो JSON फ़ाइलों में निर्यात करें</li>
+<li>शैडो फ़ाइलों की तुलना प्रोडक्शन फ़ाइलों से करें</li>
+<li>केवल काउंट, तिथियां और उसी दिन के रिकॉर्ड मेल खाने के बाद ही प्रचारित करें</li>
+</ol>
+<p>पायलट के दौरान शैडो फ़ाइलें कभी भी प्रोडक्शन इनपुट को अधिलेखित नहीं करनी चाहिए।</p>
+<hr>
+<h2>6. Garmin: कार्डियो और गतिविधि-विवरण परत</h2>
+<p>यदि WHOOP उत्तर देता है &quot;मैं कितना रिकवर हुआ?&quot;, तो Garmin उत्तर देता है &quot;मैंने वास्तव में क्या किया?&quot;</p>
+<p>Garmin वह जगह है जहां रिपोर्ट मिलती है:</p>
+<ul>
+<li>दूरी</li>
+<li>गति और रफ्तार</li>
+<li>अवधि</li>
+<li>औसत और अधिकतम हृदय गति</li>
+<li>हृदय गति क्षेत्र</li>
+<li>कैडेंस</li>
+<li>शक्ति</li>
+<li>प्रशिक्षण प्रभाव</li>
+<li>गतिविधि मेटाडेटा</li>
+<li>व्यापक कार्डियो/प्रशिक्षण विवरण जिसे WHOOP उतने समृद्ध रूप से महत्व नहीं देता</li>
+</ul>
+<h3>उपयोग करने के लिए सार्वजनिक रेपो</h3>
+<p><strong>अनुशंसित:</strong> <code>cyberjunky/python-garminconnect</code></p>
+<p>GitHub:
+<code>https://github.com/cyberjunky/python-garminconnect</code></p>
+<p>यह क्यों महत्वपूर्ण है:</p>
+<ul>
+<li>यह सक्रिय रूप से उपयोग के लिए Garmin कनेक्ट पायथन रैपर के रूप में स्थित है</li>
+<li>यह एक बहुत बड़ी Garmin एंडपॉइंट सतह को उजागर करता है</li>
+<li>इसमें उदाहरण और टोकन हैंडलिंग पैटर्न शामिल हैं</li>
+<li>इसने पुराने auth अनुमानों को बदल दिया जो पूर्व Garmin परिवर्तनों में टूट गए थे</li>
+</ul>
+<h3>महत्वपूर्ण Garmin संगतता नोट</h3>
+<p>ऐतिहासिक रूप से, कई बिल्ड्स ने <code>garth</code> का उपयोग किया।</p>
+<p>GitHub:
+<code>https://github.com/matin/garth</code></p>
+<p>लेकिन <code>garth</code> अब स्पष्ट रूप से अप्रचलित है। यह महत्वपूर्ण है क्योंकि एक एजेंट को <strong>अप्रचलित auth पर नए कार्यान्वयन को केंद्रित नहीं करना चाहिए।</strong></p>
+<h3>न्यूनतम निष्पादन योग्य Garmin उदाहरण</h3>
+<pre><code class="language-python">from garminconnect import Garmin
+from datetime import date
+from pathlib import Path
+import json
+import os
+
+email = os.environ[&quot;GARMIN_EMAIL&quot;]
+password = os.environ[&quot;GARMIN_PASSWORD&quot;]
+
+client = Garmin(email=email, password=password)
+client.login()
+
+python
+today = date.today().isoformat()
+stats = client.get_stats(today)
+activities = client.get_activities_by_date(today, today)
+
+payload = {
+    &quot;date&quot;: today,
+    &quot;stats&quot;: stats,
+    &quot;activities&quot;: activities,
+}
+
+out = Path(&quot;data/garmin/raw&quot;)
+out.mkdir(parents=True, exist_ok=True)
+(out / f&quot;{today}.json&quot;).write_text(json.dumps(payload, indent=2))
+</code></pre>
+<h3>Garmin से क्या सामान्यीकृत करें</h3>
+<p>कच्चे Garmin पेलोड को सीधे अपनी अंतिम रिपोर्ट लॉजिक में न डालें। पहले उन्हें इन जैसे फ़ील्ड्स में सामान्यीकृत करें:</p>
+<ul>
+<li><code>calendarDate</code></li>
+<li><code>totalSteps</code></li>
+<li><code>restingHeartRate</code></li>
+<li><code>sleepingSeconds</code></li>
+<li><code>bodyBattery</code></li>
+<li><code>activityName</code></li>
+<li><code>activityType</code></li>
+<li><code>durationSeconds</code></li>
+<li><code>distanceMeters</code></li>
+<li><code>distanceMiles</code></li>
+<li><code>averageHR</code></li>
+<li><code>maxHR</code></li>
+<li><code>calories</code></li>
+<li><code>trainingEffect</code></li>
+<li><code>cadence</code></li>
+<li><code>power</code></li>
+</ul>
+<h3>अनुशंसित संग्रहण पैटर्न</h3>
+<ul>
+<li><code>data/garmin/raw/YYYY-MM-DD.json</code></li>
+<li><code>data/garmin/normalized/YYYY-MM-DD.json</code></li>
+<li><code>data/garmin/summary/latest.json</code></li>
+</ul>
+<p>यह आपको रीप्ले क्षमता और तेज़ रिपोर्ट पहुँच दोनों देता है।</p>
+<hr>
+<h2>7. WHOOP: रिकवरी और तत्परता परत</h2>
+<p>WHOOP वह है जो रिपोर्ट्स को केवल गतिविधि लॉग के बजाय एक निर्णय इंजन के रूप में उपयोगी बनाता है।</p>
+<p>यह योगदान देता है:</p>
+<ul>
+<li>रिकवरी स्कोर</li>
+<li>HRV</li>
+<li>विश्राम हृदय गति</li>
+<li>नींद प्रदर्शन</li>
+<li>स्ट्रेन</li>
+<li>चक्र संदर्भ</li>
+<li>सुबह और रात की सिफ़ारिशों के लिए तत्परता फ्रेमिंग</li>
+</ul>
+<h3>उपयोग करने के लिए सार्वजनिक API</h3>
+<p><strong>आधिकारिक WHOOP डेवलपर API</strong> का उपयोग करें:</p>
+<ul>
+<li>दस्तावेज़: `<a href="https://developer.whoop.com/api%60%60">https://developer.whoop.com/api``</a></li>
+</ul>
+<p>प्रासंगिक एंडपॉइंट समूह:</p>
+<ul>
+<li><code>/developer/v2/cycle</code></li>
+<li><code>/developer/v2/recovery</code></li>
+<li><code>/developer/v2/activity/sleep</code></li>
+<li><code>/developer/v2/activity/workout</code></li>
+<li><code>/developer/v2/user/profile/basic</code></li>
+<li><code>/developer/v2/user/measurement/body</code></li>
+</ul>
+<h3>महत्वपूर्ण सीमा</h3>
+<p>सबसे महत्वपूर्ण कार्यान्वयन निष्कर्षों में से एक: <strong>जर्नल डेटा WHOOP API से उपलब्ध नहीं है</strong>।</p>
+<p>यदि आप जर्नल उत्तर या आदत एनोटेशन चाहते हैं, तो आप इसके लिए सार्वजनिक WHOOP API एंडपॉइंट पर निर्भर नहीं रह सकते। व्यावहारिक विकल्प हैं:</p>
+<ul>
+<li>WHOOP से मैनुअल CSV निर्यात</li>
+<li>आपकी अपनी समानांतर जर्नलिंग परत</li>
+<li>सिंक के बाद आप जो अलग मेटाडेटा जोड़ते हैं</li>
+</ul>
+<p>इस सीमा को लेख में स्पष्ट रूप से बताया जाना चाहिए क्योंकि यह किसी भी गंभीर बिल्ड को प्रभावित करती है।</p>
+<h3>न्यूनतम निष्पादन योग्य WHOOP उदाहरण</h3>
+<pre><code class="language-python">from pathlib import Path
+import json
+import os
+import requests
+
+BASE = &quot;https://api.prod.whoop.com/developer/v2&quot;
+TOKEN = os.environ[&quot;WHOOP_ACCESS_TOKEN&quot;]
+headers = {&quot;Authorization&quot;: f&quot;Bearer {TOKEN}&quot;}
+
+def get(path):
+    response = requests.get(f&quot;{BASE}{path}&quot;, headers=headers, timeout=30)
+    response.raise_for_status()
+    return response.json()
+
+payload = {
+    &quot;recovery&quot;: get(&quot;/recovery&quot;),
+    &quot;sleep&quot;: get(&quot;/activity/sleep&quot;),
+    &quot;workouts&quot;: get(&quot;/activity/workout&quot;),
+}
+
+python
+out = Path(&quot;data/whoop/raw&quot;)
+out.mkdir(parents=True, exist_ok=True)
+(out / &quot;latest.json&quot;).write_text(json.dumps(payload, indent=2))
+</code></pre>
+<h3>WHOOP से क्या सामान्यीकृत (normalize) करें</h3>
+<p>इन फ़ील्ड्स में सामान्यीकृत करें:</p>
+<ul>
+<li><code>recovery_score</code></li>
+<li><code>hrv_rmssd_milli</code></li>
+<li><code>resting_heart_rate</code></li>
+<li><code>spo2_percentage</code></li>
+<li><code>skin_temp_celsius</code></li>
+<li><code>sleep_performance_percentage</code></li>
+<li><code>respiratory_rate</code></li>
+<li><code>strain</code></li>
+<li><code>cycle_start</code></li>
+<li><code>cycle_end</code></li>
+<li><code>workout_sport_name</code></li>
+</ul>
+<h3>अनुशंसित स्टोरेज पैटर्न</h3>
+<ul>
+<li><code>data/whoop/raw/recovery.json</code></li>
+<li><code>data/whoop/raw/sleep.json</code></li>
+<li><code>data/whoop/raw/workouts.json</code></li>
+<li><code>data/whoop/normalized/latest.json</code></li>
+</ul>
+<hr>
+<h2>8. Speediance: स्ट्रेंथ-ट्रेनिंग लेयर</h2>
+<p>Speediance इस पूरे स्टैक में सबसे असामान्य कनेक्टर है।</p>
+<p>Garmin और WHOOP के विपरीत, यह एक स्वच्छ आधिकारिक सार्वजनिक डेवलपर प्लेटफ़ॉर्म नहीं है। एजेंट को इन सार्वजनिक रिपॉज़ को कनेक्शन संदर्भ (reference) के रूप में उपयोग करना चाहिए:</p>
+<p><strong>सार्वजनिक एक्सट्रैक्शन/संदर्भ:</strong> <code>https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager</code></p>
+<p><strong>ANPC86/SmartGymWorkoutManager</strong><br>GitHub: <code>https://github.com/ANPC86/SmartGymWorkoutManager</code></p>
+<p>वह रिपॉ मूल सार्वजनिक Speediance प्रोजेक्ट का स्वयं का एक व्यक्तिगत फ़ोर्क/Continuation है:</p>
+<p><strong>hbui3/UnofficialSpeedianceWorkoutManager</strong><br>GitHub: <code>https://github.com/hbui3/UnofficialSpeedianceWorkoutManager</code></p>
+<p>ये रिपॉज़ महत्वपूर्ण शुरुआती बिंदु हैं क्योंकि ये दिखाते हैं कि कैसे:</p>
+<ul>
+<li>Speediance एंडपॉइंट्स के विरुद्ध प्रमाणीकरण (authenticate) करें</li>
+<li>वर्कआउट डेटा और API प्रतिक्रियाओं का निरीक्षण करें</li>
+<li>ट्रेनिंग इतिहास ब्राउज़/एक्सपोर्ट करें</li>
+<li>डेस्कटॉप-अनुकूल तरीके से टेम्पलेट्स/वर्कआउट्स प्रबंधित करें</li>
+<li>टाइमज़ोन डिस्प्ले और इम्पीरियल/मेट्रिक वेट हैंडलिंग जैसी व्यावहारिक समस्याओं को संभालें</li>
+</ul>
+<h3>ये रिपॉज़ क्यों मायने रखते हैं</h3>
+<p>Speediance इंटीग्रेशन पैटर्न के लिए व्यावहारिक आधार के रूप में ANPC86 SmartGymWorkoutManager फ़ोर्क का उपयोग करें, जबकि प्रोवेनेंस के लिए hbui3 अपस्ट्रीम संदर्भ को सुरक्षित रखें। साथ में, ये आधिकारिक ऐप के बाहर Speediance डेटा के साथ काम करने के लिए सबसे स्पष्ट सार्वजनिक संदर्भ हैं।</p>
+<h3>स्थिरता चेतावनी</h3>
+<p>मूल प्रोजेक्ट नोट करता है कि Speediance सुरक्षा अपग्रेड लागू कर रहा है। इसका मतलब है:</p>
+<ul>
+<li>यह इंटीग्रेशन टूट सकता है</li>
+<li>हेडर और प्रमाणीकरण व्यवहार बदल सकते हैं</li>
+<li>एंडपॉइंट्स स्थानांतरित हो सकते हैं</li>
+<li>आपको इस कनेक्टर को सामान्यीकरण (normalization) चरण के पीछे अलग-थलग रखना चाहिए ताकि आपकी रिपोर्ट्स वेंडर-साइड बदलावों से बची रहें</li>
+</ul>
+<h3>Speediance के लिए न्यूनतम निष्पादन योग्य पैटर्न</h3>
+<p>यदि आप अपने शुरुआती बिंदु के रूप में <code>ANPC86/SmartGymWorkoutManager</code> का उपयोग करते हैं, जबकि मूल संदर्भ के लिए <code>hbui3/UnofficialSpeedianceWorkoutManager</code> अपस्ट्रीम की जाँच करते हैं, तो स्वच्छ दृष्टिकोण है:</p>
+<ol>
+<li>इसके ऐप या क्लाइंट लेयर को स्थानीय रूप से चलाएँ</li>
+<li>अपने Speediance खाते से प्रमाणित हों</li>
+<li>इसके द्वारा उजागर API तरीकों से वर्कआउट इतिहास प्राप्त करें</li>
+<li></li>
+</ol>
+<p>सामान्यीकृत JSON को अपनी डेटा डायरेक्टरी में निर्यात करें</p>
+<p>उस क्लाइंट पैटर्न का उपयोग करते हुए उदाहरण:</p>
+<pre><code class="language-python"># इसको api_client.py के अनुसार आकार दें:
+# https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager
+from api_client import SpeedianceClient
+from datetime import date
+from pathlib import Path
+import json
+import os
+
+client = SpeedianceClient()
+success, msg, debug = client.login(
+    os.environ[&quot;SPEEDIANCE_USER_ID&quot;],
+    os.environ[&quot;SPEEDIANCE_TOKEN&quot;],
+)
+if not success:
+    raise RuntimeError(msg)
+
+start_date = os.environ.get(&quot;SPEEDIANCE_START_DATE&quot;, &quot;2026-01-01&quot;)
+end_date = date.today().isoformat()
+records = client.get_training_data(start_date, end_date)
+
+out = Path(&quot;data/speediance/raw&quot;)
+out.mkdir(parents=True, exist_ok=True)
+(out / &quot;history.json&quot;).write_text(json.dumps(records, indent=2))
+</code></pre>
+<h3>Speediance से क्या सामान्यीकृत करें</h3>
+<p>इन जैसे फ़ील्ड्स में सामान्यीकृत करें:</p>
+<ul>
+<li><code>training_id</code></li>
+<li><code>date</code></li>
+<li><code>title</code></li>
+<li><code>duration_seconds</code></li>
+<li><code>calories</code></li>
+<li><code>total_volume</code></li>
+<li><code>exercise_count</code></li>
+<li><code>template_name</code></li>
+<li><code>planned_duration</code></li>
+<li><code>actual_duration</code></li>
+<li><code>exercise_breakdown</code></li>
+<li><code>estimated_1rm</code></li>
+</ul>
+<h3>सर्वोत्तम-अभ्यास डेटा मॉडल</h3>
+<p>एक गंभीर रिपोर्ट सिस्टम के लिए, दो इंडेक्स रखें:</p>
+<ol>
+<li><strong>bySession</strong></li>
+</ol>
+<ul>
+<li>प्रत्येक पूर्ण किए गए वर्कआउट के लिए एक रिकॉर्ड</li>
+</ul>
+<ol start="2">
+<li><strong>byExercise</strong></li>
+</ol>
+<ul>
+<li>प्रत्येक मूवमेंट नाम के लिए एक रिकॉर्ड स्ट्रीम</li>
+<li>इसमें वेट, रेप्स, साइड, सेशन आईडी, टाइमस्टैम्प शामिल हैं</li>
+</ul>
+<p>यह संरचना बाद में प्रोग्रेशन चार्ट और PR पहचान को आसान बनाती है।</p>
+<h3>अनुशंसित स्टोरेज पैटर्न</h3>
+<ul>
+<li><code>data/speediance/raw/monthly/YYYY-MM.json</code></li>
+<li><code>data/speediance/normalized/history.json</code></li>
+<li><code>data/speediance/normalized/by_exercise.json</code></li>
+<li><code>data/speediance/dashboard/latest.json</code></li>
+</ul>
+<h3>अनुकूली Speediance वर्कआउट स्नैपशॉट्स</h3>
+<p>इस बिल्ड का अधिक उन्नत संस्करण केवल पूर्ण किए गए Speediance वर्कआउट को ही नहीं पढ़ता है। यह लाइव तत्परता डेटा से नियोजित वर्कआउट भी बनाता है।</p>
+<p>उपयोगी पैटर्न यह है:</p>
+<ol>
+<li>उसी दिन का WHOOP रिकवरी, वर्तमान स्ट्रेन, BJJ स्ट्रेन, Garmin बॉडी बैटरी, विश्राम हृदय गति, हाल का रनिंग लोड, मौसम, और हाल का Speediance प्लान इतिहास लोड करें।</li>
+<li>दिन को <code>build</code>, <code>maintain</code>, <code>recover</code>, <code>protect</code>, या <code>post_bjj_brutal</code> जैसे बकेट में वर्गीकृत करें।</li>
+<li>पूरे वर्कआउट के लिए एक Speediance उपकरण चुनें, आमतौर पर हैंडल्स, बारबेल, या रस्सी।</li>
+<li>मुख्य Speediance वर्कआउट के लिए केवल ऑन-डिवाइस एक्सरसाइज़ चुनें।</li>
+<li>जब रिकवरी सहायता दे, तभी शून्य से दो ऑफ-Speediance एक्सेसरीज़ जोड़ें।</li>
+<li>प्लान को <code>data/training_plans/YYYY-MM-DD_context.json</code> पर लिखें।</li>
+<li>सुबह की सिफारिश और रात्रि प्लान-निष्पादन समीक्षा दोनों के लिए इस स्नैपशॉट का उपयोग करें।</li>
+</ol>
+<p>दोहराव नियंत्रण के लिए, नई वर्कआउट सिग्नेचर की तुलना हाल के योजना स्नैपशॉट्स से करें। उत्पादन संस्करण एक रोलिंग विशिष्टता विंडो का उपयोग करता है जो 30 दिनों तक बढ़ती है, और यह हमेशा वर्कआउट शीर्षक को आज की तारीख के साथ स्टैम्प करता है ताकि पुनः सामने आने वाला वर्कआउट अभी भी ताज़ा और खोजने योग्य रहे।</p>
+<hr>
+<h2>9. Cronometer: पोषण संदर्भ परत</h2>
+<p>आप जो भी सटीक पोषण ऐप इस्तेमाल करें, भूमिका वही है: ऊर्जा सेवन के लिए रिपोर्ट को संदर्भ देना।</p>
+<p>यह महत्वपूर्ण है क्योंकि पोषण संदर्भ के बिना प्रशिक्षण भार गलत निष्कर्षों की ओर ले जाता है।</p>
+<p>रिपोर्ट यह पूछने में सक्षम होनी चाहिए:</p>
+<ul>
+<li>क्या रिकवरी कम थी क्योंकि प्रशिक्षण भार अधिक था?</li>
+<li>या क्योंकि नींद खराब थी <strong>और</strong> कैलोरी सेवन कम था?</li>
+<li>क्या एथलीट आउटपुट की तुलना में कम ईंधन वाला था?</li>
+</ul>
+<h3>व्यावहारिक निर्माण सलाह</h3>
+<p>रेंडर के समय लाइव पोषण API पर निर्भर न रहें।
+इनमें से एक का उपयोग करें:</p>
+<ul>
+<li>CSV निर्यात</li>
+<li>webhook अंतर्ग्रहण</li>
+<li>सामान्यीकृत JSON में निर्धारित सिंक</li>
+</ul>
+<p>इन जैसे फ़ील्ड्स में सामान्यीकृत करें:</p>
+<ul>
+<li><code>calories_consumed</code></li>
+<li><code>protein_g</code></li>
+<li><code>carbs_g</code></li>
+<li><code>fat_g</code></li>
+<li><code>fiber_g</code></li>
+<li><code>target_calories</code></li>
+<li><code>estimated_deficit</code></li>
+</ul>
+<h3>अनुशंसित भंडारण पैटर्न</h3>
+<ul>
+<li><code>data/nutrition/raw/YYYY-MM-DD.csv</code></li>
+<li><code>data/nutrition/normalized/YYYY-MM-DD.json</code></li>
+<li><code>data/nutrition/latest.json</code></li>
+</ul>
+<hr>
+<h2>10. 8Sleep: देर से आने वाली नींद संदर्भ परत</h2>
+<p>8Sleep वैकल्पिक है, लेकिन यदि यह कॉन्फ़िगर किया गया है तो एजेंट को इसे हर अन्य कनेक्टर की तरह मानना चाहिए: पहले सिंक, दूसरा सामान्यीकरण, अंत में फ़ाइलों से रेंडर।</p>
+<p>महत्वपूर्ण व्यवहार देर से डेटा प्रबंधन है। पहली सुबह की रन के बाद नींद का डेटा बदल सकता है, इसलिए रिपोर्ट को पुनः जनरेट करने से पहले मैनुअल पुनः रन या निर्धारित पुनः प्रयास को आज और कल दोनों को बल-रिफ्रेश करना चाहिए।</p>
+<p>इन जैसे फ़ील्ड्स को सामान्यीकृत करें:</p>
+<ul>
+<li><code>sleep_score</code></li>
+<li><code>sleep_start</code></li>
+<li><code>sleep_end</code></li>
+<li><code>time_in_bed_seconds</code></li>
+<li><code>time_asleep_seconds</code></li>
+<li><code>hrv</code></li>
+<li><code>resting_heart_rate</code></li>
+<li><code>temperature_adjustments</code></li>
+<li><code>away_mode</code></li>
+</ul>
+<p>अनुशंसित भंडारण पैटर्न:</p>
+<ul>
+<li><code>data/eightsleep/raw/YYYY-MM-DD.json</code></li>
+<li><code>data/eightsleep/normalized/YYYY-MM-DD.json</code></li>
+<li><code>data/eightsleep/normalized/latest.json</code></li>
+</ul>
+<hr>
+<h2>11. इस स्टैक में OpenClaw वास्तव में क्या करता है</h2>
+<p>OpenClaw डेटा स्रोत नहीं है। यह <strong>समन्वय और तर्क परत</strong> है।</p>
+<p>इसका काम है:</p>
+<ul>
+<li>निर्धारित समय पर सिंक जॉब्स चलाना</li>
+<li>स्थिर आउटपुट संग्रहीत करना</li>
+<li>स्रोतों की तुलना करना</li>
+<li>रिपोर्ट HTML जनरेट करना</li>
+<li>लिंक प्रकाशित करना</li>
+<li>सामान्यीकृत डेटा से मानव-अनुकूल सारांश तैयार करना</li>
+</ul>
+<p>इसका मतलब है कि रिपोर्टिंग कोड को इन जैसी फ़ाइलों से पढ़ना चाहिए:</p>
+<ul>
+<li><code>data/garmin/summary/latest.json</code></li>
+<li><code>data/whoop/normalized/latest.json</code></li>
+<li><code>data/speediance/normalized/history.json</code></li>
+<li><code>data/nutrition/latest.json</code></li>
+<li><code>data/eightsleep/normalized/latest.json</code></li>
+</ul>
+<p>रिपोर्ट जनरेटर को कभी भी यह जानने की आवश्यकता नहीं होनी चाहिए कि Garmin auth कैसे काम करता है या इस सप्ताह Speediance हेडर कैसे बदले।</p>
+<hr>
+<h2>12. --max-tokens 8192 --no-fallback --system आप एक निर्धारक पेशेवर अनुवादक हैं। केवल अनुरोधित अंतिम JSON ऑब्जेक्ट लौटाएँ। तर्क या टिप्पणी शामिल न करें।</h2>
+<p>एजेंट-निर्माण योग्य निर्देशिका संरचना</p>
+<p>यह एक ऐसी संरचना है जिसे कोई एजेंट किसी भी वास्तविक विक्रेता प्रमाणीकरण के सफल होने से पहले बना सकता है:</p>
+<pre><code class="language-text">project/
+  data/
+    garmin/
+      raw/
+      normalized/
+      summary/
+    whoop/
+      raw/
+      normalized/
+    speediance/
+      raw/
+      normalized/
+      dashboard/
+    nutrition/
+      raw/
+      normalized/
+    eightsleep/
+      raw/
+      normalized/
+    training_plans/
+  scripts/
+    sync_garmin.py
+    sync_whoop.py
+    sync_speediance.py
+    sync_nutrition.py
+    sync_eightsleep.py
+    gate_same_day_recovery.py
+    build_adaptive_plan.py
+    build_report.py
+  reports/
+    morning/
+      latest.html
+    nightly/
+      latest.html
+  frontend/
+    data/
+</code></pre>
+<p>फ़ाइल संरचना इंटरफ़ेस का हिस्सा है। इसे इतना सरल और साफ़ बनाएँ कि कोई भविष्य का एजेंट सिस्टम का निरीक्षण कर सके, हर कनेक्टर को ढूँढ सके, किसी एक सिंक को फिर से चला सके, और कच्चे (raw) पेलोड की तुलना सामान्यीकृत (normalized) आउटपुट से कर सके।</p>
+<hr>
+<h2>13. उदाहरण रिपोर्ट बिल्डर पैटर्न</h2>
+<p>जब एक बार हर कनेक्टर सामान्यीकृत JSON लिख देता है, तो असली रिपोर्ट कोड सरल हो जाता है।</p>
+<pre><code class="language-python">import json
+from pathlib import Path
+
+base = Path(&quot;data&quot;)
+
+garmin = json.loads((base / &quot;garmin/summary/latest.json&quot;).read_text())
+whoop = json.loads((base / &quot;whoop/normalized/latest.json&quot;).read_text())
+speediance = json.loads((base / &quot;speediance/normalized/history.json&quot;).read_text())
+nutrition = json.loads((base / &quot;nutrition/latest.json&quot;).read_text())
+eightsleep_path = base / &quot;eightsleep/normalized/latest.json&quot;
+eightsleep = json.loads(eightsleep_path.read_text()) if eightsleep_path.exists() else {}
+
+summary = {
+    &quot;recovery&quot;: whoop.get(&quot;recovery_score&quot;),
+    &quot;hrv&quot;: whoop.get(&quot;hrv_rmssd_milli&quot;),
+    &quot;rhr&quot;: whoop.get(&quot;resting_heart_rate&quot;),
+    &quot;steps&quot;: garmin.get(&quot;totalSteps&quot;),
+    &quot;body_battery&quot;: garmin.get(&quot;bodyBattery&quot;),
+    &quot;lifting_volume&quot;: speediance.get(&quot;today&quot;, {}).get(&quot;total_volume&quot;),
+    &quot;calories_in&quot;: nutrition.get(&quot;calories_consumed&quot;),
+    &quot;sleep_score&quot;: eightsleep.get(&quot;sleep_score&quot;),
+}
+
+html = f&quot;&quot;&quot;
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Daily Fitness Report&lt;/h1&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Recovery: {summary[&#39;recovery&#39;]}&lt;/li&gt;
+      &lt;li&gt;HRV: {summary[&#39;hrv&#39;]}&lt;/li&gt;
+      &lt;li&gt;RHR: {summary[&#39;rhr&#39;]}&lt;/li&gt;
+      &lt;li&gt;Steps: {summary[&#39;steps&#39;]}&lt;/li&gt;
+      &lt;li&gt;Body Battery: {summary[&#39;body_battery&#39;]}&lt;/li&gt;
+      &lt;li&gt;Lifting Volume: {summary[&#39;lifting_volume&#39;]}&lt;/li&gt;
+      &lt;li&gt;Calories In: {summary[&#39;calories_in&#39;]}&lt;/li&gt;
+      &lt;li&gt;8Sleep Score: {summary[&#39;sleep_score&#39;]}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+&quot;&quot;&quot;
+
+out = Path(&quot;reports/morning&quot;)
+out.mkdir(parents=True, exist_ok=True)
+(out / &quot;latest.html&quot;).write_text(html)
+</code></pre>
+<p>यहीं पर पूरे डिज़ाइन की सार्थकता सामने आती है: एक बार जब सिंक परत (sync layer) ठीक-ठाक हो जाती है, तो रिपोर्ट परत (report layer) सर्वोत्तम संभव तरीके से सीधी-सादी हो जाती है।</p>
+<hr>
+<h2>14. हर कनेक्टर वास्तव में किसके लिए है</h2>
+<p>यह सबसे सरल मानसिक मॉडल है:</p>
+<h3>WHOOP</h3>
+<p>इसके लिए उपयोग करें:</p>
+<ul>
+<li>रिकवरी</li>
+<li>HRV</li>
+<li>RHR</li>
+<li>नींद का प्रदर्शन</li>
+<li>स्ट्रेन</li>
+<li>तत्परता की रूपरेखा</li>
+</ul>
+<h3>Garmin</h3>
+<p>इसके लिए उपयोग करें:</p>
+<ul>
+<li>दौड़ने और कार्डियो का विवरण</li>
+<li>गति, शक्ति, कैडेंस</li>
+<li>HR ज़ोन</li>
+<li>प्रशिक्षण प्रभाव</li>
+<li>विस्तृत गतिविधि इतिहास</li>
+</ul>
+<h3>Speediance</h3>
+<p>इसके लिए उपयोग करें:</p>
+<ul>
+<li>शक्ति वर्कआउट इतिहास</li>
+<li>कुल मात्रा</li>
+<li>व्यायाम विवरण</li>
+<li>नियोजित बनाम वास्तविक सत्र निष्पादन</li>
+<li>यदि आप व्यायाम-दर-व्यायाम अनुक्रमण बनाते हैं तो गति-स्तर की प्रगति</li>
+</ul>
+<h3>Nutrition app</h3>
+<p>इसके लिए उपयोग करें:</p>
+<ul>
+<li>कैलोरी सेवन</li>
+<li>मैक्रो संदर्भ</li>
+<li>अपर्याप्त ईंधन का पता लगाना</li>
+</ul>
+<h3>8Sleep</h3>
+<p>इसके लिए उपयोग करें:</p>
+<ul>
+<li>देर से आने वाली नींद का विवरण</li>
+<li>बिस्तर-विशिष्ट नींद अवधि और स्कोर</li>
+<li>WHOOP और Garmin के विरुद्ध नींद-संदर्भ क्रॉस-चेक</li>
+</ul>
+<p>OpenClaw फिर उन सभी को एक रिपोर्ट और सिफारिश सतह में संयोजित करता है।</p>
+<hr>
+<h2>15. सिस्टम द्वारा कनेक्शन डिलीवरेबल्स</h2>
+<p>यह वह चेकलिस्ट है जिसे रिपोर्ट UI को पॉलिश करने से पहले कार्यान्वयन एजेंट को पूरा करना चाहिए।</p>
+<h3>Garmin कनेक्शन पॉइंट्स</h3>
+<ul>
+<li>लाइब्रेरी: <code>cyberjunky/python-garminconnect</code> से <code>garminconnect</code></li>
+<li>प्रमाणीकरण: लाइब्रेरी के टोकन/सत्र प्रबंधन के साथ Garmin कनेक्ट ईमेल/पासवर्ड</li>
+<li>पुल कैडेंस: दैनिक सुबह सिंक प्लस वैकल्पिक वर्कआउट-के-बाद सिंक</li>
+<li>न्यूनतम पुल:<ul>
+<li>कदम, विश्राम हृदय गति, नींद सेकंड, बॉडी बैटरी, कैलोरी के लिए दैनिक आँकड़े</li>
+<li>दौड़/सवारी/कार्डियो सत्रों के लिए तिथि अनुसार गतिविधियाँ</li>
+<li>HR ज़ोन, गति, कैडेंस, शक्ति, प्रशिक्षण प्रभाव के लिए उपलब्ध होने पर गतिविधि विवरण</li>
+</ul>
+</li>
+<li>सामान्यीकृत आउटपुट: <code>data/garmin/summary/latest.json</code></li>
+</ul>
+<h3>WHOOP कनेक्शन पॉइंट्स</h3>
+<ul>
+<li>API दस्तावेज़: <code>https://developer.whoop.com/api</code></li>
+<li>प्रमाणीकरण: OAuth2 एक्सेस टोकन + रिफ्रेश टोकन फ्लो</li>
+<li>बेस URL: <code>https://api.prod.whoop.com/developer/v2</code></li>
+<li>न्यूनतम एंडपॉइंट समूह:<ul>
+<li>स्ट्रेन/साइकल संदर्भ के लिए <code>/cycle</code></li>
+<li>रिकवरी स्कोर, HRV, विश्राम हृदय गति के लिए <code>/recovery</code></li>
+<li>नींद के प्रदर्शन और नींद के समय के लिए <code>/activity/sleep</code></li>
+<li>वर्कआउट और WHOOP स्ट्रेन डेटा के लिए <code>/activity/workout</code></li>
+<li>ज़रूरत पड़ने पर प्रोफ़ाइल/शरीर संदर्भ के लिए <code>/user/profile/basic</code> और <code>/user/measurement/body</code></li>
+</ul>
+</li>
+<li>सामान्यीकृत आउटपुट: <code>data/whoop/normalized/latest.json</code></li>
+</ul>
+<h3>Speediance कनेक्शन पॉइंट्स</h3>
+<ul>
+<li>इस बिल्ड के लिए सार्वजनिक निष्कर्षण: <code>https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager</code></li>
+<li>अपस्ट्रीम संदर्भ: <code>https://github.com/hbui3/UnofficialSpeedianceWorkoutManager</code></li>
+<li>प्रमाणीकरण: SmartGym क्लाइंट लेयर द्वारा उजागर अनौपचारिक टोकन/उपयोगकर्ता-आईडी आधारित फ्लो</li>
+<li>न्यूनतम पुल:<ul>
+<li>वर्कआउट इतिहास</li>
+<li>व्यायाम/सत्र विवरण</li>
+<li>यदि आप नियोजित-बनाम-वास्तविक रिपोर्टिंग चाहते हैं तो कस्टम वर्कआउट/टेम्पलेट मेटाडेटा</li>
+<li>बिना गोपनीय जानकारी के रॉ API/डिबग प्रतिक्रिया कैप्चर</li>
+</ul>
+</li>
+<li>सामान्यीकृत आउटपुट:<ul>
+<li><code>data/speediance/normalized/history.json</code></li>
+<li><code>data/speediance/normalized/by_exercise.json</code></li>
+</ul>
+</li>
+</ul>
+<h3>Cronometer कनेक्शन पॉइंट्स</h3>
+<ul>
+<li>सार्वजनिक स्रोत: <code>https://cronometer.com/</code> exports/integrations</li>
+<li>अनुशंसित कार्यान्वयन दृष्टिकोण: CSV एक्सपोर्ट या शेड्यूल्ड फ़ाइल ड्रॉप, लाइव रेंडर-टाइम API निर्भरता नहीं</li>
+<li>न्यूनतम फ़ील्ड्स: दिनांक, कैलोरी, प्रोटीन, कार्ब्स, फैट, फाइबर, और रिकवरी विश्लेषण में चाहे गए कोई भी माइक्रोन्यूट्रिएंट्स</li>
+<li>सामान्यीकृत आउटपुट: <code>data/nutrition/latest.json</code></li>
+</ul>
+<h3>8Sleep कनेक्शन पॉइंट्स</h3>
+<ul>
+<li>प्रमाणीकरण: एनवायरनमेंट-बैक्ड लॉगिन/सेशन फ्लो, स्रोत में कोई क्रेडेंशियल नहीं</li>
+<li>पुल कैडेंस: सुबह सिंक के साथ-साथ आज और कल के लिए रीरन/रिफ्रेश सपोर्ट</li>
+<li>न्यूनतम पुल:<ul>
+<li>स्लीप स्कोर</li>
+<li>स्लीप टाइमिंग</li>
+<li>सोए हुए समय और बिस्तर में बिताया गया समय</li>
+<li>उपलब्ध होने पर HRV और रेस्टिंग HR</li>
+<li>उपलब्ध होने पर तापमान और अवे-मोड संदर्भ</li>
+</ul>
+</li>
+<li>सामान्यीकृत आउटपुट: <code>data/eightsleep/normalized/latest.json</code></li>
+</ul>
+<h3>रिपोर्ट-जनरेशन कनेक्शन पॉइंट</h3>
+<p>रिपोर्ट बिल्डर को केवल स्थिर सामान्यीकृत फ़ाइलें और प्लान स्नैपशॉट्स पढ़ने चाहिए। एक व्यावहारिक आकार यह है:</p>
+<pre><code class="language-text">data/garmin/summary/latest.json
+data/whoop/normalized/latest.json
+data/speediance/normalized/history.json
+data/speediance/normalized/by_exercise.json
+data/nutrition/latest.json
+data/eightsleep/normalized/latest.json
+data/training_plans/YYYY-MM-DD_morning.json
+data/training_plans/YYYY-MM-DD_post_bjj.json
+</code></pre>
+<p>यह वास्तविक कनेक्शन सतह है। अपस्ट्रीम की हर चीज़ टूट सकती है और स्वतंत्र रूप से ठीक की जा सकती है।</p>
+<hr>
+<h2>16. असली कार्यान्वयन नियम</h2>
+<p>यदि कोई एजेंट इसे सफलतापूर्वक बनाने जा रहा है, तो ये नियम किसी भी एक कोड स्निपेट से अधिक महत्वपूर्ण हैं:</p>
+<ol>
+<li><p><strong>हर वेंडर को अपने स्वयं के स्कीमा में सामान्यीकृत करें</strong><br>किसी भी रिपोर्ट को वेंडर पेलोड शेप पर निर्भर न होने दें।</p>
+</li>
+<li><p><strong>रॉ स्नैपशॉट्स रखें</strong><br>जब कोई सिंक टूटता है, तो रॉ पेलोड्स आपको बचाते हैं।</p>
+</li>
+<li><p><strong>यदि रिपोर्ट समय-संवेदनशील है तो लाइव API से कभी रेंडर न करें</strong><br>पहले सिंक करें, फिर रेंडर करें।</p>
+</li>
+<li><p><strong>अनौपचारिक इंटीग्रेशन को डिस्पोज़ेबल एडाप्टर मानें</strong><br>विशेष रूप से Speediance।</p>
+</li>
+<li><p><strong>Garmin और WHOOP को एक-दूसरे की पूरक बनाएं, प्रतिस्पर्धी नहीं</strong><br>WHOOP = रेडिनेस। Garmin = एक्ज़िक्यूशन डिटेल।</p>
+</li>
+<li><p><strong>स्ट्रेंथ डेटा को सत्र और व्यायाम दोनों स्तरों पर मॉडल करें</strong><br>अन्यथा प्रोग्रेशन रिपोर्टिंग उथली रहती है।</p>
+</li>
+<li><p><strong>कोचिंग को कल की नहीं, आज की रेडिनेस पर गेट करें</strong><br>समान-दिवस रिकवरी गायब होने पर सिस्टम को केवल वेब-रिपोर्टिंग तक डिग्रेड करना चाहिए।</p>
+</li>
+<li><p><strong>दिन का न्याय करने से पहले प्लान सेव करें</strong><br>एक रात्रिकालीन अनुपालन स्कोर तभी काम करता है जब सुबह या पोस्ट-BJJ प्लान को डेटा के रूप में स्टोर किया गया हो।</p>
+</li>
+<li><p><strong>नए बैकएंड्स को शैडो मोड में पायलट करें</strong><br>Open Wearables या कोई अन्य एब्स्ट्रैक्शन लेयर को स्रोत का सत्य बनने से पहले यह साबित करना चाहिए कि वह वर्तमान प्रोडक्शन फ़ाइलों से मेल खा सकती है।</p>
+</li>
+</ol>
+<p>--- --max-tokens 8192 --no-fallback --system You are a deterministic professional translator. Return only the requested final JSON object. Do not include reasoning or commentary.</p>
+<h2>अंतिम कार्यान्वयन संदर्भ सूची</h2>
+<p>ये वे सार्वजनिक संदर्भ हैं जो इस सिस्टम को लागू करते समय AI कोडिंग एजेंट को सबसे पहले दिए जाने चाहिए:</p>
+<ul>
+<li>OpenClaw को ऑर्केस्ट्रेशन परत के रूप में</li>
+<li>Garmin कनेक्टर: `<a href="https://github.com/cyberjunky/python-garminconnect%60%60">https://github.com/cyberjunky/python-garminconnect``</a></li>
+<li>Garmin ऐतिहासिक प्रमाणीकरण संदर्भ: `<a href="https://github.com/matin/garth%60%60">https://github.com/matin/garth``</a> <em>(अप्रचलित; संदर्भ के रूप में उपयोग करें, नए निर्माण के केंद्र के रूप में नहीं)</em></li>
+<li>WHOOP आधिकारिक डेवलपर API: `<a href="https://developer.whoop.com/api%60%60">https://developer.whoop.com/api``</a></li>
+<li>Speediance इस बिल्ड के लिए सार्वजनिक निष्कर्षण: `<a href="https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager%60%60">https://github.com/clawdassistant85-netizen/speediance-smartgym-workout-manager``</a></li>
+<li>Speediance अपस्ट्रीम/मूल संदर्भ: `<a href="https://github.com/hbui3/UnofficialSpeedianceWorkoutManager%60%60">https://github.com/hbui3/UnofficialSpeedianceWorkoutManager``</a></li>
+<li>रिपोर्ट जनरेटर/टेम्पलेट संदर्भ: `<a href="https://github.com/tobyglenn/scriptsJinja%60%60">https://github.com/tobyglenn/scriptsJinja``</a></li>
+<li>क्रोनोमीटर पोषण निर्यात: `<a href="https://cronometer.com/%60%60">https://cronometer.com/``</a></li>
+<li>8Sleep कनेक्टर अनुबंध: पर्यावरण-समर्थित सिंक जो <code>data/eightsleep/normalized/latest.json</code> लिखता है</li>
+</ul>
+<p>यदि आप यह लेख Claude Code, Codex, OpenClaw, या किसी अन्य कार्यान्वयन एजेंट को सौंप रहे हैं, तो सही निर्देश यह है: पहले कनेक्टर बनाएँ, दूसरा सामान्यीकृत JSON स्नैपशॉट लिखें, तीसरा उसी-दिन की रिकवरी गेट लागू करें, और अंत में रिपोर्ट रेंडरर बनाएँ। अंतिम HTML रिपोर्ट डिज़ाइन करके शुरू न करें।</p>
+</div></div><div class="mt-12 flex flex-wrap items-center gap-2 border-t border-neutral-800 pt-8"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-tag" aria-hidden="true"><path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"></path><circle cx="7.5" cy="7.5" r=".5" fill="currentColor"></circle></svg><span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#openclaw</span><span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#garmin</span><span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#whoop</span><span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#speediance</span><span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#फिटनेस रिपोर्ट्स</span><span class="rounded-full border border-neutral-800 bg-neutral-900 px-3 py-1 text-sm text-neutral-400">#एआई सिस्टम</span></div><nav class="mt-14 border-y border-neutral-800 py-9" aria-label="आगे पढ़ें"><h2 class="mb-5 text-xl font-bold text-white">आगे पढ़ें</h2><div class="flex flex-wrap gap-x-6 gap-y-3"><a href="/hi/blog/" class="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">सभी विश्लेषण <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/hi/speediance/" class="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">Speediance विश्लेषण <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a><a href="/hi/whoop/" class="inline-flex items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">WHOOP और रिकवरी <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div></nav></div></article></main><div data-pagefind-ignore><footer class="bg-neutral-950 border-t border-neutral-900 pt-16 pb-8"><div class="container mx-auto px-4"><div class="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12"><div class="col-span-1 md:col-span-2"><h3 class="text-xl font-bold text-white mb-4">TobyOnFitnessTech</h3><p class="text-neutral-400 text-sm leading-relaxed max-w-sm mb-6">Dedicated to cutting through the marketing hype and delivering data-driven reviews of fitness technology, smart gyms, wearables, and the real training data behind each recommendation.</p><div class="flex gap-2"><a href="https://www.youtube.com/@tobyonfitness" target="_blank" rel="noopener noreferrer" class="p-2 text-neutral-400 hover:text-red-500 transition-colors" aria-label="YouTube" title="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-youtube" aria-hidden="true"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"></path><path d="m10 15 5-3-5-3z"></path></svg></a><a href="https://x.com/tobyglenn" target="_blank" rel="noopener noreferrer" class="p-2 text-neutral-400 hover:text-blue-400 transition-colors" aria-label="X" title="X"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter" aria-hidden="true"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path></svg></a><a href="https://www.instagram.com/tobyonfitness" target="_blank" rel="noopener noreferrer" class="p-2 text-neutral-400 hover:text-pink-500 transition-colors" aria-label="Instagram" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg></a><a href="mailto:admin@tobyonfitnesstech.com" class="p-2 text-neutral-400 hover:text-white transition-colors" aria-label="Email Toby" title="Email Toby"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg></a></div></div><div><h4 class="font-semibold text-white mb-4">Explore</h4><ul class="space-y-2 text-sm text-neutral-400"><li><a href="/speediance/" class="hover:text-blue-400 transition-colors">Speediance</a></li><li><a href="/wearables/" class="hover:text-blue-400 transition-colors">Wearables</a></li><li><a href="/agentstack/" class="hover:text-blue-400 transition-colors">AgentStack</a></li><li><a href="/blog/" class="hover:text-blue-400 transition-colors">Articles</a></li><li><a href="/videos/" class="hover:text-blue-400 transition-colors">Videos</a></li><li><a href="/projects/" class="hover:text-blue-400 transition-colors">Projects</a></li></ul></div><div><h4 class="font-semibold text-white mb-4">Training Data</h4><ul class="space-y-2 text-sm text-neutral-400"><li><a href="/running/" class="hover:text-blue-400 transition-colors">Running Log</a></li><li><a href="/speediance/" class="hover:text-blue-400 transition-colors">Lifting Stats</a></li><li><a href="/sleep/" class="hover:text-blue-400 transition-colors">Sleep Data</a></li><li><a href="/training/" class="hover:text-blue-400 transition-colors">Training Trends</a></li><li><a href="/bjj/" class="hover:text-blue-400 transition-colors">BJJ Journey</a></li><li><a href="/transformation/" class="hover:text-blue-400 transition-colors">Weight Journey</a></li><li><a href="/prs/" class="hover:text-blue-400 transition-colors">PR Board</a></li><li><a href="/whoop/" class="hover:text-blue-400 transition-colors">Recovery</a></li><li><a href="/fitness-age/" class="hover:text-blue-400 transition-colors">Fitness Age</a></li></ul></div><div><h4 class="font-semibold text-white mb-4">About</h4><ul class="space-y-2 text-sm text-neutral-400"><li><a href="/about/" class="hover:text-blue-400 transition-colors">Toby&#x27;s Story</a></li><li><a href="/gear/" class="hover:text-blue-400 transition-colors">Gear Setup</a></li><li><a href="/faq/" class="hover:text-blue-400 transition-colors">FAQ</a></li><li><a href="/contact/" class="hover:text-blue-400 transition-colors">Contact</a></li><li><a href="/privacy/" class="hover:text-blue-400 transition-colors">Privacy Policy</a></li><li><a href="/terms/" class="hover:text-blue-400 transition-colors">Terms of Service</a></li><li><a href="/affiliate/" class="hover:text-blue-400 transition-colors">Affiliate Disclosure</a></li></ul></div></div><div class="bg-neutral-900/50 border border-neutral-800 rounded-lg p-6 mb-12"><div class="flex flex-col md:flex-row items-center justify-between gap-6"><div><h4 class="font-bold text-white mb-1 flex items-center gap-2"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-mail text-blue-500" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path><rect x="2" y="4" width="20" height="16" rx="2"></rect></svg>Get the Weekly Brief</h4><p class="text-neutral-400 text-sm">Fitness tech insights, Speediance tips, and OpenClaw updates. No spam.</p></div><form class="flex w-full md:w-auto gap-2"><input type="email" placeholder="your@email.com" required="" class="flex-1 md:w-64 px-4 py-2.5 bg-neutral-950 border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-neutral-600 disabled:opacity-50" value=""/><button type="submit" class="px-4 py-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-blue-800 text-white text-sm font-medium rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-blue-900/20 disabled:opacity-70">Subscribe <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></button></form></div></div><div class="border-t border-neutral-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-neutral-600"><p>© <!-- -->2026<!-- --> Toby on Fitness Tech. All rights reserved.</p><p>Built with Astro and React</p></div></div></footer></div></body></html>
