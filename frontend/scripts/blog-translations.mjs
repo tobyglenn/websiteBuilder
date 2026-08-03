@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { existsSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
 import { mkdir, readFile, rename, writeFile, copyFile, readdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -60,6 +60,7 @@ const freecallRoot = process.env.FREECALL_ROOT || join(homedir(), '.openclaw/scr
 const modelTimeoutSeconds = Number(process.env.BLOG_TRANSLATION_MODEL_TIMEOUT || 900);
 const modelMaxTokens = Number(process.env.BLOG_TRANSLATION_MAX_TOKENS || 8192);
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
+const promptVersion = '2026-08-03-v2';
 
 const parseArgs = (argv) => {
   const options = {};
@@ -402,6 +403,29 @@ const runMiniMax = (prompt, maxTokens = modelMaxTokens) => {
   return result.stdout;
 };
 
+const runMiniMaxCached = (cacheDirectory, cacheKey, prompt, maxTokens = modelMaxTokens) => {
+  const promptHash = createHash('sha256')
+    .update(JSON.stringify({ model: MODEL, promptVersion, prompt, maxTokens }))
+    .digest('hex');
+  const cachePath = join(cacheDirectory, `${cacheKey}.json`);
+  try {
+    const cached = JSON.parse(readFileSync(cachePath, 'utf8'));
+    if (cached?.promptHash === promptHash && typeof cached?.output === 'string' && cached.output.trim()) {
+      console.log(`  ${cacheKey} (cached)`);
+      return cached.output;
+    }
+  } catch {
+    // Missing or invalid checkpoints are regenerated.
+  }
+
+  const output = runMiniMax(prompt, maxTokens);
+  mkdirSync(cacheDirectory, { recursive: true });
+  const temporaryPath = `${cachePath}.tmp-${process.pid}`;
+  writeFileSync(temporaryPath, `${JSON.stringify({ promptHash, output })}\n`, 'utf8');
+  renameSync(temporaryPath, cachePath);
+  return output;
+};
+
 const translatedSegment = (value) => {
   const cleaned = stripModelNoise(value);
   if (cleaned.startsWith('"') && cleaned.endsWith('"')) {
@@ -417,17 +441,29 @@ const translatedSegment = (value) => {
 
 const callMiniMax = (post, locale) => {
   const { shielded, replacements } = shieldTranslationSource(post);
+  const cacheDirectory = join(stagingRoot, '.segments', computeSourceHash(post), locale, post.slug);
   try {
-    const metadata = extractJsonObject(runMiniMax(buildMetadataPrompt(shielded, locale), 4096));
+    const metadataPrompt = buildMetadataPrompt(shielded, locale);
+    const metadata = extractJsonObject(runMiniMaxCached(cacheDirectory, 'metadata', metadataPrompt, 4096));
     const chunks = splitTranslationChunks(shielded.content);
     const content = chunks.map((chunk, index) => {
+      const cacheKey = `segment-${String(index + 1).padStart(3, '0')}`;
       console.log(`  segment ${index + 1}/${chunks.length}`);
-      return translatedSegment(runMiniMax(buildContentPrompt(chunk, locale, index, chunks.length)));
+      return translatedSegment(runMiniMaxCached(
+        cacheDirectory,
+        cacheKey,
+        buildContentPrompt(chunk, locale, index, chunks.length),
+      ));
     }).join('\n\n');
     return restoreTranslationTokens({ ...metadata, content }, replacements);
   } catch (error) {
     throw new Error(`MiniMax M3 translation assembly failed: ${error?.message || error}`);
   }
+};
+
+const clearSegmentCache = (post, locale) => {
+  const cacheDirectory = join(stagingRoot, '.segments', computeSourceHash(post), locale, post.slug);
+  rmSync(cacheDirectory, { recursive: true, force: true });
 };
 
 const readFailures = async () => readJson(failuresPath, {});
@@ -544,7 +580,14 @@ const translateOne = async (options) => {
   const { post, locale, key } = task;
   console.log(`Translating ${post.slug} -> ${locale} with ${MODEL}`);
   try {
-    const draft = validateTranslationDraft(callMiniMax(post, locale), post);
+    const assembledDraft = callMiniMax(post, locale);
+    let draft;
+    try {
+      draft = validateTranslationDraft(assembledDraft, post);
+    } catch (error) {
+      clearSegmentCache(post, locale);
+      throw error;
+    }
     const record = {
       slug: post.slug,
       lang: locale,
@@ -562,6 +605,7 @@ const translateOne = async (options) => {
       model: MODEL,
     };
     await writeJsonAtomic(translationPath(stagingRoot, locale, post.slug), record);
+    clearSegmentCache(post, locale);
     await clearFailure(key);
     const promoted = await promoteCompletePost(post);
     const status = await saveStatus(posts);
