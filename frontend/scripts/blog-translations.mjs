@@ -60,6 +60,7 @@ const freecallRoot = process.env.FREECALL_ROOT || join(homedir(), '.openclaw/scr
 const modelTimeoutSeconds = Number(process.env.BLOG_TRANSLATION_MODEL_TIMEOUT || 900);
 const modelMaxTokens = Number(process.env.BLOG_TRANSLATION_MAX_TOKENS || 8192);
 const modelAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_MODEL_ATTEMPTS || 3));
+const assemblyAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_ASSEMBLY_ATTEMPTS || 3));
 const modelRetrySeconds = Math.max(0, Number(process.env.BLOG_TRANSLATION_MODEL_RETRY_SECONDS || 5));
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
 const promptVersion = '2026-08-03-v4';
@@ -462,27 +463,34 @@ const translatedSegment = (value) => {
 const callMiniMax = (post, locale) => {
   const { shielded, replacements } = shieldTranslationSource(post);
   const cacheDirectory = join(stagingRoot, '.segments', computeSourceHash(post), locale, post.slug);
-  try {
-    const metadataPrompt = buildMetadataPrompt(shielded, locale);
-    const metadata = extractJsonObject(runMiniMaxCached(cacheDirectory, 'metadata', metadataPrompt, 4096));
-    const chunks = splitTranslationChunks(shielded.content);
-    const content = chunks.map((chunk, index) => {
-      const cacheKey = `segment-${String(index + 1).padStart(3, '0')}`;
-      console.log(`  segment ${index + 1}/${chunks.length}`);
-      return translatedSegment(runMiniMaxCached(
-        cacheDirectory,
-        cacheKey,
-        buildContentPrompt(chunk, locale, index, chunks.length),
-      ));
-    }).join('\n\n');
-    return restoreTranslationTokens({ ...metadata, content }, replacements);
-  } catch (error) {
-    // Cached model output is written before assembly validation. If metadata,
-    // JSON, or protected-token validation fails, retaining those checkpoints
-    // makes every retry replay the same invalid response forever.
-    rmSync(cacheDirectory, { recursive: true, force: true });
-    throw new Error(`MiniMax M3 translation assembly failed: ${error?.message || error}`);
+  let lastError;
+  for (let attempt = 1; attempt <= assemblyAttempts; attempt += 1) {
+    try {
+      const metadataPrompt = buildMetadataPrompt(shielded, locale);
+      const metadata = extractJsonObject(runMiniMaxCached(cacheDirectory, 'metadata', metadataPrompt, 4096));
+      const chunks = splitTranslationChunks(shielded.content);
+      const content = chunks.map((chunk, index) => {
+        const cacheKey = `segment-${String(index + 1).padStart(3, '0')}`;
+        console.log(`  segment ${index + 1}/${chunks.length}`);
+        return translatedSegment(runMiniMaxCached(
+          cacheDirectory,
+          cacheKey,
+          buildContentPrompt(chunk, locale, index, chunks.length),
+        ));
+      }).join('\n\n');
+      return restoreTranslationTokens({ ...metadata, content }, replacements);
+    } catch (error) {
+      lastError = error;
+      // Cached model output is written before assembly validation. If metadata,
+      // JSON, or protected-token validation fails, retaining those checkpoints
+      // makes every retry replay the same invalid response forever.
+      rmSync(cacheDirectory, { recursive: true, force: true });
+      if (attempt < assemblyAttempts) {
+        console.warn(`  translation assembly attempt ${attempt}/${assemblyAttempts} failed; regenerating`);
+      }
+    }
   }
+  throw new Error(`MiniMax M3 translation assembly failed after ${assemblyAttempts} attempts: ${lastError?.message || lastError}`);
 };
 
 const clearSegmentCache = (post, locale) => {
