@@ -59,6 +59,8 @@ const failuresPath = join(stagingRoot, 'failures.json');
 const freecallRoot = process.env.FREECALL_ROOT || join(homedir(), '.openclaw/scripts');
 const modelTimeoutSeconds = Number(process.env.BLOG_TRANSLATION_MODEL_TIMEOUT || 900);
 const modelMaxTokens = Number(process.env.BLOG_TRANSLATION_MAX_TOKENS || 8192);
+const modelAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_MODEL_ATTEMPTS || 3));
+const modelRetrySeconds = Math.max(0, Number(process.env.BLOG_TRANSLATION_MODEL_RETRY_SECONDS || 5));
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
 const promptVersion = '2026-08-03-v4';
 
@@ -380,37 +382,45 @@ SOURCE SEGMENT:
 ${content}`;
 
 const runMiniMax = (prompt, maxTokens = modelMaxTokens) => {
-  const result = spawnSync(
-    'python3',
-    [
-      '-m',
-      'freecall.cli',
-      MODEL,
-      prompt,
-      '--timeout',
-      String(modelTimeoutSeconds),
-      '--max-tokens',
-      String(maxTokens),
-      '--no-fallback',
-      '--system',
-      'You are a deterministic professional translator. Return only the requested final JSON object. Do not include reasoning or commentary.',
-    ],
-    {
-      cwd: repoRoot,
-      encoding: 'utf8',
-      env: {
-        ...process.env,
-        PYTHONPATH: freecallRoot,
+  let lastError;
+  for (let attempt = 1; attempt <= modelAttempts; attempt += 1) {
+    const result = spawnSync(
+      'python3',
+      [
+        '-m',
+        'freecall.cli',
+        MODEL,
+        prompt,
+        '--timeout',
+        String(modelTimeoutSeconds),
+        '--max-tokens',
+        String(maxTokens),
+        '--no-fallback',
+        '--system',
+        'You are a deterministic professional translator. Return only the requested final JSON object. Do not include reasoning or commentary.',
+      ],
+      {
+        cwd: repoRoot,
+        encoding: 'utf8',
+        env: {
+          ...process.env,
+          PYTHONPATH: freecallRoot,
+        },
+        maxBuffer: 64 * 1024 * 1024,
+        timeout: (modelTimeoutSeconds + 60) * 1000,
       },
-      maxBuffer: 64 * 1024 * 1024,
-      timeout: (modelTimeoutSeconds + 60) * 1000,
-    },
-  );
-  if (result.error) throw result.error;
-  if (result.status !== 0) {
-    throw new Error(`MiniMax M3 failed (${result.status}): ${(result.stderr || result.stdout).slice(0, 800)}`);
+    );
+    if (!result.error && result.status === 0 && String(result.stdout || '').trim()) return result.stdout;
+
+    lastError = result.error || new Error(
+      `MiniMax M3 failed (${result.status}): ${(result.stderr || result.stdout || 'empty response').slice(0, 800)}`,
+    );
+    if (attempt < modelAttempts) {
+      console.warn(`  MiniMax attempt ${attempt}/${modelAttempts} failed; retrying`);
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, modelRetrySeconds * 1000);
+    }
   }
-  return result.stdout;
+  throw lastError;
 };
 
 const runMiniMaxCached = (cacheDirectory, cacheKey, prompt, maxTokens = modelMaxTokens) => {
