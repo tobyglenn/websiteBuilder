@@ -132,7 +132,11 @@ export const loadSourcePosts = async () => {
   });
   try {
     const module = await server.ssrLoadModule('/src/lib/blogPosts.ts');
-    return sortSourcePosts(module.CANONICAL_BLOG_POSTS.map(normalizeSourcePost));
+    return sortSourcePosts(
+      module.CANONICAL_BLOG_POSTS
+        .filter((post) => !module.BLOG_REDIRECTS[post.slug])
+        .map(normalizeSourcePost),
+    );
   } finally {
     await server.close();
   }
@@ -664,14 +668,37 @@ const translateOne = async (options) => {
   }
 };
 
+const removeOrphanTranslations = async (posts) => {
+  const sourceSlugs = new Set(posts.map((post) => post.slug));
+  let removed = 0;
+
+  for (const root of [stagingRoot, outputRoot]) {
+    for (const locale of LOCALES) {
+      const directory = join(root, locale);
+      if (!existsSync(directory)) continue;
+
+      const filenames = await readdir(directory);
+      for (const filename of filenames.filter((name) => name.endsWith('.json'))) {
+        const slug = filename.slice(0, -'.json'.length);
+        if (sourceSlugs.has(slug)) continue;
+        rmSync(join(directory, filename));
+        removed += 1;
+      }
+    }
+  }
+
+  return removed;
+};
+
 const promoteAll = async () => {
   const posts = await loadSourcePosts();
+  const removed = await removeOrphanTranslations(posts);
   let promoted = 0;
   for (const post of posts) {
     if (await promoteCompletePost(post)) promoted += 1;
   }
   const status = await saveStatus(posts);
-  console.log(JSON.stringify({ outcome: 'promoted', promoted, ...status }));
+  console.log(JSON.stringify({ outcome: 'promoted', promoted, removed, ...status }));
 };
 
 const validateOutput = async () => {
