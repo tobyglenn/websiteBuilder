@@ -1,0 +1,155 @@
+---
+
+import Layout from '../../layouts/Layout.astro';
+import { LISTING_BLOG_POSTS } from '../../lib/blogPosts';
+import { ArrowRight, BookOpen, Cpu, FileCode2, Headphones, PlaySquare, Radio, ServerCog } from 'lucide-react';
+
+const agentPosts = LISTING_BLOG_POSTS
+  .filter((post) => /openclaw|agentstack|agent stack|local ai|ai fitness assistant|fitness report connector/i.test([
+    post.title,
+    post.excerpt,
+    post.category,
+    ...(post.tags || []),
+  ].join(' ')))
+  .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
+  .slice(0, 6);
+
+const pageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'AgentStack-Projekte, Podcast und OpenClaw-Feldberichte',
+  description: 'Tägliche KI-Systemanalyse, OpenClaw-Fitness-Integrationen, lokale KI-Workflows und Implementierungs-Feldberichte von Toby Peters.',
+  url: 'https://tobyonfitnesstech.com/de/agentstack/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: agentPosts.map((post, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: post.title,
+      url: `https://tobyonfitnesstech.com/blog/${post.slug}/`,
+    })),
+  },
+};
+---
+
+<Layout
+  title="AgentStack: Täglicher KI-Podcast und OpenClaw-Projekte"
+  description="AgentStack Daily Episoden, OpenClaw Fitness-Integrationen, lokale KI-Infrastruktur und praktische Feldberichte von Systemen, die Toby aktiv entwickelt."
+  image="/images/gear/openclaw-mac-studio.jpg"
+  jsonLd={pageSchema}
+  breadcrumbs={[{ name: 'Startseite', url: '/de/' }, { name: 'AgentStack', url: '/de/agentstack/' }]}
+
+  lang="de"
+  translationBase="/agentstack/"
+>
+  <section class="relative flex min-h-[470px] items-end overflow-hidden border-b border-neutral-800">
+    <img
+      src="/images/gear/openclaw-mac-studio.jpg"
+      alt="Lokale KI-Hardware für AgentStack- und OpenClaw-Projekte"
+      class="absolute inset-0 h-full w-full object-cover"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-black/75"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/50 to-transparent"></div>
+    <div class="container relative z-10 mx-auto px-4 pb-14 pt-32">
+      <div class="max-w-3xl">
+        <div class="mb-4 flex items-center gap-2 text-sm font-semibold text-fuchsia-300">
+          <Cpu size={18} />
+          In der Öffentlichkeit entwickelt
+        </div>
+        <h1 class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">AgentStack</h1>
+        <p class="max-w-2xl text-lg leading-relaxed text-neutral-200 md:text-xl">
+          Die tägliche KI-Show und die Systeme dahinter: OpenClaw-Automatisierungen, Fitness-Daten-Konnektoren, lokale Modelle, Hardware, Bewertungen und ehrliche Build-Notizen.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-neutral-950">
+    <section class="border-b border-neutral-900 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <a href="/de/podcasts/agentstack/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-fuchsia-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="podcast" data-analytics-content-title="AgentStack Daily podcast">
+            <Headphones size={23} class="mb-5 text-fuchsia-400" />
+            <p class="mb-2 text-xs font-semibold uppercase text-fuchsia-400">Anhören</p>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-fuchsia-300">AgentStack Daily</h2>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Tägliche Episoden zu Modellen, Hardware, Bewertungen, Sicherheit und den Systemen, die darum herum gebaut werden.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-fuchsia-400">Episoden durchsuchen <ArrowRight size={15} /></span>
+          </a>
+          <a href="/de/blog/openclaw-fitness-reports-garmin-whoop-speediance/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-cyan-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="fitness-connectors" data-analytics-content-title="Fitness-Konnektor-Implementierungsbrief">
+            <FileCode2 size={23} class="mb-5 text-cyan-400" />
+            <p class="mb-2 text-xs font-semibold uppercase text-cyan-400">Bauen</p>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-cyan-300">Fitness-Konnektor-Brief</h2>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Eine agentenfertige Architektur für Garmin, WHOOP, Speediance, Cronometer, 8Sleep und normalisierte Berichte.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400">Implementierungsbrief lesen <ArrowRight size={15} /></span>
+          </a>
+          <a href="/de/blog/how-i-built-my-ai-fitness-assistant-with-openclaw/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-emerald-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="fitness-assistant" data-analytics-content-title="KI-Fitness-Assistent Feldbericht">
+            <ServerCog size={23} class="mb-5 text-emerald-400" />
+            <p class="mb-2 text-xs font-semibold uppercase text-emerald-400">Feldbericht</p>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-emerald-300">KI-Fitness-Assistent</h2>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Wie der Fitness-Daten-Assistent zusammengebaut wurde, was er automatisiert und wo die harten Kanten noch sind.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">Build-Geschichte lesen <ArrowRight size={15} /></span>
+          </a>
+      <a href="/de/videos/#openclaw" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-rose-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="videos" data-analytics-content-title="AgentStack-Videos">
+            <PlaySquare size={23} class="mb-5 text-rose-400" />
+            <p class="mb-2 text-xs font-semibold uppercase text-rose-400">Ansehen</p>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-rose-300">AgentStack-Videos</h2>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Build-Walkthroughs, Modelltests, lokale Hardware, Fehler und die Systeme hinter der täglichen Show.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-rose-400">Videos durchsuchen <ArrowRight size={15} /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div class="max-w-2xl">
+            <p class="mb-2 text-xs font-semibold uppercase text-blue-400">Implementierungsnotizen</p>
+            <h2 class="mb-3 text-2xl font-bold text-white md:text-3xl">OpenClaw- und AgentStack-Feldberichte</h2>
+            <p class="text-neutral-400">Die beständige schriftliche Schicht hinter der täglichen Show: Architekturen, Fehlermodi, Konnektor-Entscheidungen und funktionierende Systeme.</p>
+          </div>
+          <a href="/de/blog/" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">Alle Artikel <ArrowRight size={15} /></a>
+        </div>
+
+        {agentPosts.length > 0 ? (
+          <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {agentPosts.map((post) => (
+              <a
+                href={`/blog/${post.slug}/`}
+                class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-blue-500/60"
+                data-analytics-event="content_card_click"
+                data-analytics-content-type="blog"
+                data-analytics-content-slug={post.slug}
+                data-analytics-content-title={post.title}
+              >
+                <div class="mb-5 flex items-center justify-between">
+                  <BookOpen size={20} class="text-blue-400" />
+                  <ArrowRight size={16} class="text-neutral-600 transition-transform group-hover:translate-x-1 group-hover:text-blue-400" />
+                </div>
+                <p class="mb-2 text-xs font-semibold text-blue-400">{post.category}</p>
+                <h3 class="mb-3 line-clamp-3 font-semibold leading-snug text-white group-hover:text-blue-300">{post.title}</h3>
+                <p class="line-clamp-3 text-sm leading-relaxed text-neutral-500">{post.excerpt}</p>
+              </a>
+            ))}
+          </div>
+        ) : (
+          <p class="text-neutral-500">Neue Feldberichte werden hier gerade organisiert.</p>
+        )}
+      </div>
+    </section>
+
+    <section class="py-14">
+      <div class="container mx-auto flex flex-col justify-between gap-8 px-4 md:flex-row md:items-center">
+        <div class="max-w-2xl">
+          <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-rose-400"><Radio size={18} /> Kontinuierlich veröffentlicht</div>
+          <h2 class="mb-3 text-3xl font-bold text-white">Nutze den Podcast für die sich bewegende Geschichte und die Feldberichte für die beständige</h2>
+          <p class="leading-relaxed text-neutral-400">Tägliche Episoden verfolgen, was sich geändert hat. Schriftliche Berichte bewahren die Architektur, Beweise und Implementierungsdetails, die es wert sind, später wiedergefunden zu werden.</p>
+        </div>
+        <a href="/de/podcasts/agentstack/" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-fuchsia-600 px-6 py-3 font-semibold text-white hover:bg-fuchsia-500" data-analytics-event="cta_click" data-analytics-content-type="agentstack" data-analytics-content-slug="podcast" data-analytics-content-title="AgentStack Daily anhören">
+          AgentStack Daily anhören <ArrowRight size={17} />
+        </a>
+      </div>
+    </section>
+  </div>
+</Layout>
