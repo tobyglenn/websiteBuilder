@@ -101,14 +101,14 @@ test('accepts equivalent locale-specific numeric separators', () => {
   assert.equal(validateTranslationDraft(translated, numberedSource).title, translated.title);
 });
 
-test('shields and restores links, product names, and unit-bearing numbers', () => {
+test('shields and restores links, product names, and numeric terms', () => {
   const protectedSource = {
     ...source,
-    content: `${source.content}\n\nWHOOP scored 83% after 7 days while carrying a 43lb vest.`,
+    content: `${source.content}\n\nWHOOP scored 83% after 7 days while carrying a 43lb vest 24/7.`,
   };
   const { shielded, replacements } = shieldTranslationSource(protectedSource);
   assert.match(shielded.content, /7 days/);
-  assert.doesNotMatch(shielded.content, /\/whoop\/|WHOOP|83%|43lb/);
+  assert.doesNotMatch(shielded.content, /\/whoop\/|WHOOP|83%|43lb|24\/7/);
 
   const restored = restoreTranslationTokens({
     title: shielded.title.replace('Recovery Test', 'Erholungstest'),
@@ -119,6 +119,7 @@ test('shields and restores links, product names, and unit-bearing numbers', () =
   }, replacements);
   assert.match(restored.content, /83%/);
   assert.match(restored.content, /43lb/);
+  assert.match(restored.content, /24\/7/);
   assert.match(restored.content, /\/whoop\//);
   assert.match(restored.content, /WHOOP/);
 });

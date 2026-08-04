@@ -189,7 +189,11 @@ const numericTokens = (value) => [
 ];
 
 const numericUnitTokens = (value) => [
-  ...new Set(String(value || '').match(/\b\d[\d,.]*(?:%|[a-z]{1,4})(?![a-z0-9_])/gi) || []),
+  ...new Set(
+    String(value || '').match(
+      /\b(?:\d[\d,.]*\/\d[\d,.]*|\d[\d,.]*(?:%|[a-z]{1,4}))(?![a-z0-9_])/gi,
+    ) || [],
+  ),
 ];
 
 const localizedNumericVariants = (token) => {
