@@ -1,0 +1,20 @@
+{
+  "slug": "speediance-v31-update",
+  "lang": "de",
+  "title": "Speediance V3.1: Was sich wirklich geändert hat",
+  "excerpt": "Progressives Overload funktioniert endlich so, wie es sollte. Hier ist, was behoben wurde, was kaputt ist und was ich mir weiterhin wünsche.",
+  "category": "Signal vs. Rauschen",
+  "categoryKey": "Signal vs. Noise",
+  "published_at": "2026-02-18",
+  "image": "/images/blog/speediance-v31-update.jpg",
+  "tags": [
+    "Speediance",
+    "FitnessTech",
+    "HomeGym"
+  ],
+  "content": "## Das Gute: Progressive Overload funktioniert\nSpeediance hat endlich ordentliche Eingabeaufforderungen für Progressive Overload hinzugefügt. Bevor du bei bilateralen Bewegungen und Langhantel-Bewegungen Gewicht hinzufügst, fragt die Maschine zuerst nach. Das ist eine kleine UI-Änderung mit überproportional großer Wirkung auf echtes Training.\n\n## Das Schlechte: Safety Start schränkt weiterhin den Bewegungsumfang ein\nSafety Start schränkt weiterhin deinen Bewegungsumfang ein, was es für echtes Heben tatsächlich gefährlich macht. Wenn die „Sicherheits\"-Funktion einer Maschine deinen Bewegungsumfang verkürzt, verlierst du den Vorteil der exzentrischen Belastung, der diese Maschinen erst lohnenswert macht. Der konzentrische Limiter sollte die Gelenksicherheit unterstützen, ohne den Bewegungsumfang einzuschränken.\n\n## Unilateraler Modus weiterhin fehlerhaft\nEinzelarm- und Einzelbein-Bewegungen haben weiterhin Fehler in der Gewichtsanzeige und der Progressive-Overload-Erkennung. Es ist ein bekanntes Problem, und die Community verfolgt es.\n\n## Was ich als Nächstes möchte\nBehebt die unilateralen Modi. Stellt den ursprünglichen Free-Lift-Partner-Modus wieder her, der in V3 verschwunden ist. Gebt uns rohe Motordaten für Logging durch Drittanbieter. Das ist alles softwaremäßig machbar – es muss nur endlich ausgeliefert werden.",
+  "sourceHash": "59b2a9ed50309f95fa45c80358dae555ca36cd0f56c3f1de2b25f816d4946dd7",
+  "sourceTitle": "Speediance V3.1: What Actually Changed",
+  "translatedAt": "2026-08-04T10:23:59.078Z",
+  "model": "minimax/MiniMax-M3"
+}

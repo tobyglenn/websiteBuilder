@@ -1,0 +1,21 @@
+{
+  "slug": "openclaw-automation",
+  "lang": "pt",
+  "title": "Construindo um Assistente de IA que Gerencia Tudo",
+  "excerpt": "Como criei uma IA personalizada no OpenClaw que rastreia BJJ, analisa dados de recuperação e gera relatórios de treino.",
+  "category": "Logs de Construção",
+  "categoryKey": "Build Logs",
+  "published_at": "2026-02-18",
+  "image": "/images/blog/openclaw-automation.jpg",
+  "tags": [
+    "OpenClaw",
+    "AI",
+    "BJJ",
+    "Automação"
+  ],
+  "content": "## Por Que Eu Construí Isso\nEu estava me afogando em dados vindos do Speediance, do WHOOP, do Garmin, do Cronometer e do meu diário de treinos do BJJ. Cada aplicativo te dá o próprio painel, mas nenhum deles se comunica com os outros. Eu precisava de um único lugar para sintetizar tudo isso.\n\n## O App Buddy do BJJ\nUm aplicativo personalizado para iOS/Android que eu construí rastreando mais de 150 técnicas com referências em vídeo e anotações de sparring. Quando eu registro depois de uma rola, ele salva com quem eu rolei, por quanto tempo e quais técnicas eu acertei ou tomei.\n\n## Relatórios Matinais\nToda manhã eu recebo um relatório cobrindo: score de recuperação do WHOOP, carga de treino e strain, detalhamento da qualidade do sono, status nutricional do Cronometer e o resumo do treino de ontem do Speediance. Leva cerca de 2 minutos para ler e me diz exatamente o quão forte eu devo treinar hoje.\n\n## O Que Vem a Seguir\nNotificações automatizadas de uploads no YouTube, geração de posts de blog a partir de transcrições de vídeo e conectar os dados de corrida do meu Garmin ao mesmo relatório matinal. O pipeline já está quase todo pronto - é só uma questão de fiação.",
+  "sourceHash": "24df6a6b628d360d1ec4336764300c6d0dc4bd5a18a9f3e5c9ded4bc24119016",
+  "sourceTitle": "Building an AI Assistant That Manages Everything",
+  "translatedAt": "2026-08-04T10:30:24.158Z",
+  "model": "minimax/MiniMax-M3"
+}

@@ -1,0 +1,20 @@
+{
+  "slug": "speediance-v31-update",
+  "lang": "es",
+  "title": "Speediance V3.1: Lo que realmente ha cambiado",
+  "excerpt": "La sobrecarga progresiva por fin funciona como debería. Esto es lo que se ha arreglado, lo que sigue fallando y lo que todavía echo en falta.",
+  "category": "Señal frente a ruido",
+  "categoryKey": "Signal vs. Noise",
+  "published_at": "2026-02-18",
+  "image": "/images/blog/speediance-v31-update.jpg",
+  "tags": [
+    "Speediance",
+    "FitnessTech",
+    "HomeGym"
+  ],
+  "content": "## Lo Bueno: La Sobrecarga Progresiva Funciona\nSpeediance por fin ha añadido los avisos adecuados de sobrecarga progresiva. Antes de añadir peso en los movimientos bilaterales y con barra, la máquina pregunta primero. Se trata de un pequeño cambio en la interfaz con un impacto enorme en el entrenamiento real.\n\n## Lo Malo: Safety Start sigue limitando el rango de movimiento\nSafety Start sigue restringiendo el rango de movimiento, lo que en realidad lo hace peligroso para el entrenamiento de verdad. Cuando la función de \"seguridad\" de una máquina acorta tu rango de movimiento, pierdes el beneficio de la carga excéntrica que hace que estas máquinas merezcan la pena. El limitador concéntrico debería ayudar con la seguridad articular sin restringir el rango de movimiento.\n\n## El Modo Unilateral sigue dando problemas\nLos movimientos de un solo brazo y de una sola pierna siguen presentando fallos en el reporte del peso y en la detección de la sobrecarga progresiva. Es un problema conocido y la comunidad lo está siguiendo de cerca.\n\n## Lo que quiero a continuación\nQue arreglen los modos unilaterales. Que restauren el modo compañero original de Free Lift que desapareció en la V3. Que nos den los datos brutos del motor para poder registrarlos en aplicaciones de terceros. Todo esto se puede hacer por software, solo hace falta que lo lancen.",
+  "sourceHash": "59b2a9ed50309f95fa45c80358dae555ca36cd0f56c3f1de2b25f816d4946dd7",
+  "sourceTitle": "Speediance V3.1: What Actually Changed",
+  "translatedAt": "2026-08-04T10:24:26.205Z",
+  "model": "minimax/MiniMax-M3"
+}
