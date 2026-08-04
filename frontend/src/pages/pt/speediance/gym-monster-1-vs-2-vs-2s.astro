@@ -1,0 +1,260 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { ArrowRight, Check, Dumbbell, PlaySquare, Scale, ShieldCheck } from 'lucide-react';
+
+const comparisonRows = [
+  {
+    label: 'Resistência máxima',
+    original: '220 lb total',
+    gm2: '220 lb total',
+    gm2s: '260 lb total',
+  },
+  {
+    label: 'Melhor razão para escolhê-lo',
+    original: 'Entrada de menor custo quando há uma unidade usada com suporte ou nova restante disponível',
+    gm2: 'Hardware refinado de 220 lb sem pagar por margem de resistência que você não vai usar',
+    gm2s: 'Mais margem de resistência e o hardware de treino pesado mais recente',
+  },
+  {
+    label: 'Linha de base de acessórios',
+    original: 'Cabos originais e acessórios de banco ou remo dependentes do pacote',
+    gm2: 'Pacote principal atualizado com clipe de anel Bluetooth e adaptador de ângulo',
+    gm2s: 'Adiciona o PowerGrip 2S e o adaptador de ângulo revisado ao pacote principal atual',
+  },
+  {
+    label: 'Software de treino',
+    original: 'A mesma biblioteca principal de treinos, modos de treino e central de dados',
+    gm2: 'O mesmo software principal em hardware mais recente',
+    gm2s: 'O mesmo ecossistema com resistência maior e recursos de hardware 2S',
+  },
+  {
+    label: 'Minha visão de compra',
+    original: 'Escolha de valor se preço e condição forem atraentes',
+    gm2: 'Sensato para a maioria dos levantadores que permanecerão abaixo de 220 lb',
+    gm2s: 'O que eu escolheria para progressão de força a longo prazo',
+  },
+];
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Qual é a diferença entre o Speediance Gym Monster 2 e o 2S?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A diferença de treino mais clara é a resistência: o Gym Monster 2 é classificado em 220 lb no total, enquanto o Gym Monster 2S é classificado em 260 lb no total. O 2S também inclui acessórios e mudanças de hardware da geração atual, incluindo o PowerGrip em seus pacotes principais.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Vale a pena fazer upgrade para o Gym Monster 2S a partir do Gym Monster original?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'É mais atraente quando o teto original de 220 lb limita o treino, quando o comportamento mais recente de segurança e hardware importa, ou quando se compra uma máquina nova para progressão a longo prazo. Um original funcional ainda pode oferecer o mesmo software principal e modos de treino.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Devo comprar Speediance ou Voltra?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Speediance é a escolha integrada com plataforma, display, programação e histórico de treinos. Voltra é a escolha mais modular para um levantador que já possui um rack e prefere montar uma configuração personalizada de cabos.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Como a AEKE se compara com a Speediance?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A AEKE enfatiza braços de cabo articulados e treino guiado, enquanto a Speediance enfatiza uma plataforma dobrável, programação integrada e um histórico maior de proprietários. Uma decisão de compra direta deve considerar suporte, software enviado, configuração de movimento e testes em primeira mão, em vez de apenas especificações.',
+      },
+    },
+  ],
+};
+
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'Speediance Gym Monster 1 vs 2 vs 2S',
+  description: 'Uma comparação em primeira mão das três gerações do Speediance Gym Monster, além do contexto de compra de Voltra e AEKE.',
+  image: 'https://tobyonfitnesstech.com/images/gear/speediance-gym-monster-2s.jpg',
+  datePublished: '2026-07-13',
+  dateModified: '2026-07-13',
+  author: { '@type': 'Person', name: 'Toby Glenn Peters' },
+  mainEntityOfPage: 'https://tobyonfitnesstech.com/pt/speediance/gym-monster-1-vs-2-vs-2s/',
+};
+---
+
+<Layout
+  title="Speediance Gym Monster 1 vs 2 vs 2S: Qual Você Deve Comprar?"
+  description="Compare a resistência, hardware, acessórios, software e valor de upgrade do Speediance Gym Monster 1, Gym Monster 2 e Gym Monster 2S."
+  image="/images/gear/speediance-gym-monster-2s.jpg"
+  ogType="article"
+  publishedTime="2026-07-13"
+  modifiedTime="2026-07-13"
+  jsonLd={[article, faq]}
+  breadcrumbs={[
+    { name: 'Início', url: '/pt/' },
+    { name: 'Speediance', url: '/pt/speediance/' },
+    { name: 'Gym Monster 1 vs 2 vs 2S', url: '/pt/speediance/gym-monster-1-vs-2-vs-2s/' },
+  ]}
+
+  lang="pt-BR"
+  translationBase="/speediance/gym-monster-1-vs-2-vs-2s/"
+>
+  <section class="relative flex min-h-[520px] items-end overflow-hidden border-b border-neutral-800">
+    <img
+      src="/images/gear/speediance-gym-monster-2s.jpg"
+      alt="Speediance Gym Monster 2S usado para testes práticos de força"
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-black/75"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/45 to-transparent"></div>
+    <div class="container relative z-10 mx-auto px-4 pb-14 pt-32">
+      <div class="max-w-4xl">
+        <p class="mb-4 text-sm font-semibold text-orange-300">Atualizado em 13 de julho de 2026 | Comparação independente do proprietário</p>
+        <h1 class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">Speediance Gym Monster 1 vs 2 vs 2S</h1>
+        <p class="max-w-3xl text-lg leading-relaxed text-neutral-200 md:text-xl">
+          Uma comparação para as perguntas que continuam se dividindo entre nomes de modelos: o que mudou, o que não mudou, quem precisa de 260 lb e quando o original ainda é o melhor custo-benefício.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-neutral-950 text-neutral-200">
+    <section class="border-b border-neutral-900 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid gap-5 md:grid-cols-3">
+          {[
+            { title: 'Escolha o original', text: 'O preço é materialmente menor, a máquina está em boas condições e 220 lb já cobrem os movimentos que você treina.', color: 'text-cyan-400' },
+            { title: 'Escolha o Gym Monster 2', text: 'Você quer o chassi atual refinado, mas não precisa de mais de 220 lb de resistência total.', color: 'text-blue-400' },
+            { title: 'Escolha o Gym Monster 2S', text: 'Você pretende usar o teto de 260 lb ou quer a plataforma mais recente para longo prazo e o pacote de acessórios.', color: 'text-orange-400' },
+          ].map((item) => (
+            <div class="border-l-2 border-neutral-700 pl-5">
+              <Check size={20} class={`mb-3 ${item.color}`} />
+              <h2 class="mb-2 text-lg font-semibold text-white">{item.title}</h2>
+              <p class="text-sm leading-relaxed text-neutral-400">{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 max-w-3xl">
+          <p class="mb-2 text-xs font-semibold uppercase text-orange-400">A resposta curta</p>
+          <h2 class="mb-4 text-3xl font-bold text-white">O 2S é o upgrade de força; o 2 é principalmente o refinamento de hardware</h2>
+          <p class="leading-relaxed text-neutral-400">
+            O original e o Gym Monster 2 compartilham o teto de 220 lb e a mesma experiência central de software. O Gym Monster 2S eleva o teto para 260 lb e acrescenta a razão mais clara para um proprietário focado em força fazer o upgrade. Isso não torna todo original obsoleto; torna a decisão de compra dependente da margem de resistência, condição e preço.
+          </p>
+        </div>
+
+        <div class="overflow-x-auto border-y border-neutral-800">
+          <table class="w-full min-w-[860px] border-collapse text-left text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800 text-white">
+                <th class="w-44 px-4 py-4 font-semibold">Ponto de decisão</th>
+                <th class="px-4 py-4 font-semibold">Gym Monster 1</th>
+                <th class="px-4 py-4 font-semibold">Gym Monster 2</th>
+                <th class="px-4 py-4 font-semibold">Gym Monster 2S</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-neutral-900 align-top last:border-0">
+                  <th class="px-4 py-5 font-semibold text-neutral-200">{row.label}</th>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-400">{row.original}</td>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-400">{row.gm2}</td>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-300">{row.gm2s}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="mt-4 text-xs leading-relaxed text-neutral-500">Os pacotes variam por região e configuração. Confirme os acessórios exatos e o preço atual antes de comprar.</p>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto grid gap-12 px-4 lg:grid-cols-2">
+        <div>
+          <Dumbbell size={24} class="mb-5 text-orange-400" />
+          <h2 class="mb-4 text-2xl font-bold text-white">Gym Monster 2 vs 2S: quem realmente precisa dos 40 lb extras?</h2>
+          <p class="mb-4 leading-relaxed text-neutral-400">
+            A capacidade extra importa mais em puxadas bilaterais, agachamentos, padrões de levantamento terra e movimentos mais pesados com barra ou cinto. Importa menos se a maioria dos exercícios é unilateral, focada em acessórios ou já fica bem abaixo de 220 lb.
+          </p>
+          <p class="leading-relaxed text-neutral-400">
+            Minha regra é simples: não pague por 260 lb só porque parece mais sério. Pague por isso quando o teto atual atrapalha a sobrecarga progressiva ou quando uma nova compra precisa de margem suficiente para durar anos.
+          </p>
+        </div>
+        <div>
+          <ShieldCheck size={24} class="mb-5 text-blue-400" />
+          <h2 class="mb-4 text-2xl font-bold text-white">O que permanece igual em toda a linha</h2>
+          <p class="mb-4 leading-relaxed text-neutral-400">
+            A proposta de valor central continua sendo a plataforma dobrável e autônoma: treinos guiados, modos de resistência digital, histórico de treinos e sem instalação na parede. O comportamento do software pode mudar com atualizações, mas essas diferenças principais de propriedade importam mais do que pequenas variações na ficha técnica.
+          </p>
+          <a href="/pt/blog/gym-monster-2-vs-original/" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="gym-monster-1-vs-2-vs-2s" data-analytics-content-title="análise detalhada de hardware do Gym Monster 2">
+            Leia a análise detalhada de hardware do GM2 <ArrowRight size={15} />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 max-w-3xl">
+          <p class="mb-2 text-xs font-semibold uppercase text-cyan-400">Outras comparações de compra</p>
+          <h2 class="text-3xl font-bold text-white">Speediance vs Voltra e AEKE</h2>
+        </div>
+        <div class="grid gap-8 md:grid-cols-2">
+          <article class="border-t border-neutral-800 pt-6">
+            <Scale size={22} class="mb-4 text-cyan-400" />
+            <h3 class="mb-3 text-xl font-semibold text-white">Speediance vs Voltra</h3>
+            <p class="mb-5 leading-relaxed text-neutral-400">
+              Escolha Speediance quando a plataforma integrada, tela, programação e histórico de treinos são o produto. Escolha Voltra quando uma configuração modular em rack e um fluxo de treino mais manual são vantagens em vez de peças faltantes.
+            </p>
+            <a href="/video/h3hq4Owzi74/" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300" data-analytics-event="video_link_click" data-analytics-content-type="comparison" data-analytics-content-slug="gym-monster-1-vs-2-vs-2s" data-analytics-content-title="vídeo Speediance vs Voltra">
+              <PlaySquare size={16} /> Assista à comparação completa
+            </a>
+          </article>
+          <article class="border-t border-neutral-800 pt-6">
+            <Scale size={22} class="mb-4 text-fuchsia-400" />
+            <h3 class="mb-3 text-xl font-semibold text-white">AEKE vs Speediance</h3>
+            <p class="mb-5 leading-relaxed text-neutral-400">
+              Os braços articulados da AEKE são atraentes no papel, mas eu não tenho uso próprio de longo prazo suficiente da AEKE para fingir que este é um teste de propriedade de duração igual. A comparação útil hoje é configuração de movimentos, software enviado, suporte, e se você valoriza braços articulados mais do que a plataforma estabelecida da Speediance e o fluxo de dados.
+            </p>
+            <a href="/video/h3hq4Owzi74/" class="inline-flex items-center gap-2 text-sm font-semibold text-fuchsia-400 hover:text-fuchsia-300" data-analytics-event="video_link_click" data-analytics-content-type="comparison" data-analytics-content-slug="gym-monster-1-vs-2-vs-2s" data-analytics-content-title="vídeo AEKE vs Speediance">
+              <PlaySquare size={16} /> Assista ao meu veredito de compra atual
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 max-w-3xl">
+          <p class="mb-2 text-xs font-semibold uppercase text-orange-400">Continue com testes em primeira mão</p>
+          <h2 class="text-3xl font-bold text-white">As análises de Speediance de apoio</h2>
+        </div>
+        <div class="grid gap-4 md:grid-cols-3">
+          {[
+            { title: 'Análise do proprietário 2S vs Original', text: 'A experiência de upgrade a longo prazo depois de mais de 600,000 lb levantados.', href: '/pt/blog/2025-11-07-speediance-2s-vs-original-real-user-review-tips-upgrades-after-600000-lbs-lifted/' },
+            { title: 'Speediance vs Tonal', text: 'Instalação, assinatura, coaching, resistência e propriedade.', href: '/pt/blog/speediance-vs-tonal-comparison/' },
+            { title: 'Todos os dados de Speediance', text: 'Volume de treino, sessões, configurações, notas de firmware e todas as análises.', href: '/pt/speediance/' },
+          ].map((item) => (
+            <a href={item.href} class="group border-t border-neutral-800 pt-5" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="gym-monster-1-vs-2-vs-2s" data-analytics-content-title={item.title}>
+              <h3 class="mb-2 font-semibold text-white group-hover:text-orange-300">{item.title}</h3>
+              <p class="mb-4 text-sm leading-relaxed text-neutral-400">{item.text}</p>
+              <span class="inline-flex items-center gap-2 text-sm font-semibold text-orange-400">Continuar <ArrowRight size={15} /></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

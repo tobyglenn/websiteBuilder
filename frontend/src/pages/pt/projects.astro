@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const projectGroups = [
+  {
+    eyebrow: 'Jogos',
+    title: 'Experiências jogáveis',
+    description: 'Jogos de navegador e protótipos táticos que estão ativos o suficiente para jogar.',
+    projects: [
+      {
+        slug: 'mma-rpg',
+        title: 'MMA RPG',
+        status: 'No ar',
+        description: 'Um RPG de luta de MMA baseado em turnos. Monte seu lutador, domine combos e suba no ranking.',
+        href: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
+        cta: 'Jogar agora',
+        tags: ['Luta', 'RPG', 'Estratégia'],
+      },
+      {
+        slug: 'gridbound-realms',
+        title: 'Gridbound Realms',
+        status: 'No ar',
+        description: 'Um jogo de estratégia tático baseado em grade. Comande unidades, segure o mapa e conquiste o reino.',
+        href: 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
+        cta: 'Jogar agora',
+        tags: ['Estratégia', 'Tática', 'Grade'],
+      },
+    ],
+  },
+  {
+    eyebrow: 'Aplicativos',
+    title: 'Ferramentas de treino e nutrição',
+    description: 'Utilitários de fitness construídos em torno dos fluxos de trabalho que eu realmente uso para tempo no tatame, refeições e acompanhamento de progresso.',
+    projects: [
+      {
+        slug: 'bjj-buddy',
+        title: 'BJJ Buddy',
+        status: 'No ar',
+        description: 'Um aplicativo de acompanhamento de Brazilian Jiu-Jitsu para registrar rolagens, organizar técnicas, salvar favoritos e acompanhar o progresso da luta ao longo do tempo.',
+        href: 'https://bjj-buddy.pages.dev/',
+        cta: 'Abrir aplicativo',
+        tags: ['BJJ', 'Registro de treino', 'Técnicas'],
+      },
+      {
+        slug: 'nutritrack',
+        title: 'NutriTrack',
+        status: 'No ar',
+        description: 'Um rastreador de nutrição gratuito para registrar refeições, acompanhar macros e manter os dados alimentares conectados aos objetivos de treino.',
+        href: 'https://nutritrack.tobyonfitnesstech.com',
+        cta: 'Abrir rastreador',
+        tags: ['Nutrição', 'Macros', 'Registro de refeições'],
+      },
+    ],
+  },
+  {
+    eyebrow: 'Igreja',
+    title: 'Escrituras e trabalho de memorização',
+    description: 'Ferramentas voltadas para a fé, construídas para prática, repetição e memorização de longo prazo.',
+    projects: [
+      {
+        slug: 'one-peter-memory',
+        title: 'Treinador de Memorização de 1 Pedro',
+        status: 'Em desenvolvimento',
+        description: 'Um treinador de memorização KJV para preparação da Alert Academy com blocos, vozes de áudio, texto que desaparece, pontuação de recitação e revisão espaçada.',
+        href: '/pt/one-peter-memory/',
+        cta: 'Abrir treinador',
+        tags: ['Escritura', 'Memorização', 'KJV'],
+      },
+    ],
+  },
+  {
+    eyebrow: 'Vídeo',
+    title: 'Mundos de história e canais',
+    description: 'Séries de vídeo e experimentos de canal com auxílio de IA, incluindo o mundo ativo de IronVane e a série arquivada Liminal.',
+    projects: [
+      {
+        slug: 'ironvane',
+        title: 'IronVane',
+        status: 'Ativo',
+        description: 'O canal de histórias Crossfire/IronVane, atualmente centrado em Ceryn, Talya e na sequência de episódios em andamento.',
+        href: 'https://www.youtube.com/@IronVaneStory/videos',
+        cta: 'Assistir à série',
+        tags: ['YouTube', 'História', 'Vídeo com IA'],
+      },
+      {
+        slug: 'liminal',
+        title: 'Liminal',
+        status: 'Arquivado',
+        description: 'Uma série de comédia sobrenatural em uma pousada à beira-mar. A produção está pausada, mas os episódios lançados permanecem disponíveis no YouTube.',
+        href: 'https://www.youtube.com/watch?v=Vo_LQS1ubWc',
+        cta: 'Assistir Liminal',
+        tags: ['YouTube', 'Comédia', 'Arquivado'],
+      },
+    ],
+  },
+];
+
+const allProjects = projectGroups.flatMap((group) => group.projects.map((project) => ({
+  ...project,
+  group: group.eyebrow,
+})));
+
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Projetos | Toby on Fitness Tech',
+  description: 'Jogos, ferramentas para igreja, séries de vídeo com IA e projetos paralelos de Toby on Fitness Tech.',
+  url: 'https://tobyonfitnesstech.com/pt/projects/',
+  hasPart: allProjects.map((project) => ({
+    '@type': 'CreativeWork',
+    name: project.title,
+    url: project.href.startsWith('http') ? project.href : `https://tobyonfitnesstech.com${project.href}`,
+    about: project.group,
+  })),
+};
+---
+
+<Layout
+  title="Projetos | Toby on Fitness Tech"
+  description="Jogos, ferramentas para igreja, séries de vídeo com IA e projetos paralelos de Toby on Fitness Tech."
+  jsonLd={projectSchema}
+  breadcrumbs={[{ name: 'Início', url: '/pt/' }, { name: 'Projetos', url: '/pt/projects/' }]}
+
+  lang="pt-BR"
+  translationBase="/projects/"
+>
+  <main class="min-h-screen bg-neutral-950 px-4 py-16 text-white sm:px-6">
+    <div class="mx-auto max-w-6xl">
+      <header class="border-b border-neutral-800 pb-10">
+        <p class="text-sm font-bold uppercase tracking-widest text-blue-400">Projetos</p>
+        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Jogos, ferramentas e experimentos de história</h1>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
+          Os projetos paralelos que valem a pena testar diretamente: dois jogos jogáveis, uma ferramenta de memorização de escrituras e o trabalho em vídeo de IronVane/Liminal.
+        </p>
+      </header>
+
+      <nav class="flex flex-wrap gap-3 border-b border-neutral-800 py-5" aria-label="Categorias de projetos">
+        {projectGroups.map((group) => (
+          <a
+            href={`#${group.eyebrow.toLowerCase()}`}
+            class="rounded-md border border-neutral-800 px-4 py-2 text-sm font-semibold text-neutral-300 transition-colors hover:border-blue-500/60 hover:text-white"
+            data-analytics-event="project_category_click"
+            data-analytics-content-type="project_category"
+            data-analytics-content-slug={group.eyebrow.toLowerCase()}
+            data-analytics-content-title={group.title}
+          >
+            {group.eyebrow}
+          </a>
+        ))}
+      </nav>
+
+      <div class="space-y-14 py-10">
+        {projectGroups.map((group) => (
+          <section id={group.eyebrow.toLowerCase()} aria-labelledby={`${group.eyebrow.toLowerCase()}-heading`}>
+            <div class="mb-6 max-w-3xl">
+              <p class="text-xs font-bold uppercase tracking-widest text-neutral-500">{group.eyebrow}</p>
+              <h2 id={`${group.eyebrow.toLowerCase()}-heading`} class="mt-2 text-2xl font-bold text-white">{group.title}</h2>
+              <p class="mt-2 text-neutral-400">{group.description}</p>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              {group.projects.map((project) => (
+                <article
+                  id={project.slug}
+                  class="flex min-h-full flex-col rounded-lg border border-neutral-800 bg-neutral-900 p-6 transition-colors hover:border-blue-500/50"
+                  data-project-card={project.slug}
+                  data-analytics-content-title={project.title}
+                  data-analytics-position={group.eyebrow.toLowerCase()}
+                >
+                  <div class="flex items-start justify-between gap-4">
+                    <h3 class="text-2xl font-bold text-white">{project.title}</h3>
+                    <span class="shrink-0 rounded-md border border-neutral-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-neutral-300">
+                      {project.status}
+                    </span>
+                  </div>
+                  <p class="mt-4 flex-1 leading-relaxed text-neutral-300">{project.description}</p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span class="rounded-md bg-neutral-800 px-2.5 py-1 text-xs font-semibold text-neutral-300">{tag}</span>
+                    ))}
+                  </div>
+                  <a
+                    href={project.href}
+                    target={project.href.startsWith('http') ? '_blank' : undefined}
+                    rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    class="mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 font-semibold text-white transition-colors hover:bg-blue-500"
+                    data-analytics-event="project_card_click"
+                    data-analytics-content-type="project"
+                    data-analytics-content-slug={project.slug}
+                    data-analytics-content-title={project.title}
+                    data-analytics-position={group.eyebrow.toLowerCase()}
+                  >
+                    {project.cta}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

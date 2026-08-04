@@ -1,0 +1,242 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { Activity, ArrowRight, BatteryCharging, HeartPulse, Moon, Watch } from 'lucide-react';
+
+const comparisonRows = [
+  {
+    label: 'Am besten bei',
+    whoop4: 'WHOOP-Erholung und -Belastung zu den niedrigsten Upgrade-Kosten für einen Bestandsbesitzer',
+    whoop5: 'Längere Akkulaufzeit und das aktuelle WHOOP-Hardware-Ökosystem',
+    oura: 'Reibungsarme Schlaf- und Bereitschaftsverfolgung in einem Ring',
+    garmin: 'Aufgezeichnete Workouts, GPS, Tempo, Distanz und sportartspezifische Daten',
+  },
+  {
+    label: 'Formfaktor',
+    whoop4: 'Handgelenk oder kompatibles Körper-Tragezubehör',
+    whoop5: 'Schmalerer Körper, aber in meinem Hands-on-Vergleich dicker vom Handgelenk ab',
+    oura: 'Am Finger getragener Ring',
+    garmin: 'Uhr mit Display und Bedienelementen',
+  },
+  {
+    label: 'Upgrade-Aufwand',
+    whoop4: 'Bestehende WHOOP-4-Bänder und Ladegerät bleiben weiterhin nutzbar',
+    whoop5: 'WHOOP-4-Bänder und Ladegerät werden nicht übernommen',
+    oura: 'Separates Ringgrößen- und Lade-Ökosystem',
+    garmin: 'Separate Uhr, Ladegerät und gerätespezifischer Funktionsumfang',
+  },
+  {
+    label: 'Trainingsrolle',
+    whoop4: 'Erholungsreaktion rund um das Training',
+    whoop5: 'Erholungsreaktion rund um das Training',
+    oura: 'Schlaf, Bereitschaft und täglicher Gesundheitskontext',
+    garmin: 'Das Workout selbst plus Trainingsbelastungs-Kontext',
+  },
+];
+
+const faq = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'Ist die WHOOP 5 kleiner als die WHOOP 4?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Die WHOOP 5 ist in einigen Maßen schmaler, aber Toby fand sie in einem direkten Hands-on-Vergleich dicker vom Handgelenk ab. Diese Dicke ist die Dimension, die Ärmel und Handgelenkskomfort am ehesten beeinflusst.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Sollte ich von der WHOOP 4 auf die WHOOP 5 upgraden?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Ein Upgrade lohnt sich, wenn die längere Akkulaufzeit oder das aktuelle Hardware-Ökosystem den Austausch von Bändern und Ladezubehör wert sind. Wenn die WHOOP 4 noch funktioniert und der Erholungs-Workflow der Hauptwert ist, ist das Upgrade nicht automatisch notwendig.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Ist WHOOP oder Oura besser?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'WHOOP ist stärker trainings- und belastungsorientiert, während Oura die reibungsärmere Wahl für Schlaf und Bereitschaft in einem Ring ist. Welches Gerät besser ist, hängt davon ab, ob die Trainingsreaktion oder der Schlafkomfort die erste Priorität hat.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Brauche ich Garmin und WHOOP zusammen?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Garmin ist nützlicher, um das Workout aufzuzeichnen, insbesondere GPS-basiertes Laufen, während sich WHOOP auf die Erholungsreaktion rund um das Training konzentriert. Beide zu nutzen ist sinnvoll, wenn diese unterschiedlichen Aufgaben zwei Geräte und Abonnements rechtfertigen.',
+      },
+    },
+  ],
+};
+
+const article = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'WHOOP 5 vs WHOOP 4 vs Oura: Der Wearable-Entscheidungsleitfaden',
+  description: 'Ein Hands-on-Vergleich von WHOOP 5, WHOOP 4.0, Oura und Garmin für Erholung, Schlaf, Komfort und Training.',
+  image: 'https://tobyonfitnesstech.com/images/gear/whoop-5.0.jpg',
+  datePublished: '2026-07-13',
+  dateModified: '2026-07-13',
+  author: { '@type': 'Person', name: 'Toby Glenn Peters' },
+  mainEntityOfPage: 'https://tobyonfitnesstech.com/de/wearables/whoop-5-vs-4-vs-oura/',
+};
+---
+
+<Layout
+  title="WHOOP 5 vs 4 vs Oura: Größe, Schlaf und Erholung im Vergleich"
+  description="Vergleiche WHOOP 5, WHOOP 4.0, Oura und Garmin hinsichtlich Dicke, Komfort, Akku, Bänder, Schlaf, Erholung, Belastung und Workout-Tracking."
+  image="/images/gear/whoop-5.0.jpg"
+  ogType="article"
+  publishedTime="2026-07-13"
+  modifiedTime="2026-07-13"
+  jsonLd={[article, faq]}
+  breadcrumbs={[
+    { name: 'Startseite', url: '/de/' },
+    { name: 'Wearables', url: '/de/wearables/' },
+    { name: 'WHOOP-Vergleich', url: '/de/wearables/whoop-5-vs-4-vs-oura/' },
+  ]}
+
+  lang="de"
+  translationBase="/wearables/whoop-5-vs-4-vs-oura/"
+>
+  <section class="relative flex min-h-[500px] items-end overflow-hidden border-b border-neutral-800">
+    <img
+      src="/images/gear/whoop-5.0.jpg"
+      alt="WHOOP 5 Wearable für Hands-on-Vergleichstests verwendet"
+      class="absolute inset-0 h-full w-full object-cover object-center"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-black/75"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/45 to-transparent"></div>
+    <div class="container relative z-10 mx-auto px-4 pb-14 pt-32">
+      <div class="max-w-4xl">
+        <p class="mb-4 text-sm font-semibold text-cyan-300">Hands-on-Vergleich | Aktualisiert am 13. Juli 2026</p>
+        <h1 class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">WHOOP 5 vs 4 vs Oura</h1>
+        <p class="max-w-3xl text-lg leading-relaxed text-neutral-200 md:text-xl">
+          Beginne mit der Aufgabe, die das Wearable erfüllen soll. WHOOP ist ein Trainings-Erholungs-System, Oura ist ein schlaforientierter Ring, und Garmin ist das Gerät, mit dem ich das Workout selbst aufzeichne.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="bg-neutral-950 text-neutral-200">
+    <section class="border-b border-neutral-900 py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid gap-5 md:grid-cols-3">
+          {[
+            { icon: HeartPulse, color: 'text-cyan-400', title: 'WHOOP wählen', text: 'Trainingsbelastung, Erholung und ein bildschirmfreies System sind die Hauptgründe für den Kauf.' },
+            { icon: Moon, color: 'text-violet-400', title: 'Oura wählen', text: 'Schlafkomfort und reibungsarme Bereitschaftsverfolgung sind wichtiger als Workout-Anleitungen.' },
+            { icon: Activity, color: 'text-green-400', title: 'Garmin wählen', text: 'GPS, Tempo, Distanz, strukturierte Workouts und ein Live-Uhrendisplay stehen an erster Stelle.' },
+          ].map((item) => {
+            const Icon = item.icon;
+            return (
+              <div class="border-l-2 border-neutral-700 pl-5">
+                <Icon size={21} class={`mb-3 ${item.color}`} />
+                <h2 class="mb-2 text-lg font-semibold text-white">{item.title}</h2>
+                <p class="text-sm leading-relaxed text-neutral-400">{item.text}</p>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto px-4">
+        <div class="mb-8 max-w-3xl">
+          <p class="mb-2 text-xs font-semibold uppercase text-cyan-400">Die Entscheidungstabelle</p>
+          <h2 class="mb-4 text-3xl font-bold text-white">WHOOP 5 ist kein automatisches Upgrade, und Oura versucht nicht, dieselbe Aufgabe zu erfüllen</h2>
+          <p class="leading-relaxed text-neutral-400">
+            Suchvergleiche reduzieren diese Geräte oft auf eine einzelne Bewertung. Die sinnvolle Antwort besteht darin, jedem Gerät eine Rolle zuzuweisen und dann zu entscheiden, ob diese Rolle wertvoll genug ist, um die Hardware und das Abonnement zu rechtfertigen.
+          </p>
+        </div>
+
+        <div class="overflow-x-auto border-y border-neutral-800">
+          <table class="w-full min-w-[980px] border-collapse text-left text-sm">
+            <thead>
+              <tr class="border-b border-neutral-800 text-white">
+                <th class="w-40 px-4 py-4 font-semibold">Entscheidungspunkt</th>
+                <th class="px-4 py-4 font-semibold">WHOOP 4.0</th>
+                <th class="px-4 py-4 font-semibold">WHOOP 5</th>
+                <th class="px-4 py-4 font-semibold">Oura</th>
+                <th class="px-4 py-4 font-semibold">Garmin</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonRows.map((row) => (
+                <tr class="border-b border-neutral-900 align-top last:border-0">
+                  <th class="px-4 py-5 font-semibold text-neutral-200">{row.label}</th>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-400">{row.whoop4}</td>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-300">{row.whoop5}</td>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-400">{row.oura}</td>
+                  <td class="px-4 py-5 leading-relaxed text-neutral-400">{row.garmin}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto grid gap-12 px-4 lg:grid-cols-2">
+        <article>
+          <Watch size={24} class="mb-5 text-cyan-400" />
+          <h2 class="mb-4 text-2xl font-bold text-white">WHOOP 5 vs WHOOP 4: die Dickenfrage</h2>
+          <p class="mb-4 leading-relaxed text-neutral-400">
+            Die WHOOP 5 ist in Maßen schmaler, die in einem Produktvergleich gut aussehen, aber mein direkter Test ergab, dass sie dicker vom Handgelenk absteht. Das ist die Dimension, die Ärmel erfasst und verändert, wie sich das Gerät am Handgelenksknochen anfühlt.
+          </p>
+          <p class="mb-5 leading-relaxed text-neutral-400">
+            Der Akku ist besser. Der Nachteil ist der Ökosystem-Bruch: WHOOP-4-Bänder und das alte Ladegerät werden nicht übernommen. Ein bestehender WHOOP-4-Besitzer sollte diese Ersatzkosten in das Upgrade einpreisen.
+          </p>
+          <a href="/de/blog/whoop-5-not-smaller-review/" class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 hover:text-cyan-300" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="whoop-5-vs-4-vs-oura" data-analytics-content-title="WHOOP 5 Dickenmessung">
+            Lies die vollständige Messrezension <ArrowRight size={15} />
+          </a>
+        </article>
+        <article>
+          <Moon size={24} class="mb-5 text-violet-400" />
+          <h2 class="mb-4 text-2xl font-bold text-white">WHOOP vs Oura: Trainingsreaktion oder Schlafkomfort?</h2>
+          <p class="mb-4 leading-relaxed text-neutral-400">
+            WHOOP ist nützlicher, wenn Belastung und Erholung täglich nebeneinander stehen sollen. Oura ist sinnvoller, wenn die Hauptaufgabe Schlaf und Bereitschaft mit einem Ring ist, der leichter im Alltag verschwindet.
+          </p>
+          <p class="mb-5 leading-relaxed text-neutral-400">
+            Keines der beiden Geräte ersetzt eine Garmin für das Live-Workout-Erlebnis, das ich beim Laufen brauche. Sie beantworten unterschiedliche Fragen, weshalb eine einfache Gewinner-und-Verlierer-Bewertung meist irreführend ist.
+          </p>
+          <a href="/de/blog/oura-vs-whoop-sleep-comparison/" class="inline-flex items-center gap-2 text-sm font-semibold text-violet-400 hover:text-violet-300" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="whoop-5-vs-4-vs-oura" data-analytics-content-title="Oura vs WHOOP Schlafvergleich">
+            Schlaf und Erholung vergleichen <ArrowRight size={15} />
+          </a>
+        </article>
+      </div>
+    </section>
+
+    <section class="border-b border-neutral-900 py-14">
+      <div class="container mx-auto grid gap-10 px-4 lg:grid-cols-[1fr_1.15fr] lg:items-center">
+        <div>
+          <BatteryCharging size={24} class="mb-5 text-green-400" />
+          <h2 class="mb-4 text-3xl font-bold text-white">Mein aktuelles Setup: Garmin zeichnet auf, WHOOP interpretiert die Erholung</h2>
+          <p class="mb-5 leading-relaxed text-neutral-400">
+            Garmin erfasst den Lauf, das Tempo, die Distanz und die Workout-Struktur. WHOOP gibt mir eine weitere Sicht darauf, wie sich Schlaf, Belastung und Erholung um dieses Training herum verändert haben. Zwei Geräte lohnen sich nur, wenn sie zwei klare Aufgaben haben.
+          </p>
+          <a href="/de/blog/garmin-and-whoop-what-each-is-actually-for/" class="inline-flex items-center gap-2 text-sm font-semibold text-green-400 hover:text-green-300" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="whoop-5-vs-4-vs-oura" data-analytics-content-title="Garmin vs WHOOP Rollen">
+            Erfahre, wofür jeder Tracker da ist <ArrowRight size={15} />
+          </a>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <a href="/de/whoop/" class="group border-t border-neutral-800 pt-5" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="whoop-5-vs-4-vs-oura" data-analytics-content-title="live WHOOP data">
+            <h3 class="mb-2 font-semibold text-white group-hover:text-cyan-300">Live-WHOOP-Daten</h3>
+            <p class="mb-4 text-sm leading-relaxed text-neutral-400">Aktuelle Erholungs-, HRV-, RHR-, Schlaf- und Trenddaten.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400">Daten ansehen <ArrowRight size={15} /></span>
+          </a>
+          <a href="/de/compare-trackers/" class="group border-t border-neutral-800 pt-5" data-analytics-event="content_next_step_click" data-analytics-content-type="comparison" data-analytics-content-slug="whoop-5-vs-4-vs-oura" data-analytics-content-title="tracker selector">
+            <h3 class="mb-2 font-semibold text-white group-hover:text-blue-300">Tracker-Auswahl</h3>
+            <p class="mb-4 text-sm leading-relaxed text-neutral-400">Vergleiche Geräte nach Ziel, Budget und Trainings-Workflow.</p>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400">Tracker auswählen <ArrowRight size={15} /></span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</Layout>

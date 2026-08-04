@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const projectGroups = [
+  {
+    eyebrow: 'खेल',
+    title: 'खेलने योग्य प्रयोग',
+    description: 'ब्राउज़र गेम और सामरिक प्रोटोटाइप जो खेलने के लिए तैयार हैं।',
+    projects: [
+      {
+        slug: 'mma-rpg',
+        title: 'MMA RPG',
+        status: 'लाइव',
+        description: 'एक टर्न-बेस्ड MMA लड़ाई RPG। अपने योद्धा को बनाएँ, कॉम्बो में महारत हासिल करें, और रैंक पर चढ़ें।',
+        href: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
+        cta: 'अभी खेलें',
+        tags: ['लड़ाई', 'RPG', 'रणनीति'],
+      },
+      {
+        slug: 'gridbound-realms',
+        title: 'Gridbound Realms',
+        status: 'लाइव',
+        description: 'एक सामरिक ग्रिड-आधारित रणनीति खेल। इकाइयों को नियंत्रित करें, नक्शे पर कब्ज़ा करें, और राज्य पर विजय प्राप्त करें।',
+        href: 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
+        cta: 'अभी खेलें',
+        tags: ['रणनीति', 'सामरिक', 'ग्रिड'],
+      },
+    ],
+  },
+  {
+    eyebrow: 'ऐप्स',
+    title: 'प्रशिक्षण और पोषण उपकरण',
+    description: 'मैट टाइम, भोजन और प्रगति ट्रैकिंग के लिए मेरे द्वारा वास्तव में उपयोग किए जाने वाले वर्कफ़्लो के आधार पर बनाई गई फिटनेस उपयोगिताएँ।',
+    projects: [
+      {
+        slug: 'bjj-buddy',
+        title: 'BJJ Buddy',
+        status: 'लाइव',
+        description: 'रोल लॉग करने, तकनीकों को व्यवस्थित करने, पसंदीदा को सहेजने, और समय के साथ ग्रैपलिंग प्रगति का पालन करने के लिए एक ब्राज़ीलियन जिउ-जित्सु ट्रैकिंग ऐप।',
+        href: 'https://bjj-buddy.pages.dev/',
+        cta: 'ऐप खोलें',
+        tags: ['BJJ', 'प्रशिक्षण लॉग', 'तकनीकें'],
+      },
+      {
+        slug: 'nutritrack',
+        title: 'NutriTrack',
+        status: 'लाइव',
+        description: 'भोजन लॉग करने, मैक्रोज़ देखने, और खाद्य डेटा को प्रशिक्षण लक्ष्यों से जोड़े रखने के लिए एक मुफ़्त पोषण ट्रैकर।',
+        href: 'https://nutritrack.tobyonfitnesstech.com',
+        cta: 'ट्रैकर खोलें',
+        tags: ['पोषण', 'मैक्रो', 'भोजन लॉग'],
+      },
+    ],
+  },
+  {
+    eyebrow: 'चर्च',
+    title: 'शास्त्र और स्मृति कार्य',
+    description: 'अभ्यास, पुनरावृत्ति और दीर्घकालिक स्मृति के लिए बनाए गए विश्वास-केंद्रित उपकरण।',
+    projects: [
+      {
+        slug: 'one-peter-memory',
+        title: '1 पतरस स्मृति प्रशिक्षक',
+        status: 'प्रगति में',
+        description: 'चंक्स, ऑडियो आवाज़ें, गायब होता पाठ, सस्वर पाठ स्कोरिंग, और अंतराल समीक्षा के साथ Alert Academy तैयारी के लिए एक KJV स्मरण प्रशिक्षक।',
+        href: '/hi/one-peter-memory/',
+        cta: 'प्रशिक्षक खोलें',
+        tags: ['शास्त्र', 'स्मरण', 'KJV'],
+      },
+    ],
+  },
+  {
+    eyebrow: 'वीडियो',
+    title: 'कहानी की दुनिया और चैनल',
+    description: 'AI-सहायक वीडियो श्रृंखला और चैनल प्रयोग, जिसमें सक्रिय IronVane दुनिया और संग्रहीत Liminal श्रृंखला शामिल है।',
+    projects: [
+      {
+        slug: 'ironvane',
+        title: 'IronVane',
+        status: 'सक्रिय',
+        description: 'Crossfire/IronVane कहानी चैनल, वर्तमान में Ceryn, Talya, और चल रही एपिसोड श्रृंखला पर केंद्रित है।',
+        href: 'https://www.youtube.com/@IronVaneStory/videos',
+        cta: 'श्रृंखला देखें',
+        tags: ['YouTube', 'कहानी', 'AI वीडियो'],
+      },
+      {
+        slug: 'liminal',
+        title: 'Liminal',
+        status: 'संग्रहीत',
+        description: 'एक अलौकिक समुद्रकिनारे-इन कॉमेडी श्रृंखला। उत्पादन रुका हुआ है, लेकिन जारी किए गए एपिसोड YouTube पर उपलब्ध हैं।',
+        href: 'https://www.youtube.com/watch?v=Vo_LQS1ubWc',
+        cta: 'Liminal देखें',
+        tags: ['YouTube', 'कॉमेडी', 'संग्रहीत'],
+      },
+    ],
+  },
+];
+
+const allProjects = projectGroups.flatMap((group) => group.projects.map((project) => ({
+  ...project,
+  group: group.eyebrow,
+})));
+
+const projectSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'प्रोजेक्ट्स | Toby on Fitness Tech',
+  description: 'Toby on Fitness Tech के खेल, चर्च उपकरण, AI वीडियो श्रृंखला और साइड प्रोजेक्ट्स।',
+  url: 'https://tobyonfitnesstech.com/hi/projects/',
+  hasPart: allProjects.map((project) => ({
+    '@type': 'CreativeWork',
+    name: project.title,
+    url: project.href.startsWith('http') ? project.href : `https://tobyonfitnesstech.com${project.href}`,
+    about: project.group,
+  })),
+};
+---
+
+<Layout
+  title="प्रोजेक्ट्स | Toby on Fitness Tech"
+  description="Toby on Fitness Tech के खेल, चर्च उपकरण, AI वीडियो श्रृंखला और साइड प्रोजेक्ट्स।"
+  jsonLd={projectSchema}
+  breadcrumbs={[{ name: 'होम', url: '/hi/' }, { name: 'प्रोजेक्ट्स', url: '/hi/projects/' }]}
+
+  lang="hi"
+  translationBase="/projects/"
+>
+  <main class="min-h-screen bg-neutral-950 px-4 py-16 text-white sm:px-6">
+    <div class="mx-auto max-w-6xl">
+      <header class="border-b border-neutral-800 pb-10">
+        <p class="text-sm font-bold uppercase tracking-widest text-blue-400">प्रोजेक्ट्स</p>
+        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">खेल, उपकरण और कहानी प्रयोग</h1>
+        <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
+          सीधे तौर पर आज़माने योग्य साइड प्रोजेक्ट्स: दो खेलने योग्य खेल, एक शास्त्र स्मृति उपकरण, और IronVane/Liminal वीडियो कार्य।
+        </p>
+      </header>
+
+      <nav class="flex flex-wrap gap-3 border-b border-neutral-800 py-5" aria-label="प्रोजेक्ट श्रेणियाँ">
+        {projectGroups.map((group) => (
+          <a
+            href={`#${group.eyebrow.toLowerCase()}`}
+            class="rounded-md border border-neutral-800 px-4 py-2 text-sm font-semibold text-neutral-300 transition-colors hover:border-blue-500/60 hover:text-white"
+            data-analytics-event="project_category_click"
+            data-analytics-content-type="project_category"
+            data-analytics-content-slug={group.eyebrow.toLowerCase()}
+            data-analytics-content-title={group.title}
+          >
+            {group.eyebrow}
+          </a>
+        ))}
+      </nav>
+
+      <div class="space-y-14 py-10">
+        {projectGroups.map((group) => (
+          <section id={group.eyebrow.toLowerCase()} aria-labelledby={`${group.eyebrow.toLowerCase()}-heading`}>
+            <div class="mb-6 max-w-3xl">
+              <p class="text-xs font-bold uppercase tracking-widest text-neutral-500">{group.eyebrow}</p>
+              <h2 id={`${group.eyebrow.toLowerCase()}-heading`} class="mt-2 text-2xl font-bold text-white">{group.title}</h2>
+              <p class="mt-2 text-neutral-400">{group.description}</p>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2">
+              {group.projects.map((project) => (
+                <article
+                  id={project.slug}
+                  class="flex min-h-full flex-col rounded-lg border border-neutral-800 bg-neutral-900 p-6 transition-colors hover:border-blue-500/50"
+                  data-project-card={project.slug}
+                  data-analytics-content-title={project.title}
+                  data-analytics-position={group.eyebrow.toLowerCase()}
+                >
+                  <div class="flex items-start justify-between gap-4">
+                    <h3 class="text-2xl font-bold text-white">{project.title}</h3>
+                    <span class="shrink-0 rounded-md border border-neutral-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-neutral-300">
+                      {project.status}
+                    </span>
+                  </div>
+                  <p class="mt-4 flex-1 leading-relaxed text-neutral-300">{project.description}</p>
+                  <div class="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span class="rounded-md bg-neutral-800 px-2.5 py-1 text-xs font-semibold text-neutral-300">{tag}</span>
+                    ))}
+                  </div>
+                  <a
+                    href={project.href}
+                    target={project.href.startsWith('http') ? '_blank' : undefined}
+                    rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    class="mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 font-semibold text-white transition-colors hover:bg-blue-500"
+                    data-analytics-event="project_card_click"
+                    data-analytics-content-type="project"
+                    data-analytics-content-slug={project.slug}
+                    data-analytics-content-title={project.title}
+                    data-analytics-position={group.eyebrow.toLowerCase()}
+                  >
+                    {project.cta}
+                  </a>
+                </article>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>
