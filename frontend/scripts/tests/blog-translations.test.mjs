@@ -71,6 +71,21 @@ test('rejects translations that drop source numbers', () => {
   assert.throws(() => validateTranslationDraft(translated, numberedSource), /missing preserved numbers/);
 });
 
+test('ignores numeric character references when checking preserved numbers', () => {
+  const entitySource = {
+    ...source,
+    content: `${source.content}\n\nToday&#39;s result confirms the expected behavior.`,
+  };
+  const translated = {
+    title: 'Prueba de recuperación WHOOP',
+    excerpt: 'Una descripción completa del artículo traducido para lectores.',
+    category: 'Wearables',
+    tags: ['WHOOP'],
+    content: `${'## Resultado\n\nLea la [página de WHOOP](/whoop/) y https://example.com/data.\n\nEl contenido traducido completo permanece intacto. '.repeat(8)}\n\nEl resultado de hoy confirma el comportamiento esperado.`,
+  };
+  assert.equal(validateTranslationDraft(translated, entitySource).title, translated.title);
+});
+
 test('accepts equivalent locale-specific numeric separators', () => {
   const numberedSource = {
     ...source,

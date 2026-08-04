@@ -181,7 +181,11 @@ const headingCount = (value) => {
 };
 
 const numericTokens = (value) => [
-  ...new Set(String(value || '').match(/\b\d[\d,.]*(?:%|[a-z]{1,4})?\b/gi) || []),
+  ...new Set(
+    String(value || '')
+      .replace(/&#(?:x[0-9a-f]+|\d+);/gi, '')
+      .match(/\b\d[\d,.]*(?:%|[a-z]{1,4})?\b/gi) || [],
+  ),
 ];
 
 const numericUnitTokens = (value) => [
