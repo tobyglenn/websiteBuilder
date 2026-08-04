@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 30 Jul 2026 14:15:42 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Aug 2026 11:37:49 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 96 -->
+    <item>
+      <title>Episódio 96: AgentStack Daily: Resumo do Lançamento do Agent Stack: Hermes Agent v2026.7.30</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep096/episode_096.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-96/</link>
+      <description><![CDATA[Resumo do lançamento do Agent Stack: Hermes Agent v2026.7.30, Gemini Robotics 2 traz inteligência de corpo inteiro para robôs, GitHub Models foi...
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-96/]]></description>
+      <pubDate>Tue, 04 Aug 2026 11:37:49 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_096.mp3" length="35836700" type="audio/mpeg"/>
+      <itunes:duration>37:19</itunes:duration>
+      <itunes:episode>96</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep096/episode_096_cover.png"/>
+    </item>
+
     <!-- Episode 95 -->
     <item>
       <title>Episódio 95: AgentStack Diário: Resumo dos Lançamentos do Agent Stack: OpenAI Codex rust-v0.146.0</title>
