@@ -123,6 +123,19 @@ export default defineConfig({
     react(),
     sitemap({
       filter: shouldIncludeInSitemap,
+      i18n: {
+        defaultLocale: 'en',
+        locales: {
+          en: 'en-US',
+          de: 'de-DE',
+          es: 'es-ES',
+          pt: 'pt-BR',
+          hi: 'hi-IN',
+        },
+      },
+      namespaces: {
+        xhtml: true,
+      },
       serialize(item) {
         return {
           ...item,

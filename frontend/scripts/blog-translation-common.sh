@@ -18,7 +18,7 @@ translation_notify_failure() {
   local exit_code="$2"
   local line="$3"
   local cooldown_file="$TRANSLATION_STATE_ROOT/${stage}.failure-notified"
-  local message="[BLOG TRANSLATION FAILURE] stage: $stage exit: $exit_code line: $line log: $TRANSLATION_LOG_ROOT"
+  local message="[WEBSITE AUTOMATION FAILURE] stage: $stage exit: $exit_code line: $line log: $TRANSLATION_LOG_ROOT"
 
   if [[ -f "$cooldown_file" ]] && find "$cooldown_file" -mmin "-$TRANSLATION_FAILURE_COOLDOWN_MINUTES" -print -quit | grep -q .; then
     printf '%s %s\n' "$(date -Is)" "$message (notification cooldown active)" >&2

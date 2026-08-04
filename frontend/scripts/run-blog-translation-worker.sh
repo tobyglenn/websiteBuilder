@@ -19,4 +19,10 @@ if ! flock -n 9; then
 fi
 
 cd "$TRANSLATION_FRONTEND_ROOT"
-npm run translate:blog:one
+blog_remaining="$(node ./scripts/blog-translations.mjs status | jq -r '.remaining')"
+
+if (( blog_remaining > 0 )); then
+  npm run translate:blog:one
+else
+  npm run translate:priority-pages:one
+fi
