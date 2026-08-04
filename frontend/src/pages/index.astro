@@ -165,7 +165,12 @@ const webPageSchema = {
   description="Independent fitness tech reviews from a real athlete. Speediance vs Tonal, WHOOP vs Garmin, BJJ commentary, and transformation data. No fluff, just real numbers."
   jsonLd={webPageSchema}
 >
-  <div data-homepage-section="hero" data-homepage-title="Hero and featured story" data-homepage-purpose="orientation">
+  <div
+    data-homepage-section="hero"
+    data-homepage-title="Hero and featured story"
+    data-homepage-purpose="orientation"
+    data-homepage-layout-version="home-2026-08-04-a"
+  >
     <Hero client:load lang="en" />
   </div>
 
@@ -183,14 +188,27 @@ const webPageSchema = {
           <h2 class="text-3xl font-bold text-white md:text-4xl">Fresh Analysis & Reviews</h2>
           <p class="mt-3 max-w-2xl text-neutral-400">The newest posts on fitness tech, training trends, and what the data actually says.</p>
         </div>
-        <a href="/blog/" class="inline-flex items-center gap-2 self-start rounded-lg border border-neutral-700 px-5 py-2.5 font-semibold text-white transition-colors hover:border-blue-500/60 hover:text-blue-400 md:self-auto">
+        <a
+          href="/blog/"
+          class="inline-flex items-center gap-2 self-start rounded-lg border border-neutral-700 px-5 py-2.5 font-semibold text-white transition-colors hover:border-blue-500/60 hover:text-blue-400 md:self-auto"
+          data-analytics-content-type="blog"
+          data-analytics-content-slug="/blog/"
+          data-analytics-content-title="View all posts"
+        >
           View all posts <ArrowRight size={16} />
         </a>
       </div>
 
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-        {recentPosts.map((post) => (
-          <a href={`/blog/${post.slug}/`} class="group block overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 transition-colors hover:border-blue-500/50">
+        {recentPosts.map((post, index) => (
+          <a
+            href={`/blog/${post.slug}/`}
+            class="group block overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 transition-colors hover:border-blue-500/50"
+            data-analytics-content-type="blog"
+            data-analytics-content-slug={post.slug}
+            data-analytics-content-title={post.title}
+            data-analytics-item-position={index + 1}
+          >
             {post.image && (
               <div class="aspect-video overflow-hidden bg-neutral-950">
                 <img src={post.image} alt={post.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
@@ -349,11 +367,11 @@ const webPageSchema = {
       </div>
 
       <nav class="flex flex-wrap gap-x-6 gap-y-3 pt-7" aria-label="Explore training data">
-        <a href="/training/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Training trends <ArrowRight size={15} /></a>
-        <a href="/running/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Running data <ArrowRight size={15} /></a>
-        <a href="/speediance/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">Lifting data <ArrowRight size={15} /></a>
-        <a href="/bjj/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">BJJ history <ArrowRight size={15} /></a>
-        <a href="/prs/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300">PR board <ArrowRight size={15} /></a>
+        <a href="/training/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300" data-analytics-content-type="training" data-analytics-content-slug="/training/" data-analytics-content-title="Training trends">Training trends <ArrowRight size={15} /></a>
+        <a href="/running/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300" data-analytics-content-type="training" data-analytics-content-slug="/running/" data-analytics-content-title="Running data">Running data <ArrowRight size={15} /></a>
+        <a href="/speediance/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300" data-analytics-content-type="training" data-analytics-content-slug="/speediance/" data-analytics-content-title="Lifting data">Lifting data <ArrowRight size={15} /></a>
+        <a href="/bjj/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300" data-analytics-content-type="training" data-analytics-content-slug="/bjj/" data-analytics-content-title="BJJ history">BJJ history <ArrowRight size={15} /></a>
+        <a href="/prs/" class="inline-flex items-center gap-1.5 font-semibold text-blue-400 hover:text-blue-300" data-analytics-content-type="training" data-analytics-content-slug="/prs/" data-analytics-content-title="PR board">PR board <ArrowRight size={15} /></a>
       </nav>
     </div>
   </section>
@@ -375,7 +393,13 @@ const webPageSchema = {
           <h2 class="text-3xl font-bold text-white md:text-4xl">Featured and latest videos</h2>
           <p class="mt-3 max-w-2xl text-neutral-400">One place for the strongest long-form video and the newest uploads.</p>
         </div>
-        <a href="/videos/" class="inline-flex items-center gap-2 self-start rounded-lg border border-neutral-700 px-5 py-2.5 font-semibold text-white transition-colors hover:border-red-500/60 hover:text-red-400 md:self-auto">
+        <a
+          href="/videos/"
+          class="inline-flex items-center gap-2 self-start rounded-lg border border-neutral-700 px-5 py-2.5 font-semibold text-white transition-colors hover:border-red-500/60 hover:text-red-400 md:self-auto"
+          data-analytics-content-type="video"
+          data-analytics-content-slug="/videos/"
+          data-analytics-content-title="Browse all videos"
+        >
           Browse all videos <ArrowRight size={16} />
         </a>
       </div>
@@ -401,7 +425,14 @@ const webPageSchema = {
                 <h3 class="mt-2 text-xl font-bold text-white">{featuredVideo.title}</h3>
                 <p class="mt-2 text-sm text-neutral-500">{formatViews(featuredVideo.viewCount)} / {featuredVideo.duration_formatted || 'Long-form'}</p>
               </div>
-              <a href={`/video/${featuredVideo.id}/`} class="inline-flex shrink-0 items-center gap-2 font-semibold text-blue-400 hover:text-blue-300">
+              <a
+                href={`/video/${featuredVideo.id}/`}
+                class="inline-flex shrink-0 items-center gap-2 font-semibold text-blue-400 hover:text-blue-300"
+                data-analytics-content-type="video"
+                data-analytics-content-slug={featuredVideo.id}
+                data-analytics-content-title={featuredVideo.title}
+                data-analytics-item-position="1"
+              >
                 Video page <ArrowRight size={15} />
               </a>
             </div>
@@ -409,8 +440,15 @@ const webPageSchema = {
         )}
 
         <div class="border-y border-neutral-700">
-          {recentVideos.map((video) => (
-            <a href={`/video/${video.id}/`} class="group grid grid-cols-[8rem_1fr] gap-4 border-b border-neutral-700 py-5 last:border-b-0 sm:grid-cols-[10rem_1fr]">
+          {recentVideos.map((video, index) => (
+            <a
+              href={`/video/${video.id}/`}
+              class="group grid grid-cols-[8rem_1fr] gap-4 border-b border-neutral-700 py-5 last:border-b-0 sm:grid-cols-[10rem_1fr]"
+              data-analytics-content-type="video"
+              data-analytics-content-slug={video.id}
+              data-analytics-content-title={video.title}
+              data-analytics-item-position={index + 2}
+            >
               <div class="relative aspect-video overflow-hidden rounded bg-neutral-900">
                 <img src={video.thumbnail} alt={video.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
                 <div class="absolute inset-0 flex items-center justify-center bg-black/30">

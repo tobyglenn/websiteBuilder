@@ -59,6 +59,10 @@
 
   const cleanText = (value, maxLength = 120) => String(value || "").replace(/\s+/g, " ").trim().slice(0, maxLength);
   const supportedLocales = new Set(["de", "es", "hi", "pt"]);
+  const journeyAttributionKeys = {
+    homepage: "toft_homepage_attribution",
+    navigation: "toft_navigation_attribution",
+  };
   const pageProps = () => ({
     page_path: window.location.pathname,
     page_title: document.title,
@@ -77,6 +81,50 @@
       return `/${parts.slice(1).join("/")}${pathname.endsWith("/") ? "/" : ""}` || "/";
     }
     return pathname || "/";
+  };
+  const createAnalyticsId = () => (
+    window.crypto?.randomUUID?.()
+    || `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`
+  );
+  const storeJourneyAttribution = (kind, parsedUrl, properties) => {
+    const storageKey = journeyAttributionKeys[kind];
+    if (!storageKey || !parsedUrl || parsedUrl.origin !== window.location.origin) return;
+    try {
+      window.sessionStorage.setItem(storageKey, JSON.stringify({
+        ...properties,
+        destination_path: parsedUrl.pathname,
+        clicked_at_ms: Date.now(),
+      }));
+    } catch {
+      // Session storage can be unavailable in strict privacy modes.
+    }
+  };
+  const capturePendingJourneyAttributions = () => {
+    Object.entries(journeyAttributionKeys).forEach(([kind, storageKey]) => {
+      try {
+        const raw = window.sessionStorage.getItem(storageKey);
+        if (!raw) return;
+        const attribution = JSON.parse(raw);
+        const ageMs = Date.now() - Number(attribution.clicked_at_ms || 0);
+        const reachedDestination = normalizedPath(attribution.destination_path)
+          === normalizedPath(window.location.pathname);
+        if (ageMs < 0 || ageMs > 300000 || !reachedDestination) {
+          if (ageMs > 300000) window.sessionStorage.removeItem(storageKey);
+          return;
+        }
+        window.sessionStorage.removeItem(storageKey);
+        window.toftAnalytics.capture(`${kind}_destination_reached`, {
+          ...attribution,
+          reach_time_ms: ageMs,
+        });
+      } catch {
+        try {
+          window.sessionStorage.removeItem(storageKey);
+        } catch {
+          // Ignore storage errors in strict privacy modes.
+        }
+      }
+    });
   };
   const destinationType = (url) => {
     if (!url) return "unknown";
@@ -155,6 +203,7 @@
     window.toftAnalytics.capture("$pageview", {
       referrer_path: document.referrer || "",
     });
+    capturePendingJourneyAttributions();
   };
 
   let activeSeconds = 0;
@@ -251,7 +300,7 @@
     const destinationUrl = parsedUrl && href ? parsedUrl.href : "";
     const explicitEvent = target.getAttribute("data-analytics-event");
     if (explicitEvent) {
-      window.toftAnalytics.capture(explicitEvent, {
+      const explicitProperties = {
         cta_label: label,
         content_type: target.getAttribute("data-analytics-content-type") || "",
         content_slug: target.getAttribute("data-analytics-content-slug") || (parsedUrl ? normalizedPath(parsedUrl.pathname) : ""),
@@ -261,7 +310,20 @@
         next_step_item_position: Number(target.getAttribute("data-analytics-item-position") || 0),
         destination,
         destination_url: destinationUrl,
-      });
+        navigation_surface: target.getAttribute("data-navigation-surface") || "",
+        navigation_group: target.getAttribute("data-navigation-group") || "",
+        navigation_item_label: cleanText(target.getAttribute("data-navigation-label") || label, 100),
+        navigation_item_position: Number(target.getAttribute("data-navigation-position") || 0),
+        navigation_is_current: target.getAttribute("data-navigation-current") === "true",
+        navigation_schema_version: target.getAttribute("data-navigation-version") || "",
+      };
+      window.toftAnalytics.capture(explicitEvent, explicitProperties);
+      if (explicitEvent === "navigation_click") {
+        storeJourneyAttribution("navigation", parsedUrl, {
+          source_path: window.location.pathname,
+          ...explicitProperties,
+        });
+      }
       return;
     }
 
@@ -322,6 +384,12 @@
   let homepageSectionStartedAt = Date.now();
   let homepageSectionSummaryTimer = null;
   let homepageSectionSummarySignature = "";
+  let homepageItemObserver = null;
+  let homepageItemViewed = new WeakSet();
+  let homepageItemVisible = new WeakSet();
+  let homepageItemTimers = new Map();
+  let homepageVisitId = "";
+  let homepageLayoutVersion = "unversioned";
 
   const homepageSectionProperties = (section) => ({
     homepage_section_id: section.dataset.homepageSection || "",
@@ -329,7 +397,36 @@
     homepage_section_purpose: section.dataset.homepagePurpose || "",
     homepage_section_position: Number(section.dataset.homepagePosition || 0),
     homepage_total_sections: document.querySelectorAll("[data-homepage-section]").length,
+    homepage_layout_version: homepageLayoutVersion,
+    homepage_visit_id: homepageVisitId,
+    viewport_width: window.innerWidth,
+    viewport_height: window.innerHeight,
   });
+
+  const homepageElementProperties = (section, target) => {
+    const interactiveElements = [...section.querySelectorAll("a, button")];
+    const href = target.getAttribute("href") || "";
+    const parsedUrl = toUrl(href);
+    const elementLabel = cleanText(target.getAttribute("aria-label") || target.textContent, 100);
+    return {
+      ...homepageSectionProperties(section),
+      element_label: elementLabel,
+      element_position: Math.max(1, interactiveElements.indexOf(target) + 1),
+      content_item_position: Number(target.getAttribute("data-analytics-item-position") || 0),
+      element_type: target.tagName.toLowerCase(),
+      content_type: target.getAttribute("data-analytics-content-type")
+        || (parsedUrl ? contentTypeFromPath(parsedUrl.pathname) : ""),
+      content_slug: target.getAttribute("data-analytics-content-slug")
+        || (parsedUrl ? normalizedPath(parsedUrl.pathname) : ""),
+      content_title: cleanText(target.getAttribute("data-analytics-content-title") || elementLabel, 100),
+      destination: destinationType(href),
+      destination_url: parsedUrl && href ? parsedUrl.href : "",
+    };
+  };
+
+  const homepageVisibleMs = (state) => (
+    state.visibleMs + (state.visibleSince ? performance.now() - state.visibleSince : 0)
+  );
 
   const clearHomepageSectionTimers = (state) => {
     window.clearTimeout(state.viewTimer);
@@ -340,8 +437,7 @@
 
   const captureHomepageSectionEngagement = (section, state) => {
     if (state.engaged || !state.viewed) return;
-    const currentVisibleMs = state.visibleSince ? performance.now() - state.visibleSince : 0;
-    const visibleMs = state.visibleMs + currentVisibleMs;
+    const visibleMs = homepageVisibleMs(state);
     if (visibleMs < 5000) return;
     state.engaged = true;
     window.toftAnalytics.capture("homepage_section_engaged", {
@@ -352,6 +448,47 @@
     scheduleHomepageSectionSummary("section_engaged");
   };
 
+  const setupHomepageItemTracking = (sections) => {
+    if (homepageItemObserver) homepageItemObserver.disconnect();
+    homepageItemTimers.forEach((timer) => window.clearTimeout(timer));
+    homepageItemViewed = new WeakSet();
+    homepageItemVisible = new WeakSet();
+    homepageItemTimers = new Map();
+    if (!("IntersectionObserver" in window)) return;
+
+    homepageItemObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const element = entry.target;
+        const section = element.closest("[data-homepage-section]");
+        if (!section || homepageItemViewed.has(element)) return;
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.5) {
+          homepageItemVisible.delete(element);
+          window.clearTimeout(homepageItemTimers.get(element));
+          homepageItemTimers.delete(element);
+          return;
+        }
+
+        homepageItemVisible.add(element);
+        if (homepageItemTimers.has(element)) return;
+        const timer = window.setTimeout(() => {
+          homepageItemTimers.delete(element);
+          if (!homepageItemVisible.has(element) || homepageItemViewed.has(element)) return;
+          homepageItemViewed.add(element);
+          window.toftAnalytics.capture("homepage_item_viewed", {
+            ...homepageElementProperties(section, element),
+            minimum_intersection_ratio: 0.5,
+            exposure_ms: 800,
+          });
+        }, 800);
+        homepageItemTimers.set(element, timer);
+      });
+    }, { threshold: [0.5] });
+
+    sections.forEach((section) => {
+      section.querySelectorAll("a, button").forEach((element) => homepageItemObserver.observe(element));
+    });
+  };
+
   const setupHomepageSectionTracking = () => {
     if (homepageSectionObserver) homepageSectionObserver.disconnect();
     homepageSectionStates.forEach(clearHomepageSectionTimers);
@@ -360,6 +497,9 @@
     window.clearTimeout(homepageSectionSummaryTimer);
     homepageSectionSummaryTimer = null;
     homepageSectionSummarySignature = "";
+    homepageVisitId = createAnalyticsId();
+    homepageLayoutVersion = document.querySelector("[data-homepage-layout-version]")
+      ?.getAttribute("data-homepage-layout-version") || "unversioned";
 
     if (window.location.pathname !== "/" || !("IntersectionObserver" in window)) return;
 
@@ -371,6 +511,10 @@
         engaged: false,
         visibleSince: 0,
         visibleMs: 0,
+        clicks: 0,
+        firstViewMs: 0,
+        maxIntersectionRatio: 0,
+        summarySignature: "",
         viewTimer: null,
         engagementTimer: null,
       });
@@ -381,6 +525,7 @@
         const section = entry.target;
         const state = homepageSectionStates.get(section);
         if (!state) return;
+        state.maxIntersectionRatio = Math.max(state.maxIntersectionRatio, entry.intersectionRatio);
 
         if (entry.isIntersecting) {
           if (!state.visibleSince) state.visibleSince = performance.now();
@@ -389,10 +534,12 @@
               state.viewTimer = null;
               if (!state.visibleSince || state.viewed) return;
               state.viewed = true;
+              state.firstViewMs = Date.now() - homepageSectionStartedAt;
               window.toftAnalytics.capture("homepage_section_viewed", {
                 ...homepageSectionProperties(section),
-                time_to_view_ms: Date.now() - homepageSectionStartedAt,
+                time_to_view_ms: state.firstViewMs,
                 scroll_percent_at_view: maximumScrollPercent,
+                maximum_intersection_ratio: Number(state.maxIntersectionRatio.toFixed(2)),
               });
               scheduleHomepageSectionSummary("section_viewed");
             }, 800);
@@ -413,31 +560,63 @@
         clearHomepageSectionTimers(state);
         captureHomepageSectionEngagement(section, state);
       });
-    }, { rootMargin: "-15% 0px -15% 0px", threshold: 0.01 });
+    }, { rootMargin: "-15% 0px -15% 0px", threshold: [0.01, 0.25, 0.5, 0.75, 1] });
 
     sections.forEach((section) => homepageSectionObserver.observe(section));
+    setupHomepageItemTracking(sections);
   };
 
   const captureHomepageSectionClick = (target) => {
     if (window.location.pathname !== "/") return;
     const section = target.closest("[data-homepage-section]");
     if (!section) return;
-    const interactiveElements = [...section.querySelectorAll("a, button")];
     const href = target.getAttribute("href") || "";
     const parsedUrl = toUrl(href);
-    window.toftAnalytics.capture("homepage_section_click", {
-      ...homepageSectionProperties(section),
-      element_label: cleanText(target.getAttribute("aria-label") || target.textContent, 100),
-      element_position: Math.max(1, interactiveElements.indexOf(target) + 1),
-      destination: destinationType(href),
-      destination_url: parsedUrl && href ? parsedUrl.href : "",
+    const state = homepageSectionStates.get(section);
+    if (state) state.clicks += 1;
+    const clickProperties = {
+      ...homepageElementProperties(section, target),
       time_to_click_ms: Date.now() - homepageSectionStartedAt,
+      section_visible_seconds_at_click: state ? Number((homepageVisibleMs(state) / 1000).toFixed(1)) : 0,
+    };
+    window.toftAnalytics.capture("homepage_section_click", clickProperties);
+    storeJourneyAttribution("homepage", parsedUrl, {
+      source_path: window.location.pathname,
+      ...clickProperties,
     });
     scheduleHomepageSectionSummary("section_click");
   };
 
+  const captureHomepagePerSectionSummaries = (reason) => {
+    homepageSectionStates.forEach((state, section) => {
+      if (!state.viewed) return;
+      const visibleSeconds = Number((homepageVisibleMs(state) / 1000).toFixed(1));
+      const maximumIntersectionRatio = Number(state.maxIntersectionRatio.toFixed(2));
+      const signature = [
+        Math.floor(visibleSeconds),
+        state.engaged ? 1 : 0,
+        state.clicks,
+        Math.floor(maximumIntersectionRatio * 10),
+      ].join(":");
+      if (signature === state.summarySignature) return;
+      state.summarySignature = signature;
+      window.toftAnalytics.capture("homepage_section_summary", {
+        ...homepageSectionProperties(section),
+        homepage_section_viewed: state.viewed,
+        homepage_section_engaged: state.engaged,
+        homepage_section_clicks: state.clicks,
+        visible_seconds: visibleSeconds,
+        maximum_intersection_ratio: maximumIntersectionRatio,
+        time_to_first_view_ms: state.firstViewMs,
+        summary_reason: reason,
+      });
+    });
+  };
+
   const captureHomepageSectionSummary = (reason = "checkpoint") => {
     if (window.location.pathname !== "/" || homepageSectionStates.size === 0) return;
+    const summaryReason = typeof reason === "string" ? reason : "checkpoint";
+    captureHomepagePerSectionSummaries(summaryReason);
     const viewedSections = [...homepageSectionStates.entries()]
       .filter(([, state]) => state.viewed)
       .map(([section]) => homepageSectionProperties(section));
@@ -445,10 +624,13 @@
       section.homepage_section_position > (deepest?.homepage_section_position || 0) ? section : deepest
     ), null);
     const engagedSections = [...homepageSectionStates.values()].filter((state) => state.engaged).length;
+    const totalSectionClicks = [...homepageSectionStates.values()]
+      .reduce((total, state) => total + state.clicks, 0);
     const signature = [
       viewedSections.length,
       deepestSection?.homepage_section_position || 0,
       engagedSections,
+      totalSectionClicks,
       Math.floor(maximumScrollPercent / 10),
       Math.floor(activeSeconds / 10),
     ].join(":");
@@ -460,9 +642,12 @@
       homepage_deepest_section_id: deepestSection?.homepage_section_id || "",
       homepage_deepest_section_position: deepestSection?.homepage_section_position || 0,
       homepage_engaged_sections: engagedSections,
+      homepage_total_section_clicks: totalSectionClicks,
+      homepage_layout_version: homepageLayoutVersion,
+      homepage_visit_id: homepageVisitId,
       maximum_scroll_percent: maximumScrollPercent,
       active_seconds: activeSeconds,
-      summary_reason: reason,
+      summary_reason: summaryReason,
     });
   };
 
@@ -478,10 +663,10 @@
   document.addEventListener("astro:page-load", capturePageview);
   setupHomepageSectionTracking();
   document.addEventListener("astro:page-load", setupHomepageSectionTracking);
-  document.addEventListener("astro:before-swap", captureHomepageSectionSummary);
-  window.addEventListener("pagehide", captureHomepageSectionSummary);
+  document.addEventListener("astro:before-swap", () => captureHomepageSectionSummary("before_swap"));
+  window.addEventListener("pagehide", () => captureHomepageSectionSummary("pagehide"));
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") captureHomepageSectionSummary();
+    if (document.visibilityState === "hidden") captureHomepageSectionSummary("visibility_hidden");
   });
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
@@ -490,10 +675,90 @@
     captureHomepageSectionClick(target);
     const href = target.getAttribute("href") || "";
     if (target instanceof HTMLAnchorElement && href && !href.startsWith("#")) {
-      captureHomepageSectionSummary();
+      captureHomepageSectionSummary("navigation");
     }
     captureClick(target);
   });
+
+  let navigationItemObserver = null;
+  let navigationMutationObserver = null;
+  let navigationItemsObserved = new WeakSet();
+  let navigationItemsViewed = new WeakSet();
+  let navigationItemsVisible = new WeakSet();
+  let navigationItemTimers = new Map();
+
+  const navigationElementProperties = (element) => {
+    const href = element.getAttribute("href") || "";
+    const parsedUrl = toUrl(href);
+    return {
+      navigation_surface: element.getAttribute("data-navigation-surface") || "",
+      navigation_group: element.getAttribute("data-navigation-group") || "",
+      navigation_item_label: cleanText(
+        element.getAttribute("data-navigation-label") || element.getAttribute("aria-label") || element.textContent,
+        100,
+      ),
+      navigation_item_position: Number(element.getAttribute("data-navigation-position") || 0),
+      navigation_is_current: element.getAttribute("data-navigation-current") === "true",
+      navigation_schema_version: element.getAttribute("data-navigation-version") || "",
+      destination: destinationType(href),
+      destination_url: parsedUrl && href ? parsedUrl.href : "",
+    };
+  };
+
+  const observeNavigationItems = () => {
+    if (!navigationItemObserver) return;
+    document.querySelectorAll("[data-navigation-item]").forEach((element) => {
+      if (navigationItemsObserved.has(element)) return;
+      navigationItemsObserved.add(element);
+      navigationItemObserver.observe(element);
+    });
+  };
+
+  const setupNavigationItemTracking = () => {
+    if (!("IntersectionObserver" in window)) return;
+    if (navigationItemObserver) navigationItemObserver.disconnect();
+    navigationItemTimers.forEach((timer) => window.clearTimeout(timer));
+    navigationItemsObserved = new WeakSet();
+    navigationItemsViewed = new WeakSet();
+    navigationItemsVisible = new WeakSet();
+    navigationItemTimers = new Map();
+
+    navigationItemObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const element = entry.target;
+        if (navigationItemsViewed.has(element)) return;
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.5) {
+          navigationItemsVisible.delete(element);
+          window.clearTimeout(navigationItemTimers.get(element));
+          navigationItemTimers.delete(element);
+          return;
+        }
+
+        navigationItemsVisible.add(element);
+        if (navigationItemTimers.has(element)) return;
+        const timer = window.setTimeout(() => {
+          navigationItemTimers.delete(element);
+          if (!navigationItemsVisible.has(element) || navigationItemsViewed.has(element)) return;
+          navigationItemsViewed.add(element);
+          window.toftAnalytics.capture("navigation_item_viewed", {
+            ...navigationElementProperties(element),
+            minimum_intersection_ratio: 0.5,
+            exposure_ms: 500,
+          });
+        }, 500);
+        navigationItemTimers.set(element, timer);
+      });
+    }, { threshold: [0.5] });
+
+    observeNavigationItems();
+    if (!navigationMutationObserver) {
+      navigationMutationObserver = new MutationObserver(observeNavigationItems);
+      navigationMutationObserver.observe(document.body, { childList: true, subtree: true });
+    }
+  };
+
+  setupNavigationItemTracking();
+  document.addEventListener("astro:page-load", setupNavigationItemTracking);
 
   let contentNextStepObserver = null;
   const contentNextStepViewed = new WeakSet();

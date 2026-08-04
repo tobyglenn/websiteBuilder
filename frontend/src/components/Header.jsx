@@ -28,6 +28,7 @@ import { captureEvent } from '../lib/analytics.js';
 
 const LOCALE_STORAGE_KEY = 'site-lang';
 const LEGACY_LOCALE_STORAGE_KEY = 'preferredLang';
+const NAVIGATION_SCHEMA_VERSION = 'nav-2026-08-04-a';
 const SUPPORTED_LOCALES = ['en', 'de', 'es', 'pt', 'hi'];
 const LOCALE_LABELS = {
   en: 'English',
@@ -82,7 +83,7 @@ const localizedHref = (locale, href) => {
   return href === '/' ? `/${locale}/` : `/${locale}${href}`;
 };
 
-function NavAnchor({ item, pathname, surface = 'desktop', onNavigate }) {
+function NavAnchor({ item, pathname, surface = 'desktop', group = 'primary', itemPosition = 0, onNavigate }) {
   const Icon = item.icon;
   const active = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
 
@@ -93,7 +94,14 @@ function NavAnchor({ item, pathname, surface = 'desktop', onNavigate }) {
       data-analytics-event="navigation_click"
       data-analytics-content-type="navigation"
       data-analytics-content-slug={item.href}
-      data-analytics-content-title={`${surface}:${item.name}`}
+      data-analytics-content-title={item.name}
+      data-navigation-item="true"
+      data-navigation-surface={surface}
+      data-navigation-group={group}
+      data-navigation-label={item.name}
+      data-navigation-position={itemPosition}
+      data-navigation-current={active ? 'true' : 'false'}
+      data-navigation-version={NAVIGATION_SCHEMA_VERSION}
       className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
         active ? 'bg-neutral-800 text-white' : 'text-neutral-300 hover:bg-neutral-900 hover:text-white'
       }`}
@@ -119,12 +127,30 @@ function DesktopMenu({ label, items, pathname, menuName }) {
   const toggle = () => {
     setOpen((current) => !current);
     if (!open) {
-      captureEvent('navigation_menu_opened', { menu_name: menuName, navigation_surface: 'desktop' });
+      captureEvent('navigation_menu_opened', {
+        menu_name: menuName,
+        navigation_surface: 'desktop',
+        navigation_trigger: 'click',
+        navigation_item_count: items.length,
+        navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
+      });
     }
   };
 
+  const openFromHover = () => {
+    if (open) return;
+    setOpen(true);
+    captureEvent('navigation_menu_opened', {
+      menu_name: menuName,
+      navigation_surface: 'desktop',
+      navigation_trigger: 'hover',
+      navigation_item_count: items.length,
+      navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
+    });
+  };
+
   return (
-    <div className="relative" ref={ref} onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+    <div className="relative" ref={ref} onMouseEnter={openFromHover} onMouseLeave={() => setOpen(false)}>
       <button
         type="button"
         onClick={toggle}
@@ -137,8 +163,15 @@ function DesktopMenu({ label, items, pathname, menuName }) {
       {open && (
         <div className="absolute left-1/2 top-full z-[200] w-72 -translate-x-1/2 pt-2">
           <div className="grid gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
-            {items.map((item) => (
-              <NavAnchor key={item.href} item={item} pathname={pathname} onNavigate={() => setOpen(false)} />
+            {items.map((item, index) => (
+              <NavAnchor
+                key={item.href}
+                item={item}
+                pathname={pathname}
+                group={menuName}
+                itemPosition={index + 1}
+                onNavigate={() => setOpen(false)}
+              />
             ))}
           </div>
         </div>
@@ -156,7 +189,15 @@ function MobileSection({ label, items, pathname, menuName, onNavigate }) {
         type="button"
         onClick={() => {
           setOpen((current) => !current);
-          if (!open) captureEvent('navigation_menu_opened', { menu_name: menuName, navigation_surface: 'mobile' });
+          if (!open) {
+            captureEvent('navigation_menu_opened', {
+              menu_name: menuName,
+              navigation_surface: 'mobile',
+              navigation_trigger: 'click',
+              navigation_item_count: items.length,
+              navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
+            });
+          }
         }}
         className="flex w-full items-center justify-between px-1 py-4 text-left font-semibold text-white"
         aria-expanded={open}
@@ -166,8 +207,16 @@ function MobileSection({ label, items, pathname, menuName, onNavigate }) {
       </button>
       {open && (
         <div className="grid gap-1 pb-4 sm:grid-cols-2">
-          {items.map((item) => (
-            <NavAnchor key={item.href} item={item} pathname={pathname} surface="mobile" onNavigate={onNavigate} />
+          {items.map((item, index) => (
+            <NavAnchor
+              key={item.href}
+              item={item}
+              pathname={pathname}
+              surface="mobile"
+              group={menuName}
+              itemPosition={index + 1}
+              onNavigate={onNavigate}
+            />
           ))}
         </div>
       )}
@@ -242,6 +291,17 @@ export default function Header() {
     { name: t.about, href: localizedHref(locale, '/about/'), icon: User },
   ], [locale, t]);
 
+  useEffect(() => {
+    if (!pathname) return;
+    captureEvent('navigation_header_viewed', {
+      navigation_surface: window.matchMedia('(min-width: 1280px)').matches ? 'desktop' : 'mobile',
+      navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
+      navigation_top_level_items: 7,
+      navigation_menu_groups: 3,
+      navigation_language: locale,
+    });
+  }, [locale, pathname]);
+
   const handleLanguageChoice = (code) => {
     captureEvent('language_switch', { previous_language: locale, next_language: code });
     window.localStorage.setItem(LOCALE_STORAGE_KEY, code);
@@ -261,6 +321,13 @@ export default function Header() {
             data-analytics-content-type="navigation"
             data-analytics-content-slug="/"
             data-analytics-content-title="brand"
+            data-navigation-item="true"
+            data-navigation-surface="global"
+            data-navigation-group="brand"
+            data-navigation-label="TobyOnFitnessTech"
+            data-navigation-position="1"
+            data-navigation-current={pathname === '/' ? 'true' : 'false'}
+            data-navigation-version={NAVIGATION_SCHEMA_VERSION}
           >
             TobyOnFitnessTech
           </a>
@@ -268,11 +335,11 @@ export default function Header() {
           <nav className="mx-4 hidden min-w-0 items-center gap-1 xl:flex" aria-label="Primary navigation">
             <DesktopMenu label={t.reviews} items={reviewItems} pathname={pathname} menuName="reviews" />
             <DesktopMenu label={t.training} items={trainingItems} pathname={pathname} menuName="training" />
-            <NavAnchor item={primaryItems[0]} pathname={pathname} />
-            <NavAnchor item={primaryItems[1]} pathname={pathname} />
+            <NavAnchor item={primaryItems[0]} pathname={pathname} group="primary" itemPosition={3} />
+            <NavAnchor item={primaryItems[1]} pathname={pathname} group="primary" itemPosition={4} />
             <DesktopMenu label={t.podcasts} items={projectItems} pathname={pathname} menuName="projects" />
-            <NavAnchor item={primaryItems[2]} pathname={pathname} />
-            <NavAnchor item={primaryItems[3]} pathname={pathname} />
+            <NavAnchor item={primaryItems[2]} pathname={pathname} group="primary" itemPosition={6} />
+            <NavAnchor item={primaryItems[3]} pathname={pathname} group="primary" itemPosition={7} />
           </nav>
 
           <div className="hidden items-center gap-2 xl:flex">
@@ -309,7 +376,15 @@ export default function Header() {
             className="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white xl:hidden"
             onClick={() => {
               setIsMenuOpen((current) => !current);
-              if (!isMenuOpen) captureEvent('navigation_menu_opened', { menu_name: 'primary', navigation_surface: 'mobile' });
+              if (!isMenuOpen) {
+                captureEvent('navigation_menu_opened', {
+                  menu_name: 'primary',
+                  navigation_surface: 'mobile',
+                  navigation_trigger: 'click',
+                  navigation_item_count: primaryItems.length,
+                  navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
+                });
+              }
             }}
             aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
             aria-expanded={isMenuOpen}
@@ -323,15 +398,39 @@ export default function Header() {
         <div className="fixed inset-0 z-[100] overflow-y-auto bg-neutral-950 xl:hidden">
           <div className="mx-auto flex min-h-full max-w-3xl flex-col px-5 pb-8 pt-5">
             <div className="mb-6 flex items-center justify-between">
-              <a href={localizedHref(locale, '/')} className="text-lg font-bold text-white">TobyOnFitnessTech</a>
+              <a
+                href={localizedHref(locale, '/')}
+                className="text-lg font-bold text-white"
+                data-analytics-event="navigation_click"
+                data-analytics-content-type="navigation"
+                data-analytics-content-slug="/"
+                data-analytics-content-title="brand"
+                data-navigation-item="true"
+                data-navigation-surface="mobile"
+                data-navigation-group="brand"
+                data-navigation-label="TobyOnFitnessTech"
+                data-navigation-position="1"
+                data-navigation-current={pathname === '/' ? 'true' : 'false'}
+                data-navigation-version={NAVIGATION_SCHEMA_VERSION}
+              >
+                TobyOnFitnessTech
+              </a>
               <button type="button" onClick={() => setIsMenuOpen(false)} className="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" aria-label="Close navigation">
                 <X size={24} />
               </button>
             </div>
 
             <div className="grid grid-cols-2 gap-1 border-y border-neutral-800 py-3 sm:grid-cols-4">
-              {primaryItems.map((item) => (
-                <NavAnchor key={item.href} item={item} pathname={pathname} surface="mobile" onNavigate={() => setIsMenuOpen(false)} />
+              {primaryItems.map((item, index) => (
+                <NavAnchor
+                  key={item.href}
+                  item={item}
+                  pathname={pathname}
+                  surface="mobile"
+                  group="primary"
+                  itemPosition={index + 1}
+                  onNavigate={() => setIsMenuOpen(false)}
+                />
               ))}
             </div>
 
