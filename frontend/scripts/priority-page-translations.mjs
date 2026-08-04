@@ -26,10 +26,10 @@ const HTML_LANGS = {
 
 export const TARGETS = [
   { source: 'agentstack.astro', route: '/agentstack/' },
-  { source: 'speediance/gym-monster-1-vs-2-vs-2s.astro', route: '/speediance/gym-monster-1-vs-2-vs-2s/' },
-  { source: 'projects.astro', route: '/projects/' },
-  { source: 'wearables.astro', route: '/wearables/' },
   { source: 'wearables/whoop-5-vs-4-vs-oura.astro', route: '/wearables/whoop-5-vs-4-vs-oura/' },
+  { source: 'speediance/gym-monster-1-vs-2-vs-2s.astro', route: '/speediance/gym-monster-1-vs-2-vs-2s/' },
+  { source: 'wearables.astro', route: '/wearables/' },
+  { source: 'projects.astro', route: '/projects/' },
 ];
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
