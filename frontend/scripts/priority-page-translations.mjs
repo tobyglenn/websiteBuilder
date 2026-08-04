@@ -43,6 +43,7 @@ const freecallRoot = process.env.FREECALL_ROOT || '/home/toby/.openclaw/scripts'
 const modelTimeoutSeconds = Number(process.env.PAGE_TRANSLATION_MODEL_TIMEOUT || 1200);
 const modelMaxTokens = Number(process.env.PAGE_TRANSLATION_MAX_TOKENS || 16384);
 const modelAttempts = Math.max(1, Number(process.env.PAGE_TRANSLATION_MODEL_ATTEMPTS || 3));
+const draftAttempts = Math.max(1, Number(process.env.PAGE_TRANSLATION_DRAFT_ATTEMPTS || 3));
 const retryDelayMinutes = Number(process.env.PAGE_TRANSLATION_RETRY_MINUTES || 30);
 const promptVersion = '2026-08-04-v1';
 
@@ -277,23 +278,38 @@ const validateTranslation = async (content, source, target, locale) => {
 
 const translate = async (target, locale) => {
   const source = await readFile(sourcePath(target), 'utf8');
-  const translated = runMiniMax(translationPrompt(target, locale, source));
-  const postProcessed = addLayoutLocalization(
-    localizeInternalUrls(rewriteRelativeImports(translated, target, locale), locale),
-    target,
-    locale,
+  let lastError;
+
+  for (let attempt = 1; attempt <= draftAttempts; attempt += 1) {
+    try {
+      const translated = runMiniMax(translationPrompt(target, locale, source));
+      const postProcessed = addLayoutLocalization(
+        localizeInternalUrls(rewriteRelativeImports(translated, target, locale), locale),
+        target,
+        locale,
+      );
+      await validateTranslation(postProcessed, source, target, locale);
+      return {
+        sourceHash: sourceHash(target, source),
+        promptVersion,
+        model: MODEL,
+        locale,
+        source: target.source,
+        route: target.route,
+        translatedAt: new Date().toISOString(),
+        content: postProcessed,
+      };
+    } catch (error) {
+      lastError = error;
+      if (attempt < draftAttempts) {
+        console.warn(`Translation draft attempt ${attempt}/${draftAttempts} failed; regenerating`);
+      }
+    }
+  }
+
+  throw new Error(
+    `Translation draft failed validation after ${draftAttempts} attempts: ${lastError?.message || lastError}`,
   );
-  await validateTranslation(postProcessed, source, target, locale);
-  return {
-    sourceHash: sourceHash(target, source),
-    promptVersion,
-    model: MODEL,
-    locale,
-    source: target.source,
-    route: target.route,
-    translatedAt: new Date().toISOString(),
-    content: postProcessed,
-  };
 };
 
 const currentRecord = async (target, locale) => {
