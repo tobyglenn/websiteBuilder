@@ -130,7 +130,7 @@ const runMiniMax = (prompt) => {
   throw lastError;
 };
 
-const translationPrompt = (target, locale, source) => `Translate this complete Astro page from English into ${LANGUAGE_NAMES[locale]}.
+const translationPrompt = (target, locale, source, repairFeedback = '') => `Translate this complete Astro page from English into ${LANGUAGE_NAMES[locale]}.
 
 Return ONLY the complete translated Astro source file. Do not wrap it in a code fence and do not explain anything.
 
@@ -141,6 +141,10 @@ Hard requirements:
 - Do not summarize, shorten, expand, reorder, or invent facts.
 - Do not translate TobyOnFitnessTech, Toby Glenn Peters, Speediance, Gym Monster, WHOOP, Oura, Garmin, AgentStack, OpenClaw, Voltra, AEKE, BJJ, or model names.
 - Keep the source route slug unchanged. Route localization and relative-import depth are applied mechanically after translation.
+${repairFeedback ? `
+The previous draft failed validation with: ${repairFeedback}
+Return a repaired COMPLETE file that corrects every listed validation failure. Do not omit surrounding sections or markup.
+` : ''}
 
 SOURCE FILE: src/pages/${target.source}
 TARGET LOCALE: ${locale}
@@ -282,7 +286,8 @@ const translate = async (target, locale) => {
 
   for (let attempt = 1; attempt <= draftAttempts; attempt += 1) {
     try {
-      const translated = runMiniMax(translationPrompt(target, locale, source));
+      const repairFeedback = lastError ? String(lastError?.message || lastError).slice(0, 1200) : '';
+      const translated = runMiniMax(translationPrompt(target, locale, source, repairFeedback));
       const postProcessed = addLayoutLocalization(
         localizeInternalUrls(rewriteRelativeImports(translated, target, locale), locale),
         target,
