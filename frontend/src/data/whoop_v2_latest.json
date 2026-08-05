@@ -53065,16 +53065,16 @@
                 "id": 1693217639,
                 "user_id": 1781625,
                 "created_at": "2026-08-05T07:38:06.455Z",
-                "updated_at": "2026-08-05T07:38:13.010Z",
+                "updated_at": "2026-08-05T12:08:26.710Z",
                 "start": "2026-08-05T02:18:17.860Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 6.880362,
-                    "kilojoule": 3976.7947,
-                    "average_heart_rate": 74,
-                    "max_heart_rate": 161
+                    "strain": 8.071341,
+                    "kilojoule": 8674.031,
+                    "average_heart_rate": 76,
+                    "max_heart_rate": 170
                 }
             }
         ]
@@ -176368,11 +176368,73 @@
                     }
                 },
                 "sport_id": 98
+            },
+            {
+                "id": "d3d51990-c3a7-4cca-994b-21214bb9ae95",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-05T12:08:22.320Z",
+                "updated_at": "2026-08-05T12:08:26.215Z",
+                "start": "2026-08-05T11:33:00.660Z",
+                "end": "2026-08-05T11:49:59.650Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "jiu-jitsu",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 5.1545506,
+                    "average_heart_rate": 116,
+                    "max_heart_rate": 170,
+                    "kilojoule": 332.50888,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 657990,
+                        "zone_one_milli": 201000,
+                        "zone_two_milli": 50000,
+                        "zone_three_milli": 79000,
+                        "zone_four_milli": 31000,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 98
+            },
+            {
+                "id": "e36975a7-7738-4468-a7ee-109bf0770a24",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-05T11:38:19.827Z",
+                "updated_at": "2026-08-05T11:38:24.062Z",
+                "start": "2026-08-05T10:56:00.660Z",
+                "end": "2026-08-05T11:20:59.650Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "jiu-jitsu",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 5.8641133,
+                    "average_heart_rate": 123,
+                    "max_heart_rate": 161,
+                    "kilojoule": 609.58124,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 624000,
+                        "zone_one_milli": 537990,
+                        "zone_two_milli": 271000,
+                        "zone_three_milli": 66000,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 98
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-08-05T07:30:12.594567"
+    "last_synced": "2026-08-05T19:50:02.895211"
 }
