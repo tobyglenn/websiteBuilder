@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 04 Aug 2026 11:37:49 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 06 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 97 -->
+    <item>
+      <title>Episodio 97: AgentStack Diario: Resumen de lanzamiento del Agent Stack: OpenClaw v2026.7.1-2, v2026.7.1-1; Hermes Agent v2026.8.3; Claude Code CLI 2.1.220</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep097/episode_097.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-97/</link>
+      <description><![CDATA[Resumen del lanzamiento del Agent Stack: OpenClaw v2026.7.1-2 y v2026.7.1-1, Hermes Agent v2026.8.3 y Claude Code CLI 2.1.220.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-97/]]></description>
+      <pubDate>Thu, 06 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_097.mp3" length="35510274" type="audio/mpeg"/>
+      <itunes:duration>36:59</itunes:duration>
+      <itunes:episode>97</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep097/episode_097_cover.png"/>
+    </item>
+
     <!-- Episode 96 -->
     <item>
       <title>Episodio 96: AgentStack Daily: Lectura del lanzamiento del Agent Stack: Hermes Agent v2026.7.30</title>
