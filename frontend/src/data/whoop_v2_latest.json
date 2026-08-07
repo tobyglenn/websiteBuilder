@@ -53129,15 +53129,15 @@
                 "id": 1698203141,
                 "user_id": 1781625,
                 "created_at": "2026-08-07T07:46:04.121Z",
-                "updated_at": "2026-08-07T08:56:14.763Z",
+                "updated_at": "2026-08-07T11:56:25.575Z",
                 "start": "2026-08-07T02:24:50.940Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 8.249424,
-                    "kilojoule": 4307.4595,
-                    "average_heart_rate": 74,
+                    "strain": 8.4392395,
+                    "kilojoule": 8764.463,
+                    "average_heart_rate": 75,
                     "max_heart_rate": 176
                 }
             }
@@ -176564,11 +176564,42 @@
                     }
                 },
                 "sport_id": 98
+            },
+            {
+                "id": "4e367690-6618-489a-933b-291530b5580b",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-07T11:56:20.973Z",
+                "updated_at": "2026-08-07T11:56:25.336Z",
+                "start": "2026-08-07T10:49:00.720Z",
+                "end": "2026-08-07T11:35:59.710Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "jiu-jitsu",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 8.3685055,
+                    "average_heart_rate": 126,
+                    "max_heart_rate": 176,
+                    "kilojoule": 1304.056,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 1028000,
+                        "zone_one_milli": 939990,
+                        "zone_two_milli": 616000,
+                        "zone_three_milli": 194000,
+                        "zone_four_milli": 41000,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 98
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-08-07T07:30:14.713140"
+    "last_synced": "2026-08-07T19:50:02.625008"
 }
