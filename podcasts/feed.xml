@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 09 Aug 2026 13:11:23 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 98 -->
+    <item>
+      <title>Episode 98: AMD Buys Taalas to Bake Single Models Into Silicon</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep098/episode_098.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-98/</link>
+      <description><![CDATA[AMD buys Taalas to bake single models into silicon, Prime Intellect ships a self-editing coding agent, and research shows open models hitting GPT-5.6...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-98/]]></description>
+      <pubDate>Sun, 09 Aug 2026 13:11:23 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep098/episode_098.mp3" length="32568259" type="audio/mpeg"/>
+      <itunes:duration>33:55</itunes:duration>
+      <itunes:episode>98</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep098/episode_098_cover.png"/>
+    </item>
+
     <!-- Episode 97 -->
     <item>
       <title>Episode 97: AgentStack Daily: Agent Stack Release Readout: OpenClaw v2026.7.1-2, v2026.7.1-1; Hermes Agent v2026.8.3; Claude Code CLI 2.1.220</title>
