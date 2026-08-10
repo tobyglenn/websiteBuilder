@@ -53225,15 +53225,15 @@
                 "id": 1705636259,
                 "user_id": 1781625,
                 "created_at": "2026-08-10T07:38:30.625Z",
-                "updated_at": "2026-08-10T09:10:49.171Z",
+                "updated_at": "2026-08-10T20:11:32.318Z",
                 "start": "2026-08-10T02:56:30.520Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.826501,
-                    "kilojoule": 3247.04,
-                    "average_heart_rate": 70,
+                    "strain": 5.217208,
+                    "kilojoule": 7788.1636,
+                    "average_heart_rate": 71,
                     "max_heart_rate": 178
                 }
             }
@@ -116450,6 +116450,41 @@
                     "sleep_consistency_percentage": 72.0,
                     "sleep_efficiency_percentage": 92.09903
                 }
+            },
+            {
+                "id": "37519482-28c9-42d1-aa2d-02921d80ce6a",
+                "cycle_id": 1705636259,
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-10T20:11:32.207Z",
+                "updated_at": "2026-08-10T20:11:34.909Z",
+                "start": "2026-08-10T14:06:26.320Z",
+                "end": "2026-08-10T18:01:56.880Z",
+                "timezone_offset": "-04:00",
+                "nap": true,
+                "score_state": "SCORED",
+                "score": {
+                    "stage_summary": {
+                        "total_in_bed_time_milli": 14130560,
+                        "total_awake_time_milli": 4803320,
+                        "total_no_data_time_milli": 0,
+                        "total_light_sleep_time_milli": 5216200,
+                        "total_slow_wave_sleep_time_milli": 2824000,
+                        "total_rem_sleep_time_milli": 1287040,
+                        "sleep_cycle_count": 2,
+                        "disturbance_count": 5
+                    },
+                    "sleep_needed": {
+                        "baseline_milli": 27059425,
+                        "need_from_sleep_debt_milli": 5844089,
+                        "need_from_recent_strain_milli": 203824,
+                        "need_from_recent_nap_milli": 0
+                    },
+                    "respiratory_rate": 16.171875,
+                    "sleep_performance_percentage": 4.0,
+                    "sleep_consistency_percentage": 39.0,
+                    "sleep_efficiency_percentage": 66.007576
+                }
             }
         ]
     },
@@ -176802,5 +176837,5 @@
     "journal": {
         "records": []
     },
-    "last_synced": "2026-08-10T07:30:14.158136"
+    "last_synced": "2026-08-10T19:50:02.611343"
 }
