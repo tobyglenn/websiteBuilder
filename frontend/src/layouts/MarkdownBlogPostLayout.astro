@@ -127,6 +127,24 @@ function formatPostDate(value = '') {
       />
     </div>
   </article>
+
+  <script>
+    function labelMarkdownTables() {
+      document.querySelectorAll('.markdown-article table').forEach((table) => {
+        const labels = Array.from(table.querySelectorAll('thead th')).map((header) =>
+          header.textContent?.trim() || ''
+        );
+        table.querySelectorAll('tbody tr').forEach((row) => {
+          row.querySelectorAll('td').forEach((cell, index) => {
+            if (labels[index]) cell.dataset.label = labels[index];
+          });
+        });
+      });
+    }
+
+    document.addEventListener('astro:page-load', labelMarkdownTables);
+    labelMarkdownTables();
+  </script>
 </Layout>
 
 <style is:global>
@@ -231,6 +249,34 @@ function formatPostDate(value = '') {
     font-style: italic;
   }
 
+  .markdown-article table {
+    width: 100%;
+    margin: 2rem 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .markdown-article th,
+  .markdown-article td {
+    padding: 0.8rem;
+    border: 1px solid rgba(82, 82, 91, 0.8);
+    text-align: left;
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+
+  .markdown-article th {
+    color: rgb(255 255 255);
+    background: rgba(30, 41, 59, 0.8);
+    font-weight: 700;
+  }
+
+  .markdown-article tbody tr:nth-child(even) td {
+    background: rgba(24, 24, 27, 0.55);
+  }
+
   .markdown-article hr {
     margin: 2.5rem 0;
     border: 0;
@@ -279,6 +325,62 @@ function formatPostDate(value = '') {
 
     .markdown-article h3 {
       font-size: 1.2rem;
+    }
+
+    .markdown-article table,
+    .markdown-article tbody,
+    .markdown-article tr,
+    .markdown-article td {
+      display: block;
+      width: 100%;
+    }
+
+    .markdown-article table {
+      font-size: 0.92rem;
+    }
+
+    .markdown-article thead {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .markdown-article tbody tr {
+      margin-bottom: 1rem;
+      overflow: hidden;
+      border: 1px solid rgba(82, 82, 91, 0.8);
+      border-radius: 0.5rem;
+      background: rgba(10, 10, 10, 0.35);
+    }
+
+    .markdown-article tbody td,
+    .markdown-article tbody tr:nth-child(even) td {
+      display: grid;
+      grid-template-columns: minmax(6.5rem, 0.8fr) minmax(0, 1.4fr);
+      gap: 0.8rem;
+      padding: 0.8rem;
+      border: 0;
+      border-bottom: 1px solid rgba(63, 63, 70, 0.7);
+      background: transparent;
+    }
+
+    .markdown-article tbody td:last-child {
+      border-bottom: 0;
+    }
+
+    .markdown-article tbody td::before {
+      content: attr(data-label);
+      color: rgb(147 197 253);
+      font-size: 0.75rem;
+      font-weight: 700;
+      line-height: 1.4;
+      text-transform: uppercase;
     }
   }
 </style>
