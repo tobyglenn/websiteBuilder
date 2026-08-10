@@ -114,17 +114,27 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
   const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
   const lastSearchEvent = useRef('');
 
-  // Read #category or legacy ?category= from URL on mount and apply filter.
+  // Read hash state and migrate historical query-based filters to clean URLs.
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     const cat = getCategoryFromLocation();
     if (cat && CATEGORIES.some(c => c.id === cat)) {
       setSelectedCategory(cat);
     }
 
-    if (window.location.search.includes('category=')) {
-      const nextUrl = cat && cat !== 'all'
-        ? `${window.location.pathname}#${cat}`
-        : window.location.pathname;
+    const legacySearch = params.get('q')?.trim() || '';
+    if (legacySearch) {
+      setSearchInput(legacySearch);
+      setSearchQuery(legacySearch);
+    }
+
+    if (params.has('category') || params.has('q')) {
+      params.delete('category');
+      params.delete('q');
+      const remainingQuery = params.toString();
+      const queryPart = remainingQuery ? `?${remainingQuery}` : '';
+      const hashPart = cat && cat !== 'all' ? `#${cat}` : '';
+      const nextUrl = `${window.location.pathname}${queryPart}${hashPart}`;
       window.history.replaceState(null, '', nextUrl);
     }
   }, []);

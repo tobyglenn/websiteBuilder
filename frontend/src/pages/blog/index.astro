@@ -442,10 +442,10 @@ const description = "Independent analysis of fitness technology. Real data. No a
   <script>
     function updateCategoryUrl(category) {
       const nextCategory = categories.includes(category) ? category : 'All';
-      const url = new URL(window.location.href);
-      url.searchParams.set('category', nextCategory);
-      url.hash = 'category-filters';
-      window.history.replaceState({}, '', url);
+      const nextUrl = nextCategory === 'All'
+        ? window.location.pathname
+        : `${window.location.pathname}#${encodeURIComponent(nextCategory)}`;
+      window.history.replaceState({}, '', nextUrl);
     }
 
     function applyFilter(activeCategory = 'All') {
@@ -516,8 +516,16 @@ const description = "Independent analysis of fitness technology. Real data. No a
 
     const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
     const initialUrl = new URL(window.location.href);
-    const initialCategory = initialUrl.searchParams.get('category');
+    const hashCategory = decodeURIComponent(initialUrl.hash.replace(/^#/, ''));
+    const legacyCategory = initialUrl.searchParams.get('category');
+    const initialCategory = categories.includes(hashCategory) ? hashCategory : legacyCategory;
     let activeCategory = categories.includes(initialCategory) ? initialCategory : 'All';
+
+    if (legacyCategory) {
+      updateCategoryUrl(activeCategory);
+    }
+
+    applyFilter(activeCategory);
 
     document.querySelectorAll('[data-cat-btn]').forEach(btn => {
       btn.addEventListener('click', () => {

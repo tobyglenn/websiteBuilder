@@ -1,0 +1,203 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.jsx';
+import { getHeatmapData } from '../lib/trainingHeatmap.js';
+
+interface Props {
+  locale: 'de' | 'es' | 'pt' | 'hi';
+}
+
+const { locale } = Astro.props;
+
+const translations = {
+  de: {
+    title: 'Trainingsprotokoll - Trainingskonsistenz',
+    description: 'Verfolge deine Trainingskonsistenz mit einer Heatmap, Serien, gesamten Trainingstagen und monatlicher Aktivität.',
+    training: 'Training',
+    consistency: 'Konsistenz',
+    intro: 'Deine Heatmap der Trainingshäufigkeit. Jedes blaue Quadrat ist ein Tag, an dem du trainiert hast.',
+    currentStreak: 'Aktuelle Serie',
+    longestStreak: 'Längste Serie',
+    totalDays: 'Trainingstage insgesamt',
+    thisYear: 'Dieses Jahr',
+    frequency: 'Trainingshäufigkeit',
+    workout: 'Training',
+    rest: 'Ruhetag',
+    less: 'Weniger',
+    more: 'Mehr',
+    monthly: 'Monatliche Aktivität',
+    workouts: 'Trainingseinheiten',
+    source: 'Daten aus Garmin, Tonal und der zusammengeführten Trainingszeitleiste',
+    months: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez'],
+  },
+  es: {
+    title: 'Registro de entrenamiento - Constancia deportiva',
+    description: 'Sigue tu constancia de entrenamiento con un mapa de actividad, rachas, días totales y actividad mensual.',
+    training: 'Entrenamiento',
+    consistency: 'Constante',
+    intro: 'Tu mapa de frecuencia de entrenamiento. Cada cuadro azul representa un día en el que entrenaste.',
+    currentStreak: 'Racha actual',
+    longestStreak: 'Racha más larga',
+    totalDays: 'Días de entrenamiento',
+    thisYear: 'Este año',
+    frequency: 'Frecuencia de entrenamiento',
+    workout: 'Entrenamiento',
+    rest: 'Descanso',
+    less: 'Menos',
+    more: 'Más',
+    monthly: 'Actividad mensual',
+    workouts: 'entrenamientos',
+    source: 'Datos de Garmin, Tonal y la cronología de entrenamiento unificada',
+    months: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+  },
+  pt: {
+    title: 'Registro de treino - Consistência nos exercícios',
+    description: 'Acompanhe sua consistência de treino com um mapa de atividade, sequências, dias totais e atividade mensal.',
+    training: 'Treino',
+    consistency: 'Consistente',
+    intro: 'Seu mapa de frequência de treinos. Cada quadrado azul representa um dia em que você treinou.',
+    currentStreak: 'Sequência atual',
+    longestStreak: 'Maior sequência',
+    totalDays: 'Dias de treino',
+    thisYear: 'Este ano',
+    frequency: 'Frequência de treino',
+    workout: 'Treino',
+    rest: 'Descanso',
+    less: 'Menos',
+    more: 'Mais',
+    monthly: 'Atividade mensal',
+    workouts: 'treinos',
+    source: 'Dados do Garmin, Tonal e da linha do tempo unificada de treinos',
+    months: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+  },
+  hi: {
+    title: 'ट्रेनिंग लॉग - कसरत की निरंतरता',
+    description: 'एक्टिविटी हीटमैप, स्ट्रीक, कुल ट्रेनिंग दिनों और मासिक गतिविधि के साथ अपनी कसरत की निरंतरता देखें।',
+    training: 'ट्रेनिंग में',
+    consistency: 'निरंतरता',
+    intro: 'यह आपकी कसरत की आवृत्ति का हीटमैप है। हर नीला वर्ग उस दिन को दिखाता है जब आपने ट्रेनिंग की।',
+    currentStreak: 'मौजूदा स्ट्रीक',
+    longestStreak: 'सबसे लंबी स्ट्रीक',
+    totalDays: 'कुल ट्रेनिंग दिन',
+    thisYear: 'इस वर्ष',
+    frequency: 'कसरत की आवृत्ति',
+    workout: 'कसरत',
+    rest: 'आराम',
+    less: 'कम',
+    more: 'अधिक',
+    monthly: 'मासिक गतिविधि',
+    workouts: 'कसरतें',
+    source: 'Garmin, Tonal और एकीकृत ट्रेनिंग टाइमलाइन से डेटा',
+    months: ['जन', 'फ़र', 'मार्च', 'अप्रै', 'मई', 'जून', 'जुल', 'अग', 'सित', 'अक्ट', 'नव', 'दिस'],
+  },
+};
+
+const copy = translations[locale];
+const { heatmapData, stats, monthlyData } = getHeatmapData();
+const CELL_SIZE = 12;
+const GAP = 3;
+const weeks = Math.ceil(heatmapData.length / 7);
+
+const monthStarts = [];
+let lastMonth = '';
+heatmapData.forEach((day, index) => {
+  const month = day.date.slice(0, 7);
+  if (month !== lastMonth && day.dow === 0) {
+    monthStarts.push({ label: month, x: Math.floor(index / 7) * (CELL_SIZE + GAP) });
+    lastMonth = month;
+  }
+});
+
+const maxCount = Math.max(...monthlyData.map(month => month.count), 1);
+const formattedMonthly = monthlyData.map(month => ({
+  ...month,
+  label: `${copy.months[Number(month.month.slice(5)) - 1]} '${month.month.slice(2, 4)}`,
+  height: (month.count / maxCount) * 120,
+}));
+---
+
+<Layout
+  title={copy.title}
+  description={copy.description}
+  lang={locale}
+  translationBase="/training-log/"
+>
+  <Header client:load currentPath={`/${locale}/training-log`} />
+
+  <main class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+    <div class="mb-12 text-center">
+      <h1 class="mb-4 text-4xl font-black tracking-tight">
+        {copy.training} <span class="text-blue-500">{copy.consistency}</span>
+      </h1>
+      <p class="mx-auto max-w-xl text-lg text-neutral-400">{copy.intro}</p>
+    </div>
+
+    <div class="mb-12 grid grid-cols-2 gap-4 md:grid-cols-4">
+      {[
+        [stats.currentStreak, copy.currentStreak],
+        [stats.longestStreak, copy.longestStreak],
+        [stats.totalDays, copy.totalDays],
+        [stats.thisYear, copy.thisYear],
+      ].map(([value, label]) => (
+        <div class="rounded-lg border border-neutral-800 bg-neutral-900 p-6 text-center">
+          <div class="mb-1 text-3xl font-black text-blue-500">{value}</div>
+          <div class="text-sm text-neutral-400">{label}</div>
+        </div>
+      ))}
+    </div>
+
+    <section class="mb-12 rounded-lg border border-neutral-800 bg-neutral-900 p-6">
+      <h2 class="mb-6 text-lg font-bold">{copy.frequency}</h2>
+      <div class="overflow-x-auto">
+        <div
+          class="inline-grid gap-1"
+          style={`grid-template-columns: repeat(${weeks}, ${CELL_SIZE}px); grid-template-rows: repeat(7, ${CELL_SIZE}px);`}
+        >
+          {heatmapData.map((day, index) => {
+            const col = Math.floor(index / 7);
+            return (
+              <div
+                class={`rounded-sm transition-all hover:ring-2 hover:ring-blue-400/50 ${day.count > 0 ? 'bg-blue-500' : 'bg-neutral-800'}`}
+                style={`width: ${CELL_SIZE}px; height: ${CELL_SIZE}px; grid-column: ${col + 1}; grid-row: ${day.dow + 1};`}
+                title={`${day.date}: ${day.count > 0 ? copy.workout : copy.rest}`}
+              />
+            );
+          })}
+        </div>
+      </div>
+
+      <div class="mt-4 flex text-xs text-neutral-500">
+        {monthStarts.map(month => (
+          <span style={`margin-left: ${month.x}px;`}>
+            {copy.months[Number(month.label.slice(5)) - 1]} '{month.label.slice(2, 4)}
+          </span>
+        ))}
+      </div>
+
+      <div class="mt-6 flex items-center gap-2 text-xs text-neutral-500">
+        <span>{copy.less}</span>
+        <div class="h-3 w-3 rounded-sm bg-neutral-800"></div>
+        <div class="h-3 w-3 rounded-sm bg-blue-500"></div>
+        <span>{copy.more}</span>
+      </div>
+    </section>
+
+    <section class="rounded-lg border border-neutral-800 bg-neutral-900 p-6">
+      <h2 class="mb-6 text-lg font-bold">{copy.monthly}</h2>
+      <div class="flex h-32 items-end gap-1">
+        {formattedMonthly.map(month => (
+          <div class="flex flex-1 flex-col items-center">
+            <div
+              class="w-full max-w-10 rounded-t bg-blue-500/80 transition-all hover:bg-blue-500"
+              style={`height: ${month.height}px;`}
+              title={`${month.label}: ${month.count} ${copy.workouts}`}
+            ></div>
+            <span class="mt-2 text-xs text-neutral-500">{month.label}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <p class="mt-8 text-center text-sm text-neutral-600">{copy.source}</p>
+  </main>
+</Layout>
