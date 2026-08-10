@@ -1,9 +1,9 @@
 ---
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
 image: /images/blog/whoop-recovery-scores-explained.jpg
-title: "WHOOP Recovery Scores Explained: Complete Guide to HRV-Based Readiness"
+title: "WHOOP Recovery Score: Green, Yellow & Red Explained"
 date: 2026-03-01
-description: "A deep dive into WHOOP recovery scores, HRV, what green, yellow, and red days actually mean, and how to optimize your readiness."
+description: "Understand how WHOOP calculates recovery from HRV, resting heart rate, sleep, and respiratory rate, plus what green, yellow, and red scores mean."
 tags: ["fitness", "health", "whoop", "recovery"]
 ---
 

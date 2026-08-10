@@ -8,6 +8,11 @@ import {
   buildAnomalyReport,
   subtractMetrics,
 } from './lib/gsc-anomalies.mjs';
+import {
+  compareQueryPageRows,
+  queriesForPages,
+  queryPageCtrOpportunities,
+} from './lib/gsc-query-pages.mjs';
 
 const SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:tobyonfitnesstech.com';
 const API_BASE = 'https://searchconsole.googleapis.com/webmasters/v3';
@@ -302,6 +307,13 @@ const queryComparisons = compareRows(
   adjustGroupedRows(currentQueries.rows, currentAnomalies, 'query'),
   adjustGroupedRows(priorQueries.rows, priorAnomalies, 'query'),
 );
+const queryPageComparisons = compareQueryPageRows(
+  currentQueryPages.rows,
+  priorQueryPages.rows,
+  currentAnomalies,
+  priorAnomalies,
+);
+const lowCtrPages = ctrOpportunities(pageComparisons);
 
 const result = {
   site: SITE_URL,
@@ -315,6 +327,8 @@ const result = {
       'Raw totals minus explicitly classified AgentStack query-page anomalies. Position is impression-weighted after subtraction.',
     queryPageRows:
       'Classification uses up to 25,000 final query-page rows per period. Rules and every removed row are included under anomalies.',
+    queryPageOpportunities:
+      'Query-page opportunities exclude classified anomalies and require at least 10 current impressions, CTR at or below 2%, and average position 20 or better.',
   },
   periods: {
     current: {
@@ -353,8 +367,10 @@ const result = {
   decliningPages: rankDecliners(pageComparisons),
   risingQueries: rankRisers(queryComparisons),
   decliningQueries: rankDecliners(queryComparisons),
-  lowCtrPages: ctrOpportunities(pageComparisons),
+  lowCtrPages,
   lowCtrQueries: ctrOpportunities(queryComparisons),
+  lowCtrQueryPages: queryPageCtrOpportunities(queryPageComparisons),
+  queriesByLowCtrPage: queriesForPages(queryPageComparisons, lowCtrPages),
   daily: daily.rows || [],
   devices: devices.rows || [],
   sitemaps: normalizeSitemaps(sitemaps),

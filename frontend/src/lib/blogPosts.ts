@@ -30,8 +30,8 @@ type RawFallbackBlogPost = Partial<BlogPost> & {
 
 const SEO_OVERRIDES: Record<string, Pick<BlogPost, 'title' | 'excerpt'>> = {
   'whoop-5-not-smaller-review': {
-    title: 'WHOOP 5 vs 4: Size, Thickness and Upgrade Differences',
-    excerpt: 'WHOOP 5 vs WHOOP 4 tested on wrist: exact size and thickness differences, comfort, battery, band compatibility, and whether the upgrade is worth it.',
+    title: 'WHOOP 4.0 vs 5.0: Size, Thickness & Upgrade Differences',
+    excerpt: 'WHOOP 4.0 vs 5.0 tested on wrist: exact dimensions, thickness, band width and compatibility, comfort, battery, and upgrade value.',
   },
   'garmin-and-whoop-what-each-is-actually-for': {
     title: 'Garmin vs WHOOP: What Each Tracker Is Actually For',
