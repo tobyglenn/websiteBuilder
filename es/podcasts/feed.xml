@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Sun, 09 Aug 2026 13:11:23 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 99 -->
+    <item>
+      <title>Episodio 99: AgentStack Daily: Resumen de lanzamiento de Agent Stack: OpenClaw v2026.6.34, v2026.6.33</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep099/episode_099.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-99/</link>
+      <description><![CDATA[Resumen de lanzamiento de Agent Stack: OpenClaw v2026.6.34 y v2026.6.33, Claude Code establece el modo automático como predeterminado, Kitesurf de...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-99/]]></description>
+      <pubDate>Mon, 10 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_099.mp3" length="34637575" type="audio/mpeg"/>
+      <itunes:duration>36:04</itunes:duration>
+      <itunes:episode>99</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep099/episode_099_cover.png"/>
+    </item>
+
     <!-- Episode 98 -->
     <item>
       <title>Episodio 98: AMD compra Taalas para integrar modelos individuales en el silicio</title>
