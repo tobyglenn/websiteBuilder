@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sun, 09 Aug 2026 13:11:23 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 99 -->
+    <item>
+      <title>Folge 99: AgentStack Daily: Agent-Stack Release-Überblick: OpenClaw v2026.6.34, v2026.6.33</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep099/episode_099.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-99/</link>
+      <description><![CDATA[Agent-Stack Release-Überblick: OpenClaw v2026.6.34 und v2026.6.33, Claude Code macht den Auto-Modus zum Standard, Cloudflares Kitesurf gibt KI-Agenten einen...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-99/]]></description>
+      <pubDate>Mon, 10 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_099.mp3" length="38066094" type="audio/mpeg"/>
+      <itunes:duration>39:39</itunes:duration>
+      <itunes:episode>99</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep099/episode_099_cover.png"/>
+    </item>
+
     <!-- Episode 98 -->
     <item>
       <title>Folge 98: AMD kauft Taalas, um einzelne Modelle in Silizium zu integrieren</title>
