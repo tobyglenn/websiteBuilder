@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 10 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Aug 2026 16:52:34 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 100 -->
+    <item>
+      <title>Episode 100: AgentStack Daily: Sakana ships Namazu, a Japanese-tuned reasoning model</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep100/episode_100.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-100/</link>
+      <description><![CDATA[Sakana ships Namazu, a Japanese-tuned reasoning model, Upstage Solar Pro 4 Lands on OpenRouter With Half-Million-Token Context, Meta's Muse Glimmer: a 30B...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-100/]]></description>
+      <pubDate>Tue, 11 Aug 2026 16:52:34 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep100/episode_100.mp3" length="32037869" type="audio/mpeg"/>
+      <itunes:duration>33:22</itunes:duration>
+      <itunes:episode>100</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep100/episode_100_cover.png"/>
+    </item>
+
     <!-- Episode 99 -->
     <item>
       <title>Episode 99: AgentStack Daily: Agent Stack Release Readout: OpenClaw v2026.6.34, v2026.6.33</title>
