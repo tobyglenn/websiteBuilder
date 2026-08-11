@@ -1405,6 +1405,31 @@
       "totalSessions": 1,
       "avgVolume": 2361.0,
       "totalVolume": 2361.0
+    },
+    "ARIA Handles Build Stamina 20260811": {
+      "name": "ARIA Handles Build Stamina 20260811",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-08-11",
+          "totalCapacity": 1408.5,
+          "durationMinute": 6,
+          "calorie": 161,
+          "actionNum": 4
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-08-11",
+        "totalCapacity": 1408.5,
+        "durationMinute": 6,
+        "calorie": 161,
+        "actionNum": 4
+      },
+      "totalSessions": 1,
+      "avgVolume": 1408.5,
+      "totalVolume": 1408.5
     }
   },
   "exercisePRs": {
@@ -1721,11 +1746,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 116,
-  "totalVolumeLbs": 781445.4,
+  "totalWorkouts": 117,
+  "totalVolumeLbs": 782853.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-08-10"
+    "end": "2026-08-11"
   },
   "allSessions": [
     {
@@ -2655,6 +2680,14 @@
       "durationMinute": 8,
       "calorie": 145,
       "actionNum": 5
+    },
+    {
+      "date": "2026-08-11",
+      "title": "ARIA Handles Build Stamina 20260811",
+      "totalCapacity": 1408.5,
+      "durationMinute": 6,
+      "calorie": 161,
+      "actionNum": 4
     }
   ]
 }
