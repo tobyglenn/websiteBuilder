@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Aug 2026 16:52:34 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 12 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 101 -->
+    <item>
+      <title>Episode 101: AgentStack Daily: NVIDIA's Nemotron 3.5 Lightning Lands on OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep101/episode_101.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-101/</link>
+      <description><![CDATA[NVIDIA's Nemotron 3.5 Lightning Lands on OpenRouter, NVIDIA spotlights open-source local AI push through August, OpenAI's Daybreak security models land on...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-101/]]></description>
+      <pubDate>Wed, 12 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep101/episode_101.mp3" length="32896775" type="audio/mpeg"/>
+      <itunes:duration>34:15</itunes:duration>
+      <itunes:episode>101</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep101/episode_101_cover.png"/>
+    </item>
+
     <!-- Episode 100 -->
     <item>
       <title>Episode 100: AgentStack Daily: Sakana ships Namazu, a Japanese-tuned reasoning model</title>
