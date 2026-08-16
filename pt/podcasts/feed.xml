@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Wed, 12 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 16 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 102 -->
+    <item>
+      <title>Episódio 102: AgentStack Diário: Modelo Qwen 2.4T de Peso Aberto Chega ao OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep102/episode_102.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-102/</link>
+      <description><![CDATA[O modelo Qwen 2.4T de peso aberto chega ao OpenRouter. O NIST pergunta como modernizar o Banco Nacional de Vulnerabilidades.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-102/]]></description>
+      <pubDate>Sun, 16 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_102.mp3" length="36152259" type="audio/mpeg"/>
+      <itunes:duration>37:39</itunes:duration>
+      <itunes:episode>102</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep102/episode_102_cover.png"/>
+    </item>
+
     <!-- Episode 101 -->
     <item>
       <title>Episódio 101: AgentStack Diário: NVIDIA's Nemotron 3.5 Lightning Chega ao OpenRouter</title>
