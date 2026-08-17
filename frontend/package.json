@@ -15,6 +15,7 @@
     "translate:blog:status": "node ./scripts/blog-translations.mjs status",
     "translate:blog:promote": "node ./scripts/blog-translations.mjs promote",
     "translate:blog:validate": "node ./scripts/blog-translations.mjs validate-output",
+    "translate:blog:quarantine-invalid": "node ./scripts/blog-translations.mjs quarantine-invalid",
     "translate:priority-pages:one": "node ./scripts/priority-page-translations.mjs translate-one",
     "translate:priority-pages:status": "node ./scripts/priority-page-translations.mjs status",
     "translate:priority-pages:promote": "node ./scripts/priority-page-translations.mjs promote",

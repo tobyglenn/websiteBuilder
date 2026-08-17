@@ -448,6 +448,44 @@
     scheduleHomepageSectionSummary("section_engaged");
   };
 
+  const resumeHomepageSectionVisibility = (section, state) => {
+    if (document.visibilityState !== "visible" || !state.isIntersecting) return;
+    if (!state.visibleSince) state.visibleSince = performance.now();
+    if (!state.viewed && !state.viewTimer) {
+      state.viewTimer = window.setTimeout(() => {
+        state.viewTimer = null;
+        if (!state.visibleSince || state.viewed || document.visibilityState !== "visible") return;
+        state.viewed = true;
+        state.firstViewMs = Date.now() - homepageSectionStartedAt;
+        window.toftAnalytics.capture("homepage_section_viewed", {
+          ...homepageSectionProperties(section),
+          time_to_view_ms: state.firstViewMs,
+          scroll_percent_at_view: maximumScrollPercent,
+          maximum_intersection_ratio: Number(state.maxIntersectionRatio.toFixed(2)),
+        });
+        scheduleHomepageSectionSummary("section_viewed");
+      }, 800);
+    }
+    if (!state.engaged && !state.engagementTimer) {
+      state.engagementTimer = window.setTimeout(() => {
+        state.engagementTimer = null;
+        captureHomepageSectionEngagement(section, state);
+      }, Math.max(0, 5000 - state.visibleMs));
+    }
+  };
+
+  const pauseHomepageSectionVisibility = () => {
+    const pausedAt = performance.now();
+    homepageSectionStates.forEach((state, section) => {
+      if (state.visibleSince) {
+        state.visibleMs += pausedAt - state.visibleSince;
+        state.visibleSince = 0;
+      }
+      clearHomepageSectionTimers(state);
+      captureHomepageSectionEngagement(section, state);
+    });
+  };
+
   const setupHomepageItemTracking = (sections) => {
     if (homepageItemObserver) homepageItemObserver.disconnect();
     homepageItemTimers.forEach((timer) => window.clearTimeout(timer));
@@ -509,6 +547,7 @@
       homepageSectionStates.set(section, {
         viewed: false,
         engaged: false,
+        isIntersecting: false,
         visibleSince: 0,
         visibleMs: 0,
         clicks: 0,
@@ -525,31 +564,11 @@
         const section = entry.target;
         const state = homepageSectionStates.get(section);
         if (!state) return;
+        state.isIntersecting = entry.isIntersecting;
         state.maxIntersectionRatio = Math.max(state.maxIntersectionRatio, entry.intersectionRatio);
 
         if (entry.isIntersecting) {
-          if (!state.visibleSince) state.visibleSince = performance.now();
-          if (!state.viewed && !state.viewTimer) {
-            state.viewTimer = window.setTimeout(() => {
-              state.viewTimer = null;
-              if (!state.visibleSince || state.viewed) return;
-              state.viewed = true;
-              state.firstViewMs = Date.now() - homepageSectionStartedAt;
-              window.toftAnalytics.capture("homepage_section_viewed", {
-                ...homepageSectionProperties(section),
-                time_to_view_ms: state.firstViewMs,
-                scroll_percent_at_view: maximumScrollPercent,
-                maximum_intersection_ratio: Number(state.maxIntersectionRatio.toFixed(2)),
-              });
-              scheduleHomepageSectionSummary("section_viewed");
-            }, 800);
-          }
-          if (!state.engaged && !state.engagementTimer) {
-            state.engagementTimer = window.setTimeout(() => {
-              state.engagementTimer = null;
-              captureHomepageSectionEngagement(section, state);
-            }, Math.max(0, 5000 - state.visibleMs));
-          }
+          resumeHomepageSectionVisibility(section, state);
           return;
         }
 
@@ -663,10 +682,23 @@
   document.addEventListener("astro:page-load", capturePageview);
   setupHomepageSectionTracking();
   document.addEventListener("astro:page-load", setupHomepageSectionTracking);
-  document.addEventListener("astro:before-swap", () => captureHomepageSectionSummary("before_swap"));
-  window.addEventListener("pagehide", () => captureHomepageSectionSummary("pagehide"));
+  document.addEventListener("astro:before-swap", () => {
+    pauseHomepageSectionVisibility();
+    captureHomepageSectionSummary("before_swap");
+  });
+  window.addEventListener("pagehide", () => {
+    pauseHomepageSectionVisibility();
+    captureHomepageSectionSummary("pagehide");
+  });
   document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "hidden") captureHomepageSectionSummary("visibility_hidden");
+    if (document.visibilityState === "hidden") {
+      pauseHomepageSectionVisibility();
+      captureHomepageSectionSummary("visibility_hidden");
+      return;
+    }
+    homepageSectionStates.forEach((state, section) => {
+      resumeHomepageSectionVisibility(section, state);
+    });
   });
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;

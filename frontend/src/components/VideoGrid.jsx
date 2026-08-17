@@ -39,6 +39,17 @@ const DURATION_FILTERS = [
   { id: 'long', name: 'Long (20+ min)' },
 ];
 
+function useDebounce(value, delay) {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setDebouncedValue(value), delay);
+    return () => window.clearTimeout(timer);
+  }, [value, delay]);
+
+  return debouncedValue;
+}
+
 const getCategoryFromLocation = () => {
   const hashCategory = window.location.hash.replace(/^#/, '').toLowerCase();
   if (hashCategory && CATEGORIES.some(c => c.id === hashCategory)) {
@@ -111,6 +122,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
   const [durationFilter, setDurationFilter] = useState('all');
   const [searchInput, setSearchInput] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 700);
   const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
   const lastSearchEvent = useRef('');
 
@@ -264,14 +276,30 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
   }, [visibleSourceVideos, selectedCategory, sortBy, durationFilter, searchQuery, limit]);
 
   useEffect(() => {
-    if (!searchQuery || lastSearchEvent.current === searchQuery) return;
-    lastSearchEvent.current = searchQuery;
+    const settledQuery = debouncedSearchQuery.trim();
+    if (settledQuery.length < 2 || searchQuery.trim() !== settledQuery) {
+      if (!settledQuery) lastSearchEvent.current = '';
+      return;
+    }
+    const searchKey = `${settledQuery}:${filteredVideos.length}`;
+    if (lastSearchEvent.current === searchKey) return;
+    lastSearchEvent.current = searchKey;
     captureEvent('search_performed', {
-      search_query: cleanAnalyticsText(searchQuery, 80),
+      search_surface: 'video_grid',
+      search_query: cleanAnalyticsText(settledQuery, 80),
       result_count: filteredVideos.length,
+      search_settle_ms: 700,
       content_type: 'video',
     });
-  }, [searchQuery, filteredVideos.length]);
+    if (filteredVideos.length === 0) {
+      captureEvent('search_no_results', {
+        search_surface: 'video_grid',
+        search_query: cleanAnalyticsText(settledQuery, 80),
+        search_settle_ms: 700,
+        content_type: 'video',
+      });
+    }
+  }, [debouncedSearchQuery, searchQuery, filteredVideos.length]);
 
   return (
     <div className="space-y-6">

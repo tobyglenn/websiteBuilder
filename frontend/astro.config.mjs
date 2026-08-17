@@ -16,6 +16,9 @@ const EXCLUDED_SITEMAP_PATHS = [
 
 const shouldIncludeInSitemap = (page) => {
   const pathname = new URL(page).pathname;
+  if (pathname === '/speediance/workouts/' && process.env.PUBLIC_WORKOUT_HUB_ENABLED !== 'true') {
+    return false;
+  }
   return !EXCLUDED_SITEMAP_PATHS.some((pattern) => pattern.test(pathname));
 };
 

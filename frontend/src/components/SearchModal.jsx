@@ -68,7 +68,7 @@ export default function SearchModal({ isOpen, onClose }) {
   const lastSearchEvent = useRef('');
   const resultClicked = useRef(false);
   
-  const debouncedQuery = useDebounce(query, 200);
+  const debouncedQuery = useDebounce(query, 700);
 
   // Focus input when modal opens
   useEffect(() => {
@@ -82,9 +82,11 @@ export default function SearchModal({ isOpen, onClose }) {
 
   // Perform search when query changes
   useEffect(() => {
-    if (!debouncedQuery) {
+    const settledQuery = debouncedQuery.trim();
+    if (settledQuery.length < 2) {
       setResults(EMPTY_RESULTS);
       setError('');
+      if (!settledQuery) lastSearchEvent.current = '';
       return;
     }
 
@@ -95,24 +97,26 @@ export default function SearchModal({ isOpen, onClose }) {
     loadSearchIndex()
       .then((searchIndex) => {
         if (!isCurrent) return;
-        const nextResults = searchContent(searchIndex, debouncedQuery);
+        const nextResults = searchContent(searchIndex, settledQuery);
         setResults(nextResults);
         const resultCount = nextResults.blogPosts.length + nextResults.videos.length;
-        const searchKey = `${debouncedQuery}:${resultCount}`;
+        const searchKey = `${settledQuery}:${resultCount}`;
         if (lastSearchEvent.current !== searchKey) {
           lastSearchEvent.current = searchKey;
           captureEvent('search_performed', {
             search_surface: 'site_modal',
-            search_query: cleanAnalyticsText(debouncedQuery, 80),
+            search_query: cleanAnalyticsText(settledQuery, 80),
             result_count: resultCount,
             blog_result_count: nextResults.blogPosts.length,
             video_result_count: nextResults.videos.length,
+            search_settle_ms: 700,
             content_type: 'site',
           });
           if (resultCount === 0) {
             captureEvent('search_no_results', {
               search_surface: 'site_modal',
-              search_query: cleanAnalyticsText(debouncedQuery, 80),
+              search_query: cleanAnalyticsText(settledQuery, 80),
+              search_settle_ms: 700,
               content_type: 'site',
             });
           }

@@ -48,6 +48,28 @@ test('rejects translations that drop a source URL', () => {
   assert.throws(() => validateTranslationDraft(translated, source), /missing preserved links/);
 });
 
+test('rejects provider command leakage appended to translated content', () => {
+  const translated = {
+    title: 'Prueba de recuperacion WHOOP',
+    excerpt: 'Una descripcion completa para lectores del articulo traducido.',
+    category: 'Wearables',
+    tags: ['WHOOP'],
+    content: `${'## Resultado\n\nLea la [pagina de WHOOP](/whoop/) y https://example.com/data.\n\nEl contenido traducido permanece intacto. '.repeat(8)} --max-tokens 8192 --no-fallback --system Devuelve solo el objeto JSON final.`,
+  };
+  assert.throws(() => validateTranslationDraft(translated, source), /model or command leakage/);
+});
+
+test('rejects malformed translated URLs and unbalanced heading tags', () => {
+  const translated = {
+    title: 'WHOOP-Erholungstest',
+    excerpt: 'Eine klare Beschreibung des vollstandigen Artikels fur Leser.',
+    category: 'Wearables',
+    tags: ['WHOOP'],
+    content: `${'<h2>Ergebnis</h2><p>Lesen Sie die <a href="/whoop/">WHOOP-Seite</a> und https://example.com/data. Der vollstandige ubersetzte Inhalt bleibt erhalten.</p>'.repeat(8)}</h2> https://example.com/data\`\``,
+  };
+  assert.throws(() => validateTranslationDraft(translated, source), /malformed URL backticks|unbalanced h2 tags/);
+});
+
 test('rejects untranslated titles and descriptions', () => {
   const translated = {
     title: source.title,

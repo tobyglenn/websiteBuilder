@@ -31,6 +31,18 @@ const PROTECTED_NAMES = [
   'Claude',
   'BJJ',
 ];
+const TRANSLATION_LEAK_PATTERNS = [
+  /--max-tokens\b/i,
+  /--no-fallback\b/i,
+  /--system\b/i,
+  /deterministic professional translator/i,
+  /return only (?:the )?(?:requested )?(?:final )?json/i,
+  /do not include (?:reasoning|commentary)/i,
+  /devuelve (?:solo|unicamente|únicamente).{0,100}json/i,
+  /no incluyas (?:razonamiento|comentarios)/i,
+  /gib nur.{0,100}json/i,
+  /retorne apenas.{0,100}json/i,
+];
 const PRIORITY_SLUGS = [
   'garmin-and-whoop-what-each-is-actually-for',
   'anthropic-refund-scam',
@@ -299,6 +311,7 @@ export const validateTranslationDraft = (draft, source) => {
   const category = String(draft?.category || '').trim();
   const content = String(draft?.content || '').trim();
   const tags = Array.isArray(draft?.tags) ? draft.tags.map((tag) => String(tag).trim()).filter(Boolean) : [];
+  const sourceText = [source.title, source.excerpt, source.category, ...source.tags, source.content].join('\n');
 
   if (title.length < 5 || title.length > 180) errors.push('title length is invalid');
   if (excerpt.length < 20 || excerpt.length > 600) errors.push('excerpt length is invalid');
@@ -322,7 +335,7 @@ export const validateTranslationDraft = (draft, source) => {
   if (missingLinks.length) errors.push(`missing preserved links: ${missingLinks.slice(0, 3).join(', ')}`);
 
   const sourceNumbers = numericTokens(`${source.title}\n${source.excerpt}\n${source.content}`);
-  const translatedText = `${title}\n${excerpt}\n${content}`;
+  const translatedText = [title, excerpt, category, ...tags, content].join('\n');
   const missingNumbers = sourceNumbers.filter((token) =>
     !localizedNumericVariants(token).some((variant) => translatedText.includes(variant)),
   );
@@ -342,6 +355,20 @@ export const validateTranslationDraft = (draft, source) => {
     errors.push('translated content lost too many headings');
   }
   if (/^```/.test(content) || /```$/.test(content)) errors.push('content contains a wrapping code fence');
+  for (const pattern of TRANSLATION_LEAK_PATTERNS) {
+    if (pattern.test(translatedText) && !pattern.test(sourceText)) {
+      errors.push(`content contains model or command leakage: ${pattern.source}`);
+      break;
+    }
+  }
+  if (/https?:\/\/[^\s<>"']+`{2,}/i.test(translatedText)) {
+    errors.push('content contains malformed URL backticks');
+  }
+  for (const level of [1, 2, 3]) {
+    const openingCount = (content.match(new RegExp(`<h${level}\\b`, 'gi')) || []).length;
+    const closingCount = (content.match(new RegExp(`</h${level}>`, 'gi')) || []).length;
+    if (openingCount !== closingCount) errors.push(`content has unbalanced h${level} tags`);
+  }
 
   if (errors.length) throw new Error(errors.join('; '));
   return { title, excerpt, category, tags, content };
@@ -729,12 +756,64 @@ const validateOutput = async () => {
   console.log(JSON.stringify({ outcome: 'valid', translatedPosts: outputBySlug.size, files: outputBySlug.size * LOCALES.length }));
 };
 
+const quarantineInvalidOutput = async () => {
+  const posts = await loadSourcePosts();
+  const postBySlug = new Map(posts.map((post) => [post.slug, post]));
+  const invalid = [];
+
+  for (const locale of LOCALES) {
+    const directory = join(outputRoot, locale);
+    const filenames = existsSync(directory) ? await readdir(directory) : [];
+    for (const filename of filenames.filter((name) => name.endsWith('.json'))) {
+      const record = await readJson(join(directory, filename));
+      const post = postBySlug.get(record?.slug);
+      try {
+        if (!post) throw new Error('translation has no current source');
+        if (record.lang !== locale) throw new Error('translation locale mismatch');
+        if (record.sourceHash !== computeSourceHash(post)) throw new Error('stale translation source hash');
+        validateTranslationDraft(record, post);
+      } catch (error) {
+        invalid.push({
+          locale,
+          slug: record?.slug || filename.replace(/\.json$/, ''),
+          error: String(error?.message || error),
+        });
+      }
+    }
+  }
+
+  const invalidSlugs = [...new Set(invalid.map((entry) => entry.slug))].sort();
+  for (const slug of invalidSlugs) {
+    const post = postBySlug.get(slug);
+    for (const locale of LOCALES) {
+      rmSync(translationPath(outputRoot, locale, slug), { force: true });
+      rmSync(translationPath(stagingRoot, locale, slug), { force: true });
+      if (post) clearSegmentCache(post, locale);
+    }
+  }
+
+  const failures = await readFailures();
+  for (const slug of invalidSlugs) {
+    for (const locale of LOCALES) delete failures[`${slug}:${locale}`];
+  }
+  await writeJsonAtomic(failuresPath, failures);
+  const status = await saveStatus(posts);
+  console.log(JSON.stringify({
+    outcome: 'quarantined',
+    invalidFiles: invalid.length,
+    invalidSlugs,
+    invalid,
+    ...status,
+  }, null, 2));
+};
+
 const main = async () => {
   const [command = 'status', ...rest] = process.argv.slice(2);
   const options = parseArgs(rest);
   if (command === 'translate-one') return translateOne(options);
   if (command === 'promote') return promoteAll();
   if (command === 'validate-output') return validateOutput();
+  if (command === 'quarantine-invalid') return quarantineInvalidOutput();
   if (command === 'status') {
     const posts = await loadSourcePosts();
     console.log(JSON.stringify(await saveStatus(posts), null, 2));
