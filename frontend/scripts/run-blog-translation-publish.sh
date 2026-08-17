@@ -22,6 +22,13 @@ npm run translate:blog:validate
 npm run translate:priority-pages:promote
 npm run translate:priority-pages:validate
 
+blog_remaining="$(node ./scripts/blog-translations.mjs status | jq -r '.remaining')"
+priority_remaining="$(node ./scripts/priority-page-translations.mjs status | jq -r '.remaining')"
+if (( blog_remaining > 0 || priority_remaining > 0 )); then
+  echo "Translation publish deferred: blog_remaining=$blog_remaining priority_remaining=$priority_remaining"
+  exit 0
+fi
+
 cd "$TRANSLATION_REPO_ROOT"
 publish_paths=(frontend/src/generated/blog-translations)
 priority_count=0

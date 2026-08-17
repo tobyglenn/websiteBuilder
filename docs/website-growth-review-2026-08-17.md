@@ -91,6 +91,7 @@ Desktop recorded 64 menu opens from 28 people and 13 selections (20.3% event-lev
 4. A versioned Hermes installer restores daily publishing, translation, weekly GSC, and sitemap jobs without an LLM agent. Existing scripts retain build-log and Telegram failure reporting.
 5. The disabled Speediance Workout Hub redirect is excluded from the local sitemap. The DGX production build deliberately includes it because `PUBLIC_WORKOUT_HUB_ENABLED=true`, yielding 2,077 instead of 2,076 URLs.
 6. Podcast RSS builds now pin GitHub content when possible, authenticate GitHub requests in Actions, and retry through jsDelivr when GitHub Raw is rate-limited. Authorization is restricted to GitHub-owned hosts and never sent to the mirror.
+7. Translation publishing now waits until both blog and priority-page backlogs reach zero, preventing quarantine deletions from creating temporary localized 404s while MiniMax regenerates the set.
 
 ## Tracking And GSC Gaps
 
