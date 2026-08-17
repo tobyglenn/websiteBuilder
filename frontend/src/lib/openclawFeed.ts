@@ -31,6 +31,36 @@ export function extractChannelItems(xml: string): string[] {
 
 const pinnedRepoShaCache = new Map<string, Promise<string>>();
 
+const GITHUB_AUTH_HOSTS = new Set(['api.github.com', 'raw.githubusercontent.com']);
+
+export function githubRequestHeaders(
+  url: string,
+  accept: string,
+  userAgent: string,
+  token = process.env.GITHUB_TOKEN || process.env.GH_TOKEN || '',
+): Record<string, string> {
+  const hostname = new URL(url).hostname;
+  return {
+    Accept: accept,
+    'User-Agent': userAgent,
+    ...(token && GITHUB_AUTH_HOSTS.has(hostname)
+      ? { Authorization: `Bearer ${token}` }
+      : {}),
+  };
+}
+
+export function githubRawFallbackUrls(sourceUrl: string): string[] {
+  const match = sourceUrl.match(
+    /^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/([^/]+)\/(.+)$/,
+  );
+  if (!match) return [sourceUrl];
+  const [, owner, repo, ref, path] = match;
+  return [
+    sourceUrl,
+    `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${path}`,
+  ];
+}
+
 export async function resolvePinnedGitHubRawUrl(sourceUrl: string): Promise<string> {
   const match = sourceUrl.match(
     /^https:\/\/raw\.githubusercontent\.com\/([^/]+)\/([^/]+)\/main\/(.+)$/,
@@ -43,15 +73,14 @@ export async function resolvePinnedGitHubRawUrl(sourceUrl: string): Promise<stri
     let shaPromise = pinnedRepoShaCache.get(repoKey);
     if (!shaPromise) {
       shaPromise = (async () => {
-        const commitRes = await fetch(
-          `https://api.github.com/repos/${owner}/${repo}/commits/main`,
-          {
-            headers: {
-              Accept: "application/vnd.github+json",
-              "User-Agent": "websiteBuilder-openclaw-feed",
-            },
-          },
-        );
+        const commitUrl = `https://api.github.com/repos/${owner}/${repo}/commits/main`;
+        const commitRes = await fetch(commitUrl, {
+          headers: githubRequestHeaders(
+            commitUrl,
+            'application/vnd.github+json',
+            'websiteBuilder-openclaw-feed',
+          ),
+        });
         if (!commitRes.ok) return "";
         const commitData = await commitRes.json();
         return typeof commitData?.sha === "string" ? commitData.sha : "";
@@ -68,11 +97,29 @@ export async function resolvePinnedGitHubRawUrl(sourceUrl: string): Promise<stri
 
 export async function fetchPinnedGitHubRawText(sourceUrl: string): Promise<string> {
   const pinnedUrl = await resolvePinnedGitHubRawUrl(sourceUrl);
-  const res = await fetch(pinnedUrl);
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status}`);
+  const candidates = [...new Set([
+    ...githubRawFallbackUrls(pinnedUrl),
+    ...githubRawFallbackUrls(sourceUrl),
+  ])];
+  const failures: string[] = [];
+
+  for (const url of candidates) {
+    try {
+      const res = await fetch(url, {
+        headers: githubRequestHeaders(
+          url,
+          'application/xml,text/xml,text/plain,*/*',
+          'websiteBuilder-openclaw-feed',
+        ),
+      });
+      if (res.ok) return await res.text();
+      failures.push(`${new URL(url).hostname}: HTTP ${res.status}`);
+    } catch (error) {
+      failures.push(`${new URL(url).hostname}: ${String(error)}`);
+    }
   }
-  return await res.text();
+
+  throw new Error(`Podcast feed fetch failed (${failures.join('; ')})`);
 }
 
 export function parseEpisodeNumber(itemXml: string): number {

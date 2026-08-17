@@ -50,6 +50,7 @@ jobs:
           PUBLIC_WORKOUT_HUB_ENABLED: "true"
           PUBLIC_POSTHOG_KEY: ${{ vars.PUBLIC_POSTHOG_KEY }}
           PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Submit to IndexNow
         run: |

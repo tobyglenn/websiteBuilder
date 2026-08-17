@@ -11,6 +11,7 @@ import {
   extractAttr,
   extractChannelItems,
   extractTag,
+  fetchPinnedGitHubRawText,
   fetchFirstAvailableText,
   normalizeEpisodeTitle,
   parseEpisodeNumber,
@@ -57,8 +58,9 @@ export async function getStaticPaths() {
       'https://tobyonfitnesstech.com/podcasts/agentstack/'
     );
   // 1. Fetch RSS
-  const rssRes = await fetch('https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml');
-  const rssText = await rssRes.text();
+  const rssText = await fetchPinnedGitHubRawText(
+    'https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/feed.xml',
+  );
 
   // 2. Parse episodes
   const items = extractChannelItems(rssText);
