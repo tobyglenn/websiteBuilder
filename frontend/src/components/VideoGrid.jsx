@@ -9,7 +9,7 @@ const CATEGORIES = [
   { id: 'speediance', name: 'Speediance' },
   { id: 'bjj', name: 'BJJ' },
   { id: 'wearables', name: 'Wearables' },
-  { id: 'openclaw', name: 'OpenClaw' },
+  { id: 'coding', name: 'Coding' },
   { id: 'training', name: 'Training' },
   { id: 'shorts', name: 'Shorts' },
 ];
@@ -18,7 +18,7 @@ const CATEGORY_BADGE_STYLES = {
   speediance: 'bg-blue-600 text-white',
   bjj: 'bg-emerald-600 text-white',
   wearables: 'bg-cyan-600 text-white',
-  openclaw: 'bg-indigo-600 text-white',
+  coding: 'bg-indigo-600 text-white',
   training: 'bg-neutral-700 text-white',
   shorts: 'bg-sky-600 text-white',
   all: 'bg-neutral-800 text-neutral-300',
@@ -77,8 +77,8 @@ function categorizeVideo(title, description = '') {
   if (text.includes('whoop') || text.includes('garmin') || text.includes('8sleep') || text.includes('sleep') || text.includes('recovery')) {
     cats.push('wearables');
   }
-  if (text.includes('openclaw') || text.includes('ai') || text.includes('app') || text.includes('automation')) {
-    cats.push('openclaw');
+  if (text.includes('openclaw') || text.includes('coding') || text.includes('code') || text.includes('ai') || text.includes('app') || text.includes('automation')) {
+    cats.push('coding');
   }
 
   if (cats.length === 0) cats.push('training');

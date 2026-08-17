@@ -77,6 +77,46 @@ async function getFallbackFromVideosJson() {
   }
 }
 
+async function updateVideosJson(entries) {
+  try {
+    const raw = await readFile(VIDEOS_JSON, 'utf8');
+    const data = JSON.parse(raw);
+    const existingVideos = data.videos || [];
+    const existingIds = new Set(existingVideos.map((v) => v.id));
+
+    let addedCount = 0;
+    const toAdd = [...entries].reverse().filter((entry) => !existingIds.has(entry.id));
+
+    for (const entry of toAdd) {
+      const newVideo = {
+        id: entry.id,
+        title: entry.title,
+        description: entry.description,
+        thumbnail: entry.thumbnail || `https://i.ytimg.com/vi/${entry.id}/hqdefault.jpg`,
+        publishedAt: entry.publishedAt,
+        videoOwnerChannelTitle: 'Toby Glenn',
+        is_live: entry.is_live,
+        is_short: entry.is_short,
+        duration_formatted: '',
+        viewCount: entry.viewCount || 0,
+        duration: '',
+        duration_iso: '',
+        comments: [],
+      };
+      existingVideos.unshift(newVideo);
+      addedCount++;
+    }
+
+    if (addedCount > 0) {
+      data.videos = existingVideos;
+      await writeFile(VIDEOS_JSON, `${JSON.stringify(data, null, 2)}\n`, 'utf8');
+      console.log(`Added ${addedCount} new video(s) to videos.json from RSS feed`);
+    }
+  } catch (error) {
+    console.warn(`Failed to sync videos.json from RSS: ${error instanceof Error ? error.message : String(error)}`);
+  }
+}
+
 async function main() {
   let featuredVideo = null;
 
@@ -88,6 +128,7 @@ async function main() {
 
     const feedXml = await response.text();
     const entries = parseFeedEntries(feedXml);
+    await updateVideosJson(entries);
     featuredVideo = entries.find((entry) => !entry.is_short && !entry.is_live) ?? null;
   } catch (error) {
     console.warn(

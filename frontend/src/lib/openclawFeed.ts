@@ -56,6 +56,7 @@ export function githubRawFallbackUrls(sourceUrl: string): string[] {
   if (!match) return [sourceUrl];
   const [, owner, repo, ref, path] = match;
   return [
+    `https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${ref}`,
     sourceUrl,
     `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${path}`,
   ];
@@ -108,7 +109,7 @@ export async function fetchPinnedGitHubRawText(sourceUrl: string): Promise<strin
       const res = await fetch(url, {
         headers: githubRequestHeaders(
           url,
-          'application/xml,text/xml,text/plain,*/*',
+          'application/vnd.github.raw+json,application/vnd.github.v3.raw,application/xml,text/xml,text/plain,*/*',
           'websiteBuilder-openclaw-feed',
         ),
       });
