@@ -6,6 +6,7 @@ import { SEO } from 'astro-seo';
 import { ClientRouter } from 'astro:transitions';
 import LangDetect from '../components/LangDetect.astro';
 import PostHogAnalytics from '../components/PostHogAnalytics.astro';
+import MicrosoftClarity from '../components/MicrosoftClarity.astro';
 
 interface Props {
   title: string;
@@ -533,6 +534,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     
     <LangDetect />
     <PostHogAnalytics />
+    <MicrosoftClarity />
     
     <ClientRouter />
     
