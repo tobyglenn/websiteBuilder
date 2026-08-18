@@ -19,7 +19,6 @@ import {
   Scale,
   Shield,
   Trophy,
-  User,
   Watch,
   X,
 } from 'lucide-react';
@@ -28,7 +27,9 @@ import { captureEvent } from '../lib/analytics.js';
 
 const LOCALE_STORAGE_KEY = 'site-lang';
 const LEGACY_LOCALE_STORAGE_KEY = 'preferredLang';
-const NAVIGATION_SCHEMA_VERSION = 'nav-2026-08-04-a';
+const NAVIGATION_SCHEMA_VERSION = 'nav-2026-08-18-comparisons-a';
+const NAVIGATION_TEST_ID = 'primary-slot-7-about-vs-comparisons';
+const NAVIGATION_TEST_VARIANT = 'comparisons';
 const SUPPORTED_LOCALES = ['en', 'de', 'es', 'pt', 'hi'];
 const LOCALE_LABELS = {
   en: 'English',
@@ -40,35 +41,35 @@ const LOCALE_LABELS = {
 
 const NAV_TRANSLATIONS = {
   en: {
-    reviews: 'Reviews', training: 'Training Data', articles: 'Articles', videos: 'Videos', podcasts: 'Projects', about: 'About',
+    reviews: 'Reviews', training: 'Training Data', articles: 'Articles', videos: 'Videos', podcasts: 'Projects', about: 'About', comparisons: 'Comparisons',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Gear', compare: 'Compare Trackers', calculators: 'Calculators',
     trainingOverview: 'Training Overview', running: 'Running', recovery: 'Recovery', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR Board',
     agentstack: 'AgentStack', fitnessPodcast: 'Fitness Tech Podcast', allPodcasts: 'All Projects', startHere: 'Start Here',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   de: {
-    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Projects', about: 'Über mich',
+    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Projects', about: 'Über mich', comparisons: 'Vergleiche',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Ausrüstung', compare: 'Tracker vergleichen', calculators: 'Rechner',
     trainingOverview: 'Training', running: 'Laufen', recovery: 'Erholung', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR-Tafel',
     agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'All Projects', startHere: 'Hier starten',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   es: {
-    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Projects', about: 'Acerca de',
+    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Projects', about: 'Acerca de', comparisons: 'Comparaciones',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipo', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Entrenamiento', running: 'Running', recovery: 'Recuperación', transformation: 'Transformación', bjj: 'BJJ', prs: 'Tabla PR',
     agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Empieza aquí',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   pt: {
-    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Projects', about: 'Sobre',
+    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Projects', about: 'Sobre', comparisons: 'Comparações',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipamento', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Treino', running: 'Corrida', recovery: 'Recuperação', transformation: 'Transformação', bjj: 'BJJ', prs: 'Quadro de PR',
     agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Comece aqui',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
   },
   hi: {
-    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'Projects', about: 'परिचय',
+    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'Projects', about: 'परिचय', comparisons: 'तुलनाएँ',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'गियर', compare: 'Tracker तुलना', calculators: 'कैलकुलेटर',
     trainingOverview: 'ट्रेनिंग', running: 'दौड़', recovery: 'रिकवरी', transformation: 'परिवर्तन', bjj: 'BJJ', prs: 'PR बोर्ड',
     agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'All Projects', startHere: 'यहाँ से शुरू करें',
@@ -102,6 +103,8 @@ function NavAnchor({ item, pathname, surface = 'desktop', group = 'primary', ite
       data-navigation-position={itemPosition}
       data-navigation-current={active ? 'true' : 'false'}
       data-navigation-version={NAVIGATION_SCHEMA_VERSION}
+      data-navigation-test-id={item.navigationTestId || ''}
+      data-navigation-test-variant={item.navigationTestVariant || ''}
       className={`flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
         active ? 'bg-neutral-800 text-white' : 'text-neutral-300 hover:bg-neutral-900 hover:text-white'
       }`}
@@ -288,7 +291,13 @@ export default function Header() {
     { name: t.articles, href: localizedHref(locale, '/blog/'), icon: FileText },
     { name: t.videos, href: localizedHref(locale, '/videos/'), icon: PlaySquare },
     { name: t.agentstack, href: '/agentstack/', icon: Cpu },
-    { name: t.about, href: localizedHref(locale, '/about/'), icon: User },
+    {
+      name: t.comparisons,
+      href: localizedHref(locale, '/compare/'),
+      icon: Scale,
+      navigationTestId: NAVIGATION_TEST_ID,
+      navigationTestVariant: NAVIGATION_TEST_VARIANT,
+    },
   ], [locale, t]);
 
   useEffect(() => {
@@ -299,6 +308,8 @@ export default function Header() {
       navigation_top_level_items: 7,
       navigation_menu_groups: 3,
       navigation_language: locale,
+      navigation_test_id: NAVIGATION_TEST_ID,
+      navigation_test_variant: NAVIGATION_TEST_VARIANT,
     });
   }, [locale, pathname]);
 

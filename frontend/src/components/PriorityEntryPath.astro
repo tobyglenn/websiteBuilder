@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Cpu, Dumbbell, Watch } from 'lucide-react';
+import { ArrowRight, Cpu, Dumbbell, FileText, Watch } from 'lucide-react';
 
 interface Props {
   context?: string;
@@ -14,8 +14,19 @@ const {
 } = Astro.props;
 
 const haystack = `${Astro.url.pathname} ${context}`.toLowerCase();
+const isAnthropicRefundArticle = /\/blog\/anthropic-refund-scam\/?$/.test(sourceSlug)
+  || /\/blog\/anthropic-refund-scam\/?$/.test(Astro.url.pathname);
 
-const route = /speediance|tonal|gym monster|smart gym|voltra|aeke/.test(haystack)
+const route = isAnthropicRefundArticle
+  ? {
+      eyebrow: 'Preparing a refund request?',
+      title: 'Build the evidence trail before you escalate',
+      description: 'Use the timeline and documentation checklist in this article to preserve the promise, denial, access dates, and billing record.',
+      href: '#refund-evidence-checklist',
+      label: 'Open evidence checklist',
+      icon: FileText,
+    }
+  : /speediance|tonal|gym monster|smart gym|voltra|aeke/.test(haystack)
   ? {
       eyebrow: 'Comparing smart gyms?',
       title: 'Start with Gym Monster 1 vs 2 vs 2S',

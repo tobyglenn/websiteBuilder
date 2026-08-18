@@ -52,6 +52,23 @@ Let's be precise about what just happened here:
 
 This isn't a refund policy. This is a **refund theater** — the performance of offering a refund while engineering the system to ensure zero people can actually get one.
 
+<span id="refund-evidence-checklist"></span>
+
+## Refund Evidence Checklist
+
+Before contacting support again or escalating through your payment provider, preserve the record while every date and message is still easy to find. This is the evidence trail I wish had been obvious from the start:
+
+| Evidence | What to save | What it establishes |
+| --- | --- | --- |
+| Written refund promise | The complete email with sender, date, and wording visible | What Anthropic said would happen |
+| Access interruption | Screenshots of the lockout and the first date access failed | When the paid service stopped working |
+| Self-service denial | The complete rejection screen, including the stated reason | What happened when you followed the refund path |
+| Cancellation attempts | Screenshots or recordings of each failed cancellation attempt | Whether the account controls worked |
+| Billing record | Invoice, charge date, plan period, and amount | What period and service the charge covered |
+| Support timeline | A dated list of every contact attempt and response | How long the issue remained unresolved |
+
+Keep the originals, not just cropped excerpts, and redact account numbers before sharing anything publicly. This is documentation of my experience, not legal or financial advice.
+
 ## The Pattern
 
 This isn't even the first time Anthropic has done this.

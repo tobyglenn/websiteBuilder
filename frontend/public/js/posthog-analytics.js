@@ -316,6 +316,8 @@
         navigation_item_position: Number(target.getAttribute("data-navigation-position") || 0),
         navigation_is_current: target.getAttribute("data-navigation-current") === "true",
         navigation_schema_version: target.getAttribute("data-navigation-version") || "",
+        navigation_test_id: target.getAttribute("data-navigation-test-id") || "",
+        navigation_test_variant: target.getAttribute("data-navigation-test-variant") || "",
       };
       window.toftAnalytics.capture(explicitEvent, explicitProperties);
       if (explicitEvent === "navigation_click") {
@@ -398,6 +400,8 @@
     homepage_section_position: Number(section.dataset.homepagePosition || 0),
     homepage_total_sections: document.querySelectorAll("[data-homepage-section]").length,
     homepage_layout_version: homepageLayoutVersion,
+    homepage_test_id: section.dataset.homepageTestId || "",
+    homepage_test_variant: section.dataset.homepageTestVariant || "",
     homepage_visit_id: homepageVisitId,
     viewport_width: window.innerWidth,
     viewport_height: window.innerHeight,
@@ -732,6 +736,8 @@
       navigation_item_position: Number(element.getAttribute("data-navigation-position") || 0),
       navigation_is_current: element.getAttribute("data-navigation-current") === "true",
       navigation_schema_version: element.getAttribute("data-navigation-version") || "",
+      navigation_test_id: element.getAttribute("data-navigation-test-id") || "",
+      navigation_test_variant: element.getAttribute("data-navigation-test-variant") || "",
       destination: destinationType(href),
       destination_url: parsedUrl && href ? parsedUrl.href : "",
     };

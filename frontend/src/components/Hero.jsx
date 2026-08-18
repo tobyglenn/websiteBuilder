@@ -1,8 +1,5 @@
 import React from 'react';
-import { Play, Dumbbell, Users, TrendingDown, ArrowRight } from 'lucide-react';
-import { videos as allVideos } from '../data/youtube.js';
-import homepageHeroVideoData from '../data/homepageHeroVideo.json';
-import { isLiveVideo, selectFeaturedVideo } from '../lib/videoMeta.js';
+import { ArrowRight, Dumbbell, Scale, TrendingDown, Users } from 'lucide-react';
 
 const t = {
   en: {
@@ -82,12 +79,47 @@ const t = {
   },
 };
 
+const demandFeatures = {
+  en: {
+    eyebrow: 'Most-searched comparison',
+    cta: 'Compare Gym Monsters',
+    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
+    description: 'Choose between the original value pick, the refined Gym Monster 2, and the 260 lb Gym Monster 2S.',
+    href: '/speediance/gym-monster-1-vs-2-vs-2s/',
+  },
+  de: {
+    eyebrow: 'Meistgesuchter Vergleich',
+    cta: 'Gym Monster vergleichen',
+    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
+    description: 'Vergleiche das Original, den verfeinerten Gym Monster 2 und den Gym Monster 2S mit 260 lb Widerstand.',
+    href: '/de/speediance/gym-monster-1-vs-2-vs-2s/',
+  },
+  es: {
+    eyebrow: 'Comparativa más buscada',
+    cta: 'Comparar Gym Monster',
+    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
+    description: 'Compara el modelo original, el refinado Gym Monster 2 y el Gym Monster 2S con 260 lb de resistencia.',
+    href: '/es/speediance/gym-monster-1-vs-2-vs-2s/',
+  },
+  pt: {
+    eyebrow: 'Comparativo mais buscado',
+    cta: 'Comparar Gym Monster',
+    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
+    description: 'Compare o modelo original, o refinado Gym Monster 2 e o Gym Monster 2S com 260 lb de resistência.',
+    href: '/pt/speediance/gym-monster-1-vs-2-vs-2s/',
+  },
+  hi: {
+    eyebrow: 'सबसे अधिक खोजी गई तुलना',
+    cta: 'Gym Monster की तुलना करें',
+    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
+    description: 'मूल मॉडल, बेहतर Gym Monster 2 और 260 lb प्रतिरोध वाले Gym Monster 2S की तुलना करें।',
+    href: '/hi/speediance/gym-monster-1-vs-2-vs-2s/',
+  },
+};
+
 export default function Hero({ lang = 'en' }) {
   const l = t[lang] || t.en;
-  // Homepage hero is pinned to a generated latest long-form upload when available.
-  const featuredVideo = homepageHeroVideoData?.video ?? selectFeaturedVideo(allVideos);
-  const featuredVideoIsLive = isLiveVideo(featuredVideo);
-  const featuredVideoHref = featuredVideo ? `/video/${featuredVideo.id}/` : '/videos/';
+  const demandFeature = demandFeatures[lang] || demandFeatures.en;
 
   const pillarIcons = [Dumbbell, Users, TrendingDown];
   const pillarHrefs = ['/videos/#speediance', '/videos/#bjj', '/about/'];
@@ -104,17 +136,10 @@ export default function Hero({ lang = 'en' }) {
       <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12">
         {/* Text Content */}
         <div className="flex-1 text-center md:text-left">
-          {featuredVideoIsLive ? (
-            <div className="inline-flex items-center gap-2 bg-red-900/30 border border-red-500/30 px-4 py-1.5 rounded-full text-red-300 text-sm font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-              {l.liveStream}
-            </div>
-          ) : (
-            <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-blue-300 text-sm font-semibold mb-6">
-              <span className="w-2 h-2 rounded-full bg-blue-400" />
-              {l.featuredVideo}
-            </div>
-          )}
+          <div className="inline-flex items-center gap-2 bg-blue-900/30 border border-blue-500/30 px-4 py-1.5 rounded-full text-blue-300 text-sm font-semibold mb-6">
+            <Scale size={15} aria-hidden="true" />
+            {demandFeature.eyebrow}
+          </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
             {l.heading1}<br />
@@ -126,8 +151,15 @@ export default function Hero({ lang = 'en' }) {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-            <a href={featuredVideoHref} className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50">
-              <Play size={20} fill="currentColor" /> {featuredVideoIsLive ? l.liveStream : l.watchFeatured}
+            <a
+              href={demandFeature.href}
+              className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50"
+              data-analytics-content-type="comparison"
+              data-analytics-content-slug="gym-monster-1-vs-2-vs-2s"
+              data-analytics-content-title={demandFeature.title}
+              data-analytics-item-position="1"
+            >
+              <Scale size={20} aria-hidden="true" /> {demandFeature.cta}
             </a>
             <a href="/about/" className="px-8 py-3.5 bg-neutral-900 hover:bg-neutral-800 text-white border border-neutral-800 rounded-full transition-all hover:border-neutral-600 font-medium flex items-center gap-2">
               {l.aboutMe} <ArrowRight size={16} />
@@ -135,40 +167,40 @@ export default function Hero({ lang = 'en' }) {
           </div>
         </div>
 
-        {/* Featured Video Card */}
-        {featuredVideo && (
-            <a href={featuredVideoHref} className="flex-1 w-full max-w-xl relative group block">
+        {/* Demand-led comparison feature */}
+        <a
+          href={demandFeature.href}
+          className="flex-1 w-full max-w-xl relative group block"
+          aria-label={demandFeature.title}
+          data-analytics-content-type="comparison"
+          data-analytics-content-slug="gym-monster-1-vs-2-vs-2s"
+          data-analytics-content-title={demandFeature.title}
+          data-analytics-item-position="2"
+        >
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
             <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800">
                 <img
-                  src={featuredVideo.thumbnail}
-                  alt={featuredVideo.title}
+                  src="/images/gear/speediance-gym-monster-2s.jpg"
+                  alt="Speediance Gym Monster 2S used for hands-on comparison testing"
                   className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                   loading="eager"
                   decoding="async"
                   fetchPriority="high"
                 />
-                {featuredVideoIsLive && (
-                  <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-red-600 text-white text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wide">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    Live Feb 19 · 6:30 PM ET
-                  </div>
-                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                    <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">{l.featured}</span>
-                    <h3 className="text-xl font-bold text-white mb-1">{featuredVideo.title}</h3>
-                    <p className="text-sm text-neutral-300 line-clamp-1">{featuredVideo.description?.slice(0, 80)}...</p>
+                    <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">{demandFeature.eyebrow}</span>
+                    <h3 className="text-xl font-bold text-white mb-1">{demandFeature.title}</h3>
+                    <p className="text-sm text-neutral-300 line-clamp-2">{demandFeature.description}</p>
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full border border-white/30 hover:scale-110 transition-transform">
-                    <Play size={32} fill="white" className="text-white ml-1" />
+                    <Scale size={32} className="text-white" aria-hidden="true" />
                     </div>
                 </div>
                 </div>
             </div>
-            </a>
-        )}
+        </a>
       </div>
 
       {/* Pillars Section */}
