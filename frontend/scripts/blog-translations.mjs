@@ -184,7 +184,9 @@ const linkTargets = (value) => {
   ];
   for (const pattern of patterns) {
     for (const match of String(value || '').matchAll(pattern)) {
-      targets.add(match[1] || match[0]);
+      const raw = match[1] || match[0];
+      const clean = raw.replace(/[`.,;:!?)]+$/, "");
+      if (clean) targets.add(clean);
     }
   }
   return [...targets];
