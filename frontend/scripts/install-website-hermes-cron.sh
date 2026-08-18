@@ -5,6 +5,7 @@ set -Eeuo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 HERMES_SCRIPT_DIR="${HERMES_SCRIPT_DIR:-$HOME/.hermes/scripts}"
 DISPATCHER="$SCRIPT_DIR/hermes-website-job.sh"
+CLARITY_DISPATCHER="$SCRIPT_DIR/hermes-clarity-job.sh"
 
 mkdir -p "$HERMES_SCRIPT_DIR"
 
@@ -32,7 +33,11 @@ job_schedules=(
 for index in "${!job_names[@]}"; do
   name="${job_names[$index]}"
   wrapper="$name.sh"
-  install -m 755 "$DISPATCHER" "$HERMES_SCRIPT_DIR/$wrapper"
+  source_script="$DISPATCHER"
+  if [[ "$name" == "ttoft-clarity-daily" ]]; then
+    source_script="$CLARITY_DISPATCHER"
+  fi
+  install -m 755 "$source_script" "$HERMES_SCRIPT_DIR/$wrapper"
 
   if hermes cron list 2>/dev/null | grep -Fq "$name"; then
     printf 'Exists: %s\n' "$name"
@@ -44,6 +49,11 @@ for index in "${!job_names[@]}"; do
     --script "$wrapper" \
     --no-agent \
     --deliver local
+
+  if ! hermes cron list 2>/dev/null | grep -Fq "$name"; then
+    printf 'Failed to verify Hermes job after creation: %s\n' "$name" >&2
+    exit 1
+  fi
 done
 
 hermes cron status
