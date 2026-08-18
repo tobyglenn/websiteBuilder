@@ -187,12 +187,69 @@ Use:
 
 - PostHog dashboard `1840395`
 - PostHog event/property queries
+- Microsoft Clarity daily export and seven-day rollup
 - Google Search Console performance and indexing reports
 - live sitemap and redirect checks
 - current repository changes and publishing cadence
 - live page and mobile QA
 
 Produce 5-10 ranked improvements. Each recommendation should include evidence, the page or workflow affected, expected reader/discovery impact, effort, and the exact measurement used the following week. Implement the highest-confidence changes that fit the week rather than producing a report only.
+
+Every recommendation must include a status and delivery evidence when
+implementation has started. Use only `DONE`, `PARTIAL`, `IN PROGRESS`, `NEXT`,
+`BLOCKED`, or `DEFERRED`. Do not mark a recommendation `DONE` without commit or
+code evidence and live or operational verification. Carry incomplete
+recommendations forward instead of silently replacing them.
+
+### Microsoft Clarity export
+
+Clarity supplements PostHog with aggregate click-friction, scroll, engagement,
+and acquisition evidence. It corroborates PostHog; it does not replace PostHog
+events, funnels, homepage/navigation instrumentation, or masked replay review.
+
+The public browser project ID is `y4ha1s1t5s`. The export bearer token is
+server-only and stored mode `600` on the DGX at:
+
+```text
+/home/toby/.config/tobyonfitnesstech/clarity.env
+```
+
+Never commit, log, echo, or expose `CLARITY_API_TOKEN` to the browser bundle.
+The Clarity export API allows at most 10 requests per day and can query only the
+previous one, two, or three days. The daily collector therefore uses three
+24-hour requests and retains daily snapshots for a true latest-seven versus
+prior-seven comparison:
+
+```bash
+/home/toby/.openclaw/workspace/websiteBuilder/frontend/scripts/run-clarity-daily-snapshot.sh
+```
+
+Hermes job `ttoft-clarity-daily` runs at 5:45 AM DGX local time. Artifacts and
+logs are written to:
+
+```text
+/home/toby/.openclaw/logs/analytics/clarity/latest.json
+/home/toby/.openclaw/logs/analytics/clarity/snapshots/
+/home/toby/.openclaw/logs/pipeline/clarity_daily_snapshot.cron.log
+```
+
+The rollup separates reader and bot sessions and reports dead clicks, rage
+clicks, quick-backs, excessive scroll, script errors, error clicks, scroll
+depth, active engagement, page/device friction, and acquisition source, medium,
+and channel. Treat the first 14 snapshots as a partial baseline. Do not make a
+page/device decision from Clarity until it has at least 20 reader sessions,
+unless an independently verified technical failure is clear.
+
+For manual collection or report regeneration:
+
+```bash
+cd /home/toby/.openclaw/workspace/websiteBuilder/frontend
+set -a
+source /home/toby/.config/tobyonfitnesstech/clarity.env
+set +a
+npm run collect:clarity
+npm run report:clarity
+```
 
 ### Search Console API
 

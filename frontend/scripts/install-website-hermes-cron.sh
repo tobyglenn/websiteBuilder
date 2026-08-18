@@ -13,6 +13,7 @@ job_names=(
   ttoft-blog-review
   ttoft-blog-publish
   ttoft-gsc-weekly
+  ttoft-clarity-daily
   ttoft-translation-worker
   ttoft-translation-publish
   ttoft-sitemap-submit
@@ -22,6 +23,7 @@ job_schedules=(
   '15 18 * * *'
   '0 19 * * *'
   '30 6 * * 1'
+  '45 5 * * *'
   '*/1 * * * *'
   '17 0,6,12 * * *'
   '47 0,6,12 * * *'

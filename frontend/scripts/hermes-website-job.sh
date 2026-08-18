@@ -18,6 +18,9 @@ case "$(basename "$0")" in
   ttoft-gsc-weekly.sh)
     exec "$WEBSITE_ROOT/frontend/scripts/run-gsc-weekly-report.sh"
     ;;
+  ttoft-clarity-daily.sh)
+    exec "$WEBSITE_ROOT/frontend/scripts/run-clarity-daily-snapshot.sh"
+    ;;
   ttoft-translation-worker.sh)
     exec "$WEBSITE_ROOT/frontend/scripts/run-blog-translation-worker.sh"
     ;;

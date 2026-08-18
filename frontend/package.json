@@ -10,6 +10,8 @@
     "cloudflare:redirect:podcast-transcripts": "node ./scripts/setup-cloudflare-transcript-redirect.mjs",
     "audit:indexability": "node ./scripts/audit-indexability.mjs",
     "report:gsc": "node ./scripts/gsc-weekly-report.mjs",
+    "collect:clarity": "node ./scripts/clarity-insights.mjs collect",
+    "report:clarity": "node ./scripts/clarity-insights.mjs report",
     "submit:gsc-sitemap": "node ./scripts/gsc-submit-sitemap.mjs",
     "translate:blog:one": "node ./scripts/blog-translations.mjs translate-one",
     "translate:blog:status": "node ./scripts/blog-translations.mjs status",

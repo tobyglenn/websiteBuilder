@@ -70,18 +70,18 @@ Desktop recorded 64 menu opens from 28 people and 13 selections (20.3% event-lev
 
 ## Prioritized Improvements
 
-| Rank | Improvement | Impact | Evidence | Confidence | Effort | Implementation |
-|---:|---|---|---|---|---|---|
-| 1 | Restore website automation in Hermes | Very high | Publishing and reports stopped August 14 | High | Low | Install no-agent jobs for daily blog stages, translation, weekly GSC, and sitemap submission |
-| 2 | Quarantine and regenerate corrupt translations | Very high | 54 invalid files across 39 slugs | High | Medium | Reject leakage and malformed output; remove every locale variant for an affected slug and regenerate atomically |
-| 3 | Fix homepage dwell and settled-search tracking | High | Ten-day dwell outlier; 23 prefix queries from one search | High | Low | Pause section timers while hidden; capture search only after 700ms and at least two characters |
-| 4 | Rewrite WHOOP recovery and Oura comparison SERP promises | High | 989 combined impressions and one click | High | Low | Put the direct answer in the title, description, first paragraph, and answer table |
-| 5 | Strengthen the Gym Monster and Tonal internal-link cluster | High | 858 and 452 page impressions; comparison queries rank 6-9 | High | Low | Add descriptive links from relevant entry pages to the canonical model and Tonal comparison hubs |
-| 6 | Replace Anthropic's generic next-step block | Medium | 66 viewers and zero clicks despite 43.5% qualified engagement | High | Low | Offer one article-specific next action tied to refund evidence or the Hacker News discussion |
-| 7 | Test a demand-led homepage feature | Medium | Hero meets threshold; featured BJJ topic conflicts with search demand | Medium | Low | Feature WHOOP 5 versus 4 or Gym Monster 1 versus 2 versus 2S for one full week |
-| 8 | Test Comparisons in primary navigation | Medium | About had 217 exposed viewers and zero clicks | Medium | Low | Replace About with Comparisons in one versioned test; retain About in the footer |
-| 9 | Diagnose the Safari exception with source evidence | Medium | 24 occurrences across 20 users, no app stack | Low | Medium | Add release/source-map context or isolate the script/resource before changing site code |
-| 10 | Resolve GSC sitemap/index coverage discrepancy | Medium | Valid sitemap with 2,077 submitted URLs but zero reported indexed | Medium | Medium | Inspect Page Indexing canonical validation in authenticated GSC and compare samples with live canonical and redirect output |
+| Rank | Status | Improvement | Impact | Evidence | Confidence | Effort | Implementation and delivery evidence |
+|---:|---|---|---|---|---|---|---|
+| 1 | **DONE** | Restore website automation in Hermes | Very high | Publishing and reports stopped August 14 | High | Low | Installed no-agent blog, translation, GSC, and sitemap jobs in `85fefee12a`; verified active on DGX |
+| 2 | **DONE** | Quarantine and regenerate corrupt translations | Very high | 54 invalid files across 39 slugs | High | Medium | Added validation/quarantine in `85fefee12a`, atomic publishing in `8930d9027a`, and published the repaired set in `c5559df94f`; 676/676 blog and 20/20 priority translations valid August 18 |
+| 3 | **DONE** | Fix homepage dwell and settled-search tracking | High | Ten-day dwell outlier; 23 prefix queries from one search | High | Low | Hidden-tab dwell pause and settled two-character search shipped in `85fefee12a` |
+| 4 | **PARTIAL** | Rewrite WHOOP recovery and Oura comparison SERP promises | High | 989 combined impressions and one click | High | Low | WHOOP title, description, direct answer, and range table shipped in `ca246a473e`; Oura title/meta improved, but its opening decision table remains to do |
+| 5 | **DONE** | Strengthen the Gym Monster and Tonal internal-link cluster | High | 858 and 452 page impressions; comparison queries rank 6-9 | High | Low | Canonical comparison hub, Speediance hub paths, and contextual article links shipped in `b098a3a297` and `ca246a473e` |
+| 6 | **NEXT** | Replace Anthropic's generic next-step block | Medium | 66 viewers and zero clicks despite 43.5% qualified engagement | High | Low | Search title/meta improved, but the intro CTA still routes generically to AgentStack; add a refund-evidence-specific next action |
+| 7 | **NEXT** | Test a demand-led homepage feature | Medium | Hero meets threshold; featured BJJ topic conflicts with search demand | Medium | Low | Run a versioned WHOOP or Gym Monster hero feature for one full measured week; no content winner has been declared yet |
+| 8 | **NEXT** | Test Comparisons in primary navigation | Medium | About had 217 exposed viewers and zero clicks | Medium | Low | Run a versioned About-versus-Comparisons navigation test; About remains in primary navigation today |
+| 9 | **BLOCKED** | Diagnose the Safari exception with source evidence | Medium | 24 occurrences across 20 users, no app stack | Low | Medium | PostHog still lacks an application stack frame; require release/source-map or script attribution before changing code |
+| 10 | **IN PROGRESS** | Resolve GSC sitemap/index coverage discrepancy | Medium | Valid sitemap with 2,077 submitted URLs but zero reported indexed | Medium | Medium | Sitemap, canonical, redirect, and live URL checks pass; authenticated Page Indexing canonical-validation samples remain to inspect in GSC UI |
 
 ## Implemented This Week
 
@@ -100,6 +100,14 @@ Desktop recorded 64 menu opens from 28 people and 13 selections (20.3% event-lev
 - The Safari `@context.toLowerCase()` exception has no application stack frame in PostHog. Do not suppress it or claim it is fixed without source attribution.
 - PostHog still has too little newsletter, contact, affiliate, calculator, and search-result-click volume for optimization decisions.
 - The Search Console API provides performance and sitemap data, but not the full Page Indexing validation drilldown. Remaining `Alternate page with proper canonical tag` samples require authenticated GSC UI inspection.
+
+## Clarity Baseline Added August 18
+
+Microsoft Clarity tracking began after this review's measurement window, so it did not affect the August 17 conclusions. The first authenticated export contained zero reader sessions and one bot session, which is a connectivity check rather than decision evidence.
+
+Clarity now contributes three daily 24-hour snapshots: sitewide summary, URL plus device, and acquisition source plus medium plus channel. The weekly rollup keeps reader and bot traffic separate and ranks dead clicks, rage clicks, quick-backs, excessive scroll, script errors, error clicks, scroll depth, and active engagement by page and device. A page/device recommendation requires at least 20 reader sessions unless a technical failure is independently clear.
+
+Because the API exposes at most the previous 72 hours, the first true seven-day-versus-prior-seven-day Clarity comparison becomes available after 14 stored daily snapshots. Until then, weekly reviews must label Clarity as partial baseline data.
 
 ## First Actions
 
