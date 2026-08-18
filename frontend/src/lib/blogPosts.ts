@@ -167,7 +167,8 @@ function defaultCoverImage(slug: string, title: string, category: string): strin
     'speediance-2s-260-lb-lat-pulldown': '/images/gear/speediance-gym-monster-2s.jpg',
     'is-tonal-a-scam-honest-review': '/images/gear/tonal.jpg',
     'whoop-vs-garmin-bjj-review': '/images/gear/garmin-forerunner-265s.jpg',
-    'mike-israetel-bjj-black-belt-legit': '/images/about/bjj_comparison.jpg',
+    'mike-israetel-bjj-black-belt-legit': '/images/blog/greg-mike-bjj-critique.jpg',
+    '2025-12-01-ouch-greg-doucettes-jiu-jitsu-critique-just-got-slammed': '/images/blog/2025-12-01-ouch-greg-doucettes-jiu-jitsu-critique-just-got-slammed.jpg',
     'the-submission-that-could-have-ended-everything': '/images/about/bjj_day4.jpg',
     'full-body-minus-legs-current-training-split-explained': '/progress/workout_action.jpg',
   };
@@ -176,12 +177,15 @@ function defaultCoverImage(slug: string, title: string, category: string): strin
     return explicitBySlug[slug];
   }
 
+  if (haystack.includes('greg') || haystack.includes('doucette') || haystack.includes('israetel')) {
+    return '/images/blog/greg-mike-bjj-critique.jpg';
+  }
   if (haystack.includes('speediance')) return '/images/gear/speediance-gym-monster-2s.jpg';
   if (haystack.includes('tonal')) return '/images/gear/tonal.jpg';
   if (haystack.includes('whoop')) return '/images/gear/whoop-5.0.jpg';
   if (haystack.includes('oura')) return '/images/gear/oura-ring.jpg';
   if (haystack.includes('garmin')) return '/images/gear/garmin-forerunner-265s.jpg';
-  if (haystack.includes('bjj') || haystack.includes('jiu-jitsu')) return '/images/about/bjj_comparison.jpg';
+  if (haystack.includes('bjj') || haystack.includes('jiu-jitsu')) return '/images/blog/greg-mike-bjj-critique.jpg';
   if (haystack.includes('transform') || haystack.includes('winter') || haystack.includes('long game')) {
     return '/progress/progress_188.jpg';
   }
