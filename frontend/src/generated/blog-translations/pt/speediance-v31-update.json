@@ -1,8 +1,8 @@
 {
   "slug": "speediance-v31-update",
   "lang": "pt",
-  "title": "Speediance V3.1: O Que Realmente Mudou",
-  "excerpt": "A sobrecarga progressiva finalmente funciona como deveria. Veja o que foi corrigido, o que ainda está quebrado e o que eu ainda quero.",
+  "title": "Speediance V3.1: O que realmente mudou",
+  "excerpt": "A sobrecarga progressiva finalmente funciona como deveria. Veja o que foi corrigido, o que ainda está com problemas e o que ainda quero.",
   "category": "Sinal vs. Ruído",
   "categoryKey": "Signal vs. Noise",
   "published_at": "2026-02-18",
@@ -12,9 +12,9 @@
     "FitnessTech",
     "HomeGym"
   ],
-  "content": "## O Bom: A Sobrecarga Progressiva Funciona\nSpeediance finalmente adicionou prompts adequados de sobrecarga progressiva. Antes de você adicionar peso em movimentos bilaterais e com barra, a máquina pergunta primeiro. Esta é uma pequena mudança na interface com um impacto desproporcional no treino real.\n\n## O Ruim: O Safety Start Ainda Limita a Amplitude de Movimento\nO Safety Start continua restringindo sua amplitude de movimento, o que na verdade o torna perigoso para levantamentos reais. Quando o recurso de \"segurança\" de uma máquina reduz sua amplitude de movimento, você perde o benefício do carregamento excêntrico que faz essas máquinas valerem a pena. O limitador concêntrico deveria ajudar com a segurança articular sem restringir a amplitude de movimento.\n\n## Modo Unilateral Ainda com Bugs\nMovimentos de braço único e perna única ainda apresentam bugs no reporte de peso e na detecção de sobrecarga progressiva. É um problema conhecido e a comunidade está acompanhando.\n\n## O Que Eu Quero em Seguida\nCorrigir os modos unilaterais. Restaurar o modo parceiro Free Lift original que desapareceu na V3. Nos dar dados brutos do motor para registro por terceiros. Tudo isso é alcançável em software — só precisa ser lançado.",
+  "content": "## O Bom: A Sobrecarga Progressiva Funciona\nSpeediance finalmente adicionou prompts adequados de sobrecarga progressiva. Antes de você adicionar peso em movimentos bilaterais e de barra, a máquina pergunta primeiro. Esta é uma pequena mudança na interface com um impacto desproporcional no treinamento real.\n\n## O Ruim: Safety Start Ainda Limita a Amplitude de Movimento\nO Safety Start continua restringindo sua amplitude de movimento, o que na verdade torna o equipamento perigoso para levantamento real. Quando o recurso de \"segurança\" de uma máquina encurta sua amplitude de movimento, você perde o benefício do carregamento excêntrico que faz essas máquinas valerem a pena. O limitador concêntrico deveria ajudar na segurança articular sem restringir a amplitude de movimento.\n\n## Modo Unilateral Ainda com Bugs\nMovimentos de braço único e perna única ainda apresentam bugs no reporte de peso e na detecção de sobrecarga progressiva. É um problema conhecido e a comunidade está acompanhando.\n\n## O Que Eu Quero em Seguida\nCorrigir os modos unilaterais. Restaurar o modo parceiro Free Lift original que desapareceu na V3. Nos dar dados brutos do motor para registro por terceiros. Tudo isso é alcançável em software — só precisa ser lançado.",
   "sourceHash": "59b2a9ed50309f95fa45c80358dae555ca36cd0f56c3f1de2b25f816d4946dd7",
   "sourceTitle": "Speediance V3.1: What Actually Changed",
-  "translatedAt": "2026-08-04T10:25:21.072Z",
+  "translatedAt": "2026-08-18T00:14:17.114Z",
   "model": "minimax/MiniMax-M3"
 }

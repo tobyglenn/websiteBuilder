@@ -1,8 +1,8 @@
 {
   "slug": "speediance-v31-update",
   "lang": "de",
-  "title": "Speediance V3.1: Was sich wirklich geändert hat",
-  "excerpt": "Progressives Overload funktioniert endlich so, wie es sollte. Hier ist, was behoben wurde, was kaputt ist und was ich mir weiterhin wünsche.",
+  "title": "Speediance V3.1: Was sich tatsächlich geändert hat",
+  "excerpt": "Progressive Überlastung funktioniert endlich so, wie sie sollte. Hier erfährst du, was behoben wurde, was kaputt ist und was ich noch möchte.",
   "category": "Signal vs. Rauschen",
   "categoryKey": "Signal vs. Noise",
   "published_at": "2026-02-18",
@@ -10,11 +10,11 @@
   "tags": [
     "Speediance",
     "FitnessTech",
-    "HomeGym"
+    "Heimstudio"
   ],
-  "content": "## Das Gute: Progressive Overload funktioniert\nSpeediance hat endlich ordentliche Eingabeaufforderungen für Progressive Overload hinzugefügt. Bevor du bei bilateralen Bewegungen und Langhantel-Bewegungen Gewicht hinzufügst, fragt die Maschine zuerst nach. Das ist eine kleine UI-Änderung mit überproportional großer Wirkung auf echtes Training.\n\n## Das Schlechte: Safety Start schränkt weiterhin den Bewegungsumfang ein\nSafety Start schränkt weiterhin deinen Bewegungsumfang ein, was es für echtes Heben tatsächlich gefährlich macht. Wenn die „Sicherheits\"-Funktion einer Maschine deinen Bewegungsumfang verkürzt, verlierst du den Vorteil der exzentrischen Belastung, der diese Maschinen erst lohnenswert macht. Der konzentrische Limiter sollte die Gelenksicherheit unterstützen, ohne den Bewegungsumfang einzuschränken.\n\n## Unilateraler Modus weiterhin fehlerhaft\nEinzelarm- und Einzelbein-Bewegungen haben weiterhin Fehler in der Gewichtsanzeige und der Progressive-Overload-Erkennung. Es ist ein bekanntes Problem, und die Community verfolgt es.\n\n## Was ich als Nächstes möchte\nBehebt die unilateralen Modi. Stellt den ursprünglichen Free-Lift-Partner-Modus wieder her, der in V3 verschwunden ist. Gebt uns rohe Motordaten für Logging durch Drittanbieter. Das ist alles softwaremäßig machbar – es muss nur endlich ausgeliefert werden.",
+  "content": "## Das Gute: Progressiver Belastungsanstieg funktioniert\nSpeediance hat endlich passende Eingabeaufforderungen für progressiven Belastungsanstieg hinzugefügt. Bevor du bei beidarmigen Übungen und Übungen mit der Langhantel Gewicht hinzufügst, fragt dich das Gerät zuerst. Das ist eine kleine Änderung an der Benutzeroberfläche mit einer unverhältnismäßig großen Wirkung auf das tatsächliche Training.\n\n## Das Schlechte: „Safety Start“ schränkt weiterhin den Bewegungsumfang ein\n„Safety Start“ schränkt weiterhin deinen Bewegungsumfang ein, was es für echtes Krafttraining tatsächlich gefährlich macht. Wenn die „Safety“-Funktion eines Geräts deinen Bewegungsumfang verkürzt, verlierst du den Vorteil der exzentrischen Belastung, der diese Geräte erst sinnvoll macht. Die konzentrische Begrenzung sollte die Gelenksicherheit verbessern, ohne den Bewegungsumfang einzuschränken.\n\n## Der einseitige Modus funktioniert weiterhin fehlerhaft\nBei einarmigen und einbeinigen Übungen treten weiterhin Fehler bei der Gewichtsanzeige und der Erkennung des progressiven Belastungsanstiegs auf. Das ist ein bekanntes Problem, das die Community verfolgt.\n\n## Was ich als Nächstes möchte\nBehebt die Fehler in den einseitigen Modi. Stellt den ursprünglichen „Free Lift“-Partnermodus wieder her, der in V3 verschwunden ist. Gibt uns die unverarbeiteten Motordaten für die Protokollierung durch Drittanbieter. All das ist softwaretechnisch machbar – es muss nur veröffentlicht werden.",
   "sourceHash": "59b2a9ed50309f95fa45c80358dae555ca36cd0f56c3f1de2b25f816d4946dd7",
   "sourceTitle": "Speediance V3.1: What Actually Changed",
-  "translatedAt": "2026-08-04T10:23:59.078Z",
+  "translatedAt": "2026-08-18T00:12:12.076Z",
   "model": "minimax/MiniMax-M3"
 }
