@@ -16,8 +16,8 @@ const agentPosts = LISTING_BLOG_POSTS
 const pageSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Projetos AgentStack, Podcast e Relatórios de Campo OpenClaw',
-  description: 'Análise diária de sistemas de IA, integrações de fitness OpenClaw, fluxos de trabalho de IA local e relatórios de campo de implementação de Toby Peters.',
+  name: 'Projetos, Podcast e Relatos de Campo do AgentStack e OpenClaw',
+  description: 'Análises diárias de sistemas de IA, integrações fitness OpenClaw, fluxos de trabalho de IA local e relatos de implementação de Toby Peters.',
   url: 'https://tobyonfitnesstech.com/pt/agentstack/',
   mainEntity: {
     '@type': 'ItemList',
@@ -33,10 +33,10 @@ const pageSchema = {
 
 <Layout
   title="AgentStack: Podcast Diário de IA e Projetos OpenClaw"
-  description="Episódios do AgentStack Daily, integrações de fitness OpenClaw, infraestrutura de IA local e relatórios de campo práticos dos sistemas que Toby está construindo ativamente."
+  description="Episódios diários do AgentStack, integrações fitness OpenClaw, infraestrutura de IA local e relatos de campo práticos dos sistemas que Toby está construindo ativamente."
   image="/images/gear/openclaw-mac-studio.jpg"
   jsonLd={pageSchema}
-  breadcrumbs={[{ name: 'Início', url: '/pt/' }, { name: 'AgentStack', url: '/pt/agentstack/' }]}
+  breadcrumbs={[{ name: 'Home', url: '/pt/' }, { name: 'AgentStack', url: '/pt/agentstack/' }]}
 
   lang="pt-BR"
   translationBase="/agentstack/"
@@ -58,7 +58,7 @@ const pageSchema = {
         </div>
         <h1 class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">AgentStack</h1>
         <p class="max-w-2xl text-lg leading-relaxed text-neutral-200 md:text-xl">
-          O programa diário de IA e os sistemas por trás dele: automações OpenClaw, conectores de dados de fitness, modelos locais, hardware, avaliações e notas honestas de construção.
+          O show diário de IA e os sistemas por trás dele: automações OpenClaw, conectores de dados fitness, modelos locais, hardware, avaliações e notas honestas de construção.
         </p>
       </div>
     </div>
@@ -78,22 +78,22 @@ const pageSchema = {
           <a href="/pt/blog/openclaw-fitness-reports-garmin-whoop-speediance/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-cyan-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="fitness-connectors" data-analytics-content-title="fitness connector implementation brief">
             <FileCode2 size={23} class="mb-5 text-cyan-400" />
             <p class="mb-2 text-xs font-semibold uppercase text-cyan-400">Construir</p>
-            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-cyan-300">Resumo do conector de fitness</h2>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-cyan-300">Briefing de conector fitness</h2>
             <p class="mb-6 text-sm leading-relaxed text-neutral-400">Uma arquitetura pronta para agentes para Garmin, WHOOP, Speediance, Cronometer, 8Sleep e relatórios normalizados.</p>
-            <span class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400">Ler o resumo de implementação <ArrowRight size={15} /></span>
+            <span class="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400">Ler o briefing de implementação <ArrowRight size={15} /></span>
           </a>
           <a href="/pt/blog/how-i-built-my-ai-fitness-assistant-with-openclaw/" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-emerald-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="fitness-assistant" data-analytics-content-title="AI fitness assistant field report">
             <ServerCog size={23} class="mb-5 text-emerald-400" />
-            <p class="mb-2 text-xs font-semibold uppercase text-emerald-400">Relatório de campo</p>
-            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-emerald-300">Assistente de fitness com IA</h2>
-            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Como o assistente de dados de fitness foi montado, o que ele automatiza e onde ainda estão os pontos difíceis.</p>
+            <p class="mb-2 text-xs font-semibold uppercase text-emerald-400">Relato de campo</p>
+            <h2 class="mb-3 text-xl font-bold text-white group-hover:text-emerald-300">Assistente de IA para fitness</h2>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Como o assistente de dados fitness foi montado, o que ele automatiza e onde ainda estão as partes difíceis.</p>
             <span class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400">Ler a história da construção <ArrowRight size={15} /></span>
           </a>
       <a href="/pt/videos/#coding" class="group rounded-lg border border-neutral-800 bg-neutral-900 p-6 hover:border-rose-500/60" data-analytics-event="hub_path_selected" data-analytics-content-type="agentstack" data-analytics-content-slug="videos" data-analytics-content-title="AgentStack videos">
             <PlaySquare size={23} class="mb-5 text-rose-400" />
             <p class="mb-2 text-xs font-semibold uppercase text-rose-400">Assistir</p>
             <h2 class="mb-3 text-xl font-bold text-white group-hover:text-rose-300">Vídeos do AgentStack</h2>
-            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Walkthroughs de construção, testes de modelos, hardware local, falhas e os sistemas por trás do programa diário.</p>
+            <p class="mb-6 text-sm leading-relaxed text-neutral-400">Walkthroughs de construção, testes de modelos, hardware local, falhas e os sistemas por trás do show diário.</p>
             <span class="inline-flex items-center gap-2 text-sm font-semibold text-rose-400">Ver vídeos <ArrowRight size={15} /></span>
           </a>
         </div>
@@ -105,8 +105,8 @@ const pageSchema = {
         <div class="mb-8 flex flex-col justify-between gap-4 md:flex-row md:items-end">
           <div class="max-w-2xl">
             <p class="mb-2 text-xs font-semibold uppercase text-blue-400">Notas de implementação</p>
-            <h2 class="mb-3 text-2xl font-bold text-white md:text-3xl">Relatórios de campo OpenClaw e AgentStack</h2>
-            <p class="text-neutral-400">A camada escrita durável por trás do programa diário: arquiteturas, modos de falha, decisões de conectores e sistemas em funcionamento.</p>
+            <h2 class="mb-3 text-2xl font-bold text-white md:text-3xl">Relatos de campo do OpenClaw e AgentStack</h2>
+            <p class="text-neutral-400">A camada escrita e durável por trás do show diário: arquiteturas, modos de falha, decisões de conectores e sistemas em funcionamento.</p>
           </div>
           <a href="/pt/blog/" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300">Todos os artigos <ArrowRight size={15} /></a>
         </div>
@@ -133,7 +133,7 @@ const pageSchema = {
             ))}
           </div>
         ) : (
-          <p class="text-neutral-500">Novos relatórios de campo estão sendo organizados aqui.</p>
+          <p class="text-neutral-500">Novos relatos de campo estão sendo organizados aqui.</p>
         )}
       </div>
     </section>
@@ -142,11 +142,11 @@ const pageSchema = {
       <div class="container mx-auto flex flex-col justify-between gap-8 px-4 md:flex-row md:items-center">
         <div class="max-w-2xl">
           <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-rose-400"><Radio size={18} /> Publicado continuamente</div>
-          <h2 class="mb-3 text-3xl font-bold text-white">Use o podcast para a história em movimento e os relatórios de campo para a durável</h2>
-          <p class="leading-relaxed text-neutral-400">Episódios diários rastreiam o que mudou. Relatórios escritos preservam a arquitetura, evidências e detalhes de implementação que valem a pena encontrar mais tarde.</p>
+          <h2 class="mb-3 text-3xl font-bold text-white">Use o podcast para a história em movimento e os relatos de campo para a durável</h2>
+          <p class="leading-relaxed text-neutral-400">Os episódios diários acompanham o que mudou. Os relatos escritos preservam a arquitetura, as evidências e os detalhes de implementação que valem a pena encontrar depois.</p>
         </div>
         <a href="/pt/podcasts/agentstack/" class="inline-flex shrink-0 items-center justify-center gap-2 rounded-md bg-fuchsia-600 px-6 py-3 font-semibold text-white hover:bg-fuchsia-500" data-analytics-event="cta_click" data-analytics-content-type="agentstack" data-analytics-content-slug="podcast" data-analytics-content-title="listen to AgentStack Daily">
-          Ouvir AgentStack Daily <ArrowRight size={17} />
+          Ouvir o AgentStack Daily <ArrowRight size={17} />
         </a>
       </div>
     </section>
