@@ -131,6 +131,7 @@ test('shields and restores links, product names, and numeric terms', () => {
   const { shielded, replacements } = shieldTranslationSource(protectedSource);
   assert.match(shielded.content, /7 days/);
   assert.doesNotMatch(shielded.content, /\/whoop\/|WHOOP|83%|43lb|24\/7/);
+  assert.doesNotMatch(shielded.content, /^#{1,3}\s+/m);
 
   const restored = restoreTranslationTokens({
     title: shielded.title.replace('Recovery Test', 'Erholungstest'),
@@ -144,6 +145,7 @@ test('shields and restores links, product names, and numeric terms', () => {
   assert.match(restored.content, /24\/7/);
   assert.match(restored.content, /\/whoop\//);
   assert.match(restored.content, /WHOOP/);
+  assert.match(restored.content, /^## Result/m);
 });
 
 test('rejects model output that changes a protected placeholder', () => {

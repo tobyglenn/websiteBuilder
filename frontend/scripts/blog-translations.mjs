@@ -75,7 +75,7 @@ const modelAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_MODEL_ATTE
 const draftAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_DRAFT_ATTEMPTS || 3));
 const modelRetrySeconds = Math.max(0, Number(process.env.BLOG_TRANSLATION_MODEL_RETRY_SECONDS || 5));
 const retryDelayMinutes = Number(process.env.BLOG_TRANSLATION_RETRY_MINUTES || 30);
-const promptVersion = '2026-08-03-v5';
+const promptVersion = '2026-08-18-v6';
 
 const parseArgs = (argv) => {
   const options = {};
@@ -198,6 +198,13 @@ const headingCount = (value) => {
     + (content.match(/<h[1-3]\b/gi) || []).length;
 };
 
+const markdownHeadingPrefixes = (value) => [
+  ...new Set(
+    [...String(value || '').matchAll(/^(#{1,3}\s+)/gm)]
+      .map((match) => match[1]),
+  ),
+];
+
 const numericTokens = (value) => [
   ...new Set(
     String(value || '')
@@ -242,6 +249,7 @@ export const shieldTranslationSource = (post) => {
     ...linkTargets(source.content),
     ...PROTECTED_NAMES.filter((name) => translatableText.includes(name)),
     ...numericUnitTokens(translatableText),
+    ...markdownHeadingPrefixes(source.content),
   ])]
     .filter(Boolean)
     .sort((a, b) => b.length - a.length);
@@ -423,6 +431,7 @@ Requirements:
 - Do not summarize, shorten, expand, reorder, or invent information.
 - Preserve every numeric value and unit. Do not spell numbers out or convert units. Locale-specific comma/period separators are allowed.
 - Tokens beginning with __TOFT_KEEP_ are immutable. Copy every occurrence exactly, including underscores.
+- A __TOFT_KEEP_ token at the beginning of a line represents Markdown heading syntax. Keep it at the beginning of that same line and translate the heading text after it.
 - Use natural native-language phrasing rather than word-for-word syntax.
 
 SOURCE SEGMENT:
@@ -444,7 +453,7 @@ const runMiniMax = (prompt, maxTokens = modelMaxTokens) => {
         String(maxTokens),
         '--no-fallback',
         '--system',
-        'You are a deterministic professional translator. Return only the requested final JSON object. Do not include reasoning or commentary.',
+        'You are a deterministic professional translator. Return only the requested final output in exactly the format requested. Do not include reasoning or commentary.',
       ],
       {
         cwd: repoRoot,
