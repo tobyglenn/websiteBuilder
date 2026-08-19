@@ -143,6 +143,13 @@ tail -100 /home/toby/.openclaw/logs/pipeline/blog_publish_stage3.cron.log
 
 The publish stage builds the frontend, commits the article, rebases against current `origin/main`, pushes, and reports the result. A pending draft can intentionally block the next draft until it is reviewed or cleared.
 
+Daily-publication guards:
+
+- A reviewed draft older than `BLOG_PENDING_MAX_AGE_HOURS` (20 hours by default) is reconciled against `origin/main` before the next draft starts. If it is already published, the pipeline clears the stale state and continues with that day's draft. If it is not published, the draft stage fails and alerts instead of silently skipping another day.
+- A rejected push rebases with `--autostash`, preserving unrelated DGX worktree changes while retrying the blog commit.
+- The scheduled publish stage must either publish a pending post or find a post dated that day in `mock.js`. No pending draft plus no same-day post is a failure, not a successful no-op.
+- A completed daily publication posts its URL to `#build-log`; failures post to `#build-log-errors` and the configured Hermes target.
+
 ## Fitness Data Refresh
 
 The main data jobs run from the DGX crontab. Inspect the active schedule with:
@@ -177,7 +184,7 @@ python3 /home/toby/.openclaw/workspace/scripts/utils/post_build_log.py --help
 tail -100 /home/toby/.openclaw/logs/pipeline/blog_publish_stage3.cron.log
 ```
 
-Do not treat “no pending draft” as a failure. Treat provider errors, malformed draft output, build failures, Git conflicts, and push failures as actionable errors.
+An ad hoc rerun with no pending draft is harmless only when a post dated that day already exists. During the scheduled 7:00 PM run, no pending draft and no same-day post is an actionable failure. Provider errors, malformed draft output, stale reviewed drafts, build failures, Git conflicts, and push failures are also actionable errors.
 
 ## Weekly Growth Review
 
