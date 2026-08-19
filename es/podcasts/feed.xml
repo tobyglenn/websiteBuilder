@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 18 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 104 -->
+    <item>
+      <title>Episodio 104: Gemini 3.7 Flash y Codex Bedrock</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep104/episode_104.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-104/</link>
+      <description><![CDATA[Análisis profundo del razonamiento híbrido de Gemini 3.7 Flash. También cubrimos el enrutamiento Bedrock de OpenAI Codex rust-v0.148.0, el modelo de...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-104/]]></description>
+      <pubDate>Wed, 19 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_104.mp3" length="34321598" type="audio/mpeg"/>
+      <itunes:duration>35:45</itunes:duration>
+      <itunes:episode>104</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep104/episode_104_cover.png"/>
+    </item>
+
     <!-- Episode 103 -->
     <item>
       <title>Episodio 103: Hermes Agent: Cuatro Lanzamientos en Cinco Días y Seguridad del Agente de IA</title>
