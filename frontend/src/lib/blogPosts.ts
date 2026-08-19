@@ -168,6 +168,7 @@ function defaultCoverImage(slug: string, title: string, category: string): strin
     'is-tonal-a-scam-honest-review': '/images/gear/tonal.jpg',
     'whoop-vs-garmin-bjj-review': '/images/gear/garmin-forerunner-265s.jpg',
     'mike-israetel-bjj-black-belt-legit': '/images/blog/greg-mike-bjj-critique.jpg',
+    '2026-08-16-speediance-partner-custom-workouts-are-finally-here': '/images/blog/2026-08-16-speediance-partner-custom-workouts-are-finally-here.jpg',
     '2025-12-01-ouch-greg-doucettes-jiu-jitsu-critique-just-got-slammed': '/images/blog/2025-12-01-ouch-greg-doucettes-jiu-jitsu-critique-just-got-slammed.jpg',
     'the-submission-that-could-have-ended-everything': '/images/about/bjj_day4.jpg',
     'full-body-minus-legs-current-training-split-explained': '/progress/workout_action.jpg',
