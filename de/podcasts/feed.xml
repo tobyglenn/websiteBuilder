@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 18 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 19 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 104 -->
+    <item>
+      <title>Folge 104: Gemini 3.7 Flash und Codex Bedrock</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep104/episode_104.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-104/</link>
+      <description><![CDATA[Vertiefung der hybriden Reasoning-Funktionen von Gemini 3.7 Flash. OpenAI Codex rust-v0.148.0 mit Bedrock-Routing.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-104/]]></description>
+      <pubDate>Wed, 19 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_104.mp3" length="34439044" type="audio/mpeg"/>
+      <itunes:duration>35:52</itunes:duration>
+      <itunes:episode>104</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep104/episode_104_cover.png"/>
+    </item>
+
     <!-- Episode 103 -->
     <item>
       <title>Folge 103: Hermes Agent Vier-Release-Lauf &amp; KI-Agent-Sicherheit</title>
