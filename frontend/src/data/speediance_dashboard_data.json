@@ -1430,6 +1430,45 @@
       "totalSessions": 1,
       "avgVolume": 1408.5,
       "totalVolume": 1408.5
+    },
+    "ARIA Barbell Build Stamina 20260816": {
+      "name": "ARIA Barbell Build Stamina 20260816",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-08-18",
+          "totalCapacity": 0,
+          "durationMinute": 8,
+          "calorie": 5,
+          "actionNum": 5
+        },
+        {
+          "date": "2026-08-18",
+          "totalCapacity": 1836.0,
+          "durationMinute": 8,
+          "calorie": 222,
+          "actionNum": 5
+        },
+        {
+          "date": "2026-08-18",
+          "totalCapacity": 0,
+          "durationMinute": 8,
+          "calorie": 14,
+          "actionNum": 5
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-08-18",
+        "totalCapacity": 1836.0,
+        "durationMinute": 8,
+        "calorie": 222,
+        "actionNum": 5
+      },
+      "totalSessions": 3,
+      "avgVolume": 612.0,
+      "totalVolume": 1836.0
     }
   },
   "exercisePRs": {
@@ -1746,11 +1785,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 117,
-  "totalVolumeLbs": 782853.9,
+  "totalWorkouts": 120,
+  "totalVolumeLbs": 784689.9,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-08-11"
+    "end": "2026-08-18"
   },
   "allSessions": [
     {
@@ -2688,6 +2727,30 @@
       "durationMinute": 6,
       "calorie": 161,
       "actionNum": 4
+    },
+    {
+      "date": "2026-08-18",
+      "title": "ARIA Barbell Build Stamina 20260816",
+      "totalCapacity": 0,
+      "durationMinute": 8,
+      "calorie": 5,
+      "actionNum": 5
+    },
+    {
+      "date": "2026-08-18",
+      "title": "ARIA Barbell Build Stamina 20260816",
+      "totalCapacity": 1836.0,
+      "durationMinute": 8,
+      "calorie": 222,
+      "actionNum": 5
+    },
+    {
+      "date": "2026-08-18",
+      "title": "ARIA Barbell Build Stamina 20260816",
+      "totalCapacity": 0,
+      "durationMinute": 8,
+      "calorie": 14,
+      "actionNum": 5
     }
   ]
 }
