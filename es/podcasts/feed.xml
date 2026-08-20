@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 19 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 105 -->
+    <item>
+      <title>Episodio 105: MiniMax modelo de pesos abiertos canta canciones de cinco minutos en una sola pasada</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep105/episode_105.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-105/</link>
+      <description><![CDATA[En el episodio de hoy de AgentStack Daily hablamos de Google SAM, un protocolo de confianza cero que permite a los agentes de IA compartir herramientas de...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-105/]]></description>
+      <pubDate>Thu, 20 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_105.mp3" length="34558163" type="audio/mpeg"/>
+      <itunes:duration>35:59</itunes:duration>
+      <itunes:episode>105</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep105/episode_105_cover.png"/>
+    </item>
+
     <!-- Episode 104 -->
     <item>
       <title>Episodio 104: Gemini 3.7 Flash y Codex Bedrock</title>
