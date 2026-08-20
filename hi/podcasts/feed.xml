@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Wed, 19 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 20 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 105 -->
+    <item>
+      <title>एपिसोड 105: MiniMax खुले भार मॉडल पूर्ण पाँच मिनट के गाने एक ही बार में गाता है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep105/episode_105.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-105/</link>
+      <description><![CDATA[Google proposes SAM, a zero-trust protocol for AI agents sharing tools across organizations. MiniMax releases an open-weights music model that sings full...
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-105/]]></description>
+      <pubDate>Thu, 20 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_105.mp3" length="42955381" type="audio/mpeg"/>
+      <itunes:duration>44:44</itunes:duration>
+      <itunes:episode>105</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep105/episode_105_cover.png"/>
+    </item>
+
     <!-- Episode 104 -->
     <item>
       <title>एपिसोड 104: Gemini 3.7 Flash और Codex Bedrock</title>
