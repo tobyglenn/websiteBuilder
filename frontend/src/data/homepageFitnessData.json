@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-20T23:51:03.390Z",
+  "generatedAt": "2026-08-21T11:31:30.154Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Aug 20, 2026",
-    "hubTodayKey": "2026-08-20",
-    "analysisDateKey": "2026-08-20",
+    "hubTodayLabel": "Aug 21, 2026",
+    "hubTodayKey": "2026-08-21",
+    "analysisDateKey": "2026-08-21",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-08-20T19:50:25.868511"
+    "whoopLastSynced": "2026-08-21T07:31:04.083416"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9628810,
@@ -21,24 +21,24 @@
     }
   },
   "trainingFocus": {
-    "focus": "bjj",
+    "focus": "lifting",
     "runCount": 0,
     "workoutCount": 3,
-    "bjjCount": 4,
-    "windowStart": "2026-08-14",
-    "windowEnd": "2026-08-20"
+    "bjjCount": 3,
+    "windowStart": "2026-08-15",
+    "windowEnd": "2026-08-21"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-08-20",
+    "anchorDate": "2026-08-21",
     "dateRange": {
-      "thisWeekStart": "2026-08-14",
-      "thisWeekEnd": "2026-08-20",
-      "lastWeekStart": "2026-08-07",
-      "lastWeekEnd": "2026-08-13"
+      "thisWeekStart": "2026-08-15",
+      "thisWeekEnd": "2026-08-21",
+      "lastWeekStart": "2026-08-08",
+      "lastWeekEnd": "2026-08-14"
     },
     "workouts": {
-      "thisWeek": 7,
+      "thisWeek": 6,
       "lastWeek": 4
     },
     "runs": {
@@ -54,7 +54,7 @@
       "lastWeek": 0
     },
     "bjj": {
-      "thisWeek": 4,
+      "thisWeek": 3,
       "lastWeek": 1
     }
   },
@@ -89,16 +89,9 @@
     "totalActive": 1796,
     "currentStreak": 3,
     "longestStreak": 60,
-    "rangeStart": "2025-08-22",
-    "rangeEnd": "2026-08-20",
+    "rangeStart": "2025-08-23",
+    "rangeEnd": "2026-08-21",
     "days": [
-      {
-        "date": "2025-08-22",
-        "count": 2,
-        "runs": 1,
-        "lifting": 0,
-        "bjj": 1
-      },
       {
         "date": "2025-08-25",
         "count": 1,
@@ -1469,11 +1462,11 @@
     "thisMonthMiles": 0
   },
   "recovery": {
-    "currentScore": 47,
-    "lastSleepScore": 86
+    "currentScore": 95,
+    "lastSleepScore": 96
   },
   "labels": {
-    "thisWeek": "August 14, 2026 - August 20, 2026",
-    "lastWeek": "August 7, 2026 - August 13, 2026"
+    "thisWeek": "August 15, 2026 - August 21, 2026",
+    "lastWeek": "August 8, 2026 - August 14, 2026"
   }
 }
