@@ -92,7 +92,7 @@ const blogListSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/blog#collection`,
   "name": "The Analysis Log — Toby on Fitness Tech",
-  "description": "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.",
+  "description": "Independent analysis of fitness technology. Real data. No paid placement. One athlete's obsession with knowing what's actually working.",
   "url": `${siteUrl}/blog`,
   "inLanguage": "en",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -134,7 +134,7 @@ const sidebarPosts = filteredPosts.slice(1, 5);
 const gridPosts = filteredPosts.slice(5);
 
 const title = "The Analysis Log — Toby on Fitness Tech";
-const description = "Independent analysis of fitness technology. Real data. No affiliate pressure. One athlete's obsession with knowing what's actually working.";
+const description = "Independent analysis of fitness technology. Real data. No paid placement. One athlete's obsession with knowing what's actually working.";
 ---
 
 <Layout title={title} description={description} jsonLd={[blogListSchema, itemListSchema]} breadcrumbs={[{ name: "Home", url: "/" }, { name: "Blog", url: "/blog" }]}>
@@ -150,7 +150,7 @@ const description = "Independent analysis of fitness technology. Real data. No a
         <span class="text-neutral-400">Including the sensors.</span>
       </h1>
       <p class="text-lg text-neutral-300 leading-relaxed mb-8">
-        Independent analysis of fitness technology. Real data. No affiliate pressure.
+        Independent analysis of fitness technology. Real data. No paid placement.
         One athlete's obsession with knowing what's actually working.
       </p>
       <p class="text-xs text-neutral-600 tracking-wide">

@@ -137,7 +137,7 @@ export default function Footer({ showNewsletter = true }) {
               <li><a href="/contact/" className="hover:text-blue-400 transition-colors">Contact</a></li>
               <li><a href="/privacy/" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
               <li><a href="/terms/" className="hover:text-blue-400 transition-colors">Terms of Service</a></li>
-              <li><a href="/affiliate/" className="hover:text-blue-400 transition-colors">Affiliate Disclosure</a></li>
+              <li><a href="/affiliate/" className="hover:text-blue-400 transition-colors">Review Standards</a></li>
             </ul>
           </div>
         </div>

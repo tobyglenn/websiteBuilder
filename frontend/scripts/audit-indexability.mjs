@@ -137,6 +137,16 @@ for (const file of htmlFiles) {
       brokenLinks.set(`${sourceRoute} -> ${href}`, 'malformed URL');
       continue;
     }
+
+    const hostname = target.hostname.toLowerCase();
+    const isAmazonHost = /(^|\.)amazon\.[a-z.]+$/.test(hostname);
+    const isAmazonShortLink = /(^|\.)amzn\.(?:to|eu)$/.test(hostname);
+    const hasAmazonAffiliateTag = isAmazonHost
+      && (target.searchParams.has('tag') || target.searchParams.has('ascsubtag'));
+    if (isAmazonShortLink || hasAmazonAffiliateTag) {
+      failures.push(`Amazon Associates link is not allowed: ${sourceRoute} -> ${href}`);
+    }
+
     if (target.origin !== SITE_ORIGIN) continue;
     if (!routeExists(target.pathname)) brokenLinks.set(`${sourceRoute} -> ${href}`, target.pathname);
   }

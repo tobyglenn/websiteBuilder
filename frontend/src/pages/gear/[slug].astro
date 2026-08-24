@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import { gearItems } from '../../data/gearItems';
 import whoopJson from '../../data/whoop_v2_latest.json';
+import { ExternalLink } from 'lucide-react';
 
 export function getStaticPaths() {
   return gearItems.map((item) => ({
@@ -351,9 +352,11 @@ const productJsonLd = {
             href={item.affiliateUrl}
             target="_blank"
             rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 px-4 py-2 bg-[#ff9900]/10 hover:bg-[#ff9900]/20 border border-[#ff9900]/30 text-white text-sm font-semibold rounded-lg transition-all"
+            data-affiliate-link="true"
+            class="inline-flex items-center gap-2 px-4 py-2 border border-neutral-700 bg-neutral-900 text-neutral-200 hover:border-neutral-500 hover:text-white text-sm font-medium rounded-lg transition-colors"
           >
-            🛒 {item.affiliateLabel}
+            {item.affiliateLabel}
+            <ExternalLink size={15} aria-hidden="true" />
           </a>
         )}
 

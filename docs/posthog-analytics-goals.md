@@ -12,7 +12,7 @@ Track these as the main signals that the website is doing its job:
 - `podcast_subscribe_click`: visitor clicks through to a podcast platform.
 - `podcast_audio_play`: visitor starts a native episode player.
 - `podcast_audio_complete`: visitor reaches the end of a native episode.
-- `affiliate_click`: visitor clicks an affiliate, product, gear, or partner link.
+- `affiliate_click`: visitor clicks a link explicitly marked as monetized (or an Amazon URL carrying an Associates tag).
 - `search_performed`: visitor searches the site.
 - `search_result_click`: visitor clicks a result after searching.
 - `qualified_engagement`: visitor spends at least 30 active seconds and reaches at least 50% scroll depth.
@@ -27,7 +27,7 @@ Use these to diagnose where improvements should happen:
 - `calculator_completed`: visitor reaches a meaningful calculator result.
 - `language_switch`: visitor changes language.
 - `share_click`: visitor clicks a share button.
-- `outbound_click`: visitor leaves through a non-affiliate external link.
+- `outbound_click`: visitor leaves through a non-monetized external link, including ordinary product references and podcast destinations not captured by a more specific event.
 - `content_next_step_click`: visitor follows a topic-specific next step from an article or video.
 - `hub_path_selected`: visitor selects a decision path on a topic hub.
 - `content_scroll_depth`: visitor reaches 25%, 50%, 75%, or 90% of a page.

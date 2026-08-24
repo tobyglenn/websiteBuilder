@@ -63,8 +63,8 @@ export const gearItems: GearItem[] = [
       { label: 'Single Session Duration', value: '50 minutes' }
     ],
     affiliateUrl: 'https://speediance.pxf.io/c/5903932/2180806/26850',
-    affiliateLabel: 'View Speediance Gym Monster 2S',
-    affiliateNote: 'Affiliate link included. I bought this machine with my own money.',
+    affiliateLabel: 'Speediance product page (affiliate)',
+    affiliateNote: 'I bought and use both machines. This tracked manufacturer link may pay me a commission, but it does not change the price or this verdict.',
     sortOrder: 1
   },
   {
@@ -96,9 +96,7 @@ export const gearItems: GearItem[] = [
       { label: 'Total Workouts Logged (Both)', value: '88' },
       { label: 'Primary Use', value: 'Downstairs supplementary lifting' }
     ],
-    affiliateUrl: 'https://speediance.pxf.io/c/5903932/2180806/26850',
-    affiliateLabel: 'View Speediance Store',
-    affiliateNote: 'Affiliate link included. Used in my real training environment.',
+    affiliateNote: 'No purchase link: judge this older model by its used condition, price, remaining support, and included accessories.',
     sortOrder: 2
   },
   {
