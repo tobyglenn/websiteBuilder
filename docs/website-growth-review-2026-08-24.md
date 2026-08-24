@@ -119,6 +119,8 @@ Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 vi
 - Build: 2,144 pages generated; Pagefind indexed 2,138 pages in six languages.
 - Indexability: 2,123 sitemap URLs, 2,151 HTML files, zero broken internal links.
 - Preview: homepage, Portuguese AgentStack, and German AgentStack returned HTTP 200.
+- Production: GitHub Pages deployment succeeded; the live Portuguese AgentStack index contains no missing episode-cover URLs and resolves cards to existing localized show art.
+- Live discovery: sitemap index and child sitemap return HTTP 200, the child contains 2,123 URLs, and `robots.txt` references `sitemap-index.xml`.
 - GSC report rerun: warning posted to `build-log-errors`; comparative recommendations held.
 - Clarity report rebuilt: `comparisonReady=false`, corrected behavior rates verified.
 
