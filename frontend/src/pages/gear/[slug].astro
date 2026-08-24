@@ -347,20 +347,19 @@ const productJsonLd = {
           </div>
         )}
 
-        {item.affiliateUrl && item.affiliateLabel && (
+        {item.externalUrl && item.externalLabel && (
           <a
-            href={item.affiliateUrl}
+            href={item.externalUrl}
             target="_blank"
             rel="noopener noreferrer"
-            data-affiliate-link="true"
             class="inline-flex items-center gap-2 px-4 py-2 border border-neutral-700 bg-neutral-900 text-neutral-200 hover:border-neutral-500 hover:text-white text-sm font-medium rounded-lg transition-colors"
           >
-            {item.affiliateLabel}
+            {item.externalLabel}
             <ExternalLink size={15} aria-hidden="true" />
           </a>
         )}
 
-        <p class="text-xs text-neutral-500 mt-4">{item.affiliateNote}</p>
+        <p class="text-xs text-neutral-500 mt-4">{item.editorialNote}</p>
       </div>
     </section>
   </main>

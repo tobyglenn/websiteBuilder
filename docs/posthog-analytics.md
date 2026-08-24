@@ -36,7 +36,6 @@ Use GitHub repo variables for the production deploy because GitHub Pages builds 
 - `search_result_click`
 - `search_no_results`
 - `search_cleared`
-- `affiliate_click`
 - `outbound_click`
 - `calculator_started`
 - `calculator_completed`

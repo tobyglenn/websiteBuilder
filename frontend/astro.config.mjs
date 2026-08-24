@@ -10,6 +10,7 @@ const SITE_URL = 'https://tobyonfitnesstech.com';
 
 const EXCLUDED_SITEMAP_PATHS = [
   /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)(?:\/|\.html)?$/,
+  /^\/(?:de\/|es\/|pt\/|hi\/)?affiliate\/?$/,
   /^\/(?:mma-rpg|gridbound-realms|bjj-buddy|nutritrack)\/?$/,
   /^\/(?:(?:de|es|pt|hi)\/)?blog\/(?:2025-09-09-discover-the-truth-behind-workout-tech-transparency|i-pulled-260-pounds-on-the-speediance-2s-did-it-break|speediance-2s-260-lb-lat-pulldown|speediance-broke-partner-mode-lost-free-lift-feature|the-submission-that-could-have-ended-everything|why-running-might-have-saved-my-life)\/$/,
 ];
@@ -149,6 +150,11 @@ export default defineConfig({
   ],
 
   redirects: {
+    '/affiliate': '/faq/',
+    '/de/affiliate': '/de/faq/',
+    '/es/affiliate': '/es/faq/',
+    '/pt/affiliate': '/pt/faq/',
+    '/hi/affiliate': '/hi/faq/',
     '/mma-rpg': 'https://clawdassistant85-netizen.github.io/mma-rpg/',
     '/gridbound-realms': 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
     '/bjj-buddy': 'https://bjj-buddy.tobyonfitnesstech.com',

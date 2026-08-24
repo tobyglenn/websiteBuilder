@@ -23,9 +23,9 @@ export interface GearItem {
   pros: string[];
   cons: string[];
   metrics?: GearMetric[];
-  affiliateUrl?: string;
-  affiliateLabel?: string;
-  affiliateNote: string;
+  externalUrl?: string;
+  externalLabel?: string;
+  editorialNote: string;
   replacedBy?: string;
   sortOrder: number;
 }
@@ -62,9 +62,9 @@ export const gearItems: GearItem[] = [
       { label: 'Single Session Best Volume', value: '35,305 lbs' },
       { label: 'Single Session Duration', value: '50 minutes' }
     ],
-    affiliateUrl: 'https://speediance.pxf.io/c/5903932/2180806/26850',
-    affiliateLabel: 'Speediance product page (affiliate)',
-    affiliateNote: 'I bought and use both machines. This tracked manufacturer link may pay me a commission, but it does not change the price or this verdict.',
+    externalUrl: 'https://www.speediance.com/products/speediance-gym-monster-2s',
+    externalLabel: 'Official Speediance product page',
+    editorialNote: 'I bought and use both machines. This verdict reflects my training data and the limitations documented above.',
     sortOrder: 1
   },
   {
@@ -96,7 +96,7 @@ export const gearItems: GearItem[] = [
       { label: 'Total Workouts Logged (Both)', value: '88' },
       { label: 'Primary Use', value: 'Downstairs supplementary lifting' }
     ],
-    affiliateNote: 'No purchase link: judge this older model by its used condition, price, remaining support, and included accessories.',
+    editorialNote: 'No purchase link: judge this older model by its used condition, price, remaining support, and included accessories.',
     sortOrder: 2
   },
   {
@@ -124,7 +124,7 @@ export const gearItems: GearItem[] = [
       'Takes up fixed physical space',
       'Requires proper installation and ceiling height'
     ],
-    affiliateNote: 'No affiliate relationship. Simple rack hardware.',
+    editorialNote: 'Simple rack hardware with no software, subscription, or connectivity requirements.',
     sortOrder: 3
   },
   {
@@ -167,7 +167,7 @@ export const gearItems: GearItem[] = [
       { label: 'All-Time Green Recovery Days', value: '30.6%' },
       { label: 'Total Recovery Records', value: '1,646 days' }
     ],
-    affiliateNote: 'No affiliate link. Real data from 1,600+ days of personal use — the live section on this page recomputes on every build.',
+    editorialNote: 'Real data from 1,600+ days of personal use — the live section on this page recomputes on every build.',
     sortOrder: 4
   },
   {
@@ -199,7 +199,7 @@ export const gearItems: GearItem[] = [
       { label: 'Total Distance (Lifetime)', value: '4,012 mi' },
       { label: 'Total Run Sessions', value: '1,385' }
     ],
-    affiliateNote: 'No affiliate relationship with Garmin.',
+    editorialNote: 'Recommendation based on my recorded Garmin training data.',
     sortOrder: 5
   },
   {
@@ -227,7 +227,7 @@ export const gearItems: GearItem[] = [
       'Daily charging requirement creates tracking gaps',
       'Touchscreen-first UI is less ideal during intense workouts'
     ],
-    affiliateNote: 'No affiliate relationship with Apple.',
+    editorialNote: 'Recommendation based on my own use and the limitations documented above.',
     sortOrder: 6
   },
   {
@@ -259,7 +259,7 @@ export const gearItems: GearItem[] = [
       { label: 'Recent Avg Sleep Score', value: '69' },
       { label: 'Recent Avg Sleep Duration', value: '5.8h' }
     ],
-    affiliateNote: 'No affiliate relationship with 8Sleep.',
+    editorialNote: 'Recommendation based on my nightly 8Sleep data.',
     sortOrder: 7
   },
   {
@@ -287,7 +287,7 @@ export const gearItems: GearItem[] = [
       'Manual entry is slower than camera-first tools',
       'Long-term app choice still under evaluation'
     ],
-    affiliateNote: 'No affiliate relationship with Cronometer.',
+    editorialNote: 'Recommendation based on my own nutrition-tracking workflow.',
     sortOrder: 8
   },
   {
@@ -318,7 +318,7 @@ export const gearItems: GearItem[] = [
       'High upfront hardware investment',
       'Requires active workspace and key configuration for each agent tool'
     ],
-    affiliateNote: 'No commercial relationship. Recommended primary workstation for agentic development.',
+    editorialNote: 'No commercial relationship. Recommended primary workstation for agentic development.',
     sortOrder: 9
   },
   {
@@ -349,7 +349,7 @@ export const gearItems: GearItem[] = [
       'Requires dedicated Linux host management and server configuration',
       'Not portable — lives at 192.168.1.6 in the rack'
     ],
-    affiliateNote: 'No commercial relationship. This is the rig that serves this very website.',
+    editorialNote: 'No commercial relationship. This is the rig that serves this very website.',
     sortOrder: 10
   },
   {
@@ -375,7 +375,7 @@ export const gearItems: GearItem[] = [
       'Ongoing subscription dependency',
       'Less aligned with my data portability priorities'
     ],
-    affiliateNote: 'No active recommendation from my current setup.',
+    editorialNote: 'No active recommendation from my current setup.',
     replacedBy: 'Speediance setup',
     sortOrder: 101
   },
@@ -402,7 +402,7 @@ export const gearItems: GearItem[] = [
       'Reliability issues in my use',
       'Workflow friction after updates'
     ],
-    affiliateNote: 'No active recommendation from my current setup.',
+    editorialNote: 'No active recommendation from my current setup.',
     replacedBy: 'Garmin Forerunner 265S',
     sortOrder: 102
   },
@@ -429,7 +429,7 @@ export const gearItems: GearItem[] = [
       'Tracking and ecosystem depth were limited',
       'Did not meet long-term workflow requirements'
     ],
-    affiliateNote: 'No active recommendation from my current setup.',
+    editorialNote: 'No active recommendation from my current setup.',
     replacedBy: 'Returned (no replacement in this slot)',
     sortOrder: 103
   },
@@ -465,7 +465,7 @@ export const gearItems: GearItem[] = [
       'No way to replace battery — device is a write-off when it dies',
       'Customer support was unhelpful on out-of-warranty failures'
     ],
-    affiliateNote: 'Cannot recommend. Hardware lifespan does not justify the combined device + membership cost.',
+    editorialNote: 'Cannot recommend. Hardware lifespan does not justify the combined device + membership cost.',
     replacedBy: 'WHOOP 4.0',
     sortOrder: 104
   },
@@ -494,7 +494,7 @@ export const gearItems: GearItem[] = [
       'Limited unified memory headroom for large models',
       'Lacks multi-core capacity for heavy parallel agent sessions'
     ],
-    affiliateNote: 'No commercial relationship. Replaced by M3 Mac Studio — that rig now runs my full agent stack.',
+    editorialNote: 'No commercial relationship. Replaced by M3 Mac Studio — that rig now runs my full agent stack.',
     replacedBy: 'M3 Mac Studio (runs Codex, Antigravity, Claude)',
     sortOrder: 105
   }

@@ -13,7 +13,6 @@ TARGETS = [
     '404.astro',
     '500.astro',
     'about.astro',
-    'affiliate.astro',
     'bjj.astro',
     'blog/[slug].astro',
     'blog/consistency.astro',
