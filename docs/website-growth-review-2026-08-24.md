@@ -112,6 +112,15 @@ Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 vi
 6. Search Console API does not expose the full Page Indexing validation drilldown. Authenticated Chrome remains required for canonical samples, validation state, manual actions, and crawl inspection.
 7. Current GSC low-CTR, rising, and declining recommendation arrays are deliberately empty while `dataQuality.status=degraded`.
 
+## Search Console Notification Follow-up
+
+- Email `1a033e1ac2ba0fd1`, received August 24 from `sc-noreply@google.com`: "New Merchant listings structured data issues detected for tobyonfitnesstech.com."
+- Reported critical issue: duplicate field `brand`.
+- **DONE** in `2a6fefd4db`: `/compare/` and its German, Spanish, Portuguese, and Hindi translations no longer describe three comparison subjects as one multi-brand `Product`. Each now emits an editorial `WebPage` schema with three `about` subjects.
+- **DONE** in `2a6fefd4db`: the build now parses every rendered JSON-LD block and fails on malformed JSON-LD or a `Product` with multiple brands. The new gate also found and fixed invalid FAQ JSON-LD on all five heart-rate-zone pages.
+- Production processing remains external: Google must recrawl the pages before the Search Console issue clears. Authenticated Search Console validation could not be requested in this run because the signed-in Chrome connection was unavailable.
+- The Monday automation now requires an eight-day Gmail scan for Search Console notifications, full-message review, live/source corroboration, a memo disposition, and implementation of safe fixes during the weekly upgrade pass.
+
 ## Delivery Evidence
 
 - Code commit: `e1b4a29fe8` (`fix weekly analytics data quality guards`).
