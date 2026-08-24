@@ -101,6 +101,7 @@ Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 vi
 | 8 | **NEXT** | Improve video and next-step conversion | Medium | Video play rate 14.3%; next steps 19 views / 0 clicks | Medium | Low | Test one clearer video promise and one page-specific next step after exposure reaches 20; measure exposure-to-play and exposure-to-arrival |
 | 9 | **PARTIAL** | Add the Oura versus WHOOP opening decision table | Medium | Carried from August 17; metadata improved but opening answer remains incomplete | Medium | Low | Preserve existing title; add a concise sleep, recovery, battery, and subscription table after GSC verification |
 | 10 | **DONE** | Maintain daily publishing and failure visibility | Very high | Seven daily blog commits August 17-23; all three August 23 stages succeeded | High | Low | Hermes draft, review, and publish jobs are active for 6:00, 6:15, and 7:00 PM; keep no-op and failure routing monitored |
+| 11 | **DONE** | Remove stale Amazon Associates claims and sales-oriented link treatment | Medium | Amazon closed the account after fewer than three qualifying purchases in 180 days; site audit found zero active Associates tags but an inaccurate disclosure | High | Low | `2b9ec0034e`: five-language review standards, one explicitly declared Speediance link, no CTA on the mismatched older model, accurate PostHog classification, and a build failure for future Amazon tags or shortlinks |
 
 ## Tracking And Search Gaps
 
@@ -121,9 +122,17 @@ Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 vi
 - Production processing remains external: Google must recrawl the pages before the Search Console issue clears. Authenticated Search Console validation could not be requested in this run because the signed-in Chrome connection was unavailable.
 - The Monday automation now requires an eight-day Gmail scan for Search Console notifications, full-message review, live/source corroboration, a memo disposition, and implementation of safe fixes during the weekly upgrade pass.
 
+## Amazon Associates Follow-up
+
+- Email `1a02ed1d165f8bc0`, received August 23 from Amazon Associates: the application was rejected because it did not generate three qualifying purchases within 180 days. Amazon did not cite a site-content or policy violation.
+- **DONE** in `2b9ec0034e`: the outdated disclosure no longer says Amazon Associates is active. English, German, Spanish, Portuguese, and Hindi pages now explain the review standard, identify the one tracked Speediance manufacturer link, and require page-level disclosure for supplied products, loans, discounts, or paid relationships.
+- **DONE** in `2b9ec0034e`: the rendered site contains no `amzn.to` or `amzn.eu` shortlinks and no Amazon URL carrying `tag` or `ascsubtag`. The indexability audit now fails the build if either form returns.
+- Amazon Music podcast destinations and an untagged historical product reference remain ordinary, non-commission links. PostHog now classifies them as podcast or outbound clicks instead of affiliate clicks.
+- The older Gym Monster no longer links to the newer 2S campaign. Its page tells readers to judge used condition, support, price, and accessories instead of presenting a purchase CTA.
+
 ## Delivery Evidence
 
-- Code commit: `e1b4a29fe8` (`fix weekly analytics data quality guards`).
+- Code commits: `e1b4a29fe8` (`fix weekly analytics data quality guards`) and `2b9ec0034e` (`remove stale Amazon affiliate claims`).
 - Tests: 42 of 42 Node tests passed.
 - Build: 2,144 pages generated; Pagefind indexed 2,138 pages in six languages.
 - Indexability: 2,123 sitemap URLs, 2,151 HTML files, zero broken internal links.
