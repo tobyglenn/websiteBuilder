@@ -361,15 +361,7 @@
     }
 
     if (destination === "external") {
-      const hostname = parsedUrl ? parsedUrl.hostname.toLowerCase() : "";
-      const isAmazonHost = /(^|\.)amazon\.[a-z.]+$/.test(hostname);
-      const isAmazonShortLink = /(^|\.)amzn\.(?:to|eu)$/.test(hostname);
-      const hasAmazonAffiliateTag = isAmazonHost
-        && (parsedUrl.searchParams.has("tag") || parsedUrl.searchParams.has("ascsubtag"));
-      const isAffiliate = target.getAttribute("data-affiliate-link") === "true"
-        || isAmazonShortLink
-        || hasAmazonAffiliateTag;
-      window.toftAnalytics.capture(isAffiliate ? "affiliate_click" : "outbound_click", properties);
+      window.toftAnalytics.capture("outbound_click", properties);
       return;
     }
 
