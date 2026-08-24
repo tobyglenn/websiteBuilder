@@ -76,7 +76,7 @@ Current top entry paths were the homepage (51 pageviews), Episode 103 (17), WHOO
 - **Anthropic:** Six current pageviews reached the refund article. Its evidence-specific next step is deployed, but the current next-step sample is too small to judge.
 - **Oura versus WHOOP:** The prior recommendation to add an opening decision table is still incomplete. Hold title and query work until trustworthy GSC data returns.
 
-Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 views and one click. On-site search recorded no current searches, affiliate links no clicks, and calculators no starts. These are low-volume observations, not removal decisions.
+Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 views and one click. On-site search recorded no current searches, external product links no clicks, and calculators no starts. These are low-volume observations, not removal decisions.
 
 ## Technical UX
 
@@ -101,7 +101,7 @@ Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 vi
 | 8 | **NEXT** | Improve video and next-step conversion | Medium | Video play rate 14.3%; next steps 19 views / 0 clicks | Medium | Low | Test one clearer video promise and one page-specific next step after exposure reaches 20; measure exposure-to-play and exposure-to-arrival |
 | 9 | **PARTIAL** | Add the Oura versus WHOOP opening decision table | Medium | Carried from August 17; metadata improved but opening answer remains incomplete | Medium | Low | Preserve existing title; add a concise sleep, recovery, battery, and subscription table after GSC verification |
 | 10 | **DONE** | Maintain daily publishing and failure visibility | Very high | Seven daily blog commits August 17-23; all three August 23 stages succeeded | High | Low | Hermes draft, review, and publish jobs are active for 6:00, 6:15, and 7:00 PM; keep no-op and failure routing monitored |
-| 11 | **DONE** | Remove stale Amazon Associates claims and sales-oriented link treatment | Medium | Amazon closed the account after fewer than three qualifying purchases in 180 days; site audit found zero active Associates tags but an inaccurate disclosure | High | Low | `2b9ec0034e`: five-language review standards, one explicitly declared Speediance link, no CTA on the mismatched older model, accurate PostHog classification, and a build failure for future Amazon tags or shortlinks |
+| 11 | **DONE** | Remove affiliate disclosures and sales-oriented link treatment | Medium | Amazon closed the account; Toby confirmed the Speediance link is not commission-based; the old tracked URL returned 404 | High | Low | `908b4948c6`: direct official Speediance URL, generic outbound tracking, disclosure pages removed in five languages, old routes redirected to FAQ and excluded from the sitemap, and a build failure for future Amazon tags or shortlinks |
 
 ## Tracking And Search Gaps
 
@@ -125,18 +125,20 @@ Sitewide next-step modules recorded 19 item views and zero clicks, versus 122 vi
 ## Amazon Associates Follow-up
 
 - Email `1a02ed1d165f8bc0`, received August 23 from Amazon Associates: the application was rejected because it did not generate three qualifying purchases within 180 days. Amazon did not cite a site-content or policy violation.
-- **DONE** in `2b9ec0034e`: the outdated disclosure no longer says Amazon Associates is active. English, German, Spanish, Portuguese, and Hindi pages now explain the review standard, identify the one tracked Speediance manufacturer link, and require page-level disclosure for supplied products, loans, discounts, or paid relationships.
-- **DONE** in `2b9ec0034e`: the rendered site contains no `amzn.to` or `amzn.eu` shortlinks and no Amazon URL carrying `tag` or `ascsubtag`. The indexability audit now fails the build if either form returns.
-- Amazon Music podcast destinations and an untagged historical product reference remain ordinary, non-commission links. PostHog now classifies them as podcast or outbound clicks instead of affiliate clicks.
+- Toby confirmed that the Speediance link is not commission-based. The obsolete `pxf.io` campaign URL also returned 404 and was replaced with the official `https://www.speediance.com/products/speediance-gym-monster-2s` product URL.
+- **DONE** in `908b4948c6`: affiliate disclosure pages were removed in English, German, Spanish, Portuguese, and Hindi. Their old routes redirect to the corresponding FAQ pages, carry `noindex`, and are excluded from the sitemap.
+- **DONE** in `908b4948c6`: the footer, FAQ copy, gear data, translation inputs, metadata fallback, and analytics documentation no longer present an affiliate program or commission disclosure. External product destinations now emit only the generic `outbound_click` event.
+- The rendered site contains no `amzn.to` or `amzn.eu` shortlinks and no Amazon URL carrying `tag` or `ascsubtag`. The indexability audit still fails the build if either form returns.
+- Amazon Music podcast destinations and an untagged historical product reference remain ordinary, non-commission links.
 - The older Gym Monster no longer links to the newer 2S campaign. Its page tells readers to judge used condition, support, price, and accessories instead of presenting a purchase CTA.
 
 ## Delivery Evidence
 
-- Code commits: `e1b4a29fe8` (`fix weekly analytics data quality guards`) and `2b9ec0034e` (`remove stale Amazon affiliate claims`).
+- Code commits: `e1b4a29fe8` (`fix weekly analytics data quality guards`), `2b9ec0034e` (`remove stale Amazon affiliate claims`), and `908b4948c6` (`remove affiliate disclosures and tracking`).
 - Tests: 42 of 42 Node tests passed.
-- Build: 2,144 pages generated; Pagefind indexed 2,138 pages in six languages.
-- Indexability: 2,123 sitemap URLs, 2,151 HTML files, zero broken internal links.
-- Preview: homepage, Portuguese AgentStack, and German AgentStack returned HTTP 200.
+- Build: 2,139 pages generated; Pagefind indexed 2,133 pages in six languages.
+- Indexability: 2,118 sitemap URLs, 2,151 HTML files, zero broken internal links, and no affiliate route in the sitemap.
+- Preview: the Speediance 2S page passed desktop and 390 px mobile checks with no overflow, disclosure text, affiliate marker, or tracked URL; the official product link is visible and correct.
 - Production: GitHub Pages deployment succeeded; the live Portuguese AgentStack index contains no missing episode-cover URLs and resolves cards to existing localized show art.
 - Live discovery: sitemap index and child sitemap return HTTP 200, the child contains 2,123 URLs, and `robots.txt` references `sitemap-index.xml`.
 - GSC report rerun: warning posted to `build-log-errors`; comparative recommendations held.
