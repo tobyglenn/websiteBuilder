@@ -3,19 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Product",
+  "@type": "WebPage",
   "name": "Speediance बनाम Tonal बनाम पारंपरिक जिम तुलना",
   "description": "वास्तविक अनुभव पर आधारित Speediance, Tonal और पारंपरिक जिम सदस्यताओं की ईमानदार तुलना: Tonal पर 9M+ lbs, Speediance पर 1.29M+ lbs.",
-  "brand": [
-    { "@type": "Brand", "name": "Speediance" },
-    { "@type": "Brand", "name": "Tonal" },
-    { "@type": "Brand", "name": "पारंपरिक जिम" }
-  ],
-  "offers": [
-    { "@type": "Offer", "name": "Speediance", "price": "4995", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
-    { "@type": "Offer", "name": "Tonal", "price": "2495", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
-  ],
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "2" }
+  "url": "https://tobyonfitnesstech.com/hi/compare/",
+  "about": [
+    { "@type": "Thing", "name": "Speediance Gym Monster" },
+    { "@type": "Thing", "name": "Tonal" },
+    { "@type": "Thing", "name": "पारंपरिक जिम सदस्यता" }
+  ]
 };
 
 const comparisonFeatures = [

@@ -196,6 +196,7 @@ Use:
 - PostHog event/property queries
 - Microsoft Clarity daily export and seven-day rollup
 - Google Search Console performance and indexing reports
+- Google Search Console notification emails from `sc-noreply@google.com`
 - live sitemap and redirect checks
 - current repository changes and publishing cadence
 - live page and mobile QA
@@ -285,6 +286,12 @@ npm run report:gsc | jq '.periods, .lowCtrQueries[0:10], .sitemaps'
 
 Chrome remains the fallback for indexing-reason totals, validation progress, Core Web Vitals reports, and video indexing because those aggregate reports are not exposed by the Search Analytics API.
 
+### Search Console email triage
+
+At the start of each weekly growth review, search the authenticated Gmail account for messages matching `from:sc-noreply@google.com newer_than:8d`. Read the full message and record its message ID, date, subject, reported issue, verification result, and disposition in the weekly memo.
+
+Treat email alerts as leads rather than current production truth. Confirm the affected schema, URL, canonical, redirect, or indexing behavior against the live site and source before changing code. Implement and deploy high-confidence reversible fixes during the review; use authenticated Search Console for validation or sample URLs that are not exposed by the API. Report connector or authentication failures explicitly instead of silently skipping the inbox check.
+
 ### Indexability build gate
 
-Every production build runs `npm run audit:indexability` after Astro and Pagefind. The gate checks sitemap URLs for generated HTML, one matching canonical, one H1, and a meta description; it also fails on broken same-site links or junk sitemap paths. Fix the source rather than bypassing the gate when it catches a new publishing or navigation error.
+Every production build runs `npm run audit:indexability` after Astro and Pagefind. The gate checks sitemap URLs for generated HTML, one matching canonical, one H1, and a meta description; it also fails on broken same-site links, junk sitemap paths, malformed JSON-LD, or a `Product` with multiple `brand` values. Fix the source rather than bypassing the gate when it catches a new publishing, navigation, or structured-data error.

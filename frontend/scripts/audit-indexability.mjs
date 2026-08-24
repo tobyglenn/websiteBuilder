@@ -57,6 +57,26 @@ for (const file of sitemapFiles) {
 const failures = [];
 const warnings = [];
 const brokenLinks = new Map();
+let structuredDataScripts = 0;
+let productSchemas = 0;
+
+const inspectStructuredData = (value, route) => {
+  if (Array.isArray(value)) {
+    for (const item of value) inspectStructuredData(item, route);
+    return;
+  }
+  if (!value || typeof value !== 'object') return;
+
+  const schemaTypes = Array.isArray(value['@type']) ? value['@type'] : [value['@type']];
+  if (schemaTypes.includes('Product')) {
+    productSchemas += 1;
+    if (Array.isArray(value.brand) && value.brand.length > 1) {
+      failures.push(`${route} Product "${value.name || '(unnamed)'}" has multiple brand values; Merchant listings require one brand per Product.`);
+    }
+  }
+
+  for (const nested of Object.values(value)) inspectStructuredData(nested, route);
+};
 
 for (const urlString of sitemapUrls) {
   const url = new URL(urlString);
@@ -90,6 +110,16 @@ for (const urlString of sitemapUrls) {
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const sourceRoute = routeForHtml(file);
+  const jsonLdScripts = [...html.matchAll(/<script\b[^>]*\btype=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
+  structuredDataScripts += jsonLdScripts.length;
+  for (const match of jsonLdScripts) {
+    try {
+      inspectStructuredData(JSON.parse(match[1].trim()), sourceRoute);
+    } catch (error) {
+      failures.push(`Invalid JSON-LD in ${sourceRoute}: ${error.message}`);
+    }
+  }
+
   const dynamicUrlAttributes = [...html.matchAll(/\bhref=["'`][^"'`]*\$\{[^}]+\}/g)];
   for (const match of dynamicUrlAttributes) {
     failures.push(`Unresolved URL template in ${sourceRoute}: ${match[0]}`);
@@ -122,7 +152,7 @@ if (!existsSync(robotsPath)) {
   if (!robots.includes(`${SITE_ORIGIN}/sitemap-index.xml`)) warnings.push('robots.txt does not advertise sitemap-index.xml.');
 }
 
-console.log(`Indexability audit: ${sitemapUrls.size} sitemap URLs, ${htmlFiles.length} HTML files, ${brokenLinks.size} broken internal links.`);
+console.log(`Indexability audit: ${sitemapUrls.size} sitemap URLs, ${htmlFiles.length} HTML files, ${brokenLinks.size} broken internal links, ${structuredDataScripts} JSON-LD scripts, ${productSchemas} Product schemas.`);
 for (const warning of warnings) console.warn(`WARNING: ${warning}`);
 if (failures.length > 0) {
   for (const failure of failures.slice(0, 100)) console.error(`ERROR: ${failure}`);

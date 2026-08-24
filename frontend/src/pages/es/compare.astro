@@ -3,19 +3,15 @@ import Layout from '../../layouts/Layout.astro';
 
 const jsonLd = {
   "@context": "https://schema.org",
-  "@type": "Product",
+  "@type": "WebPage",
   "name": "Comparación de Speediance vs Tonal vs gimnasio tradicional",
   "description": "Comparación honesta de Speediance, Tonal y membresías de gimnasio tradicional basada en experiencia real: 9M+ lbs en Tonal, 1.29M+ lbs en Speediance.",
-  "brand": [
-    { "@type": "Brand", "name": "Speediance" },
-    { "@type": "Brand", "name": "Tonal" },
-    { "@type": "Brand", "name": "Gimnasio tradicional" }
-  ],
-  "offers": [
-    { "@type": "Offer", "name": "Speediance", "price": "4995", "priceCurrency": "USD", "availability": "https://schema.org/InStock" },
-    { "@type": "Offer", "name": "Tonal", "price": "2495", "priceCurrency": "USD", "availability": "https://schema.org/InStock" }
-  ],
-  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.5", "reviewCount": "2" }
+  "url": "https://tobyonfitnesstech.com/es/compare/",
+  "about": [
+    { "@type": "Thing", "name": "Speediance Gym Monster" },
+    { "@type": "Thing", "name": "Tonal" },
+    { "@type": "Thing", "name": "Membresía de gimnasio tradicional" }
+  ]
 };
 
 const comparisonFeatures = [

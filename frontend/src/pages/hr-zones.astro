@@ -105,8 +105,7 @@ const zones = [
     </div>
   </section>
 
-  <script type="application/ld+json">
-    {JSON.stringify({
+  <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
@@ -114,6 +113,5 @@ const zones = [
         {"@type": "Question","name":"How is this data calculated?","acceptedAnswer":{"@type": "Answer","text":"Data is aggregated from Garmin activities, summing seconds spent in each HR zone and computing percentages."}},
         {"@type": "Question","name":"What do the zones mean?","acceptedAnswer":{"@type": "Answer","text":"Zone 1 is recovery (50-60% max HR), Zone 2 is aerobic (60-70%), Zone 3 is tempo (70-80%), Zone 4 is threshold (80-90%), Zone 5 is maximum (90-100%)."}}
       ]
-    })}
-  </script>
+    })} />
 </Layout>

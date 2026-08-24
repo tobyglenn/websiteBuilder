@@ -99,8 +99,7 @@ const zones = [
     </div>
   </section>
 
-  <script type="application/ld+json">
-    {JSON.stringify({
+  <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
@@ -108,6 +107,5 @@ const zones = [
         {"@type": "Question","name":"Wie werden diese Daten berechnet?","acceptedAnswer":{"@type": "Answer","text":"Die Daten werden aus Garmin-Aktivitäten zusammengeführt, indem die Sekunden in jeder HF-Zone aufsummiert und Prozentwerte berechnet werden."}},
         {"@type": "Question","name":"Was bedeuten die Zonen?","acceptedAnswer":{"@type": "Answer","text":"Zone 1 ist Erholung (50-60 % HFmax), Zone 2 aerob (60-70 %), Zone 3 Tempo (70-80 %), Zone 4 Schwelle (80-90 %), Zone 5 Maximum (90-100 %)."}}
       ]
-    })}
-  </script>
+    })} />
 </Layout>
