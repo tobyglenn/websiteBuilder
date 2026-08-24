@@ -1,6 +1,4 @@
 ---
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import Layout from '../../../layouts/Layout.astro';
 import PodcastSubscribeButtons from '../../../components/PodcastSubscribeButtons.jsx';
 import {
@@ -12,6 +10,7 @@ import {
   normalizeEpisodeTitle,
   parseEpisodeNumber,
 } from '../../../lib/openclawFeed';
+import { resolvePublicAsset } from '../../../lib/publicAssets';
 
 const LANG = 'es';
 const feedUrl = `https://raw.githubusercontent.com/grayking-creator/openclaw-podcast/main/translations/feed_${LANG}.xml`;
@@ -59,8 +58,10 @@ try {
     const baseEpNum = String(episodeNum).padStart(3, '0');
     const localeCover = `/images/podcast/episode_${baseEpNum}_cover_es.png`;
     const fallbackCover = `/images/podcast/episode_${baseEpNum}_cover.png`;
-    const localeCoverPath = fileURLToPath(new URL(`../../../../public${localeCover}`, import.meta.url));
-    const coverImage = existsSync(localeCoverPath) ? localeCover : fallbackCover;
+    const coverImage = resolvePublicAsset(
+      [localeCover, fallbackCover],
+      '/images/podcast/show_art_es.png',
+    );
 
     episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
   }

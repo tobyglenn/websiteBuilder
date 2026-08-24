@@ -68,6 +68,14 @@ const behaviorTotals = () => Object.fromEntries(
   }]),
 );
 
+const affectedBehaviorSessions = (row = {}) => {
+  const reportedSessions = numberValue(row.sessionsCount);
+  if (row.sessionsWithMetricPercentage === undefined) return reportedSessions;
+  return Math.round(
+    reportedSessions * numberValue(row.sessionsWithMetricPercentage) / 100,
+  );
+};
+
 export const summarizeClarityMetrics = (metrics = []) => {
   const traffic = firstMetricRow(metrics, 'Traffic');
   const engagement = firstMetricRow(metrics, 'EngagementTime');
@@ -77,7 +85,7 @@ export const summarizeClarityMetrics = (metrics = []) => {
   for (const [metricName, outputName] of Object.entries(BEHAVIOR_METRICS)) {
     const row = firstMetricRow(metrics, metricName);
     behaviors[outputName] = {
-      sessions: numberValue(row.sessionsCount),
+      sessions: affectedBehaviorSessions(row),
       events: numberValue(row.subTotal),
       pageViews: numberValue(row.pagesViews),
     };
@@ -207,7 +215,7 @@ const pageDeviceRows = (snapshots) => {
           aggregate.activeEngagementSeconds += durationSeconds(row.activeTime);
         } else if (BEHAVIOR_METRICS[metric.metricName]) {
           const behavior = aggregate.behaviors[BEHAVIOR_METRICS[metric.metricName]];
-          behavior.sessions += numberValue(row.sessionsCount);
+          behavior.sessions += affectedBehaviorSessions(row);
           behavior.events += numberValue(row.subTotal);
           behavior.pageViews += numberValue(row.pagesViews);
         }
@@ -374,4 +382,3 @@ export const CLARITY_QUERY_DEFINITIONS = [
   { key: 'pageDevice', dimensions: ['URL', 'Device'] },
   { key: 'acquisition', dimensions: ['Source', 'Medium', 'Channel'] },
 ];
-

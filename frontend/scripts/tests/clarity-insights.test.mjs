@@ -26,8 +26,18 @@ const snapshot = ({ date, readers, bots, dead = 0, rage = 0, scroll, active, tot
         }]),
         metric('ScrollDepth', [{ averageScrollDepth: scroll }]),
         metric('EngagementTime', [{ totalTime: total, activeTime: active }]),
-        metric('DeadClickCount', [{ sessionsCount: String(dead), subTotal: String(dead + 1), pagesViews: String(dead) }]),
-        metric('RageClickCount', [{ sessionsCount: String(rage), subTotal: String(rage), pagesViews: String(rage) }]),
+        metric('DeadClickCount', [{
+          sessionsCount: String(readers),
+          sessionsWithMetricPercentage: 100 * dead / readers,
+          subTotal: String(dead + 1),
+          pagesViews: String(dead),
+        }]),
+        metric('RageClickCount', [{
+          sessionsCount: String(readers),
+          sessionsWithMetricPercentage: 100 * rage / readers,
+          subTotal: String(rage),
+          pagesViews: String(rage),
+        }]),
       ],
     },
     pageDevice: {
@@ -48,14 +58,16 @@ const snapshot = ({ date, readers, bots, dead = 0, rage = 0, scroll, active, tot
         metric('DeadClickCount', [{
           Url: 'https://tobyonfitnesstech.com/blog/example',
           Device: 'PC',
-          sessionsCount: String(dead),
+          sessionsCount: String(readers),
+          sessionsWithMetricPercentage: 100 * dead / readers,
           subTotal: String(dead + 1),
           pagesViews: String(dead),
         }]),
         metric('RageClickCount', [{
           Url: 'https://tobyonfitnesstech.com/blog/example',
           Device: 'PC',
-          sessionsCount: String(rage),
+          sessionsCount: String(readers),
+          sessionsWithMetricPercentage: 100 * rage / readers,
           subTotal: String(rage),
           pagesViews: String(rage),
         }]),
@@ -94,6 +106,21 @@ test('keeps reader and bot traffic separate in summary metrics', () => {
   assert.equal(summary.activeEngagementSeconds, 140);
 });
 
+test('uses Clarity behavior percentage instead of treating every session as affected', () => {
+  const summary = summarizeClarityMetrics([
+    metric('Traffic', [{ totalSessionCount: '12', totalBotSessionCount: '5' }]),
+    metric('DeadClickCount', [{
+      sessionsCount: '12',
+      sessionsWithMetricPercentage: 8.33,
+      subTotal: '7',
+      pagesViews: '3',
+    }]),
+  ]);
+
+  assert.equal(summary.behaviors.deadClicks.sessions, 1);
+  assert.equal(summary.behaviors.deadClicks.events, 7);
+});
+
 test('builds complete one-period comparisons and ranks page friction', () => {
   const prior = snapshot({
     date: '2026-08-17', readers: 10, bots: 5, dead: 1, rage: 0,
@@ -129,4 +156,3 @@ test('labels a weekly report partial until fourteen daily snapshots exist', () =
   assert.equal(report.periods.prior.snapshots, 0);
   assert.equal(report.currentPageDeviceFriction[0].decisionSampleQualified, false);
 });
-

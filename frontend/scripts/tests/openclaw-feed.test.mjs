@@ -5,10 +5,11 @@ import {
   githubRequestHeaders,
 } from '../../src/lib/openclawFeed.ts';
 
-test('adds a jsDelivr mirror for GitHub raw feed URLs', () => {
+test('adds authenticated API and jsDelivr fallbacks for GitHub raw feed URLs', () => {
   assert.deepEqual(
     githubRawFallbackUrls('https://raw.githubusercontent.com/example/podcast/main/feed.xml'),
     [
+      'https://api.github.com/repos/example/podcast/contents/feed.xml?ref=main',
       'https://raw.githubusercontent.com/example/podcast/main/feed.xml',
       'https://cdn.jsdelivr.net/gh/example/podcast@main/feed.xml',
     ],

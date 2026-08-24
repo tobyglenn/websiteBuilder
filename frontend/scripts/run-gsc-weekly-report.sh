@@ -63,6 +63,14 @@ SUMMARY=$(jq -r '
   + " anomalous impressions"
 ' "$LATEST_REPORT")
 
-python3 "$BUILD_LOG_HELPER" --info "OK: $SUMMARY" || true
+if jq -e '.dataQuality.status == "degraded"' "$LATEST_REPORT" >/dev/null; then
+  QUALITY_ISSUES=$(jq -r '[.dataQuality.issues[].code] | join(", ")' "$LATEST_REPORT")
+  QUALITY_MESSAGE="WARNING: $SUMMARY; comparative recommendations held: $QUALITY_ISSUES. Verify Search Console before acting."
+  python3 "$BUILD_LOG_HELPER" --error "$QUALITY_MESSAGE" || true
+  hermes send --to telegram --quiet "$QUALITY_MESSAGE" || true
+  echo "[$(date --iso-8601=seconds)] $QUALITY_MESSAGE"
+else
+  python3 "$BUILD_LOG_HELPER" --info "OK: $SUMMARY" || true
+fi
 echo "[$(date --iso-8601=seconds)] $SUMMARY"
 echo "[$(date --iso-8601=seconds)] Saved $LATEST_REPORT and $DATED_REPORT"

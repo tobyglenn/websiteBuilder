@@ -13,6 +13,7 @@ import {
   queriesForPages,
   queryPageCtrOpportunities,
 } from './lib/gsc-query-pages.mjs';
+import { assessGscDataQuality } from './lib/gsc-data-quality.mjs';
 
 const SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:tobyonfitnesstech.com';
 const API_BASE = 'https://searchconsole.googleapis.com/webmasters/v3';
@@ -290,6 +291,11 @@ const [
 
 const rawCurrentPeriod = summarize(current);
 const rawPriorPeriod = summarize(prior);
+const dataQuality = assessGscDataQuality({
+  current: rawCurrentPeriod,
+  prior: rawPriorPeriod,
+  daily: daily.rows || [],
+});
 const anomalyReport = buildAnomalyReport(
   currentQueryPages.rows || [],
   priorQueryPages.rows || [],
@@ -329,7 +335,10 @@ const result = {
       'Classification uses up to 25,000 final query-page rows per period. Rules and every removed row are included under anomalies.',
     queryPageOpportunities:
       'Query-page opportunities exclude classified anomalies and require at least 10 current impressions, CTR at or below 2%, and average position 20 or better.',
+    dataQuality:
+      'Comparative recommendations are suppressed when final daily rows are incomplete or the current period has an abrupt traffic discontinuity requiring independent verification.',
   },
+  dataQuality,
   periods: {
     current: {
       start: isoDate(currentStart),
@@ -363,14 +372,18 @@ const result = {
   topQueries: topRows(queryComparisons, 100),
   rawTopPages: topRows(rawPageComparisons, 50),
   rawTopQueries: topRows(rawQueryComparisons, 100),
-  risingPages: rankRisers(pageComparisons),
-  decliningPages: rankDecliners(pageComparisons),
-  risingQueries: rankRisers(queryComparisons),
-  decliningQueries: rankDecliners(queryComparisons),
-  lowCtrPages,
-  lowCtrQueries: ctrOpportunities(queryComparisons),
-  lowCtrQueryPages: queryPageCtrOpportunities(queryPageComparisons),
-  queriesByLowCtrPage: queriesForPages(queryPageComparisons, lowCtrPages),
+  risingPages: dataQuality.comparisonSafe ? rankRisers(pageComparisons) : [],
+  decliningPages: dataQuality.comparisonSafe ? rankDecliners(pageComparisons) : [],
+  risingQueries: dataQuality.comparisonSafe ? rankRisers(queryComparisons) : [],
+  decliningQueries: dataQuality.comparisonSafe ? rankDecliners(queryComparisons) : [],
+  lowCtrPages: dataQuality.comparisonSafe ? lowCtrPages : [],
+  lowCtrQueries: dataQuality.comparisonSafe ? ctrOpportunities(queryComparisons) : [],
+  lowCtrQueryPages: dataQuality.comparisonSafe
+    ? queryPageCtrOpportunities(queryPageComparisons)
+    : [],
+  queriesByLowCtrPage: dataQuality.comparisonSafe
+    ? queriesForPages(queryPageComparisons, lowCtrPages)
+    : [],
   daily: daily.rows || [],
   devices: devices.rows || [],
   sitemaps: normalizeSitemaps(sitemaps),
