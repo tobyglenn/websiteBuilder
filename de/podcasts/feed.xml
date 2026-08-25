@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 20 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 106 -->
+    <item>
+      <title>Folge 106: AgentStack Daily: Agent Stack Versionsübersicht: OpenAI Codex rust-v0.149.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep106/episode_106.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-106/</link>
+      <description><![CDATA[Agent Stack Versionsübersicht: OpenAI Codex rust-v0.149.0. Ein neues stealth-reasoning Modell ist gerade auf OpenRouter gelandet, Tencent's Hy-MT2-1.8B ist...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-106/]]></description>
+      <pubDate>Tue, 25 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_106.mp3" length="38487815" type="audio/mpeg"/>
+      <itunes:duration>40:05</itunes:duration>
+      <itunes:episode>106</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep106/episode_106_cover.png"/>
+    </item>
+
     <!-- Episode 105 -->
     <item>
       <title>Folge 105: MiniMax Open-Weight-Modell singt vollständige fünfminütige Songs in einem Durchgang</title>
