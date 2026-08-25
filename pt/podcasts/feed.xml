@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 20 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 25 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 106 -->
+    <item>
+      <title>Episódio 106: AgentStack Daily: Resumo do Lançamento do Agent Stack: OpenAI Codex rust-v0.149.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep106/episode_106.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-106/</link>
+      <description><![CDATA[Resumo do Lançamento do Agent Stack: OpenAI Codex rust-v0.149.0, um novo modelo de raciocínio stealth acabou de chegar no OpenRouter.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-106/]]></description>
+      <pubDate>Tue, 25 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_106.mp3" length="33865186" type="audio/mpeg"/>
+      <itunes:duration>35:16</itunes:duration>
+      <itunes:episode>106</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep106/episode_106_cover.png"/>
+    </item>
+
     <!-- Episode 105 -->
     <item>
       <title>Episódio 105: Modelo open-weights da MiniMax canta músicas completas de cinco minutos em uma única passagem</title>
