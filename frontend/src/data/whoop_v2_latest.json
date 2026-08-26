@@ -26752,6 +26752,22 @@
                     "spo2_percentage": 96.30769,
                     "skin_temp_celsius": 34.536667
                 }
+            },
+            {
+                "cycle_id": 1746068732,
+                "sleep_id": "e4e4fa9a-e438-40a8-bf3d-8b1422cffb0a",
+                "user_id": 1781625,
+                "created_at": "2026-08-26T09:05:22.013Z",
+                "updated_at": "2026-08-26T09:05:22.013Z",
+                "score_state": "SCORED",
+                "score": {
+                    "user_calibrating": false,
+                    "recovery_score": 25.0,
+                    "resting_heart_rate": 71.0,
+                    "hrv_rmssd_milli": 22.077362,
+                    "spo2_percentage": 98.42857,
+                    "skin_temp_celsius": 34.968166
+                }
             }
         ]
     },
@@ -53705,16 +53721,32 @@
                 "id": 1743539413,
                 "user_id": 1781625,
                 "created_at": "2026-08-25T09:23:46.821Z",
-                "updated_at": "2026-08-25T10:43:57.865Z",
+                "updated_at": "2026-08-26T09:05:20.374Z",
                 "start": "2026-08-25T02:35:43.030Z",
+                "end": "2026-08-26T03:12:25.870Z",
+                "timezone_offset": "-04:00",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 4.0819154,
+                    "kilojoule": 8909.635,
+                    "average_heart_rate": 67,
+                    "max_heart_rate": 125
+                }
+            },
+            {
+                "id": 1746068732,
+                "user_id": 1781625,
+                "created_at": "2026-08-26T09:05:15.255Z",
+                "updated_at": "2026-08-26T09:05:22.139Z",
+                "start": "2026-08-26T03:12:25.870Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.081336,
-                    "kilojoule": 7649.358,
-                    "average_heart_rate": 68,
-                    "max_heart_rate": 125
+                    "strain": 5.007613,
+                    "kilojoule": 3241.9138,
+                    "average_heart_rate": 71,
+                    "max_heart_rate": 156
                 }
             }
         ]
@@ -117560,6 +117592,41 @@
                     "sleep_consistency_percentage": 67.0,
                     "sleep_efficiency_percentage": 93.03571
                 }
+            },
+            {
+                "id": "e4e4fa9a-e438-40a8-bf3d-8b1422cffb0a",
+                "cycle_id": 1746068732,
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-08-26T09:05:22.013Z",
+                "updated_at": "2026-08-26T09:05:22.013Z",
+                "start": "2026-08-26T03:12:25.870Z",
+                "end": "2026-08-26T08:53:26.630Z",
+                "timezone_offset": "-04:00",
+                "nap": false,
+                "score_state": "SCORED",
+                "score": {
+                    "stage_summary": {
+                        "total_in_bed_time_milli": 20460760,
+                        "total_awake_time_milli": 1200050,
+                        "total_no_data_time_milli": 0,
+                        "total_light_sleep_time_milli": 7546440,
+                        "total_slow_wave_sleep_time_milli": 5858120,
+                        "total_rem_sleep_time_milli": 5856150,
+                        "sleep_cycle_count": 5,
+                        "disturbance_count": 6
+                    },
+                    "sleep_needed": {
+                        "baseline_milli": 27058058,
+                        "need_from_sleep_debt_milli": 2398026,
+                        "need_from_recent_strain_milli": 148977,
+                        "need_from_recent_nap_milli": 0
+                    },
+                    "respiratory_rate": 15.908203,
+                    "sleep_performance_percentage": 76.0,
+                    "sleep_consistency_percentage": 68.0,
+                    "sleep_efficiency_percentage": 94.13487
+                }
             }
         ]
     },
@@ -178098,5 +178165,5 @@
     "journal": {
         "records": []
     },
-    "last_synced": "2026-08-25T19:50:32.368293"
+    "last_synced": "2026-08-26T07:30:48.815517"
 }
