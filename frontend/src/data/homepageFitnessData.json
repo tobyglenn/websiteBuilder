@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-27T11:31:13.450Z",
+  "generatedAt": "2026-08-27T23:51:09.982Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
     "hubTodayLabel": "Aug 27, 2026",
@@ -7,16 +7,16 @@
     "analysisDateKey": "2026-08-27",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-08-27T07:30:47.933091"
+    "whoopLastSynced": "2026-08-27T19:50:25.666509"
   },
   "lifetimeStats": {
-    "totalLbsLifted": 9628810,
+    "totalLbsLifted": 9626974,
     "totalMilesRun": 3809.4,
-    "totalWorkouts": 2763,
+    "totalWorkouts": 2760,
     "sourceBreakdown": {
       "strengthSessions": 1002,
       "garminRuns": 1386,
-      "currentYearLiftingSessions": 84,
+      "currentYearLiftingSessions": 81,
       "allTimeBjjSessions": 291
     }
   },
@@ -39,7 +39,7 @@
     },
     "workouts": {
       "thisWeek": 1,
-      "lastWeek": 7
+      "lastWeek": 4
     },
     "runs": {
       "thisWeek": 0,
@@ -47,7 +47,7 @@
     },
     "volume": {
       "thisWeek": 0,
-      "lastWeek": 1836
+      "lastWeek": 0
     },
     "miles": {
       "thisWeek": 0,
@@ -67,13 +67,13 @@
     },
     "lifting": {
       "icon": "🏋️",
-      "current": 784690,
+      "current": 782854,
       "target": 2000000,
       "unit": "lbs"
     },
     "workouts": {
       "icon": "💪",
-      "current": 219,
+      "current": 216,
       "target": 500,
       "unit": "workouts"
     },
@@ -86,7 +86,7 @@
     }
   },
   "consistency": {
-    "totalActive": 1797,
+    "totalActive": 1796,
     "currentStreak": 1,
     "longestStreak": 60,
     "rangeStart": "2025-08-29",
@@ -1407,13 +1407,6 @@
         "runs": 0,
         "lifting": 0,
         "bjj": 2
-      },
-      {
-        "date": "2026-08-18",
-        "count": 3,
-        "runs": 0,
-        "lifting": 3,
-        "bjj": 0
       },
       {
         "date": "2026-08-19",
