@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 25 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 01:02:21 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 107 -->
+    <item>
+      <title>Episodio 107: Actualización de WebMCP en Codex Desktop y la Computadora en la Nube 24/7 de Grok Bot</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep107/episode_107.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-107/</link>
+      <description><![CDATA[Codex Desktop implementa WebMCP, Mensajes, soporte nativo para Linux y revisión multi-repositorio. Mientras tanto, Grok Bot de xAI ofrece a los agentes una...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-107/]]></description>
+      <pubDate>Fri, 28 Aug 2026 01:02:21 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_107.mp3" length="33680866" type="audio/mpeg"/>
+      <itunes:duration>35:04</itunes:duration>
+      <itunes:episode>107</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep107/episode_107_cover.png"/>
+    </item>
+
     <!-- Episode 106 -->
     <item>
       <title>Episodio 106: AgentStack Daily: Resumen de lanzamiento del Agent Stack: OpenAI Codex rust-v0.149.0</title>
