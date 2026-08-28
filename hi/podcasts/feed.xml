@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Tue, 25 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 01:02:21 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 107 -->
+    <item>
+      <title>एपिसोड 107: Codex Desktop का WebMCP अपग्रेड और Grok Bot का 24/7 क्लाउड कंप्यूटर</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep107/episode_107.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-107/</link>
+      <description><![CDATA[Codex desktop ने WebMCP, Messages, Linux और multi-repo review को रोल आउट किया। साथ ही, xAI का Grok Bot एजेंट्स को 24/7 स्थायी cloud computer प्रदान करता है।
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-107/]]></description>
+      <pubDate>Fri, 28 Aug 2026 01:02:21 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_107.mp3" length="43036883" type="audio/mpeg"/>
+      <itunes:duration>44:49</itunes:duration>
+      <itunes:episode>107</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep107/episode_107_cover.png"/>
+    </item>
+
     <!-- Episode 106 -->
     <item>
       <title>एपिसोड 106: AgentStack Daily: एजेंट स्टैक रिलीज़ रीडआउट: OpenAI Codex rust-v0.149.0</title>
