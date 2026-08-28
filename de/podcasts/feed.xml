@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 25 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 28 Aug 2026 01:02:21 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 107 -->
+    <item>
+      <title>Folge 107: WebMCP-Upgrade für Codex Desktop und Grok Bots 24/7 Cloud-Computer</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep107/episode_107.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-107/</link>
+      <description><![CDATA[Codex Desktop führt WebMCP, Nachrichten, Linux und Multi-Repo-Reviews ein, während xAIs Grok Bot Agenten einen persistenten 24/7 Cloud-Computer bietet.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-107/]]></description>
+      <pubDate>Fri, 28 Aug 2026 01:02:21 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_107.mp3" length="38466081" type="audio/mpeg"/>
+      <itunes:duration>40:04</itunes:duration>
+      <itunes:episode>107</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep107/episode_107_cover.png"/>
+    </item>
+
     <!-- Episode 106 -->
     <item>
       <title>Folge 106: AgentStack Daily: Agent Stack Versionsübersicht: OpenAI Codex rust-v0.149.0</title>
