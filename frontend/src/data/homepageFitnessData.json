@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-08-29T23:51:32.389Z",
+  "generatedAt": "2026-08-30T12:26:22.594Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Aug 29, 2026",
-    "hubTodayKey": "2026-08-29",
-    "analysisDateKey": "2026-08-29",
+    "hubTodayLabel": "Aug 30, 2026",
+    "hubTodayKey": "2026-08-30",
+    "analysisDateKey": "2026-08-30",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-08-29T19:50:58.554893"
+    "whoopLastSynced": "2026-08-30T08:26:03.484387"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9626974,
@@ -25,17 +25,17 @@
     "runCount": 0,
     "workoutCount": 0,
     "bjjCount": 0,
-    "windowStart": "2026-08-23",
-    "windowEnd": "2026-08-29"
+    "windowStart": "2026-08-24",
+    "windowEnd": "2026-08-30"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-08-29",
+    "anchorDate": "2026-08-30",
     "dateRange": {
-      "thisWeekStart": "2026-08-23",
-      "thisWeekEnd": "2026-08-29",
-      "lastWeekStart": "2026-08-16",
-      "lastWeekEnd": "2026-08-22"
+      "thisWeekStart": "2026-08-24",
+      "thisWeekEnd": "2026-08-30",
+      "lastWeekStart": "2026-08-17",
+      "lastWeekEnd": "2026-08-23"
     },
     "workouts": {
       "thisWeek": 0,
@@ -89,16 +89,9 @@
     "totalActive": 1796,
     "currentStreak": 1,
     "longestStreak": 60,
-    "rangeStart": "2025-08-31",
-    "rangeEnd": "2026-08-29",
+    "rangeStart": "2025-09-01",
+    "rangeEnd": "2026-08-30",
     "days": [
-      {
-        "date": "2025-08-31",
-        "count": 1,
-        "runs": 1,
-        "lifting": 0,
-        "bjj": 0
-      },
       {
         "date": "2025-09-01",
         "count": 1,
@@ -1427,11 +1420,11 @@
     "thisMonthMiles": 0
   },
   "recovery": {
-    "currentScore": 22,
-    "lastSleepScore": 69
+    "currentScore": 68,
+    "lastSleepScore": 0
   },
   "labels": {
-    "thisWeek": "August 23, 2026 - August 29, 2026",
-    "lastWeek": "August 16, 2026 - August 22, 2026"
+    "thisWeek": "August 24, 2026 - August 30, 2026",
+    "lastWeek": "August 17, 2026 - August 23, 2026"
   }
 }
