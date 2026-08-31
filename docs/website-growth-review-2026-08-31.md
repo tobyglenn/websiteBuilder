@@ -128,8 +128,8 @@ The authenticated Search Console property is `sc-domain:tobyonfitnesstech.com` u
 - Indexability: 2,141 sitemap URLs, 2,175 HTML files, zero broken internal links, 4,327 JSON-LD scripts, and 35 eligible Product schemas.
 - Podcast: one build generated 27 fitness-podcast routes from the same cached feed snapshot used by all list pages.
 - Product data: no remaining Product lacks both `review` and `aggregateRating`; ROI remains a `WebPage`, not a merchant offer.
-- Production: `LIVE_VERIFICATION_PENDING`.
-- GSC report rerun: `GSC_RERUN_PENDING`.
+- Production: GitHub build/deploy run `33397893647` and Pages run `33398053451` succeeded. Live ROI emits only `WebPage`; WHOOP gear emits one `Product` with one `Review`; the newest podcast route returns HTTP 200; the live child sitemap contains 2,142 URLs.
+- GSC report rerun: `dataQuality.status=degraded`; `rolling_impression_discontinuity` and `rolling_zero_click_discontinuity` held comparative recommendations and posted to `build-log-errors`.
 
 ## First Actions
 
