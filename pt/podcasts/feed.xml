@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Fri, 28 Aug 2026 01:02:21 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 108 -->
+    <item>
+      <title>Episódio 108: AgentStack Daily: O Parse 5 da Cohere Transforma PDFs Digitalizados em Markdown Limpo</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep108/episode_108.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-108/</link>
+      <description><![CDATA[O Parse 5 da Cohere transforma PDFs digitalizados em Markdown limpo. Claude, Codex e Hermes deixaram 227 comandos de instalação não atribuídos em documentos...
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-108/]]></description>
+      <pubDate>Mon, 31 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_108.mp3" length="34788876" type="audio/mpeg"/>
+      <itunes:duration>36:14</itunes:duration>
+      <itunes:episode>108</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep108/episode_108_cover.png"/>
+    </item>
+
     <!-- Episode 107 -->
     <item>
       <title>Episódio 107: Atualização WebMCP do Codex Desktop e o Grok Bot 24/7 em Nuvem</title>
