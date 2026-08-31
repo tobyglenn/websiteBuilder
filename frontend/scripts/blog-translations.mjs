@@ -221,6 +221,10 @@ const numericUnitTokens = (value) => [
   ),
 ];
 
+const numericRankTokens = (value) => [
+  ...new Set(String(value || '').match(/#\d[\d,.]*/g) || []),
+];
+
 const localizedNumericVariants = (token) => {
   const variants = new Set([token]);
   if (/[.,]/.test(token)) {
@@ -249,6 +253,7 @@ export const shieldTranslationSource = (post) => {
     ...linkTargets(source.content),
     ...PROTECTED_NAMES.filter((name) => translatableText.includes(name)),
     ...numericUnitTokens(translatableText),
+    ...numericRankTokens(translatableText),
     ...markdownHeadingPrefixes(source.content),
   ])]
     .filter(Boolean)
@@ -662,12 +667,21 @@ const translateOne = async (options) => {
   try {
     let draft;
     let lastError;
+    let lastFailureWasValidation = false;
     for (let attempt = 1; attempt <= draftAttempts; attempt += 1) {
       try {
-        draft = validateTranslationDraft(callMiniMax(post, locale), post);
+        const translated = callMiniMax(post, locale);
+        try {
+          draft = validateTranslationDraft(translated, post);
+        } catch (error) {
+          const validationError = new Error(String(error?.message || error));
+          validationError.translationValidationFailure = true;
+          throw validationError;
+        }
         break;
       } catch (error) {
         lastError = error;
+        lastFailureWasValidation = Boolean(error?.translationValidationFailure);
         clearSegmentCache(post, locale);
         if (attempt < draftAttempts) {
           console.warn(`  translation draft attempt ${attempt}/${draftAttempts} failed; regenerating`);
@@ -675,7 +689,9 @@ const translateOne = async (options) => {
       }
     }
     if (!draft) {
-      throw new Error(`translation draft failed validation after ${draftAttempts} attempts: ${lastError?.message || lastError}`);
+      const error = new Error(`translation draft failed after ${draftAttempts} attempts: ${lastError?.message || lastError}`);
+      if (lastFailureWasValidation) error.exitCode = 75;
+      throw error;
     }
     const record = {
       slug: post.slug,
@@ -836,6 +852,6 @@ const main = async () => {
 if (resolve(process.argv[1] || '') === scriptPath) {
   main().catch((error) => {
     console.error(error?.stack || error);
-    process.exitCode = 1;
+    process.exitCode = Number(error?.exitCode) || 1;
   });
 }

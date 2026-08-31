@@ -3,6 +3,7 @@ import test from 'node:test';
 import {
   computeSourceHash,
   extractJsonObject,
+  loadSourcePosts,
   restoreTranslationTokens,
   shieldTranslationSource,
   splitTranslationChunks,
@@ -148,6 +149,24 @@ test('shields and restores links, product names, and numeric terms', () => {
   assert.match(restored.content, /^## Result/m);
 });
 
+test('shields and restores ranked numbers such as #1', () => {
+  const rankedSource = {
+    ...source,
+    content: `${source.content}\n\nThis solves the #1 complaint.`,
+  };
+  const { shielded, replacements } = shieldTranslationSource(rankedSource);
+  assert.doesNotMatch(shielded.content, /#1/);
+
+  const restored = restoreTranslationTokens({
+    title: shielded.title.replace('Recovery Test', 'Erholungstest'),
+    excerpt: shielded.excerpt.replace('A concise source description for the article.', 'Eine klare Beschreibung des Artikels.'),
+    category: shielded.category,
+    tags: shielded.tags,
+    content: shielded.content.replace('This solves the', 'Dies lost die'),
+  }, replacements);
+  assert.match(restored.content, /#1/);
+});
+
 test('rejects model output that changes a protected placeholder', () => {
   const { shielded, replacements } = shieldTranslationSource(source);
   assert.throws(() => restoreTranslationTokens({
@@ -177,4 +196,15 @@ test('prioritizes high-opportunity slugs before date order', () => {
     { ...source, slug: 'garmin-and-whoop-what-each-is-actually-for', published_at: '2026-01-01' },
   ]);
   assert.equal(sorted[0].slug, 'garmin-and-whoop-what-each-is-actually-for');
+});
+
+test('loads exactly one canonical translation source per slug', async () => {
+  const posts = await loadSourcePosts();
+  assert.equal(posts.length, new Set(posts.map((post) => post.slug)).size);
+
+  const speediance = posts.filter((post) =>
+    post.slug === '2026-08-16-speediance-partner-custom-workouts-are-finally-here'
+  );
+  assert.equal(speediance.length, 1);
+  assert.match(speediance[0].title, /Surprise Update That Changes Everything/);
 });

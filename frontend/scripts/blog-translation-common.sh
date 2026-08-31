@@ -18,7 +18,22 @@ translation_notify_failure() {
   local exit_code="$2"
   local line="$3"
   local cooldown_file="$TRANSLATION_STATE_ROOT/${stage}.failure-notified"
-  local message="[WEBSITE AUTOMATION FAILURE] stage: $stage exit: $exit_code line: $line log: $TRANSLATION_LOG_ROOT"
+  local stage_log="$TRANSLATION_LOG_ROOT/${stage}.log"
+  local failure_context=""
+  if [[ "$stage" == "worker" && -f "$TRANSLATION_STATE_ROOT/failures.json" ]]; then
+    failure_context="$(jq -r '
+      to_entries
+      | sort_by(.value.lastFailedAt // "")
+      | last
+      | if . then "task: \(.key) error: \(.value.error)" else "" end
+    ' "$TRANSLATION_STATE_ROOT/failures.json" 2>/dev/null || true)"
+  fi
+  local message="[WEBSITE AUTOMATION FAILURE]
+stage: $stage
+exit: $exit_code
+line: $line
+${failure_context:+$failure_context$'\n'}log: $stage_log
+status: $TRANSLATION_LOG_ROOT/latest.json"
 
   if [[ -f "$cooldown_file" ]] && find "$cooldown_file" -mmin "-$TRANSLATION_FAILURE_COOLDOWN_MINUTES" -print -quit | grep -q .; then
     printf '%s %s\n' "$(date -Is)" "$message (notification cooldown active)" >&2

@@ -256,8 +256,19 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
 }
 
 const fallbackPosts = (FALLBACK_BLOG_POSTS as RawFallbackBlogPost[]).map(normalizeFallbackPost);
+
+function uniquePostsBySlug(posts: BlogPost[]): BlogPost[] {
+  const postsBySlug = new Map<string, BlogPost>();
+  for (const post of posts) {
+    // Route generation is first-wins. Match that behavior everywhere else so
+    // duplicate source rows cannot alternate under one output slug.
+    if (!postsBySlug.has(post.slug)) postsBySlug.set(post.slug, post);
+  }
+  return Array.from(postsBySlug.values());
+}
+
 const fallbackBySlug = new Map(
-  fallbackPosts.map((post) => [post.slug, post])
+  uniquePostsBySlug(fallbackPosts).map((post) => [post.slug, post])
 );
 
 const markdownPosts = Object.entries(markdownRawModules).map(([path, raw]) =>
@@ -266,12 +277,14 @@ const markdownPosts = Object.entries(markdownRawModules).map(([path, raw]) =>
 
 const markdownSlugs = new Set(markdownPosts.map((post) => post.slug));
 
-export const DYNAMIC_BLOG_POSTS: BlogPost[] = fallbackPosts.filter((post) => !markdownSlugs.has(post.slug));
+export const DYNAMIC_BLOG_POSTS: BlogPost[] = uniquePostsBySlug(
+  fallbackPosts.filter((post) => !markdownSlugs.has(post.slug))
+);
 
-export const BLOG_POSTS: BlogPost[] = [
+export const BLOG_POSTS: BlogPost[] = uniquePostsBySlug([
   ...markdownPosts,
   ...DYNAMIC_BLOG_POSTS,
-];
+]);
 
 function listingIdentity(post: BlogPost): string {
   const normalizedTitle = String(post.title || '')
