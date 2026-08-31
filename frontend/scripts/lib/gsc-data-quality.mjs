@@ -10,6 +10,7 @@ const ratio = (current, prior) => (
 export const assessGscDataQuality = ({
   current = {},
   prior = {},
+  history = [],
   daily = [],
   expectedDays = 7,
 } = {}) => {
@@ -19,6 +20,19 @@ export const assessGscDataQuality = ({
   const priorClicks = numberValue(prior.clicks);
   const impressionRatio = ratio(currentImpressions, priorImpressions);
   const clickRatio = ratio(currentClicks, priorClicks);
+  const historicalBaseline = [...history]
+    .map((period) => ({
+      ...period,
+      clicks: numberValue(period.clicks),
+      impressions: numberValue(period.impressions),
+    }))
+    .sort((a, b) => b.impressions - a.impressions)[0] || null;
+  const historicalImpressionRatio = historicalBaseline
+    ? ratio(currentImpressions, historicalBaseline.impressions)
+    : null;
+  const historicalClickRatio = historicalBaseline
+    ? ratio(currentClicks, historicalBaseline.clicks)
+    : null;
   const issues = [];
 
   if (daily.length !== expectedDays) {
@@ -42,6 +56,32 @@ export const assessGscDataQuality = ({
     });
   }
 
+  if (
+    historicalBaseline?.impressions >= 1000
+    && historicalImpressionRatio !== null
+    && historicalImpressionRatio < 0.25
+    && !issues.some((issue) => issue.code === 'abrupt_impression_discontinuity')
+  ) {
+    issues.push({
+      code: 'rolling_impression_discontinuity',
+      message:
+        `Current impressions are ${(historicalImpressionRatio * 100).toFixed(1)}% `
+        + `of the strongest complete week in the preceding four weeks (${historicalBaseline.impressions}).`,
+    });
+  }
+
+  if (
+    historicalBaseline?.clicks >= 20
+    && currentClicks === 0
+    && !issues.some((issue) => issue.code === 'zero_click_discontinuity')
+  ) {
+    issues.push({
+      code: 'rolling_zero_click_discontinuity',
+      message:
+        `Current clicks are zero after a preceding complete week with ${historicalBaseline.clicks} clicks.`,
+    });
+  }
+
   return {
     status: issues.length ? 'degraded' : 'ready',
     comparisonSafe: issues.length === 0,
@@ -52,6 +92,11 @@ export const assessGscDataQuality = ({
       impressions: impressionRatio,
       clicks: clickRatio,
     },
+    currentToHistoricalBaselineRatios: {
+      impressions: historicalImpressionRatio,
+      clicks: historicalClickRatio,
+    },
+    historicalBaseline,
     issues,
   };
 };

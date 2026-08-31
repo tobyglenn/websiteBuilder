@@ -22,6 +22,22 @@ const FITNESS_EPISODE_NUMBER_BY_GUID: Record<string, number> = {
   'e047fd67-5594-4bbb-8463-1bebb3504820': 21,
 };
 
+export const FITNESS_PODCAST_FEED_URL = 'https://anchor.fm/s/108bc95a4/podcast/rss';
+
+let fitnessPodcastFeedPromise: Promise<string> | undefined;
+
+export function getFitnessPodcastFeedXml(): Promise<string> {
+  if (!fitnessPodcastFeedPromise) {
+    fitnessPodcastFeedPromise = fetch(FITNESS_PODCAST_FEED_URL).then(async (response) => {
+      if (!response.ok) {
+        throw new Error(`Fitness podcast RSS returned HTTP ${response.status}`);
+      }
+      return response.text();
+    });
+  }
+  return fitnessPodcastFeedPromise;
+}
+
 const mappedNumbers = Object.values(FITNESS_EPISODE_NUMBER_BY_GUID);
 if (new Set(mappedNumbers).size !== mappedNumbers.length) {
   throw new Error('Fitness podcast GUID map contains duplicate episode numbers.');

@@ -16,28 +16,12 @@ const webPageSchema = {
   }
 };
 
-const productSchema = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "Speediance Home Gym",
-  "description": "Gimnasio inteligente para casa con tecnología de IA, resistencia de peso digital, coaching en vivo y seguimiento integral de entrenamientos.",
-  "brand": {
-    "@type": "Brand",
-    "name": "Speediance"
-  },
-  "offers": {
-    "@type": "Offer",
-    "price": "4995",
-    "priceCurrency": "USD",
-    "availability": "https://schema.org/InStock"
-  }
-};
 ---
 
 <Layout 
   title={`${pageTitle} | Toby on Fitness Tech`}
   description={pageDescription}
-  jsonLd={[webPageSchema, productSchema]}
+  jsonLd={webPageSchema}
 >
   <section class="py-20 bg-neutral-950 border-b border-neutral-800">
     <div class="container mx-auto px-4 text-center">

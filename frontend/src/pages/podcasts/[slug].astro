@@ -3,7 +3,11 @@ import { marked } from 'marked';
 import Layout from '../../layouts/Layout.astro';
 import EpisodeDetail from '../../components/EpisodeDetail.jsx';
 import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
-import { getFitnessEpisodeNumber, getFitnessEpisodeSlug } from '../../lib/fitnessPodcast';
+import {
+  getFitnessEpisodeNumber,
+  getFitnessEpisodeSlug,
+  getFitnessPodcastFeedXml,
+} from '../../lib/fitnessPodcast';
 import { buildPodcastMetaDescription } from '../../lib/podcastMeta';
 import {
   englishShowNotesCandidates,
@@ -207,8 +211,7 @@ export async function getStaticPaths() {
   // TOFT episodes from Anchor RSS
   const toftEpisodes: any[] = [];
   try {
-    const toftRes = await fetch('https://anchor.fm/s/108bc95a4/podcast/rss');
-    const toftXml = await toftRes.text();
+    const toftXml = await getFitnessPodcastFeedXml();
     const toftItems = toftXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
     toftItems.forEach((item) => {
       const guid = extractTag(item, 'guid');

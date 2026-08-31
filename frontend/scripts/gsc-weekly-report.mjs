@@ -79,6 +79,8 @@ const currentEnd = new Date(today.getTime() - (2 * DAY_MS));
 const currentStart = new Date(currentEnd.getTime() - (6 * DAY_MS));
 const priorEnd = new Date(currentStart.getTime() - DAY_MS);
 const priorStart = new Date(priorEnd.getTime() - (6 * DAY_MS));
+const historicalStart = new Date(currentStart.getTime() - (28 * DAY_MS));
+const historicalEnd = priorEnd;
 
 const apiError = async (response) => {
   const body = await response.text();
@@ -131,6 +133,36 @@ const metricValues = (row = {}) => ({
 });
 
 const summarize = (payload) => metricValues(payload.rows?.[0]);
+
+const summarizeHistoricalWeeks = (rows, startDate, weekCount = 4) => {
+  const buckets = Array.from({ length: weekCount }, (_, index) => {
+    const start = new Date(startDate.getTime() + (index * 7 * DAY_MS));
+    const end = new Date(start.getTime() + (6 * DAY_MS));
+    return {
+      start: isoDate(start),
+      end: isoDate(end),
+      clicks: 0,
+      impressions: 0,
+      positionImpressions: 0,
+    };
+  });
+
+  for (const row of rows) {
+    const date = new Date(`${row.keys?.[0]}T00:00:00Z`);
+    const index = Math.floor((date.getTime() - startDate.getTime()) / (7 * DAY_MS));
+    if (index < 0 || index >= buckets.length) continue;
+    const metrics = metricValues(row);
+    buckets[index].clicks += metrics.clicks;
+    buckets[index].impressions += metrics.impressions;
+    buckets[index].positionImpressions += metrics.position * metrics.impressions;
+  }
+
+  return buckets.map(({ positionImpressions, ...bucket }) => ({
+    ...bucket,
+    ctr: bucket.impressions ? bucket.clicks / bucket.impressions : 0,
+    position: bucket.impressions ? positionImpressions / bucket.impressions : 0,
+  }));
+};
 
 const compareRows = (currentRows = [], priorRows = []) => {
   const priorByKey = new Map(priorRows.map((row) => [row.keys?.[0], row]));
@@ -233,6 +265,7 @@ const [
   currentQueryPages,
   priorQueryPages,
   daily,
+  historicalDaily,
   devices,
   sitemaps,
 ] = await Promise.all([
@@ -281,6 +314,12 @@ const [
     rowLimit: 10,
   }),
   query({
+    startDate: historicalStart,
+    endDate: historicalEnd,
+    dimensions: ['date'],
+    rowLimit: 40,
+  }),
+  query({
     startDate: currentStart,
     endDate: currentEnd,
     dimensions: ['device'],
@@ -291,9 +330,14 @@ const [
 
 const rawCurrentPeriod = summarize(current);
 const rawPriorPeriod = summarize(prior);
+const historicalPeriods = summarizeHistoricalWeeks(
+  historicalDaily.rows || [],
+  historicalStart,
+);
 const dataQuality = assessGscDataQuality({
   current: rawCurrentPeriod,
   prior: rawPriorPeriod,
+  history: historicalPeriods,
   daily: daily.rows || [],
 });
 const anomalyReport = buildAnomalyReport(
@@ -336,7 +380,7 @@ const result = {
     queryPageOpportunities:
       'Query-page opportunities exclude classified anomalies and require at least 10 current impressions, CTR at or below 2%, and average position 20 or better.',
     dataQuality:
-      'Comparative recommendations are suppressed when final daily rows are incomplete or the current period has an abrupt traffic discontinuity requiring independent verification.',
+      'Comparative recommendations are suppressed when final daily rows are incomplete or the current period has an abrupt traffic discontinuity against either the preceding week or the strongest complete week in the preceding four weeks.',
   },
   dataQuality,
   periods: {
@@ -363,6 +407,7 @@ const result = {
       ...subtractMetrics(rawPriorPeriod, anomalyReport.summary.prior),
     },
   },
+  historicalPeriods,
   anomalies: {
     rules: anomalyReport.rules,
     summary: anomalyReport.summary,

@@ -73,6 +73,9 @@ const inspectStructuredData = (value, route) => {
     if (Array.isArray(value.brand) && value.brand.length > 1) {
       failures.push(`${route} Product "${value.name || '(unnamed)'}" has multiple brand values; Merchant listings require one brand per Product.`);
     }
+    if (!value.review && !value.aggregateRating) {
+      failures.push(`${route} Product "${value.name || '(unnamed)'}" has neither review nor aggregateRating; remove ineligible Product markup or provide visible, evidence-backed review data.`);
+    }
   }
 
   for (const nested of Object.values(value)) inspectStructuredData(nested, route);
