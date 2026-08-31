@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Fri, 28 Aug 2026 01:02:21 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 108 -->
+    <item>
+      <title>एपिसोड 108: AgentStack Daily: Cohere का Parse 5 स्कैन PDF को साफ Markdown में बदलता है</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep108/episode_108.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-108/</link>
+      <description><![CDATA[Cohere का Parse 5 स्कैन PDF को साफ Markdown में बदलता है। Claude, Codex, और Hermes ने कॉर्पोरेट दस्तावेज़ों में 227 अनक्लेम्ड इंस्टॉल कमांड छोड़े। OpenAI और...
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-108/]]></description>
+      <pubDate>Mon, 31 Aug 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_108.mp3" length="43306048" type="audio/mpeg"/>
+      <itunes:duration>45:06</itunes:duration>
+      <itunes:episode>108</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep108/episode_108_cover.png"/>
+    </item>
+
     <!-- Episode 107 -->
     <item>
       <title>एपिसोड 107: Codex Desktop का WebMCP अपग्रेड और Grok Bot का 24/7 क्लाउड कंप्यूटर</title>
