@@ -1,3 +1,5 @@
+import { readFile } from 'node:fs/promises';
+
 const FITNESS_EPISODE_NUMBER_BY_GUID: Record<string, number> = {
   'bc8fe2c8-bc35-4022-9945-65d944e367ef': 1,
   '34f22f4c-9d12-4a9a-a2ca-db03841111f2': 2,
@@ -28,12 +30,15 @@ let fitnessPodcastFeedPromise: Promise<string> | undefined;
 
 export function getFitnessPodcastFeedXml(): Promise<string> {
   if (!fitnessPodcastFeedPromise) {
-    fitnessPodcastFeedPromise = fetch(FITNESS_PODCAST_FEED_URL).then(async (response) => {
-      if (!response.ok) {
-        throw new Error(`Fitness podcast RSS returned HTTP ${response.status}`);
-      }
-      return response.text();
-    });
+    const snapshotPath = process.env.TOFT_FITNESS_PODCAST_FEED_SNAPSHOT;
+    fitnessPodcastFeedPromise = snapshotPath
+      ? readFile(snapshotPath, 'utf8')
+      : fetch(FITNESS_PODCAST_FEED_URL).then(async (response) => {
+          if (!response.ok) {
+            throw new Error(`Fitness podcast RSS returned HTTP ${response.status}`);
+          }
+          return response.text();
+        });
   }
   return fitnessPodcastFeedPromise;
 }

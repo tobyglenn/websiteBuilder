@@ -1,9 +1,8 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import PodcastSubscribeButtons from '../../../components/PodcastSubscribeButtons.jsx';
-import { getFitnessEpisodeSlug } from '../../../lib/fitnessPodcast';
+import { getFitnessEpisodeSlug, getFitnessPodcastFeedXml } from '../../../lib/fitnessPodcast';
 
-const FITNESS_FEED = 'https://anchor.fm/s/108bc95a4/podcast/rss';
 const FITNESS_COVER = 'https://d3t3ozftmdmh3i.cloudfront.net/staging/podcast_uploaded_nologo/44315441/44315441-1769259381156-db3a704d94734.jpg';
 
 const FITNESS_SPOTIFY = 'https://open.spotify.com/show/03gk0rvNxpDWJKnNFB4mu2';
@@ -47,9 +46,7 @@ let fitnessEpisodes: FitnessEpisode[] = [];
 let fitnessFetchError = false;
 
 try {
-  const fitnessRes = await fetch(FITNESS_FEED);
-  if (!fitnessRes.ok) throw new Error(`HTTP ${fitnessRes.status}`);
-  const fitnessXml = await fitnessRes.text();
+  const fitnessXml = await getFitnessPodcastFeedXml();
 
   const fitnessItems = fitnessXml.match(/<item>([\s\S]*?)<\/item>/g) ?? [];
 

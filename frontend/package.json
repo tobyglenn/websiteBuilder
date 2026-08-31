@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "astro dev",
     "test:workout-hub": "node --test src/lib/workoutHub.test.mjs",
+    "snapshot:fitness-podcast-feed": "node ./scripts/snapshot-fitness-podcast-feed.mjs",
     "refresh:homepage-hero-video": "node ./scripts/refresh-homepage-hero-video.mjs",
     "refresh:homepage-data": "node ./scripts/refresh-homepage-fitness-data.mjs",
     "cloudflare:redirect:podcast-transcripts": "node ./scripts/setup-cloudflare-transcript-redirect.mjs",
@@ -22,7 +23,7 @@
     "translate:priority-pages:status": "node ./scripts/priority-page-translations.mjs status",
     "translate:priority-pages:promote": "node ./scripts/priority-page-translations.mjs promote",
     "translate:priority-pages:validate": "node ./scripts/priority-page-translations.mjs validate-output",
-    "build": "astro build && npx pagefind --site dist && npm run audit:indexability",
+    "build": "npm run snapshot:fitness-podcast-feed && TOFT_FITNESS_PODCAST_FEED_SNAPSHOT=.cache/fitness-podcast-feed.xml astro build && npx pagefind --site dist && npm run audit:indexability",
     "preview": "astro preview",
     "astro": "astro"
   },
