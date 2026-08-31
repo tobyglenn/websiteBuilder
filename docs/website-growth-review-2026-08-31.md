@@ -122,7 +122,7 @@ The authenticated Search Console property is `sc-domain:tobyonfitnesstech.com` u
 
 ## Delivery Evidence
 
-- Commit: `COMMIT_PENDING`.
+- Commit: `7f6f6258` (final hash may change when delivery evidence is amended).
 - Tests: 4 of 4 GSC data-quality tests passed.
 - Build: 2,163 pages generated; Pagefind indexed 2,156 pages across six languages.
 - Indexability: 2,141 sitemap URLs, 2,175 HTML files, zero broken internal links, 4,327 JSON-LD scripts, and 35 eligible Product schemas.
@@ -136,4 +136,3 @@ The authenticated Search Console property is `sc-domain:tobyonfitnesstech.com` u
 1. Deploy and verify this review's three fixes, then rerun the GSC report to confirm it stays `degraded` against the rolling baseline.
 2. Work through the 93 GSC 404 samples and four Google-selected canonical mismatches before requesting another validation.
 3. Update the PostHog dashboard filters and close the two experiments once their declared evidence thresholds are actually met.
-
