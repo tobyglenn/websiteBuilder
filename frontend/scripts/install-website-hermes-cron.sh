@@ -6,6 +6,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 HERMES_SCRIPT_DIR="${HERMES_SCRIPT_DIR:-$HOME/.hermes/scripts}"
 DISPATCHER="$SCRIPT_DIR/hermes-website-job.sh"
 CLARITY_DISPATCHER="$SCRIPT_DIR/hermes-clarity-job.sh"
+SITE_HEALTH_DISPATCHER="$SCRIPT_DIR/monitor-site-health.sh"
 
 mkdir -p "$HERMES_SCRIPT_DIR"
 
@@ -18,6 +19,7 @@ job_names=(
   ttoft-translation-worker
   ttoft-translation-publish
   ttoft-sitemap-submit
+  ttoft-site-health
 )
 job_schedules=(
   '0 18 * * *'
@@ -28,6 +30,7 @@ job_schedules=(
   '*/1 * * * *'
   '17 0,6,12 * * *'
   '47 0,6,12 * * *'
+  '*/5 * * * *'
 )
 
 for index in "${!job_names[@]}"; do
@@ -36,6 +39,8 @@ for index in "${!job_names[@]}"; do
   source_script="$DISPATCHER"
   if [[ "$name" == "ttoft-clarity-daily" ]]; then
     source_script="$CLARITY_DISPATCHER"
+  elif [[ "$name" == "ttoft-site-health" ]]; then
+    source_script="$SITE_HEALTH_DISPATCHER"
   fi
   install -m 755 "$source_script" "$HERMES_SCRIPT_DIR/$wrapper"
 

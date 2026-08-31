@@ -30,6 +30,9 @@ case "$(basename "$0")" in
   ttoft-sitemap-submit.sh)
     exec "$WEBSITE_ROOT/frontend/scripts/run-gsc-sitemap-submit.sh"
     ;;
+  ttoft-site-health.sh)
+    exec "$WEBSITE_ROOT/frontend/scripts/monitor-site-health.sh"
+    ;;
   *)
     printf 'Unknown Hermes website job wrapper: %s\n' "$(basename "$0")" >&2
     exit 64

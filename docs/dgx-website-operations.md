@@ -186,6 +186,22 @@ tail -100 /home/toby/.openclaw/logs/pipeline/blog_publish_stage3.cron.log
 
 An ad hoc rerun with no pending draft is harmless only when a post dated that day already exists. During the scheduled 7:00 PM run, no pending draft and no same-day post is an actionable failure. Provider errors, malformed draft output, stale reviewed drafts, build failures, Git conflicts, and push failures are also actionable errors.
 
+## Public Site Monitoring
+
+Hermes job `ttoft-site-health` runs every five minutes through
+`frontend/scripts/monitor-site-health.sh`. It verifies the authoritative
+Spaceship A/CNAME records, absence of stale AAAA records, valid HTTPS, the
+HTTP-to-HTTPS and `www` redirects, and the live sitemap.
+
+The monitor alerts `#build-log-errors` and Hermes/Telegram on the first failed
+check, suppresses duplicate notifications while the outage continues, and
+posts a recovery message when all checks pass again. Its state and log are:
+
+```bash
+cat /home/toby/.openclaw/state/website-health/state
+tail -100 /home/toby/.openclaw/logs/pipeline/site_health.cron.log
+```
+
 ## Weekly Growth Review
 
 Every Monday compare the most recent seven complete days with the previous seven complete days.
