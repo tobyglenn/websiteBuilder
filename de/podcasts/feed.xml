@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 31 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 109 -->
+    <item>
+      <title>Folge 109: NVIDIA Jetson Orin Nano 2 verdoppelt Geschwindigkeit auf neuem Silizium</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep109/episode_109.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-109/</link>
+      <description><![CDATA[Die heutige AgentStack Daily berichtet über NVIDIAs Jetson Orin Nano 2, der den Durchsatz auf neuem Silizium verdoppelt, IBMs Granite 4.2 8B auf OpenRouter...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-109/]]></description>
+      <pubDate>Wed, 02 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_109.mp3" length="37187962" type="audio/mpeg"/>
+      <itunes:duration>38:44</itunes:duration>
+      <itunes:episode>109</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep109/episode_109_cover.png"/>
+    </item>
+
     <!-- Episode 108 -->
     <item>
       <title>Folge 108: AgentStack Daily: Cohere&#x27;s Parse 5 wandelt gescannte PDFs in sauberes Markdown um</title>
