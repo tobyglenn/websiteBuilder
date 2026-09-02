@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 109 -->
+    <item>
+      <title>Episode 109: NVIDIA Jetson Orin Nano 2 Doubles Speed on New Silicon</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep109/episode_109.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-109/</link>
+      <description><![CDATA[Today's AgentStack Daily covers NVIDIA's Jetson Orin Nano 2 doubling throughput on new silicon, IBM's Granite 4.2 8B landing on OpenRouter with 131K...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-109/]]></description>
+      <pubDate>Wed, 02 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep109/episode_109.mp3" length="30752644" type="audio/mpeg"/>
+      <itunes:duration>32:01</itunes:duration>
+      <itunes:episode>109</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep109/episode_109_cover.png"/>
+    </item>
+
     <!-- Episode 108 -->
     <item>
       <title>Episode 108: AgentStack Daily: Cohere&#x27;s Parse 5 Turns Scanned PDFs Into Clean Markdown</title>
