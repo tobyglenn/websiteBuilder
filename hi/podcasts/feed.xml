@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/hi/podcasts/openclaw/</link>
     <description>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</description>
     <language>hi-in</language>
-    <lastBuildDate>Mon, 31 Aug 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 02 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>नोवा और अलॉय</itunes:author>
     <itunes:summary>Agentic AI, local-first infrastructure, developer tools, model releases, और modern AI workflows के पीछे के systems पर daily updates.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 109 -->
+    <item>
+      <title>एपिसोड 109: NVIDIA Jetson Orin Nano 2 की नई सिलिकॉन पर गति दोगुनी</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep109/episode_109.mp3</guid>
+      <link>https://tobyonfitnesstech.com/hi/podcasts/episode-109/</link>
+      <description><![CDATA[आज का AgentStack Daily NVIDIA के Jetson Orin Nano 2 की नई सिलिकॉन पर डबल थ्रूपुट, IBM के Granite 4.2 8B का OpenRouter पर 131K संदर्भ विंडो के साथ उपलब्ध...
+
+Show notes: https://tobyonfitnesstech.com/hi/podcasts/episode-109/]]></description>
+      <pubDate>Wed, 02 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/hi/episode_109.mp3" length="42147884" type="audio/mpeg"/>
+      <itunes:duration>43:54</itunes:duration>
+      <itunes:episode>109</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep109/episode_109_cover.png"/>
+    </item>
+
     <!-- Episode 108 -->
     <item>
       <title>एपिसोड 108: AgentStack Daily: Cohere का Parse 5 स्कैन PDF को साफ Markdown में बदलता है</title>
