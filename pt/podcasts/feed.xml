@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Wed, 02 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 110 -->
+    <item>
+      <title>Episódio 110: AgentStack Daily: Resumo do Lançamento do Agent Stack: OpenClaw v2026.8.2</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep110/episode_110.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-110/</link>
+      <description><![CDATA[Resumo do lançamento do Agent Stack: OpenClaw v2026.8.2, a equipe Qwen open-source zg, uma camada de busca local-first para agentes.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-110/]]></description>
+      <pubDate>Thu, 03 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_110.mp3" length="34899635" type="audio/mpeg"/>
+      <itunes:duration>36:21</itunes:duration>
+      <itunes:episode>110</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep110/episode_110_cover.png"/>
+    </item>
+
     <!-- Episode 109 -->
     <item>
       <title>Episódio 109: NVIDIA Jetson Orin Nano 2 Dobra a Velocidade com Novo Silício</title>
