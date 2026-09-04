@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-09-03T23:51:38.895Z",
+  "generatedAt": "2026-09-04T11:31:02.811Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Sep 3, 2026",
-    "hubTodayKey": "2026-09-03",
-    "analysisDateKey": "2026-09-03",
+    "hubTodayLabel": "Sep 4, 2026",
+    "hubTodayKey": "2026-09-04",
+    "analysisDateKey": "2026-09-04",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-09-03T19:51:00.984730"
+    "whoopLastSynced": "2026-09-04T07:30:35.474763"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9626974,
@@ -25,21 +25,21 @@
     "runCount": 0,
     "workoutCount": 0,
     "bjjCount": 0,
-    "windowStart": "2026-08-28",
-    "windowEnd": "2026-09-03"
+    "windowStart": "2026-08-29",
+    "windowEnd": "2026-09-04"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-09-03",
+    "anchorDate": "2026-09-04",
     "dateRange": {
-      "thisWeekStart": "2026-08-28",
-      "thisWeekEnd": "2026-09-03",
-      "lastWeekStart": "2026-08-21",
-      "lastWeekEnd": "2026-08-27"
+      "thisWeekStart": "2026-08-29",
+      "thisWeekEnd": "2026-09-04",
+      "lastWeekStart": "2026-08-22",
+      "lastWeekEnd": "2026-08-28"
     },
     "workouts": {
       "thisWeek": 0,
-      "lastWeek": 1
+      "lastWeek": 0
     },
     "runs": {
       "thisWeek": 0,
@@ -55,7 +55,7 @@
     },
     "bjj": {
       "thisWeek": 0,
-      "lastWeek": 1
+      "lastWeek": 0
     }
   },
   "yearlyGoals": {
@@ -89,8 +89,8 @@
     "totalActive": 1796,
     "currentStreak": 1,
     "longestStreak": 60,
-    "rangeStart": "2025-09-05",
-    "rangeEnd": "2026-09-03",
+    "rangeStart": "2025-09-06",
+    "rangeEnd": "2026-09-04",
     "days": [
       {
         "date": "2025-09-10",
@@ -1399,11 +1399,11 @@
     "thisMonthMiles": 0
   },
   "recovery": {
-    "currentScore": 95,
-    "lastSleepScore": 92
+    "currentScore": 93,
+    "lastSleepScore": 84
   },
   "labels": {
-    "thisWeek": "August 28, 2026 - September 3, 2026",
-    "lastWeek": "August 21, 2026 - August 27, 2026"
+    "thisWeek": "August 29, 2026 - September 4, 2026",
+    "lastWeek": "August 22, 2026 - August 28, 2026"
   }
 }
