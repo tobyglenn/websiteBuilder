@@ -1,4 +1,5 @@
 ---
+import { personSocialUrls, organizationSocialUrls } from '../data/socialProfiles.js';
 import '../styles/global.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
@@ -288,10 +289,7 @@ const personSchema = {
   "description": "Independent fitness technology reviewer and builder. Dropped from 242 to 188 pounds, using data from Speediance, Garmin, WHOOP, and running to guide training decisions.",
   "url": siteUrl,
   "image": `${siteUrl}/og-default.jpg`,
-  "sameAs": [
-    "https://www.youtube.com/@tobyonfitness",
-    "https://www.instagram.com/tobyonfitness"
-  ],
+  "sameAs": personSocialUrls,
   "knowsAbout": [
     "Speediance",
     "Brazilian Jiu-Jitsu",
@@ -338,12 +336,7 @@ const organizationSchema = {
   },
   "founder": { "@id": `${siteUrl}/#toby` },
   "foundingDate": "2024",
-  "sameAs": [
-    "https://www.youtube.com/@tobyonfitness",
-    "https://x.com/tobyglenn",
-    "https://www.instagram.com/tobyonfitness",
-    "https://tobyonfitnesstech.com"
-  ],
+  "sameAs": [...organizationSocialUrls, siteUrl],
   "contactPoint": {
     "@type": "ContactPoint",
     "email": "toby@tobyonfitnesstech.com",

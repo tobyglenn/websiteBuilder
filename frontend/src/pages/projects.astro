@@ -70,9 +70,18 @@ const projectGroups = [
   },
   {
     eyebrow: 'Video',
-    title: 'Story worlds and channels',
-    description: 'AI-assisted video series and channel experiments, including the active IronVane world and the archived Liminal series.',
+    title: 'Video channels and creative work',
+    description: 'Gaming videos, family creative work, and AI-assisted story series, with each channel keeping its own voice.',
     projects: [
+      {
+        slug: 'lilly',
+        title: "Lilly Plays",
+        status: 'Active',
+        description: "Gaming and creative videos with Lilly, including Minecraft, Roblox, AEW, and family adventures. Lilly leads the videos; I help with editing, captions, and publishing full episodes and Shorts.",
+        href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ',
+        cta: "Watch Lilly's channel",
+        tags: ['YouTube', 'Gaming', 'Family adventures'],
+      },
       {
         slug: 'ironvane',
         title: 'IronVane',
@@ -104,7 +113,7 @@ const projectSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Projects | Toby on Fitness Tech',
-  description: 'Games, church tools, AI video series, and side projects from Toby on Fitness Tech.',
+  description: 'Games, training tools, scripture practice, and video channels from Toby on Fitness Tech.',
   url: 'https://tobyonfitnesstech.com/projects/',
   hasPart: allProjects.map((project) => ({
     '@type': 'CreativeWork',
@@ -117,7 +126,7 @@ const projectSchema = {
 
 <Layout
   title="Projects | Toby on Fitness Tech"
-  description="Games, church tools, AI video series, and side projects from Toby on Fitness Tech."
+  description="Games, training tools, scripture practice, and video channels from Toby on Fitness Tech."
   jsonLd={projectSchema}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Projects', url: '/projects/' }]}
 >
@@ -125,9 +134,9 @@ const projectSchema = {
     <div class="mx-auto max-w-6xl">
       <header class="border-b border-neutral-800 pb-10">
         <p class="text-sm font-bold uppercase tracking-widest text-blue-400">Projects</p>
-        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Games, tools, and story experiments</h1>
+        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Games, tools, and creative channels</h1>
         <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
-          The side projects worth trying directly: two playable games, a scripture memory tool, and the IronVane/Liminal video work.
+          Explore the things I build and help bring to life: playable games, training and nutrition apps, scripture practice, Lilly's gaming videos, and the IronVane/Liminal story work.
         </p>
       </header>
 

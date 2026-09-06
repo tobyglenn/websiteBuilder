@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
-import { Youtube, Twitter, Instagram } from './BrandIcons.jsx';
+import SocialIcon from './SocialIcon.jsx';
+import { socialProfiles } from '../data/socialProfiles.js';
 import { captureEvent } from '../lib/analytics.js';
 
 export default function Footer({ showNewsletter = true }) {
@@ -56,37 +57,20 @@ export default function Footer({ showNewsletter = true }) {
               Dedicated to cutting through the marketing hype and delivering data-driven 
               reviews of fitness technology, smart gyms, wearables, and the real training data behind each recommendation.
             </p>
-            <div className="flex gap-2">
-              <a 
-                href="https://www.youtube.com/@tobyonfitness" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 text-neutral-400 hover:text-red-500 transition-colors"
-                aria-label="YouTube"
-                title="YouTube"
-              >
-                <Youtube size={20} />
-              </a>
-              <a 
-                href="https://x.com/tobyglenn" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 text-neutral-400 hover:text-blue-400 transition-colors"
-                aria-label="X"
-                title="X"
-              >
-                <Twitter size={20} />
-              </a>
-              <a 
-                href="https://www.instagram.com/tobyonfitness" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="p-2 text-neutral-400 hover:text-pink-500 transition-colors"
-                aria-label="Instagram"
-                title="Instagram"
-              >
-                <Instagram size={20} />
-              </a>
+            <div className="flex flex-wrap gap-2">
+              {socialProfiles.map((profile) => (
+                <a
+                  key={profile.id}
+                  href={profile.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-neutral-400 hover:text-blue-400 transition-colors"
+                  aria-label={profile.label}
+                  title={profile.label}
+                >
+                  <SocialIcon platform={profile.id} size={20} />
+                </a>
+              ))}
               <a 
                 href="mailto:admin@tobyonfitnesstech.com" 
                 className="p-2 text-neutral-400 hover:text-white transition-colors"

@@ -1,6 +1,6 @@
 import { createLucideIcon } from "lucide-react";
 
-// lucide-react removed brand/social icons in v1. These re-create the three we
+// lucide-react removed brand/social icons in v1. These re-create the brand icons we
 // use for our own social links, via the same factory so sizing, stroke width
 // and className merging behave exactly as any other lucide icon.
 
@@ -29,4 +29,14 @@ export const Instagram = createLucideIcon("instagram", [
   ["rect", { width: "20", height: "20", x: "2", y: "2", rx: "5", ry: "5", key: "2e1cvw" }],
   ["path", { d: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z", key: "9exkf1" }],
   ["line", { x1: "17.5", x2: "17.51", y1: "6.5", y2: "6.5", key: "r4j83e" }],
+]);
+
+export const Linkedin = createLucideIcon("linkedin", [
+  ["rect", { x: "2", y: "9", width: "4", height: "13", key: "linkedin-stem" }],
+  ["circle", { cx: "4", cy: "4", r: "2", key: "linkedin-dot" }],
+  ["path", { d: "M16 8a6 6 0 0 1 6 6v8h-4v-8a2 2 0 0 0-4 0v8h-4V9h4v2a4 4 0 0 1 2-3z", key: "linkedin-n" }],
+]);
+
+export const TikTok = createLucideIcon("tiktok", [
+  ["path", { d: "M14 3v12a5 5 0 1 1-5-5v4a1 1 0 1 0 1 1V3h4c0 3 2 5 5 5v4a9 9 0 0 1-5-2", key: "tiktok-note" }],
 ]);
