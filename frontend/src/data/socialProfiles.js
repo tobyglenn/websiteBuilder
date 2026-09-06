@@ -20,6 +20,12 @@ export const socialProfiles = [
     identities: ['person', 'organization'],
   },
   {
+    id: 'facebook', label: 'Facebook — Toby On Fitness Tech', handle: 'Facebook page',
+    href: 'https://www.facebook.com/profile.php?id=61583662221886',
+    description: 'The Toby On Fitness Tech page for Reels and video updates.',
+    identities: ['organization'],
+  },
+  {
     id: 'x', label: 'X', handle: '@tobyglenn',
     href: 'https://x.com/tobyglenn',
     description: 'Short videos, project updates, and conversation.',

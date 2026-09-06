@@ -40,3 +40,7 @@ export const Linkedin = createLucideIcon("linkedin", [
 export const TikTok = createLucideIcon("tiktok", [
   ["path", { d: "M14 3v12a5 5 0 1 1-5-5v4a1 1 0 1 0 1 1V3h4c0 3 2 5 5 5v4a9 9 0 0 1-5-2", key: "tiktok-note" }],
 ]);
+
+export const Facebook = createLucideIcon("facebook", [
+  ["path", { d: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z", key: "facebook-f" }],
+]);
