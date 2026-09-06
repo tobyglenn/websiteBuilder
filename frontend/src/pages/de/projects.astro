@@ -3,93 +3,102 @@ import Layout from '../../layouts/Layout.astro';
 
 const projectGroups = [
   {
-    eyebrow: 'Games',
-    title: 'Playable experiments',
-    description: 'Browser games and tactical prototypes that are live enough to play.',
+    eyebrow: 'Spiele',
+    title: 'Spielbare Experimente',
+    description: 'Browserspiele und taktische Prototypen, die live genug sind, um sie zu spielen.',
     projects: [
       {
         slug: 'mma-rpg',
         title: 'MMA RPG',
         status: 'Live',
-        description: 'A turn-based MMA fighting RPG. Build your fighter, master combos, and climb the ranks.',
+        description: 'Ein rundenbasiertes MMA-Kampf-RPG. Baue deinen Kämpfer auf, meistere Combos und steige in den Rängen auf.',
         href: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
-        cta: 'Play now',
-        tags: ['Fighting', 'RPG', 'Strategy'],
+        cta: 'Jetzt spielen',
+        tags: ['Kampf', 'RPG', 'Strategie'],
       },
       {
         slug: 'gridbound-realms',
         title: 'Gridbound Realms',
         status: 'Live',
-        description: 'A tactical grid-based strategy game. Command units, hold the map, and conquer the realm.',
+        description: 'Ein taktisches rasterbasiertes Strategiespiel. Befehlige Einheiten, halte die Karte und erobere das Reich.',
         href: 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
-        cta: 'Play now',
-        tags: ['Strategy', 'Tactics', 'Grid'],
+        cta: 'Jetzt spielen',
+        tags: ['Strategie', 'Taktik', 'Raster'],
       },
     ],
   },
   {
     eyebrow: 'Apps',
-    title: 'Training and nutrition tools',
-    description: 'Fitness utilities built around the workflows I actually use for mat time, meals, and progress tracking.',
+    title: 'Trainings- und Ernährungstools',
+    description: 'Fitness-Tools, die auf die Workflows zugeschnitten sind, die ich tatsächlich für Mat-Time, Mahlzeiten und Fortschrittsverfolgung verwende.',
     projects: [
       {
         slug: 'bjj-buddy',
         title: 'BJJ Buddy',
         status: 'Live',
-        description: 'A Brazilian Jiu-Jitsu tracking app for logging rolls, organizing techniques, saving favorites, and following grappling progress over time.',
+        description: 'Eine Brazilian Jiu-Jitsu Tracking-App zum Protokollieren von Rollen, Organisieren von Techniken, Speichern von Favoriten und Verfolgen des Grappling-Fortschritts über die Zeit.',
         href: 'https://bjj-buddy.pages.dev/',
-        cta: 'Open app',
-        tags: ['BJJ', 'Training log', 'Techniques'],
+        cta: 'App öffnen',
+        tags: ['BJJ', 'Trainingsprotokoll', 'Techniken'],
       },
       {
         slug: 'nutritrack',
         title: 'NutriTrack',
         status: 'Live',
-        description: 'A free nutrition tracker for logging meals, watching macros, and keeping food data connected to training goals.',
+        description: 'Ein kostenloser Ernährungs-Tracker zum Protokollieren von Mahlzeiten, Überwachen von Makros und zum Verknüpfen von Essensdaten mit Trainingszielen.',
         href: 'https://nutritrack.tobyonfitnesstech.com',
-        cta: 'Open tracker',
-        tags: ['Nutrition', 'Macros', 'Meal log'],
+        cta: 'Tracker öffnen',
+        tags: ['Ernährung', 'Makros', 'Mahlzeitenprotokoll'],
       },
     ],
   },
   {
-    eyebrow: 'Church',
-    title: 'Scripture and memory work',
-    description: 'Faith-focused tools built for practice, repetition, and long-term recall.',
+    eyebrow: 'Kirche',
+    title: 'Schrift- und Auswendiglernarbeit',
+    description: 'Glaubenstools für Übung, Wiederholung und langfristige Erinnerung.',
     projects: [
       {
         slug: 'one-peter-memory',
         title: '1 Peter Memory Trainer',
-        status: 'In progress',
-        description: 'A KJV memorization trainer for Alert Academy prep with chunks, audio voices, disappearing text, recitation scoring, and spaced review.',
+        status: 'In Arbeit',
+        description: 'Ein KJV-Auswendiglerntrainer für die Alert-Academy-Vorbereitung mit Chunking, Audio-Stimmen, verschwindendem Text, Rezitations-Bewertung und verteilter Wiederholung.',
         href: '/de/one-peter-memory/',
-        cta: 'Open trainer',
-        tags: ['Scripture', 'Memorization', 'KJV'],
+        cta: 'Trainer öffnen',
+        tags: ['Bibel', 'Auswendiglernen', 'KJV'],
       },
     ],
   },
   {
     eyebrow: 'Video',
-    title: 'Story worlds and channels',
-    description: 'AI-assisted video series and channel experiments, including the active IronVane world and the archived Liminal series.',
+    title: 'Video-Kanäle und kreative Arbeit',
+    description: 'Gaming-Videos, Familien-Kreativarbeit und KI-gestützte Story-Serien, wobei jeder Kanal seine eigene Stimme behält.',
     projects: [
+      {
+        slug: 'lilly',
+        title: "Lilly Plays",
+        status: 'Aktiv',
+        description: "Gaming- und Kreativ-Videos mit Lilly, einschließlich Minecraft, Roblox, AEW und Familienabenteuern. Lilly leitet die Videos; ich helfe beim Schneiden, Untertiteln und Veröffentlichen vollständiger Episoden und Shorts.",
+        href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ',
+        cta: "Lillys Kanal ansehen",
+        tags: ['YouTube', 'Gaming', 'Familienabenteuer'],
+      },
       {
         slug: 'ironvane',
         title: 'IronVane',
-        status: 'Active',
-        description: 'The Crossfire/IronVane story channel, currently centered on Ceryn, Talya, and the ongoing episode run.',
+        status: 'Aktiv',
+        description: 'Der Crossfire/IronVane Story-Kanal, derzeit zentriert auf Ceryn, Talya und den laufenden Episodenstrang.',
         href: 'https://www.youtube.com/@IronVaneStory/videos',
-        cta: 'Watch the series',
-        tags: ['YouTube', 'Story', 'AI video'],
+        cta: 'Serie ansehen',
+        tags: ['YouTube', 'Story', 'KI-Video'],
       },
       {
         slug: 'liminal',
         title: 'Liminal',
-        status: 'Archived',
-        description: 'A supernatural seaside-inn comedy series. Production is paused, but the released episodes remain available on YouTube.',
+        status: 'Archiviert',
+        description: 'Eine übernatürliche Küstenhotel-Komödienserie. Die Produktion ist pausiert, aber die veröffentlichten Episoden bleiben auf YouTube verfügbar.',
         href: 'https://www.youtube.com/watch?v=Vo_LQS1ubWc',
-        cta: 'Watch Liminal',
-        tags: ['YouTube', 'Comedy', 'Archived'],
+        cta: 'Liminal ansehen',
+        tags: ['YouTube', 'Komödie', 'Archiviert'],
       },
     ],
   },
@@ -103,8 +112,8 @@ const allProjects = projectGroups.flatMap((group) => group.projects.map((project
 const projectSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: 'Projects | Toby on Fitness Tech',
-  description: 'Games, church tools, AI video series, and side projects from Toby on Fitness Tech.',
+  name: 'Projekte | Toby on Fitness Tech',
+  description: 'Spiele, Trainings-Tools, Bibelübung und Video-Kanäle von Toby on Fitness Tech.',
   url: 'https://tobyonfitnesstech.com/de/projects/',
   hasPart: allProjects.map((project) => ({
     '@type': 'CreativeWork',
@@ -117,7 +126,7 @@ const projectSchema = {
 
 <Layout
   title="Projekte | Toby on Fitness Tech"
-  description="Spiele, Kirchen-Tools, KI-Video-Serien und Nebenprojekte von Toby on Fitness Tech."
+  description="Spiele, Trainings-Tools, Bibelübung und Video-Kanäle von Toby on Fitness Tech."
   jsonLd={projectSchema}
   breadcrumbs={[{ name: 'Startseite', url: '/de/' }, { name: 'Projekte', url: '/de/projects/' }]}
 
@@ -128,9 +137,9 @@ const projectSchema = {
     <div class="mx-auto max-w-6xl">
       <header class="border-b border-neutral-800 pb-10">
         <p class="text-sm font-bold uppercase tracking-widest text-blue-400">Projekte</p>
-        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Spiele, Tools und Story-Experimente</h1>
+        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Spiele, Tools und kreative Kanäle</h1>
         <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
-          Die Nebenprojekte, die sich direkt auszuprobieren lohnen: zwei spielbare Spiele, ein Schrift-Auswendiglern-Tool und die IronVane/Liminal-Videoproduktion.
+          Entdecke die Dinge, die ich baue und zum Leben erwecke: spielbare Spiele, Trainings- und Ernährungs-Apps, Bibelübung, Lillys Gaming-Videos und die IronVane/Liminal Story-Arbeit.
         </p>
       </header>
 
