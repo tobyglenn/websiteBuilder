@@ -536,7 +536,10 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <meta name="theme-color" content="#0a0a0a" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     
-    <script type="application/ld+json" set:html={JSON.stringify(allSchemas)} />
+    <!-- Separate objects avoid Safari's top-level JSON-LD array parser bug (WebKit 255764). -->
+    {allSchemas.map((schema) => (
+      <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+    ))}
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
       "@type": "WebSite",

@@ -117,7 +117,13 @@ for (const file of htmlFiles) {
   structuredDataScripts += jsonLdScripts.length;
   for (const match of jsonLdScripts) {
     try {
-      inspectStructuredData(JSON.parse(match[1].trim()), sourceRoute);
+      const schema = JSON.parse(match[1].trim());
+      // Valid JSON-LD arrays still crash Safari's injected metadata parser (WebKit 255764).
+      if (!schema || Array.isArray(schema) || typeof schema !== 'object'
+        || typeof schema['@context'] !== 'string' || !schema['@context'].trim()) {
+        failures.push(`${sourceRoute} JSON-LD root must be an object with a non-empty string @context for Safari compatibility; emit separate scripts instead of a top-level array.`);
+      }
+      inspectStructuredData(schema, sourceRoute);
     } catch (error) {
       failures.push(`Invalid JSON-LD in ${sourceRoute}: ${error.message}`);
     }
