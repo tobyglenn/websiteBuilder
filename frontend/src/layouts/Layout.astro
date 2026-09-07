@@ -7,6 +7,7 @@ import { SEO } from 'astro-seo';
 import { ClientRouter } from 'astro:transitions';
 import LangDetect from '../components/LangDetect.astro';
 import PostHogAnalytics from '../components/PostHogAnalytics.astro';
+import TrainingDataNotice from '../components/TrainingDataNotice.astro';
 import MicrosoftClarity from '../components/MicrosoftClarity.astro';
 
 interface Props {
@@ -557,6 +558,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
       <Header client:load />
     </div>
     <main class="flex-grow pt-16" data-pagefind-body>
+      {/^\/(de|es|hi|pt)\/?$/.test(Astro.url.pathname) && <TrainingDataNotice lang={lang} />}
       <slot />
     </main>
     <div data-pagefind-ignore>

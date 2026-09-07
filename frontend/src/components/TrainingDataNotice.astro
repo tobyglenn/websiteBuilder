@@ -1,0 +1,20 @@
+---
+import data from '../data/homepageFitnessData.json';
+import { trainingFreshness } from '../lib/trainingFreshness.mjs';
+const { lang = 'en' } = Astro.props;
+const status = trainingFreshness(data);
+const messages = {
+  en: ['Latest recorded workout', 'No newer workout records are available here. Weekly totals include recorded activity only, not unrecorded training.'],
+  de: ['Zuletzt erfasstes Training', 'Hier sind keine neueren Trainingsaufzeichnungen verfügbar. Die Wochensummen enthalten nur erfasste Aktivitäten, kein nicht aufgezeichnetes Training.'],
+  es: ['Último entrenamiento registrado', 'Aquí no hay registros de entrenamientos más recientes. Los totales semanales solo incluyen actividad registrada, no entrenamientos sin registrar.'],
+  pt: ['Último treino registrado', 'Não há registros de treinos mais recentes aqui. Os totais semanais incluem apenas atividades registradas, não treinos sem registro.'],
+  hi: ['आखिरी दर्ज किया गया वर्कआउट', 'यहाँ इससे नए वर्कआउट के रिकॉर्ड उपलब्ध नहीं हैं। साप्ताहिक कुल में केवल दर्ज गतिविधियाँ शामिल हैं, बिना रिकॉर्ड वाला प्रशिक्षण नहीं।'],
+};
+const [label, note] = messages[lang] || messages.en;
+---
+{status.limited && (
+  <aside data-training-data-status="limited" class="mx-auto max-w-7xl border-b border-neutral-700 px-4 py-4 text-sm text-neutral-300 sm:px-6">
+    <p class="font-semibold">{label}: <time datetime={status.latestActivityDate || undefined}>{status.latestActivityDate || 'N/A'}</time></p>
+    <p class="mt-1">{note}</p>
+  </aside>
+)}

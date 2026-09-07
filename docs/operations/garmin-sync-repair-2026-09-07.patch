@@ -1,0 +1,108 @@
+--- a/scripts/sync/garmin_garth_sync.py
++++ b/scripts/sync/garmin_garth_sync.py
+@@ -53 +49,4 @@
+-    client.display_name = GARMIN_DISPLAY_NAME
++    profile = client.garth.connectapi('/userprofile-service/socialProfile')
++    client.display_name = profile.get('displayName')
++    if not client.display_name:
++        raise RuntimeError('Authenticated Garmin profile has no display name')
+@@ -131 +130 @@
+-        print(f"  ⚠️  Stats error for {day_str}: {e}")
++        raise RuntimeError(f'Garmin daily summary failed for {day_str}') from e
+@@ -168 +167 @@
+-        print(f"  ⚠️  Activities error for {day_str}: {e}")
++        raise RuntimeError(f'Garmin activity retrieval failed for {day_str}') from e
+@@ -190 +189 @@
+-            }
++            } if st or overall.get('value') else {}
+@@ -227 +226,10 @@
+-def sync_days(client, num_days):
++def has_daily_data(payload):
++    stats = payload.get('stats') or {}
++    sleep = payload.get('sleep') or {}
++    return bool(payload.get('activities') or sleep.get('sleepTimeSeconds') or any(
++        (stats.get(key) or 0) > 0 for key in
++        ('totalSteps', 'restingHeartRate', 'sleepingSeconds', 'totalKilocalories')
++    ))
++
++
++def sync_days(client, num_days, force=False):
+@@ -230,0 +239,3 @@
++    missing_dates = []
++    failed_dates = []
++    partial_today = False
+@@ -239 +250 @@
+-        if i > 1 and out.exists():
++        if not force and i > 1 and out.exists():
+@@ -264,2 +275,3 @@
+-            if steps == 0 and rhr == 0 and not payload.get("activities") and not payload.get("sleep"):
+-                print("empty")
++            if not has_daily_data(payload):
++                print("unavailable: Garmin returned no daily measurements; cached file preserved")
++                missing_dates.append(day_str)
+@@ -278 +290,2 @@
+-                return 3
++                partial_today = True
++                continue
+@@ -290,0 +304 @@
++            failed_dates.append(day_str)
+@@ -293 +307,18 @@
+-    return 0 if saved > 0 else 1
++    # Finish backfilling before reporting unavailable recent data. Historical
++    # successes must not hide a failed current sync.
++    recent_missing = [d for d in missing_dates if d >= str(today - timedelta(days=1))]
++    exit_code = 1 if failed_dates else 4 if recent_missing else 3 if partial_today else 0
++    health = {
++        'checkedAt': datetime.now().astimezone().isoformat(),
++        'status': 'ok' if exit_code == 0 else 'unavailable' if exit_code == 4 else 'degraded',
++        'savedDays': saved, 'missingDates': missing_dates, 'failedDates': failed_dates,
++        'partialToday': partial_today, 'exitCode': exit_code,
++    }
++    health_path = DATA_DIR.parent / 'garmin_sync_health.json'
++    temporary = health_path.with_suffix('.tmp')
++    temporary.write_text(json.dumps(health, indent=2))
++    temporary.replace(health_path)
++    if recent_missing:
++        print('GARMIN DATA UNAVAILABLE: no daily measurements for ' + ', '.join(recent_missing))
++        print('Authentication succeeded. This is missing cloud data, not a confirmed zero-activity day.')
++    return exit_code
+@@ -306 +337 @@
+-    result = sync_days(client, days)
++    result = sync_days(client, days, force='--force' in sys.argv[1:])
+--- a/scripts/wrappers/sync_data.sh
++++ b/scripts/wrappers/sync_data.sh
+@@ -136 +136,4 @@
+-    else
++  elif [ "${GARMIN_RAW_EXIT:-1}" -eq 4 ]; then
++    echo "Garmin authentication succeeded but recent daily measurements are missing; refusing an empty browser fallback."
++    python3 "$SCRIPTS_DIR/utils/post_build_log.py" --error "[GARMIN DATA UNAVAILABLE] Authenticated API returned no daily measurements. Empty responses were not saved as zero activity. Reports are held; inspect $DATA_DIR/garmin_sync_health.json and Garmin Connect." || true
++  else
+@@ -233 +236 @@
+-    echo "⛔ Garmin auth/network sync failed — sending immediate alert and suppressing all reports"
++    echo "⛔ Garmin sync did not provide usable daily data — sending immediate alert and suppressing reports"
+@@ -235 +238 @@
+-    ALERT_TEXT="⚠️ <b>Garmin sync failed — ${MODE} ${TODAY}</b>%0AAll reports and voice suppressed.%0AThis looks like auth/network rather than stale cloud data; log into Garmin Connect in Chrome if needed."
++    ALERT_TEXT="⚠️ <b>Garmin sync failed — ${MODE} ${TODAY}</b>%0AReports and voice held because daily data is unavailable. Inspect garmin_sync_health.json and Garmin Connect; missing data must not be reported as zero."
+--- a/scriptsJinja/data_extractors.py
++++ b/scriptsJinja/data_extractors.py
+@@ -171,0 +172,12 @@
++def garmin_sleep_seconds(day_payload):
++    """Prefer the nightly sleep record over the wellness day's sleeping total."""
++    sleep = day_payload.get('sleep') or {}
++    nested = sleep.get('dailySleepDTO') or {}
++    candidates = [sleep.get('sleepTimeSeconds'), nested.get('sleepTimeSeconds'),
++                  (day_payload.get('stats') or {}).get('sleepingSeconds')]
++    for value in candidates:
++        if isinstance(value, (int, float)) and not isinstance(value, bool) and math.isfinite(value) and value >= 0:
++            return value
++    return 0
++
++
+@@ -276 +288 @@
+-                    'garmin_sleep_h': ((s.get('sleepingSeconds') or 0) / 3600),
++                    'garmin_sleep_h': garmin_sleep_seconds(d) / 3600,
+@@ -281 +293 @@
+-                    'garmin_active_calories': s.get('activeCalories', 0)
++                    'garmin_active_calories': s.get('activeKilocalories', s.get('activeCalories', 0)) or 0
+@@ -805 +816,0 @@
+-

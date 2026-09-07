@@ -200,7 +200,7 @@ function calculateStreaks(sortedDates, todayKey) {
     ? todayKey
     : activeDateSet.has(yesterdayKey)
       ? yesterdayKey
-      : sortedDates[sortedDates.length - 1];
+      : null;
 
   let current = 0;
   while (cursor && activeDateSet.has(cursor)) {

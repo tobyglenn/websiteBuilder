@@ -3,6 +3,23 @@
   if (!config || !config.key || window.__TOFT_POSTHOG_READY__) return;
   window.__TOFT_POSTHOG_READY__ = true;
 
+  const releaseProps = () => ({
+    site_release: document.querySelector('meta[name="toft-release"]')?.content || config.release || 'unknown',
+    analytics_version: config.analyticsVersion || 'unknown',
+  });
+  const structuredDataDiagnostics = () => {
+    const counts = { jsonld_scripts: 0, jsonld_root_arrays: 0, jsonld_invalid_contexts: 0, jsonld_parse_errors: 0 };
+    document.querySelectorAll('script[type="application/ld+json"]').forEach(script => {
+      counts.jsonld_scripts += 1;
+      try {
+        const value = JSON.parse(script.textContent || 'null');
+        if (Array.isArray(value)) counts.jsonld_root_arrays += 1;
+        if (!value || Array.isArray(value) || typeof value['@context'] !== 'string' || !value['@context'].trim()) counts.jsonld_invalid_contexts += 1;
+      } catch { counts.jsonld_parse_errors += 1; }
+    });
+    return counts;
+  };
+
   !(function (documentRef, posthogRef) {
     let methodNames;
     let index;
@@ -64,6 +81,7 @@
     navigation: "toft_navigation_attribution",
   };
   const pageProps = () => ({
+    ...releaseProps(),
     page_path: window.location.pathname,
     page_title: document.title,
     language: document.documentElement.lang || "en",
@@ -175,7 +193,13 @@
     mask_all_text: true,
     mask_all_element_attributes: true,
     loaded: function (posthog) {
-      posthog.register({ site: "tobyonfitnesstech" });
+      posthog.register({ site: "tobyonfitnesstech", ...releaseProps() });
+    },
+    before_send: function (event) {
+      if (!event) return event;
+      event.properties = { ...event.properties, ...releaseProps() };
+      if (event.event === '$exception') Object.assign(event.properties, structuredDataDiagnostics());
+      return event;
     },
   });
 
@@ -201,6 +225,7 @@
     if (pageviewKey === lastPageviewKey) return;
     lastPageviewKey = pageviewKey;
     window.toftAnalytics.capture("$pageview", {
+      ...structuredDataDiagnostics(),
       referrer_path: document.referrer || "",
     });
     capturePendingJourneyAttributions();
@@ -263,6 +288,20 @@
 
   const failedResources = new Set();
   window.addEventListener("error", (event) => {
+    if (event instanceof ErrorEvent) {
+      let sourcePath = '';
+      try { const source = new URL(event.filename, window.location.href); sourcePath = `${source.origin}${source.pathname}`; } catch {}
+      window.toftAnalytics.capture('frontend_script_error', {
+        ...structuredDataDiagnostics(),
+        error_source: sourcePath,
+        error_line: event.lineno || 0,
+        error_column: event.colno || 0,
+        error_type: event.error?.name || 'Error',
+        // A signature flag avoids collecting arbitrary messages or page content.
+        jsonld_context_error: String(event.message || '').includes('@context'),
+      });
+      return;
+    }
     const resource = event.target;
     if (!(resource instanceof HTMLImageElement || resource instanceof HTMLScriptElement || resource instanceof HTMLLinkElement)) return;
     const resourceUrl = resource.currentSrc || resource.src || resource.href || "";

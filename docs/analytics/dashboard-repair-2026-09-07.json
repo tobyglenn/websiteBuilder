@@ -1,0 +1,104 @@
+{
+  "dashboard": 1840395,
+  "project": 498166,
+  "before": [
+    {
+      "id": "lnqy7ORh",
+      "name": "Navigation item impressions and viewer CTR",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    properties.navigation_group AS navigation_group,\n    toInt(properties.navigation_item_position) AS item_position,\n    properties.navigation_item_label AS item_label,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.$session_id, event = 'navigation_item_viewed') AS viewing_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS clicking_sessions,\n    countIf(event = 'navigation_click') AS clicks,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_click') / greatest(uniqIf(properties.$session_id, event = 'navigation_item_viewed'), 1), 1) AS viewer_ctr\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_item_viewed', 'navigation_click')\n  AND properties.navigation_schema_version = 'nav-2026-08-04-a'\nGROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url\nORDER BY period DESC, surface ASC, viewer_ctr DESC, viewing_sessions DESC\nLIMIT 250"
+        },
+        "display": "ActionsTable"
+      }
+    },
+    {
+      "id": "z7xk5gn9",
+      "name": "Navigation menu open to selection",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_surface AS surface,\n    if(event = 'navigation_menu_opened', properties.menu_name, properties.navigation_group) AS menu_group,\n    uniqIf(properties.$session_id, event = 'navigation_menu_opened') AS opening_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS selecting_sessions,\n    countIf(event = 'navigation_menu_opened') AS opens,\n    countIf(event = 'navigation_click') AS selections,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_click') / greatest(uniqIf(properties.$session_id, event = 'navigation_menu_opened'), 1), 1) AS open_to_selection_rate\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_menu_opened', 'navigation_click')\n  AND properties.navigation_schema_version = 'nav-2026-08-04-a'\nGROUP BY period, surface, menu_group\nORDER BY period DESC, surface ASC, opening_sessions DESC\nLIMIT 100"
+        },
+        "display": "ActionsTable"
+      }
+    },
+    {
+      "id": "dDxnCFO2",
+      "name": "Homepage click to destination reached",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.homepage_layout_version AS layout_version,\n    if(toInt(properties.viewport_width) < 768, 'mobile', 'desktop') AS viewport,\n    toInt(properties.homepage_section_position) AS section_position,\n    properties.homepage_section_title AS section_title,\n    properties.content_title AS item_title,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.homepage_visit_id, event = 'homepage_section_click') AS clicking_visits,\n    uniqIf(properties.homepage_visit_id, event = 'homepage_destination_reached') AS reached_visits,\n    round(100 * uniqIf(properties.homepage_visit_id, event = 'homepage_destination_reached') / greatest(uniqIf(properties.homepage_visit_id, event = 'homepage_section_click'), 1), 1) AS destination_reach_rate,\n    round(avgIf(toFloat(properties.reach_time_ms), event = 'homepage_destination_reached'), 0) AS average_reach_time_ms\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('homepage_section_click', 'homepage_destination_reached')\n  AND properties.destination = 'internal'\n  AND properties.homepage_layout_version = 'home-2026-08-04-a'\nGROUP BY period, layout_version, viewport, section_position, section_title, item_title, destination_url\nORDER BY period DESC, clicking_visits DESC, destination_reach_rate DESC\nLIMIT 200"
+        },
+        "display": "ActionsTable"
+      }
+    },
+    {
+      "id": "rpTLmumN",
+      "name": "Navigation click to destination reached",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    properties.navigation_group AS navigation_group,\n    toInt(properties.navigation_item_position) AS item_position,\n    properties.navigation_item_label AS item_label,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS clicking_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_destination_reached') AS reached_sessions,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_destination_reached') / greatest(uniqIf(properties.$session_id, event = 'navigation_click'), 1), 1) AS destination_reach_rate,\n    round(avgIf(toFloat(properties.reach_time_ms), event = 'navigation_destination_reached'), 0) AS average_reach_time_ms\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_click', 'navigation_destination_reached')\n  AND properties.destination = 'internal'\n  AND properties.navigation_schema_version = 'nav-2026-08-04-a'\nGROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url\nORDER BY period DESC, surface ASC, clicking_sessions DESC, destination_reach_rate DESC\nLIMIT 200"
+        },
+        "display": "ActionsTable"
+      }
+    }
+  ],
+  "after": [
+    {
+      "id": "lnqy7ORh",
+      "name": "Navigation item impressions and viewer CTR",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    properties.navigation_group AS navigation_group,\n    toInt(properties.navigation_item_position) AS item_position,\n    properties.navigation_item_label AS item_label,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.$session_id, event = 'navigation_item_viewed') AS viewing_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS clicking_sessions,\n    countIf(event = 'navigation_click') AS clicks,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_click') / greatest(uniqIf(properties.$session_id, event = 'navigation_item_viewed'), 1), 1) AS viewer_ctr\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_item_viewed', 'navigation_click')\nGROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url\nORDER BY period DESC, surface ASC, viewer_ctr DESC, viewing_sessions DESC\nLIMIT 250"
+        },
+        "display": "ActionsTable"
+      }
+    },
+    {
+      "id": "z7xk5gn9",
+      "name": "Navigation menu open to selection",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n  properties.navigation_surface AS surface,\n    if(event = 'navigation_menu_opened', properties.menu_name, properties.navigation_group) AS menu_group,\n    uniqIf(properties.$session_id, event = 'navigation_menu_opened') AS opening_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS selecting_sessions,\n    countIf(event = 'navigation_menu_opened') AS opens,\n    countIf(event = 'navigation_click') AS selections,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_click') / greatest(uniqIf(properties.$session_id, event = 'navigation_menu_opened'), 1), 1) AS open_to_selection_rate\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_menu_opened', 'navigation_click')\nGROUP BY period, schema_version, surface, menu_group\nORDER BY period DESC, surface ASC, opening_sessions DESC\nLIMIT 100"
+        },
+        "display": "ActionsTable"
+      }
+    },
+    {
+      "id": "dDxnCFO2",
+      "name": "Homepage click to destination reached",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.homepage_layout_version AS layout_version,\n    if(toInt(properties.viewport_width) < 768, 'mobile', 'desktop') AS viewport,\n    toInt(properties.homepage_section_position) AS section_position,\n    properties.homepage_section_title AS section_title,\n    properties.content_title AS item_title,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.homepage_visit_id, event = 'homepage_section_click') AS clicking_visits,\n    uniqIf(properties.homepage_visit_id, event = 'homepage_destination_reached') AS reached_visits,\n    round(100 * uniqIf(properties.homepage_visit_id, event = 'homepage_destination_reached') / greatest(uniqIf(properties.homepage_visit_id, event = 'homepage_section_click'), 1), 1) AS destination_reach_rate,\n    round(avgIf(toFloat(properties.reach_time_ms), event = 'homepage_destination_reached'), 0) AS average_reach_time_ms\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('homepage_section_click', 'homepage_destination_reached')\n  AND properties.destination = 'internal'\nGROUP BY period, layout_version, viewport, section_position, section_title, item_title, destination_url\nORDER BY period DESC, clicking_visits DESC, destination_reach_rate DESC\nLIMIT 200"
+        },
+        "display": "ActionsTable"
+      }
+    },
+    {
+      "id": "rpTLmumN",
+      "name": "Navigation click to destination reached",
+      "query": {
+        "kind": "DataVisualizationNode",
+        "source": {
+          "kind": "HogQLQuery",
+          "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    properties.navigation_group AS navigation_group,\n    toInt(properties.navigation_item_position) AS item_position,\n    properties.navigation_item_label AS item_label,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS clicking_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_destination_reached') AS reached_sessions,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_destination_reached') / greatest(uniqIf(properties.$session_id, event = 'navigation_click'), 1), 1) AS destination_reach_rate,\n    round(avgIf(toFloat(properties.reach_time_ms), event = 'navigation_destination_reached'), 0) AS average_reach_time_ms\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_click', 'navigation_destination_reached')\n  AND properties.destination = 'internal'\nGROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url\nORDER BY period DESC, surface ASC, clicking_sessions DESC, destination_reach_rate DESC\nLIMIT 200"
+        },
+        "display": "ActionsTable"
+      }
+    }
+  ]
+}

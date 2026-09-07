@@ -1,15 +1,25 @@
 ---
+import { execFileSync } from 'node:child_process';
 const posthogKey = import.meta.env.PUBLIC_POSTHOG_KEY;
 const posthogHost = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com';
-const analyticsLoaderSrc = '/js/posthog-analytics.js?v=20260804-home-nav';
+let release = process.env.GITHUB_SHA || '';
+if (!release) {
+  try { release = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(); }
+  catch { release = 'unknown'; }
+}
+const analyticsVersion = '20260907-release-attribution';
+const analyticsLoaderSrc = `/js/posthog-analytics.js?v=${analyticsVersion}`;
 ---
 
 {posthogKey && (
   <>
-    <script define:vars={{ posthogKey, posthogHost }}>
+    <meta name="toft-release" content={release} />
+    <script define:vars={{ posthogKey, posthogHost, release, analyticsVersion }}>
       window.__TOFT_POSTHOG_CONFIG__ = {
         key: posthogKey,
         host: posthogHost,
+        release,
+        analyticsVersion,
       };
     </script>
     <script src={analyticsLoaderSrc} defer></script>

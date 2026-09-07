@@ -18,6 +18,8 @@ import {
 import { Youtube } from '../components/BrandIcons.jsx';
 import { lifetimeStats } from '../data/stats.js';
 import homepageFitnessData from '../data/homepageFitnessData.json';
+import { trainingFreshness } from '../lib/trainingFreshness.mjs';
+import TrainingDataNotice from '../components/TrainingDataNotice.astro';
 import { recentActivity } from '../data/recentActivity.js';
 import weeklyProgress from '../data/weeklyProgress.js';
 import { isLikelyShortVideo } from '../lib/videoMeta.js';
@@ -134,7 +136,9 @@ const goalRows = [
 const latestTrainingActivity = recentActivity.slice(0, 3);
 const trainingSnapshot = homepageFitnessData.trainingStats || {};
 const trainingFocus = homepageFitnessData.trainingFocus || {};
+const trainingDataStatus = trainingFreshness(homepageFitnessData);
 const trainingUpdatedAt = new Date(homepageFitnessData.generatedAt || Date.now()).toLocaleString('en-US', {
+  timeZone: 'America/New_York',
   month: 'short',
   day: 'numeric',
   year: 'numeric',
@@ -248,17 +252,18 @@ const webPageSchema = {
             <Activity size={17} />
             Training proof
           </div>
-          <h2 class="text-3xl font-bold text-white md:text-4xl">What the work looks like right now</h2>
+          <h2 class="text-3xl font-bold text-white md:text-4xl">Training behind the reviews</h2>
           <p class="mt-3 max-w-3xl text-neutral-400">
-            A single current view of weekly training, recent workouts, yearly progress, and the lifetime totals behind the reviews.
+            Recorded training, recent workouts, yearly progress, and the lifetime totals behind the reviews.
           </p>
         </div>
         <div class="flex items-center gap-2 text-sm text-neutral-400">
           <CalendarDays size={16} className="text-neutral-500" />
-          Updated {trainingUpdatedAt} ET
+          Snapshot built {trainingUpdatedAt} ET
         </div>
       </div>
 
+      <TrainingDataNotice />
       <div class="grid border-b border-neutral-700 lg:grid-cols-[minmax(0,2fr)_minmax(18rem,1fr)]">
         <div class="py-8 lg:border-r lg:border-neutral-700 lg:pr-8">
           <div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -267,7 +272,7 @@ const webPageSchema = {
               <p class="mt-1 text-sm text-neutral-500">{thisWeekDateRange} vs {lastWeekDateRange}</p>
             </div>
             <p class="text-sm text-neutral-400">
-              Current focus: <span class="font-semibold capitalize text-white">{trainingFocus.focus || 'mixed training'}</span>
+              Recorded focus: <span class="font-semibold capitalize text-white">{trainingDataStatus.limited ? 'Awaiting current data' : trainingFocus.focus || 'mixed training'}</span>
             </p>
           </div>
 
@@ -309,19 +314,19 @@ const webPageSchema = {
               <dl class="divide-y divide-neutral-700 border-y border-neutral-700">
                 <div class="flex items-center justify-between gap-4 py-4">
                   <dt class="text-sm text-neutral-400">Training streak</dt>
-                  <dd class="font-bold text-white">{trainingSnapshot.trainingStreak || 0} days</dd>
+                  <dd class="font-bold text-white">{trainingDataStatus.limited ? 'Unconfirmed' : `${trainingSnapshot.trainingStreak || 0} days`}</dd>
                 </div>
                 <div class="flex items-center justify-between gap-4 py-4">
                   <dt class="text-sm text-neutral-400">Last workout</dt>
                   <dd class="text-right font-bold text-white">{trainingSnapshot.lastWorkoutData?.type || 'N/A'} / {trainingSnapshot.lastWorkoutData?.date || 'N/A'}</dd>
                 </div>
                 <div class="flex items-center justify-between gap-4 py-4">
-                  <dt class="text-sm text-neutral-400">This week's workouts</dt>
+                  <dt class="text-sm text-neutral-400">This week's recorded workouts</dt>
                   <dd class="font-bold text-white">{weeklyProgress.workouts?.thisWeek || 0}</dd>
                 </div>
                 <div class="flex items-center justify-between gap-4 py-4">
-                  <dt class="text-sm text-neutral-400">Current focus</dt>
-                  <dd class="text-right font-bold capitalize text-white">{trainingFocus.focus || 'mixed training'}</dd>
+                  <dt class="text-sm text-neutral-400">Recorded focus</dt>
+                  <dd class="text-right font-bold capitalize text-white">{trainingDataStatus.limited ? 'Unconfirmed' : trainingFocus.focus || 'mixed training'}</dd>
                 </div>
               </dl>
             </div>
