@@ -1,16 +1,16 @@
 {
-  "generatedAt": "2026-09-07T23:51:22.129Z",
+  "generatedAt": "2026-09-08T11:30:53.027Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Sep 7, 2026",
-    "hubTodayKey": "2026-09-07",
-    "analysisDateKey": "2026-09-07",
+    "hubTodayLabel": "Sep 8, 2026",
+    "hubTodayKey": "2026-09-08",
+    "analysisDateKey": "2026-09-08",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-09-07T19:50:43.892419"
+    "whoopLastSynced": "2026-09-08T07:30:25.512052"
   },
   "lifetimeStats": {
-    "totalLbsLifted": 9630048,
+    "totalLbsLifted": 9799849,
     "totalMilesRun": 3809.4,
     "totalWorkouts": 2763,
     "sourceBreakdown": {
@@ -25,17 +25,17 @@
     "runCount": 0,
     "workoutCount": 1,
     "bjjCount": 2,
-    "windowStart": "2026-09-01",
-    "windowEnd": "2026-09-07"
+    "windowStart": "2026-09-02",
+    "windowEnd": "2026-09-08"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-09-07",
+    "anchorDate": "2026-09-08",
     "dateRange": {
-      "thisWeekStart": "2026-09-01",
-      "thisWeekEnd": "2026-09-07",
-      "lastWeekStart": "2026-08-25",
-      "lastWeekEnd": "2026-08-31"
+      "thisWeekStart": "2026-09-02",
+      "thisWeekEnd": "2026-09-08",
+      "lastWeekStart": "2026-08-26",
+      "lastWeekEnd": "2026-09-01"
     },
     "workouts": {
       "thisWeek": 3,
@@ -46,7 +46,7 @@
       "lastWeek": 0
     },
     "volume": {
-      "thisWeek": 3074,
+      "thisWeek": 6763,
       "lastWeek": 0
     },
     "miles": {
@@ -67,7 +67,7 @@
     },
     "lifting": {
       "icon": "🏋️",
-      "current": 785928,
+      "current": 955729,
       "target": 2000000,
       "unit": "lbs"
     },
@@ -89,8 +89,8 @@
     "totalActive": 1798,
     "currentStreak": 1,
     "longestStreak": 60,
-    "rangeStart": "2025-09-09",
-    "rangeEnd": "2026-09-07",
+    "rangeStart": "2025-09-10",
+    "rangeEnd": "2026-09-08",
     "days": [
       {
         "date": "2025-09-10",
@@ -1409,15 +1409,15 @@
       "date": "2026-09-07",
       "type": "Lifting"
     },
-    "thisWeekVolume": 3074,
+    "thisWeekVolume": 6763,
     "thisMonthMiles": 0
   },
   "recovery": {
-    "currentScore": 94,
-    "lastSleepScore": 89
+    "currentScore": 96,
+    "lastSleepScore": 98
   },
   "labels": {
-    "thisWeek": "September 1, 2026 - September 7, 2026",
-    "lastWeek": "August 25, 2026 - August 31, 2026"
+    "thisWeek": "September 2, 2026 - September 8, 2026",
+    "lastWeek": "August 26, 2026 - September 1, 2026"
   }
 }
