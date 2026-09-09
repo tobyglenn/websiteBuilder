@@ -1,99 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const projectGroups = [
-  {
-    eyebrow: 'Games',
-    title: 'Playable experiments',
-    description: 'Browser games and tactical prototypes that are live enough to play.',
-    projects: [
-      {
-        slug: 'mma-rpg',
-        title: 'MMA RPG',
-        status: 'Live',
-        description: 'A turn-based MMA fighting RPG. Build your fighter, master combos, and climb the ranks.',
-        href: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
-        cta: 'Play now',
-        tags: ['Fighting', 'RPG', 'Strategy'],
-      },
-      {
-        slug: 'gridbound-realms',
-        title: 'Gridbound Realms',
-        status: 'Live',
-        description: 'A tactical grid-based strategy game. Command units, hold the map, and conquer the realm.',
-        href: 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
-        cta: 'Play now',
-        tags: ['Strategy', 'Tactics', 'Grid'],
-      },
-    ],
-  },
-  {
-    eyebrow: 'Apps',
-    title: 'Training and nutrition tools',
-    description: 'Fitness utilities built around the workflows I actually use for mat time, meals, and progress tracking.',
-    projects: [
-      {
-        slug: 'bjj-buddy',
-        title: 'BJJ Buddy',
-        status: 'Live',
-        description: 'A Brazilian Jiu-Jitsu tracking app for logging rolls, organizing techniques, saving favorites, and following grappling progress over time.',
-        href: 'https://bjj-buddy.pages.dev/',
-        cta: 'Open app',
-        tags: ['BJJ', 'Training log', 'Techniques'],
-      },
-      {
-        slug: 'nutritrack',
-        title: 'NutriTrack',
-        status: 'Live',
-        description: 'A free nutrition tracker for logging meals, watching macros, and keeping food data connected to training goals.',
-        href: 'https://nutritrack.tobyonfitnesstech.com',
-        cta: 'Open tracker',
-        tags: ['Nutrition', 'Macros', 'Meal log'],
-      },
-    ],
-  },
-  {
-    eyebrow: 'Church',
-    title: 'Scripture and memory work',
-    description: 'Faith-focused tools built for practice, repetition, and long-term recall.',
-    projects: [
-      {
-        slug: 'one-peter-memory',
-        title: '1 Peter Memory Trainer',
-        status: 'In progress',
-        description: 'A KJV memorization trainer for Alert Academy prep with chunks, audio voices, disappearing text, recitation scoring, and spaced review.',
-        href: '/one-peter-memory/',
-        cta: 'Open trainer',
-        tags: ['Scripture', 'Memorization', 'KJV'],
-      },
-    ],
-  },
-  {
-    eyebrow: 'Video',
-    title: 'Story worlds and channels',
-    description: 'AI-assisted video series and channel experiments, including the active IronVane world and the archived Liminal series.',
-    projects: [
-      {
-        slug: 'ironvane',
-        title: 'IronVane',
-        status: 'Active',
-        description: 'The Crossfire/IronVane story channel, currently centered on Ceryn, Talya, and the ongoing episode run.',
-        href: 'https://www.youtube.com/@IronVaneStory/videos',
-        cta: 'Watch the series',
-        tags: ['YouTube', 'Story', 'AI video'],
-      },
-      {
-        slug: 'liminal',
-        title: 'Liminal',
-        status: 'Archived',
-        description: 'A supernatural seaside-inn comedy series. Production is paused, but the released episodes remain available on YouTube.',
-        href: 'https://www.youtube.com/watch?v=Vo_LQS1ubWc',
-        cta: 'Watch Liminal',
-        tags: ['YouTube', 'Comedy', 'Archived'],
-      },
-    ],
-  },
-];
+import { projectGroups, projectHref } from '../data/projects';
 
 const allProjects = projectGroups.flatMap((group) => group.projects.map((project) => ({
   ...project,
@@ -109,7 +17,7 @@ const projectSchema = {
   hasPart: allProjects.map((project) => ({
     '@type': 'CreativeWork',
     name: project.title,
-    url: project.href.startsWith('http') ? project.href : `https://tobyonfitnesstech.com${project.href}`,
+    url: `https://tobyonfitnesstech.com${projectHref(project.slug)}`,
     about: project.group,
   })),
 };
@@ -127,18 +35,18 @@ const projectSchema = {
         <p class="text-sm font-bold uppercase tracking-widest text-blue-400">Projects</p>
         <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Games, tools, and story experiments</h1>
         <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
-          The side projects worth trying directly: two playable games, a scripture memory tool, and the IronVane/Liminal video work.
+          Explore the games, automation, training tools, and creative projects. Each project has a detailed guide with its workflow and links.
         </p>
       </header>
 
       <nav class="flex flex-wrap gap-3 border-b border-neutral-800 py-5" aria-label="Project categories">
         {projectGroups.map((group) => (
           <a
-            href={`#${group.eyebrow.toLowerCase()}`}
+            href={`#${group.id}`}
             class="rounded-md border border-neutral-800 px-4 py-2 text-sm font-semibold text-neutral-300 transition-colors hover:border-blue-500/60 hover:text-white"
             data-analytics-event="project_category_click"
             data-analytics-content-type="project_category"
-            data-analytics-content-slug={group.eyebrow.toLowerCase()}
+            data-analytics-content-slug={group.id}
             data-analytics-content-title={group.title}
           >
             {group.eyebrow}
@@ -148,10 +56,10 @@ const projectSchema = {
 
       <div class="space-y-14 py-10">
         {projectGroups.map((group) => (
-          <section id={group.eyebrow.toLowerCase()} aria-labelledby={`${group.eyebrow.toLowerCase()}-heading`}>
+          <section id={group.id} aria-labelledby={`${group.id}-heading`}>
             <div class="mb-6 max-w-3xl">
               <p class="text-xs font-bold uppercase tracking-widest text-neutral-500">{group.eyebrow}</p>
-              <h2 id={`${group.eyebrow.toLowerCase()}-heading`} class="mt-2 text-2xl font-bold text-white">{group.title}</h2>
+              <h2 id={`${group.id}-heading`} class="mt-2 text-2xl font-bold text-white">{group.title}</h2>
               <p class="mt-2 text-neutral-400">{group.description}</p>
             </div>
 
@@ -162,10 +70,10 @@ const projectSchema = {
                   class="flex min-h-full flex-col rounded-lg border border-neutral-800 bg-neutral-900 p-6 transition-colors hover:border-blue-500/50"
                   data-project-card={project.slug}
                   data-analytics-content-title={project.title}
-                  data-analytics-position={group.eyebrow.toLowerCase()}
+                  data-analytics-position={group.id}
                 >
                   <div class="flex items-start justify-between gap-4">
-                    <h3 class="text-2xl font-bold text-white">{project.title}</h3>
+                    <h3 class="text-2xl font-bold text-white"><a href={projectHref(project.slug)} class="hover:text-blue-300">{project.title}</a></h3>
                     <span class="shrink-0 rounded-md border border-neutral-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-neutral-300">
                       {project.status}
                     </span>
@@ -177,17 +85,15 @@ const projectSchema = {
                     ))}
                   </div>
                   <a
-                    href={project.href}
-                    target={project.href.startsWith('http') ? '_blank' : undefined}
-                    rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    href={projectHref(project.slug)}
                     class="mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 font-semibold text-white transition-colors hover:bg-blue-500"
                     data-analytics-event="project_card_click"
                     data-analytics-content-type="project"
                     data-analytics-content-slug={project.slug}
                     data-analytics-content-title={project.title}
-                    data-analytics-position={group.eyebrow.toLowerCase()}
+                    data-analytics-position={group.id}
                   >
-                    {project.cta}
+                    Explore project <span aria-hidden="true">→</span>
                   </a>
                 </article>
               ))}

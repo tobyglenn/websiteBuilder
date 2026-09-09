@@ -1,7 +1,14 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { projectGroups as publicProjectGroups, projectHref } from '../../data/projects';
 
 const projectGroups = [
+  {
+    eyebrow: "Automação",
+    title: "Automação de Pokémon GO",
+    description: "Fluxos em Python para dispositivos conectados, com a configuração pessoal fora do código público.",
+    projects: [{ ...publicProjectGroups[0].projects[0], title: "Automação de Pokémon GO", description: "Presentes, pedidos de amizade, GO Battle League, trocas, transferências e frutas em um kit documentado para Android e iOS.", status: "Código aberto" }],
+  },
   {
     eyebrow: 'Jogos',
     title: 'Experimentos jogáveis',
@@ -118,7 +125,7 @@ const projectSchema = {
   hasPart: allProjects.map((project) => ({
     '@type': 'CreativeWork',
     name: project.title,
-    url: project.href.startsWith('http') ? project.href : `https://tobyonfitnesstech.com${project.href}`,
+    url: `https://tobyonfitnesstech.com${projectHref(project.slug)}`,
     about: project.group,
   })),
 };
@@ -177,7 +184,7 @@ const projectSchema = {
                   data-analytics-position={group.eyebrow.toLowerCase()}
                 >
                   <div class="flex items-start justify-between gap-4">
-                    <h3 class="text-2xl font-bold text-white">{project.title}</h3>
+                    <h3 class="text-2xl font-bold text-white"><a href={projectHref(project.slug)} class="hover:text-blue-300">{project.title}</a></h3>
                     <span class="shrink-0 rounded-md border border-neutral-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-neutral-300">
                       {project.status}
                     </span>
@@ -189,9 +196,7 @@ const projectSchema = {
                     ))}
                   </div>
                   <a
-                    href={project.href}
-                    target={project.href.startsWith('http') ? '_blank' : undefined}
-                    rel={project.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                    href={projectHref(project.slug)}
                     class="mt-6 inline-flex w-fit items-center gap-2 rounded-md bg-blue-600 px-4 py-2.5 font-semibold text-white transition-colors hover:bg-blue-500"
                     data-analytics-event="project_card_click"
                     data-analytics-content-type="project"
@@ -199,7 +204,7 @@ const projectSchema = {
                     data-analytics-content-title={project.title}
                     data-analytics-position={group.eyebrow.toLowerCase()}
                   >
-                    {project.cta}
+                    Explorar projeto (inglês) <span aria-hidden="true">→</span>
                   </a>
                 </article>
               ))}

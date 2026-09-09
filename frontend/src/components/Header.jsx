@@ -45,35 +45,35 @@ const NAV_TRANSLATIONS = {
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Gear', compare: 'Compare Trackers', calculators: 'Calculators',
     trainingOverview: 'Training Overview', running: 'Running', recovery: 'Recovery', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR Board',
     agentstack: 'AgentStack', fitnessPodcast: 'Fitness Tech Podcast', allPodcasts: 'All Projects', startHere: 'Start Here',
-    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   de: {
     reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Projects', about: 'Über mich', comparisons: 'Vergleiche',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Ausrüstung', compare: 'Tracker vergleichen', calculators: 'Rechner',
     trainingOverview: 'Training', running: 'Laufen', recovery: 'Erholung', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR-Tafel',
     agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'All Projects', startHere: 'Hier starten',
-    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   es: {
     reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Projects', about: 'Acerca de', comparisons: 'Comparaciones',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipo', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Entrenamiento', running: 'Running', recovery: 'Recuperación', transformation: 'Transformación', bjj: 'BJJ', prs: 'Tabla PR',
     agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Empieza aquí',
-    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   pt: {
     reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Projects', about: 'Sobre', comparisons: 'Comparações',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipamento', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Treino', running: 'Corrida', recovery: 'Recuperação', transformation: 'Transformação', bjj: 'BJJ', prs: 'Quadro de PR',
     agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Comece aqui',
-    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   hi: {
     reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'Projects', about: 'परिचय', comparisons: 'तुलनाएँ',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'गियर', compare: 'Tracker तुलना', calculators: 'कैलकुलेटर',
     trainingOverview: 'ट्रेनिंग', running: 'दौड़', recovery: 'रिकवरी', transformation: 'परिवर्तन', bjj: 'BJJ', prs: 'PR बोर्ड',
     agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'All Projects', startHere: 'यहाँ से शुरू करें',
-    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', ironvane: 'IronVane', liminal: 'Liminal',
+    mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
 };
 
@@ -277,15 +277,17 @@ export default function Header() {
   ], [locale, t]);
 
   const projectItems = useMemo(() => [
-    { name: t.allPodcasts, href: '/projects/', icon: PackageSearch },
-    { name: t.mmaRpg, href: '/projects/#mma-rpg', icon: Gamepad2 },
-    { name: t.gridboundRealms, href: '/projects/#gridbound-realms', icon: Gamepad2 },
-    { name: t.bjjBuddy, href: '/projects/#bjj-buddy', icon: Shield },
-    { name: t.nutriTrack, href: '/projects/#nutritrack', icon: Activity },
-    { name: t.churchSite, href: '/projects/#one-peter-memory', icon: BookOpen },
-    { name: t.ironvane, href: '/projects/#ironvane', icon: Clapperboard },
-    { name: t.liminal, href: '/projects/#liminal', icon: PlaySquare },
-  ], [t]);
+    { name: t.allPodcasts, href: localizedHref(locale, '/projects/'), icon: PackageSearch },
+    { name: t.pokemonGo, href: '/projects/pokemon-go-automation/', icon: Cpu },
+    { name: t.mmaRpg, href: '/projects/mma-rpg/', icon: Gamepad2 },
+    { name: t.gridboundRealms, href: '/projects/gridbound-realms/', icon: Gamepad2 },
+    { name: t.bjjBuddy, href: '/projects/bjj-buddy/', icon: Shield },
+    { name: t.nutriTrack, href: '/projects/nutritrack/', icon: Activity },
+    { name: t.churchSite, href: '/projects/one-peter-memory/', icon: BookOpen },
+    { name: t.lilly, href: '/projects/lilly/', icon: PlaySquare },
+    { name: t.ironvane, href: '/projects/ironvane/', icon: Clapperboard },
+    { name: t.liminal, href: '/projects/liminal/', icon: PlaySquare },
+  ], [locale, t]);
 
   const primaryItems = useMemo(() => [
     { name: t.articles, href: localizedHref(locale, '/blog/'), icon: FileText },
@@ -318,7 +320,10 @@ export default function Header() {
     window.localStorage.setItem(LOCALE_STORAGE_KEY, code);
     window.localStorage.setItem(LEGACY_LOCALE_STORAGE_KEY, code);
     const basePath = window.location.pathname.replace(/^\/(en|de|es|pt|hi)(\/|$)/, '/');
-    window.location.href = code === 'en' ? basePath || '/' : `/${code}${basePath || '/'}`;
+    // Project guides currently use a single English canonical route.
+    // A language change returns to the translated index instead of a missing guide.
+    const localePath = /^\/projects\/[^/]+\/?$/.test(basePath) ? '/projects/' : basePath || '/';
+    window.location.href = code === 'en' ? basePath || '/' : `/${code}${localePath}`;
   };
 
   return (
