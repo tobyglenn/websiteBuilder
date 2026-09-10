@@ -71,7 +71,16 @@ translation_notify_failure() {
   local exit_code="$2"
   local line="$3"
   local cooldown_file="$TRANSLATION_STATE_ROOT/${stage}.failure-notified"
-  local stage_log="$TRANSLATION_LOG_ROOT/${stage}.log"
+  local stage_log=""
+  # Real log filename pattern is `${stage}.cron.log` (see run-blog-translation-*.sh).
+  # Fall back to `${stage}.log` if that ever returns data.
+  for candidate in "$TRANSLATION_LOG_ROOT/${stage}.cron.log" "$TRANSLATION_LOG_ROOT/${stage}.log"; do
+    if [[ -s "$candidate" ]]; then
+      stage_log="$candidate"
+      break
+    fi
+  done
+  : "${stage_log:=$TRANSLATION_LOG_ROOT/${stage}.log}"
   local failure_context=""
   if [[ "$stage" == "worker" && -f "$TRANSLATION_STATE_ROOT/failures.json" ]]; then
     failure_context="$(jq -r '

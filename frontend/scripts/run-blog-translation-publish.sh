@@ -16,7 +16,24 @@ trap 'on_error "$LINENO"' ERR
 exec 9>"$TRANSLATION_LOCK"
 flock -w 1200 9
 
-cd "$TRANSLATION_FRONTEND_ROOT"
+cd "$TRANSLATION_REPO_ROOT"
+
+# Defensive: detect and recover from a stuck previous rebase before doing
+# any work. A previous `git pull --rebase --autostash` can leave the repo
+# in a state with `.git/rebase-merge/` present and conflict markers in
+# tracked files; subsequent runs die at the `git push` step. We auto-abort
+# any such leftover state here so this run starts clean.
+if [[ -d .git/rebase-merge ]] || [[ -d .git/rebase-apply ]]; then
+  echo "$(date -Is) WARN: leftover rebase state detected — aborting to start clean"
+  git rebase --abort || true
+fi
+if git status --short | grep -q '^UU\|^AA\|^DD\|^UA\|^AU'; then
+  echo "$(date -Is) WARN: unresolved merge conflicts present — resetting tracked conflicted files to HEAD"
+  while IFS= read -r path; do
+    [[ -n "$path" ]] && git checkout -- "$path" || true
+  done < <(git status --short | awk '/^[UAD]{2}/ {sub(/^.../, "", $0); print}')
+fi
+
 npm run translate:blog:promote
 npm run translate:blog:validate
 npm run translate:priority-pages:promote
@@ -29,7 +46,6 @@ if (( blog_remaining > 0 || priority_remaining > 0 )); then
   exit 0
 fi
 
-cd "$TRANSLATION_REPO_ROOT"
 publish_paths=(frontend/src/generated/blog-translations)
 priority_count=0
 priority_sources=(
@@ -63,6 +79,19 @@ fi
 
 translated_count="$(find frontend/src/generated/blog-translations -type f -name '*.json' | wc -l | tr -d ' ')"
 git commit -m "content: publish validated translations"
-git pull --rebase --autostash origin main
-git push origin HEAD:main
+
+# Use plain pull (merge) rather than --rebase so concurrent automation pushes
+# to the same repo don't trap this script in an unresolvable rebase state.
+# If a merge conflict does occur, fail loudly and notify — but don't leave
+# `.git/rebase-merge/` behind for the next run to trip over.
+if ! git pull --no-rebase --autostash origin main; then
+  echo "$(date -Is) ERROR: pull --no-rebase failed; leaving working tree as-is for human review"
+  exit 1
+fi
+
+if ! git push origin HEAD:main; then
+  echo "$(date -Is) ERROR: push failed; leaving working tree as-is for human review"
+  exit 1
+fi
+
 translation_notify_info "[BLOG TRANSLATIONS] published $translated_count blog and $priority_count priority-page translations; GitHub deployment started"
