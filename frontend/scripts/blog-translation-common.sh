@@ -2,16 +2,69 @@
 
 set -Eeuo pipefail
 
-TRANSLATION_REPO_ROOT="${BLOG_TRANSLATION_REPO_ROOT:-/home/toby/.openclaw/workspace/websiteBuilder}"
+OPENCLAW_DIR="${OPENCLAW_HOME:-${HOME}/.openclaw}"
+AGENTSTACK_DIR="${AGENTSTACK_HOME:-${HOME}/.agentstack-daily}"
+DEFAULT_REPO_ROOT="$(cd -- "$SCRIPT_DIR/../.." && pwd)"
+TRANSLATION_REPO_ROOT="${BLOG_TRANSLATION_REPO_ROOT:-$DEFAULT_REPO_ROOT}"
 TRANSLATION_FRONTEND_ROOT="$TRANSLATION_REPO_ROOT/frontend"
-TRANSLATION_STATE_ROOT="${BLOG_TRANSLATION_STATE_DIR:-/home/toby/.openclaw/state/website-blog-translations}"
-TRANSLATION_LOG_ROOT="${BLOG_TRANSLATION_LOG_DIR:-/home/toby/.openclaw/logs/analytics/blog-translations}"
+TRANSLATION_STATE_ROOT="${BLOG_TRANSLATION_STATE_DIR:-$OPENCLAW_DIR/state/website-blog-translations}"
+TRANSLATION_LOG_ROOT="${BLOG_TRANSLATION_LOG_DIR:-$OPENCLAW_DIR/logs/analytics/blog-translations}"
 TRANSLATION_LOCK="${BLOG_TRANSLATION_LOCK:-$TRANSLATION_STATE_ROOT/translation.lock}"
-TRANSLATION_BUILD_LOG_HELPER="${BLOG_TRANSLATION_BUILD_LOG_HELPER:-/home/toby/.openclaw/workspace/scripts/utils/post_build_log.py}"
+TRANSLATION_BUILD_LOG_HELPER="${BLOG_TRANSLATION_BUILD_LOG_HELPER:-$AGENTSTACK_DIR/workspace-scripts/utils/post_build_log.py}"
+if [[ ! -f "$TRANSLATION_BUILD_LOG_HELPER" && -f "$OPENCLAW_DIR/workspace/scripts/utils/post_build_log.py" ]]; then
+  TRANSLATION_BUILD_LOG_HELPER="$OPENCLAW_DIR/workspace/scripts/utils/post_build_log.py"
+fi
 TRANSLATION_FAILURE_TARGET="${BLOG_TRANSLATION_FAILURE_TARGET:-telegram:8319992332}"
 TRANSLATION_FAILURE_COOLDOWN_MINUTES="${BLOG_TRANSLATION_FAILURE_COOLDOWN_MINUTES:-60}"
 
 mkdir -p "$TRANSLATION_STATE_ROOT" "$TRANSLATION_LOG_ROOT"
+
+if ! command -v flock >/dev/null 2>&1; then
+  flock() {
+    python3 -c "
+import sys, fcntl, time
+
+args = sys.argv[1:]
+timeout = 0
+non_blocking = False
+fd = None
+
+i = 0
+while i < len(args):
+    arg = args[i]
+    if arg in ('-n', '--nonblock', '--nb'):
+        non_blocking = True
+        i += 1
+    elif arg in ('-w', '--timeout'):
+        timeout = float(args[i+1])
+        i += 2
+    elif arg.isdigit():
+        fd = int(arg)
+        i += 1
+    else:
+        i += 1
+
+if fd is None:
+    sys.exit(0)
+
+flags = fcntl.LOCK_EX
+if non_blocking:
+    flags |= fcntl.LOCK_NB
+
+start = time.time()
+while True:
+    try:
+        fcntl.flock(fd, flags)
+        sys.exit(0)
+    except (BlockingIOError, OSError):
+        if non_blocking:
+            sys.exit(1)
+        if timeout > 0 and (time.time() - start) >= timeout:
+            sys.exit(1)
+        time.sleep(0.5)
+" "$@"
+  }
+fi
 
 translation_notify_failure() {
   local stage="$1"

@@ -2,12 +2,14 @@
 
 set -Eeuo pipefail
 
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+OPENCLAW_DIR="${OPENCLAW_HOME:-${HOME}/.openclaw}"
 MARKER_BEGIN="# BEGIN TTOFT BLOG TRANSLATIONS"
 MARKER_END="# END TTOFT BLOG TRANSLATIONS"
-WORKER="/home/toby/.openclaw/workspace/websiteBuilder/frontend/scripts/run-blog-translation-worker.sh"
-PUBLISHER="/home/toby/.openclaw/workspace/websiteBuilder/frontend/scripts/run-blog-translation-publish.sh"
-SITEMAP_SUBMITTER="/home/toby/.openclaw/workspace/websiteBuilder/frontend/scripts/run-gsc-sitemap-submit.sh"
-LOG_ROOT="/home/toby/.openclaw/logs/analytics/blog-translations"
+WORKER="$SCRIPT_DIR/run-blog-translation-worker.sh"
+PUBLISHER="$SCRIPT_DIR/run-blog-translation-publish.sh"
+SITEMAP_SUBMITTER="$SCRIPT_DIR/run-gsc-sitemap-submit.sh"
+LOG_ROOT="$OPENCLAW_DIR/logs/analytics/blog-translations"
 temporary_file="$(mktemp)"
 trap 'rm -f "$temporary_file"' EXIT
 

@@ -1,5 +1,6 @@
 import { existsSync } from 'node:fs';
 import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
+import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -11,7 +12,7 @@ import {
 const API_URL = process.env.CLARITY_API_URL
   || 'https://www.clarity.ms/export-data/api/v1/project-live-insights';
 const REPORT_DIR = process.env.CLARITY_REPORT_DIR
-  || '/home/toby/.openclaw/logs/analytics/clarity';
+  || join(homedir(), '.openclaw/logs/analytics/clarity');
 const SNAPSHOT_DIR = join(REPORT_DIR, 'snapshots');
 const token = process.env.CLARITY_API_TOKEN || '';
 

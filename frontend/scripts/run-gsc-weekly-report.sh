@@ -6,9 +6,14 @@ export TZ=${TZ:-America/New_York}
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 FRONTEND_ROOT=$(cd -- "$SCRIPT_DIR/.." && pwd)
 REPO_ROOT=$(cd -- "$FRONTEND_ROOT/.." && pwd)
-REPORT_DIR=${GSC_REPORT_DIR:-/home/toby/.openclaw/logs/analytics/gsc}
-LOG_DIR=${GSC_LOG_DIR:-/home/toby/.openclaw/logs/pipeline}
-BUILD_LOG_HELPER=/home/toby/.openclaw/workspace/scripts/utils/post_build_log.py
+OPENCLAW_DIR="${OPENCLAW_HOME:-${HOME}/.openclaw}"
+AGENTSTACK_DIR="${AGENTSTACK_HOME:-${HOME}/.agentstack-daily}"
+REPORT_DIR=${GSC_REPORT_DIR:-$OPENCLAW_DIR/logs/analytics/gsc}
+LOG_DIR=${GSC_LOG_DIR:-$OPENCLAW_DIR/logs/pipeline}
+BUILD_LOG_HELPER=${BUILD_LOG_HELPER:-$AGENTSTACK_DIR/workspace-scripts/utils/post_build_log.py}
+if [[ ! -f "$BUILD_LOG_HELPER" && -f "$OPENCLAW_DIR/workspace/scripts/utils/post_build_log.py" ]]; then
+  BUILD_LOG_HELPER="$OPENCLAW_DIR/workspace/scripts/utils/post_build_log.py"
+fi
 LOG_FILE="$LOG_DIR/gsc_weekly_report.cron.log"
 TEMP_REPORT=''
 

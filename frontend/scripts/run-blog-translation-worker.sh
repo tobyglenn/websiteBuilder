@@ -10,6 +10,11 @@ exec > >(tee -a "$TRANSLATION_LOG_ROOT/${STAGE}.log") 2>&1
 
 on_error() {
   local exit_code=$?
+  # EX_TEMPFAIL means the task was saved with a retry time; it is not an automation outage.
+  if (( exit_code == 75 )); then
+    printf '%s Translation attempt deferred for automatic retry; no alert sent.\n' "$(date -Is)" >&2
+    exit 0
+  fi
   translation_notify_failure "$STAGE" "$exit_code" "$1"
   exit "$exit_code"
 }

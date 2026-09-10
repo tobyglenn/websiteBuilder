@@ -2,10 +2,11 @@ import { createHash } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { mkdir, readFile, rename, writeFile } from 'node:fs/promises';
+import { homedir } from 'node:os';
 import { dirname, extname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { parse } from '@astrojs/compiler';
+import { transform as compileAstro } from '@astrojs/compiler-rs';
 
 export const LOCALES = ['de', 'es', 'pt', 'hi'];
 export const MODEL = 'minimax/MiniMax-M3';
@@ -35,11 +36,12 @@ export const TARGETS = [
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const pagesRoot = join(repoRoot, 'src/pages');
 const stagingRoot = process.env.PAGE_TRANSLATION_STATE_DIR
-  || '/home/toby/.openclaw/state/website-priority-page-translations';
+  || join(homedir(), '.openclaw/state/website-priority-page-translations');
 const statusPath = process.env.PAGE_TRANSLATION_STATUS_FILE
-  || '/home/toby/.openclaw/logs/analytics/blog-translations/priority-pages-latest.json';
+  || join(homedir(), '.openclaw/logs/analytics/blog-translations/priority-pages-latest.json');
 const failuresPath = join(stagingRoot, 'failures.json');
-const freecallRoot = process.env.FREECALL_ROOT || '/home/toby/.openclaw/scripts';
+const freecallRoot = process.env.FREECALL_ROOT
+  || (existsSync(join(homedir(), '.agentstack-daily/freecall')) ? join(homedir(), '.agentstack-daily') : join(homedir(), '.openclaw/scripts'));
 const modelTimeoutSeconds = Number(process.env.PAGE_TRANSLATION_MODEL_TIMEOUT || 1200);
 const modelMaxTokens = Number(process.env.PAGE_TRANSLATION_MAX_TOKENS || 16384);
 const modelAttempts = Math.max(1, Number(process.env.PAGE_TRANSLATION_MODEL_ATTEMPTS || 3));
@@ -271,9 +273,13 @@ const validateTranslation = async (content, source, target, locale) => {
   }
 
   try {
-    await parse(content, { position: true });
+    const result = await compileAstro(content, { filename: outputPath(target, locale) });
+    const compilerErrors = result.diagnostics.filter((diagnostic) => diagnostic.severity === 'error');
+    for (const diagnostic of compilerErrors) {
+      errors.push(`Astro compile failed: ${diagnostic.text || 'unknown compiler error'}`);
+    }
   } catch (error) {
-    errors.push(`Astro parse failed: ${error?.message || error}`);
+    errors.push(`Astro compile failed: ${error?.message || error}`);
   }
 
   if (errors.length) throw new Error(errors.join('; '));
@@ -322,6 +328,11 @@ const currentRecord = async (target, locale) => {
   const record = readJson(recordPath(target, locale));
   if (!record || record.sourceHash !== sourceHash(target, source)) return null;
   if (record.model !== MODEL || record.promptVersion !== promptVersion) return null;
+  try {
+    await validateTranslation(record.content, source, target, locale);
+  } catch {
+    return null;
+  }
   return record;
 };
 
@@ -417,7 +428,9 @@ const translateOne = async (options) => {
   } catch (error) {
     await saveFailure(key, error);
     await saveStatus();
-    throw error;
+    console.warn(`Translation attempt deferred for automatic retry: ${error?.message || error}`);
+    // EX_TEMPFAIL lets the worker distinguish model variance from an automation outage.
+    process.exitCode = 75;
   }
 };
 

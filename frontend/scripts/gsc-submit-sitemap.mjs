@@ -9,7 +9,7 @@ const SITE_URL = process.env.GSC_SITE_URL || 'sc-domain:tobyonfitnesstech.com';
 const SITEMAP_URL = process.env.GSC_SITEMAP_URL || 'https://tobyonfitnesstech.com/sitemap-index.xml';
 const API_BASE = 'https://searchconsole.googleapis.com/webmasters/v3';
 const STATE_FILE = process.env.GSC_SITEMAP_SUBMISSION_STATE
-  || '/home/toby/.openclaw/state/website-gsc-sitemap-submission.json';
+  || join(homedir(), '.openclaw/state/website-gsc-sitemap-submission.json');
 const LOCALES = ['de', 'es', 'pt', 'hi'];
 
 const args = new Set(process.argv.slice(2));

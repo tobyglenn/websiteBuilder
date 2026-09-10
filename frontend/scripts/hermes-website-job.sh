@@ -2,8 +2,9 @@
 
 set -Eeuo pipefail
 
-WEBSITE_ROOT="${WEBSITE_ROOT:-/home/toby/.openclaw/workspace/websiteBuilder}"
-PIPELINE_ROOT="${PIPELINE_ROOT:-/home/toby/.openclaw/workspace/scripts}"
+OPENCLAW_DIR="${OPENCLAW_HOME:-${HOME}/.openclaw}"
+WEBSITE_ROOT="${WEBSITE_ROOT:-$OPENCLAW_DIR/workspace/websiteBuilder}"
+PIPELINE_ROOT="${PIPELINE_ROOT:-$OPENCLAW_DIR/workspace/scripts}"
 
 case "$(basename "$0")" in
   ttoft-blog-draft.sh)

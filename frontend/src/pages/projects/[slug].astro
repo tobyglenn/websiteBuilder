@@ -27,6 +27,7 @@ const schema = {
   description: project.description,
   url: `https://tobyonfitnesstech.com${projectHref(project.slug)}`,
   author: { '@type': 'Person', name: 'Toby Glenn Peters', url: 'https://tobyonfitnesstech.com/about/' },
+  image: project.heroImage ? `https://tobyonfitnesstech.com${project.heroImage.src}` : undefined,
   ...(isPokemon ? { codeRepository: pokemonRepository, programmingLanguage: 'Python' } : {}),
 };
 ---
@@ -34,6 +35,7 @@ const schema = {
 <Layout
   title={`${project.title} project guide | Toby on Fitness Tech`}
   description={project.description}
+  image={project.heroImage?.src}
   jsonLd={schema}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Projects', url: '/projects/' }, { name: project.title, url: projectHref(project.slug) }]}
 >
@@ -66,19 +68,165 @@ const schema = {
         </div>
         <nav class="page-nav" aria-label={`${project.title} page sections`}>
           <p>On this page</p>
-          <a href="#overview">01 <span>What it is</span></a>
-          <a href="#capabilities">02 <span>How it works</span></a>
-          {project.workflowFiles && <a href="#workflow-files">03 <span>Files & commands</span></a>}
-          <a href="#getting-started">{isPokemon ? '04' : '03'} <span>{isPokemon ? 'Recreate the setup' : 'Get started'}</span></a>
-          {isPokemon && <a href="#documentation">05 <span>Documentation & AI handoff</span></a>}
-          <a href="#project-notes">{isPokemon ? '06' : '04'} <span>Project notes</span></a>
+          <a href="#overview"><span>What it is</span></a>
+          {project.featuredYoutubeId && <a href="#featured-video"><span>Featured episode</span></a>}
+          {project.characters && <a href="#characters"><span>Cast & characters</span></a>}
+          {project.episodes && <a href="#episodes"><span>Episodes & videos</span></a>}
+          {project.gallery && <a href="#gallery"><span>Screenshots & media</span></a>}
+          <a href="#capabilities"><span>How it works</span></a>
+          {project.workflowFiles && <a href="#workflow-files"><span>Files & commands</span></a>}
+          {project.productionNotes && <a href="#production-pipeline"><span>Pipeline & tech</span></a>}
+          <a href="#getting-started"><span>{isPokemon ? 'Recreate setup' : 'Get started'}</span></a>
+          {isPokemon && <a href="#documentation"><span>Documentation</span></a>}
+          <a href="#project-notes"><span>Project notes</span></a>
         </nav>
       </header>
+
+      {project.heroImage && (
+        <section class="hero-visual-section" aria-label={`${project.title} preview`}>
+          <figure class:list={['hero-figure', { portrait: project.heroImage.aspect === 'portrait' }]}>
+            <div class="hero-image-frame">
+              <img
+                src={project.heroImage.src}
+                alt={project.heroImage.alt}
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+            {project.heroImage.caption && (
+              <figcaption class="hero-caption">
+                <span class="caption-dot" aria-hidden="true"></span>
+                <span>{project.heroImage.caption}</span>
+              </figcaption>
+            )}
+          </figure>
+        </section>
+      )}
+
+      {project.featuredYoutubeId && (
+        <section id="featured-video" class="content-section" aria-labelledby="featured-video-heading">
+          <div class="section-heading">
+            <p class="section-label">Featured Release</p>
+            <h2 id="featured-video-heading">Watch the latest episode</h2>
+          </div>
+          <div class="video-embed-container">
+            <div class="video-embed-frame">
+              <iframe
+                src={`https://www.youtube.com/embed/${project.featuredYoutubeId}`}
+                title={`Watch ${project.title}`}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+          </div>
+        </section>
+      )}
 
       <section id="overview" class="content-section overview" aria-labelledby="overview-heading">
         <div class="section-heading"><p class="section-label">The project</p><h2 id="overview-heading">What it is</h2></div>
         <div class="prose">{project.overview.map((paragraph) => <p>{paragraph}</p>)}</div>
       </section>
+
+      {project.characters && (
+        <section id="characters" class="content-section" aria-labelledby="characters-heading">
+          <div class="section-heading">
+            <p class="section-label">The Cast</p>
+            <h2 id="characters-heading">Key characters & roles</h2>
+          </div>
+          <div class="character-grid">
+            {project.characters.map((char) => (
+              <article class="character-card">
+                {char.image && (
+                  <div class="character-avatar-wrap">
+                    <img src={char.image} alt={char.name} loading="lazy" decoding="async" />
+                  </div>
+                )}
+                <div class="character-details">
+                  <div class="character-meta">
+                    <h3>{char.name}</h3>
+                    <span class="character-role">{char.role}</span>
+                  </div>
+                  {char.voiceActor && (
+                    <div class="voice-badge">
+                      <span class="voice-icon" aria-hidden="true">🎙️</span>
+                      <code>{char.voiceActor}</code>
+                    </div>
+                  )}
+                  <p>{char.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {project.episodes && (
+        <section id="episodes" class="content-section" aria-labelledby="episodes-heading">
+          <div class="section-heading">
+            <p class="section-label">Releases & Catalog</p>
+            <h2 id="episodes-heading">Popular episodes & videos</h2>
+          </div>
+          <div class="episodes-list">
+            {project.episodes.map((ep) => (
+              <article class:list={['episode-card', { short: ep.isShort }]}>
+                <div class="episode-header">
+                  <div class="episode-title-group">
+                    <span class:list={['episode-badge', { 'short-badge': ep.isShort }]}>
+                      {ep.number || (ep.isShort ? 'Short' : 'Episode')}
+                    </span>
+                    <h3>{ep.title}</h3>
+                  </div>
+                  {ep.subtitle && <p class="episode-subtitle">{ep.subtitle}</p>}
+                </div>
+                <p class="episode-desc">{ep.description}</p>
+                {ep.highlights && ep.highlights.length > 0 && (
+                  <div class="episode-highlights">
+                    <p class="highlights-label">Highlights</p>
+                    <ul>
+                      {ep.highlights.map((h) => <li>{h}</li>)}
+                    </ul>
+                  </div>
+                )}
+                {ep.youtubeUrl && (
+                  <div class="episode-footer">
+                    <a
+                      href={ep.youtubeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="watch-btn"
+                    >
+                      ▶ Watch on YouTube <span aria-hidden="true">↗</span>
+                    </a>
+                  </div>
+                )}
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {project.gallery && (
+        <section id="gallery" class="content-section" aria-labelledby="gallery-heading">
+          <div class="section-heading">
+            <p class="section-label">Media & Artifacts</p>
+            <h2 id="gallery-heading">Screenshots & production checks</h2>
+          </div>
+          <div class="gallery-grid">
+            {project.gallery.map((item) => (
+              <figure class="gallery-item">
+                <div class="gallery-frame">
+                  <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+                </div>
+                <figcaption>
+                  <strong>{item.title}</strong>
+                  <p>{item.description}</p>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
 
       <section id="capabilities" class="content-section" aria-labelledby="capabilities-heading">
         <div class="section-heading"><p class="section-label">Inside the project</p><h2 id="capabilities-heading">How it works</h2></div>
@@ -115,6 +263,23 @@ const schema = {
                     </div>
                   )}
                 </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {project.productionNotes && (
+        <section id="production-pipeline" class="content-section" aria-labelledby="pipeline-heading">
+          <div class="section-heading">
+            <p class="section-label">Behind the Scenes</p>
+            <h2 id="pipeline-heading">Production architecture & pipeline specs</h2>
+          </div>
+          <div class="pipeline-grid">
+            {project.productionNotes.map((note) => (
+              <article class="pipeline-card">
+                <h3>{note.title}</h3>
+                <p>{note.content}</p>
               </article>
             ))}
           </div>
@@ -170,7 +335,7 @@ const schema = {
   a:focus-visible { outline: 2px solid #93c5fd; outline-offset: 5px; border-radius: 3px; }
   .back-link { font-size: .9rem; color: #a3a3a3; }
   .back-link:hover { color: #fff; }
-  .project-hero { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 4rem; padding: 3.5rem 0; border-bottom: 1px solid #303030; align-items: start; }
+  .project-hero { display: grid; grid-template-columns: minmax(0, 1fr) 15rem; gap: 4rem; padding: 3.5rem 0 2.5rem; border-bottom: 1px solid #303030; align-items: start; }
   .eyebrow { display: flex; align-items: center; gap: .9rem; font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: #93c5fd; }
   .status { border: 1px solid #404040; border-radius: 99px; padding: .3rem .6rem; color: #d4d4d4; font-size: .65rem; letter-spacing: .06em; }
   h1 { font-size: clamp(2.5rem, 5.5vw, 4.3rem); line-height: 1.08; letter-spacing: -.045em; font-weight: 750; margin: 1.2rem 0 1.3rem; }
@@ -187,6 +352,71 @@ const schema = {
   .page-nav a { display: flex; gap: .8rem; font-size: .75rem; line-height: 1.5; color: #737373; padding: .45rem 0; }
   .page-nav span { color: #c2c2c2; font-size: .85rem; }
   .page-nav a:hover span { color: #93c5fd; }
+
+  /* Hero Visual */
+  .hero-visual-section { padding: 2.5rem 0; border-bottom: 1px solid #262626; }
+  .hero-figure { margin: 0; }
+  .hero-figure.portrait { max-width: 28rem; margin: 0 auto; }
+  .hero-image-frame { border-radius: 12px; overflow: hidden; border: 1px solid #333; background: #111; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.7); }
+  .hero-image-frame img { display: block; width: 100%; height: auto; object-fit: cover; }
+  .hero-caption { display: flex; align-items: center; gap: .6rem; margin-top: .9rem; font-size: .85rem; color: #a3a3a3; }
+  .caption-dot { width: 6px; height: 6px; border-radius: 50%; background: #3b82f6; shrink: 0; }
+
+  /* Video Embed */
+  .video-embed-container { max-width: 54rem; margin-top: 1.2rem; }
+  .video-embed-frame { position: relative; width: 100%; padding-bottom: 56.25%; border-radius: 12px; overflow: hidden; border: 1px solid #333; background: #000; box-shadow: 0 20px 40px -15px rgba(0,0,0,0.8); }
+  .video-embed-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+  /* Characters Grid */
+  .character-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+  .character-card { background: #121212; border: 1px solid #262626; border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; transition: border-color .15s; }
+  .character-card:hover { border-color: #3b82f6; }
+  .character-avatar-wrap { width: 100%; aspect-ratio: 1/1; overflow: hidden; background: #1a1a1a; }
+  .character-avatar-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+  .character-card:hover .character-avatar-wrap img { transform: scale(1.03); }
+  .character-details { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+  .character-meta { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; margin-bottom: .4rem; }
+  .character-meta h3 { font-size: 1.2rem; font-weight: 700; color: #fff; margin: 0; }
+  .character-role { font-size: .75rem; text-transform: uppercase; letter-spacing: .05em; color: #93c5fd; font-weight: 600; }
+  .voice-badge { display: inline-flex; align-items: center; gap: .4rem; background: #1e293b; border: 1px solid #334155; padding: .2rem .5rem; border-radius: 4px; width: fit-content; margin: .4rem 0 .7rem; }
+  .voice-badge code { font-size: .72rem; color: #cbd5e1; }
+  .character-details p { font-size: .88rem; color: #a3a3a3; line-height: 1.6; margin: 0; }
+
+  /* Episodes List */
+  .episodes-list { display: flex; flex-direction: column; gap: 1.2rem; margin-top: 1.5rem; }
+  .episode-card { background: #121212; border: 1px solid #282828; border-radius: 10px; padding: 1.5rem; transition: border-color .15s; }
+  .episode-card:hover { border-color: #3b82f6; }
+  .episode-card.short { border-left: 3px solid #60a5fa; }
+  .episode-header { margin-bottom: .8rem; }
+  .episode-title-group { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+  .episode-badge { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; background: #1e3a8a; color: #93c5fd; padding: .25rem .6rem; border-radius: 4px; }
+  .episode-badge.short-badge { background: #312e81; color: #c7d2fe; }
+  .episode-title-group h3 { font-size: 1.25rem; font-weight: 700; color: #fff; margin: 0; }
+  .episode-subtitle { font-size: .85rem; color: #94a3b8; margin-top: .3rem; font-weight: 500; }
+  .episode-desc { font-size: .95rem; color: #d4d4d4; line-height: 1.65; margin: .5rem 0 1rem; }
+  .episode-highlights { background: #171717; border-radius: 6px; padding: 1rem 1.2rem; margin-bottom: 1.2rem; border-left: 2px solid #404040; }
+  .highlights-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .08em; color: #737373; font-weight: 700; margin-bottom: .4rem; }
+  .episode-highlights ul { margin: 0; padding-left: 1.2rem; color: #a3a3a3; font-size: .88rem; line-height: 1.6; }
+  .episode-footer { display: flex; justify-content: flex-end; }
+  .watch-btn { display: inline-flex; align-items: center; gap: .5rem; font-size: .88rem; font-weight: 650; color: #93c5fd; background: #1e293b; border: 1px solid #334155; padding: .5rem 1rem; border-radius: 6px; }
+  .watch-btn:hover { background: #2563eb; color: #fff; border-color: #2563eb; }
+
+  /* Gallery Grid */
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+  .gallery-item { margin: 0; background: #121212; border: 1px solid #262626; border-radius: 10px; overflow: hidden; }
+  .gallery-frame { aspect-ratio: 16/9; overflow: hidden; background: #000; }
+  .gallery-frame img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-item figcaption { padding: 1.2rem; }
+  .gallery-item strong { display: block; font-size: 1rem; color: #fff; margin-bottom: .3rem; }
+  .gallery-item p { font-size: .85rem; color: #a3a3a3; line-height: 1.55; margin: 0; }
+
+  /* Pipeline Grid */
+  .pipeline-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(22rem, 1fr)); gap: 1.2rem; margin-top: 1.5rem; }
+  .pipeline-card { background: #121212; border: 1px solid #2a2a2a; border-radius: 8px; padding: 1.4rem; }
+  .pipeline-card h3 { font-size: 1.05rem; font-weight: 700; color: #93c5fd; margin: 0 0 .6rem; }
+  .pipeline-card p { font-size: .9rem; color: #a3a3a3; line-height: 1.65; margin: 0; }
+
+  /* General Content Sections */
   .content-section { padding: 3rem 0; border-bottom: 1px solid #262626; scroll-margin-top: 6rem; }
   .section-heading { margin-bottom: 1.6rem; }
   .section-label { font-size: .68rem; text-transform: uppercase; letter-spacing: .13em; color: #737373; font-weight: 750; margin-bottom: .6rem; }
@@ -249,7 +479,7 @@ const schema = {
     .project-page { padding: 1.75rem 1.15rem 3rem; }
     .summary { font-size: 1.03rem; }
     .content-section { padding: 2.2rem 0; }
-    .feature-grid, .workflow, .documentation-grid { grid-template-columns: 1fr; }
+    .feature-grid, .workflow, .documentation-grid, .pipeline-grid, .gallery-grid, .character-grid { grid-template-columns: 1fr; }
     .feature-grid { gap: .3rem; }
     .workflow { padding: 1.2rem; gap: 1.3rem; }
     .project-actions { align-items: stretch; flex-direction: column; }

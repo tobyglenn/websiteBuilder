@@ -68,7 +68,8 @@ const statusPath = resolve(
     || join(homedir(), '.openclaw/logs/analytics/blog-translations/latest.json'),
 );
 const failuresPath = join(stagingRoot, 'failures.json');
-const freecallRoot = process.env.FREECALL_ROOT || join(homedir(), '.openclaw/scripts');
+const freecallRoot = process.env.FREECALL_ROOT
+  || (existsSync(join(homedir(), '.agentstack-daily/freecall')) ? join(homedir(), '.agentstack-daily') : join(homedir(), '.openclaw/scripts'));
 const modelTimeoutSeconds = Number(process.env.BLOG_TRANSLATION_MODEL_TIMEOUT || 900);
 const modelMaxTokens = Number(process.env.BLOG_TRANSLATION_MAX_TOKENS || 8192);
 const modelAttempts = Math.max(1, Number(process.env.BLOG_TRANSLATION_MODEL_ATTEMPTS || 3));
@@ -718,7 +719,9 @@ const translateOne = async (options) => {
   } catch (error) {
     await saveFailure(key, error);
     await saveStatus(posts);
-    throw error;
+    console.warn(`Translation attempt deferred for automatic retry: ${error?.message || error}`);
+    // EX_TEMPFAIL lets the worker distinguish model variance from an automation outage.
+    process.exitCode = 75;
   }
 };
 

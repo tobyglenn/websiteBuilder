@@ -6,10 +6,15 @@ export TZ=${TZ:-America/New_York}
 
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 FRONTEND_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
-REPORT_DIR=${CLARITY_REPORT_DIR:-/home/toby/.openclaw/logs/analytics/clarity}
-LOG_DIR=${CLARITY_LOG_DIR:-/home/toby/.openclaw/logs/pipeline}
-SECRET_FILE=${CLARITY_SECRET_FILE:-/home/toby/.config/tobyonfitnesstech/clarity.env}
-BUILD_LOG_HELPER=${CLARITY_BUILD_LOG_HELPER:-/home/toby/.openclaw/workspace/scripts/utils/post_build_log.py}
+OPENCLAW_DIR="${OPENCLAW_HOME:-${HOME}/.openclaw}"
+AGENTSTACK_DIR="${AGENTSTACK_HOME:-${HOME}/.agentstack-daily}"
+REPORT_DIR=${CLARITY_REPORT_DIR:-$OPENCLAW_DIR/logs/analytics/clarity}
+LOG_DIR=${CLARITY_LOG_DIR:-$OPENCLAW_DIR/logs/pipeline}
+SECRET_FILE=${CLARITY_SECRET_FILE:-${HOME}/.config/tobyonfitnesstech/clarity.env}
+BUILD_LOG_HELPER=${CLARITY_BUILD_LOG_HELPER:-$AGENTSTACK_DIR/workspace-scripts/utils/post_build_log.py}
+if [[ ! -f "$BUILD_LOG_HELPER" && -f "$OPENCLAW_DIR/workspace/scripts/utils/post_build_log.py" ]]; then
+  BUILD_LOG_HELPER="$OPENCLAW_DIR/workspace/scripts/utils/post_build_log.py"
+fi
 FAILURE_TARGET=${CLARITY_FAILURE_TARGET:-telegram:8319992332}
 LOG_FILE="$LOG_DIR/clarity_daily_snapshot.cron.log"
 LOCK_FILE="$REPORT_DIR/clarity.lock"
@@ -38,6 +43,53 @@ notify_failure() {
   exit "$exit_code"
 }
 trap 'notify_failure "$LINENO"' ERR
+
+if ! command -v flock >/dev/null 2>&1; then
+  flock() {
+    python3 -c "
+import sys, fcntl, time
+
+args = sys.argv[1:]
+timeout = 0
+non_blocking = False
+fd = None
+
+i = 0
+while i < len(args):
+    arg = args[i]
+    if arg in ('-n', '--nonblock', '--nb'):
+        non_blocking = True
+        i += 1
+    elif arg in ('-w', '--timeout'):
+        timeout = float(args[i+1])
+        i += 2
+    elif arg.isdigit():
+        fd = int(arg)
+        i += 1
+    else:
+        i += 1
+
+if fd is None:
+    sys.exit(0)
+
+flags = fcntl.LOCK_EX
+if non_blocking:
+    flags |= fcntl.LOCK_NB
+
+start = time.time()
+while True:
+    try:
+        fcntl.flock(fd, flags)
+        sys.exit(0)
+    except (BlockingIOError, OSError):
+        if non_blocking:
+            sys.exit(1)
+        if timeout > 0 and (time.time() - start) >= timeout:
+            sys.exit(1)
+        time.sleep(0.5)
+" "$@"
+  }
+fi
 
 exec 9>"$LOCK_FILE"
 if ! flock -n 9; then
