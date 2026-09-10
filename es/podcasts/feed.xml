@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 08 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 10 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 112 -->
+    <item>
+      <title>Episodio 112: Google Antigravity, ChatGPT Mac con WebMCP y motor de contexto de 4M de MiniMax-Text-01</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep112/episode_112.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-112/</link>
+      <description><![CDATA[Google Antigravity expande su plataforma de agentes en escritorio, CLI y SDK. OpenAI incorpora las herramientas del sitio Computer History y WebMCP en...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-112/]]></description>
+      <pubDate>Thu, 10 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_112.mp3" length="36836458" type="audio/mpeg"/>
+      <itunes:duration>38:22</itunes:duration>
+      <itunes:episode>112</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep112/episode_112_cover.png"/>
+    </item>
+
     <!-- Episode 111 -->
     <item>
       <title>Episodio 111: AgentStack Daily: Resumen del lanzamiento de Agent Stack: OpenClaw v2026.9.1</title>
