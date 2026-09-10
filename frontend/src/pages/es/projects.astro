@@ -1,115 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { projectGroups as publicProjectGroups, projectHref } from '../../data/projects';
 
-const projectGroups = [
-  {
-    eyebrow: "Automatización",
-    title: "Automatización de Pokémon GO",
-    description: "Flujos de Python para dispositivos conectados, con la configuración personal fuera del código público.",
-    projects: [{ ...publicProjectGroups[0].projects[0], title: "Automatización de Pokémon GO", description: "Regalos, solicitudes de amistad, GO Battle League, intercambios, transferencias y bayas en un kit documentado para Android e iOS.", status: "Código abierto" }],
-  },
-  {
-    eyebrow: 'Juegos',
-    title: 'Experimentos jugables',
-    description: 'Juegos de navegador y prototipos tácticos lo suficientemente listos para jugar.',
-    projects: [
-      {
-        slug: 'mma-rpg',
-        title: 'MMA RPG',
-        status: 'En vivo',
-        description: 'Un RPG de lucha de MMA por turnos. Crea tu luchador, domina los combos y sube en los rangos.',
-        href: 'https://clawdassistant85-netizen.github.io/mma-rpg/',
-        cta: 'Jugar ahora',
-        tags: ['Lucha', 'RPG', 'Estrategia'],
-      },
-      {
-        slug: 'gridbound-realms',
-        title: 'Gridbound Realms',
-        status: 'En vivo',
-        description: 'Un juego de estrategia táctica por cuadrícula. Manda unidades, controla el mapa y conquista el reino.',
-        href: 'https://clawdassistant85-netizen.github.io/gridbound-realms/',
-        cta: 'Jugar ahora',
-        tags: ['Estrategia', 'Táctica', 'Cuadrícula'],
-      },
-    ],
-  },
-  {
-    eyebrow: 'Aplicaciones',
-    title: 'Herramientas de entrenamiento y nutrición',
-    description: 'Utilidades de fitness creadas en torno a los flujos de trabajo que realmente uso para el tiempo en el tatami, las comidas y el seguimiento del progreso.',
-    projects: [
-      {
-        slug: 'bjj-buddy',
-        title: 'BJJ Buddy',
-        status: 'En vivo',
-        description: 'Una aplicación de seguimiento de Brazilian Jiu-Jitsu para registrar rolls, organizar técnicas, guardar favoritas y acompañar el progreso de grappling a lo largo del tiempo.',
-        href: 'https://bjj-buddy.pages.dev/',
-        cta: 'Abrir app',
-        tags: ['BJJ', 'Registro de entrenamiento', 'Técnicas'],
-      },
-      {
-        slug: 'nutritrack',
-        title: 'NutriTrack',
-        status: 'En vivo',
-        description: 'Un rastreador de nutrición gratuito para registrar comidas, controlar macros y mantener los datos de alimentos conectados con los objetivos de entrenamiento.',
-        href: 'https://nutritrack.tobyonfitnesstech.com',
-        cta: 'Abrir rastreador',
-        tags: ['Nutrición', 'Macros', 'Registro de comidas'],
-      },
-    ],
-  },
-  {
-    eyebrow: 'Iglesia',
-    title: 'Práctica de Escritura y memoria',
-    description: 'Herramientas centradas en la fe, creadas para la práctica, la repetición y la retención a largo plazo.',
-    projects: [
-      {
-        slug: 'one-peter-memory',
-        title: 'Entrenador de memoria de 1 Pedro',
-        status: 'En progreso',
-        description: 'Un entrenador de memorización de la KJV para la preparación de Alert Academy con fragmentos, voces de audio, texto que desaparece, puntuación de recitación y repaso espaciado.',
-        href: '/es/one-peter-memory/',
-        cta: 'Abrir entrenador',
-        tags: ['Escritura', 'Memorización', 'KJV'],
-      },
-    ],
-  },
-  {
-    eyebrow: 'Vídeo',
-    title: 'Canales de vídeo y trabajo creativo',
-    description: 'Vídeos de juegos, trabajo creativo familiar y series de historias con ayuda de IA, donde cada canal mantiene su propia voz.',
-    projects: [
-      {
-        slug: 'lilly',
-        title: 'Lilly Plays',
-        status: 'Activo',
-        description: 'Vídeos de juegos y creativos con Lilly, incluidos Minecraft, Roblox, AEW y aventuras familiares. Lilly lidera los vídeos; yo ayudo con la edición, los subtítulos y la publicación de episodios completos y Shorts.',
-        href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ',
-        cta: 'Ver el canal de Lilly',
-        tags: ['YouTube', 'Videojuegos', 'Aventuras familiares'],
-      },
-      {
-        slug: 'ironvane',
-        title: 'IronVane',
-        status: 'Activo',
-        description: 'El canal de historias de Crossfire/IronVane, centrado actualmente en Ceryn, Talya y la temporada de episodios en curso.',
-        href: 'https://www.youtube.com/@IronVaneStory/videos',
-        cta: 'Ver la serie',
-        tags: ['YouTube', 'Historia', 'Vídeo con IA'],
-      },
-      {
-        slug: 'liminal',
-        title: 'Liminal',
-        status: 'Archivado',
-        description: 'Una serie de comedia sobrenatural ambientada en una posada junto al mar. La producción está en pausa, pero los episodios publicados siguen disponibles en YouTube.',
-        href: 'https://www.youtube.com/watch?v=Vo_LQS1ubWc',
-        cta: 'Ver Liminal',
-        tags: ['YouTube', 'Comedia', 'Archivado'],
-      },
-    ],
-  },
-];
+import { projectGroups, projectHref } from '../../data/projects';
 
 const allProjects = projectGroups.flatMap((group) => group.projects.map((project) => ({
   ...project,
@@ -120,7 +12,7 @@ const projectSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Proyectos | Toby on Fitness Tech',
-  description: 'Juegos, herramientas de entrenamiento, práctica de Escritura y canales de vídeo de Toby on Fitness Tech.',
+  description: 'Automatización de Pokémon GO, juegos, herramientas de entrenamiento, práctica de escrituras y proyectos de vídeo creativos con guías detalladas.',
   url: 'https://tobyonfitnesstech.com/es/projects/',
   hasPart: allProjects.map((project) => ({
     '@type': 'CreativeWork',
@@ -133,7 +25,7 @@ const projectSchema = {
 
 <Layout
   title="Proyectos | Toby on Fitness Tech"
-  description="Juegos, herramientas de entrenamiento, práctica de Escritura y canales de vídeo de Toby on Fitness Tech."
+  description="Automatización de Pokémon GO, juegos, herramientas de entrenamiento, práctica de escrituras y proyectos de vídeo creativos con guías detalladas."
   jsonLd={projectSchema}
   breadcrumbs={[{ name: 'Inicio', url: '/es/' }, { name: 'Proyectos', url: '/es/projects/' }]}
 
@@ -144,20 +36,20 @@ const projectSchema = {
     <div class="mx-auto max-w-6xl">
       <header class="border-b border-neutral-800 pb-10">
         <p class="text-sm font-bold uppercase tracking-widest text-blue-400">Proyectos</p>
-        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Juegos, herramientas y canales creativos</h1>
+        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">Automatización, juegos y proyectos creativos</h1>
         <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
-          Explora las cosas que construyo y ayudo a dar vida: juegos jugables, aplicaciones de entrenamiento y nutrición, práctica de Escritura, los vídeos de juegos de Lilly y el trabajo de historias de IronVane/Liminal.
+          Explora las cosas que construyo y ayudo a sacar adelante. Abre un proyecto para ver su historia, flujo de trabajo, documentación y enlaces, incluido el kit de herramientas de automatización de Pokémon GO y los vídeos de Lilly.
         </p>
       </header>
 
       <nav class="flex flex-wrap gap-3 border-b border-neutral-800 py-5" aria-label="Categorías de proyectos">
         {projectGroups.map((group) => (
           <a
-            href={`#${group.eyebrow.toLowerCase()}`}
+            href={`#${group.id}`}
             class="rounded-md border border-neutral-800 px-4 py-2 text-sm font-semibold text-neutral-300 transition-colors hover:border-blue-500/60 hover:text-white"
             data-analytics-event="project_category_click"
             data-analytics-content-type="project_category"
-            data-analytics-content-slug={group.eyebrow.toLowerCase()}
+            data-analytics-content-slug={group.id}
             data-analytics-content-title={group.title}
           >
             {group.eyebrow}
@@ -167,10 +59,10 @@ const projectSchema = {
 
       <div class="space-y-14 py-10">
         {projectGroups.map((group) => (
-          <section id={group.eyebrow.toLowerCase()} aria-labelledby={`${group.eyebrow.toLowerCase()}-heading`}>
+          <section id={group.id} aria-labelledby={`${group.id}-heading`}>
             <div class="mb-6 max-w-3xl">
               <p class="text-xs font-bold uppercase tracking-widest text-neutral-500">{group.eyebrow}</p>
-              <h2 id={`${group.eyebrow.toLowerCase()}-heading`} class="mt-2 text-2xl font-bold text-white">{group.title}</h2>
+              <h2 id={`${group.id}-heading`} class="mt-2 text-2xl font-bold text-white">{group.title}</h2>
               <p class="mt-2 text-neutral-400">{group.description}</p>
             </div>
 
@@ -181,7 +73,7 @@ const projectSchema = {
                   class="flex min-h-full flex-col rounded-lg border border-neutral-800 bg-neutral-900 p-6 transition-colors hover:border-blue-500/50"
                   data-project-card={project.slug}
                   data-analytics-content-title={project.title}
-                  data-analytics-position={group.eyebrow.toLowerCase()}
+                  data-analytics-position={group.id}
                 >
                   <div class="flex items-start justify-between gap-4">
                     <h3 class="text-2xl font-bold text-white"><a href={projectHref(project.slug)} class="hover:text-blue-300">{project.title}</a></h3>
@@ -202,9 +94,9 @@ const projectSchema = {
                     data-analytics-content-type="project"
                     data-analytics-content-slug={project.slug}
                     data-analytics-content-title={project.title}
-                    data-analytics-position={group.eyebrow.toLowerCase()}
+                    data-analytics-position={group.id}
                   >
-                    Explorar proyecto (inglés) <span aria-hidden="true">→</span>
+                    Explorar proyecto <span aria-hidden="true">→</span>
                   </a>
                 </article>
               ))}
