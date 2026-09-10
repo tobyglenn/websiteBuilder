@@ -34,6 +34,7 @@ if git status --short | grep -q '^UU\|^AA\|^DD\|^UA\|^AU'; then
   done < <(git status --short | awk '/^[UAD]{2}/ {sub(/^.../, "", $0); print}')
 fi
 
+cd "$TRANSLATION_FRONTEND_ROOT"
 npm run translate:blog:promote
 npm run translate:blog:validate
 npm run translate:priority-pages:promote
@@ -46,6 +47,7 @@ if (( blog_remaining > 0 || priority_remaining > 0 )); then
   exit 0
 fi
 
+cd "$TRANSLATION_REPO_ROOT"
 publish_paths=(frontend/src/generated/blog-translations)
 priority_count=0
 priority_sources=(
