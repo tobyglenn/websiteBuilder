@@ -438,8 +438,8 @@
     homepage_section_position: Number(section.dataset.homepagePosition || 0),
     homepage_total_sections: document.querySelectorAll("[data-homepage-section]").length,
     homepage_layout_version: homepageLayoutVersion,
-    homepage_test_id: section.dataset.homepageTestId || "",
-    homepage_test_variant: section.dataset.homepageTestVariant || "",
+    homepage_test_id: section.dataset.homepageTestId || document.querySelector("[data-homepage-layout-version]")?.dataset.homepageTestId || "",
+    homepage_test_variant: section.dataset.homepageTestVariant || document.querySelector("[data-homepage-layout-version]")?.dataset.homepageTestVariant || "",
     homepage_visit_id: homepageVisitId,
     viewport_width: window.innerWidth,
     viewport_height: window.innerHeight,
@@ -541,7 +541,7 @@
         const element = entry.target;
         const section = element.closest("[data-homepage-section]");
         if (!section || homepageItemViewed.has(element)) return;
-        if (!entry.isIntersecting || entry.intersectionRatio < 0.5) {
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.5 || document.visibilityState !== "visible") {
           homepageItemVisible.delete(element);
           window.clearTimeout(homepageItemTimers.get(element));
           homepageItemTimers.delete(element);
@@ -552,7 +552,7 @@
         if (homepageItemTimers.has(element)) return;
         const timer = window.setTimeout(() => {
           homepageItemTimers.delete(element);
-          if (!homepageItemVisible.has(element) || homepageItemViewed.has(element)) return;
+          if (document.visibilityState !== "visible" || !homepageItemVisible.has(element) || homepageItemViewed.has(element)) return;
           homepageItemViewed.add(element);
           window.toftAnalytics.capture("homepage_item_viewed", {
             ...homepageElementProperties(section, element),
@@ -803,7 +803,7 @@
       entries.forEach((entry) => {
         const element = entry.target;
         if (navigationItemsViewed.has(element)) return;
-        if (!entry.isIntersecting || entry.intersectionRatio < 0.5) {
+        if (!entry.isIntersecting || entry.intersectionRatio < 0.5 || document.visibilityState !== "visible") {
           navigationItemsVisible.delete(element);
           window.clearTimeout(navigationItemTimers.get(element));
           navigationItemTimers.delete(element);
@@ -814,7 +814,7 @@
         if (navigationItemTimers.has(element)) return;
         const timer = window.setTimeout(() => {
           navigationItemTimers.delete(element);
-          if (!navigationItemsVisible.has(element) || navigationItemsViewed.has(element)) return;
+          if (document.visibilityState !== "visible" || !navigationItemsVisible.has(element) || navigationItemsViewed.has(element)) return;
           navigationItemsViewed.add(element);
           window.toftAnalytics.capture("navigation_item_viewed", {
             ...navigationElementProperties(element),
@@ -835,6 +835,26 @@
 
   setupNavigationItemTracking();
   document.addEventListener("astro:page-load", setupNavigationItemTracking);
+
+  // A background tab is not a viewed impression. Restart exposure on return,
+  // retaining per-page deduplication for items already seen.
+  document.addEventListener("visibilitychange", () => {
+    homepageItemTimers.forEach((timer) => window.clearTimeout(timer));
+    homepageItemTimers.clear();
+    navigationItemTimers.forEach((timer) => window.clearTimeout(timer));
+    navigationItemTimers.clear();
+    if (document.visibilityState !== "visible") return;
+    document.querySelectorAll("[data-homepage-section] a, [data-homepage-section] button").forEach((element) => {
+      if (homepageItemViewed.has(element)) return;
+      homepageItemObserver?.unobserve(element);
+      homepageItemObserver?.observe(element);
+    });
+    document.querySelectorAll("[data-navigation-item]").forEach((element) => {
+      if (navigationItemsViewed.has(element)) return;
+      navigationItemObserver?.unobserve(element);
+      navigationItemObserver?.observe(element);
+    });
+  });
 
   let contentNextStepObserver = null;
   const contentNextStepViewed = new WeakSet();
