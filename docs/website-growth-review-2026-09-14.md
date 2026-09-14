@@ -2,6 +2,10 @@
 
 ## Decisions First
 
+### Search Investigation Follow-Up
+
+Code `69dd3eb1b0` repairs a verified deployment defect: old hashed CSS/navigation bundles were deleted while Googlebot and readers still requested them. Production now retains 335 historical bundles for 30 days; the exact GSC/PostHog examples return 200 with their original hashes. The GSC warning now retains the verified August 9-15 baseline instead of aging the collapse out of its four-week window; live reporting and build-log-errors delivery are verified. These two repairs are **DONE**. Priority 1 remains **IN PROGRESS** because the cause of the entire August 15-16 visibility collapse is not proven. The main WHOOP page's stored Google crawl loaded all resources, and the announced August 18 spam update starts after the initial loss. See [the detailed investigation](search-visibility-investigation-2026-09-14.md) for evidence, counterevidence, and remaining decisions.
+
 Three evidence-backed improvements were implemented in `1ee3bdfbbeb786d1c3ebd672b3d64127e82050e1`: remove unsupported sleep merchant markup, repair dashboard denominators, and make homepage/navigation impressions visibility-aware with complete homepage experiment attribution. Delivery verification is recorded below.
 
 The largest business risk is still the August search visibility collapse. **It is not just an API problem:** authenticated Search Console and the API agree on 3 clicks and 281 impressions for September 6-12. Four inspected priority articles/hubs are indexed with matching canonicals. No manual actions or security issues are reported. The cause of the broader decline is not established, and this review does not claim recovery.
