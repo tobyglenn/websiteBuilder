@@ -55,37 +55,13 @@ const stages = [
 
 const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
 
-// JSON-LD schema for 8Sleep Pod 3
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "8Sleep Pod 3",
-  "description": "Colchón inteligente avanzado con regulación activa de temperatura, seguimiento del sueño y monitoreo de bienestar.",
-  "brand": {
-    "@type": "Brand",
-    "name": "8Sleep"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.7",
-    "reviewCount": "2847"
-  },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": "2495",
-    "availability": "https://schema.org/InStock"
-  },
-  "category": "Colchón inteligente",
-  "keywords": "8Sleep, Pod 3, colchón inteligente, rastreador de sueño, regulación de temperatura"
-};
 ---
+
 
 <Layout 
   title="Datos de 8Sleep | TobyOnFitnessTech"
   description="Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, fases del sueño y seguimiento de temperatura. Mira cómo optimizo la recuperación a través del sueño."
   breadcrumbs={[{ name: "Inicio", url: "/" }, { name: "Datos de sueño", url: "/sleep" }]}
-  jsonLd={jsonLd}
 >
   <Header client:load />
   

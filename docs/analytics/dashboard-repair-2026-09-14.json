@@ -1,0 +1,62 @@
+[
+  {
+    "id": "lnqy7ORh",
+    "name": "Navigation item impressions and viewer CTR",
+    "before": {
+      "kind": "DataVisualizationNode",
+      "source": {
+        "kind": "HogQLQuery",
+        "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    properties.navigation_group AS navigation_group,\n    toInt(properties.navigation_item_position) AS item_position,\n    properties.navigation_item_label AS item_label,\n    properties.destination_url AS destination_url,\n    uniqIf(properties.$session_id, event = 'navigation_item_viewed') AS viewing_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS clicking_sessions,\n    countIf(event = 'navigation_click') AS clicks,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_click') / greatest(uniqIf(properties.$session_id, event = 'navigation_item_viewed'), 1), 1) AS viewer_ctr\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_item_viewed', 'navigation_click')\nGROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url\nORDER BY period DESC, surface ASC, viewer_ctr DESC, viewing_sessions DESC\nLIMIT 250"
+      },
+      "display": "ActionsTable"
+    },
+    "after": {
+      "kind": "DataVisualizationNode",
+      "source": {
+        "kind": "HogQLQuery",
+        "query": "SELECT period, schema_version, surface, navigation_group, item_position, item_label,\n  destination_url,\n  uniqIf(person_id, views > 0) AS unique_viewers,\n  countIf(views > 0) AS viewing_sessions,\n  countIf(clicks > 0) AS clicking_sessions,\n  countIf(views > 0 AND next_clicks > 0 AND first_next_click >= first_view) AS matched_clicking_sessions,\n  sum(current_clicks) AS current_page_clicks,\n  countIf(clicks > 0 AND views = 0) AS clicks_without_exposure_sessions,\n  round(100 * matched_clicking_sessions / nullIf(viewing_sessions, 0), 1) AS session_ctr,\n  round(100 * uniqIf(person_id, views > 0 AND next_clicks > 0 AND first_next_click >= first_view) / nullIf(unique_viewers, 0), 1) AS viewer_ctr\nFROM (\n  SELECT if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    properties.navigation_group AS navigation_group,\n    toInt(properties.navigation_item_position) AS item_position,\n    properties.navigation_item_label AS item_label,\n    properties.destination_url AS destination_url,\n    person_id, properties.$session_id AS session_id,\n    countIf(event = 'navigation_item_viewed') AS views,\n    countIf(event = 'navigation_click') AS clicks,\n    countIf(event = 'navigation_click' AND properties.navigation_is_current = true) AS current_clicks,\n    countIf(event = 'navigation_click' AND properties.navigation_is_current != true) AS next_clicks,\n    minIf(timestamp, event = 'navigation_item_viewed') AS first_view,\n    maxIf(timestamp, event = 'navigation_click' AND properties.navigation_is_current != true) AS first_next_click\n  FROM events\n  WHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY AND timestamp < toStartOfDay(now())\n    AND event IN ('navigation_item_viewed', 'navigation_click')\n    AND coalesce(properties.$virt_is_bot, false) = false\n    AND properties.$session_id IS NOT NULL\n  GROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url, person_id, session_id\n)\nGROUP BY period, schema_version, surface, navigation_group, item_position, item_label, destination_url\nORDER BY period, viewing_sessions DESC\nLIMIT 250\n"
+      },
+      "display": "ActionsTable"
+    }
+  },
+  {
+    "id": "z7xk5gn9",
+    "name": "Navigation menu open to selection",
+    "before": {
+      "kind": "DataVisualizationNode",
+      "source": {
+        "kind": "HogQLQuery",
+        "query": "SELECT\n    if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n  properties.navigation_surface AS surface,\n    if(event = 'navigation_menu_opened', properties.menu_name, properties.navigation_group) AS menu_group,\n    uniqIf(properties.$session_id, event = 'navigation_menu_opened') AS opening_sessions,\n    uniqIf(properties.$session_id, event = 'navigation_click') AS selecting_sessions,\n    countIf(event = 'navigation_menu_opened') AS opens,\n    countIf(event = 'navigation_click') AS selections,\n    round(100 * uniqIf(properties.$session_id, event = 'navigation_click') / greatest(uniqIf(properties.$session_id, event = 'navigation_menu_opened'), 1), 1) AS open_to_selection_rate\nFROM events\nWHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n  AND timestamp < toStartOfDay(now())\n  AND event IN ('navigation_menu_opened', 'navigation_click')\nGROUP BY period, schema_version, surface, menu_group\nORDER BY period DESC, surface ASC, opening_sessions DESC\nLIMIT 100"
+      },
+      "display": "ActionsTable"
+    },
+    "after": {
+      "kind": "DataVisualizationNode",
+      "source": {
+        "kind": "HogQLQuery",
+        "query": "SELECT period, schema_version, surface, menu_group,\n  uniqIf(person_id, opens > 0) AS unique_openers,\n  countIf(opens > 0) AS opening_sessions,\n  countIf(selections > 0) AS selecting_sessions,\n  countIf(opens > 0 AND selections > 0 AND last_selection >= first_open) AS matched_selecting_sessions,\n  countIf(opens = 0 AND selections > 0) AS selections_without_open_sessions,\n  round(100 * matched_selecting_sessions / nullIf(opening_sessions, 0), 1) AS open_to_selection_rate\nFROM (\n  SELECT if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.navigation_schema_version AS schema_version,\n    properties.navigation_surface AS surface,\n    if(event = 'navigation_menu_opened', properties.menu_name, properties.navigation_group) AS menu_group,\n    person_id, properties.$session_id AS session_id,\n    countIf(event = 'navigation_menu_opened') AS opens,\n    countIf(event = 'navigation_click' AND properties.navigation_is_current != true) AS selections,\n    minIf(timestamp, event = 'navigation_menu_opened') AS first_open,\n    maxIf(timestamp, event = 'navigation_click' AND properties.navigation_is_current != true) AS last_selection\n  FROM events\n  WHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY AND timestamp < toStartOfDay(now())\n    AND event IN ('navigation_menu_opened', 'navigation_click')\n    AND coalesce(properties.$virt_is_bot, false) = false\n    AND properties.$session_id IS NOT NULL\n  GROUP BY period, schema_version, surface, menu_group, person_id, session_id\n)\nGROUP BY period, schema_version, surface, menu_group\nORDER BY period, opening_sessions DESC\nLIMIT 100\n"
+      },
+      "display": "ActionsTable"
+    }
+  },
+  {
+    "id": "KZu0kTpu",
+    "name": "Homepage section effectiveness by device",
+    "before": {
+      "kind": "DataVisualizationNode",
+      "source": {
+        "kind": "HogQLQuery",
+        "query": "SELECT\n    period,\n    homepage_layout_version,\n    viewport,\n    homepage_section_position,\n    homepage_section_title,\n    uniq(homepage_visit_id) AS viewers,\n    round(avg(visible_seconds), 1) AS average_visible_seconds,\n    round(100 * avg(homepage_section_engaged), 1) AS five_second_engagement_rate,\n    round(100 * avg(homepage_section_clicked), 1) AS click_through_rate_among_viewers,\n    round(avg(maximum_intersection_ratio), 2) AS average_maximum_intersection_ratio\nFROM (\n    SELECT\n        if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n        properties.homepage_layout_version AS homepage_layout_version,\n        if(toInt(properties.viewport_width) < 768, 'mobile', 'desktop') AS viewport,\n        toInt(properties.homepage_section_position) AS homepage_section_position,\n        properties.homepage_section_title AS homepage_section_title,\n        properties.homepage_visit_id AS homepage_visit_id,\n        argMax(toFloat(properties.visible_seconds), timestamp) AS visible_seconds,\n        argMax(if(properties.homepage_section_engaged = true, 1, 0), timestamp) AS homepage_section_engaged,\n        argMax(if(toInt(properties.homepage_section_clicks) > 0, 1, 0), timestamp) AS homepage_section_clicked,\n        argMax(toFloat(properties.maximum_intersection_ratio), timestamp) AS maximum_intersection_ratio\n    FROM events\n    WHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY\n      AND timestamp < toStartOfDay(now())\n      AND event = 'homepage_section_summary'\n    GROUP BY period, homepage_layout_version, viewport, homepage_section_position, homepage_section_title, homepage_visit_id\n)\nGROUP BY period, homepage_layout_version, viewport, homepage_section_position, homepage_section_title\nORDER BY period DESC, homepage_section_position ASC\nLIMIT 200"
+      },
+      "display": "ActionsTable"
+    },
+    "after": {
+      "kind": "DataVisualizationNode",
+      "source": {
+        "kind": "HogQLQuery",
+        "query": "SELECT period, homepage_layout_version, viewport, homepage_section_position,\n  homepage_section_title, homepage_section_purpose, test_id, variant,\n  uniq(person_id) AS unique_viewers,\n  count() AS visits,\n  round(avg(visible_seconds), 1) AS average_visible_seconds_per_visit,\n  round(quantile(0.5)(visible_seconds), 1) AS median_visible_seconds_per_visit,\n  round(100 * uniqIf(person_id, engaged = 1) / nullIf(unique_viewers, 0), 1) AS five_second_engagement_rate,\n  round(100 * uniqIf(person_id, clicked = 1) / nullIf(unique_viewers, 0), 1) AS viewer_ctr,\n  round(avg(maximum_intersection_ratio), 2) AS average_maximum_visibility\nFROM (\n  SELECT if(timestamp >= toStartOfDay(now()) - INTERVAL 7 DAY, 'current_complete_7d', 'prior_complete_7d') AS period,\n    properties.homepage_layout_version AS homepage_layout_version,\n    if(toInt(properties.viewport_width) < 768, 'mobile', 'desktop') AS viewport,\n    toInt(properties.homepage_section_position) AS homepage_section_position,\n    properties.homepage_section_title AS homepage_section_title,\n    properties.homepage_section_purpose AS homepage_section_purpose,\n    properties.homepage_test_id AS test_id,\n    properties.homepage_test_variant AS variant,\n    person_id, properties.homepage_visit_id AS visit_id,\n    argMax(toFloat(properties.visible_seconds), timestamp) AS visible_seconds,\n    max(if(properties.homepage_section_engaged = true, 1, 0)) AS engaged,\n    max(if(toInt(properties.homepage_section_clicks) > 0, 1, 0)) AS clicked,\n    max(toFloat(properties.maximum_intersection_ratio)) AS maximum_intersection_ratio\n  FROM events\n  WHERE timestamp >= toStartOfDay(now()) - INTERVAL 14 DAY AND timestamp < toStartOfDay(now())\n    AND event = 'homepage_section_summary'\n    AND coalesce(properties.$virt_is_bot, false) = false\n    AND properties.homepage_visit_id IS NOT NULL\n  GROUP BY period, homepage_layout_version, viewport, homepage_section_position,\n    homepage_section_title, homepage_section_purpose, test_id, variant, person_id, visit_id\n)\nGROUP BY period, homepage_layout_version, viewport, homepage_section_position,\n  homepage_section_title, homepage_section_purpose, test_id, variant\nORDER BY period, homepage_section_position, viewport\nLIMIT 200\n"
+      },
+      "display": "ActionsTable"
+    }
+  }
+]

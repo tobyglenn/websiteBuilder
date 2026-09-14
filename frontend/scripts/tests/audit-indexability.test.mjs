@@ -11,11 +11,11 @@ const context = 'https://schema.org';
 const person = { '@context': context, '@type': 'Person', name: 'Example' };
 const website = { '@context': context, '@type': 'WebSite', url: 'https://tobyonfitnesstech.com/' };
 
-function runAudit(schemas) {
+function runAudit(schemas, route = '') {
   const cwd = mkdtempSync(join(tmpdir(), 'indexability-test-'));
   try {
-    mkdirSync(join(cwd, 'dist'));
-    writeFileSync(join(cwd, 'dist', 'index.html'), schemas.map((schema) => (
+    mkdirSync(join(cwd, 'dist', route), { recursive: true });
+    writeFileSync(join(cwd, 'dist', route, 'index.html'), schemas.map((schema) => (
       `<script type="application/ld+json">${JSON.stringify(schema)}</script>`
     )).join('\n'));
     writeFileSync(join(cwd, 'dist', 'robots.txt'), 'Sitemap: https://tobyonfitnesstech.com/sitemap-index.xml\n');
@@ -29,6 +29,19 @@ test('accepts separate context-bearing objects without changing their schema dat
   const result = runAudit([person, website]);
   assert.equal(result.status, 0, result.stderr);
   assert.match(result.stdout, /2 JSON-LD scripts/);
+});
+
+test('sleep dashboards cannot regress to merchant or unsupported aggregate-rating markup in any language', () => {
+  for (const locale of ['', 'de/', 'es/', 'hi/', 'pt/']) {
+    const result = runAudit([{
+      '@context': context, '@type': 'Product', name: '8Sleep Pod 3',
+      aggregateRating: { '@type': 'AggregateRating', ratingValue: '4.7', reviewCount: '2847' },
+      offers: { '@type': 'Offer', price: '2495', priceCurrency: 'USD' },
+    }], `${locale}sleep`);
+    assert.equal(result.status, 1);
+    assert.match(result.stderr, /personal sleep-data dashboard/);
+    assert.equal(runAudit([person, website], `${locale}sleep`).status, 0);
+  }
 });
 
 test('rejects the former top-level array that triggers the Safari TypeError', () => {

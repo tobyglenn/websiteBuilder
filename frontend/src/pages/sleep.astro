@@ -55,37 +55,12 @@ const stages = [
 
 const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
 
-// JSON-LD schema for 8Sleep Pod 3
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "8Sleep Pod 3",
-  "description": "Advanced smart mattress with active temperature regulation, sleep tracking, and wellness monitoring.",
-  "brand": {
-    "@type": "Brand",
-    "name": "8Sleep"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.7",
-    "reviewCount": "2847"
-  },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": "2495",
-    "availability": "https://schema.org/InStock"
-  },
-  "category": "Smart Mattress",
-  "keywords": "8Sleep, Pod 3, smart mattress, sleep tracker, temperature regulation"
-};
 ---
 
 <Layout 
   title="8Sleep Data | TobyOnFitnessTech"
   description="Real sleep data from my 8Sleep Pod 3 — sleep scores, HRV, sleep stages, and temperature tracking. See how I optimize recovery through sleep."
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "Sleep Data", url: "/sleep" }]}
-  jsonLd={jsonLd}
 >
   <Header client:load />
   

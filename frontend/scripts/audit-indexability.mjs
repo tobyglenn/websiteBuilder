@@ -69,6 +69,9 @@ const inspectStructuredData = (value, route) => {
 
   const schemaTypes = Array.isArray(value['@type']) ? value['@type'] : [value['@type']];
   if (schemaTypes.includes('Product')) {
+    if (/^\/(?:de\/|es\/|hi\/|pt\/)?sleep\/$/.test(route)) {
+      failures.push(`${route} is a personal sleep-data dashboard, not a Product listing; remove sales and aggregate-rating markup.`);
+    }
     productSchemas += 1;
     if (Array.isArray(value.brand) && value.brand.length > 1) {
       failures.push(`${route} Product "${value.name || '(unnamed)'}" has multiple brand values; Merchant listings require one brand per Product.`);

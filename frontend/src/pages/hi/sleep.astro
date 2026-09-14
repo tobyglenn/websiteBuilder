@@ -55,37 +55,13 @@ const stages = [
 
 const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
 
-// JSON-LD schema for 8Sleep Pod 3
-const jsonLd = {
-  "@context": "https://schema.org",
-  "@type": "Product",
-  "name": "8Sleep Pod 3",
-  "description": "उन्नत स्मार्ट गद्दा जिसमें सक्रिय तापमान नियंत्रण, नींद ट्रैकिंग और वेलनेस मॉनिटरिंग शामिल है।",
-  "brand": {
-    "@type": "Brand",
-    "name": "8Sleep"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.7",
-    "reviewCount": "2847"
-  },
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": "2495",
-    "availability": "https://schema.org/InStock"
-  },
-  "category": "स्मार्ट गद्दा",
-  "keywords": "8Sleep, Pod 3, स्मार्ट गद्दा, नींद ट्रैकर, तापमान नियंत्रण"
-};
 ---
+
 
 <Layout 
   title="8Sleep डेटा | TobyOnFitnessTech"
   description="मेरे 8Sleep Pod 3 से वास्तविक नींद डेटा — स्लीप स्कोर, HRV, नींद के चरण और तापमान ट्रैकिंग। देखें कि मैं नींद के ज़रिए रिकवरी को कैसे बेहतर बनाता हूँ।"
   breadcrumbs={[{ name: "होम", url: "/" }, { name: "नींद डेटा", url: "/sleep" }]}
-  jsonLd={jsonLd}
 >
   <Header client:load />
   
