@@ -1455,6 +1455,31 @@
       "totalSessions": 1,
       "avgVolume": 6762.8,
       "totalVolume": 6762.8
+    },
+    "ARIA Rope Maintain Stamina 20260914": {
+      "name": "ARIA Rope Maintain Stamina 20260914",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-09-14",
+          "totalCapacity": 2457.5,
+          "durationMinute": 9,
+          "calorie": 156,
+          "actionNum": 5
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-09-14",
+        "totalCapacity": 2457.5,
+        "durationMinute": 9,
+        "calorie": 156,
+        "actionNum": 5
+      },
+      "totalSessions": 1,
+      "avgVolume": 2457.5,
+      "totalVolume": 2457.5
     }
   },
   "exercisePRs": {
@@ -1771,11 +1796,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 118,
-  "totalVolumeLbs": 955729.2,
+  "totalWorkouts": 119,
+  "totalVolumeLbs": 958186.7,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-09-07"
+    "end": "2026-09-14"
   },
   "allSessions": [
     {
@@ -2720,6 +2745,14 @@
       "totalCapacity": 6762.8,
       "durationMinute": 13,
       "calorie": 198,
+      "actionNum": 5
+    },
+    {
+      "date": "2026-09-14",
+      "title": "ARIA Rope Maintain Stamina 20260914",
+      "totalCapacity": 2457.5,
+      "durationMinute": 9,
+      "calorie": 156,
       "actionNum": 5
     }
   ]
