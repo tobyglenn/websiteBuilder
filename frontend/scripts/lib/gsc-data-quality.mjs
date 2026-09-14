@@ -11,6 +11,7 @@ export const assessGscDataQuality = ({
   current = {},
   prior = {},
   history = [],
+  reference = null,
   daily = [],
   expectedDays = 7,
 } = {}) => {
@@ -34,6 +35,14 @@ export const assessGscDataQuality = ({
     ? ratio(currentClicks, historicalBaseline.clicks)
     : null;
   const issues = [];
+  const referenceImpressionRatio = reference ? ratio(currentImpressions, numberValue(reference.impressions)) : null;
+
+  if (numberValue(reference?.impressions) >= 1000 && referenceImpressionRatio !== null && referenceImpressionRatio < 0.25) {
+    issues.push({
+      code: 'unresolved_visibility_incident',
+      message: `Current impressions remain ${(referenceImpressionRatio * 100).toFixed(1)}% of the verified ${reference.start} to ${reference.end} reference (${reference.impressions}). This confirms low visibility, not an API fault or a proven cause.`,
+    });
+  }
 
   if (daily.length !== expectedDays) {
     issues.push({
@@ -97,6 +106,8 @@ export const assessGscDataQuality = ({
       clicks: historicalClickRatio,
     },
     historicalBaseline,
+    referenceBaseline: reference,
+    currentToReferenceImpressionRatio: referenceImpressionRatio,
     issues,
   };
 };

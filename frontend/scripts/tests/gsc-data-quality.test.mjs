@@ -3,6 +3,29 @@ import test from 'node:test';
 
 import { assessGscDataQuality } from '../lib/gsc-data-quality.mjs';
 
+test('does not normalize an unresolved collapse after healthy weeks leave the rolling window', () => {
+  const result = assessGscDataQuality({
+    current: { clicks: 3, impressions: 281 },
+    prior: { clicks: 1, impressions: 331 },
+    history: [{ clicks: 1, impressions: 400 }],
+    reference: { start: '2026-08-09', end: '2026-08-15', clicks: 99, impressions: 13219 },
+    daily: Array.from({ length: 7 }, () => ({})),
+  });
+  assert.equal(result.comparisonSafe, false);
+  assert.deepEqual(result.issues.map((issue) => issue.code), ['unresolved_visibility_incident']);
+  assert.equal(result.currentToReferenceImpressionRatio, 281 / 13219);
+});
+
+test('reference does not hold a recovered, complete comparison', () => {
+  const result = assessGscDataQuality({
+    current: { clicks: 90, impressions: 12000 },
+    prior: { clicks: 85, impressions: 11000 },
+    reference: { start: '2026-08-09', end: '2026-08-15', clicks: 99, impressions: 13219 },
+    daily: Array.from({ length: 7 }, () => ({})),
+  });
+  assert.equal(result.comparisonSafe, true);
+});
+
 test('allows a complete comparison with plausible period continuity', () => {
   const result = assessGscDataQuality({
     current: { clicks: 90, impressions: 12000 },

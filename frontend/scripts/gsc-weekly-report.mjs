@@ -334,10 +334,14 @@ const historicalPeriods = summarizeHistoricalWeeks(
   historicalDaily.rows || [],
   historicalStart,
 );
+const referenceBaseline = JSON.parse(readFileSync(
+  new URL('./config/gsc-visibility-reference.json', import.meta.url), 'utf8',
+));
 const dataQuality = assessGscDataQuality({
   current: rawCurrentPeriod,
   prior: rawPriorPeriod,
   history: historicalPeriods,
+  reference: referenceBaseline,
   daily: daily.rows || [],
 });
 const anomalyReport = buildAnomalyReport(

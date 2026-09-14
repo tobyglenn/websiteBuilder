@@ -63,6 +63,14 @@ jobs:
               "sitemap": "https://tobyonfitnesstech.com/sitemap-index.xml"
             }' || echo "IndexNow submission failed (non-critical)"
 
+      - name: Test deployment asset retention and visibility safeguards
+        run: node --test frontend/scripts/tests/retain-deploy-assets.test.mjs frontend/scripts/tests/gsc-data-quality.test.mjs
+
+      - name: Preserve recently used hashed browser assets
+        run: |
+          git fetch --no-tags --shallow-since="$(date -u -d '35 days ago' +%Y-%m-%d)" origin +refs/heads/gh-pages:refs/remotes/origin/gh-pages
+          node frontend/scripts/retain-deploy-assets.mjs frontend/dist
+
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
         with:
