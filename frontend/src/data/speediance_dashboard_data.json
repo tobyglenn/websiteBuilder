@@ -1480,6 +1480,31 @@
       "totalSessions": 1,
       "avgVolume": 2457.5,
       "totalVolume": 2457.5
+    },
+    "ARIA Barbell Upper Body Marathon 20260916": {
+      "name": "ARIA Barbell Upper Body Marathon 20260916",
+      "code": "",
+      "sessions": [
+        {
+          "date": "2026-09-15",
+          "totalCapacity": 14156.0,
+          "durationMinute": 68,
+          "calorie": 474,
+          "actionNum": 30
+        }
+      ],
+      "exercises": [],
+      "muscles": [],
+      "bestSession": {
+        "date": "2026-09-15",
+        "totalCapacity": 14156.0,
+        "durationMinute": 68,
+        "calorie": 474,
+        "actionNum": 30
+      },
+      "totalSessions": 1,
+      "avgVolume": 14156.0,
+      "totalVolume": 14156.0
     }
   },
   "exercisePRs": {
@@ -1796,11 +1821,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 119,
-  "totalVolumeLbs": 958186.7,
+  "totalWorkouts": 120,
+  "totalVolumeLbs": 972342.7,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-09-14"
+    "end": "2026-09-15"
   },
   "allSessions": [
     {
@@ -2754,6 +2779,14 @@
       "durationMinute": 9,
       "calorie": 156,
       "actionNum": 5
+    },
+    {
+      "date": "2026-09-15",
+      "title": "ARIA Barbell Upper Body Marathon 20260916",
+      "totalCapacity": 14156.0,
+      "durationMinute": 68,
+      "calorie": 474,
+      "actionNum": 30
     }
   ]
 }
