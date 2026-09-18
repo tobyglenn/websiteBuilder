@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 10 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 113 -->
+    <item>
+      <title>Folge 113: DeepSeek V4.1-Flash speichert Million-Token-Kontext im FP4-Cache</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep113/episode_113.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-113/</link>
+      <description><![CDATA[DeepSeek V4.1-Flash landet mit Million-Token-Kontext in einem FP4-Cache. Cohere veröffentlicht ein 218B großes Open-Weights-Übersetzungsmodell, das 50...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-113/]]></description>
+      <pubDate>Thu, 17 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_113.mp3" length="38976409" type="audio/mpeg"/>
+      <itunes:duration>40:35</itunes:duration>
+      <itunes:episode>113</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep113/episode_113_cover.png"/>
+    </item>
+
     <!-- Episode 112 -->
     <item>
       <title>Folge 112: Google Antigravity, ChatGPT Mac mit WebMCP und MiniMax-Text-01&#x27;s 4M‑Kontext‑Engine</title>
