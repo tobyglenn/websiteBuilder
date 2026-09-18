@@ -11,6 +11,20 @@ function toDate(value) {
   return Number.isNaN(date.getTime()) ? null : date;
 }
 
+// Parse a date-only string ("YYYY-MM-DD") as local-noon so formatDate() lands
+// on the same calendar day regardless of the viewer's timezone. Without this,
+// "2026-09-14" is parsed as UTC midnight, which renders as Sep 13 in EDT.
+function toDisplayDate(value) {
+  if (!value) return null;
+  let date;
+  if (typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    date = new Date(`${value}T12:00:00`);
+  } else {
+    date = new Date(value);
+  }
+  return Number.isNaN(date.getTime()) ? null : date;
+}
+
 function formatDate(date) {
   return date.toLocaleDateString('en-US', {
     month: 'short',
@@ -58,19 +72,19 @@ export function getRecentActivity() {
 
   const speediance = loadJson(speedianceRaw);
   (speediance?.allSessions || speediance?.workouts || [])
-    .forEach((session) => {
-      const dateObj = toDate(session.date);
-      if (!dateObj) return;
-      const volume = Number(session.totalCapacity || session.volume || 0);
-      const duration = Number(session.durationMinute || session.duration || 0);
-      items.push({
-        type: 'workout',
-        date: formatDate(dateObj),
-        dateValue: dateObj,
-        title: session.title || 'Strength workout',
-        subtitle: `${formatDuration(duration)} • ${new Intl.NumberFormat('en-US').format(Math.round(volume))} lbs`,
-      });
+  .forEach((session) => {
+    const dateObj = toDisplayDate(session.date);
+    if (!dateObj) return;
+    const volume = Number(session.totalCapacity || session.volume || 0);
+    const duration = Number(session.durationMinute || session.duration || 0);
+    items.push({
+      type: 'workout',
+      date: formatDate(dateObj),
+      dateValue: dateObj,
+      title: session.title || 'Strength workout',
+      subtitle: `${formatDuration(duration)} • ${new Intl.NumberFormat('en-US').format(Math.round(volume))} lbs`,
     });
+  });
 
   return items
     .sort((a, b) => b.dateValue - a.dateValue)
