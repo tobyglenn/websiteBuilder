@@ -27120,6 +27120,22 @@
                     "spo2_percentage": 96.34615,
                     "skin_temp_celsius": 35.234665
                 }
+            },
+            {
+                "cycle_id": 1804958448,
+                "sleep_id": "c3fe47a1-924c-4921-a4e4-eac74db914a9",
+                "user_id": 1781625,
+                "created_at": "2026-09-18T08:06:24.688Z",
+                "updated_at": "2026-09-18T10:06:31.922Z",
+                "score_state": "SCORED",
+                "score": {
+                    "user_calibrating": false,
+                    "recovery_score": 34.0,
+                    "resting_heart_rate": 68.0,
+                    "hrv_rmssd_milli": 27.66104,
+                    "spo2_percentage": 96.8,
+                    "skin_temp_celsius": 34.800667
+                }
             }
         ]
     },
@@ -54393,13 +54409,13 @@
                 "id": 1794698842,
                 "user_id": 1781625,
                 "created_at": "2026-09-14T09:10:16.738Z",
-                "updated_at": "2026-09-15T06:21:41.499Z",
+                "updated_at": "2026-09-18T01:25:58.192Z",
                 "start": "2026-09-14T01:12:10.950Z",
                 "end": "2026-09-15T01:34:16.200Z",
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.7473817,
+                    "strain": 6.518706,
                     "kilojoule": 9334.387,
                     "average_heart_rate": 73,
                     "max_heart_rate": 138
@@ -54409,13 +54425,13 @@
                 "id": 1796980962,
                 "user_id": 1781625,
                 "created_at": "2026-09-15T06:21:36.332Z",
-                "updated_at": "2026-09-16T06:33:13.819Z",
+                "updated_at": "2026-09-18T01:25:58.353Z",
                 "start": "2026-09-15T01:34:16.200Z",
                 "end": "2026-09-16T01:32:40.710Z",
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.1112423,
+                    "strain": 10.9726925,
                     "kilojoule": 9047.247,
                     "average_heart_rate": 71,
                     "max_heart_rate": 121
@@ -54441,16 +54457,32 @@
                 "id": 1802178484,
                 "user_id": 1781625,
                 "created_at": "2026-09-17T06:24:38.110Z",
-                "updated_at": "2026-09-17T10:44:24.910Z",
+                "updated_at": "2026-09-18T08:06:23.022Z",
                 "start": "2026-09-17T01:19:33.880Z",
+                "end": "2026-09-18T02:42:06.750Z",
+                "timezone_offset": "-04:00",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 10.889205,
+                    "kilojoule": 9522.819,
+                    "average_heart_rate": 74,
+                    "max_heart_rate": 122
+                }
+            },
+            {
+                "id": 1804958448,
+                "user_id": 1781625,
+                "created_at": "2026-09-18T08:06:17.894Z",
+                "updated_at": "2026-09-18T10:06:32.027Z",
+                "start": "2026-09-18T02:42:06.750Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 2.9459813,
-                    "kilojoule": 8402.534,
-                    "average_heart_rate": 74,
-                    "max_heart_rate": 122
+                    "strain": 1.2981969,
+                    "kilojoule": 3298.4265,
+                    "average_heart_rate": 70,
+                    "max_heart_rate": 112
                 }
             }
         ]
@@ -119136,6 +119168,41 @@
                     "sleep_consistency_percentage": 82.0,
                     "sleep_efficiency_percentage": 88.429825
                 }
+            },
+            {
+                "id": "c3fe47a1-924c-4921-a4e4-eac74db914a9",
+                "cycle_id": 1804958448,
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-09-18T08:06:24.688Z",
+                "updated_at": "2026-09-18T10:06:31.922Z",
+                "start": "2026-09-18T02:42:06.750Z",
+                "end": "2026-09-18T09:49:28.410Z",
+                "timezone_offset": "-04:00",
+                "nap": false,
+                "score_state": "SCORED",
+                "score": {
+                    "stage_summary": {
+                        "total_in_bed_time_milli": 25641660,
+                        "total_awake_time_milli": 3785040,
+                        "total_no_data_time_milli": 0,
+                        "total_light_sleep_time_milli": 9783260,
+                        "total_slow_wave_sleep_time_milli": 5438040,
+                        "total_rem_sleep_time_milli": 6635320,
+                        "sleep_cycle_count": 6,
+                        "disturbance_count": 1
+                    },
+                    "sleep_needed": {
+                        "baseline_milli": 27056101,
+                        "need_from_sleep_debt_milli": 1683739,
+                        "need_from_recent_strain_milli": 909186,
+                        "need_from_recent_nap_milli": 0
+                    },
+                    "respiratory_rate": 17.402344,
+                    "sleep_performance_percentage": 76.0,
+                    "sleep_consistency_percentage": 76.0,
+                    "sleep_efficiency_percentage": 85.23871
+                }
             }
         ]
     },
@@ -180009,11 +180076,73 @@
                     }
                 },
                 "sport_id": 75
+            },
+            {
+                "id": "41054a3f-f43e-4fd6-9acc-97dd02589c66",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-09-18T01:25:47.270Z",
+                "updated_at": "2026-09-18T01:25:52.863Z",
+                "start": "2026-09-17T22:13:50.000Z",
+                "end": "2026-09-18T00:04:14.000Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "weightlifting",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 10.864947,
+                    "average_heart_rate": 86,
+                    "max_heart_rate": 122,
+                    "kilojoule": 686.3021,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 6613980,
+                        "zone_one_milli": 10000,
+                        "zone_two_milli": 0,
+                        "zone_three_milli": 0,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 45
+            },
+            {
+                "id": "56a044a5-5767-487a-be67-63c772635b5c",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-09-18T01:25:47.732Z",
+                "updated_at": "2026-09-18T01:25:52.630Z",
+                "start": "2026-09-15T14:45:40.000Z",
+                "end": "2026-09-15T16:34:19.000Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "weightlifting",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 10.864885,
+                    "average_heart_rate": 81,
+                    "max_heart_rate": 106,
+                    "kilojoule": 675.4232,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 6518980,
+                        "zone_one_milli": 0,
+                        "zone_two_milli": 0,
+                        "zone_three_milli": 0,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 45
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-09-17T19:50:10.234234"
+    "last_synced": "2026-09-18T07:30:54.487168"
 }
