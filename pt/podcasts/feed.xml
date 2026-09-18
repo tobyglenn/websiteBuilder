@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 10 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 17 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 113 -->
+    <item>
+      <title>Episódio 113: DeepSeek V4.1-Flash compacta memória de um milhão de tokens no cache FP4</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep113/episode_113.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-113/</link>
+      <description><![CDATA[DeepSeek V4.1-Flash chega com contexto de um milhão de tokens em um cache FP4. A Cohere lança um modelo de tradução de 218B com pesos abertos cobrindo 50...
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-113/]]></description>
+      <pubDate>Thu, 17 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_113.mp3" length="36033141" type="audio/mpeg"/>
+      <itunes:duration>37:31</itunes:duration>
+      <itunes:episode>113</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep113/episode_113_cover.png"/>
+    </item>
+
     <!-- Episode 112 -->
     <item>
       <title>Episódio 112: Google Antigravity, ChatGPT Mac com WebMCP e Motor de Contexto de 4M do MiniMax-Text-01</title>
