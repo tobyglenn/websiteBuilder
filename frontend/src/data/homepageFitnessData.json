@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-17T23:50:47.937Z",
+  "generatedAt": "2026-09-18T00:46:08.688225Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
     "hubTodayLabel": "Sep 17, 2026",
@@ -10,7 +10,7 @@
     "whoopLastSynced": "2026-09-17T19:50:10.234234"
   },
   "lifetimeStats": {
-    "totalLbsLifted": 9802307,
+    "totalLbsLifted": 9823773,
     "totalMilesRun": 3809.4,
     "totalWorkouts": 2768,
     "sourceBreakdown": {
@@ -60,25 +60,25 @@
   },
   "yearlyGoals": {
     "running": {
-      "icon": "🏃",
+      "icon": "\ud83c\udfc3",
       "current": 157.8,
       "target": 365,
       "unit": "miles"
     },
     "lifting": {
-      "icon": "🏋️",
+      "icon": "\ud83c\udfcb\ufe0f",
       "current": 958187,
       "target": 2000000,
       "unit": "lbs"
     },
     "workouts": {
-      "icon": "💪",
+      "icon": "\ud83d\udcaa",
       "current": 224,
       "target": 500,
       "unit": "workouts"
     },
     "bjj": {
-      "icon": "🥋",
+      "icon": "\ud83e\udd4b",
       "current": 58,
       "target": 100,
       "unit": "sessions",
@@ -1399,10 +1399,10 @@
   "trainingStats": {
     "trainingStreak": 1,
     "lastWorkoutData": {
-      "date": "2026-09-16",
-      "type": "BJJ"
+      "date": "2026-09-17",
+      "type": "Lifting"
     },
-    "thisWeekVolume": 2458,
+    "thisWeekVolume": 23924,
     "thisMonthMiles": 0
   },
   "recovery": {
