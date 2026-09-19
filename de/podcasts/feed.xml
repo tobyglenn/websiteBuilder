@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 17 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 114 -->
+    <item>
+      <title>Folge 114: Prism-ML veröffentlicht Ternary Bonsai 2 27B: Ein 2-Bit-Modell für lokale Hardware</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep114/episode_114.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-114/</link>
+      <description><![CDATA[Prism-ML veröffentlicht Ternary Bonsai 2 27B, ein 2-Bit-Modell für lokale Hardware. NVIDIA's Vera Rubin NVL72 dominiert MLPerf Inference v6.1 in seinem Debüt.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-114/]]></description>
+      <pubDate>Sat, 19 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_114.mp3" length="38792507" type="audio/mpeg"/>
+      <itunes:duration>40:24</itunes:duration>
+      <itunes:episode>114</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep114/episode_114_cover.png"/>
+    </item>
+
     <!-- Episode 113 -->
     <item>
       <title>Folge 113: DeepSeek V4.1-Flash speichert Million-Token-Kontext im FP4-Cache</title>
