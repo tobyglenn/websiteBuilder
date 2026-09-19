@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 19 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 114 -->
+    <item>
+      <title>Episode 114: Prism-ML Ships Ternary Bonsai 2 27B: A 2-Bit Model Built For Local Hardware</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep114/episode_114.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-114/</link>
+      <description><![CDATA[Prism-ML ships Ternary Bonsai 2 27B, a 2-bit model engineered for local hardware. NVIDIA's Vera Rubin NVL72 tops MLPerf Inference v6.1 in its debut.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-114/]]></description>
+      <pubDate>Sat, 19 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep114/episode_114.mp3" length="32505565" type="audio/mpeg"/>
+      <itunes:duration>33:51</itunes:duration>
+      <itunes:episode>114</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep114/episode_114_cover.png"/>
+    </item>
+
     <!-- Episode 113 -->
     <item>
       <title>Episode 113: DeepSeek V4.1-Flash Packs Million-Token Memory Into FP4 Cache</title>
