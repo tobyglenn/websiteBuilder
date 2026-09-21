@@ -118,6 +118,7 @@ function NavAnchor({ item, pathname, surface = 'desktop', group = 'primary', ite
 function DesktopMenu({ label, items, pathname, menuName }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
+  const openedByHover = useRef(false);
 
   useEffect(() => {
     const close = (event) => {
@@ -127,7 +128,13 @@ function DesktopMenu({ label, items, pathname, menuName }) {
     return () => document.removeEventListener('pointerdown', close);
   }, []);
 
-  const toggle = () => {
+  const toggle = (event) => {
+    // Pointer entry already opened the menu; the first click must not undo it.
+    if (open && openedByHover.current && event.detail > 0) {
+      openedByHover.current = false;
+      return;
+    }
+    openedByHover.current = false;
     setOpen((current) => !current);
     if (!open) {
       captureEvent('navigation_menu_opened', {
@@ -142,6 +149,7 @@ function DesktopMenu({ label, items, pathname, menuName }) {
 
   const openFromHover = () => {
     if (open) return;
+    openedByHover.current = true;
     setOpen(true);
     captureEvent('navigation_menu_opened', {
       menu_name: menuName,
