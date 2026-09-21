@@ -16,10 +16,18 @@ for (const [engineName, engine] of Object.entries({ chromium, webkit })) {
           const url = new URL(route.request().url());
           return url.origin === new URL(base).origin ? route.continue() : route.abort();
         });
-        for (const locale of ['de', 'es', 'pt', 'hi']) {
+        for (const locale of ['de', 'es', 'pt', 'hi', 'de']) {
           await page.goto(`${base}/${locale}/training/`);
           await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
-          await page.evaluate(() => { window.__chartNavigationSentinel = true; });
+          await page.evaluate(() => {
+            window.__chartNavigationSentinel = true;
+            window.__menuEvents = [];
+            const capture = window.toftAnalytics.capture.bind(window.toftAnalytics);
+            window.toftAnalytics.capture = (event, properties) => {
+              if (event === 'navigation_menu_opened') window.__menuEvents.push(properties);
+              return capture(event, properties);
+            };
+          });
           if (width < 1280) {
             const reviewsLabel = await page.locator('nav[aria-label="Primary navigation"] button').first().textContent();
             await page.getByRole('button', { name: 'Open navigation', exact: true }).click();
@@ -28,10 +36,12 @@ for (const [engineName, engine] of Object.entries({ chromium, webkit })) {
             const menu = page.getByRole('navigation', { name: 'Primary navigation', exact: true }).getByRole('button').first();
             await menu.click();
             assert.equal(await menu.getAttribute('aria-expanded'), 'true', 'first pointer click must preserve a hover-open menu');
+            assert.equal(await page.evaluate(() => window.__menuEvents.filter(event => event.menu_name === 'reviews').length), 1, 'hover and first click must not double-count a menu open');
             await menu.click();
             assert.equal(await menu.getAttribute('aria-expanded'), 'false', 'second click closes the menu');
             await menu.press('Enter');
             assert.equal(await menu.getAttribute('aria-expanded'), 'true', 'keyboard opens the menu');
+            assert.equal(await page.evaluate(() => window.__menuEvents.filter(event => event.menu_name === 'reviews').length), 2);
           }
           await page.locator(`a[href="/${locale}/speediance/"]`).first().click();
           await page.waitForURL(`${base}/${locale}/speediance/`);

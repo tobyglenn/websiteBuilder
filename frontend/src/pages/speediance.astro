@@ -558,6 +558,7 @@ const donutJSON = JSON.stringify(donutData);
   import Chart from 'chart.js/auto';
 
   const buildSpeedianceCharts = () => {
+    if (window.location.pathname.replace(/\/$/, '') !== '/speediance') return;
     Chart.defaults.color = '#737373';
     Chart.defaults.borderColor = '#262626';
     Chart.defaults.font.family = 'ui-sans-serif, system-ui, sans-serif';
