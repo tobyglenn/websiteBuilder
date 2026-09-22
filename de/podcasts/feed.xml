@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 19 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 115 -->
+    <item>
+      <title>Folge 115: AgentStack Daily: OpenAI bewirbt Analytik, um ChatGPT und Codex mit Geschäftsergebnissen zu verknüpfen</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep115/episode_115.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-115/</link>
+      <description><![CDATA[OpenAI bewirbt Analytik, um ChatGPT und Codex mit Geschäftsergebnissen zu verknüpfen. GitHub Copilot erhält am 14.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-115/]]></description>
+      <pubDate>Tue, 22 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_115.mp3" length="37817408" type="audio/mpeg"/>
+      <itunes:duration>39:23</itunes:duration>
+      <itunes:episode>115</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep115/episode_115_cover.png"/>
+    </item>
+
     <!-- Episode 114 -->
     <item>
       <title>Folge 114: Prism-ML veröffentlicht Ternary Bonsai 2 27B: Ein 2-Bit-Modell für lokale Hardware</title>
