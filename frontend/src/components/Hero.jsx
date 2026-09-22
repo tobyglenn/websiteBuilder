@@ -82,38 +82,53 @@ const t = {
 const demandFeatures = {
   en: {
     eyebrow: 'Most-searched comparison',
-    cta: 'Compare Gym Monsters',
-    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
-    description: 'Choose between the original value pick, the refined Gym Monster 2, and the 260 lb Gym Monster 2S.',
-    href: '/speediance/gym-monster-1-vs-2-vs-2s/',
+    cta: 'Compare WHOOP 5 vs 4',
+    title: 'WHOOP 5 vs WHOOP 4: Size, Bands & Upgrade Value',
+    description: 'Narrower on paper, thicker off the wrist. Battery gains, band and charger compatibility, and whether the upgrade is worth it.',
+    href: '/blog/whoop-5-not-smaller-review/',
+    slug: 'whoop-5-not-smaller-review',
+    image: '/images/blog/whoop-5-not-smaller-review.jpg',
+    imageAlt: 'WHOOP 5 and WHOOP 4 compared side by side in hands-on testing',
   },
   de: {
     eyebrow: 'Meistgesuchter Vergleich',
-    cta: 'Gym Monster vergleichen',
-    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
-    description: 'Vergleiche das Original, den verfeinerten Gym Monster 2 und den Gym Monster 2S mit 260 lb Widerstand.',
-    href: '/de/speediance/gym-monster-1-vs-2-vs-2s/',
+    cta: 'WHOOP 5 vs 4 vergleichen',
+    title: 'WHOOP 5 vs WHOOP 4: Größe, Armbänder und Upgrade-Mehrwert',
+    description: 'Auf dem Papier schmaler, am Handgelenk dicker. Akkulaufzeit, Armband- und Ladegerät-Kompatibilität und ob sich das Upgrade lohnt.',
+    href: '/de/blog/whoop-5-not-smaller-review/',
+    slug: 'whoop-5-not-smaller-review',
+    image: '/images/blog/whoop-5-not-smaller-review.jpg',
+    imageAlt: 'WHOOP 5 und WHOOP 4 im direkten Vergleich im Praxistest',
   },
   es: {
     eyebrow: 'Comparativa más buscada',
-    cta: 'Comparar Gym Monster',
-    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
-    description: 'Compara el modelo original, el refinado Gym Monster 2 y el Gym Monster 2S con 260 lb de resistencia.',
-    href: '/es/speediance/gym-monster-1-vs-2-vs-2s/',
+    cta: 'Comparar WHOOP 5 vs 4',
+    title: 'WHOOP 5 vs WHOOP 4: Tamaño, correas y valor de actualización',
+    description: 'Más estrecha sobre el papel, más gruesa fuera de la muñeca. Batería, compatibilidad de correas y cargador, y si merece la pena actualizar.',
+    href: '/es/blog/whoop-5-not-smaller-review/',
+    slug: 'whoop-5-not-smaller-review',
+    image: '/images/blog/whoop-5-not-smaller-review.jpg',
+    imageAlt: 'WHOOP 5 y WHOOP 4 comparadas lado a lado en pruebas reales',
   },
   pt: {
     eyebrow: 'Comparativo mais buscado',
-    cta: 'Comparar Gym Monster',
-    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
-    description: 'Compare o modelo original, o refinado Gym Monster 2 e o Gym Monster 2S com 260 lb de resistência.',
-    href: '/pt/speediance/gym-monster-1-vs-2-vs-2s/',
+    cta: 'Comparar WHOOP 5 vs 4',
+    title: 'WHOOP 5 vs WHOOP 4: Tamanho, Pulseiras e Vale a Pena Atualizar',
+    description: 'Mais estreita no papel, mais grossa fora do pulso. Bateria, compatibilidade de pulseiras e carregador, e se vale a pena atualizar.',
+    href: '/pt/blog/whoop-5-not-smaller-review/',
+    slug: 'whoop-5-not-smaller-review',
+    image: '/images/blog/whoop-5-not-smaller-review.jpg',
+    imageAlt: 'WHOOP 5 e WHOOP 4 comparadas lado a lado em testes práticos',
   },
   hi: {
     eyebrow: 'सबसे अधिक खोजी गई तुलना',
-    cta: 'Gym Monster की तुलना करें',
-    title: 'Speediance Gym Monster 1 vs 2 vs 2S',
-    description: 'मूल मॉडल, बेहतर Gym Monster 2 और 260 lb प्रतिरोध वाले Gym Monster 2S की तुलना करें।',
-    href: '/hi/speediance/gym-monster-1-vs-2-vs-2s/',
+    cta: 'WHOOP 5 vs 4 की तुलना करें',
+    title: 'WHOOP 5 vs WHOOP 4: आकार, बैंड और अपग्रेड मूल्य',
+    description: 'कागज़ पर पतला, कलाई से हटाने पर मोटा। बैटरी, बैंड और चार्जर संगतता, और क्या अपग्रेड करना सही है।',
+    href: '/hi/blog/whoop-5-not-smaller-review/',
+    slug: 'whoop-5-not-smaller-review',
+    image: '/images/blog/whoop-5-not-smaller-review.jpg',
+    imageAlt: 'व्यावहारिक परीक्षण में WHOOP 5 और WHOOP 4 की आमने-सामने तुलना',
   },
 };
 
@@ -155,7 +170,7 @@ export default function Hero({ lang = 'en' }) {
               href={demandFeature.href}
               className="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 flex items-center gap-2 shadow-lg shadow-blue-900/50"
               data-analytics-content-type="comparison"
-              data-analytics-content-slug="gym-monster-1-vs-2-vs-2s"
+              data-analytics-content-slug={demandFeature.slug}
               data-analytics-content-title={demandFeature.title}
               data-analytics-item-position="1"
             >
@@ -173,15 +188,15 @@ export default function Hero({ lang = 'en' }) {
           className="flex-1 w-full max-w-xl relative group block"
           aria-label={demandFeature.title}
           data-analytics-content-type="comparison"
-          data-analytics-content-slug="gym-monster-1-vs-2-vs-2s"
+          data-analytics-content-slug={demandFeature.slug}
           data-analytics-content-title={demandFeature.title}
           data-analytics-item-position="2"
         >
             <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000" />
             <div className="relative aspect-video rounded-xl overflow-hidden shadow-2xl bg-neutral-900 border border-neutral-800">
                 <img
-                  src="/images/gear/speediance-gym-monster-2s.jpg"
-                  alt="Speediance Gym Monster 2S used for hands-on comparison testing"
+                  src={demandFeature.image}
+                  alt={demandFeature.imageAlt}
                   className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                   loading="eager"
                   decoding="async"
