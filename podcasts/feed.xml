@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 115 -->
+    <item>
+      <title>Episode 115: AgentStack Daily: OpenAI Pitches Analytics to Tie ChatGPT and Codex to Business Outcomes</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep115/episode_115.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-115/</link>
+      <description><![CDATA[OpenAI Pitches Analytics to Tie ChatGPT and Codex to Business Outcomes, GitHub Copilot's September 14 batch adds model options, Sentry hook, and admin...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-115/]]></description>
+      <pubDate>Tue, 22 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep115/episode_115.mp3" length="31498702" type="audio/mpeg"/>
+      <itunes:duration>32:48</itunes:duration>
+      <itunes:episode>115</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep115/episode_115_cover.png"/>
+    </item>
+
     <!-- Episode 114 -->
     <item>
       <title>Episode 114: Prism-ML Ships Ternary Bonsai 2 27B: A 2-Bit Model Built For Local Hardware</title>
