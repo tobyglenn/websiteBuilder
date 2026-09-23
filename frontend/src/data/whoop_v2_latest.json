@@ -54579,7 +54579,8 @@
                     "kilojoule": 9590.287,
                     "average_heart_rate": 71,
                     "max_heart_rate": 130
-                }
+                },
+                "step_count": 1889
             },
             {
                 "id": 1809891859,
@@ -54595,7 +54596,8 @@
                     "kilojoule": 8437.611,
                     "average_heart_rate": 73,
                     "max_heart_rate": 117
-                }
+                },
+                "step_count": 1895
             },
             {
                 "id": 1812691605,
@@ -54611,7 +54613,8 @@
                     "kilojoule": 9729.167,
                     "average_heart_rate": 72,
                     "max_heart_rate": 161
-                }
+                },
+                "step_count": 10832
             },
             {
                 "id": 1815163741,
@@ -54627,7 +54630,8 @@
                     "kilojoule": 10742.567,
                     "average_heart_rate": 76,
                     "max_heart_rate": 178
-                }
+                },
+                "step_count": 4798
             },
             {
                 "id": 1818115414,
@@ -54639,11 +54643,12 @@
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.700952,
-                    "kilojoule": 3633.3938,
-                    "average_heart_rate": 75,
+                    "strain": 4.7818007,
+                    "kilojoule": 8248.499,
+                    "average_heart_rate": 74,
                     "max_heart_rate": 148
-                }
+                },
+                "step_count": 6374
             }
         ]
     },
@@ -180638,5 +180643,5 @@
     "journal": {
         "records": []
     },
-    "last_synced": "2026-09-23T07:31:02.912055"
+    "last_synced": "2026-09-23T19:50:46.259158"
 }
