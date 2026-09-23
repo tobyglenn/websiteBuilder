@@ -20,6 +20,14 @@ function fmtDur(totalMin) {
   return h > 0 ? `${h}h ${m}m` : `${m}m`;
 }
 
+// Helper to format pace (decimal minutes per mile → m:ss)
+function fmtPace(paceMin) {
+  if (!paceMin || !isFinite(paceMin)) return '0:00';
+  const m = Math.floor(paceMin);
+  const s = Math.round((paceMin - m) * 60);
+  return s === 60 ? `${m + 1}:00` : `${m}:${String(s).padStart(2, '0')}`;
+}
+
 // Helper to format date
 function fmtDate(dateStr) {
   const d = new Date(dateStr + 'T00:00:00');
@@ -30,12 +38,12 @@ function fmtDate(dateStr) {
 function processGarmin() {
   const activities = garminRaw.activities || [];
   
-  // Filter for 2025 only
-  const runs2025 = activities.filter(a => a.date.startsWith('2025'));
+  // Filter for 2025 runs only
+  const runs2025 = activities.filter(a => a.date.startsWith('2025') && String(a.activityType || '').includes('running'));
   
   const totalRuns = runs2025.length;
   const totalMiles = runs2025.reduce((sum, r) => sum + (r.distance_miles || 0), 0);
-  const totalMinutes = runs2025.reduce((sum, r) => sum + (r.duration_min || 0), 0);
+  const totalMinutes = runs2025.reduce((sum, r) => sum + (r.duration ?? r.duration_min ?? 0), 0);
   const totalCalories = runs2025.reduce((sum, r) => sum + (r.calories || 0), 0);
   const avgHR = Math.round(runs2025.reduce((sum, r) => sum + (r.averageHR || 0), 0) / (runs2025.filter(r => r.averageHR).length || 1));
   
@@ -52,12 +60,12 @@ function processGarmin() {
     totalMiles: +totalMiles.toFixed(1),
     totalHours: +(totalMinutes / 60).toFixed(1),
     totalCalories: Math.round(totalCalories),
-    avgPace: totalMiles > 0 ? fmtDur(totalMinutes / totalMiles) : '0:00',
+    avgPace: totalMiles > 0 ? fmtPace(totalMinutes / totalMiles) : '0:00',
     avgHR,
     longestRun: longestRun ? {
       miles: +longestRun.distance_miles.toFixed(2),
       date: fmtDate(longestRun.date),
-      pace: longestRun.distance_miles > 0 ? fmtDur(longestRun.duration_min / longestRun.distance_miles) : '0:00'
+      pace: longestRun.distance_miles > 0 ? fmtPace((longestRun.duration ?? longestRun.duration_min) / longestRun.distance_miles) : '0:00'
     } : null,
     mostCalRun: mostCalRun ? {
       calories: Math.round(mostCalRun.calories),

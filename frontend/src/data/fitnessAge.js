@@ -67,7 +67,7 @@ const recentRuns = runningActivities
   .map((run) => ({
     date: safeDate(run?.startTimeLocal || run?.date),
     miles: toNumber(run?.distance_miles),
-    durationMin: toNumber(run?.duration_min),
+    durationMin: toNumber(run?.duration ?? run?.duration_min),
   }))
   .filter((r) => r.date)
   .sort((a, b) => a.date - b.date);

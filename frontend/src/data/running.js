@@ -3,6 +3,7 @@
  * Runs at build time in Node.js context only.
  */
 import rawData from './garmin_all_activities.json';
+import { zoneSecs } from './garminZones.js';
 
 function durMin(r) {
   return (r?.duration_min ?? r?.duration ?? 0) || 0;
@@ -141,11 +142,11 @@ export function getRunningData(locale = 'en-US') {
     const d = getDist(r);
     const pace = d > 0 ? durMin(r) / d : 0;
     const tz = {
-      z1: r.hrTimeInZone_1 || 0,
-      z2: r.hrTimeInZone_2 || 0,
-      z3: r.hrTimeInZone_3 || 0,
-      z4: r.hrTimeInZone_4 || 0,
-      z5: r.hrTimeInZone_5 || 0,
+      z1: zoneSecs(r, 1),
+      z2: zoneSecs(r, 2),
+      z3: zoneSecs(r, 3),
+      z4: zoneSecs(r, 4),
+      z5: zoneSecs(r, 5),
     };
     const tzTotal = Object.values(tz).reduce((s, v) => s + v, 0) || 1;
     return {

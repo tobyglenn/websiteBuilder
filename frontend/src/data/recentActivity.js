@@ -60,7 +60,7 @@ export function getRecentActivity() {
       const dateObj = toDate(activity.startTimeLocal || activity.date);
       if (!dateObj) return;
       const distance = Number(activity.distance_miles || 0);
-      const duration = Number(activity.duration_min || 0);
+      const duration = Number(activity.duration ?? activity.duration_min ?? 0);
       items.push({
         type: 'run',
         date: formatDate(dateObj),

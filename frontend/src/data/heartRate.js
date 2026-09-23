@@ -3,6 +3,7 @@
  * Runs at build time in Node.js context only.
  */
 import rawData from './garmin_all_activities.json';
+import { zoneSecs } from './garminZones.js';
 
 export function fmtDur(totalSec) {
   const h = Math.floor(totalSec / 3600);
@@ -38,7 +39,7 @@ export function getHeartRateData() {
   const zoneTotals = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
   for (const a of activities) {
     for (let z = 1; z <= 5; z++) {
-      zoneTotals[z] += a[`hrTimeInZone_${z}`] || 0;
+      zoneTotals[z] += zoneSecs(a, z);
     }
   }
   const totalZoneTime = Object.values(zoneTotals).reduce((s, v) => s + v, 0);
@@ -57,7 +58,7 @@ export function getHeartRateData() {
     monthMap[k].hrSum += a.averageHR || 0;
     monthMap[k].count++;
     for (let z = 1; z <= 5; z++) {
-      monthMap[k][`z${z}`] += a[`hrTimeInZone_${z}`] || 0;
+      monthMap[k][`z${z}`] += zoneSecs(a, z);
     }
   }
 
@@ -84,30 +85,30 @@ export function getHeartRateData() {
 
   // Recent activities with HR details
   const recentActivities = activities.slice(0, 10).map(a => {
-    const totalZoneTime = (a.hrTimeInZone_1 || 0) + (a.hrTimeInZone_2 || 0) + (a.hrTimeInZone_3 || 0) + (a.hrTimeInZone_4 || 0) + (a.hrTimeInZone_5 || 0);
+    const totalZoneTime = zoneSecs(a, 1) + zoneSecs(a, 2) + zoneSecs(a, 3) + zoneSecs(a, 4) + zoneSecs(a, 5);
     return {
       date: fmtDate(a.date),
       dateLong: fmtDateLong(a.date),
       name: a.activityName,
       distance: +(a.distance_miles || 0).toFixed(2),
-      duration: fmtDur(a.duration),
+      duration: fmtDur((a.duration || 0) * 60),
       avgHR: a.averageHR,
       maxHR: a.maxHR,
       aerobicEffect: +(a.aerobicTrainingEffect || 0).toFixed(1),
       trainingLoad: Math.round(a.activityTrainingLoad || 0),
       zones: {
-        z1: Math.round(a.hrTimeInZone_1 || 0),
-        z2: Math.round(a.hrTimeInZone_2 || 0),
-        z3: Math.round(a.hrTimeInZone_3 || 0),
-        z4: Math.round(a.hrTimeInZone_4 || 0),
-        z5: Math.round(a.hrTimeInZone_5 || 0),
+        z1: Math.round(zoneSecs(a, 1)),
+        z2: Math.round(zoneSecs(a, 2)),
+        z3: Math.round(zoneSecs(a, 3)),
+        z4: Math.round(zoneSecs(a, 4)),
+        z5: Math.round(zoneSecs(a, 5)),
       },
       zonePcts: {
-        z1: totalZoneTime > 0 ? Math.round(((a.hrTimeInZone_1 || 0) / totalZoneTime) * 100) : 0,
-        z2: totalZoneTime > 0 ? Math.round(((a.hrTimeInZone_2 || 0) / totalZoneTime) * 100) : 0,
-        z3: totalZoneTime > 0 ? Math.round(((a.hrTimeInZone_3 || 0) / totalZoneTime) * 100) : 0,
-        z4: totalZoneTime > 0 ? Math.round(((a.hrTimeInZone_4 || 0) / totalZoneTime) * 100) : 0,
-        z5: totalZoneTime > 0 ? Math.round(((a.hrTimeInZone_5 || 0) / totalZoneTime) * 100) : 0,
+        z1: totalZoneTime > 0 ? Math.round((zoneSecs(a, 1) / totalZoneTime) * 100) : 0,
+        z2: totalZoneTime > 0 ? Math.round((zoneSecs(a, 2) / totalZoneTime) * 100) : 0,
+        z3: totalZoneTime > 0 ? Math.round((zoneSecs(a, 3) / totalZoneTime) * 100) : 0,
+        z4: totalZoneTime > 0 ? Math.round((zoneSecs(a, 4) / totalZoneTime) * 100) : 0,
+        z5: totalZoneTime > 0 ? Math.round((zoneSecs(a, 5) / totalZoneTime) * 100) : 0,
       },
     };
   });

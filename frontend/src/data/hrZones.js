@@ -1,13 +1,14 @@
 import garminData from './garmin_all_activities.json';
+import { zoneSecs } from './garminZones.js';
 
 const activities = garminData.activities || [];
 
 const hrZoneData = activities.reduce((acc, activity) => {
-  const z1 = activity.hrTimeInZone_1 || 0;
-  const z2 = activity.hrTimeInZone_2 || 0;
-  const z3 = activity.hrTimeInZone_3 || 0;
-  const z4 = activity.hrTimeInZone_4 || 0;
-  const z5 = activity.hrTimeInZone_5 || 0;
+  const z1 = zoneSecs(activity, 1);
+  const z2 = zoneSecs(activity, 2);
+  const z3 = zoneSecs(activity, 3);
+  const z4 = zoneSecs(activity, 4);
+  const z5 = zoneSecs(activity, 5);
   
   acc.totalTime.z1 += z1;
   acc.totalTime.z2 += z2;
@@ -18,7 +19,8 @@ const hrZoneData = activities.reduce((acc, activity) => {
   acc.avgHR += activity.averageHR || 0;
   acc.totalDistance += activity.distance || 0;
   
-  const month = activity.startTime ? activity.startTime.slice(0, 7) : 'unknown';
+  const start = activity.startTimeLocal || activity.date;
+  const month = start ? start.slice(0, 7) : 'unknown';
   if (!acc.monthly[month]) {
     acc.monthly[month] = { z1: 0, z2: 0, z3: 0, z4: 0, z5: 0, runs: 0 };
   }
@@ -70,16 +72,16 @@ export const hrZones = {
   },
   monthly: hrZoneData.monthly,
   monthlyArray,
-  recentRuns: activities.slice(0, 10).map(a => ({
-    title: a.title,
-    date: a.startTime,
+  recentRuns: [...activities].sort((a, b) => String(b.startTimeLocal || b.date).localeCompare(String(a.startTimeLocal || a.date))).slice(0, 10).map(a => ({
+    title: a.activityName,
+    date: a.startTimeLocal || a.date,
     avgHR: a.averageHR,
     maxHR: a.maxHR,
     distance: a.distance,
-    z1: Math.round((a.hrTimeInZone_1 || 0) / 60),
-    z2: Math.round((a.hrTimeInZone_2 || 0) / 60),
-    z3: Math.round((a.hrTimeInZone_3 || 0) / 60),
-    z4: Math.round((a.hrTimeInZone_4 || 0) / 60),
-    z5: Math.round((a.hrTimeInZone_5 || 0) / 60),
+    z1: Math.round(zoneSecs(a, 1) / 60),
+    z2: Math.round(zoneSecs(a, 2) / 60),
+    z3: Math.round(zoneSecs(a, 3) / 60),
+    z4: Math.round(zoneSecs(a, 4) / 60),
+    z5: Math.round(zoneSecs(a, 5) / 60),
   }))
 };
