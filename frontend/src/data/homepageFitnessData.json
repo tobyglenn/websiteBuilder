@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-09-22T23:51:10.211Z",
+  "generatedAt": "2026-09-23T11:31:28.287Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Sep 22, 2026",
-    "hubTodayKey": "2026-09-22",
-    "analysisDateKey": "2026-09-22",
+    "hubTodayLabel": "Sep 23, 2026",
+    "hubTodayKey": "2026-09-23",
+    "analysisDateKey": "2026-09-23",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-09-22T19:50:20.800974"
+    "whoopLastSynced": "2026-09-23T07:31:02.912055"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9833720,
@@ -24,22 +24,22 @@
     "focus": "lifting",
     "runCount": 1,
     "workoutCount": 3,
-    "bjjCount": 1,
-    "windowStart": "2026-09-16",
-    "windowEnd": "2026-09-22"
+    "bjjCount": 0,
+    "windowStart": "2026-09-17",
+    "windowEnd": "2026-09-23"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-09-22",
+    "anchorDate": "2026-09-23",
     "dateRange": {
-      "thisWeekStart": "2026-09-16",
-      "thisWeekEnd": "2026-09-22",
-      "lastWeekStart": "2026-09-09",
-      "lastWeekEnd": "2026-09-15"
+      "thisWeekStart": "2026-09-17",
+      "thisWeekEnd": "2026-09-23",
+      "lastWeekStart": "2026-09-10",
+      "lastWeekEnd": "2026-09-16"
     },
     "workouts": {
-      "thisWeek": 5,
-      "lastWeek": 4
+      "thisWeek": 4,
+      "lastWeek": 2
     },
     "runs": {
       "thisWeek": 1,
@@ -54,8 +54,8 @@
       "lastWeek": 0
     },
     "bjj": {
-      "thisWeek": 1,
-      "lastWeek": 3
+      "thisWeek": 0,
+      "lastWeek": 1
     }
   },
   "yearlyGoals": {
@@ -87,10 +87,10 @@
   },
   "consistency": {
     "totalActive": 1805,
-    "currentStreak": 1,
+    "currentStreak": 0,
     "longestStreak": 60,
-    "rangeStart": "2025-09-24",
-    "rangeEnd": "2026-09-22",
+    "rangeStart": "2025-09-25",
+    "rangeEnd": "2026-09-23",
     "days": [
       {
         "date": "2025-09-26",
@@ -1425,7 +1425,7 @@
     ]
   },
   "trainingStats": {
-    "trainingStreak": 1,
+    "trainingStreak": 0,
     "lastWorkoutData": {
       "date": "2026-09-21",
       "type": "Running"
@@ -1434,11 +1434,11 @@
     "thisMonthMiles": 1.4
   },
   "recovery": {
-    "currentScore": 31,
-    "lastSleepScore": 73
+    "currentScore": 41,
+    "lastSleepScore": 78
   },
   "labels": {
-    "thisWeek": "September 16, 2026 - September 22, 2026",
-    "lastWeek": "September 9, 2026 - September 15, 2026"
+    "thisWeek": "September 17, 2026 - September 23, 2026",
+    "lastWeek": "September 10, 2026 - September 16, 2026"
   }
 }
