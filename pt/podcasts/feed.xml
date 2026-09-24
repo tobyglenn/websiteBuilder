@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Tue, 22 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 116 -->
+    <item>
+      <title>Episódio 116: Claude Opus 5.5 aterrissa a $4 de entrada e $20 de saída, encontra GPT-6 Sol e Astra</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep116/episode_116.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-116/</link>
+      <description><![CDATA[Claude Opus 5.5 aterrissa a $4 de entrada e $20 de saída com resultados de classe Fable, enfrentando GPT-6 Sol e Astra neste episódio head-to-head.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-116/]]></description>
+      <pubDate>Thu, 24 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_116.mp3" length="36301888" type="audio/mpeg"/>
+      <itunes:duration>37:48</itunes:duration>
+      <itunes:episode>116</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep116/episode_116_cover.png"/>
+    </item>
+
     <!-- Episode 115 -->
     <item>
       <title>Episódio 115: AgentStack Diário: OpenAI Propõe Análises para Vincular ChatGPT e Codex aos Resultados de Negócios</title>
