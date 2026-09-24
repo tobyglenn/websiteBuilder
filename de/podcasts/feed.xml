@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Tue, 22 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 24 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 116 -->
+    <item>
+      <title>Folge 116: Claude Opus 5.5 landet bei $4 Input und $20 Output, trifft GPT-6 Sol und Astra</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep116/episode_116.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-116/</link>
+      <description><![CDATA[Claude Opus 5.5 landet bei $4 Input und $20 Output mit Fable-Klasse-Ergebnissen. In dieser Episode stellt es sich dem direkten Duell mit GPT-6 Sol und Astra.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-116/]]></description>
+      <pubDate>Thu, 24 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_116.mp3" length="38466081" type="audio/mpeg"/>
+      <itunes:duration>40:04</itunes:duration>
+      <itunes:episode>116</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep116/episode_116_cover.png"/>
+    </item>
+
     <!-- Episode 115 -->
     <item>
       <title>Folge 115: AgentStack Daily: OpenAI bewirbt Analytik, um ChatGPT und Codex mit Geschäftsergebnissen zu verknüpfen</title>
