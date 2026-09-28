@@ -78,4 +78,40 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       console.log(`${name}: ${sdkPath ? 'real PostHog exception SDK' : 'capture fixture'}; all five exceptions retained`);
     } finally { await browser.close(); }
   });
+
+  test(`${name}: deployed article enriches the original exception without sending test traffic`, {
+    skip: !process.env.SITE_TEST_URL || !sdkPath,
+  }, async () => {
+    const browser = await engine.launch({ headless: true });
+    try {
+      const base = process.env.SITE_TEST_URL;
+      const page = await browser.newPage({ viewport: { width: name === 'webkit' ? 390 : 1440, height: 900 } });
+      const errors = [];
+      page.on('pageerror', error => errors.push(error.message));
+      await page.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin
+        ? route.continue() : route.abort());
+      await page.goto(`${base}/blog/openclaw-fitness-reports-garmin-whoop-speediance/`);
+      await page.waitForFunction(() => !!window.toftAnalytics && !!window.posthog?._i?.[0]?.[1]);
+      assert.equal(await page.locator('h1').isVisible(), true);
+      // Layout is checked separately: this article has pre-existing mobile
+      // overflow from long inline code, unrelated to exception instrumentation.
+      assert.deepEqual(errors, []);
+      await page.addScriptTag({ content: readFileSync(sdkPath, 'utf8') });
+      const result = await page.evaluate(() => {
+        const options = window.posthog._i[0][1];
+        let captured;
+        window.__PosthogExtensions__.errorWrappingFunctions.wrapUnhandledRejection(properties => {
+          captured = options.before_send({ event: '$exception', properties });
+        });
+        window.dispatchEvent(new CustomEvent('unhandledrejection'));
+        return captured;
+      });
+      assert.equal(result.properties.$exception_list[0].type, 'CustomEvent');
+      assert.equal(result.properties.exception_context_version, '20260928-browser-event-v1');
+      assert.equal(result.properties.exception_browser_event_type, 'unhandledrejection');
+      assert.equal(result.properties.exception_browser_event_class, 'CustomEvent');
+      assert.equal(result.properties.analytics_version, '20260928-exception-context');
+      console.log(`${name}: verified deployed release ${result.properties.site_release}`);
+    } finally { await browser.close(); }
+  });
 }
