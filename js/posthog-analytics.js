@@ -20,6 +20,76 @@
     return counts;
   };
 
+  // Keep only structural context from the current browser error dispatch. Never
+  // send CustomEvent.detail, input text, arbitrary object keys, or URL queries.
+  let browserExceptionContext = null;
+  const exceptionContextVersion = '20260928-browser-event-v1';
+  const safeRead = (object, key) => {
+    try { return object == null ? undefined : object[key]; } catch { return undefined; }
+  };
+  const exceptionValueType = value => {
+    try {
+      if (value === null) return 'null';
+      if (value instanceof CustomEvent) return 'CustomEvent';
+      if (value instanceof Event) return 'Event';
+      if (value instanceof Error) return 'Error';
+      return typeof value;
+    } catch { return 'unavailable'; }
+  };
+  const exceptionEventType = value => {
+    const type = safeRead(value, 'type');
+    return ['error', 'unhandledrejection', 'rejectionhandled', 'load', 'abort', 'timeout'].includes(type)
+      ? type : typeof type === 'string' ? 'other' : 'none';
+  };
+  const exceptionSourceFrames = stack => {
+    if (typeof stack !== 'string') return [];
+    return stack.split('\n').flatMap(line => {
+      const match = line.match(/((?:https?|chrome-extension|moz-extension|safari-web-extension|webkit-masked-url):\/\/[^\s)]+):(\d+):(\d+)/);
+      if (!match) return [];
+      try {
+        const url = new URL(match[1]);
+        if (url.pathname === '/js/posthog-analytics.js') return [];
+        let source = 'other-third-party';
+        if (url.origin === location.origin) {
+          source = /^\/(?:_astro|js|assets)\/[A-Za-z0-9_./-]+\.(?:m?js)$/.test(url.pathname)
+            ? url.pathname : 'first-party-inline';
+        } else if (/extension|masked/.test(url.protocol)) source = 'browser-injected-or-masked';
+        else if (/(^|\.)posthog\.com$/.test(url.hostname)) source = 'posthog';
+        else if (/(^|\.)clarity\.ms$/.test(url.hostname)) source = 'clarity';
+        else if (/(^|\.)(?:youtube\.com|youtube-nocookie\.com|ytimg\.com)$/.test(url.hostname)) source = 'youtube';
+        return [`${source}:${match[2]}:${match[3]}`];
+      } catch { return []; }
+    }).slice(0, 8);
+  };
+  const rememberBrowserException = event => {
+    try {
+      const reason = event.type === 'unhandledrejection' ? safeRead(event, 'reason') : safeRead(event, 'error');
+      const detail = safeRead(event, 'detail');
+      const detailReason = safeRead(detail, 'reason');
+      const context = {
+        exception_context_scope: 'same-task-browser-event',
+        exception_browser_event_type: exceptionEventType(event),
+        exception_browser_event_class: exceptionValueType(event),
+        exception_event_trusted: event.isTrusted === true,
+        exception_reason_type: exceptionValueType(reason),
+        exception_reason_event_type: exceptionEventType(reason),
+        exception_detail_type: exceptionValueType(detail),
+        exception_detail_reason_type: exceptionValueType(detailReason),
+        exception_source_frames: exceptionSourceFrames(
+          safeRead(reason, 'stack') || safeRead(detailReason, 'stack') || new Error().stack
+        ),
+      };
+      browserExceptionContext = context;
+      // Native dispatch can run microtasks between listeners; clear next task
+      // so PostHog's onerror/onunhandledrejection handler sees this context too.
+      setTimeout(() => {
+        if (browserExceptionContext === context) browserExceptionContext = null;
+      }, 0);
+    } catch { /* Diagnostics must never interrupt the original error handler. */ }
+  };
+  window.addEventListener('error', rememberBrowserException, true);
+  window.addEventListener('unhandledrejection', rememberBrowserException, true);
+
   !(function (documentRef, posthogRef) {
     let methodNames;
     let index;
@@ -198,7 +268,13 @@
     before_send: function (event) {
       if (!event) return event;
       event.properties = { ...event.properties, ...releaseProps() };
-      if (event.event === '$exception') Object.assign(event.properties, structuredDataDiagnostics());
+      if (event.event === '$exception') Object.assign(event.properties, structuredDataDiagnostics(), {
+        exception_context_version: exceptionContextVersion,
+        exception_context_scope: 'no-browser-event-context',
+        exception_page_age_ms: Math.round(performance.now()),
+        exception_visibility: document.visibilityState,
+        ...(browserExceptionContext || {}),
+      });
       return event;
     },
   });
