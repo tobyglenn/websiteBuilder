@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Thu, 24 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 117 -->
+    <item>
+      <title>Episode 117: GPT-6 Astra Cracks a 2005 Enigma as Mistral Releases a 675B Apache 2.0 Flagship</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep117/episode_117.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-117/</link>
+      <description><![CDATA[Mistral releases a 675B open-weight model on Apache 2.0 and ships Devstral 2 2512 for long-running coding agents.
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-117/]]></description>
+      <pubDate>Mon, 28 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep117/episode_117.mp3" length="33112860" type="audio/mpeg"/>
+      <itunes:duration>34:29</itunes:duration>
+      <itunes:episode>117</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep117/episode_117_cover.png"/>
+    </item>
+
     <!-- Episode 116 -->
     <item>
       <title>Episode 116: Claude Opus 5.5 Lands at $4 In, $20 Out, Meets GPT-6 Sol and Astra</title>

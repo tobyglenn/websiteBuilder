@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 24 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 117 -->
+    <item>
+      <title>Folge 117: GPT-6 Astra knackt ein 2005er Enigma, während Mistral ein 675B Apache 2.0-Flaggschiff veröffentlicht</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep117/episode_117.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-117/</link>
+      <description><![CDATA[Mistral veröffentlicht ein 675B Open-Weight-Modell unter Apache 2.0. Außerdem liefert das Unternehmen Devstral 2 2512 für langlebige Coding-Agents aus.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-117/]]></description>
+      <pubDate>Mon, 28 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_117.mp3" length="39408161" type="audio/mpeg"/>
+      <itunes:duration>41:02</itunes:duration>
+      <itunes:episode>117</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep117/episode_117_cover.png"/>
+    </item>
+
     <!-- Episode 116 -->
     <item>
       <title>Folge 116: Claude Opus 5.5 landet bei $4 Input und $20 Output, trifft GPT-6 Sol und Astra</title>

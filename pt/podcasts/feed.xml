@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Thu, 24 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 28 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 117 -->
+    <item>
+      <title>Episódio 117: GPT-6 Astra decifra enigma de 2005 enquanto Mistral lança flagship de 675B sob Apache 2.0</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep117/episode_117.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-117/</link>
+      <description><![CDATA[A Mistral lança um modelo de 675B com pesos abertos sob a licença Apache 2.0 e apresenta o Devstral 2 2512, otimizado para agentes de codificação de longa...
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-117/]]></description>
+      <pubDate>Mon, 28 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_117.mp3" length="36804275" type="audio/mpeg"/>
+      <itunes:duration>38:20</itunes:duration>
+      <itunes:episode>117</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep117/episode_117_cover.png"/>
+    </item>
+
     <!-- Episode 116 -->
     <item>
       <title>Episódio 116: Claude Opus 5.5 aterrissa a $4 de entrada e $20 de saída, encontra GPT-6 Sol e Astra</title>
