@@ -203,6 +203,196 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
     ],
   },
   {
+    id: 'roblox', eyebrow: 'Roblox', title: 'Roblox games & worlds',
+    description: 'Multiplayer 3D games engineered in native Luau with Rojo and Open Cloud—spanning open-world family adventures, dark fantasy action-RPGs, and creature raising.',
+    projects: [
+      {
+        slug: 'wild-rebellion',
+        title: 'Wild Rebellion',
+        status: 'Live',
+        description: 'Step into Lilly Axolotl’s world: a hidden village, friendly dragons, enterable homes, crystal towers, and Bobcat Island in the sky—built for co-op play on Roblox.',
+        tags: ['Roblox', 'Luau', 'Adventure', 'Open World', 'Co-op RPG', 'Family Gaming'],
+        heroImage: {
+          src: '/images/projects/wild-rebellion/hero.webp',
+          alt: 'Wild Rebellion cast lineup and open-world character showcase',
+          caption: 'Meet the 13 playable characters in Wild Rebellion across the village and Bobcat Island.',
+          aspect: 'wide',
+        },
+        overview: [
+          'Wild Rebellion is a multiplayer 3D Roblox adventure game based on the original world, characters, and storylines created by Lilly Axolotl. Built in native Luau using the Rojo development layout and deployed through Roblox Open Cloud, the experience translates Lilly’s creative universe into an interactive, cross-platform world for PC, mobile, tablet, and Xbox console.',
+          'Players choose their path: dive into episodic narrative playthroughs (saving the village as Axi on the Heroes’ side, or defending the Chaos Lair as Madhattr on the Villains’ side) or explore the Wild World in Adventure mode—discovering 13 fully furnished character homes, riding dragons through floating skies, collecting 40 Wild Gems, and tackling cooperative quests.',
+        ],
+        features: [
+          { title: 'Dual Narrative Playthroughs', description: 'Experience the story from both sides: free captured dragons and break Ily’s shadow spell as Axi, or command the Chaos Lair and cast the shadow spell as Madhattr.' },
+          { title: '13 Enterable Homes with 26 Quests', description: 'Every friend’s front door opens! Explore multi-floor interiors from Axi’s cozy cottage to Bad Girl’s palace, complete two unique quests in each, and earn the Home Hero badge.' },
+          { title: 'Dragon Flight & Aerial Fireballs', description: 'Soar between the village homeland and Bobcat Island in the sky, breathing targeted elemental fireballs that home in on wild targets with explosive splash damage.' },
+          { title: 'Dynamic Shadow vs. Light Combat', description: 'Villains summon Shadow Night bosses and cast shadow entrapment threads; heroes unleash Sunburst storms, shatter crystal charges, and free captured allies to fight at their side.' },
+          { title: 'Vibrant World Activities', description: 'Fish at the village dock with a 6-species catch log, scale the Cloud Climb obstacle course, hunt 12 hidden treasure chests, and compete in races against Hopie and Fast Flash.' },
+          { title: 'Cross-Platform Family Play', description: 'Carefully tuned for 12-player servers with responsive touch controls, keyboard/mouse (WASD/F/Q/R), and full Xbox controller bindings with persistent cloud saves.' },
+        ],
+        steps: [
+          { title: 'Choose your first starter', description: 'Pick between Axi (Heroes) or Madhattr (Villains) on your first launch to unlock your starting archetype and enter the Wild World.' },
+          { title: 'Master abilities and movement', description: 'Use WASD or gamepad thumbsticks to navigate, click/RT to strike, Q/Y for Galaxy Eyes, R/B to dash, and H/LB to trigger team abilities.' },
+          { title: 'Visit friend homes and take on quests', description: 'Step through door markers across the village and Bobcat Island to help characters solve mysteries and unlock cozy outfits.' },
+          { title: 'Mount a dragon and soar', description: 'Interact with the dragon roosts to fly into the sky, rain fireballs onto hostile shadows, and reach high-altitude balloon festivals.' },
+        ],
+        characters: [
+          { name: 'Axi', role: 'Hero Protagonist', description: 'The brave mint-hoodie explorer of the hidden village who leads the rescue mission to break Ily’s shadow spell and liberate the dragons.' },
+          { name: 'Madhattr', role: 'Villain Commander', description: 'The enigmatic leader of the Chaos Lair who channels crystal energy to bind the realm under the shadow spell.' },
+          { name: 'Bad Girl', role: 'Villain Ally & Palace Ruler', description: 'A fierce powerhouse who strikes the crystal tower to charge team abilities and defend the lair.' },
+          { name: 'Ily', role: 'Shadow Weaver', description: 'A mystical sorceress capable of casting shadow entrapment spells that pull wandering heroes into captivity.' },
+          { name: 'King Baka', role: 'Village Elder', description: 'The benevolent ruler who introduces new adventurers to the homeland and guides heroes through story chapters.' },
+        ],
+        gallery: [
+          {
+            src: '/images/projects/wild-rebellion/villains.webp',
+            alt: 'Wild Rebellion villains lineup in the Chaos Lair',
+            title: 'The Chaos Lair & Villains Campaign',
+            description: 'Madhattr, Bad Girl, and Ily assemble in the subterranean crystal lair to unleash shadow spells across the realm.',
+          },
+          {
+            src: '/images/projects/wild-rebellion/bobcat_island.webp',
+            alt: 'Bobcat Island floating in the sky with portal gateway',
+            title: 'Bobcat Island in the Clouds',
+            description: 'A floating sky sanctuary connected by ancient warp portals, featuring aerial dragon perches and cloud platforming.',
+          },
+          {
+            src: '/images/projects/wild-rebellion/open_world.webp',
+            alt: 'Open-world adventure mode showcasing 40 Wild Gems and village exploration',
+            title: 'Open-World Adventure & Gem Hunting',
+            description: 'Explore the vast wilderness to uncover 40 hidden Wild Gems, secret treasure chests, and friendly NPC challenges.',
+          },
+        ],
+        productionNotes: [
+          { title: 'Rojo & Luau Modular Architecture', content: 'Engineered as a clean Rojo project layout with strictly separated Client, Server, and ReplicatedStorage Luau modules, built via automated build scripts (build_place.py).' },
+          { title: '43-Track Soundtrack & Voice Pipeline', content: 'Includes 43 original musical themes and sound effects, with preloading used to reduce startup delays.' },
+          { title: 'Open Cloud Automated Deployment', content: 'Continuous deployment pipeline driven by custom Python tools (tools/publish_place.py) interacting directly with the Roblox Open Cloud API for verified, byte-matched releases.' },
+          { title: 'Family Adventure Design', content: 'Designed around family co-op, cartoon defeat effects, and controller support.' },
+        ],
+        notes: 'Wild Rebellion is actively published and playable on Roblox (Universe 10767746288, Place 137414447181099). Designed for co-op servers of up to 12 players.',
+        links: [
+          { label: 'Play Wild Rebellion on Roblox', href: 'https://www.roblox.com/games/137414447181099/Wild-Rebellion' },
+          { label: 'Watch Lilly Plays on YouTube', href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ' },
+        ],
+      },
+      {
+        slug: 'ironvane-chronicle',
+        title: 'Ironvane: The Iron Chronicle',
+        status: 'Live',
+        description: 'An immersive dark fantasy action-RPG on Roblox featuring a 15-chapter campaign, 15-wave survival arena, fortress conquest, and timed parry combat.',
+        tags: ['Roblox', 'Luau', 'Dark Fantasy', 'Action RPG', 'Combat', 'Campaign'],
+        heroImage: {
+          src: '/images/projects/ironvane-chronicle/hero.webp',
+          alt: 'Lord Aldric defending the sea-cliff fortress of Aldenmoor in Ironvane',
+          caption: 'Third-person dark fantasy combat inside the sea-cliff stronghold of Aldenmoor.',
+          aspect: 'wide',
+        },
+        overview: [
+          'Ironvane: The Iron Chronicle brings the dark fantasy universe of the Crossfire / IronVane series into a high-stakes, visceral 3D action-RPG on Roblox. Built natively in Luau with Rojo, the game adapts the cinematic lore into responsive third-person combat with timed parries, multi-hit combos, and epic siege warfare.',
+          'Players take up arms as Lord Aldric Vane or Lady Seraphine Vane across three distinct game modes: a 15-chapter canonical story campaign, the 15-wave gladiatorial Iron Gauntlet, and full-scale Castle Siege fortress conquest with real-time squad deployment and gate destruction.',
+        ],
+        features: [
+          { title: '15-Chapter Canonical Campaign', description: 'Fight through Aldenmoor fortress, snowy mountain passes, subterranean vaults, and the First Table beneath the Imperial Throne across 15 scripted episodes.' },
+          { title: 'Precision Combat & Timed Parries', description: 'Fluid 3-hit combo chains with guaranteed critical finishers, evasive directional dashes, and a 0.28-second parry window that staggers enemies and deflects 100% of damage.' },
+          { title: 'Two Distinct Hero Playstyles', description: 'Wield Lord Aldric’s heavy broadsword and 85% damage mitigation tower shield, or Lady Seraphine’s agile dual-dagger flurry with accelerated health regeneration.' },
+          { title: 'The Iron Gauntlet (Survival Arena)', description: 'Survive 15 escalating waves of hostile factions, including Usurper Malachar, the Ancient Vault Golem, and the Imperial Champion, supported by tactical arena elixir runes.' },
+          { title: 'Castle Siege & Fortress Warfare', description: 'Command Allied Citadel forces against Dread Bastion in two-sided war, spending battlefield gold to deploy infantry squads, archer batteries, royal knights, and battering rams.' },
+          { title: '20-Level Armory & Cloud Progression', description: 'Level up from recruit to champion with persistent DataStore saves, unlocking 6 weapon classes, 5 armor sets, and 4 shield tiers.' },
+        ],
+        steps: [
+          { title: 'Select your hero archetype', description: 'Choose Lord Aldric for balanced heavy defense and high mitigation, or Lady Seraphine for fast-paced dual-blade mobility.' },
+          { title: 'Master the parry and combo timing', description: 'Time your right-click / LT block within 0.28s of an attack to stagger bosses, then follow up with a 3-hit combo cleave.' },
+          { title: 'Battle through the 15-episode campaign', description: 'Follow chapter markers, escort AI allies (Seraphine, Cael, Wren), and liberate key strongholds from traitor forces.' },
+          { title: 'Lead your siege battalions', description: 'In Fortress Conquest, earn battlefield gold ticks, deploy battering rams to breach Dread Bastion, and slay the Bastion Warlord.' },
+        ],
+        characters: [
+          { name: 'Lord Aldric Vane', role: 'The Iron Vanguard', description: 'Castellan of Aldenmoor, wielding a heavy iron broadsword and tower shield with impenetrable defensive parries.' },
+          { name: 'Lady Seraphine Vane', role: 'The Unbroken Blade', description: 'High-mobility skirmisher equipped with rapid dual daggers, evasive dashes, and rapid health recovery.' },
+          { name: 'Cael', role: 'Courtyard Defender', description: 'Veteran arms master who fights shoulder-to-shoulder with Aldric in the armory courtyard during Episode 6.' },
+          { name: 'Wren', role: 'Vanguard Infiltrator', description: 'Agile scout who joins the vanguard during the sea-swept chapel assault in Episode 13.' },
+        ],
+        gallery: [
+          {
+            src: '/images/projects/ironvane-chronicle/icon.webp',
+            alt: 'House Vane heraldic crest and official game emblem',
+            title: 'House Vane Crest & Armory Insignia',
+            description: 'The canonical sigil of House Vane, representing the defensive bulwark against imperial betrayal.',
+          },
+        ],
+        productionNotes: [
+          { title: 'Native Luau & Rojo Workflow', content: 'Compiled from modular Luau source trees with automated test suites verifying persistence, state machines, and dungeon boundary physics.' },
+          { title: '15-Track Preloaded Audio Suite', content: 'Features 15 preloaded orchestral score cues from ACE-Step alongside custom combat SFX including metallic parry clangs, shield impacts, and evasive swooshes.' },
+          { title: 'Rigorous 148-Check QA Verification', content: 'Thoroughly validated across 148 automated and playability checks, ensuring clean character collision, camera framing, and responsive mobile and gamepad controls.' },
+        ],
+        notes: 'Ironvane: The Iron Chronicle is published on Roblox (Universe 10768035372, Place 127416728674621). Supports up to 4 players per server.',
+        links: [
+          { label: 'Play Ironvane on Roblox', href: 'https://www.roblox.com/games/127416728674621/Ironvane-The-Iron-Chronicle' },
+          { label: 'Watch IronVane Story on YouTube', href: 'https://www.youtube.com/@IronVaneStory/videos' },
+        ],
+      },
+      {
+        slug: 'monstrum-world',
+        title: 'Monstrum World: Battle Academy',
+        status: 'On Roblox',
+        description: 'A monster-raising RPG on Roblox blending Monster Rancher care, Digimon branching evolutions, in-battle catching, and Active-Time Battles (ATB).',
+        tags: ['Roblox', 'Luau', 'Monster Taming', 'Ranch RPG', 'ATB Combat', 'Turn-Based'],
+        heroImage: {
+          src: '/images/projects/monstrum-world/hero.webp',
+          alt: 'Monstrum World Active-Time Battle interface and tactical command menu',
+          caption: 'Turn-based Active-Time Battle (ATB) combat showcasing elemental moves, companion synergy, and capture traps.',
+          aspect: 'wide',
+        },
+        overview: [
+          'Monstrum World: Battle Academy is a Roblox monster-raising RPG combining the strategic life-sim depth of Monster Rancher with the branching evolutionary webs of Digimon and tactical Active-Time Battles (ATB). Set in the academy realm of Aetheria, players operate a monster ranch, train wild creatures, and compete in ranked tournament cups.',
+          'Unlike generic creature catchers where monsters are disposable collectibles, Monstrum World focuses on the bond between breeder and monster. Every drill, meal, rest period, and battle decision alters permanent TrainedStats, determining which branched evolutionary path a monster unlocks upon reaching maturity.',
+        ],
+        features: [
+          { title: 'Ranch Management Core Loop', description: 'Manage fatigue, stress, loyalty, and bond with ranch assistant Coach Juniper through drills, custom feeding (Mint Leaf, Prime Steak), resting, and disc shrine hatching.' },
+          { title: 'Care-Driven Branching Evolution', description: 'Novice and Champion monsters evolve along divergent branches—high bond unlocks rare celestial forms, specific stat drilling unlocks elemental variants, and neglect triggers Umbra corruptions.' },
+          { title: 'In-Battle Capture System', description: 'Capture occurs exclusively during combat by weakening wild foes and deploying specialized traps (Aether Snare, Volt Net, Stasis Vault) based on elemental affinity.' },
+          { title: 'Active-Time Battle (ATB) Engine', description: 'Fast-paced tactical combat where Speed gauges dictate turn order, featuring elemental affinities (Pyre, Tides, Terra, Gale, Bolt, Ferrous, Lumin, Umbra) and commander Bio-Morph burst finishers.' },
+          { title: 'Fusion & Rebirth Shrine', description: 'Breed veteran monsters to pass down generational stat bonuses, cross-elemental move pools, and unlock secret Ascendant tier species.' },
+          { title: '62 Monsters & 40-Chapter Campaign', description: 'Raise 62 unique creatures across 5 tiers from Novice to Ascendant across an 8-act, 40-chapter story campaign.' },
+        ],
+        steps: [
+          { title: 'Hatch your first monster', description: 'Visit the Disc Shrine or hatch with custom keywords to awaken your starter companion from ancient disc stones.' },
+          { title: 'Balance training and recovery', description: 'Rotate light and heavy ranch drills with feeding and rest to keep fatigue below 90 and prevent drill failure.' },
+          { title: 'Climb the tournament ranks', description: 'Enter ranked cups from Class E to Class S to increase your ranch prestige and unlock new world expeditions.' },
+          { title: 'Evolve and fuse', description: 'Train target stats before level 18 and 36 to steer evolution toward your desired Champion and Ultimate forms.' },
+        ],
+        characters: [
+          { name: 'Coach Juniper', role: 'Ranch Assistant & Breeder Mentor', description: 'Your knowledgeable ranch guide who provides commentary on monster fatigue, drill performance, and dietary needs.' },
+          { name: 'Emberpup', role: 'Pyre Novice Starter', description: 'A spirited fire pup whose evolutionary branches include Pyrefang (balanced), Flarewyrm (speed), and Rust Drake (defense).' },
+          { name: 'Aqualad', role: 'Tides Novice Starter', description: 'An agile water creature skilled in fluid strikes and restorative care that thrives in water drills.' },
+          { name: 'Sproutling', role: 'Terra Novice Starter', description: 'A stalwart nature guardian excelling in boulder pulls and defensive fortitude.' },
+        ],
+        gallery: [
+          {
+            src: '/images/projects/monstrum-world/phone_battle.webp',
+            alt: 'Monstrum World mobile battle layout with touch-friendly command wheel',
+            title: 'Mobile Touch Combat Layout',
+            description: 'Ergonomic mobile HUD designed for fast one-thumb command selection during intense ATB encounters.',
+          },
+          {
+            src: '/images/projects/monstrum-world/icon.webp',
+            alt: 'Monstrum World Battle Academy crest',
+            title: 'Battle Academy Official Seal',
+            description: 'The emblem of Aetheria’s premier breeding and combat institution.',
+          },
+        ],
+        productionNotes: [
+          { title: 'Headless Luau Test Harness', content: 'Validated via headless Luau simulation (luau_harness.py and behaviour_tests.luau) verifying drill odds, evolution branch selection, and battle state transitions.' },
+          { title: 'Pure State-Machine ATB Engine', content: 'A native Luau state machine drives the ATB combat flow and command selection.' },
+          { title: 'Generational Inheritance Mathematics', content: 'Fusion algorithms dynamically blend parent stat ceilings, move heritability, and generational scaling multipliers for deep breeding gameplay.' },
+        ],
+        notes: 'Monstrum World: Battle Academy is available on Roblox. Sign in to Roblox to open the experience; development continues in the monstrum-world repository.',
+        links: [
+          { label: 'Open Monstrum World on Roblox', href: 'https://www.roblox.com/games/81218380157488/Monstrum-World-Battle-Academy' },
+        ],
+      },
+    ],
+  },
+  {
     id: 'apps', eyebrow: 'Apps', title: 'Training and nutrition tools',
     description: 'Fitness utilities for remembering what happened in training and keeping everyday habits visible.',
     projects: [
@@ -688,3 +878,149 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
 ];
 
 export const projects = projectGroups.flatMap((group) => group.projects.map((project) => ({ ...project, group: group.eyebrow })));
+
+type LocalizedGroupData = {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+};
+
+type LocalizedProjectData = {
+  title?: string;
+  status?: string;
+  description?: string;
+  tags?: string[];
+};
+
+const PROJECT_TRANSLATIONS: Record<string, {
+  groups: Record<string, LocalizedGroupData>;
+  projects: Record<string, LocalizedProjectData>;
+}> = {
+  de: {
+    groups: {
+      automation: { eyebrow: 'Automatisierung', title: 'Pokémon GO-Automatisierung', description: 'Wiederverwendbare Python-Workflows für verbundene Geräte, mit persönlicher Gerätekonfiguration außerhalb des Quellcodes.' },
+      games: { eyebrow: 'Spiele', title: 'Spielbare Experimente', description: 'Browsergames rund um Kampf, Taktik und die Entscheidungen, die eine Runde spannend machen.' },
+      roblox: { eyebrow: 'Roblox', title: 'Roblox-Spiele & -Welten', description: 'Mehrspieler-3D-Spiele, entwickelt in nativem Luau mit Rojo und Open Cloud – von Open-World-Familienabenteuern bis hin zu Dark-Fantasy-Action-RPGs und Monsterzucht.' },
+      apps: { eyebrow: 'Apps', title: 'Trainings- und Ernährungstools', description: 'Fitness-Tools, um Trainingserfolge festzuhalten und tägliche Gewohnheiten im Blick zu behalten.' },
+      church: { eyebrow: 'Bibel', title: 'Bibelverse & Memorierung', description: 'Tools zum Einprägen von Bibeltexten, Überprüfen des Gedächtnisses und regelmäßigen Wiederholen.' },
+      video: { eyebrow: 'Video', title: 'Videokanäle und kreative Projekte', description: 'Familienvideos und Story-Serien mit individuellem Format, Videoschnitt und Veröffentlichungsrhythmus.' },
+    },
+    projects: {
+      'pokemon-go-automation': { title: 'Pokémon GO Automatisierung', status: 'Open Source', description: 'Geschenke versenden, Freundesanfragen, GO Battle League, Tauschen, Verschicken und Beerenfütterung in einem dokumentierten Toolkit für Android und iOS.', tags: ['Python', 'Android + iOS', 'Geräte-Automatisierung', 'ADB', 'Computer Vision'] },
+      'mma-rpg': { title: 'MMA RPG', status: 'Live', description: 'Ein Browser-Kampf-RPG mit Arena, Trainingsraum sowie Stand-up- und Bodenkampf-Steuerung.', tags: ['Kampfsport', 'RPG', 'Browsergame', 'JavaScript', 'HTML5 Canvas'] },
+      'gridbound-realms': { title: 'Gridbound Realms', status: 'Live', description: 'Ein taktisches Rundenstrategiespiel im Browser mit gitterbasiertem Schlachtfeld und Solo- sowie lokalem Mehrspielermodus.', tags: ['Strategie', 'Taktik', 'Rundenbasiert', 'Mehrspieler'] },
+      'wild-rebellion': { title: 'Wild Rebellion', status: 'Live', description: 'Tauche ein in Lilly Axolotls Welt: ein verborgenes Dorf, freundliche Drachen, betretbare Häuser, Kristalltürme und Bobcat Island am Himmel – gebaut für Koop-Spaß auf Roblox.', tags: ['Roblox', 'Luau', 'Abenteuer', 'Open World', 'Koop-RPG', 'Familienspiel'] },
+      'ironvane-chronicle': { title: 'Ironvane: The Iron Chronicle', status: 'Live', description: 'Ein packendes Dark-Fantasy-Action-RPG auf Roblox mit 15-teiliger Kampagne, 15-Wellen-Überlebensarena, Festungseroberung und präzisem Parierkampf.', tags: ['Roblox', 'Luau', 'Dark Fantasy', 'Action-RPG', 'Kampf', 'Kampagne'] },
+      'monstrum-world': { title: 'Monstrum World: Battle Academy', status: 'Auf Roblox', description: 'Ein Monsterzucht-RPG auf Roblox, das Ranch-Pflege im Monster-Rancher-Stil mit verzweigten Evolutionen, Fangen im Kampf und Active-Time-Battles (ATB) verbindet.', tags: ['Roblox', 'Luau', 'Monstersammeln', 'Ranch-RPG', 'ATB-Kampf', 'Rundenbasiert'] },
+      'bjj-buddy': { title: 'BJJ Buddy', status: 'Projekt', description: 'Ein Brazilian Jiu-Jitsu Begleiter zum Protokollieren von Sparringsrunden, Organisieren von Techniken und Verfolgen des Grappling-Fortschritts.', tags: ['BJJ', 'React Native', 'Expo', 'Trainingslog', 'Grappling'] },
+      'nutritrack': { title: 'NutriTrack', status: 'Projekt', description: 'Ein Ernährungstracker, der Mahlzeiten erfasst und Kalorien- sowie Makronährstoffziele direkt mit Trainingsleistungen verknüpft.', tags: ['Ernährung', 'React Native', 'Makros', 'Krafttraining', 'BJJ-Sync'] },
+      'one-peter-memory': { title: '1. Petrus Memorierungstrainer', status: 'Live', description: 'Ein KJV-Bibeltrainer mit Audioausgabe, verschwindendem Text, Rezitationsprüfungen und geplanter Wiederholung.', tags: ['Bibel', 'Auswendiglernen', 'KJV', 'Web-App', 'Edge-TTS'] },
+      'lilly': { title: 'Lilly Plays', status: 'Aktiv', description: 'Gaming- und Familienabenteuervideos von Lilly, mit professionellem Schnitt, Untertiteln, ganzen Episoden und Shorts.', tags: ['YouTube', 'Gaming', 'Familienabenteuer', 'Minecraft', 'Roblox', 'Shorts'] },
+      'liminal': { title: 'Liminal', status: 'Archiviert', description: 'Eine übernatürliche Anime-Comedy-Serie über ein traditionelles Küsten-Ryokan an der Schwelle zwischen Menschen- und Geisterwelt.', tags: ['Anime-Serie', 'KI-Generiert', 'FLUX LoRA', 'Comedy', 'Storytelling'] },
+    },
+  },
+  es: {
+    groups: {
+      automation: { eyebrow: 'Automatización', title: 'Automatización de Pokémon GO', description: 'Flujos de trabajo reutilizables en Python para teléfonos conectados, con configuración de dispositivos mantenida fuera del código fuente.' },
+      games: { eyebrow: 'Juegos', title: 'Experimentos jugables', description: 'Juegos de navegador basados en combate, táctica y decisiones estratégicas en cada ronda.' },
+      roblox: { eyebrow: 'Roblox', title: 'Juegos y mundos en Roblox', description: 'Juegos multijugador 3D desarrollados en Luau nativo con Rojo y Open Cloud: desde aventuras familiares en mundo abierto hasta RPGs de acción y crianza de criaturas.' },
+      apps: { eyebrow: 'Apps', title: 'Herramientas de entrenamiento y nutrición', description: 'Utilidades de fitness para registrar entrenamientos y mantener visibles los hábitos diarios.' },
+      church: { eyebrow: 'Escrituras', title: 'Memorización de las Escrituras', description: 'Herramientas interactivas para practicar pasajes bíblicos, comprobar la memoria y repasarlos con el tiempo.' },
+      video: { eyebrow: 'Vídeo', title: 'Canales de vídeo y proyectos creativos', description: 'Vídeos familiares y series de historias con formatos únicos, edición cuidada y ritmo de publicación constante.' },
+    },
+    projects: {
+      'pokemon-go-automation': { title: 'Automatización de Pokémon GO', status: 'Código abierto', description: 'Envío de regalos, solicitudes de amistad, Liga Combates GO, intercambios, transferencias y alimentación de bayas en un kit documentado para Android e iOS.', tags: ['Python', 'Android + iOS', 'Automatización', 'ADB', 'Visión por ordenador'] },
+      'mma-rpg': { title: 'MMA RPG', status: 'En vivo', description: 'Un RPG de lucha para navegador con arena, sala de pesas y controles tanto de golpeo como de sumisiones en el suelo.', tags: ['Lucha', 'RPG', 'Juego de navegador', 'JavaScript', 'HTML5 Canvas'] },
+      'gridbound-realms': { title: 'Gridbound Realms', status: 'En vivo', description: 'Un juego táctico por turnos en navegador con tablero de casillas, acciones de escuadrón y modos individual y multijugador local.', tags: ['Estrategia', 'Táctica', 'Casillas', 'Por turnos', 'Multijugador'] },
+      'wild-rebellion': { title: 'Wild Rebellion', status: 'En vivo', description: 'Adéntrate en el mundo de Lilly Axolotl: una aldea oculta, dragones amigables, casas explorables, torres de cristal y la Isla Bobcat en el cielo, creado para jugar en cooperativo en Roblox.', tags: ['Roblox', 'Luau', 'Aventura', 'Mundo abierto', 'RPG cooperativo', 'Juego familiar'] },
+      'ironvane-chronicle': { title: 'Ironvane: The Iron Chronicle', status: 'En vivo', description: 'Un inmersivo RPG de acción y fantasía oscura en Roblox con campaña de 15 capítulos, arena de supervivencia de 15 oleadas, asedio a fortalezas y combate con bloqueos cronometrados.', tags: ['Roblox', 'Luau', 'Fantasía oscura', 'RPG de acción', 'Combate', 'Campaña'] },
+      'monstrum-world': { title: 'Monstrum World: Battle Academy', status: 'En Roblox', description: 'Un RPG de crianza de monstruos en Roblox que combina el cuidado en ranchos tipo Monster Rancher con evoluciones ramificadas estilo Digimon, captura en combate y batallas Active-Time (ATB).', tags: ['Roblox', 'Luau', 'Domar criaturas', 'RPG de rancho', 'Combate ATB', 'Por turnos'] },
+      'bjj-buddy': { title: 'BJJ Buddy', status: 'Proyecto', description: 'Un compañero de Brazilian Jiu-Jitsu para registrar combates, organizar técnicas y seguir tu evolución en el tatami.', tags: ['BJJ', 'React Native', 'Expo', 'Registro de entreno', 'Grappling'] },
+      'nutritrack': { title: 'NutriTrack', status: 'Proyecto', description: 'Seguimiento nutricional para registrar comidas y conectar los objetivos de calorías y macronutrientes con el rendimiento deportivo.', tags: ['Nutrición', 'React Native', 'Macronutrientes', 'Fuerza', 'Sincronización BJJ'] },
+      'one-peter-memory': { title: 'Entrenador de Memoria de 1 Pedro', status: 'En vivo', description: 'Entrenador de memorización de las Escrituras (versión KJV) con audio, palabras que desaparecen y comprobación de recitación.', tags: ['Escrituras', 'Memorización', 'KJV', 'App Web', 'Edge-TTS'] },
+      'lilly': { title: 'Lilly Plays', status: 'Activo', description: 'Vídeos de gaming y aventuras familiares presentados por Lilly, con edición, subtítulos, episodios completos y Shorts producidos entre bastidores.', tags: ['YouTube', 'Gaming', 'Aventuras familiares', 'Minecraft', 'Roblox', 'Shorts'] },
+      'liminal': { title: 'Liminal', status: 'Archivado', description: 'Serie de comedia inspirada en el anime sobrenatural ambientada en una posada costera en el umbral entre el mundo humano y el espiritual.', tags: ['Serie Anime', 'Generado por IA', 'FLUX LoRA', 'Comedia', 'Narrativa'] },
+    },
+  },
+  hi: {
+    groups: {
+      automation: { eyebrow: 'ऑटोमेशन', title: 'पोकेमॉन गो ऑटोमेशन', description: 'कनेक्टेड फोन के लिए पुन: प्रयोज्य पायथन वर्कफ़्लो, व्यक्तिगत डिवाइस सेटिंग्स को कोड से अलग रखा गया है।' },
+      games: { eyebrow: 'गेम्स', title: 'खेलने योग्य प्रयोग', description: 'लड़ाई, रणनीति और दिलचस्प निर्णयों के इर्द-गिर्द बने ब्राउज़र गेम्स।' },
+      roblox: { eyebrow: 'रोब्लॉक्स', title: 'रोब्लॉक्स गेम्स और संसार', description: 'Rojo और Open Cloud के साथ मूल Luau में तैयार किए गए मल्टीप्लेयर 3D गेम्स — ओपन-वर्ल्ड एडवेंचर्स, डार्क फैंटेसी एक्शन-RPG और जीव पालन।' },
+      apps: { eyebrow: 'ऐप्स', title: 'ट्रेनिंग और पोषण टूल्स', description: 'ट्रेनिंग की प्रोग्रेस रिकॉर्ड करने और दैनिक आदतों को ट्रैक करने के लिए फिटनेस यूटिलिटीज।' },
+      church: { eyebrow: 'धर्मग्रंथ', title: 'धर्मग्रंथ और याद करने के टूल्स', description: 'धर्मग्रंथों को याद करने, स्मरण शक्ति की जांच करने और नियमित अभ्यास के लिए इंटरैक्टिव टूल्स।' },
+      video: { eyebrow: 'वीडियो', title: 'वीडियो चैनल और रचनात्मक प्रोजेक्ट्स', description: 'पारिवारिक वीडियो और कहानी श्रृंखला, प्रत्येक का अपना प्रारूप, संपादन और रिलीज शेड्यूल।' },
+    },
+    projects: {
+      'pokemon-go-automation': { title: 'पोकेमॉन गो ऑटोमेशन', status: 'ओपन सोर्स', description: 'एंड्रॉइड और आईओएस दोनों के लिए गिफ्ट भेजने, दोस्त जोड़ने, गो बैटल लीग, ट्रेड और ट्रांसफर का संपूर्ण ऑटोमेशन टूलकिट।', tags: ['पायथन', 'एंड्रॉइड + आईओएस', 'डिवाइस ऑटोमेशन', 'ADB', 'कंप्यूटर विजन'] },
+      'mma-rpg': { title: 'MMA RPG', status: 'लाइव', description: 'एरीना, ट्रेनिंग रूम और स्टैंड-अप व ग्राउंड कंट्रोल के साथ एक ब्राउज़र-आधारित फाइटिंग RPG।', tags: ['फाइटिंग', 'RPG', 'ब्राउज़र गेम', 'जावास्क्रिप्ट', 'HTML5 कैनवास'] },
+      'gridbound-realms': { title: 'ग्रिडबाउंड रियल्म्स', status: 'लाइव', description: 'ग्रिड युद्धक्षेत्र, यूनिट एक्शन और सोलो या लोकल मल्टीप्लेयर मोड के साथ एक रणनीतिक टर्न-बेस्ड ब्राउज़र गेम।', tags: ['रणनीति', 'टैक्टिक्स', 'ग्रिड', 'टर्न-बेस्ड', 'मल्टीप्लेयर'] },
+      'wild-rebellion': { title: 'वाइल्ड रिबेलियन (Wild Rebellion)', status: 'लाइव', description: 'लिली एक्सोलोटल की दुनिया में कदम रखें: एक छिपा हुआ गांव, प्यारे ड्रैगन, प्रवेश योग्य घर, क्रिस्टल टावर और आसमान में बॉबकैट द्वीप — रोब्लॉक्स पर को-ऑप एडवेंचर।', tags: ['रोब्लॉक्स', 'Luau', 'एडवेंचर', 'ओपन वर्ल्ड', 'को-ऑप RPG', 'पारिवारिक गेम'] },
+      'ironvane-chronicle': { title: 'आयरनवेन: द आयरन क्रॉनिकल', status: 'लाइव', description: '15-अध्यायों के अभियान, 15-लहर सर्वाइवल एरीना, किले की घेराबंदी और सटीक पैरी कॉम्बैट के साथ रोब्लॉक्स पर डार्क फैंटेसी एक्शन-RPG।', tags: ['रोब्लॉक्स', 'Luau', 'डार्क फैंटेसी', 'एक्शन RPG', 'कॉम्बैट', 'अभियान'] },
+      'monstrum-world': { title: 'मॉन्स्ट्रम वर्ल्ड: बैटल एकेडमी', status: 'Roblox पर', description: 'मॉन्स्टर रैंचर केयर, डिजीमोन जैसी शाखाओं वाले विकास, लड़ाई में कैप्चर और एक्टिव-टाइम बैटल्स (ATB) का रोब्लॉक्स मॉन्स्टर आरपीजी।', tags: ['रोब्लॉक्स', 'Luau', 'मॉन्स्टर ट्रेनिंग', 'रैंच RPG', 'ATB कॉम्बैट', 'टर्न-बेस्ड'] },
+      'bjj-buddy': { title: 'BJJ बडी', status: 'प्रोजेक्ट', description: 'ब्राज़ीलियन जिउ-जित्सु मैट रोल लॉग करने, तकनीकों को व्यवस्थित करने और ग्रैपलिंग प्रगति ट्रैक करने का साथी ऐप।', tags: ['BJJ', 'रिएक्ट नेटिव', 'एक्सपो', 'ट्रेनिंग लॉग', 'ग्रैपलिंग'] },
+      'nutritrack': { title: 'न्यूट्रिट्रैक (NutriTrack)', status: 'प्रोजेक्ट', description: 'भोजन रिकॉर्ड करने और कैलोरी व मैक्रोज़ को ट्रेनिंग लक्ष्यों से सीधे जोड़ने वाला न्यूट्रिशन ट्रैकर।', tags: ['पोषण', 'रिएक्ट नेटिव', 'मैक्रोज़', 'स्ट्रेंथ ट्रेनिंग', 'BJJ सिंक'] },
+      'one-peter-memory': { title: '1 पीटर मेमोरी ट्रेनर', status: 'लाइव', description: 'ऑडियो, गायब होने वाले शब्दों, पाठ जांच और शेड्यूल समीक्षा के साथ KJV धर्मग्रंथ याद करने का टूल।', tags: ['धर्मग्रंथ', 'याद करना', 'KJV', 'वेब ऐप', 'Edge-TTS'] },
+      'lilly': { title: 'लिली प्लेज़ (Lilly Plays)', status: 'सक्रिय', description: 'लिली द्वारा प्रस्तुत गेमिंग और पारिवारिक रोमांचक वीडियो, संपादन, सबटाइटल और शॉर्ट्स के साथ।', tags: ['यूट्यूब', 'गेमिंग', 'पारिवारिक एडवेंचर', 'माइनक्राफ्ट', 'रोब्लॉक्स', 'शॉर्ट्स'] },
+      'liminal': { title: 'लिमिनल (Liminal)', status: 'संग्रहीत', description: 'मानव दुनिया और आत्मा लोक की सीमा पर स्थित एक तटीय इन पर आधारित अलौकिक एनीमे-कॉमेडी श्रृंखला।', tags: ['एनीमे श्रृंखला', 'AI निर्मित', 'FLUX LoRA', 'कॉमेडी', 'कहानी'] },
+    },
+  },
+  pt: {
+    groups: {
+      automation: { eyebrow: 'Automação', title: 'Automação do Pokémon GO', description: 'Fluxos de trabalho reutilizáveis em Python para celulares conectados, com configurações particulares de dispositivos fora do código-fonte.' },
+      games: { eyebrow: 'Jogos', title: 'Experimentos jogáveis', description: 'Jogos de navegador focados em combate, táticas e escolhas dinâmicas a cada rodada.' },
+      roblox: { eyebrow: 'Roblox', title: 'Jogos e mundos no Roblox', description: 'Jogos 3D multijogador desenvolvidos em Luau nativo com Rojo e Open Cloud — de aventuras familiares em mundo aberto a RPGs de ação e criação de criaturas.' },
+      apps: { eyebrow: 'Aplicativos', title: 'Ferramentas de treino e nutrição', description: 'Utilitários fitness para registrar treinos e manter hábitos diários em evidência.' },
+      church: { eyebrow: 'Escrituras', title: 'Memorização das Escrituras', description: 'Ferramentas para praticar passagens bíblicas, testar a memória e revisar periodicamente.' },
+      video: { eyebrow: 'Vídeo', title: 'Canais de vídeo e projetos criativos', description: 'Vídeos em família e séries com narrativa própria, edição refinada e cronograma constante.' },
+    },
+    projects: {
+      'pokemon-go-automation': { title: 'Automação Pokémon GO', status: 'Código aberto', description: 'Envio de presentes, pedidos de amizade, Liga de Batalha GO, trocas, transferências e alimentação de frutas em um kit documentado para Android e iOS.', tags: ['Python', 'Android + iOS', 'Automação', 'ADB', 'Visão Computacional'] },
+      'mma-rpg': { title: 'MMA RPG', status: 'Disponível', description: 'RPG de luta no navegador com arena, sala de musculação e controles para combate em pé e no chão.', tags: ['Luta', 'RPG', 'Jogo de navegador', 'JavaScript', 'HTML5 Canvas'] },
+      'gridbound-realms': { title: 'Gridbound Realms', status: 'Disponível', description: 'Jogo tático por turnos em tabuleiro de grade, com ações de esquadrão e modos solo ou multijogador local.', tags: ['Estratégia', 'Tática', 'Grade', 'Por turnos', 'Multijogador'] },
+      'wild-rebellion': { title: 'Wild Rebellion', status: 'Disponível', description: 'Entre no mundo de Lilly Axolotl: uma vila secreta, dragões amigáveis, casas exploráveis, torres de cristal e a Ilha Bobcat no céu — feito para jogar em equipe no Roblox.', tags: ['Roblox', 'Luau', 'Aventura', 'Mundo aberto', 'RPG cooperativo', 'Jogos em família'] },
+      'ironvane-chronicle': { title: 'Ironvane: The Iron Chronicle', status: 'Disponível', description: 'Um RPG de ação e fantasia sombria no Roblox com campanha em 15 capítulos, arena de sobrevivência em 15 ondas, cerco a fortalezas e combate com parry preciso.', tags: ['Roblox', 'Luau', 'Dark Fantasy', 'RPG de ação', 'Combate', 'Campanha'] },
+      'monstrum-world': { title: 'Monstrum World: Battle Academy', status: 'No Roblox', description: 'RPG de criação de monstros no Roblox combinando cuidados estilo Monster Rancher com evoluções ramificadas estilo Digimon, captura em batalha e combate Active-Time (ATB).', tags: ['Roblox', 'Luau', 'Doma de monstros', 'RPG de rancho', 'Combate ATB', 'Por turnos'] },
+      'bjj-buddy': { title: 'BJJ Buddy', status: 'Projeto', description: 'Companheiro de Brazilian Jiu-Jitsu para registrar rolas, organizar técnicas e acompanhar o progresso no tatame.', tags: ['BJJ', 'React Native', 'Expo', 'Diário de treino', 'Grappling'] },
+      'nutritrack': { title: 'NutriTrack', status: 'Projeto', description: 'Monitor nutricional para registrar refeições e alinhar ingestão de calorias e macros aos objetivos de treino de força e jiu-jitsu.', tags: ['Nutrição', 'React Native', 'Macros', 'Musculação', 'Sincronização BJJ'] },
+      'one-peter-memory': { title: 'Treinador de Memória de 1 Pedro', status: 'Disponível', description: 'Treinador de memorização bíblica KJV com narração em áudio, palavras que somem e verificação automática de recitação.', tags: ['Escrituras', 'Memorização', 'KJV', 'Web App', 'Edge-TTS'] },
+      'lilly': { title: 'Lilly Plays', status: 'Ativo', description: 'Vídeos de jogos e aventuras em família apresentados por Lilly, com edição, legendas, episódios completos e Shorts dos bastidores.', tags: ['YouTube', 'Jogos', 'Aventuras em família', 'Minecraft', 'Roblox', 'Shorts'] },
+      'liminal': { title: 'Liminal', status: 'Arquivado', description: 'Série de comédia sobrenatural inspirada em anime ambientada em uma pousada costeira no limiar entre o mundo humano e espiritual.', tags: ['Série Anime', 'Gerado por IA', 'FLUX LoRA', 'Comédia', 'Narrativa'] },
+    },
+  },
+};
+
+export function getLocalizedProjectGroups(lang = 'en') {
+  if (lang === 'en' || !PROJECT_TRANSLATIONS[lang]) {
+    return projectGroups;
+  }
+
+  const localeData = PROJECT_TRANSLATIONS[lang];
+  return projectGroups.map((group) => {
+    const groupTrans = localeData.groups[group.id] || {};
+    const translatedProjects = group.projects.map((project) => {
+      const projTrans = localeData.projects[project.slug] || {};
+      return {
+        ...project,
+        title: projTrans.title || project.title,
+        status: projTrans.status || project.status,
+        description: projTrans.description || project.description,
+        tags: projTrans.tags || project.tags,
+      };
+    });
+
+    return {
+      ...group,
+      eyebrow: groupTrans.eyebrow || group.eyebrow,
+      title: groupTrans.title || group.title,
+      description: groupTrans.description || group.description,
+      projects: translatedProjects,
+    };
+  });
+}
+
+export function getLocalizedProjects(lang = 'en') {
+  return getLocalizedProjectGroups(lang).flatMap((group) =>
+    group.projects.map((project) => ({ ...project, group: group.eyebrow }))
+  );
+}

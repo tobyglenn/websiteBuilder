@@ -1,10 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import VideoPlayer from '../../components/VideoPlayer.jsx';
-import RelatedVideos from '../../components/RelatedVideos.jsx';
 import TopicNextSteps from '../../components/TopicNextSteps.astro';
 import { VIDEOS } from '../../data/mock.js';
-import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText, ListVideo } from 'lucide-react';
+import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText, CheckCircle2 } from 'lucide-react';
 import { parseVideoChapters } from '../../lib/videoChapters';
 
 // Load all transcript files at build time
@@ -18,12 +17,29 @@ export function getStaticPaths() {
 }
 
 const { video } = Astro.props;
-const chapters = parseVideoChapters(video.full_description || video.description || '');
+const parsedChapters = parseVideoChapters(video.full_description || video.description || '');
+const chapters = (video.chapters && video.chapters.length > 0) ? video.chapters : parsedChapters;
+const takeaways = (video.key_takeaways && video.key_takeaways.length > 0) ? video.key_takeaways : [];
+
+// Resolve transcript content
+let transcriptContent = null;
+if (video.transcript_file) {
+  const key = `../../data/transcripts/${video.transcript_file}`;
+  const raw = transcriptFiles[key];
+  if (raw) {
+    // Strip header lines (Title:, Date:, Video ID:, URL:, Source:, ---)
+    transcriptContent = raw
+      .split('\n')
+      .filter(line => !line.startsWith('Title:') && !line.startsWith('Date:') && !line.startsWith('Video ID:') && !line.startsWith('URL:') && !line.startsWith('Source:') && !line.startsWith('---'))
+      .join('\n')
+      .trim();
+  }
+}
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const videoUrl = `${siteUrl}/video/${video.id}/`;
 
-// VideoObject JSON-LD structured data — enhanced with duration, view count, and entity refs
+// VideoObject JSON-LD structured data — enhanced with duration, view count, transcript, and speakable
 // duration_iso (ISO 8601, e.g. "PT16M13S") is required for Google Video Rich Results
 const videoJsonLd: Record<string, unknown> = {
   "@context": "https://schema.org",
@@ -42,6 +58,11 @@ const videoJsonLd: Record<string, unknown> = {
   "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
   "isFamilyFriendly": true,
   "inLanguage": "en",
+  ...(transcriptContent ? { "transcript": transcriptContent.slice(0, 10000) } : {}),
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "cssSelector": [".video-title", ".video-takeaways", ".video-transcript"]
+  },
   "author": {
     "@type": "Person",
     "@id": `${siteUrl}/#toby`,
@@ -70,7 +91,7 @@ if (video.view_count && video.view_count > 0) {
   };
 }
 
-const _vc = Number(video.viewCount ?? video.view_count ?? video.views ?? 0);
+const _vc = Number(video.view_count ?? (video as any).viewCount ?? video.views ?? 0);
 const formattedViewCount = _vc >= 1000000
   ? (Math.round(_vc / 100000) / 10) + 'M views'
   : _vc >= 1000
@@ -79,30 +100,17 @@ const formattedViewCount = _vc >= 1000000
       ? _vc.toLocaleString() + ' views'
       : '0 views';
 
-// Resolve transcript content
-let transcriptContent = null;
-if (video.transcript_file) {
-  const key = `../../data/transcripts/${video.transcript_file}`;
-  const raw = transcriptFiles[key];
-  if (raw) {
-    // Strip header lines (Title:, Date:, Video ID:, URL:, Source:, ---)
-    transcriptContent = raw
-      .split('\n')
-      .filter(line => !line.startsWith('Title:') && !line.startsWith('Date:') && !line.startsWith('Video ID:') && !line.startsWith('URL:') && !line.startsWith('Source:') && !line.startsWith('---'))
-      .join('\n')
-      .trim();
-  }
-}
-
-// Extract category from video tags (first tag that looks like a category)
-const videoCategory = video.tags && video.tags.length > 0 ? video.tags[0] : null;
+// Extract category from video
+const videoCategory = typeof video.category === 'string' && video.category !== 'all' 
+  ? video.category 
+  : (Array.isArray(video.tags) && video.tags.length > 0 ? String(video.tags[0]) : null);
 const topicContext = [video.title, video.description, ...(video.tags || [])].join(' ');
 
 // Calculate "related" videos - filter by category if available, excluding current
 let relatedVideos = VIDEOS.filter(v => v.id !== video.id);
 if (videoCategory) {
   // First: videos with matching category
-  const categoryMatches = relatedVideos.filter(v => v.tags && v.tags.includes(videoCategory));
+  const categoryMatches = relatedVideos.filter(v => v.category === videoCategory || (Array.isArray(v.tags) && v.tags.some(t => String(t) === videoCategory)));
   if (categoryMatches.length >= 4) {
     relatedVideos = categoryMatches;
   }
@@ -257,7 +265,7 @@ relatedVideos = relatedVideos.slice(0, 8);
 
         {/* Video Title & Meta */}
         <div>
-          <h1 class="text-2xl md:text-3xl font-bold mb-4 leading-tight">{video.title}</h1>
+          <h1 class="video-title text-2xl md:text-3xl font-bold mb-4 leading-tight">{video.title}</h1>
           
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 pb-4 mb-6">
             <div class="flex items-center gap-4 text-sm text-neutral-400">
@@ -274,6 +282,24 @@ relatedVideos = relatedVideos.slice(0, 8);
                 </button>
             </div>
           </div>
+
+          {/* Key Takeaways */}
+          {takeaways.length > 0 && (
+            <section class="video-takeaways bg-gradient-to-br from-blue-950/30 via-neutral-900 to-neutral-900 border border-blue-500/30 rounded-xl p-5 md:p-6 mb-6">
+              <h2 class="flex items-center gap-2 text-base md:text-lg font-bold text-blue-400 mb-3.5">
+                <CheckCircle2 size={18} className="text-blue-400 shrink-0" />
+                Key Takeaways
+              </h2>
+              <ul class="space-y-2.5 text-sm md:text-base text-neutral-200">
+                {takeaways.map((takeaway) => (
+                  <li class="flex items-start gap-2.5 leading-relaxed">
+                    <span class="inline-block w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 shrink-0"></span>
+                    <span>{takeaway}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           {/* Description */}
           {video.description && (
@@ -306,7 +332,7 @@ relatedVideos = relatedVideos.slice(0, 8);
                 </summary>
                 <div class="mt-4 text-sm leading-relaxed">
                   {transcriptContent ? (
-                    <div class="bg-neutral-900/50 rounded-xl border border-neutral-800 p-6 max-h-96 overflow-y-auto">
+                    <div class="video-transcript bg-neutral-900/50 rounded-xl border border-neutral-800 p-6 max-h-96 overflow-y-auto" data-pagefind-body>
                       <p class="text-neutral-300 whitespace-pre-wrap">{transcriptContent}</p>
                     </div>
                   ) : (

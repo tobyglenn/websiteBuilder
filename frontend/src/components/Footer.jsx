@@ -149,6 +149,8 @@ export default function Footer({ showNewsletter = true }) {
               >
                 <input
                   type="email"
+                  aria-label="Email address for the weekly brief"
+                  autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   onFocus={() => {
@@ -160,7 +162,7 @@ export default function Footer({ showNewsletter = true }) {
                   placeholder="your@email.com"
                   required
                   disabled={loading}
-                  className="flex-1 md:w-64 px-4 py-2.5 bg-neutral-950 border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-neutral-600 disabled:opacity-50"
+                  className="min-w-0 flex-1 md:w-64 px-4 py-2.5 bg-neutral-950 border border-neutral-700 rounded-lg text-white text-sm focus:outline-none focus:border-blue-500 transition-colors placeholder:text-neutral-600 disabled:opacity-50"
                 />
                 <button
                   type="submit"
@@ -185,7 +187,7 @@ export default function Footer({ showNewsletter = true }) {
             )}
           </div>
           {error && (
-            <p className="text-red-400 text-sm mt-3">{error}</p>
+            <p role="alert" className="text-red-400 text-sm mt-3">{error}</p>
           )}
         </div>}
 

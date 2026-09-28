@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import VideoGrid from '../../components/VideoGrid.jsx';
-import { Play } from 'lucide-react';
 import { VIDEOS } from '../../data/mock.js';
 
 const title = "All Videos - Toby on Fitness Tech";
@@ -51,9 +50,9 @@ const PLAYLIST_DEFINITIONS = [
 ];
 
 // Build playlists by filtering videos based on keywords
-function buildPlaylists(videos) {
+function buildPlaylists(videos: any[]) {
   return PLAYLIST_DEFINITIONS.map(playlistDef => {
-    const matchedVideos = videos.filter(video => {
+    const matchedVideos = videos.filter((video: any) => {
       // Check for live videos
       if (playlistDef.isLive) {
         return video.is_live === true || video.is_short === 'LIVE';
@@ -104,16 +103,7 @@ const videosCollectionSchema = {
     "@type": "ItemList",
     "name": "Top Videos by Toby on Fitness Tech",
     "numberOfItems": VIDEOS.length,
-    "itemListElement": topVideos.map((video: {
-      id: string;
-      title: string;
-      description: string;
-      thumbnail: string;
-      published_at: string;
-      upload_date?: string;
-      view_count?: number;
-      duration_iso?: string;
-    }, index: number) => ({
+    "itemListElement": topVideos.map((video: any, index: number) => ({
       "@type": "ListItem",
       "position": index + 1,
       "url": `${siteUrl}/video/${video.id}/`,

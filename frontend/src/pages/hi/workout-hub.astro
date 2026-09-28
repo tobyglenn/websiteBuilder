@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="वर्कआउट हब | Toby on Fitness Tech" description="Speediance के साझा वर्कआउट देखें या पढ़ें कि मैं अपना प्रशिक्षण कैसे व्यवस्थित करता हूँ।" lang="hi" translationBase="/workout-hub/">
+  <section class="container mx-auto max-w-4xl px-4 py-14 md:py-20">
+    <p class="text-blue-400 font-semibold mb-4">वर्कआउट हब</p>
+    <h1 class="text-3xl md:text-5xl font-bold text-white mb-6">अपना अगला प्रशिक्षण सत्र चुनें</h1>
+    <p class="text-lg text-neutral-300 mb-10">Speediance के साझा वर्कआउट देखें या पढ़ें कि मैं अपना प्रशिक्षण कैसे व्यवस्थित करता हूँ।</p>
+    <div class="grid gap-5" data-content-next-step data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-count="3">
+      <a href="/speediance/workouts/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="1" class="rounded-xl bg-blue-600 text-white p-6 text-xl font-semibold">53 साझा वर्कआउट देखें →</a>
+      <a href="/hi/training/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="2" class="rounded-xl bg-neutral-900 border border-neutral-700 text-white p-6 text-lg">प्रशिक्षण का तरीका →</a>
+      <a href="/hi/transformation/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="3" class="rounded-xl bg-neutral-900 border border-neutral-700 text-white p-6 text-lg">परिवर्तन की समयरेखा →</a>
+    </div>
+  </section>
+</Layout>

@@ -202,13 +202,13 @@ export default function Hero({ lang = 'en' }) {
                   decoding="async"
                   fetchPriority="high"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+                <div className="theme-image-overlay absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
                 <div className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                     <span className="bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded mb-2 inline-block">{demandFeature.eyebrow}</span>
                     <h3 className="text-xl font-bold text-white mb-1">{demandFeature.title}</h3>
                     <p className="text-sm text-neutral-300 line-clamp-2">{demandFeature.description}</p>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="theme-image-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="bg-white/20 backdrop-blur-sm p-4 rounded-full border border-white/30 hover:scale-110 transition-transform">
                     <Scale size={32} className="text-white" aria-hidden="true" />
                     </div>

@@ -1,4 +1,5 @@
 ---
+import { podcastTranslationLocales } from '../lib/podcastLocales';
 import { personSocialUrls, organizationSocialUrls } from '../data/socialProfiles.js';
 import '../styles/global.css';
 import Header from '../components/Header.jsx';
@@ -111,6 +112,7 @@ const shortTitleFallbacks: Record<string, string> = {
   '/training': 'Weekly split for running, lifting and BJJ',
   '/training-log': 'Workout consistency and heatmap history',
   '/videos': 'Speediance, BJJ and fitness tech library',
+  '/workout-hub': 'Speediance workout routines and training splits',
 };
 
 const countChars = (value = '') => Array.from(value).length;
@@ -263,14 +265,14 @@ if (translationBase) {
   // Translated landing pages (de/es/hi/pt): strip locale prefix from URL
   // e.g. /de/podcasts/agentstack/ → /podcasts/agentstack/
   const localeRegex = new RegExp(`^/(${locales.filter(l => l !== 'en').join('|')})/`);
-  hreflangBase = Astro.url.pathname.replace(localeRegex, '/');
+  const candidateBase = Astro.url.pathname.replace(localeRegex, '/');
+  hreflangBase = candidateBase.endsWith('/') ? candidateBase : `${candidateBase}/`;
 }
-
-const hreflangLinks = hreflangBase && !noindex ? locales.map((locale) => ({
+const podcastSlug = hreflangBase?.match(/^\/podcasts\/(episode-\d+)\/$/)?.[1];
+const alternateLocales = podcastSlug ? await podcastTranslationLocales(podcastSlug) : locales;
+const hreflangLinks = hreflangBase && !noindex ? alternateLocales.map((locale) => ({
   lang: locale,
-  href: locale === 'en'
-    ? `${siteUrl}${hreflangBase}`
-    : `${siteUrl}/${locale}${hreflangBase}`
+  href: locale === 'en' ? `${siteUrl}${hreflangBase}` : `${siteUrl}/${locale}${hreflangBase}`,
 })) : [];
 
 const hreflangXDefault = hreflangBase ? `${siteUrl}${hreflangBase}` : resolvedUrl;
@@ -395,6 +397,7 @@ const staticBreadcrumbNameMap: Record<string, string> = {
   transformation: 'Transformation',
   training: 'Training',
   projects: 'Projects',
+  'workout-hub': 'Workout Hub',
 };
 
 const toTitleCase = (segment: string) => segment
@@ -455,6 +458,22 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline data-astro-rerun>
+      (function() {
+        try {
+          var saved = localStorage.getItem('toft-theme');
+          var theme = saved === 'light' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', theme);
+          if (theme === 'light') {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+          }
+        } catch(e) {}
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap-index.xml" />
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />

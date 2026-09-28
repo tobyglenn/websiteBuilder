@@ -1,0 +1,15 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Centro de entrenamiento | Toby on Fitness Tech" description="Explora rutinas compartidas de Speediance o lee cómo organizo mi entrenamiento." lang="es" translationBase="/workout-hub/">
+  <section class="container mx-auto max-w-4xl px-4 py-14 md:py-20">
+    <p class="text-blue-400 font-semibold mb-4">Centro de entrenamiento</p>
+    <h1 class="text-3xl md:text-5xl font-bold text-white mb-6">Elige tu próxima sesión</h1>
+    <p class="text-lg text-neutral-300 mb-10">Explora rutinas compartidas de Speediance o lee cómo organizo mi entrenamiento.</p>
+    <div class="grid gap-5" data-content-next-step data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-count="3">
+      <a href="/speediance/workouts/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="1" class="rounded-xl bg-blue-600 text-white p-6 text-xl font-semibold">Ver 53 rutinas compartidas →</a>
+      <a href="/es/training/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="2" class="rounded-xl bg-neutral-900 border border-neutral-700 text-white p-6 text-lg">Enfoque de entrenamiento →</a>
+      <a href="/es/transformation/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="3" class="rounded-xl bg-neutral-900 border border-neutral-700 text-white p-6 text-lg">Cronología de la transformación →</a>
+    </div>
+  </section>
+</Layout>

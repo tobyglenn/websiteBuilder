@@ -1,0 +1,74 @@
+{
+  "projectId": 498166,
+  "currentPeriod": [
+    "2026-09-21",
+    "2026-09-27"
+  ],
+  "priorPeriod": [
+    "2026-09-14",
+    "2026-09-20"
+  ],
+  "traffic": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Previous period:\nDate|Pageviews\n2026-09-14|24\n2026-09-15|49\n2026-09-16|21\n2026-09-17|26\n2026-09-18|45\n2026-09-19|28\n2026-09-20|15\n\nCurrent period:\nDate|Pageviews\n2026-09-21|19\n2026-09-22|80\n2026-09-23|16\n2026-09-24|36\n2026-09-25|13\n2026-09-26|8\n2026-09-27|15"
+      },
+      {
+        "type": "text",
+        "text": "{\"conversation_id\":\"01a0e93d-f837-7fe2-a5e0-63fe5d8d7d8c\"}"
+      }
+    ],
+    "isError": false
+  },
+  "refreshedSavedInsights": [
+    {
+      "id": "dP8dMwTJ",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Previous period:\nDate|Form starts|Submit attempts|Signups|Errors\n2026-09-14|0|0|0|0\n2026-09-15|0|0|0|0\n2026-09-16|0|0|0|0\n2026-09-17|0|0|0|0\n2026-09-18|0|0|0|0\n2026-09-19|0|0|0|0\n2026-09-20|0|0|0|0\n\nCurrent period:\nDate|Form starts|Submit attempts|Signups|Errors\n2026-09-21|0|0|0|0\n2026-09-22|0|0|0|0\n2026-09-23|0|0|0|0\n2026-09-24|0|0|0|0\n2026-09-25|0|0|0|0\n2026-09-26|0|0|0|0\n2026-09-27|0|0|0|0"
+          },
+          {
+            "type": "text",
+            "text": "{\"conversation_id\":\"01a0e946-f352-73fb-b725-6d6bb11b351c\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "mDpXs3dl",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Previous period:\nDate|Searches|Result clicks\n2026-09-14|0|0\n2026-09-15|0|0\n2026-09-16|0|0\n2026-09-17|0|0\n2026-09-18|0|0\n2026-09-19|0|0\n2026-09-20|0|0\n\nCurrent period:\nDate|Searches|Result clicks\n2026-09-21|0|0\n2026-09-22|0|0\n2026-09-23|0|0\n2026-09-24|0|0\n2026-09-25|0|0\n2026-09-26|0|0\n2026-09-27|0|0"
+          },
+          {
+            "type": "text",
+            "text": "{\"conversation_id\":\"01a0e946-f985-75e0-bd51-ac3498e4d9ab\"}"
+          }
+        ],
+        "isError": false
+      }
+    },
+    {
+      "id": "6x9fFQ2h",
+      "result": {
+        "content": [
+          {
+            "type": "text",
+            "text": "Previous period:\nDate|Exceptions|Dead clicks|Web Vitals samples\n2026-09-14|0|0|16\n2026-09-15|0|0|12\n2026-09-16|0|0|7\n2026-09-17|0|9|13\n2026-09-18|1|1|25\n2026-09-19|0|1|13\n2026-09-20|26|0|8\n\nCurrent period:\nDate|Exceptions|Dead clicks|Web Vitals samples\n2026-09-21|0|0|7\n2026-09-22|0|0|21\n2026-09-23|2|16|16\n2026-09-24|0|0|1\n2026-09-25|0|4|8\n2026-09-26|127|0|5\n2026-09-27|58|0|11"
+          },
+          {
+            "type": "text",
+            "text": "{\"conversation_id\":\"01a0e946-f679-7f20-82a3-26d3d5075a3d\"}"
+          }
+        ],
+        "isError": false
+      }
+    }
+  ]
+}

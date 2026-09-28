@@ -121,6 +121,14 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
+  image: {
+    domains: ['i.ytimg.com', 'tobyonfitnesstech.com'],
+    remotePatterns: [
+      { protocol: 'https', hostname: '**.ytimg.com' },
+      { protocol: 'https', hostname: '**.youtube.com' },
+    ],
+  },
+
   trailingSlash: 'ignore',
 
   integrations: [

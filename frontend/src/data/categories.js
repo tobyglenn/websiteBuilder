@@ -1,39 +1,45 @@
-// Category definitions for video filtering
+// Explicit category definitions for video filtering
 export const CATEGORIES = [
- { id: 'all', name: 'All Videos', color: 'bg-neutral-800 text-white' },
- { id: 'speediance', name: 'Speediance', color: 'bg-blue-600 text-white' },
- { id: 'bjj', name: 'BJJ & Grappling', color: 'bg-purple-600 text-white' },
- { id: 'transformation', name: 'Transformation', color: 'bg-green-600 text-white' },
- { id: 'tech', name: 'Tech & Wearables', color: 'bg-cyan-600 text-white' },
- { id: 'methodology', name: 'Training Method', color: 'bg-orange-600 text-white' }
+  { id: 'all', name: 'All Videos', slug: 'all', color: 'bg-neutral-800 text-white' },
+  { id: 'speediance', name: 'Speediance', slug: 'speediance', color: 'bg-blue-600 text-white' },
+  { id: 'bjj', name: 'BJJ & Grappling', slug: 'bjj', color: 'bg-emerald-600 text-white' },
+  { id: 'wearables', name: 'Tech & Wearables', slug: 'wearables', color: 'bg-cyan-600 text-white' },
+  { id: 'transformation', name: 'Transformation', slug: 'transformation', color: 'bg-green-600 text-white' },
+  { id: 'training', name: 'Training Methodology', slug: 'training', color: 'bg-orange-600 text-white' },
+  { id: 'coding', name: 'Coding & AI', slug: 'coding', color: 'bg-indigo-600 text-white' },
+  { id: 'shorts', name: 'Shorts', slug: 'shorts', color: 'bg-sky-600 text-white' },
 ];
 
-// Simple keyword-based categorization
-export function categorizeVideo(title) {
- if (!title) return ['all'];
- const lower = title.toLowerCase();
- const categories = [];
- 
- if (lower.match(/speediance|tonal|home gym|resistance|eccentric|progressive|overload|barbell|lat pulldown|deadlift/)) {
- categories.push('speediance');
- }
- if (lower.match(/bjj|jiu.?jitsu|grappling|black belt|blue belt|guard|submission|wrestle|israetel|jocko|gordon ryan|nicky ryan|doucette/)) {
- categories.push('bjj');
- }
- if (lower.match(/weight loss|transformation|262|188|obese|dropped|nutrition|prescription/)) {
- categories.push('transformation');
- }
- if (lower.match(/whoop|garmin|tracker|wearable|smartwatch|tec|metrics/)) {
- categories.push('tech');
- }
- if (lower.match(/training split|workout strategy|method|ppl|full body|cardio|warmup|sets|reps/)) {
- categories.push('methodology');
- }
- 
- return categories.length > 0 ? categories : ['all'];
+/**
+ * Returns explicit categories for a video based on video data tags/category.
+ * No brittle keyword matching.
+ */
+export function getVideoCategories(video = {}) {
+  const cats = [];
+  if (video.category && video.category !== 'all') {
+    cats.push(video.category);
+  }
+  if (Array.isArray(video.tags)) {
+    video.tags.forEach(tag => {
+      const normalized = tag === 'tech' ? 'wearables' : tag === 'methodology' ? 'training' : tag;
+      if (CATEGORIES.some(c => c.id === normalized) && !cats.includes(normalized)) {
+        cats.push(normalized);
+      }
+    });
+  }
+  if (cats.length === 0) cats.push('training');
+  return cats;
+}
+
+// Backward-compatibility alias
+export function categorizeVideo(videoOrTitle) {
+  if (typeof videoOrTitle === 'object' && videoOrTitle !== null) {
+    return getVideoCategories(videoOrTitle);
+  }
+  return ['all'];
 }
 
 export function getCategoryColor(categoryId) {
- const cat = CATEGORIES.find(c => c.id === categoryId);
- return cat?.color || 'bg-neutral-800 text-white';
+  const cat = CATEGORIES.find(c => c.id === categoryId);
+  return cat?.color || 'bg-neutral-800 text-white';
 }

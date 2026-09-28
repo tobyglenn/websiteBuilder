@@ -1,5 +1,7 @@
 ---
+import { VIDEOS } from '../../data/mock.js';
 import Layout from '../../layouts/Layout.astro';
+import { Dumbbell, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 const transformationVideos = [
   {
@@ -20,7 +22,7 @@ const transformationVideos = [
 ];
 ---
 
-<Layout 
+<Layout
   title="यहाँ से शुरू करें - Toby on Fitness Tech"
   description="यहाँ नए हैं? Toby की ट्रांसफॉर्मेशन कहानी से शुरू करें — 6 महीनों में 242 से 188 lbs — और जानें कि इस चैनल को क्या प्रेरित करता है।"
   ogType="article"
@@ -57,7 +59,7 @@ const transformationVideos = [
         <div class="text-sm text-neutral-400">lbs उठाए</div>
       </div>
       <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-        <div class="text-3xl font-bold text-blue-400 mb-1">104</div>
+        <div class="text-3xl font-bold text-blue-400 mb-1">{VIDEOS.length}</div>
         <div class="text-sm text-neutral-400">वीडियो</div>
       </div>
     </div>
@@ -65,7 +67,7 @@ const transformationVideos = [
     {/* Story */}
     <div class="prose prose-invert prose-lg max-w-none mb-16 space-y-6 text-neutral-300">
       <h2 class="text-3xl font-bold text-white">बदलाव का मोड़</h2>
-      
+
       <p class="leading-relaxed">
         2023 की शुरुआत में मुझे एक ऐसा स्पष्ट क्षण मिला जिसे बहुत से लोग पहचानेंगे जिन्होंने अपने वज़न से संघर्ष किया है: मैं तराज़ू पर चढ़ा, एक ऐसा नंबर देखा जिसे मैं अब और तर्क देकर सही नहीं ठहरा सकता था, और मैंने एक फैसला किया।
       </p>
@@ -104,7 +106,7 @@ const transformationVideos = [
         {transformationVideos.map(video => (
           <a href={`/video/${video.id}/`} class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-green-500/50 transition-all hover:-translate-y-1 hover:shadow-xl">
             <div class="aspect-video relative overflow-hidden bg-neutral-950">
-              <img 
+              <img
                 src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
                 alt={video.title}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -126,18 +128,70 @@ const transformationVideos = [
       </div>
     </div>
 
+    {/* Funnel Step 1: Speediance Guide Spotlight */}
+    <div class="mb-16 bg-gradient-to-br from-neutral-900 via-neutral-900 to-blue-950/30 border border-blue-500/30 rounded-2xl p-8 md:p-10 shadow-2xl">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="flex-1 space-y-4 text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
+            <Dumbbell size={14} /> मुख्य उपकरण
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black text-white leading-snug">
+            वह मशीन जिसने इसे संभव बनाया: Speediance
+          </h2>
+          <p class="text-neutral-300 text-sm md:text-base leading-relaxed">
+            मैं किसी कमर्शियल जिम में नहीं जाता। मेरे 1.2 मिलियन पाउंड से अधिक का लिफ्टिंग वर्कआउट स्मार्ट डिजिटल रेसिस्टेंस मशीनों पर हुआ: पहले Tonal, फिर दो Speediance यूनिट्स (ओरिजिनल और Gym Monster 2S)। यदि आप मोटर व्यवहार, फर्मवेयर और कस्टम वर्कआउट पर ईमानदार समीक्षा चाहते हैं, तो यहाँ से शुरू करें।
+          </p>
+          <div class="pt-2">
+            <a
+              href="/hi/speediance/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="1"
+              class="inline-flex items-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all hover:scale-105 shadow-lg text-sm"
+            >
+              <span>पूरी Speediance गाइड पढ़ें</span>
+              <ArrowRight size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div class="w-full md:w-80 shrink-0 bg-neutral-950/80 border border-neutral-800 rounded-xl p-6 text-sm space-y-3">
+          <div class="flex items-center gap-2 text-white font-bold pb-2 border-b border-neutral-800">
+            <ShieldCheck size={18} class="text-blue-400" />
+            <span>स्मार्ट जिम क्यों?</span>
+          </div>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            • <strong>अधिकतम इसेंट्रिक मोड:</strong> बिना किसी पार्टनर के भारी नेगेटिव सेट्स।
+          </p>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            • <strong>शून्य सेटअप समय:</strong> वर्कआउट 10 सेकंड में शुरू होते हैं।
+          </p>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            • <strong>सटीक डेटा:</strong> प्रत्येक रेप, गति और भार स्वतः लॉग होता है।
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="mb-16 bg-neutral-900 border border-green-500/30 rounded-2xl p-8 md:p-10 text-center">
+      <p class="text-green-400 text-sm font-semibold mb-3">परिवर्तन की गाइड पढ़ें</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">242 से 188 पाउंड तक की मेरी यात्रा</h2>
+      <p class="text-neutral-300 max-w-xl mx-auto mb-6">प्रकाशित समयरेखा, प्रशिक्षण का तरीका और शरीर की संरचना में बदलाव देखें।</p>
+      <a href="/hi/transformation/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="2" class="inline-flex px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg">पूरी गाइड पढ़ें</a>
+    </section>
+
     {/* CTA Section */}
-    <div class="bg-gradient-to-br from-blue-900/20 to-green-900/20 border border-blue-500/20 rounded-2xl p-10 text-center">
+    <div class="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-neutral-800 rounded-2xl p-10 text-center">
       <h2 class="text-2xl font-bold text-white mb-4">अब आगे कहाँ जाएँ</h2>
-      <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
-        गहराई में जाने के लिए तैयार हैं? Speediance, BJJ, फिटनेस टेक और ट्रेनिंग मेथडोलॉजी पर 104 वीडियो वाली पूरी वीडियो लाइब्रेरी देखें।
+      <p class="text-neutral-400 mb-8 max-w-xl mx-auto text-sm md:text-base">
+        वर्कआउट स्पिलिट्स देखें, वीडियो लाइब्रेरी ब्राउज़ करें या पूरे गियर तुलनात्मक समीक्षा पढ़ें।
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/videos/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
-          सभी वीडियो देखें →
+        <a href="/hi/workout-hub/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 text-sm">
+          वर्कआउट हब एक्सप्लोर करें →
         </a>
-        <a href="/about/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
-          मेरे बारे में और
+        <a href="/hi/videos/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium text-sm">
+          सभी वीडियो देखें
+        </a>
+        <a href="/hi/about/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium text-sm">
+          टोबी के बारे में
         </a>
       </div>
     </div>

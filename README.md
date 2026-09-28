@@ -1,140 +1,118 @@
-# websiteBuilder — Toby Glenn Site
+# Toby On Fitness Tech (`websiteBuilder`)
 
-**Repository:** https://github.com/tobyglenn/websiteBuilder  
-**Live Preview:** `http://localhost:8765` (local dev server)
+Official codebase for **[tobyonfitnesstech.com](https://tobyonfitnesstech.com)** — dedicated to real-world fitness technology reviews, data-driven strength training, Speediance home gym programming, and athletic longevity.
 
 ---
 
-## 🚀 Quick Start (Build & Run)
+## 🚀 Quick Start
+
+### Prerequisites
+- **Node.js**: v24 (managed via `.nvmrc` and `frontend/.nvmrc`)
+- **Package Manager**: `npm`
+
+### Setup & Development
 
 ```bash
+# Clone the repository
+git clone https://github.com/tobyglenn/websiteBuilder.git
+cd websiteBuilder
+
+# Switch to frontend and install dependencies
 cd frontend
 npm install
-npm run build
-npx serve dist
-```
 
-Or for dev mode with hot reload:
-```bash
+# Generate / update the 494-video catalog from YouTube & transcripts
+node ../scripts/generate_videos_data.mjs
+
+# Start local Astro development server
 npm run dev
 ```
 
+### Production Build & Preview
+
+```bash
+# In frontend directory:
+npm run test:workout-hub    # Run test suite
+npm run build               # Builds Astro site, generates Pagefind index & audits indexability
+npm run preview             # Preview static build locally
+```
+
 ---
 
-## 📁 Project Structure
+## 🌟 Key Features
+
+1. **Complete Video & Transcript Library (494 Videos / 101 Transcripts)**:
+   - Full catalog generated from `yt_videos_full.json` and `transcript_index.json`.
+   - Dedicated `/video/[id]/` pages with interactive YouTube player, click-to-jump chapters, key takeaways, and full transcript.
+   - Comprehensive `VideoObject` Schema.org JSON-LD with Google `speakable` markup for enhanced search visibility.
+2. **Data-Driven Categorization & URL State**:
+   - Explicit categories (`speediance`, `bjj`, `wearables`, `transformation`, `training`, `coding`, `shorts`) and tags in data files.
+   - URL synchronization (`/videos?cat=bjj`) with browser history support for shareable and crawlable filter views.
+3. **Speediance Workout Hub (`/workout-hub/`)**:
+   - Localized guide directory linking to the existing 53 shared routines, training approach, and transformation timeline.
+   - One-click client-side JSON export compatible with Speediance Manager.
+4. **Lead Generation & Conversion Funnels**:
+   - Measured guide links on `/start-here` leading to the published Speediance and transformation guides.
+   - Kit newsletter capture with retryable failure feedback and success events only after an accepted response.
+5. **Interactive Projects & Games**:
+   - Showcase on `/projects/` featuring Roblox titles (*Ironvane Chronicle*, *Monstrum World*, *Wild Rebellion*) and web tools.
+6. **Modern Design & Theming**:
+   - Opt-in Light and Dark themes with zero flash of unstyled content (anti-FOUC).
+   - High-contrast toggle in header with keyboard navigation and mobile drawer support.
+
+---
+
+## 🏗️ Architecture & Tech Stack
+
+- **Framework**: [Astro 7](https://astro.build/) (`astro@^7.1.6`)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) with `@tailwindcss/vite`
+- **Islands**: [React 19](https://react.dev/) (`react@^19.2.8`)
+- **Data Collections**: Astro Content Layer API (`frontend/src/content.config.ts`)
+- **Search**: [Pagefind](https://pagefind.app/) static search engine
+- **Analytics**: [PostHog](https://posthog.com/) with YouTube milestone telemetry, card clicks, and conversion tracking
+- **Database / Backend**: [Supabase](https://supabase.com/) for optional workout hub sessions and leaderboards
+
+---
+
+## 📁 Repository Layout
 
 ```
 websiteBuilder/
-├── frontend/                 # Astro + React frontend
-│   ├── src/
-│   │   ├── components/      # React components (Header, Hero, VideoGrid, etc.)
-│   │   ├── data/            # videos.json (20 videos), categories.js
-│   │   ├── layouts/         # Astro layouts
-│   │   └── pages/           # Astro pages (index, videos, start-here, etc.)
-│   ├── dist/                # Static build output
-│   └── package.json
-├── brand_brief.md           # Brand messaging & tone guidelines
-├── site_architecture.md     # Video categorization strategy
-└── transcripts/             # 101 video transcripts (in frontend/src/data/transcripts/)
+├── .github/workflows/deploy.yml # Automated GitHub Actions deployment to GitHub Pages
+├── .nvmrc                      # Node 24 version specification
+├── .prettierrc                 # Code formatting standards
+├── AGENTS.md                   # System architecture notes for AI agents
+├── scripts/
+│   └── generate_videos_data.mjs# Generates frontend/src/data/videos.json
+├── supabase/
+│   ├── migrations/             # Postgres schemas (workout hub, email leads)
+│   └── functions/              # Edge functions (hub-connect, sync-completions)
+└── frontend/
+    ├── AGENTS.md               # Frontend developer and AI agent guide
+    ├── astro.config.mjs        # Astro configuration & Vite plugins
+    ├── eslint.config.mjs       # Modern ESLint flat configuration
+    ├── package.json
+    └── src/
+        ├── content.config.ts   # Astro Content Layer (videos collection)
+        ├── components/         # React islands and UI components
+        ├── data/               # Canonical datasets (videos, projects, gear)
+        ├── layouts/            # Global layouts (Layout.astro)
+        ├── pages/              # Site routes (/videos, /video/[id], /workout-hub, etc.)
+        └── styles/             # Global CSS and theme tokens
 ```
 
 ---
 
-## ✅ What's Working
+## 🚀 Automated Deployment (CI/CD)
 
-| Feature | Status |
-|---------|--------|
-| Hero with brand messaging | ✅ "Serious fitness, real results, zero hype" |
-| "Start Here" page | ✅ Live with transformation story (242→188 lbs) |
-| Navigation | ✅ "Start Here" highlighted with indicator |
-| Category filters | ✅ Speediance, BJJ, Transformation, Tech, Methodology |
-| Video grid | ✅ 20 videos, auto-categorized by title keywords |
-| Transcript links | ✅ 19 videos have transcript data |
-| Dark theme | ✅ neutral-950 background |
-| 31 static pages | ✅ Built and ready |
+The site deploys automatically to **GitHub Pages** via GitHub Actions upon any push to `main`:
 
----
-
-## 📊 Data Files
-
-- **videos.json** — 20 YouTube videos with metadata
-- **transcript_index.json** — Maps video_id → transcript_file + word_count
-- **categories.js** — Category definitions & keyword mapping
-
----
-
-## 🛠️ Build Commands
-
-```bash
-# Install dependencies
-npm install
-
-# Development server
-npm run dev
-
-# Production build
-npm run build
-
-# Preview build
-npm run preview
-```
-
-## 🔗 Vizard Captions With Full-Video Links
-
-Use `scripts/vizard-links.mjs` when you want Vizard-style captions with your site URL appended to the end.
-
-```bash
-# 1. Put VIZARDAI_API_KEY in .env
-
-# 2. See connected Vizard accounts
-node scripts/vizard-links.mjs accounts
-
-# 3. See the clips in a Vizard project
-node scripts/vizard-links.mjs clips --project-id=17861706
-
-# 4. Compose captions with the full-video site link appended
-node scripts/vizard-links.mjs compose \
-  --project-id=17861706 \
-  --main-video=h3hq4Owzi74 \
-  --social-account-id=12345
-```
-
-What it does:
-
-- Calls Vizard's caption-generation endpoint for each selected clip/account combination.
-- Appends your website URL in the form `https://tobyonfitnesstech.com/video/<youtube-id>/`.
-- Keeps Vizard scheduling untouched when you use `compose` or `preview`.
-
-Optional:
-
-- `publish` is still available if you ever want the script to send the post through Vizard's publish API, but that is not required for the caption-only workflow.
-
----
-
-## 🏗️ Tech Stack
-
-- **Framework:** Astro 5.x (static site generation)
-- **UI:** React 19 + Tailwind CSS
-- **Icons:** Lucide React
-- **Data:** JSON files (no backend required for GitHub Pages)
-
----
-
-## 📝 Notes for AVIA
-
-- All components are in `frontend/src/components/`
-- Video data comes from `frontend/src/data/videos.json`
-- Categorization is keyword-based in `VideoGrid.jsx`
-- "Start Here" page is `frontend/src/pages/start-here.astro`
-- Brand brief is in repo root: `brand_brief.md`
-
----
-
-## 🌐 Deploy to GitHub Pages
-
-Dist folder is ready at `frontend/dist/`. Push to `gh-pages` branch or configure GitHub Pages to serve from `/ (root)` of `main` branch with `frontend/dist` as source.
-
----
-
-Last updated: 2026-02-19
-# EP019 deploy trigger Tue Mar 31 20:56:28 EDT 2026
+- **Workflow**: `.github/workflows/deploy.yml`
+- **Trigger**: Push to `main` branch or manual `workflow_dispatch`
+- **Build Steps**:
+  1. Checks out repository and sets up Node 24.
+  2. Runs `npm ci` in `frontend/`.
+  3. Generates canonical video data via `node scripts/generate_videos_data.mjs`.
+  4. Builds static assets using `npm run build` (including podcast snapshots, Astro build, Pagefind indexing, and indexability audits).
+  5. Submits sitemaps to Bing IndexNow.
+  6. Deploys static build artifact `frontend/dist/` to the `gh-pages` branch.

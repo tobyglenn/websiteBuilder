@@ -227,3 +227,112 @@
   font-weight: 600;
   color: #e0e0e0;
 }
+
+/* ============================================================
+   Light Theme & High Contrast Overrides
+   ============================================================ */
+:root[data-theme="light"],
+html.light {
+  color-scheme: light;
+  --color-neutral-950: #f8fafc;
+  --color-neutral-900: #ffffff;
+  --color-neutral-800: #e2e8f0;
+  --color-neutral-700: #cbd5e1;
+  --color-neutral-600: #64748b;
+  --color-neutral-500: #475569;
+  --color-neutral-400: #334155;
+  --color-neutral-300: #1e293b;
+  --color-neutral-200: #0f172a;
+  --color-neutral-100: #020617;
+
+  --pagefind-ui-primary: #2563eb;
+  --pagefind-ui-text: #0f172a;
+  --pagefind-ui-background: #ffffff;
+  --pagefind-ui-border: #cbd5e1;
+  --pagefind-ui-tag: #f1f5f9;
+}
+
+:root[data-theme="light"] body,
+html.light body {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+
+:root[data-theme="light"] .bg-neutral-950,
+html.light .bg-neutral-950 {
+  background-color: #f1f5f9 !important;
+}
+
+:root[data-theme="light"] .bg-neutral-900,
+html.light .bg-neutral-900 {
+  background-color: #ffffff !important;
+}
+
+:root[data-theme="light"] .border-neutral-800,
+html.light .border-neutral-800 {
+  border-color: #e2e8f0 !important;
+}
+
+:root[data-theme="light"] .text-white,
+html.light .text-white {
+  color: #0f172a !important;
+}
+
+:root[data-theme="light"] .text-neutral-400,
+html.light .text-neutral-400 {
+  color: #475569 !important;
+}
+
+:root[data-theme="light"] .text-neutral-300,
+html.light .text-neutral-300 {
+  color: #334155 !important;
+}
+
+:root[data-theme="light"] .bg-blue-600,
+:root[data-theme="light"] .bg-blue-500,
+:root[data-theme="light"] .bg-green-600,
+:root[data-theme="light"] .bg-red-600,
+:root[data-theme="light"] .bg-purple-600,
+:root[data-theme="light"] .bg-indigo-600,
+:root[data-theme="light"] .bg-emerald-600,
+html.light .bg-blue-600,
+html.light .bg-blue-500,
+html.light .bg-green-600,
+html.light .bg-red-600,
+html.light .bg-purple-600,
+html.light .bg-indigo-600,
+html.light .bg-emerald-600 {
+  color: #ffffff !important;
+}
+:root[data-theme="light"] .bg-blue-600 *,
+:root[data-theme="light"] .bg-blue-500 *,
+:root[data-theme="light"] .bg-green-600 *,
+:root[data-theme="light"] .bg-red-600 *,
+html.light .bg-blue-600 *,
+html.light .bg-blue-500 *,
+html.light .bg-green-600 *,
+html.light .bg-red-600 * {
+  color: #ffffff !important;
+}
+
+/* Light-theme accents remain readable on white panels. */
+:root[data-theme="light"] {
+  --color-blue-300: #1d4ed8;
+  --color-blue-400: #1d4ed8;
+  --color-green-300: #166534;
+  --color-green-400: #166534;
+  --color-purple-400: #7e22ce;
+  --color-red-400: #b91c1c;
+  --color-emerald-400: #047857;
+  --color-cyan-400: #0e7490;
+  --color-sky-400: #0369a1;
+}
+:root[data-theme="light"] :is(.bg-cyan-600, .bg-orange-600, .bg-sky-600, .bg-indigo-600, .bg-purple-600, .bg-emerald-600),
+:root[data-theme="light"] :is(.bg-cyan-600, .bg-orange-600, .bg-sky-600, .bg-indigo-600, .bg-purple-600, .bg-emerald-600) * {
+  color: #fff !important;
+}
+:root[data-theme="dark"] { color-scheme: dark; }
+
+/* Captions over photography keep their dark scrim and light text in both themes. */
+:root[data-theme="light"] .theme-image-overlay .text-white { color: #fff !important; }
+:root[data-theme="light"] .theme-image-overlay .text-neutral-300 { color: #e2e8f0 !important; }

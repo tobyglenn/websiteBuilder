@@ -1,5 +1,7 @@
 ---
+import { VIDEOS } from '../../data/mock.js';
 import Layout from '../../layouts/Layout.astro';
+import { Dumbbell, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
 
 const transformationVideos = [
   {
@@ -20,7 +22,7 @@ const transformationVideos = [
 ];
 ---
 
-<Layout 
+<Layout
   title="Hier starten - Toby über Fitness-Tech"
   description="Neu hier? Starte mit Tobys Transformationsgeschichte — 242 auf 188 lbs in 6 Monaten — und erfahre, was diesen Kanal antreibt."
   ogType="article"
@@ -57,7 +59,7 @@ const transformationVideos = [
         <div class="text-sm text-neutral-400">lbs gehoben</div>
       </div>
       <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
-        <div class="text-3xl font-bold text-blue-400 mb-1">104</div>
+        <div class="text-3xl font-bold text-blue-400 mb-1">{VIDEOS.length}</div>
         <div class="text-sm text-neutral-400">Videos</div>
       </div>
     </div>
@@ -65,7 +67,7 @@ const transformationVideos = [
     {/* Story */}
     <div class="prose prose-invert prose-lg max-w-none mb-16 space-y-6 text-neutral-300">
       <h2 class="text-3xl font-bold text-white">Die Wende</h2>
-      
+
       <p class="leading-relaxed">
         Anfang 2023 hatte ich einen Moment der Klarheit, den viele Menschen kennen werden, die mit ihrem Gewicht zu kämpfen hatten: Ich stellte mich auf eine Waage, sah eine Zahl, die ich mir nicht mehr schönreden konnte, und traf eine Entscheidung.
       </p>
@@ -104,7 +106,7 @@ const transformationVideos = [
         {transformationVideos.map(video => (
           <a href={`/video/${video.id}/`} class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-green-500/50 transition-all hover:-translate-y-1 hover:shadow-xl">
             <div class="aspect-video relative overflow-hidden bg-neutral-950">
-              <img 
+              <img
                 src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
                 alt={video.title}
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -126,18 +128,70 @@ const transformationVideos = [
       </div>
     </div>
 
+    {/* Funnel Step 1: Speediance Guide Spotlight */}
+    <div class="mb-16 bg-gradient-to-br from-neutral-900 via-neutral-900 to-blue-950/30 border border-blue-500/30 rounded-2xl p-8 md:p-10 shadow-2xl">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="flex-1 space-y-4 text-left">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-600/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
+            <Dumbbell size={14} /> Hauptausrüstung
+          </div>
+          <h2 class="text-2xl md:text-3xl font-black text-white leading-snug">
+            Die Maschine, die es möglich gemacht hat: Speediance
+          </h2>
+          <p class="text-neutral-300 text-sm md:text-base leading-relaxed">
+            Ich gehe in kein herkömmliches Fitnessstudio. Über 1,2 Millionen gehobene Pfund wurden auf smarten Widerstandsmaschinen absolviert: zuerst Tonal, dann zwei Speediance-Geräte (Original und Gym Monster 2S). Wenn du ehrliche, technische Reviews zu Motorverhalten, Firmware-Bugs und individuellen Workouts suchst, starte hier.
+          </p>
+          <div class="pt-2">
+            <a
+              href="/de/speediance/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="1"
+              class="inline-flex items-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl transition-all hover:scale-105 shadow-lg text-sm"
+            >
+              <span>Kompletten Speediance-Guide lesen</span>
+              <ArrowRight size={16} />
+            </a>
+          </div>
+        </div>
+
+        <div class="w-full md:w-80 shrink-0 bg-neutral-950/80 border border-neutral-800 rounded-xl p-6 text-sm space-y-3">
+          <div class="flex items-center gap-2 text-white font-bold pb-2 border-b border-neutral-800">
+            <ShieldCheck size={18} class="text-blue-400" />
+            <span>Warum Smart Gyms?</span>
+          </div>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            • <strong>Maximaler Exzentrik-Modus:</strong> Schwere Negative ohne Trainingspartner.
+          </p>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            • <strong>Kein Setup-Aufwand:</strong> Workouts starten in 10 Sekunden.
+          </p>
+          <p class="text-xs text-neutral-400 leading-relaxed">
+            • <strong>Objektive Daten:</strong> Jede Wiederholung, Geschwindigkeit und Last erfasst.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <section class="mb-16 bg-neutral-900 border border-green-500/30 rounded-2xl p-8 md:p-10 text-center">
+      <p class="text-green-400 text-sm font-semibold mb-3">Transformationsguide lesen</p>
+      <h2 class="text-2xl md:text-3xl font-bold text-white mb-3">Mein Weg von 242 zu 188 lbs</h2>
+      <p class="text-neutral-300 max-w-xl mx-auto mb-6">Lies den veröffentlichten Zeitverlauf, den Trainingsansatz und die Updates zur Körperzusammensetzung.</p>
+      <a href="/de/transformation/" data-content-next-step-item data-analytics-event="content_next_step_click" data-analytics-content-type="guide" data-analytics-content-slug={Astro.url.pathname} data-analytics-topic="training" data-analytics-position="guide_directory" data-analytics-item-position="2" class="inline-flex px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg">Zum vollständigen Guide</a>
+    </section>
+
     {/* CTA Section */}
-    <div class="bg-gradient-to-br from-blue-900/20 to-green-900/20 border border-blue-500/20 rounded-2xl p-10 text-center">
+    <div class="bg-gradient-to-br from-blue-900/20 to-purple-900/20 border border-neutral-800 rounded-2xl p-10 text-center">
       <h2 class="text-2xl font-bold text-white mb-4">Wo es als Nächstes hingeht</h2>
-      <p class="text-neutral-400 mb-8 max-w-xl mx-auto">
-        Bereit, tiefer einzusteigen? Durchstöbere die komplette Videobibliothek mit 104 Videos über Speediance, BJJ, Fitness-Tech und Trainingsmethodik.
+      <p class="text-neutral-400 mb-8 max-w-xl mx-auto text-sm md:text-base">
+        Tauche in die Trainingspläne ein, durchstöbere alle Videos oder lies ausführliche Gear-Vergleiche.
       </p>
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="/videos/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105">
-          Alle Videos ansehen →
+        <a href="/de/workout-hub/" class="px-8 py-3.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-full transition-all hover:scale-105 text-sm">
+          Trainingspläne entdecken →
         </a>
-        <a href="/about/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium">
-          Mehr über mich
+        <a href="/de/videos/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium text-sm">
+          Alle Videos ansehen
+        </a>
+        <a href="/de/about/" class="px-8 py-3.5 bg-neutral-800 hover:bg-neutral-700 text-white border border-neutral-700 rounded-full transition-all font-medium text-sm">
+          Über Toby
         </a>
       </div>
     </div>

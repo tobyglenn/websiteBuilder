@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 
-import { projectGroups, projectHref } from '../../data/projects';
+import { getLocalizedProjectGroups, projectHref } from '../../data/projects';
+
+const projectGroups = getLocalizedProjectGroups('hi');
 
 const allProjects = projectGroups.flatMap((group) => group.projects.map((project) => ({
   ...project,
@@ -12,7 +14,7 @@ const projectSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'प्रोजेक्ट्स | Toby on Fitness Tech',
-  description: 'Pokémon GO स्वचालन, गेम्स, प्रशिक्षण टूल्स, पवित्र शास्त्र अभ्यास, और विस्तृत गाइड के साथ रचनात्मक वीडियो प्रोजेक्ट्स।',
+  description: 'रोब्लॉक्स गेम्स, पोकेमॉन गो ऑटोमेशन, ट्रेनिंग टूल्स, धर्मग्रंथ स्मरण और विस्तृत गाइड के साथ रचनात्मक वीडियो प्रोजेक्ट्स।',
   url: 'https://tobyonfitnesstech.com/hi/projects/',
   hasPart: allProjects.map((project) => ({
     '@type': 'CreativeWork',
@@ -25,7 +27,7 @@ const projectSchema = {
 
 <Layout
   title="प्रोजेक्ट्स | Toby on Fitness Tech"
-  description="Pokémon GO स्वचालन, गेम्स, प्रशिक्षण टूल्स, पवित्र शास्त्र अभ्यास, और विस्तृत गाइड के साथ रचनात्मक वीडियो प्रोजेक्ट्स।"
+  description="रोब्लॉक्स गेम्स, पोकेमॉन गो ऑटोमेशन, ट्रेनिंग टूल्स, धर्मग्रंथ स्मरण और विस्तृत गाइड के साथ रचनात्मक वीडियो प्रोजेक्ट्स।"
   jsonLd={projectSchema}
   breadcrumbs={[{ name: 'होम', url: '/hi/' }, { name: 'प्रोजेक्ट्स', url: '/hi/projects/' }]}
 
@@ -36,9 +38,9 @@ const projectSchema = {
     <div class="mx-auto max-w-6xl">
       <header class="border-b border-neutral-800 pb-10">
         <p class="text-sm font-bold uppercase tracking-widest text-blue-400">प्रोजेक्ट्स</p>
-        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">स्वचालन, गेम्स और रचनात्मक प्रोजेक्ट्स</h1>
+        <h1 class="mt-3 text-4xl font-bold text-white md:text-5xl">गेम्स, ऑटोमेशन और रचनात्मक प्रोजेक्ट्स</h1>
         <p class="mt-4 max-w-3xl text-lg leading-relaxed text-neutral-400">
-          उन चीज़ों का अन्वेषण करें जिन्हें मैं बनाता हूँ और जीवन में लाने में मदद करता हूँ। किसी प्रोजेक्ट की कहानी, वर्कफ़्लो, दस्तावेज़ और लिंक के लिए उसे खोलें — जिसमें Pokémon GO स्वचालन टूलकिट और Lilly के वीडियो शामिल हैं।
+          उन गेम्स और टूल्स का अन्वेषण करें जिन्हें मैं तैयार करता हूँ। किसी प्रोजेक्ट की पृष्ठभूमि, तकनीकी विवरण और लिंक देखें — जिसमें हमारे 3D रोब्लॉक्स संसार (Wild Rebellion, Ironvane, Monstrum World), पोकेमॉन गो ऑटोमेशन टूलकिट और लिली के गेमिंग वीडियो शामिल हैं।
         </p>
       </header>
 

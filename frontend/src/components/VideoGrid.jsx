@@ -1,3 +1,4 @@
+import { navigate } from 'astro:transitions/client';
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Play, Filter, Clock, SortDesc, Eye } from 'lucide-react';
 import { videos as allVideos } from '../data/youtube.js';
@@ -9,8 +10,9 @@ const CATEGORIES = [
   { id: 'speediance', name: 'Speediance' },
   { id: 'bjj', name: 'BJJ' },
   { id: 'wearables', name: 'Wearables' },
-  { id: 'coding', name: 'Coding' },
+  { id: 'transformation', name: 'Transformation' },
   { id: 'training', name: 'Training' },
+  { id: 'coding', name: 'Coding' },
   { id: 'shorts', name: 'Shorts' },
 ];
 
@@ -18,8 +20,9 @@ const CATEGORY_BADGE_STYLES = {
   speediance: 'bg-blue-600 text-white',
   bjj: 'bg-emerald-600 text-white',
   wearables: 'bg-cyan-600 text-white',
+  transformation: 'bg-green-600 text-white',
+  training: 'bg-orange-600 text-white',
   coding: 'bg-indigo-600 text-white',
-  training: 'bg-neutral-700 text-white',
   shorts: 'bg-sky-600 text-white',
   all: 'bg-neutral-800 text-neutral-300',
 };
@@ -51,34 +54,35 @@ function useDebounce(value, delay) {
 }
 
 const getCategoryFromLocation = () => {
+  if (typeof window === 'undefined') return 'all';
+  const params = new URLSearchParams(window.location.search);
+  const cat = (params.get('cat') || params.get('category'))?.toLowerCase();
+  if (cat && CATEGORIES.some(c => c.id === cat)) {
+    return cat;
+  }
+
   const hashCategory = window.location.hash.replace(/^#/, '').toLowerCase();
   if (hashCategory && CATEGORIES.some(c => c.id === hashCategory)) {
     return hashCategory;
   }
 
-  const params = new URLSearchParams(window.location.search);
-  return params.get('category')?.toLowerCase() || null;
+  return 'all';
 };
 
-function categorizeVideo(title, description = '') {
-  if (!title) return ['training'];
+function resolveVideoCategories(video) {
+  if (!video) return ['training'];
 
-  const t = title.toLowerCase();
-  const d = description.toLowerCase();
-  const text = `${t} ${d}`;
   const cats = [];
-
-  if (text.includes('speediance') || text.includes('tonal') || text.includes('home gym') || text.includes('resistance')) {
-    cats.push('speediance');
+  if (video.category && video.category !== 'all') {
+    cats.push(video.category);
   }
-  if (text.includes('bjj') || text.includes('jiu-jitsu') || text.includes('grappling') || text.includes('black belt') || text.includes('mat')) {
-    cats.push('bjj');
-  }
-  if (text.includes('whoop') || text.includes('garmin') || text.includes('8sleep') || text.includes('sleep') || text.includes('recovery')) {
-    cats.push('wearables');
-  }
-  if (text.includes('openclaw') || text.includes('coding') || text.includes('code') || text.includes('ai') || text.includes('app') || text.includes('automation')) {
-    cats.push('coding');
+  if (Array.isArray(video.tags)) {
+    video.tags.forEach(t => {
+      const normalized = t === 'tech' ? 'wearables' : t === 'methodology' ? 'training' : t;
+      if (CATEGORIES.some(c => c.id === normalized) && !cats.includes(normalized)) {
+        cats.push(normalized);
+      }
+    });
   }
 
   if (cats.length === 0) cats.push('training');
@@ -115,7 +119,7 @@ function formatViews(count) {
   return `${num.toLocaleString()} views`;
 }
 
-export default function VideoGrid({ limit, showFilters = true, videos, hideShortsByDefault = false }) {
+export default function VideoGrid({ limit = null, showFilters = true, videos, hideShortsByDefault = false }) {
   const sourceVideos = videos || allVideos;
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
@@ -126,29 +130,48 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
   const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
   const lastSearchEvent = useRef('');
 
-  // Read hash state and migrate historical query-based filters to clean URLs.
+  const handleCategorySelect = (catId) => {
+    setSelectedCategory(catId);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      if (catId === 'all') {
+        url.searchParams.delete('cat');
+        url.searchParams.delete('category');
+      } else {
+        url.searchParams.set('cat', catId);
+        url.searchParams.delete('category');
+      }
+      url.hash = '';
+      // Let Astro own history entries so Back/Forward completes before the next navigation.
+      void navigate(url.pathname + url.search, { history: 'push' });
+    }
+    captureEvent('filter_changed', {
+      filter_type: 'video_category',
+      filter_value: catId,
+    });
+  };
+
+  // Sync with URL state (?cat=bjj or #bjj) and listen to popstate
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const cat = getCategoryFromLocation();
-    if (cat && CATEGORIES.some(c => c.id === cat)) {
-      setSelectedCategory(cat);
+    const initialCat = getCategoryFromLocation();
+    if (initialCat && CATEGORIES.some(c => c.id === initialCat)) {
+      setSelectedCategory(initialCat);
+      if (initialCat === 'shorts') setIncludeShorts(true);
     }
 
+    const params = new URLSearchParams(window.location.search);
     const legacySearch = params.get('q')?.trim() || '';
     if (legacySearch) {
       setSearchInput(legacySearch);
       setSearchQuery(legacySearch);
     }
 
-    if (params.has('category') || params.has('q')) {
-      params.delete('category');
-      params.delete('q');
-      const remainingQuery = params.toString();
-      const queryPart = remainingQuery ? `?${remainingQuery}` : '';
-      const hashPart = cat && cat !== 'all' ? `#${cat}` : '';
-      const nextUrl = `${window.location.pathname}${queryPart}${hashPart}`;
-      window.history.replaceState(null, '', nextUrl);
-    }
+    const onPopState = () => {
+      const currentCat = getCategoryFromLocation();
+      setSelectedCategory(currentCat);
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
   // Debounce search input for smoother client-side filtering
@@ -180,7 +203,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
         ...v,
         title,
         description,
-        categories: categorizeVideo(title, description),
+        categories: resolveVideoCategories(v),
         thumbnail: resolveThumbnail(v),
         published_at: publishedDate,
         dateObj: new Date(publishedRaw || '2026-02-18T00:00:00Z'),
@@ -310,17 +333,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
             {visibleCategories.map(cat => (
               <button
                 key={cat.id}
-                onClick={() => {
-                  setSelectedCategory(cat.id);
-                  const nextUrl = cat.id === 'all'
-                    ? window.location.pathname
-                    : `${window.location.pathname}#${cat.id}`;
-                  window.history.replaceState(null, '', nextUrl);
-                  captureEvent('filter_changed', {
-                    filter_type: 'video_category',
-                    filter_value: cat.id,
-                  });
-                }}
+                onClick={() => handleCategorySelect(cat.id)}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   selectedCategory === cat.id
                     ? 'bg-blue-600 text-white'
@@ -455,10 +468,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
           <p className="text-neutral-400">Try adjusting filters or categories.</p>
           {selectedCategory !== 'all' && (
             <button
-              onClick={() => {
-                setSelectedCategory('all');
-                window.history.replaceState(null, '', window.location.pathname);
-              }}
+              onClick={() => handleCategorySelect('all')}
               className="mt-4 text-blue-400 hover:underline"
             >
               Clear Filters
@@ -490,6 +500,8 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
                 data-analytics-content-type="video"
                 data-analytics-content-slug={video.id}
                 data-analytics-content-title={video.title}
+                data-pagefind-filter="category:video"
+                data-pagefind-meta={`category:${primaryCategory || 'video'}`}
                 className="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl hover:border-neutral-700"
               >
                 {/* Thumbnail Container */}
@@ -499,6 +511,7 @@ export default function VideoGrid({ limit, showFilters = true, videos, hideShort
                       src={video.thumbnail}
                       alt={video.title}
                       loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-all duration-500 transform group-hover:scale-105 group-hover:brightness-110"
                     />
                   ) : (

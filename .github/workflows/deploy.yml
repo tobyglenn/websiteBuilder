@@ -35,6 +35,12 @@ jobs:
         run: npm ci
         working-directory: frontend
 
+      - name: Validate video catalog generation
+        run: node --test scripts/tests/generate-videos-data.test.mjs
+
+      - name: Generate video data catalog
+        run: node scripts/generate_videos_data.mjs
+
       - name: Build with Astro
         run: npm run build
         working-directory: frontend

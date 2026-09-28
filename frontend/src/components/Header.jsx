@@ -18,6 +18,8 @@ import {
   PlaySquare,
   Scale,
   Shield,
+  Sun,
+  Moon,
   Trophy,
   Watch,
   X,
@@ -45,6 +47,7 @@ const NAV_TRANSLATIONS = {
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Gear', compare: 'Compare Trackers', calculators: 'Calculators',
     trainingOverview: 'Training Overview', running: 'Running', recovery: 'Recovery', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR Board',
     agentstack: 'AgentStack', fitnessPodcast: 'Fitness Tech Podcast', allPodcasts: 'All Projects', startHere: 'Start Here',
+    wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   de: {
@@ -52,6 +55,7 @@ const NAV_TRANSLATIONS = {
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Ausrüstung', compare: 'Tracker vergleichen', calculators: 'Rechner',
     trainingOverview: 'Training', running: 'Laufen', recovery: 'Erholung', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR-Tafel',
     agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'All Projects', startHere: 'Hier starten',
+    wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   es: {
@@ -59,6 +63,7 @@ const NAV_TRANSLATIONS = {
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipo', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Entrenamiento', running: 'Running', recovery: 'Recuperación', transformation: 'Transformación', bjj: 'BJJ', prs: 'Tabla PR',
     agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Empieza aquí',
+    wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   pt: {
@@ -66,6 +71,7 @@ const NAV_TRANSLATIONS = {
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipamento', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Treino', running: 'Corrida', recovery: 'Recuperação', transformation: 'Transformação', bjj: 'BJJ', prs: 'Quadro de PR',
     agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Comece aqui',
+    wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   hi: {
@@ -73,6 +79,7 @@ const NAV_TRANSLATIONS = {
     speediance: 'Speediance', wearables: 'Wearables', gear: 'गियर', compare: 'Tracker तुलना', calculators: 'कैलकुलेटर',
     trainingOverview: 'ट्रेनिंग', running: 'दौड़', recovery: 'रिकवरी', transformation: 'परिवर्तन', bjj: 'BJJ', prs: 'PR बोर्ड',
     agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'All Projects', startHere: 'यहाँ से शुरू करें',
+    wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
 };
@@ -240,7 +247,29 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [pathname, setPathname] = useState('');
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
+  const [theme, setTheme] = useState('dark');
   const languageRef = useRef(null);
+
+  useEffect(() => {
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    setTheme(current);
+  }, []);
+
+  const toggleTheme = () => {
+    const next = theme === 'dark' ? 'light' : 'dark';
+    setTheme(next);
+    document.documentElement.setAttribute('data-theme', next);
+    document.documentElement.classList.toggle('dark', next === 'dark');
+    if (next === 'light') {
+      document.documentElement.classList.add('light');
+    } else {
+      document.documentElement.classList.remove('light');
+    }
+    try {
+      localStorage.setItem('toft-theme', next);
+    } catch (e) {}
+    captureEvent('theme_toggled', { theme: next });
+  };
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -287,6 +316,9 @@ export default function Header() {
   const projectItems = useMemo(() => [
     { name: t.allPodcasts, href: localizedHref(locale, '/projects/'), icon: PackageSearch },
     { name: t.pokemonGo, href: '/projects/pokemon-go-automation/', icon: Cpu },
+    { name: t.wildRebellion, href: '/projects/wild-rebellion/', icon: Gamepad2 },
+    { name: t.ironvaneChronicle, href: '/projects/ironvane-chronicle/', icon: Trophy },
+    { name: t.monstrumWorld, href: '/projects/monstrum-world/', icon: Gamepad2 },
     { name: t.mmaRpg, href: '/projects/mma-rpg/', icon: Gamepad2 },
     { name: t.gridboundRealms, href: '/projects/gridbound-realms/', icon: Gamepad2 },
     { name: t.bjjBuddy, href: '/projects/bjj-buddy/', icon: Shield },
@@ -367,6 +399,15 @@ export default function Header() {
           </nav>
 
           <div className="hidden items-center gap-2 xl:flex">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-800 bg-neutral-900 text-neutral-300 hover:text-white transition-colors"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
             <div className="relative" ref={languageRef}>
               <button
                 type="button"
@@ -395,26 +436,37 @@ export default function Header() {
             <Search />
           </div>
 
-          <button
-            type="button"
-            className="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white xl:hidden"
-            onClick={() => {
-              setIsMenuOpen((current) => !current);
-              if (!isMenuOpen) {
-                captureEvent('navigation_menu_opened', {
-                  menu_name: 'primary',
-                  navigation_surface: 'mobile',
-                  navigation_trigger: 'click',
-                  navigation_item_count: primaryItems.length,
-                  navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
-                });
-              }
-            }}
-            aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
-            aria-expanded={isMenuOpen}
-          >
-            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          <div className="flex items-center gap-1 xl:hidden">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white"
+              aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
+            </button>
+            <button
+              type="button"
+              className="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white"
+              onClick={() => {
+                setIsMenuOpen((current) => !current);
+                if (!isMenuOpen) {
+                  captureEvent('navigation_menu_opened', {
+                    menu_name: 'primary',
+                    navigation_surface: 'mobile',
+                    navigation_trigger: 'click',
+                    navigation_item_count: primaryItems.length,
+                    navigation_schema_version: NAVIGATION_SCHEMA_VERSION,
+                  });
+                }
+              }}
+              aria-label={isMenuOpen ? 'Close navigation' : 'Open navigation'}
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </header>
 
