@@ -1,0 +1,51 @@
+---
+import { getVideoTranscript, transcriptLanguages, videoTranscriptLocales, videoTranscriptPath } from '../lib/videoTranscripts';
+const { video, locale = 'en', expanded = false } = Astro.props;
+const transcript = getVideoTranscript(video, locale);
+const locales = videoTranscriptLocales(video);
+const copy = {
+  en: { heading: 'Read transcript', language: 'Transcript language', note: 'Original English captions. Select a timestamp to jump to that part of the video.', unavailable: 'Transcript not available for this video.' },
+  de: { heading: 'Transkript lesen', language: 'Sprache des Transkripts', note: 'Maschinell mit MiniMax aus dem englischen Original übersetzt; Fehler sind möglich. Der Videoton bleibt Englisch. Zeitstempel führen zur entsprechenden Stelle im Video.' },
+  es: { heading: 'Leer transcripción', language: 'Idioma de la transcripción', note: 'Traducción automática del original en inglés con MiniMax; puede contener errores. El audio del vídeo sigue en inglés. Selecciona una marca de tiempo para ir a ese momento.' },
+  pt: { heading: 'Ler transcrição', language: 'Idioma da transcrição', note: 'Tradução automática do original em inglês com MiniMax; pode conter erros. O áudio do vídeo continua em inglês. Selecione um horário para ir até esse trecho.' },
+  hi: { heading: 'प्रतिलेख पढ़ें', language: 'प्रतिलेख की भाषा', note: 'मूल अंग्रेज़ी से MiniMax द्वारा किया गया मशीनी अनुवाद; इसमें त्रुटियाँ हो सकती हैं। वीडियो का ऑडियो अंग्रेज़ी में ही है। उस हिस्से पर जाने के लिए टाइमस्टैम्प चुनें।' },
+}[locale];
+const time = (seconds) => {
+  const s = Math.floor(seconds);
+  return s >= 3600 ? `${Math.floor(s / 3600)}:${String(Math.floor(s / 60) % 60).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}` : `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+};
+---
+<section id="transcript" class="mt-6 border-t border-neutral-800 pt-5 scroll-mt-24" aria-label={copy.heading}>
+  {locales.length > 1 && <nav aria-label={copy.language} class="mb-4 flex flex-wrap items-center gap-2 text-sm">
+    <span class="mr-1 text-neutral-400">{copy.language}:</span>
+    {locales.map(language => <a href={`${videoTranscriptPath(video.id, language)}#transcript`} lang={language} hreflang={language} aria-current={language === locale ? 'page' : undefined}
+      class:list={['rounded-lg border px-3 py-2', language === locale ? 'border-blue-500 text-blue-400' : 'border-neutral-700 text-neutral-300 hover:border-blue-400']}
+      data-analytics-event="transcript_language_click" data-analytics-content-type="video" data-analytics-content-slug={video.id} data-analytics-content-title={language}>{transcriptLanguages[language]}</a>)}
+  </nav>}
+  {transcript ? <details open={expanded} class="group">
+    <summary class="cursor-pointer py-3 text-lg font-semibold">{copy.heading}</summary>
+    <p class="my-3 text-sm text-neutral-400">{copy.note}</p>
+    <div class="video-transcript space-y-5 rounded-xl border border-neutral-800 bg-neutral-900/50 p-4 md:p-6" lang={locale} data-pagefind-body>
+      {transcript.segments.map(segment => <div class="flex items-start gap-3 md:gap-5">
+        {Number.isFinite(segment.start) && <a href={`#t=${Math.floor(segment.start)}s`} data-video-seek data-seconds={Math.floor(segment.start)}
+          class="shrink-0 rounded py-1 font-mono text-sm text-blue-400 underline underline-offset-4" aria-label={`${time(segment.start)}`}
+          data-analytics-event="transcript_timestamp_click" data-analytics-content-type="video" data-analytics-content-slug={video.id}>{time(segment.start)}</a>}
+        <p class="min-w-0 whitespace-pre-wrap break-words leading-relaxed text-neutral-300">{segment.text}</p>
+      </div>)}
+    </div>
+  </details> : <p class="text-neutral-400">{copy.unavailable}</p>}
+</section>
+<script>
+  function revealTranscript() {
+    if (location.hash === '#transcript') document.querySelector<HTMLDetailsElement>('#transcript details')?.setAttribute('open', '');
+  }
+  document.addEventListener('astro:page-load', revealTranscript);
+  window.addEventListener('hashchange', revealTranscript);
+  document.addEventListener('click', event => {
+    if (event.target instanceof Element && event.target.closest('a[href="#transcript"]')) {
+      document.querySelector<HTMLDetailsElement>('#transcript details')?.setAttribute('open', '');
+    }
+    const target = event.target instanceof Element ? event.target.closest('[data-video-seek]') : null;
+    if (target) document.getElementById('video-player-wrapper')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+</script>

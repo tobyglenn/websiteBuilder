@@ -12,8 +12,24 @@ export default function VideoPlayer({ videoId }) {
 
     updateStartTime();
     window.addEventListener('hashchange', updateStartTime);
+    // Astro handles same-page anchors with history.pushState, which does not
+    // emit hashchange. Own seek links before the router handles the click.
+    const seekFromLink = (event) => {
+      if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const link = event.target instanceof Element ? event.target.closest('[data-video-seek]') : null;
+      if (!link) return;
+      const seconds = Number(link.getAttribute('data-seconds'));
+      if (!Number.isFinite(seconds) || seconds < 0) return;
+      event.preventDefault();
+      setStartTime(seconds);
+      window.location.hash = `t=${seconds}s`;
+    };
+    document.addEventListener('click', seekFromLink, true);
 
-    return () => window.removeEventListener('hashchange', updateStartTime);
+    return () => {
+      window.removeEventListener('hashchange', updateStartTime);
+      document.removeEventListener('click', seekFromLink, true);
+    };
   }, []);
 
   const src = useMemo(() => {

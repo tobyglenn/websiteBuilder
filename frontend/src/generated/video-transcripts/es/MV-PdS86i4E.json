@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "video_id": "MV-PdS86i4E",
+  "locale": "es",
+  "source_hash": "2a5f19a4bc83b3039fa3ec4b73c7d371e163b6e5174f99b0da25ee90ebf17e06",
+  "source_title": "The Speediance Bar-Tilt Bug That Resets My Workout",
+  "title": "El bug del bar-tilt de Speediance que reinicia mi entrenamiento",
+  "model": "minimax/MiniMax-M3",
+  "actual_models": [
+    "MiniMax-M3"
+  ],
+  "prompt_version": "video-transcripts-v1",
+  "generated_at": "2026-09-28T19:03:39.020732+00:00",
+  "translation_type": "machine",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 35.16,
+      "text": "Y se pone en modo bar tilt de forma demasiado agresiva. Y luego reinicia todos tus pesos durante el resto del entrenamiento. Lo cual hace que todo el entrenamiento sea imposible de hacer. Porque los reinicia al peso mínimo. Y ese bug lleva ahí meses y meses y meses. Les mandé un mensaje dos veces por ello. La última vez ajustaron el modo bar tilt para que fuera menos agresivo. Y eso parecía solucionarlo bastante bien, en su mayoría. Pero esa no es la solución de verdad. La solución de verdad es que no reinicie los pesos permanentemente durante todo tu entrenamiento."
+    },
+    {
+      "start": 35.9,
+      "end": 40.8,
+      "text": "Después de que se haya activado el modo bar tilt. O sea, eso es sin duda un bug en su software."
+    }
+  ]
+}

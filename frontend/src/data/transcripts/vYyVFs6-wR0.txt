@@ -1,0 +1,226 @@
+that we have the LLM, we have the
+harness, and then we have these tools,
+right?
+And what do I mean by tools? Well,
+the tools are actually like FFmpeg,
+you know, all of these different pieces
+of software that run on your machine.
+Those are all tools, right? So, this is
+software on the machine.
+And these are being called in
+conjunction by the harness
+who has access to them and the LLM who
+is actually deciding what to call,
+right? And in some cases deciding what
+to install on the machine to be able to
+call, which which is mind-boggling that
+it it has this capability, right? So, we
+have
+tools.
+So, those tools
+are are fundamental, and you can think
+of them as
+well, they're tools,
+>> [laughter]
+>> right? So, you know, we have a heart, we
+have a brain, right? And then
+the human itself has has tools, right?
+We have hammers, we have knives,
+we have matches, right? We have all of
+these, you know, we have fire, right?
+That we've created
+through through the use of tools, right?
+So, this this is this is a powerful
+component, and understanding that these
+are components. We also have these
+things called APIs or MCPs, right? So,
+we have these different interfaces. So,
+an API is just an interface to talk with
+data, right? And I I wanted to bring up
+APIs in particular because another
+argument that I got into is someone
+wants an API for their Speedy ants data.
+So, Speedy ants is going to launch later
+this year an API for their data, and
+this person is waiting to build anything
+on top of
+their technology on top of you know, on
+top of their systems until this API
+comes out. APIs in the modern era are
+done.
+Like, I'm just going to say that. APIs
+are dead. Like, APIs uh right now we
+have MCPs, those are also probably going
+to die. Like, none of this stuff is
+going to be necessary in the future. All
+we're going to need to be able to do is
+use tools to get to endpoints to grab
+data
+um as long as we have access to the
+endpoints, we will have access to the
+data. That's always been my principle.
+Like, APIs are great, right? In terms of
+like giving you an understanding of how
+to call data. But, functionally at the
+end of the day, it's always about
+calling data and getting data, right? I
+don't care whether I have an interface
+to tell me how to get the data or not,
+as long as I can get the data, right?
+So, that's where uh with Speedsense in
+particular, a user had reverse
+engineered
+um basically the the mobile apps
+endpoints and have a way of talking to
+the mobile apps endpoints to be able to
+get all the data that we needed, right?
+That's how this is working. And my fear
+is Speedsense is going to shut that down
+when they build this API and give us
+less access to our own data. And I'm
+going to flip out when it happens. I
+mean, because it will happen. And this
+user is waiting for this, and he listed
+off all of these things that you can do
+with the API.
+It's about a tenth of what I do today.
+That's what's mind-boggling. So, his
+entire list of what they could possibly
+deliver with this API. By the way, it
+might not be that comprehensive. We
+don't know what they're going to
+deliver. So, he's speculating on what
+they could deliver,
+and that's very much not the case. And
+we see that with
+you know, I I'm I'm going to be a little
+bit frustrated with Whoop in particular.
+Whoop has an API.
+That API is not comprehensive. So, there
+is a list of of features on side the
+Whoop inside the Whoop platform that you
+cannot access via the API. Now,
+I think I now have ways of accessing
+that information if I would want to.
+Um,
+I'll go into detail on those ones I
+actually do it if I decide to do it, but
+one of the things you can access is the
+uh steps data.
+So, it's just not there in the API.
+And there's no way to access your steps
+data on your device because it's not in
+their API, and I don't have the ability
+to call the endpoints directly like I do
+with Speed Speediance. Um, there is I
+think there is another work around that
+I could use.
+Uh I'll talk about it briefly, but um
+they now have a
+Whoop web app that runs through their
+Whoop
+um artificial intelligence system that
+allows you to upload like it's it's
+meant for uploading, but you can also
+use it to ask questions, and I could
+actually have it so that um
+my Hermes or OpenClaw or Codex, right,
+goes in and asks the question every day
+of giving me my steps data and and reads
+the steps data and inserts it into
+into Arya's system. So, realize that
+like there's all kinds of workarounds to
+getting at the data that you want, and
+that's kind of what I wanted to
+highlight that in a world
+of AI, getting our data is pr- well,
+it's always been the most important
+thing. Getting getting access to your
+data has always been the most important
+thing for me.
+Um,
+when when there's specific things that I
+want to build. But in this case, I I
+also wear a Garmin, and the Garmin API
+has
+the steps data.
+Um,
+so I just,
+you know what I mean? I I just use the
+Garmin steps data. Now, the problem is
+if I forget to wear the Garmin, uh every
+now and then I'll take it off for some
+reason like to charge it or um
+or to lift. So, both of those I take
+the Garmin off, and I won't have the
+steps data, and all of sudden it'll show
+no steps for the day. Or uh uh it
+doesn't auto sync at night sometimes.
+Uh like the Whoop does. The Whoop's API
+constantly has the latest data
+uh because it's constantly syncing back
+and forth to the server. It doesn't have
+the kind of internal memory that the
+Garmin has. And so
+uh that's a both a pro and a con, right?
+The pro is the Whoop API always has the
+latest data. The con is
+the Garmin is a lot smarter of a device
+in and of itself. So, if you lose
+network connectivity for days, you'll
+still have data. You'll still be getting
+daily suggested workouts. All that kind
+of stuff will still flow through because
+it's all on device.
+So, these are two different types of
+devices. And that's that's another big
+thing that I'm actually glad I'm talking
+about because the other big thing is
+devices, right? So, devices as in the
+local computer, devices as in the
+the IoT, internet of things devices that
+you have. Devices are going to be a
+very, very
+uh you know, powerful set of this
+equation, right? So, you have your LLM,
+you have your harness, you have your
+tools that sit kind of alongside the
+harness. Like these go
+these go in here, right? This goes in
+here.
+And then you have these devices, right?
+So, these devices are
+uh anything that you're connecting to,
+right? So, devices are kind of like the
+limbs, right? So, if we were making this
+analogous to a huma- human,
+um tools are actually tools.
+Right? APIs are just
+uh descriptions of things that to make
+to make it easier for the brain
+or easier for the heart to to use,
+right? So, easier for the brain to
+understand and easier for the heart to
+actually use.
+So, these APIs would be like
+you know what I mean? Be like uh
+you know, things in your body that like
+like a muscle, something like that. But
+a device is you know, a device is like
+your limbs, right? They are they're the
+they are the
+uh they are the thing that is going to
+allow you
+to to to make this all matter, right? In
+the end of the day. And that could be
+your your local physical hardware,
+right? That it's running on.
+That could be uh the devices that you're
+connecting into it to to read data off
+of you know, it could be any sort of
+device, right? That you're using.
+So, I wanted to go over that very very
+briefly.
+Uh not that briefly, but I wanted to go
+over this
+uh just as my concept around LLMs versus

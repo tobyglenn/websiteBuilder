@@ -21,6 +21,7 @@ interface Props {
   lang?: string;
   episodeSlug?: string;
   translationBase?: string;
+  translationLocales?: string[];
   breadcrumbs?: Array<{ name: string; url: string }>;
   noindex?: boolean;
   publishedTime?: string;
@@ -41,6 +42,7 @@ const {
   lang = Astro.url.pathname.match(/^\/(de|es|hi|pt)(?:\/|$)/)?.[1] || 'en',
   episodeSlug,
   translationBase,
+  translationLocales,
   breadcrumbs,
   noindex = false,
   publishedTime,
@@ -269,7 +271,7 @@ if (translationBase) {
   hreflangBase = candidateBase.endsWith('/') ? candidateBase : `${candidateBase}/`;
 }
 const podcastSlug = hreflangBase?.match(/^\/podcasts\/(episode-\d+)\/$/)?.[1];
-const alternateLocales = podcastSlug ? await podcastTranslationLocales(podcastSlug) : locales;
+const alternateLocales = translationLocales || (podcastSlug ? await podcastTranslationLocales(podcastSlug) : locales);
 const hreflangLinks = hreflangBase && !noindex ? alternateLocales.map((locale) => ({
   lang: locale,
   href: locale === 'en' ? `${siteUrl}${hreflangBase}` : `${siteUrl}/${locale}${hreflangBase}`,

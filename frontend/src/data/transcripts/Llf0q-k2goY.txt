@@ -1,0 +1,252 @@
+I also wanted to talk a little bit about
+the Fable launch. So, there's been a
+massive set of changes in the AI world
+since the last time I came on here and
+discussed anything AI related. um some
+discussion points around things that
+I've uh been talking to people online
+about and uh like LLMs versus tools and
+some people not even knowing the
+difference between the things uh the
+different the different like what is an
+LLM versus what is a tool that is called
+and not understanding that difference I
+think is uh you know dangerous like in
+terms of uh your capabilities
+and also my approach to how I learn
+things. I think that might be meaningful
+and impactful if you're newer to
+starting in development, which this
+person clearly was. And then instead of
+whenever I pointed out that they didn't
+know the difference between a a large
+language model and a tool that is called
+by the large language model, instead of
+saying, "Hey, I I should learn these
+things." Oh, no, no, no. They just said
+you're playing semantics and you know
+basically calling me names and stuff
+like that which uh I was shocked to be
+honest with you. I mean I guess I'm not
+that shocked that it was like an online
+conversation uh specifically in one of
+the Hermes groups where I'm trying to
+learn a little bit more about Hermes.
+And this person responded with here's
+some large language models that edit
+videos and it's like they don't edit
+videos. That's not what these things do.
+uh you could make the case that some of
+them have the capability to do some of
+what we're talking about by stitching
+things together by stitching uh clips
+together right some of them can do that
+WAN can do that some of them and that's
+what I thought they were referring to no
+they were referring to the direct
+editing which is being done by ffmpeg
+and other tool calls so I wanted to go
+into tool calls versus LLMs and I wanted
+to go over in general
+where everything's at and start with
+fable so Let's start with the the the
+elephant in the room, right? So, we had
+Fable for a few days. We lost Fable and
+now Fable is back and I have not noticed
+any degradation in Fable whereas a lot
+of other people online are reporting
+massive degradation. So, I am using uh
+and this might be the reason by the way
+uh one thing that there's of the
+terminal right. So, I'm always using
+Claude Code uh command line. And what's
+by the way, what's this is another thing
+that I got into a little bit of an
+argument online about. What's confusing
+about Claude Code is that all of these
+things have a distinct name. So, this is
+the Claude Code command line agent. Then
+they have the Claude code desktop agent
+and they have all of these things named
+Claude, right? So all of their all of
+their models are also Claude, Opus, this
+Claude, but the company name is
+Enthropic, right? And they don't name
+any of their models or any of their
+developer studios anthropic anything
+which is just kind of bizarre that the
+company names all of their stuff like
+all of their stuff with this Claude
+nomenclature but Claude isn't really a
+it's a brand and not really a a
+individual piece of software or denotes
+whether it's an LLM or you know like for
+example this thing is you know the
+command line app and I've still found
+the command line app to be really really
+good. Uh they were trying to use fable
+inside of cursor. So it could either be
+hey they're Asian descent and it's being
+dumbed down because of that or it could
+be something to do with the cursor
+routing of their requests and what
+they're trying to do because their
+experience has not been mine. Uh post
+the return of Fable I can tell you I
+have had uh the same kind of success
+that I had with Fable in the first
+place. So Fable for sure of any model
+I've ever seen, this is another argument
+that I got into that I just thought was
+asinine. People are claiming that these
+open- source models are anywhere close
+to Fable in terms of their capabilities.
+And I can tell you it's night and day.
+Like I loved Miniax M3, but if Fable was
+sticking around and claude code
+command line and it was going to and you
+could use 100% of your usage for Fable,
+I would be paying the $200 and dropping
+all other subscriptions and ditch
+project Arya that I was working on,
+which has routing to multiple different
+models. Like all of that would go away
+and it would just be fable because it's
+it's been that good in my experience. So
+this model is gamechangingly good in my
+opinion. It's the best thing I have ever
+seen in terms of you prompt it once and
+then it delivers a full-blown feature
+set based upon that. Tested with
+quality, very few mistakes. Um it's
+honestly been the most impressive thing
+I've ever seen. And and before it went
+away and I actually got a little bit I I
+didn't make any videos in its absence.
+um on it coming out soon and I'm pretty
+excited to test that versus Fable.
+That's where I pay for a larger
+subscription. You can see already since
+Fable's return I have I've gotten to 52%
+of the usage that I have available for
+that which is 50% of your total model
+usage. If you didn't know, um the way
+the way they're doing it with the Fable
+return is we only have I believe
+actually until next Wednesday. We don't
+have much time with Fable before it goes
+only to API pricing and and I'm on I'm
+on the pro plan, right? I paid yearly
+for it and that's that's a decent value.
+I would have switched it had Fable been
+around and there wasn't GPT56 on the
+corner, which sounds like it's also
+mythos class. Um, so it doesn't make
+sense for me to
+especially when they're going to remove
+this. We know that when GBT56 rules out
+to everybody, they're probably not going
+to gate it the way that Anthropic gates
+things. Uh that so my personal opinion
+is yes, this is the best model. I'm
+pretty excited to see GBT56. I'm finally
+excited about a model out there. My
+personal opinion is everyone should go
+out and try Fable. I see online where
+people say local LLMs are just as good
+as Fable. That's wrong. They're not like
+Mini M. Like this person was saying
+Miniax M3 is just as good as Fable.
+That's not true. Like I'm a huge Miniax
+M3 fan. You saw in my last video where I
+was talking about Miniax M3 and how
+incredible it was and what it's capable
+of. I still have the Miniax. So the
+MiniAX application which is actually
+pretty good, surprisingly good.
+So Miniax code, their application is
+actually surprisingly good. Uh if I pull
+it up here. So, um you can see I haven't
+used it as much in a while because I
+haven't been building quite as much uh
+with that system, but yes, this Miniax
+uh this Miniax code is actually a pretty
+good and then Miniax is also inside my
+Hermes agents. I was using it, but I
+switched over to GPT for both of my
+Hermes agents. I'll talk about them in a
+little bit, but to say Minia Maxes and
+they're using the thing is they were
+also comparing apples to oranges. They
+were using Miniax inside Hermes. Um, and
+then they were using Fable inside
+cursor. One, Fable inside cursor makes
+no sense. Like that's not the logical
+choice there, especially because I think
+you're losing its recursive loop
+capabilities that it has inside of cloud
+code. So the thing you notice inside
+cloud code is you put a prompt into it
+and then it will sit there and like it
+seems like what it's doing is it's
+actually gathering all of the
+information it can locally and running a
+whole bunch of tool calls locally. Then
+it's going out with all of the
+information it surfaced back to
+anthropic
+using a ton of tokens coming back with
+with a result and then checking the
+result again which I think inside cursor
+the fable model is not going to do as
+well as inside their own harness. So, I
+think it was a a very unfair comparison
+to to go inside of Hermes with Miniax M3
+where uh Hermes has a a recursive loop
+of learning. So, as he's been making
+requests, Hermes is learning and
+learning and learning on top of what the
+LLM itself can do. And so, Hermes is so
+his Hermes is actually farther along in
+its development. And cursor doesn't have
+any I don't believe cursor has any of
+these capabilities. It was built as a it
+was built as a coding tool, right? As a
+as a basic coding tool. So you're
+looking at two, you know, it's an AB
+comparison. And the person is also, you
+know, of Asian descent, which I think
+may have been, and he was also
+speculating that it may actually be
+giving him worse results than it should
+be. But in terms of in terms of
+capabilities, this Fable, first of all,
+running Mini Max M3 on I don't even
+think the weights are available yet to
+run it locally.
+But even when they do become available,
+you're going to have to have some
+serious hardware that even I don't have.
+And speaking of hardware, like I do have
+decent hardware. So I have an M3 Ultra
+with 96 gigabytes. I have uh the GX10
+which is actually the the ASOS G GX10
+which is actually um which is actually a
+uh that's a DJX Spark and this is the
+exact model that that is the DGX Spark.
+So that's and I finally have that loaded
+into my Exo configuration. So all three
+of these uh together are running qu3
+coder and it's actually incredibly fast
+to communicate back and forth with quen
+coder next inside of this exo
+configuration. I've been really
+impressed with it so far, but realize
+this is not the primary daily driver of
+anything. It's uh it's, you know, GPT
+uh 5.5
+and and Fable, right? Those are the
+primary drivers. Um,
+so that that's where I'm at with that.
+So, let's actually go over LLM versus
+tools, right?

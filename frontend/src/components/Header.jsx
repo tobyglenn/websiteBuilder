@@ -360,6 +360,11 @@ export default function Header() {
     window.localStorage.setItem(LOCALE_STORAGE_KEY, code);
     window.localStorage.setItem(LEGACY_LOCALE_STORAGE_KEY, code);
     const basePath = window.location.pathname.replace(/^\/(en|de|es|pt|hi)(\/|$)/, '/');
+    if (/^\/video\/[^/]+\/?$/.test(basePath)) {
+      const alternate = document.querySelector(`link[rel="alternate"][hreflang="${code}"]`);
+      window.location.href = alternate ? new URL(alternate.href).pathname : (code === 'en' ? basePath : `/${code}/videos/`);
+      return;
+    }
     // Project guides currently use a single English canonical route.
     // A language change returns to the translated index instead of a missing guide.
     const localePath = /^\/projects\/[^/]+\/?$/.test(basePath) ? '/projects/' : basePath || '/';

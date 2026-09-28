@@ -1,0 +1,1599 @@
+Hello and welcome back to Tobion Fitness
+Tech. So this time the audio should be
+quite a bit better. So I I I have my
+lapel mic on this time. So we shouldn't
+be getting system audio, so it should
+sound a lot clearer. Um been doing a lot
+of updates to everything uh that I've
+been building and I figured I would go
+through those today. I also wanted to
+talk a little bit about the Fable
+launch. So, there's been a massive set
+of changes in the AI world since the
+last time I came on here and discussed
+anything AI related. Um, some discussion
+points around things that I've uh been
+talking to people online about and uh
+like LLMs versus tools and some people
+not even knowing the difference between
+the things. uh the different the
+different like what is an LLM versus
+what is a tool that is called and not
+understanding that difference I think is
+uh you know dangerous like in terms of
+uh your capabilities
+and also my approach to how I learn
+things I think that might be meaningful
+and impactful if you're newer to
+starting in development which this
+person clearly was and then instead of
+whenever I pointed out that they didn't
+know the difference between
+a a large language model and a tool that
+is called by the large language model
+instead of saying hey I I should learn
+these things. Oh no no no they just said
+you're playing semantics and you know
+basically calling me names and stuff
+like that which uh I was shocked to be
+honest with you. I mean I guess I'm not
+that shocked that it was like an online
+conversation uh specifically in one of
+the Hermes groups where I'm trying to
+learn a little bit more about Hermes.
+And this person responded with, "Here's
+some large language models that edit
+videos." And it's like, "They don't edit
+videos. That's not what these things
+do." Uh, you could make the case that
+some of them have the capability to do
+some of what we're talking about by
+stitching things together, by stitching
+uh clips together, right? Some of them
+can do that. WAN can do that. Some of
+them, and that's what I thought they
+were referring to. No, they were
+referring to the direct editing which is
+being done by FFmpeg and other tool
+calls. So, I wanted to go into tool
+calls versus LLMs and I wanted to go
+over in general
+where everything's at and start with
+Fable. So, let's start with the the the
+elephant in the room, right? So, we had
+Fable for a few days, we lost Fable, and
+now Fable is back. And I have not
+noticed any degradation in Fable whereas
+a lot of other people online are
+reporting massive degradation. So I am
+using uh and this might be the reason by
+the way. Uh one thing that there's other
+content creators that I listen to and
+this one I can't remember the channel
+name but he he puts out some pretty good
+content. He's of East Asian descent. And
+um I know that doesn't sound like it
+would matter, but I think it matters in
+this case because he's reporting that
+his fable is basically becoming a dumbed
+down opus and dumber than even the the
+latest generation opus when he sends it
+in prompts. And we know that the US
+government stopped all fable uh fables
+release and specifically wanted to lock
+it behind a US citizen gate. and not
+just US citizen but US citizen of
+non-foreign descent, right? Which I
+don't know the specifics of this
+individual, whether he's a US citizen,
+anything like that, whether he's even in
+the US. Um, I know that he's he he
+specifically can can
+uh read read and write Mandarin, so like
+he he he he knows, you know what I mean?
+Like so like he can speak obviously
+English perfectly plus, you know, plus
+Chinese, right? Um, so I'm almost
+wondering, and he kind of hinted at it
+in the video, like is he being
+specifically targeted, and I could see
+them doing that, believe it or not, like
+based upon the credit card that you've
+inserted and the name on the credit
+card, they can trace the last name on
+the credit card to possible common
+Chinese last names, uh, and then, you
+know, give you degradated results. I'm
+not saying that's what's happening with
+him in Fable, but there is also another
+smoking gun. So in my so inside Fable I
+am always using Fable from inside of the
+terminal, right? So I'm always using
+Claude Code uh command line. And what's
+by the way, what's this is another thing
+that I got into a little bit of an
+argument online about what's confusing
+about Claude Code is that all of these
+things have a distinct name. So this is
+the Claude Code command line agent. Then
+they have the Claude code desktop agent
+and they have all of these things named
+Claude, right? So all of their all of
+their models are also Claude Opus this
+Claude, but the company name is
+Enthropic, right? And they don't name
+any of their models or any of their
+developer studios anthropic anything
+which is just kind of bizarre that the
+company names all of their stuff like
+all of their stuff with this Claude
+nomenclature but Claude isn't really a
+it's a brand and not really a a
+individual piece of software or denotes
+whether it's an LLM or you know like for
+example this thing is you know the
+command line app and I've still found
+the command line app to be really really
+good. Uh they were trying to use Fable
+inside of cursor. So it could either be
+hey they're Asian descent and it's being
+dumbed down because of that or it could
+be something to do with the cursor
+routing of their requests and what
+they're trying to do because their
+experience has not been mine. Uh post
+the return of Fable I can tell you I
+have had uh the same kind of success
+that I had with Fable in the first
+place. So, Fable for sure of any model
+I've ever seen, this is another argument
+that I got into that I just thought was
+asinine. People are claiming that these
+open- source models are anywhere close
+to Fable in terms of their capabilities.
+And I can tell you it's night and day.
+Like I loved Miniax M3, but if Fable was
+sticking around in Clawude Code Command
+line and it was going to and you could
+use 100% of your usage for Fable, I
+would be paying the $200 and dropping
+all other subscriptions and ditch
+project Arya that I was working on,
+which has routing to multiple different
+models. Like all of that would go away
+and it would just be fable because it's
+it's been that good in my experience. So
+this model is gamechangingly good in my
+opinion. It's the best thing I have ever
+seen in terms of you prompt it once and
+then it delivers a full-blown feature
+set based upon that. Tested with
+quality, very few mistakes. Um it it's
+honestly been the most impressive thing
+I've ever seen. And and before it went
+away and I actually got a little bit I I
+didn't make any videos in its absence.
+um on AI because honestly it was a huge
+letdown [laughter]
+you know to have to have a model that
+powerful and and in my opinion by the
+way the only person that can be blamed
+for this as anthropic themselves. A lot
+of people don't want to point the blame
+at them. They were saying that Fable and
+Mythos were so dangerous that no one
+could have them and then they could only
+release them to certain people. And this
+company caused this problem like they
+definitively caused people to not be
+able to use their models because they
+were and and then of course they had you
+know vulnerability issues in terms of
+you know prompting it to do things that
+it wasn't supposed to be able to do and
+um and what's funny is other models had
+that same problem and they were able to
+showcase that to the government but to
+save face they put even more
+restrictions on this model which is why
+I think that person who is of Chinese
+descent or of Asian descent um is
+getting [clears throat] targeted with,
+you know, with with degradation of the
+model because that is a thing that
+Anthropic openly admits that they do
+that they will dumb the model down
+without even telling you in certain
+circumstances because they don't want
+distillation attacks. They don't want uh
+bad actor attacks. And this person was
+like, "Hey, I'm using it for like
+website development, which is something
+that I do, right? My whole website, Toby
+Fitness Tack, was built through AI.
+Obviously, it's a whole bunch of a QA
+process of me going back and forth, but
+it was built using my AI system. And uh
+that individual
+was, you know, was was um
+w was, you know, saying, "Hey, I'm just
+using it for website work, but what if
+your website uh work was actually just a
+front to try to distill the model?"
+Right? So, like there's going to be a
+whole lot of fuzzy matching on this. And
+I'm not terribly shocked that that is
+that is a thing that happened to this
+user. And my speculation would be it's
+because
+of of their their targeting around that.
+But yes, Fable, in my opinion, is the
+best model. Uh GBT 5.6 should be coming
+out soon, and I'm pretty excited to test
+that versus Fable. That's where I pay
+for a larger subscription. And you can
+see already since Fable's return, I have
+I've gotten to 52% of the usage that I
+have available for that, which is 50% of
+your total model usage. If you didn't
+know, um the way the way they're doing
+it with the Fable return is we only have
+I believe actually until next Wednesday.
+We don't have much time with Fable
+before it goes only to API pricing. And
+and I'm on I'm on the pro plan, right? I
+paid yearly for it. And that's that's a
+decent value. I would have switched it
+had Fable been around and there wasn't
+GPT56 on the corner, which sounds like
+it's also Mythos class. Um, so it
+doesn't make sense for me to
+especially when they're going to remove
+this. We know that when GPT56
+rules out to everybody, they're probably
+not going to gate it the way that
+Anthropic gates things. Uh, that so my
+personal opinion is yes, this is the
+best model. I'm pretty excited to see
+GBT56. I'm finally excited about AI
+again. For a while there, I wasn't very
+excited because there just wasn't new
+models coming out and the moon new
+models. Now, by the way, the future
+preference, the future precedent on this
+is bad for our government to be meddling
+in making decisions around who gets what
+model. Not in decisions of whether the
+model is safe to be released. that I can
+understand. But to make decisions around
+which companies or individuals can use
+the model after its release, I think is
+absolutely a bad precedent um it should
+be
+they should not be doing that. They
+they're they're picking winners, right?
+This is how we've gotten government
+monopolies in the past is the government
+picking winners. that's not the business
+they should be in in this case uh with
+specifying who the model can go to. It
+should in my opinion actually be the way
+Trump originally said it where it's open
+to all US citizens.
+Um you know and if he wants to specify
+not of foreign descent, I don't think
+that makes any sense. I think it should
+be all US citizens, right? If you're a
+US citizen, you should have access to
+the latest models. I don't think you
+should be putting that kind of specifier
+on it. But, okay, let's just say you
+decide to put that specifier on it.
+That's fine. That's, you know, a thing
+that you can do. It's weird and I don't
+like it. But these models should at
+least be open to US citizens and we
+shouldn't be picking winning companies.
+That's my personal opinion on this that
+it's a really bad resident to do that.
+So, yeah, we have so we have this back.
+I think it's the best model out there.
+My personal opinion is everyone should
+go out and try Fable. I see online where
+people say local LLMs are just as good
+as Fable. That's wrong. They're not.
+Like Minia, like this person was saying
+Miniax M3 is just as good as Fable.
+That's not true. Like I'm a huge Miniax
+M3 fan. You saw in my last video where I
+was talking about Miniax M3 and how
+incredible it was and what it's capable
+of. I still have the Miniax. So the
+Miniax application, which is actually
+pretty good. surprisingly good.
+So, Miniax Code, their application is
+actually surprisingly good. Uh, if I
+pull it up here. So, um, you can see I
+haven't used it as much in a while
+because I haven't been building quite as
+much uh, with that system, but yes, this
+Miniax uh, this Miniax code is actually
+a pretty good. And then Miniax is also
+inside my Hermes agents. I was using it
+but I switched over to GPT for both of
+my Hermes agents. I'll talk about them
+in a little bit but to say miniaaxes and
+they're using the thing is they were
+also comparing apples to oranges. They
+were using miniax inside Hermes
+um and then they were using fable inside
+cursor one fable inside cursor makes no
+sense. like that's not the logical
+choice there. Especially because I think
+you're losing its recursive loop
+capabilities that it has inside of cloud
+code. So the thing you notice inside
+cloud code is you put a prompt into it
+and then it will sit there and like it
+seems like what it's doing is it's
+actually gathering all of the
+information it can locally and running a
+whole bunch of tool calls locally. Then
+it's going out with all of the
+information it surfaced back to
+anthropic
+using a ton of tokens coming back with
+with a result and then checking the
+result again which I think inside cursor
+the fable model is not going to do as
+well as inside their own harness. So, I
+think it was a a very unfair comparison
+to to go inside of Hermes with Miniax M3
+where uh Hermes has a a recursive loop
+of learning. So, as he's been making
+requests, Hermes is learning and
+learning and learning on top of what the
+LLM itself can do. And so, Hermes is so
+his Hermes is actually farther along in
+its development. And cursor doesn't have
+any I don't believe cursor has any of
+these capabilities. It was built as a it
+was built as a coding tool, right? As a
+as a basic coding tool. So you're
+looking at two, you know, it's an AB
+comparison. And the person is also, you
+know, of Asian descent, which I think
+may have been and he was also
+speculating that it may actually be
+giving him worse results than it should
+be. But in terms of in terms of
+capabilities, this Fable, first of all,
+running Miniax M3 on I don't even think
+the weights are available yet to run it
+locally.
+But even when they do become available,
+you're going to have to have some
+serious hardware that even I don't have.
+And speaking of hardware, like I do have
+decent hardware. So I have an M3 Ultra
+with 96 gigabytes. I have uh the GX10
+which is actually the the ASOS G GX10
+which is actually um which is actually a
+uh that's a DJX Spark and this is the
+exact model that that is the DGX Spark.
+So that's and I finally have that loaded
+into my Exo configuration. So all three
+of these uh together are running qu3
+coder and it's actually incredibly fast
+to communicate back and forth with quen
+coder next inside of this exo
+configuration. I've been really
+impressed with it so far, but realize
+this is not the primary daily driver of
+anything. It's uh it's, you know, GPT
+uh 5.5
+and and Fable, right? Those are the
+primary drivers. Um,
+so that that's where I'm at with that.
+So, let's actually go over LLMs versus
+tools, right? So, that was the next
+thing that I wanted to talk about is
+what is an LLM's role and what is a
+tools role because of this argument
+online that I just thought was
+absolutely crazy.
+So a user was saying WAN and um LTX
+these are these are LLMs that are
+designed for creating video and images I
+think mostly video from images but these
+are specifically LLMs right and they
+were saying that these things could edit
+videos no that is a tool call to
+something called ffmpeg typically I mean
+there's many different tools that you
+could use but ffmpeg is the common open
+source tool. One thing is the the base
+foundation. We have to start at the base
+foundation. the base foundation of uh
+Hermes agent, openclaw, all of these
+powerful uh you know even codeax,
+anti-gravity, miniax code, all of these
+things you know claude code the base
+foundation of these are actually a bunch
+of open source tools that have been
+built throughout the years um alongside
+proprietary tools right let's not
+exclude those but open source and
+proprietary tools that people have built
+throughout the years to do a bunch of
+functionality
+So, the LLM is not editing the video.
+It's not chopping it up into segments.
+It's not splicing things into the video,
+right? It's doing the thought process of
+where to put the text on the screen.
+It's doing all of these thought
+processes. So, the thing that the human
+would normally do with these tools in
+the past, the LLM is actually powering
+those pieces, right? So for example, a
+good thing to think about is if you go
+into codecs, right? And you ask it
+something where it has to go to a
+website, it will actually go to the
+website and take pictures of screens and
+then analyze those pictures to try to
+figure out where to move the mouse
+cursor to click, right? And you can see
+those um visual representations of what
+it's actually doing behind the scenes.
+So, what it's doing is it's screen
+capturing, reading the information off
+the screen capture, then figuring out
+where to move the mouse, and then doing
+that. This is all a whole bunch of tool
+calls, very complicated tool calls on
+your local system. So, your local system
+is hugely important for these AI
+systems, right? And this is why these
+harnesses have become so important and
+so powerful. And also, what's on your
+system is very important. This person
+didn't realize that his harness is
+downloading all of this stuff to his
+machine to make these videos happen.
+Right? If you're making a video and
+you're doing it strictly using Fable or
+strictly using uh you know codeex or any
+of these, it is pulling down a whole
+bunch of things to make that happen. And
+that was kind of the aha moment with me
+with Open Claw very early on pointing it
+way back in the day at one of the
+earlier opuses. Right. Right. So I had
+well actually before that sorry when I
+very first started I started with a
+Google subscription. So I started with
+Google pointing it at a because I
+already had you know everyone has
+there's even a free tier of Google where
+you can point that and they've kind of
+nerfed it to where it's almost unusable.
+But you could take that free tier and
+point it at OpenClaw and back then the
+it wasn't extremely restrictive. you get
+quite a bit of usage and you could use
+the Gemini model and it was unbelievable
+to see it pull down and install all of
+the things needed to get I forget what I
+oh I can tell you what I was asking it
+was the very first version of my fitness
+tracking system. So, the very first
+version of my fitness tracking system,
+it pulled down all of the things it
+needed. GitHub repos,
+um,
+uh, GitHub repos, Garmin's Garmin
+Connects API, uh, it pulled down all of
+these things and and, and actually,
+let's go through them one by one because
+I think it's important like this user
+was online talking about how it's all
+LLMs and it's like, no, no, no, no, no.
+There are so many other pieces of the
+puzzle. So what you have in inside of
+any of these agentic workflows nowadays
+is you have the combination of the LLM
+which people think of it as the brain
+right I do not think of it as a brain
+right I think of it actually as the
+heart right because without it blood
+doesn't flow anywhere so people think
+brain I think that's wrong right I think
+that's absolutely I think the LLM is the
+part of the operation, right? It's the
+blood flow. It's the I if you have if
+you have a bad heart, you know what I
+mean? Then everything is going to fall
+apart. Um but if you have a functional
+heart, then everything will go very
+well. And in fact, the heart analogy is
+even more important than people realize
+because think about it this way. If you
+have a heart that can pump a lot of
+blood, right? So think about um Fable is
+a great example of it. Uh chatgbt55,
+right? These are things that especially
+on the cloud with high inference, right?
+With high connectivity, high high speed
+transfers, right? Uh these things can
+pump a lot of blood through very quickly
+and you can get a lot of information and
+and you can do a lot, right? But if
+you're saddled with a local model that
+isn't running like like my local model
+is where it's distributed across three
+machines and it's using the GX10 for the
+prefill and then it's going out to
+these, right? Like like my local model
+is going to run very very quickly with
+this type of setup. It just is right. I
+mean, this is a this is a very
+um this is a much smaller model than
+what I would be capable of running with
+this setup. However, it's a model that
+can give me very very fast responses.
+But if you load this thing up with um
+let me pick one of the models that I
+can't even do, right? So, if I tried to
+load up GLM4.7
+or Miniax 25, right? One of these these
+higherend models. If I tried to load one
+of these bad boys up inside that, you
+know, one, they're they're going to
+fail. It's going to crash, right? I'm
+going to have to unload a lot of memory
+to to make that happen. But two, it's
+going to be very very slow, right? And
+that's your heart not being able to pump
+enough
+through it. So you have this, you have
+the LLM, which is the heart of the
+operation, and then you have what I
+consider to be the brain of the
+operation. So the brain is actually the
+harness. So people are wrong. So my
+opinion is the harness is actually the
+brain, right? And what and and and also
+like the the father like I was listening
+to the father of LLMs
+in his argument and and this is I think
+actually the most salient point why LLMs
+cannot ever be the brain and in fact
+these companies who are trying to do
+this are going to fail. So realize they
+will fail if they believe that the LLM
+itself is a brain of the operations. And
+I don't believe anthropic or open AI
+actually believe that. I think it's just
+us in our simplicity in our in our not
+understanding how this technology works
+as individuals. Us oversimplifying the
+technology has allowed us to believe
+that the LLM is a brain and it's just
+not. and especially because it is the
+most humanlike
+uh piece of this, right? The LLM is
+actually the most humanlike in that it's
+trained on human data, right? It's uh
+but it actually has the least amount of
+animalistic and humanideed humanoid
+capacities. And that was actually the
+one of the the founding fathers of LLMs
+was talking about this directly. And
+what he was saying specifically is an
+LLM can never uh can never produce AGI.
+And his argument is because LLMs do not
+have goals
+and LLMs do not have uh
+what's the other thing? So sorry, goals
+was the main one. And uh let's just
+start with goals, right? Because LLM
+cannot have goals and that is actually
+fundamentally true. An LLM on its own
+cannot have next token prediction does
+not have a goal in mind. Right? So a
+true humanistic
+uh long form goal, right? However, a
+harness can have a goal, can be given a
+goal, can retain that goal, can have a
+memory structure. The harness is the
+brain. So realize that in this world of
+LLM, the harness is actually the piece
+of this
+uh technology
+that gives it the brain-like function,
+right? So you have this thing that
+actually is the brain, right? And I
+think that that's very very important
+that we have the LLM, we have the
+harness, and then we have these tools,
+right? And what do I mean by tools?
+Well, the tools are actually like ffmpeg
+um you know all of these different
+pieces of software that run on your
+machine. Those are all tools, right? So,
+this is software on the machine
+and these are being called in
+conjunction by the harness who has
+access to them and the LLM who is
+actually deciding what to call, right?
+and in some cases deciding what to
+install on the machine to be able to
+call which which is mind-boggling that
+it it has this capability right so we
+have uh tools
+so those tools
+are are fundamental and you can think of
+them as um well they're tools right so
+you know we have a heart we have a brain
+right and then the human itself has has
+tools Right? We have hammers, we have
+knives, we have matches, right? We have
+all of these, you know, we have fire,
+right? That we've created uh through
+through the use of tools, right? So this
+this is this is a powerful component and
+understanding that these are components.
+We also have these things called APIs or
+MCPs, right? So we have these different
+interfaces. So an API is just an
+interface to talk with data, right? And
+I I wanted to bring up APIs in
+particular because another argument that
+I got into is someone wants an API for
+their Speediance data. So Speediance is
+going to launch later this year an API
+for their data and this person is
+waiting to build anything on top of
+their technology on top of you know on
+top of their systems until this API
+comes out. APIs in the modern era are
+dumb. Like I'm just going to say that
+APIs are dead. Like APIs uh right now we
+have MCPs. Those are also probably going
+to die. Like none of this stuff is going
+to be necessary in the future. All we're
+going to need to be able to do is use
+tools to get to endpoints to grab data.
+Um as long as we have access to the
+endpoints, we will have access to the
+data. That's always been my principle.
+Like APIs are great, right? in terms of
+like giving you an understanding of how
+to call data but functionally at the end
+of the day it's always about calling
+data and getting data right I don't care
+whether I have an interface to tell me
+how to get the data or not as long as I
+can get the data right so that's where
+uh with speed in particular a user had
+reverse engineered
+um basically the the mobile apps
+endpoints and have a way of talking to
+the mobile apps endpoints to be able to
+get all the data that we needed, right?
+That's how this is working. And my fear
+is Speedian is going to shut that down
+when they build this API and give us
+less access to our own data. And I'm
+going to flip out when it happens. I
+mean, because it will happen. And this
+user is waiting for this. And he listed
+off all of these things that you can do
+with the API. It's about a tenth of what
+I do today. That's what's mindboggling.
+So his entire list of what they could
+possibly deliver with this API, by the
+way, it might not be that comprehensive.
+We don't know what they're going to
+deliver. So he's speculating on what
+they could deliver and that's very much
+not the case. And we see that with, you
+know, I I'm I'm going to be a little bit
+frustrated with Whoop in particular.
+Whoop has an API. That API is not
+comprehensive. So there is a list of of
+features inside the Woo inside the Woo
+platform that you cannot access via the
+API. Now I think I now have ways of
+accessing that information if I would
+want to. Um I'll go into detail on those
+once I actually do it if I decide to do
+it. But one of the things you can't
+access is the uh steps data. So it's
+just not there in the API. And there's
+no way to access your steps data on your
+device because it's not in their API and
+I don't have the ability to call the
+endpoints directly like I do with speed
+speeds. Um there is I think there is
+another workaround that I could use.
+I'll talk about it briefly, but um they
+now have a
+Whoop web app that runs through their
+Whoop um artificial intelligence system
+that allows you to upload like it's it's
+meant for uploading, but you can also
+use it to ask questions. And I could
+actually have it so that um my Hermes or
+OpenClaw or Codeex, right, goes in and
+asks the question every day of giving me
+my steps data and and reads the steps
+data and inserts it into into Arya's
+system. So realize that like there's all
+kinds of workarounds to getting at the
+data that you want. And that's kind of
+what I wanted to highlight that in a
+world of AI, getting our data is pro
+well, it's always been the most
+important thing. Getting getting access
+to your data has always been the most
+important thing for me. Um when when
+there's specific things that I want to
+build, but in this case, I I also wear a
+Garmin and the Garmin API has the steps
+data. Um so I just, you know what I
+mean? I I just use the Garmin steps
+data. The only problem is if I forget to
+wear the Garmin uh every now and then
+I'll take it off for some reason like to
+charge it or um or to lift. So both of
+those I take the Garmin off and I won't
+have the steps data and all of a sudden
+it'll show no steps for the day or uh it
+doesn't autosync at night sometimes uh
+like the Whoop does. The Whoop's API
+constantly has the latest data uh
+because it's constantly syncing back and
+forth to the server. it doesn't have the
+kind of internal memory that the Garmin
+has. And so, uh, that's a both a pro and
+a con, right? The pro is the Whoop API
+always has the latest data. The con is
+the Garmin is a lot smarter of a device
+in and of itself. So, if you lose
+network connectivity for days, you'll
+still have data. You'll still be getting
+daily suggested workouts, all that kind
+of stuff will still flow through because
+it's all one device. So these are two
+different types of devices and that's
+that's another big thing that I'm
+actually glad I'm talking about because
+the other big thing is
+devices right so devices as in the local
+computer devices as in the the IoT
+internet of things devices that you have
+devices are going to be a very very uh
+you know powerful set of this equation
+right so you have your LLM you have your
+harness you have tools that sit kind of
+alongside the harness like these go
+these go in here, right? This goes in
+here and then you have these devices,
+right? So these devices are uh anything
+that you're connecting to, right? So
+devices are kind of like the limbs,
+right? So if we were making this
+analogous to a h human um tools are
+actually tools, [laughter]
+right? APIs are just uh descriptions of
+things that to make to make it easier
+for the brain or easier for the heart to
+to use, right? So easier for the brain
+to understand and easier for the heart
+to actually use. So these APIs would be
+like,
+you know what I mean? Be like uh
+you know things in your body that like
+like a muscle something like that. But a
+device is, you know, devices are like
+your limbs, right? They are they are the
+they are the
+uh they are the thing that is going to
+allow you to to to make this all matter,
+right, in the end of the day. And that
+could be your your local physical
+hardware, right, that it's running on.
+That could be uh the devices that you're
+connecting into it to to read data off
+of. you know, it could be any sort of
+device, right, that you're using. So, I
+wanted to go over that very, very
+briefly. Uh, not that briefly, but I
+wanted to go over this uh just as my
+concept around LLMs versus tools.
+Now, let's talk about specific
+harnesses, right? So, we have harnesses,
+right? And I wanted to talk specifically
+about Google Anti-gravity because of the
+harnesses, I actually think it is the
+I'll just be honest with you. I think
+it's the worst of these harnesses in
+terms of overall capabilities,
+but also it's kind of amazing that this
+comes with decent amounts of usage with
+their with their pro plan. And I
+honestly think this pro plan
+is unbelievable, you know. So if I go
+where is it? Where did they move this
+to? So it's going to be models.
+Yeah. So they put it in models.
+[laughter]
+Sorry, trying to find where they put
+this thing. They made the look of this.
+These things are constantly changing
+like look and feel. But this Google AI
+Pro plan um you can see they say upgrade
+to to receive higher limits. I found
+when I was on the Google AI Ultra plan,
+which I did try at one point in time,
+the limits were downright terrible.
+Like, they were not impressive for what
+it was. So, I was really disappointed of
+all of these ultra plans, these $200
+plans, because I've now had all of them,
+right? I had the Codeex $200 plan at one
+point in time. I had uh Google's $200
+plan, and of course, I had Anthropics
+$200 plan. of all of them, their ultra
+plan was terrible. Um, but I really was
+sad whenever I got rid of it because I
+lost the adree YouTube capability and
+upgrading to Google AI Pro gets you back
+the adree YouTube capability. So, even
+outside of you can see I barely used uh
+my model quota for
+for uh anti-gravity. I'm I'm not using
+it in the way that I use like you can
+see my claw my claude usage or let's go
+into the codeex usage right so if I go
+that's a wrong one back settings usage
+remaining so I'm at 98 but I'm at 84 of
+the week so I'm I'm I'm not using AI
+nearly as much as I was in the past in
+terms of the sheer usage because most of
+the things that I wanted to build I have
+built and I'm focusing on my running and
+my jiu-jitsu training I've I've upped
+the intensity of my jiu-jitsu training
+and the amount of jiu-jitsu training. I
+actually put all this information on the
+Tobon fitness tech website. So, I forgot
+that it was all there for a while there,
+but because Arya is doing all this
+automatically and keeping track of all
+this, it's up there. So, you can see my
+BJJ sessions. It's four BJJ sessions for
+the week, which is actually five, but
+one was not tracked, right? So, I'm
+doing BJJ,
+you know, nearly all week and it was two
+last week. I think I actually made it
+three times, but again, one was not
+tracked. Um, which meant that I didn't
+train hard enough to have it track the
+session. But you can see my my running.
+I'm finally back up to the amount of
+running that I would like to do. Um,
+obviously I'm back lifting again. And
+that lifting I'll talk about you know
+briefly in a little bit but backlifting
+uh using a whole new protocol uh that's
+built out using AI. So uh now my
+training is
+uh being done by the Arya system. So and
+you can see the miles obviously I'm I'm
+running a lot more. So uh very pleased
+with the progress week over week. Right.
+I'm I'm still under 10 million pounds
+lifted, but you can see, you know, this
+is all since I started tracking things.
+Just uh you know, I I like having this
+information here. It's probably a little
+bit more information than anyone would
+need to know, but it's you know, it's
+pretty cool to have.
+But yes, in terms of in terms of
+uh Google's anti-gravity, in terms of
+harness itself, it is probably not the
+best one. But man oh man, is this Google
+AI Pro uh especially the week before
+last I I was having some health issues.
+Uh that's why the numbers were so low
+for the week before. So I was having a
+few health issues that I had to take
+care of. And it looks like I'm back I
+mean based upon those numbers, I'm back
+to full health. uh in a way that I
+haven't felt honestly I haven't felt
+this way since I was hospitalized. So I
+made some changes um some medication
+changes and stuff like that actually
+taking more heart specific medications
+and uh all of a sudden I went from
+feeling the worst I felt post
+hospitalization to the best and uh I
+wish I had done it sooner or thought to
+do it sooner but uh it was something
+that when I went to my cardiologist
+and I I'll just give you the story. Um,
+so I went to my cardiologist. They put
+me on blood thinners. Obviously, I do
+jiu-jitsu. Uh, that is very dangerous
+and honestly I
+questioned the whole medical system
+after that because I also had a deviated
+septum. Um, so I had I had a deviated
+septum and they put me on blood thinners
+and I do jiu-jitsu, which meant uh yeah,
+I was getting nosebleleeds for hours
+that wouldn't stop and I was uh and to
+the point where I dialed back their dose
+of blood thinners that they gave me to
+half, which basically makes them
+useless. Uh, go back to the cardiologist
+and I'm like, "Hey, I dialed this back
+in half because I couldn't stop these
+nose bleeds." And they're like, "Well,
+now it's useless. you might as well not
+take them. And it's like, you probably
+should have had the deviated se. By the
+way, the deviated septum is fixed. So, I
+finally went in and had my nose fixed.
+And oh my gosh, if you if you get
+chronic nose bleeds, go and have your
+nose fixed. Just do it. Like, it it took
+maybe an hour. It I mean, it less than
+an hour, you know, in and out. They they
+did the whole thing. Um it was like they
+numb the area. It's basically painless.
+You can smell the burning. I mean,
+that's a little weird. You know what I
+mean? But man, oh man, like like the
+ability to breathe again perfectly. The
+ability to not have to worry about my
+nose bleeding every five seconds when
+I'm doing jiu-jitsu. Like I should have
+had this done years ago. Years ago. But
+um that story aside, yeah, the
+cardiologist didn't recommend any heart
+I I specifically asked them, should I be
+on any heart medications? And their
+answer was no. Uh but when my health
+started really like I started actually
+going back into Aphib at night. Um
+and I didn't because I had a lot of
+stress going on. That's why no new, you
+know, AI videos. Also, that's why the AI
+quotas are still low. I'm getting back
+into the training, but not quite back
+into the AI stuff yet. Uh, not as much
+of it other than playing around with
+Fable to build some new stuff. Um, other
+than, you know, I I spent a lot of time
+with Google AI Pro watching ad for
+YouTube videos. I mean, that ad for
+YouTube is amazing to think that they
+like with this subscription that's like
+10 bucks. Right now I'm paying 10 bucks
+a month and I'm just gonna switch to the
+yearly plan which I forget what the
+numbers are but it's not terrible. I
+think it it's less than $20 a month um
+with their yearly plan. I mean this is
+in my opinion in AI
+if you can only buy one thing
+I mean if you can only buy one thing
+uh even though the harness is the worst
+of all these harnesses like and you
+watch YouTube right like it's got to be
+and you watch YouTube but if you watch
+YouTube content uh
+you know having ad for YouTube on top of
+having a harness that is actually quite
+good. Like anti-gravity is not terrible.
+Uh I honestly think this is the value
+for someone who watches YouTube. If you
+don't watch YouTube, then Miniax M3 is
+is is still But after having that week
+where it was basically downtime and I
+wasn't doing hardly any AI stuff at all,
+having that ad for YouTube at this cost
+plus having anti-gravity, I can honestly
+remove a subscription at some point in
+time. And by the way, the one that would
+get removed, but I paid I I prepaid for
+a year would be Enthropic subscription.
+Um, I'm tempted to downgrade my Kodak
+subscription. Right now, that's still at
+the $100 a month. I do think I could
+drop that down to the $20 a month
+subscription, but I'm hesitant to do it
+just because both of my Hermes agents
+are are running on that right now. But
+I'm I'm tempted to do that also. And I'm
+I'm still going back and forth debating
+about doing that for next month. Uh
+especially because we'll be in full
+training season. So I'll be doing the
+most training I ever do. And it it looks
+like I have pretty much everything down
+as far as
+all the additions that I wanted to make
+to my training system.
+So that's where we're at with this. And
+then Hermes agent. I've switched
+everything over to my Hermes agents off
+of open claw. So almost I mean the open
+claw uh instance is still there on this
+machine but there's a Hermes agent on
+the M3 which is the machine I'm on right
+now and there is a Hermes agent on the
+DJX Spark uh that handles the website
+stuff and various other things. It
+handles the website stuff. It handles
+what used to be project Arya's uh
+fitness tracking and um my agent stack
+daily podcast that I do is sitting here
+on the M3 uh that I by the way the
+reason why that podcast even exists is
+because I wanted to get the daily news
+digested in a way that I I you know what
+I mean I enjoy and so that is actually
+something that I listen to in the
+morning and then publish it out. So, um,
+and every now and then it does a
+terrible job making an episode, and
+that's why there's days where it misses.
+That's why it's not necessarily every
+day. Um, because if I don't like the
+episode, I don't release it. But, uh,
+yeah, I listen to it and then kind of go
+over the stories and um, that that's
+where that comes from. But mo
+everything's being done by the Hermes
+agents. It's just the telegram
+from what's funny is the telegram for
+uh for my open claw is actually still
+heavily used uh for these things. So if
+I go through these telegrams.
+So if I go through these telegrams, you
+can see the um
+the Hermes agent, right? So the Hermes
+agent was so it it published this one.
+So the Hermes agent on this machine just
+published my agent agent uh you know
+agent stack daily. That's what it was
+working on. uh Arya. Uh this is actually
+coming from the DGX Spark. So it's
+coming from this Hermes agent, but I
+still have it publish all of my uh
+information
+to So this is like the morning report.
+So if we listen to this
+>> morning Toby recovery is 76%, HRV 25
+milliseconds, resting heart rate 75
+after 8 hours 6 minutes at 92%
+efficiency. Whoop strain today is 2.4
+and load ratio is 0.9.
+Today's step target is 12,600.
+Yesterday you hit 14,49
+steps against a 14,700 target. Trend
+context recovery 76% versus 71% 7-day
+average 62% 28-day average 34 points
+above this day last year. HRV 25
+milliseconds two above 28-day baseline.
+Resting heart rate 75, two below
+baseline. Sleep 8.1 hours, 1.9 above
+your 7-day average. This 7-day block,
+22,898
+lb lifted, 10.2 mi run, 22.3 BJJ strain.
+Year-over-year, average strain is 9.1,
+down 11% versus this week last year.
+Last year, that same window had 30.7 BJJ
+strain. Recommended training moderate
+volume cardio guidance green light for
+hard cardio if you feel ready. Recovery
+and load ratio both support it. Today's
+a training day. Your body is ready. Make
+it count. Bottom line. Train to the
+recovery signal. Keep the main session
+focused. Fuel it and protect sleep
+tonight.
+>> So after I get done here, I'm going to
+do this training. So the first thing is
+my new workout that Arya now builds for
+me. So this workout is actually built by
+Arya using my system. You can see this
+20 RM. So using the exact cadence that I
+did before Arya. Um but it's choosing
+the workout. It's choosing the exercises
+now. And not only is it choosing uh
+exercises, it's it's also giving me prep
+and cool down stuff, stuff that I never
+did in the past. And oh my gosh, uh some
+of these cool down exercises are
+absolutely brutal for someone who has
+very limited flexibility. Uh I I was I
+was doing them downstairs yesterday and
+I had my wife try to do the arm circles
+workout that it had me do. You're
+basically just sitting uh Indian style
+and you're doing arm circles and I can't
+actually do those because my shoulders
+are so locked up. So, it's pretty uh it
+was pretty funny to watch and she was
+able to do them pretty easily and it's
+like uh this hurts, you know, but I
+think it's useful to do these things. I
+just would never force myself to do them
+on my own, which is why I gave I handed
+everything over to Arya. Whenever I came
+back out of, you know, whenever uh when
+the health issues ended, I handed back
+over to Arya all my all my exercises.
+And I'm using all the distilled
+knowledge that I had from having a
+personal trainer in the past to have
+Arya generate workouts that would be
+similar to what my personal trainer
+would have given me. Uh, and it's still
+a work in progress, but it is definitely
+way better than what I was doing myself
+and way more dynamic. Right? These are
+very dynamic based upon uh how how much
+capacity I have for training,
+you know, based on everything that goes
+into it, right? So, it's basing it ba
+based on my training yesterday. It's
+giving me more 20, you know, RM20
+exercises based upon, you know, how well
+recovered I am. Uh, and how hard I
+pushed yesterday. So, I'm very very
+impressed with what what's happening
+here so far. Uh, and then you can just
+see kind of where I'm at with this
+thing. Uh, but
+that's, you know, but yeah, almost
+everything's moved over to these Hermes
+agents. And I don't know, by the way, if
+I'm going to, the reason why I left Open
+Claw running is because I'm finding the
+same problems with the Hermes agents,
+uh, updates breaking things, uh, Open AI
+not working sometimes inside the Hermes
+agent, uh, in a way that I didn't have
+problems with Open Claw other than one
+update. So, every now and then it just
+seems to break its connection.
+um in a way that I wasn't expecting. So,
+I don't know if I'll stick with Hermes.
+Uh I was impressed with some of its
+abilities. Like, I'm very much impressed
+with its ability to update the website,
+with its ability to uh handle these
+adaptive workouts because that was all
+done on the Hermes agent with a little
+bit of initial prep work with Fable. So,
+Fable did the initial prep work and then
+the Hermes agents been doing all the
+updates to it. So that gives you an idea
+of kind of my workflow for anything
+that's big, massive, and comprehensive,
+it's going to Fable now. And anything
+that is incremental or adaptive, those
+go to the Hermes agents on each machine.
+So if I want a big massive uh agent
+stack daily uh update that ends up being
+a Fable thing, you can see Fable was
+actually making some changes today. uh I
+thought it was going to be a big massive
+change and it turns out it was just a
+bug that it wasn't showing all the
+stories that it was actually uh using
+for me. So it it turns out that it was
+just straight up a bug in my code uh
+where I had 14 stories and it was
+showing me eight or nine of them and uh
+and so it wasn't something that would
+have had to go to Fable. It could have
+been done by the Hermes agent on this
+machine,
+but
+you know that that's something that I
+didn't know until I I prompted Fable
+with it. And then I just let Fable
+finish it and take care of it. But yes,
+uh, you know, the project Arya project
+is still alive, but it's split across,
+you know, two different Hermes agents
+and, uh, two different Hermes agents
+using Fable, using Codex, right? All of
+them are kind of in in concert doing
+this work together.
+And uh and in terms of my own personal
+fitness, uh I think finally, you can't
+see it anymore, but I had a a a massive
+black eye also from a a headbutt.
+[laughter]
+So, an accidental headbutt in jiu-jitsu.
+I think it's finally going away, but it
+it was there for two weeks. So, I got
+clipped right above the eye and the
+whole thing turned black and blue. Um
+but you know, that kind of stuff happens
+in jiu-jitsu.
+And uh yeah, so so in terms of my own
+personal fitness, I'm feeling good. Um
+you can hear where last year I was a
+little bit fitter than I am this year at
+this point in time, but with everything
+I went through, you know, um
+being able to to to finally like post
+hospitalization,
+I was telling the cardiologist, I don't
+feel the same. And I told my primary
+care physician, I don't feel the same as
+and I can't push as hard as I used to.
+Like what'll happen is my heart rate
+will get to 155 and then I'll just quit
+during runs and every now and then it'll
+happen during jiu-jitsu too where I will
+cardio tap and uh it's it's noticeably
+when my heart rate hits 155. Wearing all
+these trackers, I can see that. But my
+my max heart rate is 180. So why am I
+quitting at a 155? And they all said it
+was mental. Well, I started taking heart
+medication specifically and uh all of a
+sudden I could hit my m max heart rate
+again. My heart rate is the limiter now
+on these runs and my whole body would
+feel like it was shutting down at 155
+and that is not the case now. Uh could
+be placebo. I mean the doctors could be
+right. Um you know taking and by the way
+you're wondering well if your general
+practitioner didn't give it to you, if
+your cardiologist didn't give it to you,
+who gave it to you, right? Um, and
+honestly, I went to Algo RX. Um, not
+sponsored in any way. Um, but I listed
+the symptoms and, uh, they sent me the
+medications, right? So, uh, and and
+there's other sites that do this, but
+basically, uh, they have, uh, they I
+don't want to say they rubber stamp
+them, but
+they, uh, as long as there isn't any
+major contra indications, they will, I
+mean, if we look at their site, they
+will they will they have prescription
+medications. Um, I'll pull it up for you
+guys just so that you can see it. So
+again, not sponsored in any way. There's
+other sites that do this. Uh these these
+guys might not even be the cheapest one,
+but um you know, for what I needed. I
+didn't really care about cost and I
+didn't really feel like trying to find
+it on the underground or anything like
+that, anything crazy. I just wanted to
+order the thing, have it compounded and
+shipped. And so uh here's here's the the
+medications and in particular the the
+medication I'm talking about is a
+zettoide and
+neol. So those are the the medications
+that I'm talking about in case you're
+wondering what what I was talking about
+heart medications. Those are the two
+medications. And again these are
+prescription medications. These are not
+something to take lightly. These are
+something to talk to your doctor with. I
+just happen to have two doctors who said
+it's all in your head.
+and I haven't felt the same since being
+hospitalized
+and uh I reached out to these guys. They
+approved the medications and I'm kind of
+trial running them. Um and then I will
+talk to I will talk to like a physi not
+my primary care that I have now but I'll
+probably talk to um
+I'll probably talk to my uh
+endocrinologist about it next year. I
+know that's a long time, but basically I
+got 150 days worth of medication
+anyways. So, I will talk to them uh when
+I next talk to them just because
+uh they're the only ones that So, when I
+said it, two of the doctors said, "It's
+all in your head." Um the
+endocrinologist ran some additional
+tests and said, "No, something's wrong,
+but I have no idea what and it's not my
+area of expertise. I'll send you to a
+cardiologist." I'm like, "Been there.
+They said it was in my head." It's like,
+"Oh, well then I don't know where to
+send you, you know. I don't I don't know
+where to send you." So, uh, this is this
+is a a massive problem in in our
+healthcare in in the US, right? Uh,
+because something like that, it could
+just be in my head. It could be placebo
+that these medications are working. But
+I can tell you, I feel like me again.
+Like this this, you know, five runs, 10
+miles versus 1.3 miles the week before.
+Um, my my runs are two minutes per mile
+faster than they've been in the past
+year. So, and the only time I had cardio
+like this, I was I I had given up
+basically doing BJJ altogether to be
+able to do the running. Like, usually
+one of these things has to slide. And
+you can see this week I was able to do
+all of them, right? Have BJJ sessions,
+have running sessions, and have I mean,
+not as much lifting as I'd like. I'd
+like that to be 50,000 pounds plus. I
+mean, I can hit way more lifting than I
+have been doing, but I'm easing into it
+and trying to make sure that like these
+Arya lifting workouts are restorative.
+So, a lot of like even if you look at
+what it gave me for today, if we go back
+into the Telegram
+and you know what it gave me today,
+right, it it's a lot of 20RM stuff,
+right? So, a lot of 20 RM lifts, which
+are kind of recovery lifts, but then it
+has a couple key
+lifts that it puts in there. So, I'm
+really liking these ARA workouts. Uh,
+we're keeping it minimal for right now
+so that I can focus on jiu-jitsu and
+focus on running, but that's what I'll
+be doing after this. And just wanted to
+thank everyone for their time. I really
+appreciate it. uh you know the these
+these uh
+and I want to thank all the subscribers.
+I mean I have more subscribers than I
+ever expected to have to be honest with
+you. And I just really appreciate
+everyone who listens and watches and uh
+gives me feedback, you know, of things
+that they'd like to talk like me to talk
+about. Every now and then I'll get a
+feedback item and think, "Oh, well
+that's actually a pretty good topic to
+talk about." So, if you have anything in
+particular that you want me to talk
+about, anything on the speeds, anything
+on AI,
+uh any any of my views that you would
+care about, you know, there's there's a
+lot of things that I have viewpoints and
+opinions on. You can tell uh especially
+around around AI and fitness, right?
+Those are those tend to be my lane. Um
+even on the jiu-jitsu front, right? I'm
+a jiu-jitsu brown belt, but I don't I
+don't have I have opinions on some
+things in in the jiu-jitsu space, but
+I'm not, you know, I am I I've relegated
+myself to the lane of hobbyist jiu-jitsu
+practitioner. And I always thought about
+like why do I do jiu-jitsu? Because, you
+know, it inevitably comes up because you
+have these injuries that, you know,
+people are like, why are you doing this?
+You know, a good example is uh two of
+the people that were in the line, you
+know, I I pick up my kid from school and
+uh two of the kids two of the people in
+line were like, "Yeah, I feel the best
+I've ever felt, you know, like at their
+ages and they're both in their 40s and I
+I'm 39 and I'm like, I feel like I'm
+destroyed and I can barely walk today."
+It was after a hard jiu-jitsu training
+session and just everything hurt and and
+and and also at the time I had a broken
+finger so that was fun. I had and I was
+still training. I just tape up the
+finger and continue to train with it.
+And they're like, "Why would you do
+that?" You know what I mean? And uh I
+don't have a great answer for it to be
+honest with you, but I can tell you
+there was a point in time that I was
+thinking about quitting doing jiu-jitsu
+altogether.
+And uh one of my buddies at jiu-jitsu
+kept reaching out to me over and over
+again being like, "Why are you not
+here?" Right? Because I I am one I at
+the time I was still one of the upper
+belts, right? I'm a brown belt at the
+end of my brown belt now. And at the
+time I was
+I was just becoming a brown belt and I
+didn't feel like I deserved the brown
+belt which was part of the problem. And
+I was trying to work on getting the
+leanest and fittest I've ever been. So
+you know at that point in time I was
+like uh you know I was not making it a
+priority. I was trying to that was
+during that whole weight loss uh journey
+of going down from 250 the whole way
+down to 188 pounds, right? That I
+document on my website and I you know
+and I kind of document it everywhere.
+Let me see if I can find the So here
+here was 230. This is so I realized I
+was 250 pounds at one point in time. I
+wouldn't take the picture anytime I went
+above 230 lbs. Like like this was
+disgusting. But realize I look more
+disgusting than this. So like realize
+that's what I look like at one point in
+time. And you can actually see um like
+you can see my weight, you know, my
+weight over time. It fluctuates greatly.
+I'm going to have to have this actually
+updated to to show my weight now because
+guess what? It's going back down this
+direction. So I'll have that I I'll
+actually have that updated just so that
+people can see it. Um but in these
+progress pictures, right, you can see
+Right? You can see kind of where I ended
+up like February 2026.
+What's wild is look, this is 230 pounds.
+And that's what I wanted to show is like
+these are the same weights, right? But
+realize this is three years of strength
+training consistently, right? To go from
+that to that at the same weight. Um
+they're just wildly different people,
+right? And the goal is to get to looking
+right now. I'm,
+you know, 217 and I look closer to
+somewhere between these two pictures,
+right? A little bit better than this
+picture. H about like this picture, but
+with you can see the sides going out.
+But like if we were critiquing my my
+current weight, um it's just
+this, you know, this transformation was
+massive. And at the time I I really
+thought about quitting jiu-jitsu because
+every time I would go into jiu-jitsu, I
+would get banged up and I would get
+moved not as far in this progression
+chain. So, it was really detrimental to
+my ability to bodybuild at the time. And
+it's it's really bad in terms of in
+terms of and you can see this has me at
+over a million pounds. And it's because
+this guy or or one Yeah. 1 million
+pounds. This adds in a bunch of lifts
+that were done off both devices. So
+that's why this number is so much
+different. Um might want to upgrade this
+so that just so that the numbers match
+on both places. Um but that's something
+that's something that I can have have it
+like have it actually look at and do.
+But um you know my favorite is my wife
+took a look over this and I put 6 months
+no excuses and she's like well you might
+not have had any excuses but you had a
+lot of complaints [laughter] like
+realize to do this like it it was it was
+hard on the family for me to do this uh
+for me to do this transformation. This
+was not easy on the family and was not
+[laughter] and I was not a nice person
+while I was trying to lose that much
+weight that quickly. It was it was it
+was definitely uh stressful. But I knew
+I needed to get the weight off so that I
+could slowly put it back on with more
+muscle and uh but yeah, I I thought
+about quitting and my buddy who was
+there, you know, kept coaxing me back
+and coaxing me back. Well, I had a tree
+fall on my property and he was over
+today uh helping me cut up the tree so
+that it would be off the sidewalk. Uh so
+that at least people could, you know, at
+least people could, you know, come and
+and it's just the the rel what I'm
+getting at is the relationships that you
+make in jiu-jitsu. Um it's one of the
+few places where you can form
+relationships with people that are
+meaningful and impactful as an adult.
+Uh, of course you could do something
+like uh, you know, you can you can do
+that at church. Um, you can do that at a
+bunch of different places, right? There
+are, but like
+um, but it's just one of the few
+activities you can do like where it is
+cardiovascular in its nature. Um, and
+it's not a revolving door of
+individuals, right? One of the biggest
+problems is uh you know anytime you've
+gone into any kind of like
+other other thing you know a lot of
+those people come and go very very
+quickly whereas jiu-jitsu people tend to
+stay for a long long time right I've
+been at the same gym for
+seven years or so now something like
+that and it's not like people hop
+jiu-jitsu gyms uh with no meaning or no
+like like there's a real reason if
+someone switches which is jiu-jitsu
+gyms. Whereas anything else in life, you
+know, if you're doing like yoga or
+anything like that, you could go to a
+new yoga facil facility any time, it's a
+little bit more structured around who
+your coach is. So, I guess what I'm
+getting at is it's, you know, for me
+it's the people, right? It's actually
+the people of jiu-jitsu that makes me
+continue to do it. And I had to have a
+deep thought around it. It's not the
+training. It's not uh
+it's not,
+you know, I enjoy it. I think it it's
+mentally it's it's a combination of
+physically stimulating and mentally
+stimulating. Jiu-Jitsu is uh so it has
+both aspects of mental and physical. Um
+and and and the combination of the
+people, right? I actually enjoy the
+people that that I meet and they're all
+focused around
+becoming
+stronger, faster, better. Like they're f
+the one thing at church is you're not
+going to have like you'll have people
+focused obviously on becoming more
+spiritual, right? Which is meaningful
+and impactful for a lot of people, but
+you won't get people who are trying to
+better themselves athletically,
+right? Th those will be rarer and
+smaller subsets of that population.
+whereas everyone who's at jiu-jitsu is
+trying to better themselves physically.
+Anyways, that was all I had for today.
+Uh, little bit of AI, a little bit of
+jiu-jitsu, a little bit of kind of
+everything that I cover. Uh, thank you.
+I really appreciate it. Um, let me know
+if there's anything else you'd like to
+hear about. Yeah.

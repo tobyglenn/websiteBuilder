@@ -25,7 +25,9 @@
     "translate:priority-pages:validate": "node ./scripts/priority-page-translations.mjs validate-output",
     "build": "npm run snapshot:fitness-podcast-feed && TOFT_FITNESS_PODCAST_FEED_SNAPSHOT=.cache/fitness-podcast-feed.xml astro build && npx pagefind --site dist && npm run audit:indexability",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "transcripts:sync": "python3 ../scripts/sync_and_translate_video_transcripts.py",
+    "transcripts:translate": "python3 ../scripts/translate_video_transcripts.py"
   },
   "dependencies": {
     "@astrojs/react": "^6.0.2",

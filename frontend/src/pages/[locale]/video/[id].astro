@@ -1,0 +1,41 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import VideoPlayer from '../../../components/VideoPlayer.jsx';
+import VideoTranscript from '../../../components/VideoTranscript.astro';
+import { VIDEOS } from '../../../data/mock.js';
+import { getVideoTranscript, videoTranscriptLocales, videoTranscriptPath } from '../../../lib/videoTranscripts';
+export function getStaticPaths() {
+  return VIDEOS.flatMap(video => videoTranscriptLocales(video).filter(locale => locale !== 'en').map(locale => ({ params: { locale, id: video.id }, props: { video, locale } })));
+}
+const { video, locale } = Astro.props;
+const transcript = getVideoTranscript(video, locale);
+const copy = {
+  de: { videos: 'Videos', original: 'Originalvideo und englisches Transkript', heading: 'Deutsches Transkript' },
+  es: { videos: 'Vídeos', original: 'Vídeo original y transcripción en inglés', heading: 'Transcripción en español' },
+  pt: { videos: 'Vídeos', original: 'Vídeo original e transcrição em inglês', heading: 'Transcrição em português' },
+  hi: { videos: 'वीडियो', original: 'मूल वीडियो और अंग्रेज़ी प्रतिलेख', heading: 'हिन्दी प्रतिलेख' },
+}[locale];
+const path = videoTranscriptPath(video.id, locale);
+const original = videoTranscriptPath(video.id);
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'VideoObject',
+  '@id': `https://tobyonfitnesstech.com${original}#video`,
+  name: video.title, description: video.description || video.title,
+  thumbnailUrl: video.thumbnail, uploadDate: video.upload_date || video.published_at,
+  ...(video.duration_iso && video.duration_iso !== 'P0D' && video.duration_iso !== 'LIVE' ? { duration: video.duration_iso } : {}),
+  inLanguage: 'en', url: `https://tobyonfitnesstech.com${original}`,
+  embedUrl: `https://www.youtube.com/embed/${video.id}`,
+};
+---
+<Layout title={`${transcript.title} | ${copy.heading}`} description={`${copy.heading}: ${transcript.segments[0].text}`.slice(0, 160)} image={video.thumbnail}
+  lang={locale} translationBase={original} translationLocales={videoTranscriptLocales(video)} jsonLd={jsonLd}
+  breadcrumbs={[{ name: copy.videos, url: `/${locale}/videos/` }, { name: transcript.title, url: path }]}>
+  <article class="container mx-auto max-w-4xl px-4 py-8">
+    <a href={`/${locale}/videos/`} class="text-sm text-blue-400">← {copy.videos}</a>
+    <p class="mt-6 text-sm text-neutral-400">{copy.heading}</p>
+    <h1 class="video-title mt-2 mb-6 text-2xl font-bold leading-tight md:text-4xl" data-pagefind-meta="title">{transcript.title}</h1>
+    <div id="video-player-wrapper" class="scroll-mt-24"><VideoPlayer client:load videoId={video.id} /></div>
+    <p class="mt-4"><a href={original} class="text-blue-400 underline underline-offset-4">{copy.original}</a></p>
+    <VideoTranscript video={video} locale={locale} expanded />
+  </article>
+</Layout>

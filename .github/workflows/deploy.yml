@@ -36,7 +36,9 @@ jobs:
         working-directory: frontend
 
       - name: Validate video catalog generation
-        run: node --test scripts/tests/generate-videos-data.test.mjs
+        run: |
+          node --test scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs
+          python3 scripts/tests/video-transcripts.test.py
 
       - name: Generate video data catalog
         run: node scripts/generate_videos_data.mjs

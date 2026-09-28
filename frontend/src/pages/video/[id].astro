@@ -1,13 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import VideoPlayer from '../../components/VideoPlayer.jsx';
+import VideoTranscript from '../../components/VideoTranscript.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.jsx';
+import { getVideoTranscript, videoTranscriptLocales } from '../../lib/videoTranscripts';
 import TopicNextSteps from '../../components/TopicNextSteps.astro';
 import { VIDEOS } from '../../data/mock.js';
-import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, FileText, CheckCircle2 } from 'lucide-react';
+import { Share2, ThumbsUp, Calendar, Eye, MessageSquare, CheckCircle2 } from 'lucide-react';
 import { parseVideoChapters } from '../../lib/videoChapters';
-
-// Load all transcript files at build time
-const transcriptFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true });
 
 export function getStaticPaths() {
   return VIDEOS.map(video => ({
@@ -21,20 +21,8 @@ const parsedChapters = parseVideoChapters(video.full_description || video.descri
 const chapters = (video.chapters && video.chapters.length > 0) ? video.chapters : parsedChapters;
 const takeaways = (video.key_takeaways && video.key_takeaways.length > 0) ? video.key_takeaways : [];
 
-// Resolve transcript content
-let transcriptContent = null;
-if (video.transcript_file) {
-  const key = `../../data/transcripts/${video.transcript_file}`;
-  const raw = transcriptFiles[key];
-  if (raw) {
-    // Strip header lines (Title:, Date:, Video ID:, URL:, Source:, ---)
-    transcriptContent = raw
-      .split('\n')
-      .filter(line => !line.startsWith('Title:') && !line.startsWith('Date:') && !line.startsWith('Video ID:') && !line.startsWith('URL:') && !line.startsWith('Source:') && !line.startsWith('---'))
-      .join('\n')
-      .trim();
-  }
-}
+const transcript = getVideoTranscript(video);
+const transcriptContent = transcript?.segments.map(segment => segment.text).join('\n\n');
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const videoUrl = `${siteUrl}/video/${video.id}/`;
@@ -125,6 +113,8 @@ relatedVideos = relatedVideos.slice(0, 8);
   image={video.thumbnail}
   ogType="video.other"
   jsonLd={videoJsonLd}
+  translationBase={`/video/${video.id}/`}
+  translationLocales={videoTranscriptLocales(video)}
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Videos", url: "/videos" },
@@ -201,8 +191,8 @@ relatedVideos = relatedVideos.slice(0, 8);
             })();
           </script>
         ) : (
-          <div id="video-player-wrapper" class="relative">
-            <VideoPlayer client:visible videoId={video.id} />
+          <div id="video-player-wrapper" class="relative scroll-mt-24">
+            <VideoPlayer client:load videoId={video.id} />
           </div>
         )}
 
@@ -216,6 +206,7 @@ relatedVideos = relatedVideos.slice(0, 8);
                     href={`#t=${chapter.seconds}s`}
                     class="chapter-link flex items-center gap-3 rounded-lg px-3 py-2 bg-neutral-900 text-white hover:bg-neutral-800 transition-colors"
                     data-seconds={chapter.seconds}
+                    data-video-seek
                     aria-label={`Jump to ${chapter.time} - ${chapter.title}`}
                   >
                     <span class="text-sm font-mono text-blue-400 min-w-14">{chapter.time}</span>
@@ -226,42 +217,6 @@ relatedVideos = relatedVideos.slice(0, 8);
             </ul>
           </section>
         )}
-
-        <script is:inline>
-          (function () {
-            function updateEmbedTimestamp(seconds) {
-              var wrapper = document.getElementById('video-player-wrapper');
-              if (!wrapper) return;
-
-              var iframe = wrapper.querySelector('iframe');
-              if (!iframe) return;
-
-              var src = iframe.getAttribute('src') || '';
-              if (!src) return;
-
-              var cleanSrc = src.replace(/[#?]t=\d+s?/g, '').replace(/#t=\d+s?/g, '');
-              var separator = cleanSrc.indexOf('?') === -1 ? '?' : '&';
-              iframe.setAttribute('src', cleanSrc + separator + 'start=' + seconds + '#t=' + seconds + 's');
-            }
-
-            document.addEventListener('click', function (event) {
-              var link = event.target.closest('.chapter-link');
-              if (!link) return;
-
-              event.preventDefault();
-
-              var seconds = Number(link.getAttribute('data-seconds') || '0');
-              if (!Number.isFinite(seconds)) return;
-
-              var wrapper = document.getElementById('video-player-wrapper');
-              if (wrapper) {
-                wrapper.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-
-              updateEmbedTimestamp(seconds);
-            });
-          })();
-        </script>
 
         {/* Video Title & Meta */}
         <div>
@@ -282,6 +237,11 @@ relatedVideos = relatedVideos.slice(0, 8);
                 </button>
             </div>
           </div>
+
+          {transcriptContent && <a href="#transcript" class="mb-6 inline-flex rounded-lg border border-blue-500/40 px-4 py-2 text-sm font-semibold text-blue-400"
+            data-analytics-event="transcript_open" data-analytics-content-type="video" data-analytics-content-slug={video.id}>
+            Read transcript{videoTranscriptLocales(video).length > 1 ? ` · ${videoTranscriptLocales(video).length} languages` : ''} ↓
+          </a>}
 
           {/* Key Takeaways */}
           {takeaways.length > 0 && (
@@ -318,29 +278,7 @@ relatedVideos = relatedVideos.slice(0, 8);
             </div>
           )}
           
-          {/* Transcript Section */}
-          <div class="mt-6 border-t border-neutral-800 pt-4">
-            <details class="group">
-                <summary class="flex items-center justify-between cursor-pointer list-none text-neutral-400 hover:text-white font-medium py-2">
-                    <span class="flex items-center gap-2">
-                      <FileText size={16} />
-                      {transcriptContent ? 'Show Transcript' : 'Transcript'}
-                    </span>
-                    <span class="transition group-open:rotate-180">
-                        <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                    </span>
-                </summary>
-                <div class="mt-4 text-sm leading-relaxed">
-                  {transcriptContent ? (
-                    <div class="video-transcript bg-neutral-900/50 rounded-xl border border-neutral-800 p-6 max-h-96 overflow-y-auto" data-pagefind-body>
-                      <p class="text-neutral-300 whitespace-pre-wrap">{transcriptContent}</p>
-                    </div>
-                  ) : (
-                    <p class="text-neutral-500 italic">Transcript not available for this video.</p>
-                  )}
-                </div>
-            </details>
-          </div>
+          <VideoTranscript video={video} />
 
           <TopicNextSteps
             context={topicContext}
@@ -476,8 +414,7 @@ relatedVideos = relatedVideos.slice(0, 8);
             <div class="mt-8 bg-gradient-to-br from-blue-900/20 to-purple-900/20 p-6 rounded-xl border border-blue-500/20">
                 <h4 class="font-bold text-white mb-2">Join the Newsletter</h4>
                 <p class="text-xs text-neutral-400 mb-4">Get the latest fitness tech reviews delivered to your inbox.</p>
-                <input type="email" placeholder="Email address" class="w-full bg-neutral-950 border border-neutral-800 rounded px-3 py-2 text-sm mb-2 focus:border-blue-500 outline-none" />
-                <button class="w-full bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold py-2 rounded transition-colors">Subscribe</button>
+                <NewsletterSignup client:visible hideHeader formLocation="video_sidebar" />
             </div>
         </div>
       </div>

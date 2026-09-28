@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "video_id": "MV-PdS86i4E",
+  "locale": "de",
+  "source_hash": "2a5f19a4bc83b3039fa3ec4b73c7d371e163b6e5174f99b0da25ee90ebf17e06",
+  "source_title": "The Speediance Bar-Tilt Bug That Resets My Workout",
+  "title": "Der Speediance Stangen-Neigungs-Bug, der mein Training zurücksetzt",
+  "model": "minimax/MiniMax-M3",
+  "actual_models": [
+    "MiniMax-M3"
+  ],
+  "prompt_version": "video-transcripts-v1",
+  "generated_at": "2026-09-28T19:03:35.989665+00:00",
+  "translation_type": "machine",
+  "segments": [
+    {
+      "start": 0.0,
+      "end": 35.16,
+      "text": "Und es geht übermäßig aggressiv in den Stangen-Neigungs-Modus. Und dann setzt es alle deine Gewichte für den Rest des Trainings zurück. Was das ganze Training unmöglich macht. Weil es sie auf das absolute Mindestgewicht zurücksetzt. Und dieser Bug ist seit Monaten und Monaten und Monaten drin. Ich habe zweimal eine Nachricht deswegen geschickt. Das letzte Mal haben sie den Stangen-Neigungs-Modus weniger aggressiv eingestellt. Und das schien es größtenteils wirklich zu beheben. Aber das ist nicht die richtige Lösung. Die richtige Lösung ist, dass es die Gewichte nicht dauerhaft für dein gesamtes Training zurücksetzt."
+    },
+    {
+      "start": 35.9,
+      "end": 40.8,
+      "text": "Nachdem der Stangen-Neigungs-Modus aktiviert wurde. Das ist definitiv ein Bug in ihrer Software."
+    }
+  ]
+}

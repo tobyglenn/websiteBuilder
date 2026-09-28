@@ -1,0 +1,1261 @@
+Hey, welcome to
+another episode of Toby on Fitness Tech.
+Uh, this is uh another live stream, so
+I'm getting everything set up here. Uh,
+sorry, I had a few technical
+difficulties. I wanted to get my mic
+actually wired in this time, and I
+wanted to get
+uh so that the audio quality is a little
+bit better. So, now I have my mic on my
+lapel. Uh, that seems to be working. So,
+hopefully the audio quality is a little
+better on this one. Uh, I also was just
+getting everything set up, my display
+port on my uh on my so that I don't have
+OBS on the screen that you see so that
+you see my actual screen that I'm
+working off of and don't have the OBS
+Studio itself on the screen that you're
+seeing. Uh, my display port wasn't
+working so I had to unplug it, plug it
+back in. So everything is now working
+and I can show you guys what I've been
+working on. So this is my second of
+these Open Claw related videos. Um I'm
+still working with Open Claw. I'm still
+building new things in it. I'm still
+kind of learning the ins and outs of it.
+And I also wanted to actually show you
+guys how I work out today, but that
+requires me to have two video cameras
+connected at one time. and I still have
+to figure that out in OBS Studio. So, I
+still have a lot of learning to do on
+the front of the actual
+uh computer end of things and and
+shooting these videos. That's kind of
+where uh my knowledge of this kind of
+all falls apart. You know, I'm not a
+videographer. I I didn't go to school
+for that or anything like that. that's
+not my main skill set, but uh but it is
+definitely something that I'm working to
+learn now. So, um one of the biggest
+things that have changed is my fitness
+reports have gotten much much more
+advanced. So, if I go into my fitness
+reports, um now it has this dashboard,
+right? But this dashboard isn't so
+special, right? It just shows you my
+morning report, my lifting in progress.
+But if I go into the morning report.
+Uh oh.
+Okay, let me do this with the live
+version of them.
+Let me find it.
+So, actually, you know what? We'll
+troubleshoot this live. So, what
+happened is I clicked on warning report
+and I got an error response, right? So,
+you know what I do whenever that
+happens? Here's what we do. We go here.
+We go here.
+We copy this in. We go to our open call.
+We say, "Hey, I noticed
+that the reports
+aren't serving
+from the local machine.
+Can you fix this?
+Right, pretty basic. So ask it, hey, I
+noticed the reports are not serving. And
+we will wait for that to come back. And
+while that comes back, I will explain my
+openclaw dashboard looks very similar to
+the way it was before. I still have
+Arya. I still have Claude and I still
+have Bob. Uh Bob is still running Bob's
+second brain. Uh Claude is still kind of
+doing all of the question answer related
+things and uh and then Arya is the
+powerhouse that's building out a lot of
+the new things that I've been working
+on. So that's kind of the tentative way
+that I've been working on everything.
+And
+uh that that's you know where we're at
+with this. And um
+and so yeah, so I still have Arya, I
+still have Claude, I still have Bob.
+Those are all actual agents on their own
+physical machines. And that actually
+allows me to do something really cool.
+So Bob has actually been working on
+something and I figured I would show it
+to you guys real quick. I will go, let
+me grab it from Bob's computer. So, what
+you can't see right now is I moved my
+mouse off the screen and I actually
+moved my mouse the whole way over to
+Bob's computer. So, the one benefit of
+running Macs is you can set them all up
+on the same iCloud profile and then they
+can actually move one keyboard and mouse
+across each of them. So, even though I
+have three computers, they happen to be
+three Macs and without a I mean, you can
+do that on PCs too. I used to use a tool
+called Synergy that worked across Macs
+and PCs. I no longer use that because my
+setup is all Macs. But you can use
+something like Synergy that will also
+allow you to move your keyboard and
+mouse across the machines. It's not it's
+just native to Macs. Macs actually just
+inherently do it. And every now and then
+it messes up and I kind of have to have
+It's kind of funny that I have on the
+Mac Studio that's sitting right here.
+That's the one that's powering Arya. So
+Arya is powered by a Mac Studio an M5 uh
+an M5 with 64 gigs of unified memory. So
+that's what's powering Arya. So it's a
+very powerful machine. Not the most
+powerful machine, but and I still debate
+should have I gotten the M3 Ultra or
+should have I stuck with the M M5 Max, I
+believe is the name of the processor. Uh
+you know, I'm not sure, right? Because I
+could learn. So right now I'm running uh
+you can see my sub agent that is on the
+machine. I have um I have
+clarity which is running quoder. I also
+have a heavier Quinn 3 model on this
+machine. It can handle one that's
+slightly more powerful but but uh that's
+the that's what I run typically. So
+that's actually doing a lot of the heavy
+lifting, right? So one of the goals of
+this is to not overload because you can
+see that Arya itself, even though it's
+labeled Miniax, it's actually not
+running on miniax right now. It is
+running and that's why I have this quad
+screen open because it's actually
+running on um sonnet 46. So it's running
+on sonnet 46 and you can see sonnet only
+is at 48% usage, right? So, Sonnet is
+running on Sonnet 46 in there and it's
+running on a max plan. So, uh hopefully
+Anthropic doesn't ban me, but I'm not
+hitting their 100% usage. So, hopefully
+that's a little bit of an indication
+that I won't get banned. But anyways, go
+back to the thing that Bob was Bob was
+working on. So, let me move my mouse
+across to Bob's screen and then let me
+copy out
+here. It is the thing that we are
+working on together
+and bring it back over
+new tab.
+Let me show you the thing that Bob is
+working. So Bob is working on this thing
+called the OpenClaw daily bod.
+And Bob is actually and what this was
+all stemming from by the way this idea
+that I prefer to get my content in audio
+format. So, I just uh listened to the
+Lex interview with uh Peter Steinberg,
+and so that's a three-hour one, and I
+listened to that on my way home uh from
+vacation, and that was phenomenal. And
+then I decided that I'm going to
+actually
+uh you know, I'm gonna I'm gonna I I I
+know that I prefer to listen to stuff in
+audio format. So, this morning I had an
+issue where I wanted to figure out was
+this Mac Studio powerful enough? Um, I
+ran into a memory issue where uh clarity
+just couldn't handle something that uh
+sonnet was trying to send over to it and
+it ran out of context window, right? So,
+the context window wasn't large enough
+and it ran out of memory and then it
+kicked it back and it caused this
+cascade of like how to fix this kind of
+thing and uh you know I came up with
+what what it printed so much information
+to the screen and I'm like this is going
+to be brutal to read all this but I I
+need all this content but I'm busy with
+other things right now. I can't like sit
+here and review the screen. Uh, so what
+I did is I actually had it take and
+create this episode zero hardware review
+where it shoved all of that information
+into a podcast and then um gave me in
+insight into the DGX Spark into the Mac
+3M Ultra, the AMD Ryzen, which I've been
+very interested in these machines
+because in terms of amount of memory,
+these are the kings as far as like
+memory per price point. But the problem
+with it is that's not how fast can it do
+things, that's how big of a model can
+you load into it. So the problem with
+the AMD Ryzen versus say buying another
+Mac 3 M Mac 3 M Ultra is I won't I sure
+I'll be able to load a bigger model, but
+it won't be fast enough to even compete
+with what I can do on Quinn 3 coder on
+this. So, I can do more with the machine
+that I have now, but I can have a
+smarter
+uh a smarter bot
+with
+the AMD machine. So, it's like this set
+of tradeoffs and I think the speed is
+actually going to be too much of a
+tradeoff to make that
+to make that to make that uh to make
+that trade-off. So, that's that's kind
+of where I was at with that. But, yeah.
+And then I realized I actually wanna I
+want to get a daily podcast with
+information that's coming out on
+OpenClaw and I just want to be able to
+listen to it. And so that's where
+it is building. So it built episode one
+uh and now it's working on episode two,
+right? And what I have is Bob. Bob is
+actually sitting there and churning
+through news articles every hour and
+coalescing them into an audio podcast
+that you know we can then listen to. So,
+it's a pretty cool uh use case that is a
+specific niche that I wanted. And then
+I'm going to actually release this so
+that people can see it. I'm going to
+release that whenever I release my new
+website. So, that was the other thing
+that I wanted to talk about, right? I
+have this uh Toby on Fitness Tech
+website, right? And it's uh so I'll show
+you guys the fitness dashboards while
+that's let me see if OpenClaw actually
+fixed them. So,
+now works.
+Okay, so these should all be fixed. So
+if I go in here,
+the local Yeah. So the local versions of
+these are now working, right? So uh open
+Cloers fixed it for me. By the way, you
+notice I just typed into the chat uh
+what I wanted and boom, it's done and
+fixed. So I have a much more enhanced
+version of these now. So I have my
+morning brief, I have my nightly brief,
+and then I have the lifting and recovery
+report. And then I added this new speed
+dashboard. So, and hopefully that will
+work. And of course, that's probably
+also down locally. So, let me go in and
+morning report and see if it's up. Okay,
+good. So, the the hosted version of this
+is up and running and I'll have to fix
+that also locally. So, let's let's
+actually fix it locally while while you
+guys are here and while you can see what
+I'm doing. So what'll happen here is I
+will go in here and go into this morning
+report. Click here. Click inspect
+element
+and copy and paste
+and say
+this link
+from
+is not working.
+Can you fix this?
+And it looks like it's linking to a file
+system raph from the local host, which
+is not what we want. We actually want
+this to link to the uh hosted version of
+it. So, I'm guessing that's why it
+broke. But we'll send it over to Open
+Claw and have OpenClaw fix it. And while
+Open Claw is fixing that, I will show
+you guys what is actually happening on
+these Speedians dashboards. So, this is
+my new dashboard uh for the actual
+Spedians workouts. And so now I can see
+over time. So, if I go in here and turn
+all off, right? So, this is turning off
+all of my custom workouts. But if I go
+back in and say, "Okay, I want to look
+at this particular workout." This will
+show me this workout's strength curve,
+right? And what these dips mean is that
+I only did part of the workout, right?
+So, you can see I didn't complete these
+workouts, but you can see on completion
+of the workout, I'm progressing through
+time. This is what you want to see. By
+the way, you're not going to see this
+with every workout. Let's go into
+another workout and we'll overlay it,
+right? So, let's pick another one that I
+do pretty often, which by the way, I
+should have these sorted by amount of
+times done. That's uh that's actually
+something that I need to add.
+So, let me put that into a comment.
+Actually, I'll put it into the task
+board, right? So, you can see my task
+board. So, if I go to my conbon board
+and then I add
+uh volume overtime,
+uh workouts
+need to be sorted
+by most done
+with the most
+uh amount of times done
+first.
+Right. So, I'm going in here. Uh, Epic,
+uh, that's not going to be dashboard
+changes. That's going to be, uh, fitness
+tracker.
+And we're going to assign it to clarity.
+And we're going to add the task. And I
+think it adds it at the bottom,
+unfortunately.
+So yes, it adds it at the bottom. So
+volume over time, right? And then what
+I'll do is I'll tap this whenever I want
+clarity to start working on it. I don't
+want clarity to work on it right now
+while I'm live on stream, but that's the
+idea, right? So I have this conbon
+board. I'll tap on a bunch of these and
+I'll have it start to go through and
+work on them. And you can see they
+worked on a lot of them overnight last
+night. And of course, I didn't even get
+to review them all today. So these are
+these are all related to other things
+but um these are these are all related
+to some other apps that I have it
+building. So I have it building some
+apps. I have it I have it uh you know I
+have it going through and and doing uh
+doing some pretty innovative stuff. Oh,
+by the way shout out to uh Vin 33104.
+He said woo Toby. Uh so I finally have
+someone in the chat who commented. So,
+uh, this is kind of huge for me, you
+know what I mean, to actually be here,
+be live. And I do think the next time
+I'll actually show you guys one of my
+workouts while I'm doing it. So, one of
+the ways that I work out is I'll be here
+working on the computer, and then I'll
+I'll walk over to Speed Ants and do a
+set, come back over to the computer, and
+vice versa. And I figured I'd show that
+off, especially with the warm-up sites
+sets. But, uh, we will, you know, we'll
+do that next time whenever I get both
+cameras hooked up and on tripods and
+that kind of thing. But this is all, you
+know, like I said, this is all a
+learning curve for me. And, uh, so, not
+only am I learning Open Claw, I'm
+learning how to shoot videos. I'm
+learning how to use OBS. So, OBS is the
+thing that's sitting on my other screen.
+And then I also have one of my other
+screens. Obviously, you got to see me
+copy and paste something out of Bob's
+screen, right, to do this to do um to do
+the daily podcast thing. And uh that
+that by the way is one of the coolest
+things because I didn't even think about
+it until today whenever I had it
+summarize all of this into a podcast for
+me uh so that I could listen to it 13
+minutes so that I could just listen to
+it uh on my way to taking my kid to
+school. Uh, so that was kind of like the
+goal is to just be able to listen to it
+for the for the amount of time that I
+have in drive time and uh and then and
+then I realized, oh, I actually want to
+get kind of all my news that way. So,
+it's churning through every hour and
+compiling stories and then making a
+podcast for me to listen to. So, episode
+two should be done tonight and I'll try
+to get these out to podcast aggregators
+so that people can actually
+uh see them, use them. So that's kind of
+if if they're interesting to other
+people, they can they can go from there
+and actually, you know, watch them. So
+the goal is to get also my new website
+up and running. So that's the other
+thing that I had
+uh OpenClaw building for me today is my
+website is pretty hideous. So I put it
+together in like an hour or two and it's
+just a bunch of my videos on the So if
+we actually go and look at it, it is
+Toby
+onfitness
+tech.com.
+And so you can see it's I mean it's even
+chopping in here, right? It uh has this
+these pieces of information and then it
+has some of my old videos, you know, so
+the tonal video um and then it it so you
+can see this is a pretty bad website. I
+mean, it's not terrible for something
+that you put together in an hour, but it
+is really not what you would want. And
+that's where I had OpenClaw building for
+me a new website. So,
+can you send me a link to the new
+website
+we have been building?
+So, and you can see every now and then
+it does this by the way. Instead of
+responding, it shoots you back one of
+these heartbeat MDs and that means it's
+going to take it a minute to actually
+respond.
+Uh, I also have not updated this to the
+latest. So, there was a new build of
+open call today and maybe they fixed
+that in the latest build, but I know
+whenever I get these these heartbeat
+beat context related things, that means
+that it's going to take take its sweet
+time responding to me, unfortunately.
+So, I will let that go.
+And while that is going, I'll show you
+more about these these uh speed
+dashboards. So, what I was in here is I
+was going here and I'm going to pick
+warrior 2, which is another one that I
+do very frequently. It should probably
+be warrior 1 and then warrior 2 just
+because of, like I said, how often I do
+these workouts. And you can see these
+are overlaid and you see these peaks.
+These peaks are indicators that I'm
+getting stronger, right? Over time, I'm
+getting stronger. That's uh what people
+wanted to see. And I actually saw
+someone in the Speedians community
+saying that they were thinking about
+going back to the gym
+and I actually posted under that. I've
+I've been posting less and less and I
+think it's because
+the since the V3 software I've become a
+little bit more grouchy and I've
+especially been grouchy of people in the
+community who uh you know just either
+cheer especially people who cheer speeds
+when they weren't being truthful with
+what they actually did. Uh so that that
+made me a little salty that when they
+brought back
+uh they call it dual load now and that
+is actually correct. So they they term
+it what it actually is, which is kind of
+a dull loading method for for free lift
+for that I showed off in one of my
+videos, but they brought that back. And
+in that video, I spend kind of 30
+minutes dismantling how this thing is
+not what they used to have with Freelift
+and is not even close to what they
+should have built. So it's a it wasn't
+right to begin with in the 2.x software.
+like it was already kind of broken and
+what they brought back is more broken
+than what they had before and you see
+these group experts who didn't even
+realize that that's the case and so I
+got real salty at the group experts and
+then you have uh so there's a there's a
+distinction and what I realized is
+there's a huge dis distinction in the
+speediance community because what's
+confusing is you have admins and you
+have group experts right the if you get
+a response from the admins, it's going
+to be the greatest response possible.
+Like, it's going to be the most
+conscientious. It's going to be the most
+thought out. It's going to be the most
+detailed. Uh, the group admins are
+phenomenal. Or every now and then you'll
+actually get one of the team members
+from Speedy who answers and those are
+going to be highly technical, highly
+specific, phenomenal responses. But then
+you have a set of people called group
+experts. And what really bothered me is
+those group experts are not actually
+experts.
+A and not to be mean, but like they are
+just people like me, right? I wouldn't
+consider myself a speeded expert. I'm a
+person who uses the Spedience, who's
+lifted a million pounds on it, who has
+two of them so that I can AB compare
+them, right? So I have this AB
+comparison model for them. I've lifted a
+ton of weight on them. I'm a big fan of,
+as you could probably see, programming
+and data projection. By the way, if I
+use freelift mode, just to let you know,
+none of this would be possible. None of
+this stuff that I have here would
+actually even be possible if I were I
+mean, the weekly volume would be
+possible. It still tracks that in
+freelift mode, but some of the detailed
+metrics that I have. So, if I go in here
+and I go into workout types,
+right, and I look at this, the best
+session, the average session, the total
+volume. I mean, this is all real data
+pulled from the speeds. This is awesome.
+I mean, this is the dream, right? Is to
+be able to pull the data, show all 30
+exercises. I can see my one RMS for
+everything. So, single arm, and you can
+see this is still broken. We're still
+working on this together, but we're
+getting there. You know what I mean?
+we're seeing the the volume like these
+volumes are probably not correct. So,
+we're still working on it, but uh we're
+getting through these, you know what I
+mean? We're getting there with these.
+Like we see the 1RM values. Uh so, it's
+it's a work in progress. And that that
+stems from the fact that it doesn't
+quite have all the data yet. So, it has
+the data for the workouts, but it
+doesn't have the data for and and it has
+the data of which exercises I did, but I
+don't think it has and it has the 1RM
+data for those exercises, but I don't
+think it fully captures all of the
+information yet. And that could be I I
+need another API call. That could be I
+need uh just to have it like search the
+information in a different manner. So,
+there's still a ton of progress that's
+going into this, but it is something
+that I'm actively working on. I have
+these PRs in records. Uh, you can see
+this was actually done on uh on a video,
+right? This barbell deadlift PR. I don't
+want to ever have to do that again.
+But yeah, the these were actually done.
+Some of these were done actually in
+videos because I don't like doing these
+exercises. Um, you know what I mean?
+this kneeling barbell lat pull down was
+definitely that video where I had uh the
+weighted vests on to get that kind of a
+number. But uh and then the exercise
+library, you can see all of the
+different exercises that I do on the
+machine uh categorized into muscle
+groups. I mean, this is phenomenal.
+We've got the session log, right? You
+can see actually the length of time.
+Like look at some of these length of
+times. 109 minutes, right? It took me
+one one 109 minutes, right? And and and
+I actually didn't wonder how that
+worked. This one might have just been a
+fluke. Um
+that one I'll have to actually look into
+the data behind it because that seems
+even more weird. But this is more
+accurate, right? This this is uh you
+know this is a more accurate
+representation, right? An an hourong
+uh workout. And that's because I'm not
+actually working out that whole time,
+right? I'm doing a lift, going back to
+my computer, working on something, doing
+a lift, going back to my computer,
+working on something. So, I do a lot of
+this work at night, and I do a lot of
+these lifts at night. So, in fact,
+that's what I'd be doing. And I'm
+probably actually going to do that on
+live stream next time for you guys. I
+will have the I will have a camera
+shooting my speeds. I'll have a camera
+shooting this setup here and we'll go
+back and forth and I'll show you guys
+guys things on here and I'll show you
+guys a workout. So, that's the tentative
+plan for the next stream. That'll either
+be Saturday or next Tuesday. Uh we'll
+have to see. I I can't guarantee weekend
+streams, but I definitely am going to do
+uh Tuesday Thursdays. So, Tuesdays,
+Thursdays, 6:30 is the game plan for
+these. And uh and I'm making a ton of
+headway. Oh, let's take a look at the
+new.
+Okay,
+now every now and then you have to do a
+new session. So, let's see if a new
+session fixes it. So, if and I don't
+want to do the update on stream, but I
+also have to update it to the latest
+to the latest version of
+Open Claw. So, that'll be something that
+I do later tonight. So, this will get
+updated to the newest Open Claw. Uh,
+you'll get uh, you know, I'll finally
+push my new website hopefully tonight or
+tomorrow. And I can tell you I'm really
+impressed with Open Claw so far. Uh, I
+know there's still bugs. I mean, you can
+see it here, right? It's sitting there
+hanging. And let's see if we have
+anything in the logs. So, if we go here,
+we go open call logs follow
+H. Okay, back to this error,
+unfortunately.
+So, this is because it's running and
+then it's trying to restart itself, I'm
+pretty sure. So, let me see if I can
+actually
+fix it this way or if I have to stop and
+start it.
+Might have to stop and start it. Let's
+stop. Let's actually do the stop on the
+gateway.
+Open. claw gateway stop. Is that what
+the command is? I think it is. So now we
+stopped the gateway and you can see this
+was the last build of open claw. We'll
+go in here
+and we'll refresh this.
+And now we have nothing.
+We will see if it restarted itself.
+Can you hear me?
+and we'll see what we have in the logs.
+So, we have that
+and well, it's definitely getting some
+usage, so it's probably coming back up
+online.
+Yeah, every now and then this thing is
+extremely slow and I have no idea what's
+going on when that happens. So, it is
+running through.
+And there we go. Back. Okay. Good. Good.
+Good. Now, it's back.
+So, you can see every now and then I
+stopped. What I had to do is I had to do
+a gateway stop. Uh, then I actually let
+it automatically restart itself. You
+notice I had to do anything, right? I
+had it uh I let it restart itself
+because it does restart itself on my
+computer automatically. And once it
+restarted itself, then I can then now
+it's answering all my questions. So
+here's the the website builder. The
+So let's click here. Oh, that's not
+working.
+Ah, let me wait till the server actually
+comes back online. It says, you know,
+it's even telling me in real time, let
+me quick verify that the server's back
+up. That's the power, by the way, of
+Sonnet. So, Sonnet will actually go in
+and like if this was running on Miniax
+instead of Sonnet, it will not do stuff
+like that. Oh, this is uh Bob's second
+brain, by the way. So, Bob's second
+brain is sitting on that other computer.
+And you can see uh so the first thing
+was something for my kid. The second
+thing that Bob needs to do is I need to
+put a battery backup down here and I
+need to get this off of this outlet. So,
+I found out that I have a treadmill down
+here. That's what I run on. So, I'm
+starting to get ready for a race here
+locally. It's my first race in years and
+years and years. Oh, and speaking of
+that, I figured I should show you guys
+this. So, I now have
+Let me bring these up to the camera for
+you. So, I'm taking them off right now.
+So,
+put them this way.
+So, this this one right here is the
+Garmin 295 and this right here is
+actually the OnePlus 2R.
+So, I wanted to get I wanted to get a
+smartwatch for the first time in years.
+And what I wanted specifically is Gemini
+on my wrist and the ability to message
+my bots. And
+I forgot why I hated smartwatches. And
+actually, this one is a very different
+reason than the last time. So, this one
+actually seems to have pretty good
+battery life. It actually does a better
+job measuring my heart rate than the
+Garmin does. Uh, in terms of pure heart
+rate capabilities, I can tell you. Uh, I
+have a Whoop. So, my Whoop strap is
+actually So, now my Whoop strap, by the
+way, is not on my wrists, right? So,
+normally the Whoop strap sits on this
+wrist. The garment always sits on this
+wrist. Uh, unless I'm lifting, then
+everything comes off. But the Whoop is
+actually up here in my bicep. So, it's
+underneath my hoodie. So, I'm finally
+switching the Whoop over to the bicep
+and getting used to that. I was one who
+wouldn't even use it on the bicep in
+jiu-jitsu. So, I go do jiu-jitsu and I
+still won't won't wear the Whoop on the
+bicep, but now it is uh on my bicep and
+we'll see if I get better heart rate
+ratings. I mean, that's what everyone
+says, so we're going to find out there.
+But uh the only reason is I didn't it
+actually was really uncomfortable to
+wear this uh OnePlus 2R with that. But
+anyways, I wanted I wanted with the 2R I
+wanted to use Gemini on the wrist. I
+wanted to be able to ask it questions.
+And I wanted to have that response cycle
+of both Gemini and then have it have it
+message Arya, you know, in particular.
+So Arya is the main bot here. I wanted
+to have it and it messaging Arya and uh
+I can tell you it's absolutely horrible
+and I don't know if I'm going to return
+it yet. I figured I would keep it at
+least for this live stream and then make
+a determination. I can tell you I found
+a use case for it unfortunately where it
+is phenomenal.
+Uh but it's like the dumbest use case to
+keep this watch that uh the plan was to
+use Gemini on it. It's actually because
+my spelling's horrendous. So, I am like
+terrible at spelling. But I'm pretty
+good with auditory like language and
+words, that kind of stuff. So, I can
+tell I I know the word. I just don't
+know how to spell it. So, what's funny
+is I can ask Gemini how to spell a word
+and it'll obviously spell it for me
+twice because it'll it actually shows me
+on screen what it's typing. So, it'll
+show it to me once and then it'll spell
+it out to me or give me the definition
+of the word just to make sure I'm using
+it also in the right context, right?
+Because every now and then everyone will
+use a word in the wrong context. But
+it's it does phenomenally at that. But
+like the basic stuff of what's my wife's
+name, I spent a day and a half trying to
+get it to answer that freaking question.
+Two days, almost two days. I've spent
+hours combing through settings and it
+will not answer the question. Right? And
+this is something that Gemini on my
+phone can do. Gemini on my computer can
+do. I mean, these are basic things. And
+I finally got it to almost answer the
+question. And it took three prompts for
+it to actually even like answer the
+question because it it's so it has all
+the capability to tie into Google
+Workspace, but it's horrendously slow
+when it does that. Like whatever it's
+doing is not what your phone's doing and
+is not what your computer's doing. Like
+it's really frustrating that this thing
+doesn't do the thing that your phone
+does. Like I thought I would be getting
+Gemini and not some junk version of it
+to be honest with you. And so I strongly
+wouldn't recommend anyone buy a Watch. I
+mean they are hot garbage in terms of
+like their actual ability to use Gemini.
+It's unbelievable how bad it is. And it
+keeps telling me that uh it's it's for
+privacy purposes. like for privacy
+purposes. It won't launch. Uh it won't
+show me short codes on the screen for
+like, you know, whenever you're going to
+banking and stuff like that, it'll pop
+up these codes that you have to type in.
+Won't show me any of that kind of stuff.
+And for privacy, it won't tell me my
+wife's name. And then you can say, "Hey,
+go into Google Workspace, go into my
+email, find an email from my wife, and
+figure out her name from that." And it
+will do it. So, it has all the
+connections. It has all the wiring
+points and it's just like, "No, I won't
+do it." It's the most idiotic,
+unbelievably terrible thing I've ever
+seen to be honest with you. Like, Google
+Wear is trash. Like, it's a trash
+platform. And uh and I don't know if I
+return it or not because it was it's 180
+bucks which uh compared to you know one
+of the iOS devices is uh you know a drop
+in the bucket, right? But uh and it also
+does really well actually with its heart
+rate sensor. It was definitely closer to
+my actual heart rate than the Garmin is
+on my wrist. Uh I I haven't been wearing
+my chest strap whenever I've been going
+down and running. And so with the chest
+strap, the Garmin's 100% accurate, but
+uh on the wrist in particular, so you're
+wearing this thing on the wrist, it's
+not very accurate. It it definitely
+can't get the highs. Like it caps my
+heart rate lower than what it actually
+is. And then it also doesn't go low
+enough quick enough, which you can use
+to your benefit. So honestly, I can run
+full speed and it doesn't go high
+enough, but then I can also back off to
+a three mile per hour walk and just let
+it slowly go down and get all of that
+rest while I'm still in the HR zone that
+it wants me to run. The reason why I
+still do use the Garmin because I have
+years and years of data in there and I
+have them I have a lot of the Garmin
+data exported. So, if I go into my
+fitness reports, right, and I go and
+look at the nightly report, hopefully
+that loads. Yeah. So, in these nightly
+reports,
+uh, this is the old style nightly
+report. Unfortunately, hopefully I have
+the new style report.
+Let's see. Here we go. Yeah. So, here is
+the new style report.
+And is the Garmin stuff not in there? So
+that's the morning brief. Go back.
+The nightly brief. Huh. I don't see the
+new data. I'll have to take a look there
+because there should be new data in here
+with So here's the new data. That's
+interesting that I didn't get the new
+data for last night, but I did for the
+night before. I'm going to have to look
+into all of that. But
+there's uh there's still a lot of still
+doing a lot of work on these different
+reports. So, not a shocker that the
+information isn't all there. Let me go
+to
+14th.
+Yeah, I don't see it up here. I'm
+looking for specifically uh there's a
+whole bunch of garment information that
+I had added that shows kind of my run
+details, that kind of stuff. And I don't
+see it published up there. Let's see if
+I can see it on my
+but that's going to be something that I
+add here. I mean I can show it in the
+calendar, right? So in the calendar it
+shows my lifts, it shows that I ran and
+it shows my my distance,
+right? But um but I also have a whole
+bunch of advanced metrics on these runs
+that should be showing up. So this one
+should be showing a whole bunch more
+data. So let me go back in
+and see.
+Can you regenerate this report?
+Actually,
+it should just
+make sure it has the full running
+information.
+The new
+gen, how do you change?
+Let me see how to
+the new reporting style I guess
+style.
+Let's see if that will come back with
+the version of it that I was looking
+for. But this is still a massive work in
+progress. Uh I'm going through all of
+these and continuing to evolve them over
+time.
+It's definitely something that requires
+a whole Oh, let me actually ask it about
+my website, too. So,
+did it actually get all of this running?
+So, uh it's going to have clarity
+actually. Take a look at it.
+New reporting style. So, it's going to
+have that.
+And let's see.
+Can
+you send me a link?
+the new website
+we're building also.
+So let's see
+while Sage is is digging into the
+scripts the new website builder here.
+Okay, here we go. So here's the so I can
+show you guys the websites. So this was
+the old website, right? I showed you
+guys this. It's pretty terrible. And
+this is the new one. So, this shows that
+I was going live. Unfortunately, this
+website actually won't go up until after
+this goes live, but I'll have a new one
+here for for, you know, for next week
+whenever I'm going live. It shows uh all
+my videos here, right? It it has uh
+different reviews here, right? So, uh
+this, you know, we're going to flush
+this out a little bit more. and uh read
+the full analysis. So yeah, we're going
+to have a lot more content in here. I
+actually want the full transcripts to be
+shown. So I want full transcripts to be
+there. So that's going to be one of the
+things that it builds and that's
+actually I'm going to have it do that
+tonight. I'm going to have it go through
+run through and do the full transcripts.
+Then I have this videos. Right. Right
+now, it should have the shorts turned
+off. But if I go No, it's still broken.
+So, I need to have it turn off the
+shorts and then add the shorts
+uh when when you know when they're
+needed. But we're going through it,
+working on all of that. Uh the blog. So,
+that's still not fleshed out. We'll have
+to flush this page out tonight. And this
+was, you know, this was something that
+actually I put a little bit of time into
+with it. So, I wanted to say, you know,
+I don't I don't sell programs, anything
+like that, right? I just kind of
+document what worked for me. And this
+is, by the way, this is real. Like, this
+was me at 230 pounds whenever I started
+this journey in 2023. And this was me at
+1888 pounds whenever I, you know,
+whenever I finally kind of like lost all
+the weight. But what's even crazier is
+look at this. This is 230, right? And I
+have that down here. And then look at
+this. This is 230 lbs. I want you to see
+the difference here. This is 230 lb and
+this is 230 lbs. And I might have to
+crop these pictures a little bit higher,
+but uh this is 230 lb and this is 230
+lb. That's insane. But that's realize
+this is February of 2026
+versus August of 2023. That's three
+years 10 million pounds lifted. Over 10
+million pounds lifted, right? And this
+is me during a training uh exercise. So
+you could see, look at look at the van.
+This is where I criticize uh the only
+thing that I criticize on the speed
+videos. And I realize why they do it is
+because they're talking during the
+video, but this is what the muscular
+contraction should look like during a
+top set, right? This is this is how
+their trainers, especially with the
+fitness level of their trainers, should
+look like whenever they're actually
+working out. And you can see it a little
+bit with the female coach that they have
+who's Hispanic, right? she you can
+actually see some muscle definition some
+uh some some but yeah you can see uh
+like this this piece of information
+because the AI the AI generated it. It
+had a whole bunch of information in here
+about my ankle injury because it just
+picked one of my random videos and
+decided to make the whole narrative
+around there. Uh so I had to kind of
+like fine-tune it and say hey you know I
+don't want the ankle injury is not
+related to the weight loss. They're two
+different things, right? But but you
+know, and then I had to give it have it
+actually give me the right dates because
+it said current and it's like I'm not
+188 pounds right now. You know, I'm 230
+lbs right now. I'm as heavy today as I
+was when I started this weight loss
+journey, but tell me these are the same
+like the same, you know,
+like figures. It's unbelievable the
+difference, right? and you can see the
+progression the whole way through.
+Right? So, I've been working on that.
+Um, you know, I've obviously been
+working on this website. It has all of
+this kind of content, right? It's
+definitely uh this one was actually So,
+this is still broken. Every now and then
+we run into these broken pages. So,
+there's still quite a bit of work to do
+on this. This is one of those where when
+you're working with openclaw, it's a
+combination of open claw and codeex from
+chat gpt. That's kind of the two things
+that I'm working on together to build
+this. So, this is also going to have a
+link to Bob's uh Bob's podcast whenever
+whenever that's done. So, it's going to
+have a link to the podcast. It's going
+to have
+uh that kind of information. It's,
+you know, it's uh
+it's it's going to be an exciting time
+whenever I get all this stuff loaded up.
+I'll probably load the first version of
+this website in tomorrow or the next day
+and get the podcast up and running for,
+you know, for for Bob's I'm not going to
+call Bob's podcast, but uh you know,
+it's and then this speed information. I
+mean, this is just awesome that I have
+all of this data from, you know, the
+weekly volumes. You can see the ramp up.
+By the way, these are whenever I bought
+the first. So, this is whenever I
+started. This is this is whenever I
+bought the original Spedience that's
+downstairs. And you can see the second I
+bought the uh the second this right here
+is when I bought the uh the 2S that's up
+here, right? And you can see the the
+amount of weight that I lift climbs
+incredibly. And this was, you know, my
+big vacation of the year. So, and this
+is also like we were away for the
+weekend. So, anytime we're away for the
+weekend, it definitely hampers my, you
+know, lifting. You can see anytime, you
+know, we were away, that's that's the
+the big spikes downward. I don't get,
+you know, I get
+90,000, you know, between 60 and 90,000
+pounds lifted over the weekend, uh, when
+when we're here and when we're not here,
+that's zero. You know what I mean? So,
+that's where these numbers get skewed
+crazy high and the numbers are skewed
+crazy low, right? You can see where the
+I was home for the weekend, basically.
+But, yeah, this is uh this is my
+progress with OpenClaw. can tell you so
+far I'm really enjoying the learning
+process with open call. I think that's
+the biggest thing with any of this is
+whether it be BJJ,
+whether it be something like open call
+and technology, I think going into it
+with a learning mindset
+is uh
+is kind of, you know, eye opening and
+and I I I get a lot of speed questions
+because I obviously do a lot of content
+on the speediance. Uh lately lately I
+wanted to do this content on openclaw
+and how I'm integrating the speedience
+data into it but
+you know it's uh it's one of those
+things where people ask like would you
+still buy it and it's like 100%. you
+know, uh I do not like the new firmware
+that I have, and I actually reached out
+to the to the speed and support contact
+that I have to see if we can either
+revert my firmware back or if they're
+going to fix it anytime soon because I
+can tell you the 2s upstairs,
+that retraction issue that I showed in
+the last video is the last expedience
+video is really noticeable and really
+bad in certain circumstances. And it
+also causes it to turn off.
+It's very sensitive on bar tilt. So if
+you tilt the bar, it's really sensitive.
+And the problem with it is every now and
+then whenever I'm setting up for a
+workout, I'll turn the weight on first
+and then I'll readjust. And that now is
+turning off the weight on me. And the
+worst part about it is it's not just
+turning off the weight, it's turning off
+in a way that you can't click the button
+to turn it back on. You have to hit the
+okay button on the screen. that locks.
+This stupid lock mechanism that they put
+on the cables now locks the cables so
+they won't retract. So, I'm stuck with
+the cables locked out. I can't hit the
+button to turn it back on. I have to hit
+the okay button on the screen and then
+hope it doesn't retract the cables into
+me, which it doesn't. It does leave them
+un retracted, but then I have this bar
+that's like out here in the middle of
+nowhere. It's just so bad. Like I think
+safety SA start is such a bad feature. I
+think the new retraction issues that it
+added, you know, with the firmware
+upgrade is so bad, you know. Uh I
+definitely prefer working out on my
+machine downstairs that doesn't have the
+new firmware and and I'm worried that
+the new firmware is going to, you know,
+mess up that machine like it did this
+one. But that could be that could also
+be that I'm not on a standard version of
+the firmware. They delivered a version
+of the firmware for my machine to get
+safety start to get that button to work.
+So, just realize I had a broken button,
+right? They fixed the button, but with a
+version of the firmware that's probably
+not well tested, you know, and and
+there's other UI defects in V31 on my
+machine that I sent over. See if they'll
+get those fixed. I'm not too ter UI
+defects I don't care too much about. And
+uh even safety start, I didn't care too
+much about it until I was doing a very
+specific exercise and then it just was
+so frustrating because it's interrupting
+my workout at this point in time. Like
+it's something the tonal didn't have.
+It's something the speediance doesn't
+need, right? The tone and then they
+don't have, you know, I saw it again
+today. Someone was asking about uh
+partner workouts with custom workouts.
+They don't have that feature. The
+Spedians had it three years ago. they
+built all of this new software and it's
+still not there. So, that's been a
+little frustrating to me. Like, why do
+you not have a feature that's been
+around for so long on your competitor,
+right? Like, you're clearly
+uh you you know, borrowing I'll say all
+of the features of like all of the fe
+like the Pilates feature is just arrow
+row. It's like literally the feature
+that Tonal launched with the Tonal 2.
+Like not to be mean, but uh you know,
+everyone knows that the Gym Nanos are
+just copies of the Voltra. Uh their new
+strap is obviously a cop copy of the
+Whoop, the thing I have right here. Um
+but they do a good job with this stuff.
+So like the Speedance is a phenomenal
+device. I'm guessing the strap's going
+to be a phenomenal device. Uh I'm
+guessing the Nanos are going to be
+amazing. Like that's the one thing with
+Speedians. They build amazing devices.
+Like for sure I'm so impressed with the
+speedians, you know what I mean? The
+pure like the hardware, the concept and
+even the execution of the hardware I'm
+impressed with. Um, obviously the
+software can be frustrating. Uh, and
+especially because someone was messaging
+like it took them a long time to set up
+workouts. It's like it's, you know, I've
+gotten it down to where I can build a
+new workout in 10 minutes, but that took
+hours to figure out how to build it in
+10 minutes. And I have a feeling in the
+near future, by the way, I'm going to be
+able to generate my workouts based upon
+what I need from these workouts. So,
+that's the vision that I have is for
+Arya to be able to build me new workouts
+based on what it thinks that I'm missing
+specifically if I go into this lifting
+and recovery report, right? Which pieces
+of of things, like you can say, I did an
+arm workout recently, right? Which which
+piece do I actually need
+uh the mo, you know what I mean? The
+most
+like where where am I at recoverywise?
+like create completely custom workouts
+kind of like what Spedians promises to
+do but in the style of my workouts like
+even even Arya realized immediately hey
+he does warm-up set top set warm-up set
+top set that's all of his workouts like
+all of these warrior one warrior two
+arms barbell chest like these are all
+warm-up sets top sets warm-up sets top
+sets right it's it's a very consistent
+pattern and you know I know if I went to
+use their AI system, it would not
+generate that for me. So, why not just
+have my own AI system generate it for
+me? But yeah, that's uh that's all I
+have for you today. That's the live
+stream for the day. If you have anything
+specific you want to see, if you want to
+see me to get back to the Speedians and
+do these live streams on the Speedians,
+uh I can do that. you know, I can come
+over to my computer when needed and do
+90% of the 90% of it from the from the
+speed itself. I'm hoping my mic was a
+lot better having my actual like lapel
+mic on for this and that. And also using
+the lapel mic, I should be able to walk
+back and forth without the audio
+clipping in and out. But yeah, that's
+all I had for you today. Uh, thank you
+so much for watching. You know, I really
+appreciate it and I'll see you guys next
+time. Okay.

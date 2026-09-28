@@ -1,0 +1,191 @@
+switched everything over to my Hermes
+agents off of OpenClaw. So almost I mean
+the OpenClaw uh instance is still there
+on this machine, but there's a Hermes
+agent on the M3, which is the machine
+I'm on right now. And there is a Hermes
+agent on the DJX Spark uh that handles
+the website stuff and various other
+things. It handles the website stuff. It
+handles what used to be project Arya's
+uh fitness tracking and um my agent
+stack daily podcast that I do is sitting
+here on the M3 uh that I by the way the
+reason why that podcast even exists is
+because I wanted to get the daily news
+digested in a way that I [snorts] I you
+know what I mean I enjoy and so that is
+actually something that I listen to in
+the morning and then publish it out. So,
+um, and every now and then it does a
+terrible job making an episode. And
+that's why there's days where it misses.
+That's why it's not necessarily every
+day. Um, because if I don't like the
+episode, I don't release it. But, uh,
+yeah, I listen to it and then kind of go
+over the stories and um, that that's
+where that comes from. But mo
+everything's being done by the Hermes
+agents. It's just the telegram from
+what's funny is the telegram for
+uh for my open claw is actually still
+heavily used uh for these things. So if
+I go through these telegrams,
+so if I go through these telegrams, you
+can see the um
+the Hermes agent, right? So the Hermes
+agent was so it it published this one.
+So the Hermes agent on this machine just
+published my agent agent uh you know
+agent stack daily. That's what it was
+working on. uh Arya. Uh this is actually
+coming from the DGX Spark. So it's
+coming from this Hermes agent, but I
+still have it publish all of my uh
+information
+to So this is like the morning report.
+So if we listen to this
+>> morning Toby recovery is 76%, HRV 25
+milliseconds, resting heart rate 75
+after 8 hours 6 minutes at 92%
+efficiency. Whoop strain today is 2.4
+and load ratio is 0.9.
+Today's step target is 12,600.
+Yesterday you hit 14,49
+steps against a 14,700 target. Trend
+context recovery 76% versus 71% 7-day
+average, 62% 28-day average, 34 points
+above this day last year. HRV 25
+milliseconds, two above 28 day baseline.
+Resting heart rate 75, two below
+baseline. Sleep 8.1 hours, 1.9 above
+your 7-day average. This 7-day block,
+22,898
+lbs lifted, 10.2 m run, 22.3 BJJ strain.
+Year-over-year, average strain is 9.1,
+down 11% versus this week last year.
+Last year, that same window had 30.7 BJJ
+strain. Recommended training, moderate
+volume. Cardio guidance green light for
+hard cardio. If you feel ready, recovery
+and load ratio both support it. Today's
+a training day. Your body is ready. Make
+it count. Bottom line, train to the
+recovery signal. Keep the main session
+focused, fuel it, and protect sleep
+tonight.
+So after I get done here, I'm going to
+do this training. So the first thing is
+my new workout that Arya now builds for
+me. So this workout is actually built by
+Arya using my system. You can see this
+20 RM. So using the exact cadence that I
+did before Arya. Um but it's choosing
+the workout. It's choosing the exercises
+now. And not only is it choosing uh
+exercises, it's it's also giving me prep
+and cool down stuff, stuff that I never
+did in the past. And oh my gosh, uh some
+of these cool down exercises are
+absolutely brutal for someone who has
+very limited flexibility. Uh I I was I
+was doing them downstairs yesterday and
+I had my wife try to do the arm circles
+workout that it had me do. You're
+basically just sitting uh Indian style
+and you're doing arm circles and I can't
+actually do those because my shoulders
+are so locked up. So, it's pretty uh it
+was pretty funny to watch and she was
+able to do them pretty easily and it's
+like uh this hurts, you know, but I
+think it's useful to do these things. I
+just would never force myself to do them
+on my own, which is why I gave I handed
+everything over to Arya whenever I came
+back out of, you know, whenever uh when
+the health issues ended, I handed back
+over to Arya all my all my exercises.
+And I'm using all the distilled
+knowledge that I had from having a
+personal trainer in the past to have
+Arya generate workouts that would be
+similar to what my personal trainer
+would have given me. Uh, and it's still
+a work in progress, but it is definitely
+way better than what I was doing myself
+and way more dynamic. Right? These are
+very dynamic based upon uh how how much
+capacity I have for training,
+you know, based on everything that goes
+into it, right? So, it's basing it ba
+based on my training yesterday. It's
+giving me more 20, you know, RM20
+exercises based upon, you know, how well
+recovered I am. Uh, and how hard I
+pushed yesterday. So, I'm very very
+impressed with what what's happening
+here so far. Uh, and then you can just
+see kind of where I'm at with this
+thing. Uh, but
+that's, you know, but yeah, almost
+everything's moved over to these Hermes
+agents. And I don't know, by the way, if
+I'm going to, the reason why I left Open
+Claw running is because I'm finding the
+same problems with the Hermes agents,
+uh, updates breaking things, uh, Open AI
+not working sometimes inside the Hermes
+agent, uh, in a way that I didn't have
+problems with Open Claw other than one
+update. So, every now and then it just
+seems to break its connection.
+um in a way that I wasn't expecting. So,
+I don't know if I'll stick with Hermes.
+Uh I was impressed with some of its
+abilities. Like, I'm very much impressed
+with its ability to update the website,
+with its ability to uh handle these
+adaptive workouts because that was all
+done on the Hermes agent with a little
+bit of initial prep work with Fable. So,
+Fable did the initial prep work and then
+the Hermes agents been doing all the
+updates to it. So that gives you an idea
+of kind of my workflow for anything
+that's big, massive, and comprehensive,
+it's going to fable now. And anything
+that is incremental or adaptive, those
+go to the Hermes agents on each machine.
+So if I want a big massive uh agent
+stack daily uh update that ends up being
+a Fable thing, you can see Fable was
+actually making some changes today. uh I
+thought it was going to be a big massive
+change and it turns out it was just a
+bug that it wasn't showing all the
+stories that it was actually uh using
+for me. So it it turns out that it was
+just straight up a bug in my code uh
+where I had 14 stories and it was
+showing me eight or nine of them and uh
+and so it wasn't something that would
+have had to go to Fable. that could have
+been done by the Hermes agent on this
+machine.
+But,
+you know, that that's something that I
+didn't know until I I prompted Fable
+with it. And then I just let Fable
+finish it and take care of it. But yes,
+uh, you know, the project Arya project
+is still alive, but it's split across,
+you know, two different Hermes agents
+and, uh, two different Hermes agents
+using Fable, using Codex, right? All of
+them are kind of in in concert doing
+this work together.
+And uh and in terms of my own personal
+fitness, uh I think finally you can't
+see it anymore,

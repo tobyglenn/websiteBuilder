@@ -1,0 +1,258 @@
+That was the next thing that I wanted to
+talk about is what is an LLM's role and
+what is a tools role because of this
+argument online that I just thought was
+absolutely crazy.
+So a user was saying WAN and um LTX
+these are these are LLMs that are
+designed for creating video and images.
+I think mostly video from images but
+these are specifically LLMs right and
+they were saying that these things could
+edit videos no that is a tool call to
+something called ffmpeg typically I mean
+there's many different tools that you
+could use but ffmpeg is the common open
+source tool one thing is the the base
+foundation we have to start at the base
+foundation the base foundation of uh
+Hermes agent openclaw
+all of these
+powerful uh you know even codecs,
+anti-gravity, miniax code, all of these
+things you know cloud code the base
+foundation of these are actually a bunch
+of open source tools that have been
+built throughout the years um alongside
+proprietary tools right let's not
+exclude those but open source and
+proprietary tools that people have built
+throughout the years to do a bunch of
+functionality so the LLM is not editing
+the video it's not chopping it up into
+segments. It's not splicing things into
+the video, right? It's doing the thought
+process of where to put the text on the
+screen. It's doing all of these thought
+processes. So, the thing that the human
+would normally do with these tools in
+the past, the LLM is actually powering
+those pieces, right? So for example, a
+good thing to think about is if you go
+into codecs, right? And you ask it
+something where it has to go to a
+website, it will actually go to the
+website and take pictures of screens and
+then analyze those pictures to try to
+figure out where to move the mouse
+cursor to click, right? And you can see
+those um visual representations of what
+it's actually doing behind the scenes.
+So, what it's doing is it's screen
+capturing, reading the information off
+the screen capture, then figuring out
+where to move the mouse, and then doing
+that. This is all a whole bunch of tool
+calls, very complicated tool calls on
+your local system. So, your local system
+is hugely important for these AI
+systems, right? And this is why these
+harnesses have become so important and
+so powerful. And also, what's on your
+system is very important. This person
+didn't realize that his harness is
+downloading all of this stuff to his
+machine to make these videos happen.
+Right? If you're making a video and
+you're doing it strictly using Fable or
+strictly using uh you know codeex or any
+of these, it is pulling down a whole
+bunch of things to make that happen. And
+that was kind of the aha moment with me
+with Open Claw very early on pointing it
+way back in the day at one of the
+earlier opuses. Right. Right. So I had
+well actually before that sorry when I
+very first started I started with a
+Google subscription. So I started with
+Google pointing it at a because I
+already had you know everyone has
+there's even a free tier of Google where
+you can point that and they've kind of
+nerfed it to where it's almost unusable.
+But you could take that free tier and
+point it at OpenClaw and back then the
+it wasn't extremely restrictive. you get
+quite a bit of usage and you could use
+the Gemini model and it was unbelievable
+to see it pull down and install all of
+the things needed to get I forget what I
+oh I can tell you what I was asking it
+was the very first version of my fitness
+tracking system. So, the very first
+version of my fitness tracking system,
+it pulled down all of the things it
+needed. GitHub repos, um,
+uh, GitHub repos, Garmin's Garmin
+Connects API, uh, it pulled down all of
+these things and, and actually, let's go
+through them one by one because I think
+it's important like this user was online
+talking about how it's all LLMs and it's
+like, no, no, no, no, no. There are so
+many other pieces of the puzzle. So what
+you have in inside of any of these
+agentic workflows nowadays is you have
+the combination of the LLM which people
+think of it as the brain right I do not
+think of it as a brain right I think of
+it actually as the heart right because
+without it blood doesn't flow anywhere
+so people think brain I think that's
+wrong right I think that's absolutely I
+think the LLM is the part of the
+operation, right? It's the blood flow.
+It's the I if you have if you have a bad
+heart, you know what I mean? Then
+everything is going to fall apart. Um
+but if you have a functional heart, then
+everything will go very well. And in
+fact, the heart analogy is even more
+important than people realize because
+think about it this way. If you have a
+heart that can pump a lot of blood,
+right? So think about um Fable is a
+great example of it. Uh chat GBT55,
+right? These are things that especially
+on the cloud with high inference, right?
+With high connectivity, high high speed
+transfers, right? Uh these things can
+pump a lot of blood through very quickly
+and you can get a lot of information and
+and you can do a lot, right? But if
+you're saddled with a local model that
+isn't running like like my local model
+is where it's distributed across three
+machines and it's using the GX10 for the
+prefill and then it's going out to
+these, right? Like like my local model
+is going to run very very quickly with
+this type of setup. It just is right. I
+mean, this is a this is a very
+um this is a much smaller model than
+what I would be capable of running with
+this setup. However, it's a model that
+can give me very very fast responses.
+But if you load this thing up with um
+let me pick one of the models that I
+can't even do, right? So, if I tried to
+load up GLM4.7
+or Miniax 25, right, one of these these
+higherend models, if I tried to load one
+of these bad boys up inside that, you
+know, one, they're they're going to
+fail. It's going to crash, right? I'm
+going to have to unload a lot of memory
+to to make that happen. But two, it's
+going to be very very slow, right? And
+that's your heart not being able to pump
+enough
+through it. So you have this, you have
+the LLM which is the heart of the
+operation and then you have what I
+consider to be the brain of the
+operation. So the brain is actually the
+harness. So people are wrong. So my
+opinion is the harness is actually the
+brain, right? And what and and and also
+like the the father like I was listening
+to the father of LLMs
+in his argument and and this is I think
+actually the most salient point why LLMs
+cannot ever be the brain and in fact
+these companies who are trying to do
+this are going to fail. So realize they
+will fail if they believe that the LLM
+itself is a brain of the operations and
+I don't believe anthropic or open AI
+actually believe that. I think it's just
+us in our simplicity in our in our not
+understanding how this technology works
+as individuals. Us oversimplifying the
+technology has allowed us to believe
+that the LLM is a brain and it's just
+not. and especially because it is the
+most humanlike
+uh piece of this, right? The LLM is
+actually the most humanlike in that it's
+trained on human data, right? It's uh
+but it actually has the least amount of
+animalistic and humanoid
+capacities. And that was actually the
+one of the the founding fathers of LLMs
+was talking about this directly. And
+what he was saying specifically is an
+LLM can never u can never produce AGI.
+And his argument is because LLMs do not
+have goals
+and LLMs do not have uh
+what's the other thing? So sorry goals
+was the main one and uh let's just start
+with goals, right? Because LLMs cannot
+have goals and that is actually
+fundamentally true. An LLM on its own
+cannot have next token prediction does
+not have a goal in mind. Right? So a
+true humanistic
+uh long form goal, right? However, a
+harness
+can have a goal, can be given a goal,
+can retain that goal, can have a memory
+structure.
+The harness is the brain. So realize
+that in this world of LLMs, the harness
+is actually the piece of this
+uh technology
+that gives it the brain-like function,
+right? So you have this thing that
+actually is the brain, right? And I
+think that that's very very important
+that we have the LLM, we have the
+harness, and then we have these tools,
+right? And what do I mean by tools?
+Well, the tools are actually like ffmpeg
+um you know all of these different
+pieces of software that run on your
+machine. Those are all tools, right? So,
+this is software on the machine
+and these are being called in
+conjunction by the harness who has
+access to them and the LLM who is
+actually deciding what to call, right?
+and in some cases deciding what to
+install on the machine to be able to
+call which which is mind-boggling that
+it it has this capability right so we
+have uh tools
+so those tools
+are are fundamental and you can think of
+them as um well they're tools [laughter]
+right so you know we have a heart we
+have a brain right and then the human
+itself has has tools Right? We have
+hammers, we have knives, we have
+matches, right? We have all of these,
+you know, we have fire, right? That
+we've created uh through through the use
+of tools, right? So this this is this is
+a powerful component and understanding
+that these are components. We also have
+these things called APIs or MCPs, right?
+So we have these different interfaces.
+So an API is just an interface to talk
+with data, right? And I I wanted to
+bring up APIs in particular because
+another argument that I got into is
+someone wants an API for their Speedians
+data. So, Spedience is going to launch
+later this year an API for their data.
