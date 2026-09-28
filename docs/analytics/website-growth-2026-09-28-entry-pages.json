@@ -1,0 +1,193 @@
+{
+  "_posthogUrl": "https://us.posthog.com/project/498166/insights/new#q=%7B%22kind%22%3A%22InsightVizNode%22%2C%22source%22%3A%7B%22breakdownBy%22%3A%22InitialPage%22%2C%22compareFilter%22%3A%7B%22compare%22%3Atrue%7D%2C%22dateRange%22%3A%7B%22date_from%22%3A%222026-09-21%22%2C%22date_to%22%3A%222026-09-27%22%7D%2C%22doPathCleaning%22%3Afalse%2C%22filterTestAccounts%22%3Atrue%2C%22includeAvgTimeOnPage%22%3Afalse%2C%22includeBounceRate%22%3Atrue%2C%22includeHost%22%3Afalse%2C%22kind%22%3A%22WebStatsTableQuery%22%2C%22limit%22%3A10%2C%22properties%22%3A%5B%5D%7D%7D",
+  "query": {
+    "breakdownBy": "InitialPage",
+    "compareFilter": {
+      "compare": true
+    },
+    "dateRange": {
+      "date_from": "2026-09-21",
+      "date_to": "2026-09-27"
+    },
+    "doPathCleaning": false,
+    "filterTestAccounts": true,
+    "includeAvgTimeOnPage": false,
+    "includeBounceRate": true,
+    "includeHost": false,
+    "kind": "WebStatsTableQuery",
+    "limit": 10,
+    "properties": []
+  },
+  "results": [
+    [
+      "/",
+      [
+        11,
+        11
+      ],
+      [
+        26,
+        28
+      ],
+      [
+        0.5,
+        0.5384615384615384
+      ],
+      0.0738255033557047,
+      ""
+    ],
+    [
+      "/blog/garmin-and-whoop-what-each-is-actually-for/",
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        0.5,
+        0.3333333333333333
+      ],
+      0.026845637583892617,
+      ""
+    ],
+    [
+      "/blog/anthropic-refund-scam/",
+      [
+        4,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        0.25,
+        0
+      ],
+      0.026845637583892617,
+      ""
+    ],
+    [
+      "/es/podcasts/episode-115/",
+      [
+        4,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        0.75,
+        null
+      ],
+      0.026845637583892617,
+      ""
+    ],
+    [
+      "/blog/whoop-18-percent-red-day-protocol/",
+      [
+        3,
+        4
+      ],
+      [
+        3,
+        4
+      ],
+      [
+        0.6666666666666666,
+        0.25
+      ],
+      0.020134228187919462,
+      ""
+    ],
+    [
+      "/blog/openclaw-fitness-reports-garmin-whoop-speediance/",
+      [
+        3,
+        3
+      ],
+      [
+        6,
+        4
+      ],
+      [
+        0.5,
+        0.25
+      ],
+      0.020134228187919462,
+      ""
+    ],
+    [
+      "/blog/",
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ],
+      [
+        0.3333333333333333,
+        1
+      ],
+      0.020134228187919462,
+      ""
+    ],
+    [
+      "/blog/arnold-classic-speediance-and-the-comment-i-got-wrong/",
+      [
+        3,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        0.6666666666666666,
+        1
+      ],
+      0.020134228187919462,
+      ""
+    ],
+    [
+      "/blog/2025-12-03-the-real-reason-an-elite-coach-might-avoid-grappling-this-way-mike-israetel-vs-n/",
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        1,
+        null
+      ],
+      0.020134228187919462,
+      ""
+    ],
+    [
+      "/de/podcasts/episode-104/",
+      [
+        3,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        0,
+        null
+      ],
+      0.020134228187919462,
+      ""
+    ]
+  ]
+}
