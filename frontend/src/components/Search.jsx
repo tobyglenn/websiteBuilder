@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import SearchButton from './SearchButton.jsx';
 import { captureEvent } from '../lib/analytics.js';
 
@@ -22,7 +23,7 @@ function SearchModalFallback({ onClose }) {
   );
 }
 
-export default function Search() {
+export default function Search({ keyboardShortcuts = true }) {
   const [isOpen, setIsOpen] = useState(false);
   const [hasLoadedModal, setHasLoadedModal] = useState(false);
 
@@ -38,6 +39,7 @@ export default function Search() {
 
   // Keyboard shortcut: Cmd/Ctrl+K to open
   useEffect(() => {
+    if (!keyboardShortcuts) return;
     const handleKeyDown = (e) => {
       // Only trigger if not typing in an input
       const target = e.target;
@@ -61,15 +63,15 @@ export default function Search() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, openSearch, closeSearch]);
+  }, [isOpen, openSearch, closeSearch, keyboardShortcuts]);
 
   return (
     <>
       <SearchButton onClick={() => openSearch('button')} />
-      {hasLoadedModal && (
+      {hasLoadedModal && typeof document !== 'undefined' && createPortal(
         <Suspense fallback={isOpen ? <SearchModalFallback onClose={closeSearch} /> : null}>
           <SearchModal isOpen={isOpen} onClose={closeSearch} />
-        </Suspense>
+        </Suspense>, document.body
       )}
     </>
   );

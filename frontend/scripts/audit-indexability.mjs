@@ -116,6 +116,18 @@ for (const urlString of sitemapUrls) {
 for (const file of htmlFiles) {
   const html = readFileSync(file, 'utf8');
   const sourceRoute = routeForHtml(file);
+  const routeLocale = sourceRoute.match(/^\/(de|es|hi|pt)(?:\/|$)/)?.[1];
+  const documentLang = html.match(/<html\b[^>]*\blang=["']([^"']+)["']/i)?.[1];
+  const isRedirect = /<meta\b[^>]*http-equiv=["']refresh["']/i.test(html);
+  if (routeLocale && !isRedirect && documentLang?.split('-')[0] !== routeLocale) {
+    failures.push(`${sourceRoute} declares html lang="${documentLang || '(missing)'}" instead of "${routeLocale}".`);
+  }
+  for (const match of html.matchAll(/<link\b[^>]*\bhreflang=["'][^"']+["'][^>]*\bhref=["']([^"']+)["'][^>]*>/gi)) {
+    const target = new URL(match[1], SITE_ORIGIN);
+    if (target.origin === SITE_ORIGIN && !routeExists(target.pathname)) {
+      failures.push(`${sourceRoute} hreflang target has no generated HTML: ${target.pathname}`);
+    }
+  }
   const jsonLdScripts = [...html.matchAll(/<script\b[^>]*\btype=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)];
   structuredDataScripts += jsonLdScripts.length;
   for (const match of jsonLdScripts) {

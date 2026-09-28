@@ -37,7 +37,7 @@ const {
   ogType = "website",
   canonicalUrl,
   jsonLd,
-  lang = 'en',
+  lang = Astro.url.pathname.match(/^\/(de|es|hi|pt)(?:\/|$)/)?.[1] || 'en',
   episodeSlug,
   translationBase,
   breadcrumbs,
@@ -266,7 +266,7 @@ if (translationBase) {
   hreflangBase = Astro.url.pathname.replace(localeRegex, '/');
 }
 
-const hreflangLinks = hreflangBase ? locales.map((locale) => ({
+const hreflangLinks = hreflangBase && !noindex ? locales.map((locale) => ({
   lang: locale,
   href: locale === 'en'
     ? `${siteUrl}${hreflangBase}`

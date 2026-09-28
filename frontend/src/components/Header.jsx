@@ -478,7 +478,7 @@ export default function Header() {
               </div>
             </div>
 
-            <div className="mt-auto pt-8"><Search /></div>
+            <div className="mt-auto pt-8"><Search keyboardShortcuts={false} /></div>
           </div>
         </div>
       )}

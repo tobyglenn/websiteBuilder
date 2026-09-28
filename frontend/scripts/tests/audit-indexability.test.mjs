@@ -11,19 +11,36 @@ const context = 'https://schema.org';
 const person = { '@context': context, '@type': 'Person', name: 'Example' };
 const website = { '@context': context, '@type': 'WebSite', url: 'https://tobyonfitnesstech.com/' };
 
-function runAudit(schemas, route = '') {
+function runAudit(schemas, route = '', lang = route.match(/^(de|es|hi|pt)\//)?.[1] || 'en', head = '') {
   const cwd = mkdtempSync(join(tmpdir(), 'indexability-test-'));
   try {
     mkdirSync(join(cwd, 'dist', route), { recursive: true });
-    writeFileSync(join(cwd, 'dist', route, 'index.html'), schemas.map((schema) => (
+    writeFileSync(join(cwd, 'dist', route, 'index.html'), `<html lang="${lang}"><head>${head}</head><body>` + schemas.map((schema) => (
       `<script type="application/ld+json">${JSON.stringify(schema)}</script>`
-    )).join('\n'));
+    )).join('\n') + '</body></html>');
     writeFileSync(join(cwd, 'dist', 'robots.txt'), 'Sitemap: https://tobyonfitnesstech.com/sitemap-index.xml\n');
     return spawnSync(process.execPath, [audit], { cwd, encoding: 'utf8' });
   } finally {
     rmSync(cwd, { recursive: true, force: true });
   }
 }
+
+test('localized HTML uses its route language, including valid regional subtags', () => {
+  for (const locale of ['de', 'es', 'hi', 'pt']) {
+    assert.equal(runAudit([], `${locale}/speediance`).status, 0);
+    const invalid = runAudit([], `${locale}/speediance`, 'en');
+    assert.equal(invalid.status, 1);
+    assert.match(invalid.stderr, /declares html lang/);
+  }
+  assert.equal(runAudit([], 'pt/speediance', 'pt-BR').status, 0);
+  assert.equal(runAudit([], 'de/affiliate', '', '<meta http-equiv="refresh" content="0;url=/de/faq/">').status, 0);
+});
+
+test('hreflang must resolve to generated content', () => {
+  const invalid = runAudit([], '', 'en', '<link rel="alternate" hreflang="de" href="https://tobyonfitnesstech.com/de/missing/">');
+  assert.equal(invalid.status, 1);
+  assert.match(invalid.stderr, /hreflang target has no generated HTML/);
+});
 
 test('accepts separate context-bearing objects without changing their schema data', () => {
   const result = runAudit([person, website]);

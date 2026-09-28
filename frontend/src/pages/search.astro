@@ -101,7 +101,8 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
       return;
     }
 
-    summary.innerHTML = `Found <span class="text-white font-bold">${total}</span> results for "<span class="text-white italic">${q}</span>"`;
+    // URL search terms are untrusted text, never HTML.
+    summary.textContent = `Found ${total} results for "${q}"`;
 
     if (total === 0) {
       noResults.classList.remove('hidden');
