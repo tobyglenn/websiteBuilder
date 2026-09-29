@@ -40,6 +40,14 @@ npm run translate:blog:validate
 npm run translate:priority-pages:promote
 npm run translate:priority-pages:validate
 
+# Categorize any new YouTube videos before the build runs. The Astro
+# content-collection schema requires `category` (and several other fields)
+# on every videos.json entry — refresh_videos.py adds bare entries without
+# it, and the GitHub Actions deploy.yml does this same step, so the local
+# build path needs it too or every translation publish will crash on the
+# first new Short that lands.
+node ../scripts/generate_videos_data.mjs
+
 blog_remaining="$(node ./scripts/blog-translations.mjs status | jq -r '.remaining')"
 priority_remaining="$(node ./scripts/priority-page-translations.mjs status | jq -r '.remaining')"
 if (( blog_remaining > 0 || priority_remaining > 0 )); then
