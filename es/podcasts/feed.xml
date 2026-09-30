@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Mon, 28 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 118 -->
+    <item>
+      <title>Episodio 118: Claude Sonnet 5.5 llega a OpenRouter con ventana de contexto de 1M de tokens</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep118/episode_118.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-118/</link>
+      <description><![CDATA[Claude Sonnet 5.5 llega a OpenRouter con una ventana de contexto de 1M de tokens. Holo4 se lanza como agentes de uso de computadora de código abierto para...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-118/]]></description>
+      <pubDate>Wed, 30 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_118.mp3" length="36726117" type="audio/mpeg"/>
+      <itunes:duration>38:15</itunes:duration>
+      <itunes:episode>118</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep118/episode_118_cover.png"/>
+    </item>
+
     <!-- Episode 117 -->
     <item>
       <title>Episodio 117: GPT-6 Astra descifra un enigma de 2005 mientras Mistral lanza un modelo insignia de 675B bajo Apache 2.0</title>
