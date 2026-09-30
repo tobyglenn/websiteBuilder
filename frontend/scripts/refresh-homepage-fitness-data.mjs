@@ -252,13 +252,49 @@ function createLastActivityCandidate(type, value) {
   return { type, date, timestamp };
 }
 
+async function readUnifiedTrainingTimeline() {
+  const candidates = [
+    path.join(homedir(), 'clawd/data/unified_training_timeline.json'),
+    path.join(homedir(), '.openclaw/workspace/websiteBuilder/frontend/src/data/unified_training_timeline.json'),
+    path.join(DATA_DIR, 'unified_training_timeline.json'),
+  ];
+  for (const filePath of candidates) {
+    try {
+      const raw = await readFile(filePath, 'utf8');
+      return JSON.parse(raw);
+    } catch {
+      // try next
+    }
+  }
+  return null;
+}
+
+function localStrengthSummaryFromTimeline(utt) {
+  if (!utt) return null;
+  let workouts = 0;
+  let volume = 0;
+  for (const key of Object.keys(utt)) {
+    const tonal = utt[key]?.tonal;
+    if (!tonal) continue;
+    const subs = Array.isArray(tonal.workouts) ? tonal.workouts : [];
+    workouts += subs.length;
+    volume += Number(tonal.total_volume_lbs || 0);
+  }
+  if (workouts === 0 && volume === 0) return null;
+  return { lifetimeVolume: Math.round(volume), totalSessions: workouts };
+}
+
 async function fetchHtml(pathname = '') {
   const url = pathname ? `${FITNESS_HUB_BASE}/${pathname}` : FITNESS_HUB_BASE;
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Failed to fetch ${url}: ${response.status}`);
+  try {
+    const response = await fetch(url, { signal: AbortSignal.timeout(5000) });
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url}: ${response.status}`);
+    }
+    return { ok: true, text: await response.text() };
+  } catch (error) {
+    return { ok: false, error: error instanceof Error ? error.message : String(error), pathname };
   }
-  return response.text();
 }
 
 function parseHubStats(hubHtml) {
@@ -440,15 +476,25 @@ function parseStrengthSummary(strengthHtml) {
 }
 
 async function main() {
-  const [garminData, processedGarminData, speedianceData, whoopSource, hubHtml, strengthHtml] = await Promise.all([
+  const todayFallbackKey = dateKeyFromDate(new Date());
+  const [garminData, processedGarminData, speedianceData, whoopSource, hubResult, strengthResult, unifiedTimeline] = await Promise.all([
     readJson('garmin_all_activities.json'),
     readJson('garmin_processed_activities.json'),
     readJson('speediance_dashboard_data.json'),
     readFreshestWhoopData(),
     fetchHtml(),
     fetchHtml('strength/index.html'),
+    readUnifiedTrainingTimeline(),
   ]);
   const { data: whoopData, filePath: whoopDataPath } = whoopSource;
+
+  const hubHtml = hubResult.ok ? hubResult.text : null;
+  const strengthHtml = strengthResult.ok ? strengthResult.text : null;
+  if (!hubResult.ok) {
+    console.warn(`⚠️  Fitness hub unreachable (${hubResult.error}); falling back to local data.`);
+  } else if (!strengthResult.ok) {
+    console.warn(`⚠️  Strength dashboard unreachable (${strengthResult.error}); falling back to unified_training_timeline.json.`);
+  }
 
   // Build a set of date keys present in the processed Garmin data for quick lookup.
   const processedDateSet = new Set();
@@ -463,13 +509,25 @@ async function main() {
     }
   }
 
-  const hubStats = parseHubStats(hubHtml);
-  const strengthSummary = parseStrengthSummary(strengthHtml);
-  const morningReportHtml = hubStats.morningReportPath
+  const hubStats = hubHtml ? parseHubStats(hubHtml) : {
+    todayLabel: null,
+    todayKey: todayFallbackKey,
+    totalLiftingVolume: null,
+    totalRunSessions: null,
+    totalRunMiles: null,
+    currentRecovery: null,
+    lastSleepScore: null,
+    morningReportPath: null,
+    recentActivity: [],
+  };
+  const strengthSummary = strengthHtml
+    ? parseStrengthSummary(strengthHtml)
+    : (localStrengthSummaryFromTimeline(unifiedTimeline) ?? { lifetimeVolume: null, totalSessions: null });
+  const morningReportHtml = hubStats.morningReportPath && hubHtml
     ? await fetchHtml(hubStats.morningReportPath.replace(/^\.\//, ''))
     : null;
   const morningReportStats = morningReportHtml
-    ? parseMorningReportStats(morningReportHtml)
+    ? parseMorningReportStats(morningReportHtml.text)
     : { currentRecovery: null, lastSleepScore: null };
 
   const runByDate = new Map();

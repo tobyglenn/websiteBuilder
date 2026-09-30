@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-30T11:30:41.037Z",
+  "generatedAt": "2026-09-30T14:03:05.939Z",
   "source": {
-    "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Sep 30, 2026",
+    "hubBaseUrl": "http://192.168.1.249:8082/fitness",
+    "hubTodayLabel": null,
     "hubTodayKey": "2026-09-30",
     "analysisDateKey": "2026-09-30",
-    "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
+    "strengthDashboard": "http://192.168.1.249:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
     "whoopLastSynced": "2026-09-30T07:30:14.371915"
   },
@@ -1435,7 +1435,7 @@
   },
   "recovery": {
     "currentScore": 67,
-    "lastSleepScore": 78
+    "lastSleepScore": null
   },
   "labels": {
     "thisWeek": "September 24, 2026 - September 30, 2026",
