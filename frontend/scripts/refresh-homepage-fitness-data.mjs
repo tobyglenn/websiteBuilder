@@ -526,7 +526,7 @@ async function main() {
   const morningReportHtml = hubStats.morningReportPath && hubHtml
     ? await fetchHtml(hubStats.morningReportPath.replace(/^\.\//, ''))
     : null;
-  const morningReportStats = morningReportHtml
+  const morningReportStats = morningReportHtml?.ok
     ? parseMorningReportStats(morningReportHtml.text)
     : { currentRecovery: null, lastSleepScore: null };
 
