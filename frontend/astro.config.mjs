@@ -13,6 +13,7 @@ const EXCLUDED_SITEMAP_PATHS = [
   /^\/(?:de\/|es\/|pt\/|hi\/)?affiliate\/?$/,
   /^\/(?:mma-rpg|gridbound-realms|bjj-buddy|nutritrack)\/?$/,
   /^\/(?:(?:de|es|pt|hi)\/)?blog\/(?:2025-09-09-discover-the-truth-behind-workout-tech-transparency|i-pulled-260-pounds-on-the-speediance-2s-did-it-break|speediance-2s-260-lb-lat-pulldown|speediance-broke-partner-mode-lost-free-lift-feature|the-submission-that-could-have-ended-everything|why-running-might-have-saved-my-life)\/$/,
+  /^\/(?:(?:de|es|pt|hi)\/)?blog\/mflx3omqzw\/$/,  // slug renamed 2026-09-30; old URLs render redirect pages
 ];
 
 const shouldIncludeInSitemap = (page) => {

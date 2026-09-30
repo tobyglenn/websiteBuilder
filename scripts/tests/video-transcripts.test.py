@@ -42,7 +42,10 @@ class TranscriptTests(unittest.TestCase):
             record = json.loads(path.read_text())
             self.assertEqual(record['source_hash'], sync.source_hash(record['video_id'], record['segments']), path.name)
             text = '\n\n'.join(segment['text'] for segment in record['segments']) + '\n'
-            self.assertEqual((ROOT / 'frontend/src/data/transcripts' / f"{record['video_id']}.txt").read_text(), text)
+            index_path = ROOT / 'frontend/src/data/transcript_index.json'
+            index = {entry['video_id']: entry for entry in json.loads(index_path.read_text())}
+            entry = index[record['video_id']]
+            self.assertEqual((ROOT / 'frontend/src/data/transcripts' / entry['file']).read_text(), text)
 
     def test_identity_timing_idempotence_and_index_consistency(self):
         report = self.run_sync()
@@ -79,6 +82,54 @@ class TranscriptTests(unittest.TestCase):
             with self.assertRaises(ValueError): sync.parse_srt(raw)
         self.args.source_root = [self.root / 'missing']
         with self.assertRaises(FileNotFoundError): self.run_sync()
+
+    def test_renames_legacy_bare_id_files_to_descriptive_names(self):
+        # Stage the legacy form: <video_id>.txt plus matching JSON record.
+        transcript_dir = self.root / 'frontend/src/data/transcripts'
+        transcripts_root = self.root / 'frontend/src/data/video-transcripts'
+        transcript_dir.mkdir(parents=True, exist_ok=True)
+        transcripts_root.mkdir(parents=True, exist_ok=True)
+        legacy_txt = transcript_dir / f'{ID}.txt'
+        legacy_txt.write_text('legacy text\n')
+        record = {'schema_version': 1, 'video_id': ID, 'language': 'en',
+                  'source_hash': sync.source_hash(ID, [{'text': 'legacy text'}]),
+                  'segments': [{'text': 'legacy text'}],
+                  'source': {'kind': 'youtube-captions', 'caption_sha256': 'x'}}
+        (transcripts_root / f'{ID}.json').write_text(json.dumps(record))
+        (self.root / 'transcript_index.json').write_text(json.dumps([{
+            'file': f'{ID}.txt', 'title': 'Title', 'date': '2026-01-01',
+            'video_id': ID, 'word_count': 2, 'source': 'youtube-captions',
+            'source_hash': record['source_hash']}]))
+        # Skip source-root processing by running with no source/backlog roots.
+        no_source_args = SimpleNamespace(repo=self.root, source_root=[], backlog_index=[], apply=True)
+        with contextlib.redirect_stdout(io.StringIO()):
+            report = sync.run(no_source_args)
+        # Legacy bare file removed; descriptive name written.
+        self.assertFalse(legacy_txt.exists())
+        renamed = next(r for r in report['renamed'] if r['video_id'] == ID)
+        self.assertEqual(renamed['old_file'], f'{ID}.txt')
+        new_path = transcript_dir / renamed['new_file']
+        self.assertTrue(new_path.exists())
+        self.assertEqual(new_path.read_text(), 'legacy text\n')
+        index = json.loads((self.root / 'transcript_index.json').read_text())
+        self.assertEqual(index[0]['file'], renamed['new_file'])
+        # Second run is a no-op now that everything is in the new form.
+        with contextlib.redirect_stdout(io.StringIO()):
+            report2 = sync.run(no_source_args)
+        self.assertEqual(report2['renamed'], [])
+
+    def test_safe_filename_and_collision_disambiguation(self):
+        self.assertEqual(sync.safe_filename('Speediance Gym Nano vs VOLTRA: Why the Debate Took Over'),
+                         'Speediance_Gym_Nano_vs_VOLTRA_Why_the_Debate_Took_Over')
+        used = {}
+        a = sync.transcript_filename('-MfLx3omqzw', 'Speediance Gym Nano vs VOLTRA', used)
+        used[a.lower()] = '-MfLx3omqzw'
+        b = sync.transcript_filename('-MfLx3omqzw', 'Speediance Gym Nano vs VOLTRA', used)
+        self.assertEqual(a, b)
+        c = sync.transcript_filename('abcdefghijk', 'Speediance Gym Nano vs VOLTRA', used)
+        self.assertNotEqual(a, c)
+        self.assertTrue(c.endswith('__abcdefghijk.txt'))
+
     def test_translation_json_wrappers_and_partial_responses(self):
         for text in ['{"segments": []}', '```json\n{"segments": []}\n```']:
             self.assertEqual(translate.decode_response(text), {'segments': []})

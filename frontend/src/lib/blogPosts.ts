@@ -3,6 +3,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { BLOG_POSTS as FALLBACK_BLOG_POSTS } from '../data/mock.js';
+import { MANUAL_REDIRECTS } from './blogSlugRedirects';
 
 export type BlogPost = {
   slug: string;
@@ -316,11 +317,6 @@ for (const post of BLOG_POSTS) {
 
 export const CANONICAL_BLOG_POSTS: BlogPost[] = Array.from(listingPostsByIdentity.values());
 export const LISTING_BLOG_POSTS: BlogPost[] = CANONICAL_BLOG_POSTS;
-
-// Hardcoded redirect for slug change on 2026-04-08
-const MANUAL_REDIRECTS: Record<string, string> = {
-  "2025-09-09-discover-the-truth-behind-workout-tech-transparency": "2026-04-08-discover-the-truth-behind-workout-tech-transparency",
-};
 
 export const BLOG_REDIRECTS: Record<string, string> = Object.fromEntries(
   BLOG_POSTS.flatMap((post) => {

@@ -9,6 +9,7 @@ import {
   type BlogTranslationLocale,
   type LocalizedBlogPost,
 } from '../../../lib/localizedBlogPosts';
+import { MANUAL_REDIRECTS } from '../../../lib/blogSlugRedirects';
 
 const UI = {
   de: {
@@ -73,6 +74,31 @@ interface Props {
 
 const { lang, post } = Astro.props as Props;
 const ui = UI[lang];
+
+// Redirect pages for renamed slugs (mirrors the English blog template).
+// The old slug stays out of the sitemap (see EXCLUDED_SITEMAP_PATHS in
+// astro.config.mjs) and renders a redirect page whose canonical points
+// at the new localized URL.
+const redirectSlug = MANUAL_REDIRECTS[post.slug];
+if (redirectSlug) {
+  const redirectUrl = `/${lang}/blog/${redirectSlug}/`;
+  const redirectDescription = (post.excerpt?.slice(0, 155) || post.title).replace(/"/g, '&quot;');
+  const escapedTitle = post.title.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  return new Response(
+    `<!DOCTYPE html><html lang="${lang}"><head>
+<meta charset="UTF-8">
+<title>${escapedTitle} - TobyOnFitnessTech</title>
+<meta name="description" content="${redirectDescription}">
+<link rel="canonical" href="https://tobyonfitnesstech.com${redirectUrl}">
+<meta http-equiv="refresh" content="0;url=${redirectUrl}">
+</head><body>
+<h1>${escapedTitle}</h1>
+<p>This page has moved. <a href="${redirectUrl}">Click here</a> if you are not redirected automatically.</p>
+<script>window.location.replace("${redirectUrl}")<\/script>
+</body></html>`,
+    { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } }
+  );
+}
 const articleHtml = await marked.parse(post.content || '');
 const wordCount = post.content.split(/\s+/).filter(Boolean).length;
 const readingMinutes = Math.max(1, Math.round(wordCount / 200));
