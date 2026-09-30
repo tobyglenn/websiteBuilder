@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Mon, 28 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 30 Sep 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 118 -->
+    <item>
+      <title>Folge 118: Claude Sonnet 5.5 erscheint auf OpenRouter mit 1M Token Kontextfenster</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep118/episode_118.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-118/</link>
+      <description><![CDATA[Claude Sonnet 5.5 landet auf OpenRouter mit einem 1M Token Kontextfenster. Holo4 erscheint als Open-Weight-Computer-Use-Agents für Desktop, Web und Android.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-118/]]></description>
+      <pubDate>Wed, 30 Sep 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_118.mp3" length="39760083" type="audio/mpeg"/>
+      <itunes:duration>41:24</itunes:duration>
+      <itunes:episode>118</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep118/episode_118_cover.png"/>
+    </item>
+
     <!-- Episode 117 -->
     <item>
       <title>Folge 117: GPT-6 Astra knackt ein 2005er Enigma, während Mistral ein 675B Apache 2.0-Flaggschiff veröffentlicht</title>
