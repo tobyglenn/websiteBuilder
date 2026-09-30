@@ -336,3 +336,37 @@ html.light .bg-red-600 * {
 /* Captions over photography keep their dark scrim and light text in both themes. */
 :root[data-theme="light"] .theme-image-overlay .text-white { color: #fff !important; }
 :root[data-theme="light"] .theme-image-overlay .text-neutral-300 { color: #e2e8f0 !important; }
+
+/* ============================================================
+   Blog article tables (.markdown-article)
+   Markdown tables render as bare <table> elements with no
+   classes, so they need explicit styling: borders, padding,
+   zebra striping, and horizontal scroll on narrow screens.
+   ============================================================ */
+.markdown-article table {
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1.75rem 0;
+  border-spacing: 0;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+.markdown-article table th,
+.markdown-article table td {
+  padding: 0.7rem 1rem;
+  border: 1px solid #3f3f3f;
+  text-align: left;
+  vertical-align: top;
+}
+.markdown-article table th {
+  background: #1c1c1c;
+  color: #ffffff;
+  font-weight: 650;
+  white-space: nowrap;
+}
+.markdown-article table tbody tr:nth-child(even) td {
+  background: rgba(255, 255, 255, 0.025);
+}
