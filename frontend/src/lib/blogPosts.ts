@@ -320,6 +320,7 @@ export const LISTING_BLOG_POSTS: BlogPost[] = CANONICAL_BLOG_POSTS;
 // Hardcoded redirect for slug change on 2026-04-08
 const MANUAL_REDIRECTS: Record<string, string> = {
   "2025-09-09-discover-the-truth-behind-workout-tech-transparency": "2026-04-08-discover-the-truth-behind-workout-tech-transparency",
+  "mflx3omqzw": "speediance-gym-nano-vs-voltra-clone-controversy",  // slug renamed 2026-09-30
 };
 
 export const BLOG_REDIRECTS: Record<string, string> = Object.fromEntries(
