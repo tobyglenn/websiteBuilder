@@ -54884,13 +54884,13 @@
                 "id": 1836245317,
                 "user_id": 1781625,
                 "created_at": "2026-09-30T09:54:44.106Z",
-                "updated_at": "2026-10-01T09:16:23.131Z",
+                "updated_at": "2026-10-01T12:00:18.690Z",
                 "start": "2026-09-30T02:41:16.970Z",
                 "end": "2026-10-01T02:08:17.950Z",
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.271529,
+                    "strain": 11.064847,
                     "kilojoule": 8911.663,
                     "average_heart_rate": 69,
                     "max_heart_rate": 142
@@ -54907,12 +54907,12 @@
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 0.13020928,
-                    "kilojoule": 2902.3315,
-                    "average_heart_rate": 65,
-                    "max_heart_rate": 117
+                    "strain": 2.3413606,
+                    "kilojoule": 8089.6973,
+                    "average_heart_rate": 70,
+                    "max_heart_rate": 119
                 },
-                "step_count": 71
+                "step_count": 3017
             }
         ]
     },
@@ -181398,11 +181398,42 @@
                     }
                 },
                 "sport_id": 45
+            },
+            {
+                "id": "e92b9a63-4481-4691-bcec-f2077ac5ed16",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-10-01T12:00:07.025Z",
+                "updated_at": "2026-10-01T12:00:12.664Z",
+                "start": "2026-09-30T14:52:58.000Z",
+                "end": "2026-09-30T17:32:31.000Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "weightlifting",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 10.864659,
+                    "average_heart_rate": 69,
+                    "max_heart_rate": 105,
+                    "kilojoule": 991.7506,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 9572980,
+                        "zone_one_milli": 0,
+                        "zone_two_milli": 0,
+                        "zone_three_milli": 0,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 45
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-10-01T07:30:14.509957"
+    "last_synced": "2026-10-01T19:50:12.920661"
 }
