@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Wed, 30 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 119 -->
+    <item>
+      <title>Episódio 119: AgentStack Daily: RSA Coloca Agentes de IA no Cadastro de Identidades com o Agent ID</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep119/episode_119.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-119/</link>
+      <description><![CDATA[RSA coloca agentes de IA no cadastro de identidades com o Agent ID. O Transformers 5.18 adiciona diarização de locutor por streaming com pesos abertos.
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-119/]]></description>
+      <pubDate>Sat, 03 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_119.mp3" length="33599782" type="audio/mpeg"/>
+      <itunes:duration>34:59</itunes:duration>
+      <itunes:episode>119</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep119/episode_119_cover.png"/>
+    </item>
+
     <!-- Episode 118 -->
     <item>
       <title>Episódio 118: Claude Sonnet 5.5 Chega ao OpenRouter Com Janela de Contexto de 1M de Tokens</title>
