@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Wed, 30 Sep 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 119 -->
+    <item>
+      <title>Folge 119: AgentStack Daily: RSA fügt KI-Agenten mit Agent ID dem Identity-Verzeichnis hinzu</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep119/episode_119.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-119/</link>
+      <description><![CDATA[RSA fügt KI-Agenten mit Agent ID dem Identity-Verzeichnis hinzu, Transformers 5.18 führt Open‑Weight‑Streaming‑Sprecherdiarisierung ein, und Firecrawls...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-119/]]></description>
+      <pubDate>Sat, 03 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_119.mp3" length="36777526" type="audio/mpeg"/>
+      <itunes:duration>38:18</itunes:duration>
+      <itunes:episode>119</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep119/episode_119_cover.png"/>
+    </item>
+
     <!-- Episode 118 -->
     <item>
       <title>Folge 118: Claude Sonnet 5.5 erscheint auf OpenRouter mit 1M Token Kontextfenster</title>
