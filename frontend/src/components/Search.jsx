@@ -5,6 +5,37 @@ import { captureEvent } from '../lib/analytics.js';
 
 const SearchModal = lazy(() => import('./SearchModal.jsx'));
 
+class SearchErrorBoundary extends React.Component {
+  state = { failed: false };
+
+  static getDerivedStateFromError() {
+    return { failed: true };
+  }
+
+  componentDidCatch(error) {
+    // Keep the original exception visible while offering a non-JS search route.
+    window.posthog?.captureException(error, { search_surface: 'site_modal' });
+    captureEvent('search_load_failed', { search_surface: 'site_modal' });
+  }
+
+  render() {
+    if (!this.state.failed) return this.props.children;
+    if (!this.props.isOpen) return null;
+    return (
+      <div className="fixed inset-0 z-[100] flex items-start justify-center bg-black/70 pt-20 px-4">
+        <div role="dialog" aria-modal="true" aria-label="Search unavailable" className="w-full max-w-2xl bg-neutral-900 border border-neutral-700 rounded-lg p-6 text-white">
+          <p role="alert">Search could not load.</p>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <a href="/search/" className="underline">Open search page</a>
+            <button type="button" onClick={() => window.location.reload()} className="underline">Reload</button>
+            <button type="button" autoFocus onClick={this.props.onClose} className="underline">Close search</button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
 function SearchModalFallback({ onClose }) {
   return (
     <div
@@ -69,9 +100,11 @@ export default function Search({ keyboardShortcuts = true }) {
     <>
       <SearchButton onClick={() => openSearch('button')} />
       {hasLoadedModal && typeof document !== 'undefined' && createPortal(
-        <Suspense fallback={isOpen ? <SearchModalFallback onClose={closeSearch} /> : null}>
-          <SearchModal isOpen={isOpen} onClose={closeSearch} />
-        </Suspense>, document.body
+        <SearchErrorBoundary isOpen={isOpen} onClose={closeSearch}>
+          <Suspense fallback={isOpen ? <SearchModalFallback onClose={closeSearch} /> : null}>
+            <SearchModal isOpen={isOpen} onClose={closeSearch} />
+          </Suspense>
+        </SearchErrorBoundary>, document.body
       )}
     </>
   );

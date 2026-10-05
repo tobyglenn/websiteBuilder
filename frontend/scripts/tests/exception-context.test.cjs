@@ -93,8 +93,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       await page.goto(`${base}/blog/openclaw-fitness-reports-garmin-whoop-speediance/`);
       await page.waitForFunction(() => !!window.toftAnalytics && !!window.posthog?._i?.[0]?.[1]);
       assert.equal(await page.locator('h1').isVisible(), true);
-      // Layout is checked separately: this article has pre-existing mobile
-      // overflow from long inline code, unrelated to exception instrumentation.
+      // Article containment is covered by search-failure-overflow.test.cjs.
       assert.deepEqual(errors, []);
       await page.addScriptTag({ content: readFileSync(sdkPath, 'utf8') });
       const result = await page.evaluate(() => {
@@ -110,7 +109,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(result.properties.exception_context_version, '20260928-browser-event-v1');
       assert.equal(result.properties.exception_browser_event_type, 'unhandledrejection');
       assert.equal(result.properties.exception_browser_event_class, 'CustomEvent');
-      assert.equal(result.properties.analytics_version, '20260928-exception-context');
+      assert.equal(result.properties.analytics_version, '20261005-error-attribution');
       console.log(`${name}: verified deployed release ${result.properties.site_release}`);
     } finally { await browser.close(); }
   });

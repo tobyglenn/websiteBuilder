@@ -7,7 +7,7 @@ if (!release) {
   try { release = execFileSync('git', ['rev-parse', 'HEAD'], { encoding: 'utf8' }).trim(); }
   catch { release = 'unknown'; }
 }
-const analyticsVersion = '20260928-exception-context';
+const analyticsVersion = '20261005-error-attribution';
 const analyticsLoaderSrc = `/js/posthog-analytics.js?v=${analyticsVersion}`;
 ---
 
