@@ -366,10 +366,17 @@
   window.addEventListener("error", (event) => {
     if (event instanceof ErrorEvent) {
       let sourcePath = '';
-      try { const source = new URL(event.filename, window.location.href); sourcePath = `${source.origin}${source.pathname}`; } catch {}
+      try {
+        if (event.filename) {
+          const source = new URL(event.filename, window.location.href);
+          sourcePath = `${source.origin}${source.pathname}`;
+        }
+      } catch {}
       window.toftAnalytics.capture('frontend_script_error', {
         ...structuredDataDiagnostics(),
         error_source: sourcePath,
+        error_source_known: Boolean(sourcePath),
+        error_opaque: !event.filename && !event.error && !event.lineno && !event.colno,
         error_line: event.lineno || 0,
         error_column: event.colno || 0,
         error_type: event.error?.name || 'Error',
