@@ -23,7 +23,7 @@
 # 1. fetch_transcripts.py --max-new 0 --include-shorts
 #    Fetches English captions for every catalog video missing one (long-form
 #    and Shorts), writing .txt files + transcript_index.json into the draft dir.
-# 2. sync_video_transcripts.py --apply
+# 2. sync_video_transcripts.py --backlog-index <draft>/transcript_index.json --apply
 #    Converts new captions into frontend/src/data/video-transcripts/<id>.json
 #    (the format the site renders).
 # 3. Prints coverage before/after.
@@ -69,12 +69,14 @@ if [[ -n "$DRY_RUN" ]]; then
   exit 0
 fi
 
-# The sync script imports from --source-root (draft transcripts dir).
-# Default draft dir: <repo-parent>/blog-drafts/transcripts (see fetch_transcripts.py).
-DRAFT_TRANSCRIPTS="${BLOG_DRAFT_DIR:-$(dirname "$REPO_ROOT")/blog-drafts}/transcripts"
+# The sync script imports the fetch output via --backlog-index (the draft
+# transcript_index.json); it resolves each entry's .txt from the sibling
+# transcripts/ dir. Defaults mirror fetch_transcripts.py
+# (BLOG_DRAFT_DIR or <repo-parent>/blog-drafts).
+DRAFT_INDEX="${BLOG_DRAFT_DIR:-$(dirname "$REPO_ROOT")/blog-drafts}/transcript_index.json"
 
 echo ">>> Step 2/2: syncing new captions into frontend/src/data/video-transcripts …"
-python3 scripts/sync_video_transcripts.py --source-root "$DRAFT_TRANSCRIPTS" --apply
+python3 scripts/sync_video_transcripts.py --backlog-index "$DRAFT_INDEX" --apply
 
 AFTER=$(count_transcripts)
 echo ">>> Transcripts after: $AFTER ($((AFTER - BEFORE)) new)"
