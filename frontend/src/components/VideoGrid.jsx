@@ -119,8 +119,21 @@ function formatViews(count) {
   return `${num.toLocaleString()} views`;
 }
 
-export default function VideoGrid({ limit = null, showFilters = true, videos, hideShortsByDefault = false }) {
-  const sourceVideos = videos || allVideos;
+export default function VideoGrid({ limit = null, showFilters = true, videos, hideShortsByDefault = false, pageSize = 48, videosJsonUrl = null }) {
+  // Paginated mode (used by /videos/): only the first page of videos is passed
+  // as a prop so the initial HTML stays small; the rest loads from videosJsonUrl.
+  const isPaginated = !limit && Boolean(videosJsonUrl);
+  const [extraVideos, setExtraVideos] = useState([]);
+  const [hasLoadedAllVideos, setHasLoadedAllVideos] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(pageSize);
+  const loadAllAttempted = useRef(false);
+  const baseVideos = videos || allVideos;
+  const sourceVideos = useMemo(() => {
+    if (extraVideos.length === 0) return baseVideos;
+    const seenIds = new Set(baseVideos.map((v) => v.id));
+    return [...baseVideos, ...extraVideos.filter((v) => !seenIds.has(v.id))];
+  }, [baseVideos, extraVideos]);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [durationFilter, setDurationFilter] = useState('all');
@@ -129,6 +142,58 @@ export default function VideoGrid({ limit = null, showFilters = true, videos, hi
   const debouncedSearchQuery = useDebounce(searchQuery, 700);
   const [includeShorts, setIncludeShorts] = useState(!hideShortsByDefault);
   const lastSearchEvent = useRef('');
+
+  const ensureAllVideos = async () => {
+    if (hasLoadedAllVideos || loadAllAttempted.current || !videosJsonUrl) return hasLoadedAllVideos;
+    loadAllAttempted.current = true;
+    setIsLoadingMore(true);
+    try {
+      const response = await fetch(videosJsonUrl);
+      if (!response.ok) throw new Error(`videos data request failed: ${response.status}`);
+      const data = await response.json();
+      setExtraVideos(Array.isArray(data) ? data : data.videos || []);
+      setHasLoadedAllVideos(true);
+      return true;
+    } catch {
+      loadAllAttempted.current = false;
+      return false;
+    } finally {
+      setIsLoadingMore(false);
+    }
+  };
+
+  // Paginated grids fetch the remaining videos in the background so filters
+  // and counts stay correct without bloating the initial HTML payload.
+  useEffect(() => {
+    if (isPaginated) {
+      ensureAllVideos();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPaginated]);
+
+  const handleLoadMore = async () => {
+    if (isLoadingMore) return;
+    if (isPaginated) {
+      const loaded = await ensureAllVideos();
+      if (!loaded) return;
+    }
+    const next = visibleCount + pageSize;
+    setVisibleCount(next);
+    captureEvent('videos_load_more', {
+      visible_count: next,
+      content_type: 'video',
+    });
+  };
+
+  // Reset to the first page whenever the result set changes.
+  const isFirstFilterRun = useRef(true);
+  useEffect(() => {
+    if (isFirstFilterRun.current) {
+      isFirstFilterRun.current = false;
+      return;
+    }
+    setVisibleCount(pageSize);
+  }, [selectedCategory, sortBy, durationFilter, searchQuery, includeShorts, pageSize]);
 
   const handleCategorySelect = (catId) => {
     setSelectedCategory(catId);
@@ -298,6 +363,8 @@ export default function VideoGrid({ limit = null, showFilters = true, videos, hi
     return result;
   }, [visibleSourceVideos, selectedCategory, sortBy, durationFilter, searchQuery, limit]);
 
+  const pagedVideos = isPaginated ? filteredVideos.slice(0, visibleCount) : filteredVideos;
+
   useEffect(() => {
     const settledQuery = debouncedSearchQuery.trim();
     if (settledQuery.length < 2 || searchQuery.trim() !== settledQuery) {
@@ -452,7 +519,11 @@ export default function VideoGrid({ limit = null, showFilters = true, videos, hi
                 </>
               ) : (
                 <>
-                  Showing {filteredVideos.length} videos
+                  {isPaginated ? (
+                    <>Showing {pagedVideos.length} of {filteredVideos.length} videos</>
+                  ) : (
+                    <>Showing {filteredVideos.length} videos</>
+                  )}
                   {hideShortsByDefault && !includeShorts && shortsCount > 0 ? ` • ${shortsCount} shorts hidden` : ''}
                 </>
               )}
@@ -476,8 +547,9 @@ export default function VideoGrid({ limit = null, showFilters = true, videos, hi
           )}
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredVideos.map((video, index) => {
+        <>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {pagedVideos.map((video, index) => {
             const primaryCategory = video.categories?.[0];
             const categoryStyle = CATEGORY_BADGE_STYLES[primaryCategory] || 'bg-neutral-800 text-white';
             const isLive = Boolean(video.is_live);
@@ -580,6 +652,21 @@ export default function VideoGrid({ limit = null, showFilters = true, videos, hi
             );
           })}
         </div>
+          {isPaginated && filteredVideos.length > pagedVideos.length && (
+            <div className="flex justify-center pt-2">
+              <button
+                type="button"
+                onClick={handleLoadMore}
+                disabled={isLoadingMore}
+                className="px-8 py-3 rounded-full text-sm font-semibold transition-all bg-blue-600 text-white hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isLoadingMore
+                  ? 'Loading videos…'
+                  : `Load more videos (${filteredVideos.length - pagedVideos.length} remaining)`}
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

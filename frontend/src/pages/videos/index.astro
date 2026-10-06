@@ -4,9 +4,13 @@ import VideoGrid from '../../components/VideoGrid.jsx';
 import { VIDEOS } from '../../data/mock.js';
 
 const title = "All Videos - Toby on Fitness Tech";
-const description = "Browse all 104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and transformation content.";
+const description = `Browse all ${VIDEOS.length} videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and transformation content.`;
 
 const siteUrl = "https://tobyonfitnesstech.com";
+
+// Initial server-rendered page size for the video grid. The remaining videos
+// load client-side from /videos/all.json via the grid's "Load more" button.
+const INITIAL_VIDEO_COUNT = 48;
 
 // Define playlists based on keywords
 const PLAYLIST_DEFINITIONS = [
@@ -87,7 +91,7 @@ const videosCollectionSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/videos/#collection`,
   "name": "Toby on Fitness Tech — Full Video Library",
-  "description": "All 104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. No scripts, no sponsors.",
+  "description": `All ${VIDEOS.length} videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. No scripts, no sponsors.`,
   "url": `${siteUrl}/videos/`,
   "inLanguage": "en",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -144,13 +148,13 @@ const videosCollectionSchema = {
           <span class="text-neutral-400">No Scripts. No Sponsors.</span>
         </h1>
         <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
-          104 videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. Filter by topic below.
+          {VIDEOS.length} videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. Filter by topic below.
         </p>
       </div>
     </section>
     
     <!-- Grid -->
     <div class="container mx-auto px-4 py-10">
-      <VideoGrid client:load showFilters={true} videos={VIDEOS} hideShortsByDefault={true} />
+      <VideoGrid client:load showFilters={true} videos={VIDEOS.slice(0, INITIAL_VIDEO_COUNT)} pageSize={INITIAL_VIDEO_COUNT} videosJsonUrl="/videos/all.json" hideShortsByDefault={true} />
     </div>
   </Layout>
