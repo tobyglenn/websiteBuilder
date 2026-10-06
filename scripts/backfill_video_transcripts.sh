@@ -20,21 +20,33 @@
 #
 # WHAT IT DOES
 # ------------
-# 1. fetch_transcripts.py --max-new 0 --include-shorts
+# 1. fetch_transcripts.py --max-new 0 --include-shorts --clear-failures --sleep 2
 #    Fetches English captions for every catalog video missing one (long-form
 #    and Shorts), writing .txt files + transcript_index.json into the draft dir.
+#    Already-fetched videos are skipped, so re-runs resume where the last run
+#    stopped. The 2s pace keeps YouTube from throttling this IP; if throttling
+#    does happen the fetch step stops immediately (exit 2) instead of stamping
+#    every remaining video with a week-long retry wait.
 # 2. sync_video_transcripts.py --backlog-index <draft>/transcript_index.json --apply
 #    Converts new captions into frontend/src/data/video-transcripts/<id>.json
 #    (the format the site renders).
 # 3. Prints coverage before/after.
+#
+# If the fetch step exits 2 (YouTube IP throttle), the script still syncs
+# whatever was fetched, then tells you to wait a few hours and re-run.
 #
 # USAGE
 # -----
 #   ./scripts/backfill_video_transcripts.sh            # full backfill
 #   ./scripts/backfill_video_transcripts.sh --dry-run  # show what would fetch
 #
-# After it completes: git add frontend/src/data/video-transcripts && git commit
-# && git push — the next deploy picks the transcripts up automatically.
+# After it completes:
+#   git add frontend/src/data/video-transcripts frontend/src/data/transcript_index.json \
+#       frontend/src/data/transcripts transcript_index.json && git commit && git push
+# The sync step also updates transcript_index.json (both copies) and writes the
+# plain-text transcripts/ files — all four paths are required or the deploy's
+# 'Validate video catalog generation' step fails. The next deploy picks the
+# transcripts up automatically.
 
 set -euo pipefail
 
@@ -61,8 +73,18 @@ count_transcripts() {
 BEFORE=$(count_transcripts)
 echo ">>> Transcripts before: $BEFORE"
 
-echo ">>> Step 1/2: fetching missing captions (this takes a while — ~0.35s per video plus retries)…"
-python3 scripts/fetch_transcripts.py --max-new 0 --include-shorts $DRY_RUN
+echo ">>> Step 1/2: fetching missing captions (gentle 2s pace to avoid YouTube throttling)…"
+set +e
+python3 scripts/fetch_transcripts.py --max-new 0 --include-shorts --clear-failures --sleep 2 $DRY_RUN
+FETCH_STATUS=$?
+set -e
+if [[ $FETCH_STATUS -eq 2 ]]; then
+  echo ">>> YouTube is temporarily throttling caption requests from this IP."
+  echo ">>> Whatever was fetched is saved; syncing that now — then wait a few hours and re-run this script to continue."
+elif [[ $FETCH_STATUS -ne 0 ]]; then
+  echo ">>> Fetch step failed (exit $FETCH_STATUS)." >&2
+  exit $FETCH_STATUS
+fi
 
 if [[ -n "$DRY_RUN" ]]; then
   echo ">>> Dry run complete — re-run without --dry-run to fetch."
@@ -80,5 +102,9 @@ python3 scripts/sync_video_transcripts.py --backlog-index "$DRAFT_INDEX" --apply
 
 AFTER=$(count_transcripts)
 echo ">>> Transcripts after: $AFTER ($((AFTER - BEFORE)) new)"
-echo ">>> Done. Review with: git status --short frontend/src/data/video-transcripts"
+if [[ "${FETCH_STATUS:-0}" -eq 2 ]]; then
+  echo ">>> Partial backfill: re-run this script in a few hours to fetch the rest."
+  exit 2
+fi
+echo ">>> Done. Review with: git status --short frontend/src/data/video-transcripts frontend/src/data/transcript_index.json frontend/src/data/transcripts transcript_index.json"
 echo ">>> Then commit + push; the site renders new transcripts on the next deploy."
