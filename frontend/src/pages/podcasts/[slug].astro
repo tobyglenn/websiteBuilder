@@ -109,6 +109,15 @@ export async function getStaticPaths() {
       transcriptSourceUrl = transcriptResult.url;
     }
 
+    // Render show notes HTML from the dedicated show-notes file.
+    // This must stay independent of transcript availability: previously it lived
+    // inside the try block after the transcript check, so a missing transcript
+    // discarded already-fetched show notes and the page fell back to
+    // "Show notes coming soon."
+    if (showNotesMd) {
+      showNotesHtml = canonicalizeInternalPodcastUrls(await marked.parse(showNotesMd));
+    }
+
     try {
       if (!rawMd.trim()) {
         throw new Error('Transcript not found');
@@ -120,17 +129,18 @@ export async function getStaticPaths() {
         if (!showNotesMd) {
           const snMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## Full Transcript)/m);
           showNotesMd = snMatch ? snMatch[1].trim() : '';
+          if (showNotesMd) {
+            showNotesHtml = canonicalizeInternalPodcastUrls(await marked.parse(showNotesMd));
+          }
         }
         // Extract transcript portion only
         const txMatch = rawMd.match(/^## Full Transcript\s*\n([\s\S]*)$/m);
         rawMd = txMatch ? txMatch[1] : rawMd;
       }
 
-      // Render show notes HTML
-      if (showNotesMd) {
-        showNotesHtml = canonicalizeInternalPodcastUrls(await marked.parse(showNotesMd));
-      } else {
-        // Legacy fallback: look for ## SHOW NOTES in transcript
+      // Legacy fallback: look for ## SHOW NOTES in the transcript,
+      // only when no dedicated show-notes file was found.
+      if (!showNotesHtml) {
         const showNotesMatch = rawMd.match(/^## SHOW NOTES\s*\n([\s\S]*?)(?=^## )/m);
         if (showNotesMatch) {
           showNotesHtml = canonicalizeInternalPodcastUrls(await marked.parse(showNotesMatch[1]));
