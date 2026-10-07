@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 03 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 120 -->
+    <item>
+      <title>Folge 120: GPT-6 Astra Ultrafast läuft 8x schneller auf NVIDIA Blackwell</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep120/episode_120.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-120/</link>
+      <description><![CDATA[OpenAI bringt GPT-6 Astra Ultrafast mit achtmal schnellerer Token-Generierung auf NVIDIA Blackwell heraus. Außerdem erscheint Aleph Alphas 78B/3B-aktives...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-120/]]></description>
+      <pubDate>Tue, 06 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_120.mp3" length="36983580" type="audio/mpeg"/>
+      <itunes:duration>38:31</itunes:duration>
+      <itunes:episode>120</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep120/episode_120_cover.png"/>
+    </item>
+
     <!-- Episode 119 -->
     <item>
       <title>Folge 119: AgentStack Daily: RSA fügt KI-Agenten mit Agent ID dem Identity-Verzeichnis hinzu</title>

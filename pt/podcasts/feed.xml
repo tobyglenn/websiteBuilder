@@ -5,7 +5,7 @@
     <link>https://tobyonfitnesstech.com/pt/podcasts/openclaw/</link>
     <description>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</description>
     <language>pt-br</language>
-    <lastBuildDate>Sat, 03 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 06 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova e Alloy</itunes:author>
     <itunes:summary>Atualizações diárias sobre IA agentiva, infraestrutura local-first, ferramentas para desenvolvedores, lançamentos de modelos e os sistemas por trás dos fluxos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -15,6 +15,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 120 -->
+    <item>
+      <title>Episódio 120: GPT-6 Astra Ultrafast roda 8x mais rápido no NVIDIA Blackwell</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep120/episode_120.mp3</guid>
+      <link>https://tobyonfitnesstech.com/pt/podcasts/episode-120/</link>
+      <description><![CDATA[A OpenAI lança o GPT-6 Astra Ultrafast com geração de tokens 8 vezes mais rápida no NVIDIA Blackwell. Além disso: o Kolibri, da Aleph Alpha, com 78B/3B...
+
+Show notes: https://tobyonfitnesstech.com/pt/podcasts/episode-120/]]></description>
+      <pubDate>Tue, 06 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/pt/episode_120.mp3" length="34787622" type="audio/mpeg"/>
+      <itunes:duration>36:14</itunes:duration>
+      <itunes:episode>120</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep120/episode_120_cover.png"/>
+    </item>
+
     <!-- Episode 119 -->
     <item>
       <title>Episódio 119: AgentStack Daily: RSA Coloca Agentes de IA no Cadastro de Identidades com o Agent ID</title>
