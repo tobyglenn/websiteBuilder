@@ -203,6 +203,24 @@ def normalize_transcript(snippets: Iterable[Any]) -> str:
     return "\n".join(lines).strip() + "\n"
 
 
+def is_ip_block_error(exc: BaseException) -> bool:
+    """Detect YouTube IP-based throttling of the caption endpoint.
+
+    When too many caption requests come from one IP in a short window,
+    YouTube starts rejecting them ("YouTube is blocking requests from your
+    IP"). This is temporary — it usually lifts within a few hours — so unlike
+    other failures it must NOT be stamped with a multi-day retry wait.
+    """
+    name = type(exc).__name__.lower()
+    message = str(exc).lower()
+    return (
+        "blocking requests from your ip" in message
+        or "ipblocked" in name
+        or "too many requests" in message
+        or "toomanyrequests" in name
+    )
+
+
 def fetch_transcript(video_id: str) -> tuple[str, str]:
     try:
         from youtube_transcript_api import YouTubeTranscriptApi
@@ -268,6 +286,9 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--state", type=Path, default=draft_root / "transcript_sync_state.json")
     parser.add_argument("--max-new", type=int, default=3, help="maximum transcripts fetched per run; 0 means unlimited")
     parser.add_argument("--retry-days", type=int, default=DEFAULT_RETRY_DAYS)
+    parser.add_argument("--clear-failures", action="store_true",
+                        help="forget all recorded caption failures before running "
+                             "(use after a mass failure caused by IP throttling)")
     parser.add_argument("--include-shorts", action="store_true", help="allow individual Shorts as article sources")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--sleep", type=float, default=0.35, help="seconds between transcript requests")
@@ -279,6 +300,9 @@ def main() -> int:
     catalog = load_catalog(args.videos)
     writable, combined = load_indexes([args.index, args.legacy_index])
     state = load_state(args.state)
+    if args.clear_failures and state.get("failures"):
+        print(f"clearing {len(state['failures'])} recorded caption failures", flush=True)
+        state["failures"] = {}
     indexed_ids = set(combined)
     used_files = {
         str(item.get("file") or "").lower(): str(item.get("video_id") or "")
@@ -337,6 +361,16 @@ def main() -> int:
                 atomic_write_json(args.index, writable)
                 print(f"  saved {filename} ({entry['word_count']} words)")
             except Exception as exc:
+                if is_ip_block_error(exc):
+                    # Temporary IP throttle: stop now instead of stamping every
+                    # remaining video with a multi-day retry wait. Anything
+                    # already fetched is saved; re-run after the block lifts.
+                    atomic_write_json(args.state, state)
+                    print("  YouTube is temporarily blocking caption requests from this IP.",
+                          file=sys.stderr)
+                    print("  Stopping early — progress so far is saved. "
+                          "Wait a few hours, then re-run.", file=sys.stderr)
+                    return 2
                 retry_after = utc_now() + timedelta(days=max(1, args.retry_days))
                 state["failures"][video_id] = {
                     "title": video["title"],

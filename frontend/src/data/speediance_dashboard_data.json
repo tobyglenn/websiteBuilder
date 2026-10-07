@@ -1526,6 +1526,20 @@
           "durationMinute": 46,
           "calorie": 517,
           "actionNum": 20
+        },
+        {
+          "date": "2026-10-06",
+          "totalCapacity": 46.0,
+          "durationMinute": 46,
+          "calorie": 6,
+          "actionNum": 20
+        },
+        {
+          "date": "2026-10-06",
+          "totalCapacity": 18246.0,
+          "durationMinute": 46,
+          "calorie": 843,
+          "actionNum": 20
         }
       ],
       "exercises": [],
@@ -1537,9 +1551,9 @@
         "calorie": 1655,
         "actionNum": 20
       },
-      "totalSessions": 5,
-      "avgVolume": 15617.2,
-      "totalVolume": 78086.0
+      "totalSessions": 7,
+      "avgVolume": 13768.3,
+      "totalVolume": 96378.0
     }
   },
   "exercisePRs": {
@@ -1856,11 +1870,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 125,
-  "totalVolumeLbs": 1062471.2,
+  "totalWorkouts": 127,
+  "totalVolumeLbs": 1080763.2,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-09-30"
+    "end": "2026-10-06"
   },
   "allSessions": [
     {
@@ -2861,6 +2875,22 @@
       "totalCapacity": 11086.0,
       "durationMinute": 46,
       "calorie": 517,
+      "actionNum": 20
+    },
+    {
+      "date": "2026-10-06",
+      "title": "ARIA !OVERRIDE! Barbell Knee-Safe 20260917",
+      "totalCapacity": 46.0,
+      "durationMinute": 46,
+      "calorie": 6,
+      "actionNum": 20
+    },
+    {
+      "date": "2026-10-06",
+      "title": "ARIA !OVERRIDE! Barbell Knee-Safe 20260917",
+      "totalCapacity": 18246.0,
+      "durationMinute": 46,
+      "calorie": 843,
       "actionNum": 20
     }
   ]
