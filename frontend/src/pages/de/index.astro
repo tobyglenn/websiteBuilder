@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getHomepageFeature } from '../../lib/homepageFeature';
 import Hero from '../../components/Hero.jsx';
 import TrainingFocus from '../../components/TrainingFocus.jsx';
 import Newsletter from '../../components/Newsletter.jsx';
@@ -104,7 +105,7 @@ const webPageSchema = {
   jsonLd={webPageSchema}
 >
 	
-	<Hero client:load lang="de" />
+	<Hero lang="de" {...getHomepageFeature('de')} />
 	<TrainingFocus client:load lang="de" />
 
 	<section id="this-week" class="py-12 bg-neutral-950">

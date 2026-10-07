@@ -2,6 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_dispatch:
+  schedule:
+    # Monday morning: refresh the weekly homepage pick even without a source push.
+    - cron: '17 10 * * 1'
   push:
     branches:
       - main
@@ -37,7 +40,7 @@ jobs:
 
       - name: Validate video catalog generation
         run: |
-          node --test scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs
+          node --test scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs
           python3 scripts/tests/video-transcripts.test.py
 
       - name: Generate video data catalog

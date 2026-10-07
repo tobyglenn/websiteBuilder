@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getHomepageFeature } from '../lib/homepageFeature';
 import Hero from '../components/Hero.jsx';
 import NewsletterSignup from '../components/NewsletterSignup.jsx';
 import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
@@ -173,11 +174,11 @@ const webPageSchema = {
     data-homepage-section="hero"
     data-homepage-title="Hero and featured story"
     data-homepage-purpose="orientation"
-    data-homepage-layout-version="home-2026-09-22-whoop-5-a"
-    data-homepage-test-id="hero-demand-topic"
-    data-homepage-test-variant="whoop-5-comparison"
+    data-homepage-layout-version="home-2026-10-07-weekly-pick"
+    data-homepage-test-id="hero-weekly-pick"
+    data-homepage-test-variant="recent-articles-with-latest-video"
   >
-    <Hero client:load lang="en" />
+    <Hero lang="en" {...getHomepageFeature('en')} />
   </div>
 
   <section
