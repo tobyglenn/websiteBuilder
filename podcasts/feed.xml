@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 121 -->
+    <item>
+      <title>Episode 121: Mistral Large 4, EmbeddingGemma 2, and OpenTPU</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep121/episode_121.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-121/</link>
+      <description><![CDATA[Mistral Large 4 leads today’s news alongside EmbeddingGemma 2 and OpenTPU. Nova and Alloy examine documented capabilities and access, then cover agent...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-121/]]></description>
+      <pubDate>Thu, 08 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep121/episode_121.mp3" length="32053751" type="audio/mpeg"/>
+      <itunes:duration>33:23</itunes:duration>
+      <itunes:episode>121</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep121/episode_121_cover.png"/>
+    </item>
+
     <!-- Episode 120 -->
     <item>
       <title>Episode 120: GPT-6 Astra Ultrafast Runs 8x Faster on NVIDIA Blackwell</title>
