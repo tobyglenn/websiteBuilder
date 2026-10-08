@@ -12,7 +12,7 @@ on_error() {
   local exit_code=$?
   # EX_TEMPFAIL means the task was saved with a retry time; it is not an automation outage.
   if (( exit_code == 75 )); then
-    printf '%s Translation attempt deferred for automatic retry; no alert sent.\n' "$(date -Is)" >&2
+    printf '%s Translation attempt deferred for automatic retry; no alert sent.\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" >&2
     exit 0
   fi
   translation_notify_failure "$STAGE" "$exit_code" "$1"
@@ -43,7 +43,7 @@ translation_exit=$?
 set -e
 
 if (( translation_exit == 75 )); then
-  printf '%s worker: translation quality retry deferred without outage alert\n' "$(date -Is)"
+  printf '%s worker: translation quality retry deferred without outage alert\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
   exit 0
 fi
 if (( translation_exit != 0 )); then

@@ -24,11 +24,11 @@ cd "$TRANSLATION_REPO_ROOT"
 # tracked files; subsequent runs die at the `git push` step. We auto-abort
 # any such leftover state here so this run starts clean.
 if [[ -d .git/rebase-merge ]] || [[ -d .git/rebase-apply ]]; then
-  echo "$(date -Is) WARN: leftover rebase state detected — aborting to start clean"
+  echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') WARN: leftover rebase state detected — aborting to start clean"
   git rebase --abort || true
 fi
 if git status --short | grep -q '^UU\|^AA\|^DD\|^UA\|^AU'; then
-  echo "$(date -Is) WARN: unresolved merge conflicts present — resetting tracked conflicted files to HEAD"
+  echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') WARN: unresolved merge conflicts present — resetting tracked conflicted files to HEAD"
   while IFS= read -r path; do
     [[ -n "$path" ]] && git checkout -- "$path" || true
   done < <(git status --short | awk '/^[UAD]{2}/ {sub(/^.../, "", $0); print}')
@@ -95,12 +95,12 @@ git commit -m "content: publish validated translations"
 # If a merge conflict does occur, fail loudly and notify — but don't leave
 # `.git/rebase-merge/` behind for the next run to trip over.
 if ! git pull --no-rebase --autostash origin main; then
-  echo "$(date -Is) ERROR: pull --no-rebase failed; leaving working tree as-is for human review"
+  echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') ERROR: pull --no-rebase failed; leaving working tree as-is for human review"
   exit 1
 fi
 
 if ! git push origin HEAD:main; then
-  echo "$(date -Is) ERROR: push failed; leaving working tree as-is for human review"
+  echo "$(date -u '+%Y-%m-%dT%H:%M:%SZ') ERROR: push failed; leaving working tree as-is for human review"
   exit 1
 fi
 

@@ -98,7 +98,7 @@ ${failure_context:+$failure_context$'\n'}log: $stage_log
 status: $TRANSLATION_LOG_ROOT/latest.json"
 
   if [[ -f "$cooldown_file" ]] && find "$cooldown_file" -mmin "-$TRANSLATION_FAILURE_COOLDOWN_MINUTES" -print -quit | grep -q .; then
-    printf '%s %s\n' "$(date -Is)" "$message (notification cooldown active)" >&2
+    printf '%s %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$message (notification cooldown active)" >&2
     return 0
   fi
   touch "$cooldown_file"
@@ -106,13 +106,13 @@ status: $TRANSLATION_LOG_ROOT/latest.json"
   if [[ -f "$TRANSLATION_BUILD_LOG_HELPER" ]]; then
     python3 "$TRANSLATION_BUILD_LOG_HELPER" --error "$message" || true
   else
-    printf '%s build-log helper missing: %s\n' "$(date -Is)" "$TRANSLATION_BUILD_LOG_HELPER" >&2
+    printf '%s build-log helper missing: %s\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" "$TRANSLATION_BUILD_LOG_HELPER" >&2
   fi
 
   if command -v hermes >/dev/null 2>&1; then
     printf '%s\n' "$message" | hermes send --to "$TRANSLATION_FAILURE_TARGET" --file - --quiet || true
   else
-    printf '%s Hermes command unavailable\n' "$(date -Is)" >&2
+    printf '%s Hermes command unavailable\n' "$(date -u '+%Y-%m-%dT%H:%M:%SZ')" >&2
   fi
 }
 
