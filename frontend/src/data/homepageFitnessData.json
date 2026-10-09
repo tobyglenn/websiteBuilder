@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-08T23:50:56.220Z",
+  "generatedAt": "2026-10-09T11:30:48.237Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Oct 8, 2026",
-    "hubTodayKey": "2026-10-08",
-    "analysisDateKey": "2026-10-08",
+    "hubTodayLabel": "Oct 9, 2026",
+    "hubTodayKey": "2026-10-09",
+    "analysisDateKey": "2026-10-09",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-10-08T19:50:12.862421"
+    "whoopLastSynced": "2026-10-09T07:30:14.648143"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9924883,
@@ -25,17 +25,17 @@
     "runCount": 0,
     "workoutCount": 2,
     "bjjCount": 0,
-    "windowStart": "2026-10-02",
-    "windowEnd": "2026-10-08"
+    "windowStart": "2026-10-03",
+    "windowEnd": "2026-10-09"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-10-08",
+    "anchorDate": "2026-10-09",
     "dateRange": {
-      "thisWeekStart": "2026-10-02",
-      "thisWeekEnd": "2026-10-08",
-      "lastWeekStart": "2026-09-25",
-      "lastWeekEnd": "2026-10-01"
+      "thisWeekStart": "2026-10-03",
+      "thisWeekEnd": "2026-10-09",
+      "lastWeekStart": "2026-09-26",
+      "lastWeekEnd": "2026-10-02"
     },
     "workouts": {
       "thisWeek": 2,
@@ -89,8 +89,8 @@
     "totalActive": 1809,
     "currentStreak": 0,
     "longestStreak": 60,
-    "rangeStart": "2025-10-10",
-    "rangeEnd": "2026-10-08",
+    "rangeStart": "2025-10-11",
+    "rangeEnd": "2026-10-09",
     "days": [
       {
         "date": "2025-10-13",
@@ -1420,11 +1420,11 @@
     "thisMonthMiles": 0
   },
   "recovery": {
-    "currentScore": 88,
-    "lastSleepScore": 77
+    "currentScore": 95,
+    "lastSleepScore": 95
   },
   "labels": {
-    "thisWeek": "October 2, 2026 - October 8, 2026",
-    "lastWeek": "September 25, 2026 - October 1, 2026"
+    "thisWeek": "October 3, 2026 - October 9, 2026",
+    "lastWeek": "September 26, 2026 - October 2, 2026"
   }
 }
