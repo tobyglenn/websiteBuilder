@@ -8,13 +8,17 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
     test(`${name} ${width}: standalone search outcomes without query disclosure`, { skip: !base }, async () => {
       const browser = await engine.launch();
       try {
-        const page = await browser.newPage({ viewport: { width, height: 900 } });
-        await page.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
-        await page.addInitScript(() => {
-          window.searchSignals = [];
-          window.toftAnalytics = { capture(event, properties) { window.searchSignals.push({ event, properties }); } };
-          window.__TOFT_POSTHOG_READY__ = true;
-        });
+        const createPage = async () => {
+          const page = await browser.newPage({ viewport: { width, height: 900 } });
+          await page.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
+          await page.addInitScript(() => {
+            window.searchSignals = [];
+            window.toftAnalytics = { capture(event, properties) { window.searchSignals.push({ event, properties }); } };
+            window.__TOFT_POSTHOG_READY__ = true;
+          });
+          return page;
+        };
+        let page = await createPage();
         await page.goto(`${base}/search/?q=Speediance`);
         await page.locator('#blog-results a').first().waitFor();
         const performed = await page.evaluate(() => window.searchSignals.filter(x => x.event === 'search_performed'));
@@ -33,6 +37,9 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         assert.equal(clicks[0].properties.content_type, 'blog');
         assert.equal(clicks[0].properties.position, 1);
         assert.equal(await page.evaluate(() => window.searchSignals.filter(x => x.event === 'search_performed').length), 1);
+        // A result click may already have started an Astro navigation in WebKit.
+        await page.close();
+        page = await createPage();
         await page.goto(`${base}/search/?q=zzqa-not-a-real-topic-782193`);
         await page.locator('#no-results:not(.hidden)').waitFor();
         const empty = await page.evaluate(() => window.searchSignals.filter(x => x.event === 'search_no_results'));
