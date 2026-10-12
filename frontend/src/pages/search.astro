@@ -32,6 +32,13 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
             <SearchIcon size={32} class="text-blue-500" /> Search Results
         </h1>
         <p id="search-summary" class="text-neutral-400 text-lg">Enter a search term above to find videos and articles.</p>
+        <form id="standalone-search-form" action="/search/" method="get" class="mt-6 flex max-w-2xl gap-2">
+          <label for="standalone-query" class="sr-only">Search videos and articles</label>
+          <input id="standalone-query" name="q" type="search" maxlength="120" class="min-w-0 flex-1 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-white" />
+          <button type="submit" aria-label="Search videos and articles" title="Search" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-blue-600 text-white hover:bg-blue-500">
+            <SearchIcon size={20} />
+          </button>
+        </form>
     </div>
 
     <div id="no-results" class="hidden text-center py-12 bg-neutral-900/50 rounded-xl border border-neutral-800 border-dashed">
@@ -67,7 +74,11 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
   let lastSearchKey = '';
 
   function captureSearch(event, properties) {
-    const payload = { search_surface: 'standalone_page', ...properties };
+    const payload = {
+      search_surface: 'standalone_page',
+      $current_url: `${location.origin}${location.pathname}`,
+      ...properties,
+    };
     if (window.toftAnalytics) window.toftAnalytics.capture(event, payload);
     else {
       window.__TOFT_ANALYTICS_QUEUE__ ||= [];
@@ -94,6 +105,7 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
   function renderResults() {
     const params = new URLSearchParams(window.location.search);
     const q = params.get('q') || '';
+    document.getElementById('standalone-query').value = q;
     const { videos, blog } = search(q);
     const total = videos.length + blog.length;
 
@@ -105,6 +117,7 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
     const blogResults = document.getElementById('blog-results');
 
     if (!q.trim()) {
+      lastSearchKey = '';
       summary.textContent = 'Enter a search term above to find videos and articles.';
       noResults.classList.add('hidden');
       videoSection.classList.add('hidden');
@@ -173,6 +186,15 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
 
   // Run on load and on popstate
   renderResults();
+  document.getElementById('standalone-search-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const url = new URL(location.href);
+    const query = document.getElementById('standalone-query').value.trim();
+    if (query) url.searchParams.set('q', query);
+    else url.searchParams.delete('q');
+    history.replaceState(null, '', url);
+    renderResults();
+  });
   window.addEventListener('popstate', renderResults);
   document.getElementById('results-grid').addEventListener('click', (event) => {
     const link = event.target instanceof Element ? event.target.closest('a') : null;

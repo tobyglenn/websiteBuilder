@@ -40,7 +40,9 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         // A result click may already have started an Astro navigation in WebKit.
         await page.close();
         page = await createPage();
-        await page.goto(`${base}/search/?q=zzqa-not-a-real-topic-782193`);
+        await page.goto(`${base}/search/`);
+        await page.getByRole('searchbox', { name: 'Search videos and articles' }).fill('zzqa-not-a-real-topic-782193');
+        await page.getByRole('button', { name: 'Search videos and articles', exact: true }).click();
         await page.locator('#no-results:not(.hidden)').waitFor();
         const empty = await page.evaluate(() => window.searchSignals.filter(x => x.event === 'search_no_results'));
         assert.equal(empty.length, 1);
