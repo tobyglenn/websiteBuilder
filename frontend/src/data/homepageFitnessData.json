@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-12T11:30:46.058Z",
+  "generatedAt": "2026-10-12T23:50:48.938Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
     "hubTodayLabel": "Oct 12, 2026",
@@ -7,22 +7,22 @@
     "analysisDateKey": "2026-10-12",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-10-12T07:30:14.309542"
+    "whoopLastSynced": "2026-10-12T19:50:12.973991"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9924883,
-    "totalMilesRun": 3812.4,
-    "totalWorkouts": 2778,
+    "totalMilesRun": 3814.3,
+    "totalWorkouts": 2779,
     "sourceBreakdown": {
       "strengthSessions": 1002,
-      "garminRuns": 1388,
+      "garminRuns": 1389,
       "currentYearLiftingSessions": 91,
       "allTimeBjjSessions": 297
     }
   },
   "trainingFocus": {
     "focus": "lifting",
-    "runCount": 1,
+    "runCount": 2,
     "workoutCount": 2,
     "bjjCount": 0,
     "windowStart": "2026-10-06",
@@ -38,11 +38,11 @@
       "lastWeekEnd": "2026-10-05"
     },
     "workouts": {
-      "thisWeek": 3,
+      "thisWeek": 4,
       "lastWeek": 2
     },
     "runs": {
-      "thisWeek": 1,
+      "thisWeek": 2,
       "lastWeek": 0
     },
     "volume": {
@@ -50,7 +50,7 @@
       "lastWeek": 37285
     },
     "miles": {
-      "thisWeek": 1.6,
+      "thisWeek": 3.4,
       "lastWeek": 0
     },
     "bjj": {
@@ -61,7 +61,7 @@
   "yearlyGoals": {
     "running": {
       "icon": "🏃",
-      "current": 160.8,
+      "current": 162.6,
       "target": 365,
       "unit": "miles"
     },
@@ -73,7 +73,7 @@
     },
     "workouts": {
       "icon": "💪",
-      "current": 234,
+      "current": 235,
       "target": 500,
       "unit": "workouts"
     },
@@ -86,8 +86,8 @@
     }
   },
   "consistency": {
-    "totalActive": 1810,
-    "currentStreak": 0,
+    "totalActive": 1811,
+    "currentStreak": 1,
     "longestStreak": 60,
     "rangeStart": "2025-10-14",
     "rangeEnd": "2026-10-12",
@@ -1407,17 +1407,24 @@
         "runs": 1,
         "lifting": 0,
         "bjj": 0
+      },
+      {
+        "date": "2026-10-12",
+        "count": 1,
+        "runs": 1,
+        "lifting": 0,
+        "bjj": 0
       }
     ]
   },
   "trainingStats": {
-    "trainingStreak": 0,
+    "trainingStreak": 1,
     "lastWorkoutData": {
-      "date": "2026-10-09",
+      "date": "2026-10-12",
       "type": "Running"
     },
     "thisWeekVolume": 18292,
-    "thisMonthMiles": 1.6
+    "thisMonthMiles": 3.4
   },
   "recovery": {
     "currentScore": 53,
