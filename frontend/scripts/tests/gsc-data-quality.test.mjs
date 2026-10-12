@@ -53,14 +53,24 @@ test('holds recommendations when a complete API window has an implausible discon
   );
 });
 
-test('flags an incomplete set of final daily rows', () => {
+test('holds unverified daily coverage without claiming omitted dates are incomplete', () => {
   const result = assessGscDataQuality({
     current: { clicks: 4, impressions: 400 },
     prior: { clicks: 5, impressions: 500 },
     daily: Array.from({ length: 5 }, () => ({})),
   });
 
-  assert.equal(result.issues[0].code, 'incomplete_daily_rows');
+  assert.equal(result.issues[0].code, 'daily_coverage_unverified');
+  assert.match(result.issues[0].message, /Google omits dates with no data/);
+  assert.equal(result.comparisonSafe, false);
+});
+
+test('lists exact unobserved dates without filling them with zero activity', () => {
+  const daily = [{ keys: ['2026-10-04'], impressions: 5 }, { keys: ['2026-10-06'], impressions: 3 }];
+  const result = assessGscDataQuality({ daily, expectedDays: 3, startDate: '2026-10-04', endDate: '2026-10-06' });
+  assert.deepEqual(result.unobservedDates, ['2026-10-05']);
+  assert.equal(result.observedDailyRows, 2);
+  assert.equal(daily.length, 2);
 });
 
 test('holds recommendations when two depressed weeks hide a rolling discontinuity', () => {

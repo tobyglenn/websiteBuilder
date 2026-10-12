@@ -343,6 +343,8 @@ const dataQuality = assessGscDataQuality({
   history: historicalPeriods,
   reference: referenceBaseline,
   daily: daily.rows || [],
+  startDate: isoDate(currentStart),
+  endDate: isoDate(currentEnd),
 });
 const anomalyReport = buildAnomalyReport(
   currentQueryPages.rows || [],
@@ -384,7 +386,7 @@ const result = {
     queryPageOpportunities:
       'Query-page opportunities exclude classified anomalies and require at least 10 current impressions, CTR at or below 2%, and average position 20 or better.',
     dataQuality:
-      'Comparative recommendations are suppressed when final daily rows are incomplete or the current period has an abrupt traffic discontinuity against either the preceding week or the strongest complete week in the preceding four weeks.',
+      'Comparative recommendations are held when daily coverage is unverified or traffic discontinuity remains unresolved. Google omits dates without data, so fewer than seven rows alone does not prove incomplete final data. Unobserved dates are listed without imputing zeros.',
   },
   dataQuality,
   periods: {

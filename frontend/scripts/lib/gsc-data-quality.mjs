@@ -14,6 +14,8 @@ export const assessGscDataQuality = ({
   reference = null,
   daily = [],
   expectedDays = 7,
+  startDate = null,
+  endDate = null,
 } = {}) => {
   const currentImpressions = numberValue(current.impressions);
   const priorImpressions = numberValue(prior.impressions);
@@ -46,9 +48,18 @@ export const assessGscDataQuality = ({
 
   if (daily.length !== expectedDays) {
     issues.push({
-      code: 'incomplete_daily_rows',
-      message: `Expected ${expectedDays} final daily rows but received ${daily.length}.`,
+      code: 'daily_coverage_unverified',
+      message: `Received ${daily.length} non-empty final daily rows for a ${expectedDays}-day window. Google omits dates with no data; row count alone cannot distinguish zero activity from unavailable final data. Do not impute zeros or assert an incomplete week without verification.`,
     });
+  }
+
+  const observedDates = new Set(daily.map((row) => row.keys?.[0]).filter(Boolean));
+  const unobservedDates = [];
+  if (startDate && endDate) {
+    for (let day = new Date(`${startDate}T00:00:00Z`); day <= new Date(`${endDate}T00:00:00Z`); day.setUTCDate(day.getUTCDate() + 1)) {
+      const date = day.toISOString().slice(0, 10);
+      if (!observedDates.has(date)) unobservedDates.push(date);
+    }
   }
 
   if (priorImpressions >= 1000 && impressionRatio !== null && impressionRatio < 0.25) {
@@ -97,6 +108,8 @@ export const assessGscDataQuality = ({
     recommendationStatus: issues.length ? 'hold_for_verification' : 'ready',
     expectedDailyRows: expectedDays,
     observedDailyRows: daily.length,
+    unobservedDates,
+    dailyCoverageInterpretation: 'Unobserved dates may have zero activity or unavailable final data; neither is inferred.',
     currentToPriorRatios: {
       impressions: impressionRatio,
       clicks: clickRatio,
