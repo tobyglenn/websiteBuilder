@@ -20,7 +20,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         const performed = await page.evaluate(() => window.searchSignals.filter(x => x.event === 'search_performed'));
         assert.equal(performed.length, 1);
         assert.equal(performed[0].properties.search_surface, 'standalone_page');
-        assert.equal(performed[0].properties.search_query_length, 9);
+        assert.equal(performed[0].properties.search_query_length, 'Speediance'.length);
         assert.ok(performed[0].properties.result_count > 0);
         assert.doesNotMatch(JSON.stringify(performed), /Speediance|search_query"/);
         await page.evaluate(() => {
