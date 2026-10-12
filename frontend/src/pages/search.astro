@@ -61,8 +61,19 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
 </Layout>
 
 <script define:vars={{ videosData, blogData }}>
+(() => {
   const VIDEOS = JSON.parse(videosData);
   const BLOG_POSTS = JSON.parse(blogData);
+  let lastSearchKey = '';
+
+  function captureSearch(event, properties) {
+    const payload = { search_surface: 'standalone_page', ...properties };
+    if (window.toftAnalytics) window.toftAnalytics.capture(event, payload);
+    else {
+      window.__TOFT_ANALYTICS_QUEUE__ ||= [];
+      window.__TOFT_ANALYTICS_QUEUE__.push([event, payload]);
+    }
+  }
 
   function search(q) {
     if (!q || !q.trim()) return { videos: [], blog: [] };
@@ -103,6 +114,18 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
 
     // URL search terms are untrusted text, never HTML.
     summary.textContent = `Found ${total} results for "${q}"`;
+    const searchKey = JSON.stringify([q, total]);
+    if (searchKey !== lastSearchKey) {
+      lastSearchKey = searchKey;
+      const properties = {
+        search_query_length: q.trim().length,
+        result_count: total,
+        blog_result_count: blog.length,
+        video_result_count: videos.length,
+      };
+      captureSearch('search_performed', properties);
+      if (total === 0) captureSearch('search_no_results', properties);
+    }
 
     if (total === 0) {
       noResults.classList.remove('hidden');
@@ -151,4 +174,17 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
   // Run on load and on popstate
   renderResults();
   window.addEventListener('popstate', renderResults);
+  document.getElementById('results-grid').addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest('a') : null;
+    if (!link) return;
+    const section = link.closest('#video-results, #blog-results');
+    if (!section) return;
+    captureSearch('search_result_click', {
+      content_type: section.id === 'video-results' ? 'video' : 'blog',
+      content_slug: new URL(link.href).pathname,
+      position: [...section.querySelectorAll('a')].indexOf(link) + 1,
+      search_query_length: (new URLSearchParams(location.search).get('q') || '').trim().length,
+    });
+  });
+})();
 </script>
