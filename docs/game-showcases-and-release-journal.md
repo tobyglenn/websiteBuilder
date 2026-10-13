@@ -54,6 +54,8 @@ Durable installation on this Mac:
 - Schedule: `~/Library/LaunchAgents/com.toby.roblox-website-nightly.plist`
 - Results: `last-check.json`, `state.json`, `scheduler.log`, `scheduler-errors.log`, `codex-output.log`, and `codex-errors.log` under the job directory. These are local operational records, never public assets.
 
+macOS must separately permit the scheduled Python process to read the external drive. An interactive check from Codex does **not** establish this permission for launchd. Verify using a real LaunchAgent run and inspect `last-check.json` plus `launchctl print gui/$(id -u)/com.toby.roblox-website-nightly`. `Operation not permitted` for `/Volumes/XTRMQ/...` requires the owner to grant removable-volume access through macOS Privacy & Security; do not bypass TCC, alter its database, or assume a missing read is an unchanged release. The initial real launchd check on October 13 was blocked by this permission, while the interactive check succeeded. Re-test after permission is granted.
+
 The attempted evidence fingerprint is saved **before** invoking Codex. A failed or interrupted attempt does not spend tokens again on identical evidence every night. Updated evidence allows a new attempt; after fixing an operational problem, an operator may explicitly run with `--retry`. Dirty generated changes are preserved for review and must be integrated before retrying. A pending pushed deployment is checked again without invoking the LLM. If a push failed or another deployment superseded it, inspect the preserved commit/pending status before recovery. Errors are recorded in the local status/log files; this job does not start an LLM merely to report an error.
 
 Read-only gate check (no LLM, edits to website content, or deployment):
