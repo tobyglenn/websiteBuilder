@@ -42,6 +42,12 @@ export type ProjectGalleryItem = {
   description: string;
 };
 
+export type ProjectUpdate = {
+  date: string;
+  title: string;
+  description: string;
+};
+
 export type Project = {
   slug: string;
   title: string;
@@ -60,6 +66,7 @@ export type Project = {
   characters?: ProjectCharacter[];
   gallery?: ProjectGalleryItem[];
   productionNotes?: { title: string; content: string }[];
+  updates?: ProjectUpdate[];
 };
 
 // Public source only. Device inventories, machine addresses and account data
@@ -269,9 +276,16 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
           { title: 'Open Cloud Automated Deployment', content: 'Continuous deployment pipeline driven by custom Python tools (tools/publish_place.py) interacting directly with the Roblox Open Cloud API for verified, byte-matched releases.' },
           { title: 'Family Adventure Design', content: 'Designed around family co-op, cartoon defeat effects, and controller support.' },
         ],
+        updates: [
+          { date: 'Oct 2026', title: 'Wild Rebellion, Vol. 1 album submitted for streaming', description: 'A 17-track original soundtrack by Lilly Axolotl — the music of the Wild World — was submitted through RouteNote for distribution to 35+ stores including Spotify, Apple Music, and YouTube Music. Currently in review; the in-game album button will link straight to Spotify once it goes live.' },
+          { date: 'Oct 2026', title: 'New key art live on the Roblox game page', description: 'Fresh thumbnails cleared moderation and are now showing publicly, led by the crystal-castle axolotl key art.' },
+          { date: 'Oct 2026', title: 'Improvement pass shipped', description: 'Analytics funnel, badge milestones (First Capture, Evolution), a like/favorite celebration modal, surfaced friend invites, and monetization scaffolding (2x XP and Outfit Pack game passes) all landed on main.' },
+          { date: 'Oct 2026', title: 'First ad campaign funded', description: 'An active Roblox Plus subscription now counts toward the under-16 reach requirements, and the budget for the first Wild Rebellion ad test is in place.' },
+        ],
         notes: 'Wild Rebellion is actively published and playable on Roblox (Universe 10767746288, Place 137414447181099). Designed for co-op servers of up to 12 players.',
         links: [
           { label: 'Play Wild Rebellion on Roblox', href: 'https://www.roblox.com/games/137414447181099/Wild-Rebellion' },
+          { label: 'About the Lilly Plays channel', href: '/projects/lilly/' },
           { label: 'Watch Lilly Plays on YouTube', href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ' },
         ],
       },
@@ -323,6 +337,10 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
           { title: 'Native Luau & Rojo Workflow', content: 'Compiled from modular Luau source trees with automated test suites verifying persistence, state machines, and dungeon boundary physics.' },
           { title: '15-Track Preloaded Audio Suite', content: 'Features 15 preloaded orchestral score cues from ACE-Step alongside custom combat SFX including metallic parry clangs, shield impacts, and evasive swooshes.' },
           { title: 'Rigorous 148-Check QA Verification', content: 'Thoroughly validated across 148 automated and playability checks, ensuring clean character collision, camera framing, and responsive mobile and gamepad controls.' },
+        ],
+        updates: [
+          { date: 'Oct 2026', title: 'New key art live on the Roblox game page', description: 'Fresh thumbnails cleared moderation and are now showing publicly, led by the knight-before-the-burning-fortress key art.' },
+          { date: 'Oct 2026', title: 'Ratings and store pages refreshed', description: 'The maturity questionnaire was retaken — now rated Minimal with no age restriction — and the store pages were rewritten with new descriptions and badges.' },
         ],
         notes: 'Ironvane: The Iron Chronicle is published on Roblox (Universe 10768035372, Place 127416728674621). Supports up to 4 players per server.',
         links: [
@@ -627,16 +645,22 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
           { title: 'Capture high-framerate gameplay and facecam', description: 'Record 1080p60 gameplay alongside dedicated webcam and microphone feeds.' },
           { title: 'Edit the narrative and balance audio', description: 'Cut dead air, highlight funny interactions with Maggie, and balance game sound with speech.' },
           { title: 'Render vertical Shorts with the full-bleed builder', description: 'Extract peak moments and format them into borderless 9:16 vertical clips with dynamic captions.' },
-          { title: 'Verify native YouTube elements before publish', description: 'Verify that native Related Video links, outro cards, and non-made-for-kids audience classifications are saved in YouTube Studio.' },
+          { title: 'Verify native YouTube elements before publish', description: 'Verify that native Related Video links, outro cards, and made-for-kids audience classifications are saved in YouTube Studio.' },
         ],
         productionNotes: [
           { title: 'Borderless Full-Bleed 9:16 Builder', content: 'Our automated clip pipeline recomposes 16:9 widescreen gameplay and webcam streams into borderless 9:16 vertical video. It centers Lilly’s facecam above the action without distracting letterboxing or blurry pillarboxes.' },
           { title: 'Whisper Timed Captions', content: 'Subtitles are aligned using word-level Whisper timestamping with custom child-friendly typography and automated screen-boundary collision detection.' },
           { title: 'YouTube Studio Publication Manifest', content: 'Every published Short is hashed and linked to its full-length parent episode via YouTube’s native "Related video" link, verified in Studio before release to drive traffic to the channel’s flagship videos.' },
         ],
+        updates: [
+          { date: 'Oct 2026', title: 'YouTube Kids eligibility complete', description: 'The channel default is now made-for-kids and all 37 public videos are marked, so the full catalog is eligible for the YouTube Kids app.' },
+          { date: 'Oct 2026', title: 'End screens on all 44 videos', description: 'Every video now carries subscribe and watch-next end cards — 35 added in one pass.' },
+          { date: 'Oct 2026', title: 'Wild Rebellion, Vol. 1 album in distribution', description: '17 original tracks from Lilly\u2019s world submitted through RouteNote for 35+ streaming stores; the in-game album button will point to Spotify on release.' },
+        ],
         notes: 'Lilly Plays is active with ongoing releases. Published videos live on YouTube at @LillyAxolotl and TikTok at @lillyaxolotl.',
         links: [
           { label: "Watch Lilly's Channel on YouTube", href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ' },
+          { label: 'Play Wild Rebellion on Roblox', href: 'https://www.roblox.com/games/137414447181099/Wild-Rebellion' },
           { label: 'Follow on TikTok', href: 'https://www.tiktok.com/@lillyaxolotl' },
         ],
       },
