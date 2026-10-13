@@ -13,6 +13,7 @@ import {
   Dumbbell,
   Eye,
   Flame,
+  Gamepad2,
   Play,
   Trophy,
 } from 'lucide-react';
@@ -24,6 +25,12 @@ import TrainingDataNotice from '../components/TrainingDataNotice.astro';
 import { recentActivity } from '../data/recentActivity.js';
 import weeklyProgress from '../data/weeklyProgress.js';
 import { isLikelyShortVideo } from '../lib/videoMeta.js';
+import { projectGroups, projectHref } from '../data/projects';
+
+const featuredProjectSlugs = ['wild-rebellion', 'ironvane-chronicle', 'lilly'];
+const featuredProjects = featuredProjectSlugs
+  .map((slug) => projectGroups.flatMap((group) => group.projects).find((project) => project.slug === slug))
+  .filter(Boolean);
 
 function readTime(content = '') {
   const words = content.split(/\s+/).filter(Boolean).length;
@@ -497,6 +504,82 @@ const webPageSchema = {
           <div class="text-lg font-bold text-white">{channelLatestDate}</div>
           <div class="text-xs uppercase tracking-wide text-neutral-500">Latest long-form upload</div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="projects"
+    data-homepage-section="projects"
+    data-homepage-title="Games and Lilly Plays"
+    data-homepage-purpose="project-discovery"
+    class="border-b border-neutral-800 bg-neutral-950 py-16"
+  >
+    <div class="mx-auto max-w-7xl px-4 sm:px-6">
+      <div class="mb-10 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div>
+          <div class="mb-3 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-purple-400">
+            <Gamepad2 size={18} />
+            Projects
+          </div>
+          <h2 class="text-3xl font-bold text-white md:text-4xl">Games & Lilly Plays</h2>
+          <p class="mt-3 max-w-2xl text-neutral-400">Roblox worlds built in Luau and the family gaming channel behind them — what we're playing and building right now.</p>
+        </div>
+        <a
+          href="/projects/"
+          class="inline-flex items-center gap-2 self-start rounded-lg border border-neutral-700 px-5 py-2.5 font-semibold text-white transition-colors hover:border-purple-500/60 hover:text-purple-400 md:self-auto"
+          data-analytics-content-type="project"
+          data-analytics-content-slug="/projects/"
+          data-analytics-content-title="Browse all projects"
+        >
+          Browse all projects <ArrowRight size={16} />
+        </a>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        {featuredProjects.map((project, index) => (
+          <article
+            class="group flex min-h-full flex-col overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900 transition-colors hover:border-purple-500/50"
+            data-analytics-content-type="project"
+            data-analytics-content-slug={project.slug}
+            data-analytics-content-title={project.title}
+            data-analytics-item-position={index + 1}
+          >
+            {project.heroImage && (
+              <a href={projectHref(project.slug)} class="block aspect-video overflow-hidden bg-neutral-950" aria-label={project.title}>
+                <img
+                  src={project.heroImage.src}
+                  alt={project.heroImage.alt}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </a>
+            )}
+            <div class="flex flex-1 flex-col p-6">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="text-xl font-bold text-white">
+                  <a href={projectHref(project.slug)} class="transition-colors group-hover:text-purple-300">{project.title}</a>
+                </h3>
+                <span class="shrink-0 rounded-md border border-neutral-700 px-2.5 py-1 text-xs font-semibold uppercase tracking-wide text-neutral-300">
+                  {project.status}
+                </span>
+              </div>
+              <p class="mt-3 flex-1 text-sm leading-relaxed text-neutral-400">{project.description}</p>
+              {project.updates && project.updates.length > 0 && (
+                <p class="mt-4 border-t border-neutral-800 pt-4 text-xs leading-relaxed text-neutral-500">
+                  <span class="font-bold uppercase tracking-wide text-purple-400">Latest: </span>
+                  {project.updates[0].title}
+                </p>
+              )}
+              <a
+                href={projectHref(project.slug)}
+                class="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-purple-400 transition-colors hover:text-purple-300"
+              >
+                View project <ArrowRight size={15} />
+              </a>
+            </div>
+          </article>
+        ))}
       </div>
     </div>
   </section>
