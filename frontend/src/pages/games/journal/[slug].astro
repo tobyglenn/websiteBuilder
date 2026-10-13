@@ -1,0 +1,26 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import GameVideo from '../../../components/games/GameVideo.astro';
+import JournalCard from '../../../components/games/JournalCard.astro';
+import { entries, gameBySlug, mediaFor, gameHref, playHref, journalHref, formatDate, storiesFor } from '../../../lib/gameJournal.mjs';
+import '../../../styles/game-showcase.css';
+export function getStaticPaths() { return entries.map(entry => ({params:{slug:entry.slug},props:{entry}})); }
+const { entry } = Astro.props;
+const game = gameBySlug(entry.game);
+const related = storiesFor(game.slug).filter(item=>item.slug!==entry.slug).slice(0,2);
+const schema = {'@context':'https://schema.org','@type':'BlogPosting',headline:entry.title,description:entry.summary,datePublished:`${entry.date}T12:00:00Z`,author:{'@type':'Person',name:'Toby Peters',url:'https://tobyonfitnesstech.com/about/'},image:`https://tobyonfitnesstech.com${entry.image.src}`,mainEntityOfPage:`https://tobyonfitnesstech.com${journalHref(entry)}`,about:{'@type':'VideoGame',name:game.title,url:`https://tobyonfitnesstech.com${gameHref(game)}`}};
+---
+<Layout title={`${entry.title} | ${game.shortTitle || game.title}`} description={entry.summary} image={entry.image.src} ogType="article" publishedTime={`${entry.date}T12:00:00Z`} author="Toby Peters" jsonLd={schema} breadcrumbs={[{name:'Home',url:'/'},{name:'Games',url:'/games/'},{name:'Development journal',url:'/games/journal/'},{name:entry.title,url:journalHref(entry)}]}>
+<div class:list={['game-world',game.accent]} data-pagefind-body data-pagefind-filter="type:Game journal"><div class="gw-wrap">
+<div class="gw-top"><a href={gameHref(game)}>← {game.title}</a><a href="/games/journal/">All development stories ↗</a></div>
+<header class="gw-article-head"><p class="gw-eyebrow">{game.title} / {entry.kind === 'release' ? `Release ${entry.version}` : 'Making the game'}</p><h1>{entry.title}</h1><p class="gw-lead">{entry.summary}</p><p class="gw-caption">By Toby Peters · <time datetime={entry.date}>{formatDate(entry.date)}</time></p></header>
+<figure><img class="gw-article-image" src={entry.image.src} alt={entry.image.alt} width="1200" height="675"/><figcaption class="gw-caption">{entry.image.caption}</figcaption></figure>
+<div class="gw-article-body">
+{entry.kind === 'release' && <div class="gw-note">Published update · v{entry.version} · <a href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug}>Try it in Roblox ↗</a></div>}
+{entry.sections.map(section=><section><h2>{section.heading}</h2>{section.paragraphs.map(p=><p>{p}</p>)}{section.bullets && <ul>{section.bullets.map(item=><li>{item}</li>)}</ul>}</section>)}
+{entry.mediaIds?.length > 0 && <section><h2>Watch the story in motion</h2>{entry.mediaNote && <p class="gw-note">{entry.mediaNote}</p>}{mediaFor(entry.mediaIds).map(video=><section><GameVideo video={video}/></section>)}</section>}
+<div class="gw-actions"><a class="gw-button primary" href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug}>Play on Roblox ↗</a><a class="gw-button" href={gameHref(game)}>Explore the game →</a></div>
+</div>
+<section class="gw-section"><div class="gw-heading"><h2>Keep following the build.</h2></div><div class="gw-grid">{related.map(item=><JournalCard entry={item}/>)}</div></section>
+<footer class="gw-footer"><a class="gw-text-link" href="/games/journal/">← Back to the development journal</a></footer>
+</div></div></Layout>

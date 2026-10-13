@@ -1,3 +1,4 @@
+import { gameBySlug, releasesFor } from '../lib/gameJournal.mjs';
 export type ProjectLink = { label: string; href: string };
 export type ProjectFeature = { title: string; description: string };
 export type WorkflowFile = {
@@ -73,6 +74,22 @@ export type Project = {
 // belong in the automation project's external private configuration directory.
 export const pokemonRepository = 'https://github.com/tobyglenn/pokemon-go-automation';
 export const projectHref = (slug: string) => `/projects/${slug}/`;
+
+// All catalog surfaces consume the same editorial records as the game pages.
+function gameProject(slug: string): Project {
+  const game = gameBySlug(slug);
+  if (!game) throw new Error(`Unknown game showcase: ${slug}`);
+  return {
+    slug, title: game.title, status: 'Live', description: game.summary,
+    tags: ['Roblox', slug === 'wild-rebellion' ? 'Family adventure' : 'Monster raising', 'Development journal'],
+    overview: game.intro, heroImage: game.hero,
+    features: game.features.map(feature => ({title:feature.title,description:feature.text})),
+    steps: game.steps.map(([title,description]) => ({title,description})),
+    notes: 'Explore the game guide for gameplay, development stories, and dated release updates.',
+    links: [{label:'Play on Roblox',href:`https://www.roblox.com/games/${game.placeId}/`}],
+    updates: releasesFor(slug).map(entry => ({date:entry.date,title:entry.title,description:entry.summary})),
+  };
+}
 
 export const projectGroups: { id: string; eyebrow: string; title: string; description: string; projects: Project[] }[] = [
   {
@@ -213,82 +230,7 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
     id: 'roblox', eyebrow: 'Roblox', title: 'Roblox games & worlds',
     description: 'Multiplayer 3D games engineered in native Luau with Rojo and Open Cloud—spanning open-world family adventures, dark fantasy action-RPGs, and creature raising.',
     projects: [
-      {
-        slug: 'wild-rebellion',
-        title: 'Wild Rebellion',
-        status: 'Live',
-        description: 'Step into Lilly Axolotl’s world: a hidden village, friendly dragons, enterable homes, crystal towers, and Bobcat Island in the sky—built for co-op play on Roblox.',
-        tags: ['Roblox', 'Luau', 'Adventure', 'Open World', 'Co-op RPG', 'Family Gaming'],
-        heroImage: {
-          src: '/images/projects/wild-rebellion/hero.webp',
-          alt: 'Wild Rebellion cast lineup and open-world character showcase',
-          caption: 'Meet the 13 playable characters in Wild Rebellion across the village and Bobcat Island.',
-          aspect: 'wide',
-        },
-        overview: [
-          'Wild Rebellion is a multiplayer 3D Roblox adventure game based on the original world, characters, and storylines created by Lilly Axolotl. Built in native Luau using the Rojo development layout and deployed through Roblox Open Cloud, the experience translates Lilly’s creative universe into an interactive, cross-platform world for PC, mobile, tablet, and Xbox console.',
-          'Players choose their path: dive into episodic narrative playthroughs (saving the village as Axi on the Heroes’ side, or defending the Chaos Lair as Madhattr on the Villains’ side) or explore the Wild World in Adventure mode—discovering 13 fully furnished character homes, riding dragons through floating skies, collecting 40 Wild Gems, and tackling cooperative quests.',
-        ],
-        features: [
-          { title: 'Dual Narrative Playthroughs', description: 'Experience the story from both sides: free captured dragons and break Ily’s shadow spell as Axi, or command the Chaos Lair and cast the shadow spell as Madhattr.' },
-          { title: '13 Enterable Homes with 26 Quests', description: 'Every friend’s front door opens! Explore multi-floor interiors from Axi’s cozy cottage to Bad Girl’s palace, complete two unique quests in each, and earn the Home Hero badge.' },
-          { title: 'Dragon Flight & Aerial Fireballs', description: 'Soar between the village homeland and Bobcat Island in the sky, breathing targeted elemental fireballs that home in on wild targets with explosive splash damage.' },
-          { title: 'Dynamic Shadow vs. Light Combat', description: 'Villains summon Shadow Night bosses and cast shadow entrapment threads; heroes unleash Sunburst storms, shatter crystal charges, and free captured allies to fight at their side.' },
-          { title: 'Vibrant World Activities', description: 'Fish at the village dock with a 6-species catch log, scale the Cloud Climb obstacle course, hunt 12 hidden treasure chests, and compete in races against Hopie and Fast Flash.' },
-          { title: 'Cross-Platform Family Play', description: 'Carefully tuned for 12-player servers with responsive touch controls, keyboard/mouse (WASD/F/Q/R), and full Xbox controller bindings with persistent cloud saves.' },
-        ],
-        steps: [
-          { title: 'Choose your first starter', description: 'Pick between Axi (Heroes) or Madhattr (Villains) on your first launch to unlock your starting archetype and enter the Wild World.' },
-          { title: 'Master abilities and movement', description: 'Use WASD or gamepad thumbsticks to navigate, click/RT to strike, Q/Y for Galaxy Eyes, R/B to dash, and H/LB to trigger team abilities.' },
-          { title: 'Visit friend homes and take on quests', description: 'Step through door markers across the village and Bobcat Island to help characters solve mysteries and unlock cozy outfits.' },
-          { title: 'Mount a dragon and soar', description: 'Interact with the dragon roosts to fly into the sky, rain fireballs onto hostile shadows, and reach high-altitude balloon festivals.' },
-        ],
-        characters: [
-          { name: 'Axi', role: 'Hero Protagonist', description: 'The brave mint-hoodie explorer of the hidden village who leads the rescue mission to break Ily’s shadow spell and liberate the dragons.' },
-          { name: 'Madhattr', role: 'Villain Commander', description: 'The enigmatic leader of the Chaos Lair who channels crystal energy to bind the realm under the shadow spell.' },
-          { name: 'Bad Girl', role: 'Villain Ally & Palace Ruler', description: 'A fierce powerhouse who strikes the crystal tower to charge team abilities and defend the lair.' },
-          { name: 'Ily', role: 'Shadow Weaver', description: 'A mystical sorceress capable of casting shadow entrapment spells that pull wandering heroes into captivity.' },
-          { name: 'King Baka', role: 'Village Elder', description: 'The benevolent ruler who introduces new adventurers to the homeland and guides heroes through story chapters.' },
-        ],
-        gallery: [
-          {
-            src: '/images/projects/wild-rebellion/villains.webp',
-            alt: 'Wild Rebellion villains lineup in the Chaos Lair',
-            title: 'The Chaos Lair & Villains Campaign',
-            description: 'Madhattr, Bad Girl, and Ily assemble in the subterranean crystal lair to unleash shadow spells across the realm.',
-          },
-          {
-            src: '/images/projects/wild-rebellion/bobcat_island.webp',
-            alt: 'Bobcat Island floating in the sky with portal gateway',
-            title: 'Bobcat Island in the Clouds',
-            description: 'A floating sky sanctuary connected by ancient warp portals, featuring aerial dragon perches and cloud platforming.',
-          },
-          {
-            src: '/images/projects/wild-rebellion/open_world.webp',
-            alt: 'Open-world adventure mode showcasing 40 Wild Gems and village exploration',
-            title: 'Open-World Adventure & Gem Hunting',
-            description: 'Explore the vast wilderness to uncover 40 hidden Wild Gems, secret treasure chests, and friendly NPC challenges.',
-          },
-        ],
-        productionNotes: [
-          { title: 'Rojo & Luau Modular Architecture', content: 'Engineered as a clean Rojo project layout with strictly separated Client, Server, and ReplicatedStorage Luau modules, built via automated build scripts (build_place.py).' },
-          { title: '43-Track Soundtrack & Voice Pipeline', content: 'Includes 43 original musical themes and sound effects, with preloading used to reduce startup delays.' },
-          { title: 'Open Cloud Automated Deployment', content: 'Continuous deployment pipeline driven by custom Python tools (tools/publish_place.py) interacting directly with the Roblox Open Cloud API for verified, byte-matched releases.' },
-          { title: 'Family Adventure Design', content: 'Designed around family co-op, cartoon defeat effects, and controller support.' },
-        ],
-        updates: [
-          { date: 'Oct 2026', title: 'Wild Rebellion, Vol. 1 album submitted for streaming', description: 'A 17-track original soundtrack by Lilly Axolotl — the music of the Wild World — was submitted through RouteNote for distribution to 35+ stores including Spotify, Apple Music, and YouTube Music. Currently in review; the in-game album button will link straight to Spotify once it goes live.' },
-          { date: 'Oct 2026', title: 'New key art live on the Roblox game page', description: 'Fresh thumbnails cleared moderation and are now showing publicly, led by the crystal-castle axolotl key art.' },
-          { date: 'Oct 2026', title: 'Improvement pass shipped', description: 'Analytics funnel, badge milestones (First Capture, Evolution), a like/favorite celebration modal, surfaced friend invites, and monetization scaffolding (2x XP and Outfit Pack game passes) all landed on main.' },
-          { date: 'Oct 2026', title: 'First ad campaign funded', description: 'An active Roblox Plus subscription now counts toward the under-16 reach requirements, and the budget for the first Wild Rebellion ad test is in place.' },
-        ],
-        notes: 'Wild Rebellion is actively published and playable on Roblox (Universe 10767746288, Place 137414447181099). Designed for co-op servers of up to 12 players.',
-        links: [
-          { label: 'Play Wild Rebellion on Roblox', href: 'https://www.roblox.com/games/137414447181099/Wild-Rebellion' },
-          { label: 'About the Lilly Plays channel', href: '/projects/lilly/' },
-          { label: 'Watch Lilly Plays on YouTube', href: 'https://www.youtube.com/channel/UC7ZfdS-b0zU-cE8Ie6NZVlQ' },
-        ],
-      },
+      gameProject('wild-rebellion'),
       {
         slug: 'ironvane-chronicle',
         title: 'Ironvane: The Iron Chronicle',
@@ -348,66 +290,7 @@ export const projectGroups: { id: string; eyebrow: string; title: string; descri
           { label: 'Watch IronVane Story on YouTube', href: 'https://www.youtube.com/@IronVaneStory/videos' },
         ],
       },
-      {
-        slug: 'monstrum-world',
-        title: 'Monstrum World: Battle Academy',
-        status: 'On Roblox',
-        description: 'A monster-raising RPG on Roblox blending Monster Rancher care, Digimon branching evolutions, in-battle catching, and Active-Time Battles (ATB).',
-        tags: ['Roblox', 'Luau', 'Monster Taming', 'Ranch RPG', 'ATB Combat', 'Turn-Based'],
-        heroImage: {
-          src: '/images/projects/monstrum-world/hero.webp',
-          alt: 'Monstrum World Active-Time Battle interface and tactical command menu',
-          caption: 'Turn-based Active-Time Battle (ATB) combat showcasing elemental moves, companion synergy, and capture traps.',
-          aspect: 'wide',
-        },
-        overview: [
-          'Monstrum World: Battle Academy is a Roblox monster-raising RPG combining the strategic life-sim depth of Monster Rancher with the branching evolutionary webs of Digimon and tactical Active-Time Battles (ATB). Set in the academy realm of Aetheria, players operate a monster ranch, train wild creatures, and compete in ranked tournament cups.',
-          'Unlike generic creature catchers where monsters are disposable collectibles, Monstrum World focuses on the bond between breeder and monster. Every drill, meal, rest period, and battle decision alters permanent TrainedStats, determining which branched evolutionary path a monster unlocks upon reaching maturity.',
-        ],
-        features: [
-          { title: 'Ranch Management Core Loop', description: 'Manage fatigue, stress, loyalty, and bond with ranch assistant Coach Juniper through drills, custom feeding (Mint Leaf, Prime Steak), resting, and disc shrine hatching.' },
-          { title: 'Care-Driven Branching Evolution', description: 'Novice and Champion monsters evolve along divergent branches—high bond unlocks rare celestial forms, specific stat drilling unlocks elemental variants, and neglect triggers Umbra corruptions.' },
-          { title: 'In-Battle Capture System', description: 'Capture occurs exclusively during combat by weakening wild foes and deploying specialized traps (Aether Snare, Volt Net, Stasis Vault) based on elemental affinity.' },
-          { title: 'Active-Time Battle (ATB) Engine', description: 'Fast-paced tactical combat where Speed gauges dictate turn order, featuring elemental affinities (Pyre, Tides, Terra, Gale, Bolt, Ferrous, Lumin, Umbra) and commander Bio-Morph burst finishers.' },
-          { title: 'Fusion & Rebirth Shrine', description: 'Breed veteran monsters to pass down generational stat bonuses, cross-elemental move pools, and unlock secret Ascendant tier species.' },
-          { title: '62 Monsters & 40-Chapter Campaign', description: 'Raise 62 unique creatures across 5 tiers from Novice to Ascendant across an 8-act, 40-chapter story campaign.' },
-        ],
-        steps: [
-          { title: 'Hatch your first monster', description: 'Visit the Disc Shrine or hatch with custom keywords to awaken your starter companion from ancient disc stones.' },
-          { title: 'Balance training and recovery', description: 'Rotate light and heavy ranch drills with feeding and rest to keep fatigue below 90 and prevent drill failure.' },
-          { title: 'Climb the tournament ranks', description: 'Enter ranked cups from Class E to Class S to increase your ranch prestige and unlock new world expeditions.' },
-          { title: 'Evolve and fuse', description: 'Train target stats before level 18 and 36 to steer evolution toward your desired Champion and Ultimate forms.' },
-        ],
-        characters: [
-          { name: 'Coach Juniper', role: 'Ranch Assistant & Breeder Mentor', description: 'Your knowledgeable ranch guide who provides commentary on monster fatigue, drill performance, and dietary needs.' },
-          { name: 'Emberpup', role: 'Pyre Novice Starter', description: 'A spirited fire pup whose evolutionary branches include Pyrefang (balanced), Flarewyrm (speed), and Rust Drake (defense).' },
-          { name: 'Aqualad', role: 'Tides Novice Starter', description: 'An agile water creature skilled in fluid strikes and restorative care that thrives in water drills.' },
-          { name: 'Sproutling', role: 'Terra Novice Starter', description: 'A stalwart nature guardian excelling in boulder pulls and defensive fortitude.' },
-        ],
-        gallery: [
-          {
-            src: '/images/projects/monstrum-world/phone_battle.webp',
-            alt: 'Monstrum World mobile battle layout with touch-friendly command wheel',
-            title: 'Mobile Touch Combat Layout',
-            description: 'Ergonomic mobile HUD designed for fast one-thumb command selection during intense ATB encounters.',
-          },
-          {
-            src: '/images/projects/monstrum-world/icon.webp',
-            alt: 'Monstrum World Battle Academy crest',
-            title: 'Battle Academy Official Seal',
-            description: 'The emblem of Aetheria’s premier breeding and combat institution.',
-          },
-        ],
-        productionNotes: [
-          { title: 'Headless Luau Test Harness', content: 'Validated via headless Luau simulation (luau_harness.py and behaviour_tests.luau) verifying drill odds, evolution branch selection, and battle state transitions.' },
-          { title: 'Pure State-Machine ATB Engine', content: 'A native Luau state machine drives the ATB combat flow and command selection.' },
-          { title: 'Generational Inheritance Mathematics', content: 'Fusion algorithms dynamically blend parent stat ceilings, move heritability, and generational scaling multipliers for deep breeding gameplay.' },
-        ],
-        notes: 'Monstrum World: Battle Academy is available on Roblox. Sign in to Roblox to open the experience; development continues in the monstrum-world repository.',
-        links: [
-          { label: 'Open Monstrum World on Roblox', href: 'https://www.roblox.com/games/81218380157488/Monstrum-World-Battle-Academy' },
-        ],
-      },
+      gameProject('monstrum-world'),
     ],
   },
   {

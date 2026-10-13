@@ -1,0 +1,15 @@
+---
+import { gameBySlug, journalHref, formatDate } from '../../lib/gameJournal.mjs';
+const { entry } = Astro.props;
+const game = gameBySlug(entry.game);
+---
+<article class="gw-card">
+  <a href={journalHref(entry)} tabindex="-1" aria-hidden="true"><img src={entry.image.src} alt="" width="800" height="450" loading="lazy" /></a>
+  <div class="gw-card-body">
+    <span class="gw-meta">{game.shortTitle || game.title} · {entry.kind === 'release' ? `Release ${entry.version}` : 'Making the game'}</span>
+    <h3><a href={journalHref(entry)} data-analytics-event="content_card_click" data-analytics-content-type="game_journal" data-analytics-content-slug={entry.slug} data-analytics-content-title={entry.title}>{entry.title}</a></h3>
+    <p>{entry.summary}</p>
+    <a class="gw-text-link" href={journalHref(entry)}>Read the story →</a>
+    <p class="gw-caption"><time datetime={entry.date}>{formatDate(entry.date)}</time></p>
+  </div>
+</article>

@@ -1,0 +1,14 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import JournalCard from '../../../components/games/JournalCard.astro';
+import { games, storiesFor, gameHref } from '../../../lib/gameJournal.mjs';
+import '../../../styles/game-showcase.css';
+---
+<Layout title="Building Our Games — Development Journal | Toby on Fitness Tech" description="Follow Wild Rebellion and Monstrum World from creative ideas to playable Roblox worlds, with development stories, release notes, and gameplay videos." breadcrumbs={[{name:'Home',url:'/'},{name:'Games',url:'/games/'},{name:'Development journal',url:'/games/journal/'}]}>
+<div class="game-world" data-pagefind-body data-pagefind-filter="type:Game journal"><div class="gw-wrap">
+<div class="gw-top"><a href="/games/">← Our Roblox worlds</a><span>Ideas · Playtests · Published updates</span></div>
+<header class="gw-journal-title"><p class="gw-eyebrow">Behind the adventures</p><h1>Building our games.</h1><p>How an idea becomes a character, a system, and a world. Follow the decisions behind Wild Rebellion and Monstrum World, then see what each published update brings to the game.</p></header>
+<nav class="gw-link-row" aria-label="Choose a game">{games.map(game=><a class="gw-button" href={`#${game.slug}`}>{game.shortTitle || game.title} ↓</a>)}</nav>
+{games.map(game=><section id={game.slug} class="gw-section"><div class="gw-heading"><div><p class="gw-eyebrow">{game.eyebrow}</p><h2>{game.shortTitle || game.title}</h2></div><a class="gw-text-link" href={gameHref(game)}>Explore the game →</a></div><div class="gw-grid">{storiesFor(game.slug).map(entry=><JournalCard entry={entry}/>)}</div></section>)}
+<footer class="gw-footer"><a href="/games/journal/rss.xml" class="gw-button">Follow the journal with RSS ↗</a> <a href="/games/" class="gw-button">Find your next adventure →</a></footer>
+</div></div></Layout>

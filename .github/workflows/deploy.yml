@@ -40,7 +40,7 @@ jobs:
 
       - name: Validate video catalog generation
         run: |
-          node --test scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs
+          node --test frontend/scripts/tests/game-journal.test.mjs scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs
           python3 scripts/tests/video-transcripts.test.py
 
       - name: Generate video data catalog

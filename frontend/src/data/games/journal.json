@@ -1,0 +1,418 @@
+[
+  {
+    "slug": "wild-rebellion-from-drawings-to-roblox",
+    "game": "wild-rebellion",
+    "kind": "making-of",
+    "date": "2026-10-13",
+    "title": "How Lilly\u2019s drawings became a world you can play",
+    "summary": "Follow the path from original characters to animated stories, Roblox adventures, and family playtests.",
+    "sections": [
+      {
+        "heading": "Start with the characters",
+        "paragraphs": [
+          "Wild Rebellion starts with Lilly\u2019s own drawings and the stories attached to them. A character is more than a model to put in a scene: it needs a personality, a place in the world, and a reason for a player to care.",
+          "In \u201cMy Drawings Came to Life,\u201d Lilly introduces that original creative world. Her Episode 3 explanation adds more characters and drawings, giving the game a source of ideas beyond a feature checklist."
+        ]
+      },
+      {
+        "heading": "Give the story somewhere to happen",
+        "paragraphs": [
+          "Animation lets the characters act out a story. A game asks a different question: what can the player do inside it? Wild Rebellion turns the village, the Chaos Lair, and Bobcat Island into places to explore, with heroes and villains offering different perspectives.",
+          "That shift changes the job of a location. A home becomes somewhere to enter and meet someone. A dragon becomes a way to travel. A story conflict becomes an objective the player can take part in."
+        ]
+      },
+      {
+        "heading": "Turn imagination into working systems",
+        "paragraphs": [
+          "Toby\u2019s September discussion describes the early workflow across Blender, AI coding tools, and a Roblox prototype. The game now uses modular Luau systems for the world, characters, quests, interface, and audio.",
+          "The tools help produce and revise the implementation. The creative thread remains Lilly\u2019s world: the point is to preserve what makes her characters recognizable as they move from a drawing into animation and interactive play."
+        ]
+      },
+      {
+        "heading": "Let a real play session tell the next story",
+        "paragraphs": [
+          "The family gameplay video below is a useful companion to the artwork. It shows the pace of exploring and the experience of playing together. A full session can reveal places where directions, menus, or objectives need to become clearer.",
+          "The October interface release addresses that side of development with quieter panels, remembered preferences, clearer quest interactions, and easier access to the music. A world comes to life through those practical details as well as its characters."
+        ]
+      }
+    ],
+    "image": {
+      "src": "/images/projects/wild-rebellion/hero.webp",
+      "alt": "Wild Rebellion characters standing together in the village",
+      "caption": "Wild Rebellion game artwork."
+    },
+    "mediaIds": [
+      "8MfRBWA7Z98",
+      "WUP-zp8jH-Q",
+      "9JA9pjANcPo"
+    ],
+    "sources": [
+      "Public videos 8MfRBWA7Z98, WUP-zp8jH-Q, 9JA9pjANcPo",
+      "Wild Rebellion publish/PUBLISH_STATUS.md, v36 record"
+    ]
+  },
+  {
+    "slug": "wild-rebellion-v36-a-clearer-adventure",
+    "game": "wild-rebellion",
+    "kind": "release",
+    "date": "2026-10-09",
+    "title": "A clearer view of the adventure",
+    "summary": "The v36 update makes room for the world with quieter panels, remembered choices, quest fixes, and a fuller jukebox.",
+    "sections": [
+      {
+        "heading": "Less interface in the way",
+        "paragraphs": [
+          "On a smaller screen, an open quest list, a map, a tip, and a conversation can compete with the world itself. This update starts the map and quest panels collapsed and remembers the player\u2019s explicit choice to open or close them.",
+          "The quest information is still available. The change gives players more control over when they see it, rather than making a panel reopen whenever an objective changes."
+        ]
+      },
+      {
+        "heading": "Quests that are easier to follow",
+        "paragraphs": [
+          "The release improves the sequence of visiting a character, progressing an objective, and handing in a quest. NPCs use visit-based states so the conversation can reflect where the player actually is in that sequence.",
+          "Controller navigation also received attention: D-pad character selection and menu actions were checked in Studio, alongside the quest interactions."
+        ]
+      },
+      {
+        "heading": "Make the world sound like itself",
+        "paragraphs": [
+          "The jukebox offers 34 music tracks, including the Episode 3 songs \u201cEvery Friend Has a Story,\u201d \u201cRoom for You,\u201d and \u201cOne More Chapter.\u201d Players can pick a song from the scrolling list or return to automatic music.",
+          "The music belongs to the experience in Roblox. This update does not depend on a separate streaming release."
+        ]
+      },
+      {
+        "heading": "What was checked",
+        "paragraphs": [
+          "The release record confirms public v36 and a downloaded place file matching the built file. The documented checks covered interface preferences, quests, localization, and Studio client interactions.",
+          "Studio checks do not establish physical phone or Xbox testing, public save-and-rejoin behavior, or a new concurrent multiplayer session. Those are separate checks, rather than promises inferred from a successful build."
+        ]
+      }
+    ],
+    "image": {
+      "src": "/images/projects/wild-rebellion/open_world.webp",
+      "alt": "Exploration in the Wild Rebellion village",
+      "caption": "A look at Wild Rebellion\u2019s open world."
+    },
+    "mediaIds": [
+      "Lr5TtbVgK9I"
+    ],
+    "mediaNote": "This is a family gameplay session published on October 9. Its recorded build is not identified; it is not presented as a v36 verification video.",
+    "version": 36,
+    "release": {
+      "placeId": "137414447181099",
+      "universeId": "10767746288",
+      "version": 36,
+      "verifiedAt": "2026-10-09T23:58:38.234470+00:00",
+      "sourceCommit": "afbd8c0e11d43e2fac44b358a5a309c46ff45a6c",
+      "buildSha256": "5fc7ecd4de88b85063b28f71fb1c5e07c98dd12fceab2a6312b88724272a3a56",
+      "public": true,
+      "byteMatched": true
+    },
+    "sources": [
+      "Wild Rebellion publish/public-v36.json",
+      "Wild Rebellion publish/PUBLISH_STATUS.md, October 9 v36 section"
+    ]
+  },
+  {
+    "slug": "monstrum-world-raising-a-partner",
+    "game": "monstrum-world",
+    "kind": "making-of",
+    "date": "2026-10-13",
+    "title": "Building a companion worth coming home to",
+    "summary": "How ranch care, exploration, combat, and evolution fit together in Monstrum World.",
+    "sections": [
+      {
+        "heading": "The ranch is part of the adventure",
+        "paragraphs": [
+          "The central idea of Monstrum World is that raising a monster should matter as much as finding one. Training, feeding, rest, and care create a rhythm between outings. The ranch is where you prepare the next chapter of the adventure.",
+          "That creates a useful design loop: leave with a team, bring home resources and experience, make decisions about care and growth, then head out with a changed team."
+        ]
+      },
+      {
+        "heading": "Give each system a reason to connect",
+        "paragraphs": [
+          "Battles use a speed-based Active Time Battle system with a rancher and two companions. Attacks, skills, items, traps, and automatic tactics give players different ways to manage a fight.",
+          "Evolution and fusion extend those choices over a longer period. Instead of only asking which creature to collect next, the player can consider how a companion has grown, which parents to combine, and which moves to pass on."
+        ]
+      },
+      {
+        "heading": "Make the choices readable",
+        "paragraphs": [
+          "A system can be deep and still become frustrating if its interface hides the decision. The October cooking and fusion work is a practical example: show ingredient shortages before cooking, describe the effects of food, and separate fusion into parent and offspring steps on short screens.",
+          "The aim is to make the reason for an action visible. A player should understand what will be consumed and what will change before committing to it."
+        ]
+      },
+      {
+        "heading": "Build an identity beyond the battle",
+        "paragraphs": [
+          "The ranch has recurring characters, regional resources, and its own music. The October soundtrack adds ten original themes to the existing intro, with automatic rotation and explicit song selection.",
+          "Together these elements give the game a home base. The development journal follows how that home grows alongside the combat and collecting systems, with dated release articles separating what has shipped from what is still being developed."
+        ]
+      }
+    ],
+    "image": {
+      "src": "/images/projects/monstrum-world/key-art.png",
+      "alt": "Illustrated Monstrum World companions beside a ranch",
+      "caption": "Promotional illustration. See the battle screenshots below for in-game visuals."
+    },
+    "mediaIds": [
+      "monstrum-official-trailer"
+    ],
+    "sources": [
+      "Monstrum World public-release-v48.json game description",
+      "Monstrum World qa/2026-10-12/cooking-and-interface-polish.md",
+      "Monstrum World qa/2026-10-12/hub-soundtrack.md"
+    ]
+  },
+  {
+    "slug": "monstrum-world-v46-cooking-and-clearer-choices",
+    "game": "monstrum-world",
+    "kind": "release",
+    "date": "2026-10-12",
+    "title": "A kitchen for the ranch. Clearer choices for your team.",
+    "summary": "Juniper\u2019s cooking, better disc rewards, and an interface pass for battles and fusion.",
+    "sections": [
+      {
+        "heading": "Bring your ingredients home",
+        "paragraphs": [
+          "Coach Juniper now offers cooking alongside healing and care. The cookbook includes ten treats, six dish recipes, and four meal recipes. Ingredients come from the eight surface regions and the Merchant.",
+          "The kitchen shows ingredient counts, shortages, sources, and food effects. A ready-only filter and batches of one, five, or ten help you move from collecting to cooking."
+        ]
+      },
+      {
+        "heading": "Choose food for a reason",
+        "paragraphs": [
+          "Dishes offer care effects, healing, and permanent cooking training in one stat. Meals combine dishes for broader recovery and training. Cooking training has a shared per-stat cap, and food is preserved when it cannot help the companion.",
+          "The design gives exploration resources a purpose back at the ranch. Look at what your companion needs before choosing a recipe."
+        ]
+      },
+      {
+        "heading": "Know what you are looking at",
+        "paragraphs": [
+          "World bosses now use a dedicated shared-health display, including your personal contribution. Capture labels stay with wild encounters. Favorite sits beside Tactics, and battle choices have larger touch targets.",
+          "Fusion uses separate Parent A, Parent B, and Offspring steps on short screens. The preview distinguishes a new discovery from an offspring you have owned before and preserves selected moves through profile updates."
+        ]
+      },
+      {
+        "heading": "More reliable paths to discs",
+        "paragraphs": [
+          "Daily field chests and selected expedition rewards now have documented guaranteed weathered-disc rewards. That makes repeat activities a more predictable part of the ranch routine."
+        ]
+      },
+      {
+        "heading": "Release checks",
+        "paragraphs": [
+          "The v46 public release was downloaded and matched to the build. Automated checks and a Studio phone simulation exercised cooking, feeding, fusion, and the boss interface.",
+          "These checks used local test profiles and simulated conditions. They do not establish physical-phone, public save/rejoin, or fresh concurrent multiplayer testing."
+        ]
+      }
+    ],
+    "image": {
+      "src": "/images/projects/monstrum-world/key-art.png",
+      "alt": "Illustrated Monstrum World companions beside a ranch",
+      "caption": "Promotional illustration. See the battle screenshots below for in-game visuals."
+    },
+    "mediaIds": [],
+    "version": 46,
+    "release": {
+      "placeId": "81218380157488",
+      "universeId": "10768314712",
+      "version": 46,
+      "verifiedAt": "2026-10-12T12:47:43.971632+00:00",
+      "sourceCommit": "93ffb8381d769d369a3faf2a86e737fe8799acbe",
+      "buildSha256": "6a56f5a950f78534d007617c8a6e48c6e205af4c04868c3b1efc3bc21077109d",
+      "public": true,
+      "byteMatched": true
+    },
+    "sources": [
+      "Monstrum World qa/2026-10-12/cooking-and-interface-polish.md",
+      "Monstrum World qa/2026-10-12/public-release-v46.json"
+    ]
+  },
+  {
+    "slug": "monstrum-world-v47-world-boss-readiness",
+    "game": "monstrum-world",
+    "kind": "release",
+    "date": "2026-10-12",
+    "title": "A world-boss invitation when you are ready",
+    "summary": "Boss prompts now respect your saved recovery time, including when you return to the game.",
+    "sections": [
+      {
+        "heading": "Fix the invitation, not just the rejection",
+        "paragraphs": [
+          "Previously a returning player could receive a world-boss invitation even though their saved recovery time had not expired. The server would refuse the challenge, but the invitation had already suggested it was available.",
+          "The update aligns the invitation with personal readiness. While recovering, the boss beacon, challenge prompt, health banner, arrival voice, and invitation are hidden for that player. Eligible ranchers can still see their own boss."
+        ]
+      },
+      {
+        "heading": "Keep time consistent",
+        "paragraphs": [
+          "The interface waits for a ready save and uses the server clock. Readiness can return without a rejoin, and a shared boss-health update cannot reset personal recovery. Battles and raids also suppress actionable invitations.",
+          "Post-fight text reports the remaining time. It distinguishes the boss\u2019s respawn from the player\u2019s own recovery so those two timers do not tell conflicting stories."
+        ]
+      },
+      {
+        "heading": "Release checks",
+        "paragraphs": [
+          "Public v47 was downloaded and matched to the build. Studio checks covered recovery, late arrival, expiry, busy states, and server rejection. A simulated controller interaction confirmed that a recovering player could not start the encounter.",
+          "This was not a physical controller or public save/rejoin test. The later v48 article covers the completed music release; this version prepared the rotation behavior."
+        ]
+      }
+    ],
+    "image": {
+      "src": "/images/projects/monstrum-world/key-art.png",
+      "alt": "Illustrated Monstrum World companions beside a ranch",
+      "caption": "Promotional illustration. See the battle screenshots below for in-game visuals."
+    },
+    "mediaIds": [],
+    "version": 47,
+    "release": {
+      "placeId": "81218380157488",
+      "universeId": "10768314712",
+      "version": 47,
+      "verifiedAt": "2026-10-12T13:34:16.258501+00:00",
+      "sourceCommit": "3de4ac42674c85c240a86bbb90201580a34399df",
+      "buildSha256": "5914a536f499a559d9970ed56c677f3aca8588e0be2e933af84889eaf341fa8e",
+      "public": true,
+      "byteMatched": true
+    },
+    "sources": [
+      "Monstrum World qa/2026-10-12/boss-eligibility-and-hub-music.md",
+      "Monstrum World qa/2026-10-12/public-release-v47.json"
+    ]
+  },
+  {
+    "slug": "monstrum-world-v48-a-soundtrack-for-the-ranch",
+    "game": "monstrum-world",
+    "kind": "release",
+    "date": "2026-10-12",
+    "title": "A soundtrack for coming home",
+    "summary": "Ten new original themes join Go! Go! Monstrum! in an eleven-song ranch playlist.",
+    "sections": [
+      {
+        "heading": "Give the ranch more than one mood",
+        "paragraphs": [
+          "The ranch now has eleven selectable songs: the existing intro plus ten new original themes. Their arrangements range across adventure rock, dance pop, funk and brass, power pop, synth rock, ska pop, and harmony-led pop.",
+          "The titles follow the life of the game: getting ready, standing beside a companion, exploring beyond the gate, cooking, and looking toward the next adventure."
+        ]
+      },
+      {
+        "heading": "Choose a favorite, or let it shuffle",
+        "paragraphs": [
+          "Open Settings to select a song, choose Automatic, or turn music Off. Automatic cycles through the available ranch songs, while battle and regional cues retain their own roles. A manually selected song loops until you choose another option.",
+          "The settings list was adjusted to fit the larger catalog, including smaller windows, so the appearance options remain reachable below the music."
+        ]
+      },
+      {
+        "heading": "From song idea to in-game playback",
+        "paragraphs": [
+          "The ten new recordings were created from original briefs and lyrics. An early generation mixed lyrics and was excluded. The finished recordings were checked, uploaded, granted permission for the game, and tested in Roblox Studio.",
+          "That final step matters: a completed audio file is not yet working game music. The release checks covered track loading, playback, rotation, selection, and interruption."
+        ]
+      },
+      {
+        "heading": "The new songs",
+        "paragraphs": [],
+        "bullets": [
+          "Ranch Ready!",
+          "Side by Side",
+          "Eight Colors of Wonder",
+          "Home Base Heroes",
+          "Beyond the Gate",
+          "Little Spark, Big Heart",
+          "Rift Riders",
+          "Recipe for Adventure",
+          "Shine Together",
+          "Tomorrow Starts Here"
+        ]
+      },
+      {
+        "heading": "Release checks",
+        "paragraphs": [
+          "Public v48 was downloaded and matched byte-for-byte with the built place. All eleven songs were selectable and played in Studio; rotation, explicit choice, Automatic, and Off were exercised.",
+          "These are release and Studio playback checks. They do not replace a fresh physical-device, public save/rejoin, or multiplayer test."
+        ]
+      }
+    ],
+    "image": {
+      "src": "/images/projects/monstrum-world/key-art.png",
+      "alt": "Illustrated Monstrum World companions beside a ranch",
+      "caption": "Promotional illustration. See the battle screenshots below for in-game visuals."
+    },
+    "mediaIds": [],
+    "version": 48,
+    "release": {
+      "placeId": "81218380157488",
+      "universeId": "10768314712",
+      "version": 48,
+      "verifiedAt": "2026-10-12T14:33:11.117560+00:00",
+      "sourceCommit": "972acf0558f88b933c531937e86a3355dea36f79",
+      "buildSha256": "12d7d4a0372d372ef138219d864d324420f269c6b99075dac6ede3a8811520ee",
+      "public": true,
+      "byteMatched": true
+    },
+    "sources": [
+      "Monstrum World qa/2026-10-12/hub-soundtrack.md",
+      "Monstrum World qa/2026-10-12/public-release-v48.json"
+    ]
+  },
+  {
+    "slug": "wild-rebellion-v37-more-reasons-to-explore",
+    "game": "wild-rebellion",
+    "kind": "release",
+    "date": "2026-10-10",
+    "version": 37,
+    "title": "More reasons to explore, race, and return home",
+    "summary": "Distinct home interiors, villain quests, a coin shop, and new parkour goals give the village more to do.",
+    "image": {
+      "src": "/images/projects/wild-rebellion/open_world.webp",
+      "alt": "Wild Rebellion village exploration",
+      "caption": "Earlier open-world image; the October 10 update expands activities and home interiors."
+    },
+    "mediaIds": [],
+    "sections": [
+      {
+        "heading": "Give every visit a little more character",
+        "paragraphs": [
+          "The v37 release expands the homes with distinct interiors and adds villain home and world quests. Light Knights and a Champion bring new opponents into the adventure. Character-gated quests help tie activities to the people who inhabit the world.",
+          "For a returning player, the change is a reason to revisit familiar places. A home can offer something beyond its front door, and another character can give a different perspective on the village."
+        ]
+      },
+      {
+        "heading": "A gentler start and a clearer next step",
+        "paragraphs": [
+          "A starter checklist, a 75-coin welcome gift, gentler first fights, and a spawn signpost help the opening experience. \u201cWhere am I?\u201d adds another way to get your bearings.",
+          "Those additions address a practical part of building an open world: freedom feels better when a new player has enough direction to use it."
+        ]
+      },
+      {
+        "heading": "Race for a better run",
+        "paragraphs": [
+          "Timed parkour includes all-time and weekly leaderboards. Easy pads, checkpoints, and new courses give players ways to practice before chasing a faster result. Placement coins are paid when a run earns a place.",
+          "The coin shop adds coin history and a larger outfit selection, linking activities back to ways of expressing your character."
+        ]
+      },
+      {
+        "heading": "Release checks and what comes next",
+        "paragraphs": [
+          "The October 10 publication record identifies public v37. For this journal, the downloaded v37 place was compared with the recorded release-build hash and matched. Source compilation, offline checks, and the documented Studio interactions provide additional development evidence.",
+          "The October 11 roof fix is recorded as saved version 38, not published. It is not included as a live feature here. Physical-device, live leaderboard persistence, and other public play checks remain distinct from the recorded Studio checks."
+        ]
+      }
+    ],
+    "release": {
+      "placeId": "137414447181099",
+      "universeId": "10767746288",
+      "version": 37,
+      "verifiedAt": "2026-10-13T15:09:47.924717+00:00",
+      "sourceCommit": "1f99650ede451478f22994f007b65cb3bf5bda1c",
+      "buildSha256": "bb0ba780a3a1788e2f2cb3ac617754622a486d4fa5bb5f289440dda04e1cda1c",
+      "public": true,
+      "byteMatched": true
+    },
+    "sources": [
+      "Wild Rebellion publish/PUBLISH_STATUS.md, October 10 public v37 and October 11 saved v38",
+      "Read-only v37 download checked October 13 against recorded build SHA-256"
+    ]
+  }
+]

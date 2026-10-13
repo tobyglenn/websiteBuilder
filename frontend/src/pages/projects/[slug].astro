@@ -1,5 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import GameShowcase from '../../components/games/GameShowcase.astro';
+import { gameBySlug } from '../../lib/gameJournal.mjs';
 import { pokemonRepository, projectHref, projects } from '../../data/projects';
 
 export function getStaticPaths() {
@@ -7,6 +9,7 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+const game = gameBySlug(project.slug);
 const isPokemon = project.slug === 'pokemon-go-automation';
 const sourceHref = (file: string) => `${pokemonRepository}/blob/main/${file}`;
 const documentation = [
@@ -32,7 +35,7 @@ const schema = {
 };
 ---
 
-<Layout
+{game ? <GameShowcase game={game}/> : <Layout
   title={`${project.title} project guide | Toby on Fitness Tech`}
   description={project.description}
   image={project.heroImage?.src}
@@ -341,7 +344,7 @@ const schema = {
       <footer class="project-footer"><a href="/projects/">← Explore all projects</a><span>{project.title}</span></footer>
     </div>
   </div>
-</Layout>
+</Layout>}
 
 <style>
   .project-page { background: var(--color-neutral-950); color: var(--color-neutral-100); padding: 2.5rem 1.25rem 4rem; }
