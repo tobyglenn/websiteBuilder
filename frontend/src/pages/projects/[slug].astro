@@ -69,6 +69,7 @@ const schema = {
         <nav class="page-nav" aria-label={`${project.title} page sections`}>
           <p>On this page</p>
           <a href="#overview"><span>What it is</span></a>
+          {project.updates && <a href="#updates"><span>Latest updates</span></a>}
           {project.featuredYoutubeId && <a href="#featured-video"><span>Featured episode</span></a>}
           {project.characters && <a href="#characters"><span>Cast & characters</span></a>}
           {project.episodes && <a href="#episodes"><span>Episodes & videos</span></a>}
@@ -127,6 +128,20 @@ const schema = {
         <div class="section-heading"><p class="section-label">The project</p><h2 id="overview-heading">What it is</h2></div>
         <div class="prose">{project.overview.map((paragraph) => <p>{paragraph}</p>)}</div>
       </section>
+
+      {project.updates && (
+        <section id="updates" class="content-section" aria-labelledby="updates-heading">
+          <div class="section-heading"><p class="section-label">What we're doing</p><h2 id="updates-heading">Latest updates</h2></div>
+          <ol class="updates-list">
+            {project.updates.map((update) => (
+              <li class="update-item">
+                <p class="update-date">{update.date}</p>
+                <div class="update-body"><h3>{update.title}</h3><p>{update.description}</p></div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      )}
 
       {project.characters && (
         <section id="characters" class="content-section" aria-labelledby="characters-heading">
@@ -448,6 +463,12 @@ const schema = {
   .implementation-links { margin-top: 1.2rem; }
   .implementation-links a { display: flex; align-items: center; gap: .7rem; width: fit-content; color: var(--color-neutral-400); font-size: .9rem; margin-top: .3rem; }
   .implementation-links a:hover { color: var(--color-blue-300); }
+  .updates-list { list-style: none; padding: 0; margin: 0; max-width: 55rem; }
+  .update-item { display: grid; grid-template-columns: 7rem 1fr; gap: 1.2rem; padding: 1.3rem 0; border-top: 1px solid var(--color-neutral-800); }
+  .update-item:last-child { border-bottom: 1px solid var(--color-neutral-800); }
+  .update-date { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--color-blue-300); margin: 0; padding-top: .2rem; white-space: nowrap; }
+  .update-body h3 { margin: 0 0 .4rem; }
+  .update-body p { color: var(--color-neutral-400); font-size: .93rem; margin: 0; }
   .steps { list-style: none; padding: 0; margin: 0; max-width: 55rem; }
   .steps li { display: grid; grid-template-columns: 2.2rem 1fr; gap: 1rem; margin-top: 1.5rem; }
   .step-number { width: 2rem; height: 2rem; display: grid; place-items: center; font-family: monospace; font-size: .8rem; border: 1px solid var(--color-neutral-700); border-radius: 50%; color: var(--color-blue-300); }
