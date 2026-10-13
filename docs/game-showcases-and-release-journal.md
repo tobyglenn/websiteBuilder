@@ -38,7 +38,32 @@ The importer requires correct universe/place IDs, explicit publication evidence,
 
 ## Ongoing upkeep
 
-A recurring Codex follow-up checks both game repositories every six hours. It only acts on a new verified public release or newly public relevant media. It reads the associated report, writes a concise player-facing story (substantial for major releases), runs the importer and validation, deploys from a fresh branch based on current website `origin/main`, and checks production. It stays quiet when nothing has changed. Automation ID: `keep-roblox-game-showcases-current` (ACTIVE at setup).
+A procedural macOS LaunchAgent checks once daily at **11:55 p.m. Eastern** (the Mac's configured local timezone). The old Codex heartbeat `keep-roblox-game-showcases-current` is **PAUSED**; do not reactivate it alongside this job. LaunchAgent label: `com.toby.roblox-website-nightly`. If the Mac is asleep, launchd runs the missed calendar job when it wakes; a powered-off Mac cannot perform the check. Keep the Mac timezone set to America/New_York for this schedule.
+
+`scripts/nightly-game-journal.py` fetches the latest website `origin/main` into a dedicated clean checkout and compares `journal.json` coverage with both games' publication receipts. It also reads Wild's affirmative `PUBLISHED version` log sections and Monstrum's `release.json`, so a new release does not depend on a dated QA receipt already existing. Saved-only versions, unrelated source changes, timestamps, and already-covered releases do not trigger a model call. Missing sources or malformed receipts produce an error, not a false no-change result.
+
+If new publication evidence exists, one `codex exec` call prepares that day's batch for both games. The worker verifies publication/build evidence, writes player-facing articles (longer for major releases), updates supported evergreen facts, and checks available public media. A newly public video alone does not wake the LLM; media is reviewed during the next release update. The existing Monstrum trailer remains available. No game publication or video upload/scheduling occurs.
+
+The worker has a workspace-write sandbox and may edit only game datasets, game media, and release evidence. The procedural runner checks the changed paths, runs game tests, Astro sync and a full production build using Node 24, rejects concurrent changes to main, commits/pushes the content, waits for both GitHub workflows and verifies the new public article bodies. Only then is deployment marked complete. The canonical DGX checkout is fast-forwarded only if clean. No destructive reset or forced push is used.
+
+Durable installation on this Mac:
+
+- Runner/scanner: `~/.local/share/roblox-website-nightly/bin/`
+- Dedicated checkout: `~/.local/share/roblox-website-nightly/site/`
+- Node 24 binary: `~/.local/share/roblox-website-nightly/runtime/bin/node`
+- Schedule: `~/Library/LaunchAgents/com.toby.roblox-website-nightly.plist`
+- Results: `last-check.json`, `state.json`, `scheduler.log`, `scheduler-errors.log`, `codex-output.log`, and `codex-errors.log` under the job directory. These are local operational records, never public assets.
+
+The attempted evidence fingerprint is saved **before** invoking Codex. A failed or interrupted attempt does not spend tokens again on identical evidence every night. Updated evidence allows a new attempt; after fixing an operational problem, an operator may explicitly run with `--retry`. Dirty generated changes are preserved for review and must be integrated before retrying. A pending pushed deployment is checked again without invoking the LLM. If a push failed or another deployment superseded it, inspect the preserved commit/pending status before recovery. Errors are recorded in the local status/log files; this job does not start an LLM merely to report an error.
+
+Read-only gate check (no LLM, edits to website content, or deployment):
+
+```sh
+python3 ~/.local/share/roblox-website-nightly/bin/nightly-game-journal.py \
+  --job-dir ~/.local/share/roblox-website-nightly --check-only
+```
+
+After editing the runner or scanner, run `python3 scripts/tests/nightly-game-journal.test.py`, then refresh their installed copies in the job's `bin/` directory. Keep the stable LaunchAgent paths out of disposable worktrees. The nightly process uses the existing local Codex login; it does not require an additional API key. It starts Codex only on new evidence, using the CLI's supported [non-interactive mode](https://learn.chatgpt.com/docs/non-interactive-mode).
 
 Canonical website checkout: DGX `/home/toby/.openclaw/workspace/websiteBuilder`. The Mac's older dirty checkout must not be reset or used to overwrite production. Fetch current remote state before work and preserve concurrent commits. A detached external drive, unavailable DGX, or unresolved release/media evidence is a blocked update, not permission to publish guesses.
 
