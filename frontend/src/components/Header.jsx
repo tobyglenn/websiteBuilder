@@ -51,34 +51,34 @@ const NAV_TRANSLATIONS = {
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   de: {
-    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Projects', about: 'Über mich', comparisons: 'Vergleiche',
+    reviews: 'Tests', training: 'Trainingsdaten', articles: 'Artikel', videos: 'Videos', podcasts: 'Projekte', about: 'Über mich', comparisons: 'Vergleiche',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Ausrüstung', compare: 'Tracker vergleichen', calculators: 'Rechner',
     trainingOverview: 'Training', running: 'Laufen', recovery: 'Erholung', transformation: 'Transformation', bjj: 'BJJ', prs: 'PR-Tafel',
-    agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'All Projects', startHere: 'Hier starten',
+    agentstack: 'AgentStack', fitnessPodcast: 'Fitness-Tech-Podcast', allPodcasts: 'Alle Projekte', startHere: 'Hier starten',
     wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   es: {
-    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Projects', about: 'Acerca de', comparisons: 'Comparaciones',
+    reviews: 'Reseñas', training: 'Datos de entrenamiento', articles: 'Artículos', videos: 'Videos', podcasts: 'Proyectos', about: 'Acerca de', comparisons: 'Comparaciones',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipo', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Entrenamiento', running: 'Running', recovery: 'Recuperación', transformation: 'Transformación', bjj: 'BJJ', prs: 'Tabla PR',
-    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Empieza aquí',
+    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'Todos los proyectos', startHere: 'Empieza aquí',
     wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   pt: {
-    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Projects', about: 'Sobre', comparisons: 'Comparações',
+    reviews: 'Análises', training: 'Dados de treino', articles: 'Artigos', videos: 'Vídeos', podcasts: 'Projetos', about: 'Sobre', comparisons: 'Comparações',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'Equipamento', compare: 'Comparar trackers', calculators: 'Calculadoras',
     trainingOverview: 'Treino', running: 'Corrida', recovery: 'Recuperação', transformation: 'Transformação', bjj: 'BJJ', prs: 'Quadro de PR',
-    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'All Projects', startHere: 'Comece aqui',
+    agentstack: 'AgentStack', fitnessPodcast: 'Podcast Fitness Tech', allPodcasts: 'Todos os projetos', startHere: 'Comece aqui',
     wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
   hi: {
-    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'Projects', about: 'परिचय', comparisons: 'तुलनाएँ',
+    reviews: 'समीक्षाएँ', training: 'ट्रेनिंग डेटा', articles: 'लेख', videos: 'वीडियो', podcasts: 'प्रोजेक्ट', about: 'परिचय', comparisons: 'तुलनाएँ',
     speediance: 'Speediance', wearables: 'Wearables', gear: 'गियर', compare: 'Tracker तुलना', calculators: 'कैलकुलेटर',
     trainingOverview: 'ट्रेनिंग', running: 'दौड़', recovery: 'रिकवरी', transformation: 'परिवर्तन', bjj: 'BJJ', prs: 'PR बोर्ड',
-    agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'All Projects', startHere: 'यहाँ से शुरू करें',
+    agentstack: 'AgentStack', fitnessPodcast: 'फिटनेस टेक पॉडकास्ट', allPodcasts: 'सभी प्रोजेक्ट', startHere: 'यहाँ से शुरू करें',
     wildRebellion: 'Wild Rebellion', ironvaneChronicle: 'Ironvane (Roblox)', monstrumWorld: 'Monstrum World',
     mmaRpg: 'MMA RPG', gridboundRealms: 'Gridbound Realms', bjjBuddy: 'BJJ Buddy', nutriTrack: 'NutriTrack', churchSite: '1 Peter Memory Trainer', lilly: 'Lilly Plays', pokemonGo: 'Pokémon GO Automation', ironvane: 'IronVane', liminal: 'Liminal',
   },
@@ -242,10 +242,10 @@ function MobileSection({ label, items, pathname, menuName, onNavigate }) {
   );
 }
 
-export default function Header() {
+export default function Header({initialPathname = '/'}) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [pathname, setPathname] = useState('');
+  const [pathname, setPathname] = useState(initialPathname);
   const [isLanguageOpen, setIsLanguageOpen] = useState(false);
   const [theme, setTheme] = useState('dark');
   const languageRef = useRef(null);
@@ -316,15 +316,15 @@ export default function Header() {
   const projectItems = useMemo(() => [
     { name: t.allPodcasts, href: localizedHref(locale, '/projects/'), icon: PackageSearch },
     { name: t.pokemonGo, href: '/projects/pokemon-go-automation/', icon: Cpu },
-    { name: t.wildRebellion, href: '/projects/wild-rebellion/', icon: Gamepad2 },
-    { name: t.ironvaneChronicle, href: '/projects/ironvane-chronicle/', icon: Trophy },
-    { name: t.monstrumWorld, href: '/projects/monstrum-world/', icon: Gamepad2 },
+    { name: t.wildRebellion, href: localizedHref(locale, '/projects/wild-rebellion/'), icon: Gamepad2 },
+    { name: t.ironvaneChronicle, href: localizedHref(locale, '/projects/ironvane-chronicle/'), icon: Trophy },
+    { name: t.monstrumWorld, href: localizedHref(locale, '/projects/monstrum-world/'), icon: Gamepad2 },
     { name: t.mmaRpg, href: '/projects/mma-rpg/', icon: Gamepad2 },
     { name: t.gridboundRealms, href: '/projects/gridbound-realms/', icon: Gamepad2 },
     { name: t.bjjBuddy, href: '/projects/bjj-buddy/', icon: Shield },
     { name: t.nutriTrack, href: '/projects/nutritrack/', icon: Activity },
     { name: t.churchSite, href: '/projects/one-peter-memory/', icon: BookOpen },
-    { name: t.lilly, href: '/projects/lilly/', icon: PlaySquare },
+    { name: t.lilly, href: localizedHref(locale, '/projects/lilly/'), icon: PlaySquare },
     { name: t.ironvane, href: '/projects/ironvane/', icon: Clapperboard },
     { name: t.liminal, href: '/projects/liminal/', icon: PlaySquare },
   ], [locale, t]);
@@ -365,9 +365,9 @@ export default function Header() {
       window.location.href = alternate ? new URL(alternate.href).pathname : (code === 'en' ? basePath : `/${code}/videos/`);
       return;
     }
-    // Project guides currently use a single English canonical route.
-    // A language change returns to the translated index instead of a missing guide.
-    const localePath = /^\/projects\/[^/]+\/?$/.test(basePath) ? '/projects/' : basePath || '/';
+    // Keep translated showcase routes; other guides return to the translated index.
+    const translatedProject = /^\/projects\/(?:wild-rebellion|monstrum-world|ironvane-chronicle|lilly)\/?$/.test(basePath);
+    const localePath = /^\/projects\/[^/]+\/?$/.test(basePath) && !translatedProject ? '/projects/' : basePath || '/';
     window.location.href = code === 'en' ? basePath || '/' : `/${code}${localePath}`;
   };
 

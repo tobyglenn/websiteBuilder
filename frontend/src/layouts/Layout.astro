@@ -260,6 +260,8 @@ seoTitle = trimTitleForSerp(seoTitle, MAX_TITLE_LENGTH);
 let hreflangBase: string | null = null;
 if (translationBase) {
   hreflangBase = translationBase;
+} else if (/^\/(?:compare|games(?:\/journal(?:\/[^/]+)?)?|projects(?:\/(?:wild-rebellion|monstrum-world|ironvane-chronicle|lilly))?)\/?$/.test(normalizedPathname)) {
+  hreflangBase = normalizedPathname.endsWith('/') ? normalizedPathname : `${normalizedPathname}/`;
 } else if (episodeSlug) {
   // Podcast episode pages and AgentStack landing: /podcasts/[episodeSlug]/
   hreflangBase = `/podcasts/${episodeSlug}/`;
@@ -576,7 +578,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
   </head>
   <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
     <div data-pagefind-ignore>
-      <Header client:load />
+      <Header client:load initialPathname={Astro.url.pathname} />
     </div>
     <main class="flex-grow pt-16" data-pagefind-body>
       {/^\/(de|es|hi|pt)\/?$/.test(Astro.url.pathname) && <TrainingDataNotice lang={lang} />}

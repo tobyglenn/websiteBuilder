@@ -98,6 +98,10 @@ const LIVE_DATA_LASTMOD = [
 
 const sitemapLastmod = (item) => {
   const pathname = new URL(item.url).pathname;
+  const base = pathname.replace(/^\/(?:es|de|pt|hi)(?=\/)/, '');
+  if (/^\/(?:compare|games(?:\/journal(?:\/[^/]+)?)?|projects(?:\/(?:wild-rebellion|monstrum-world|ironvane-chronicle|lilly))?)\/$/.test(base)) {
+    return '2026-10-13T18:00:00.000Z';
+  }
 
   if (sitemapLastmodByPath.has(pathname)) {
     return sitemapLastmodByPath.get(pathname);

@@ -1,0 +1,53 @@
+---
+import videosData from '../data/videos.json';
+import {isLikelyShortVideo} from '../lib/videoMeta.js';
+import {videoPools,rotationPick} from '../lib/homeVideoRotation.js';
+const locale = Astro.url.pathname.match(/^\/(es|de|pt|hi)\//)?.[1] || 'en';
+const copy = {
+ en:['Featured and latest videos','The newest uploads and our three most-watched long-form videos. A different pick each visit.','Latest upload','Viewer favorite','Browse all videos','Video page','Watch'],
+ es:['Vídeos destacados y recientes','Las últimas publicaciones y nuestros tres vídeos largos más vistos. Una selección diferente en cada visita.','Última publicación','Favorito del público','Ver todos los vídeos','Página del vídeo','Ver'],
+ de:['Beliebte und aktuelle Videos','Die neuesten Uploads und unsere drei meistgesehenen längeren Videos. Bei jedem Besuch eine andere Auswahl.','Neuestes Video','Publikumsliebling','Alle Videos ansehen','Zum Video','Ansehen'],
+ pt:['Vídeos em destaque e recentes','Os novos vídeos e os nossos três vídeos longos mais assistidos. Uma seleção diferente a cada visita.','Vídeo mais recente','Favorito do público','Ver todos os vídeos','Página do vídeo','Assistir'],
+ hi:['चुनिंदा और नए वीडियो','नए अपलोड और हमारे तीन सबसे ज़्यादा देखे गए लंबे वीडियो। हर बार आने पर एक अलग चयन।','नया अपलोड','दर्शकों का पसंदीदा','सभी वीडियो देखें','वीडियो पेज','देखें'],
+}[locale];
+const pools=videoPools(videosData.videos,isLikelyShortVideo);
+const initial=rotationPick(pools,0);
+const candidates=[...new Map([...pools.latest,...pools.popular].map(v=>[v.id,v])).values()];
+const compact=v=>({id:v.id,title:v.title,duration:v.duration_formatted,viewCount:v.viewCount});
+const payload={latest:pools.latest.map(compact),popular:pools.popular.map(compact),labels:{latest:copy[2],popular:copy[3]}};
+---
+<section id="watch" data-home-video-rotation data-homepage-section="video-hub" data-homepage-title="Featured and latest videos" data-homepage-purpose="video-discovery" class="border-b border-neutral-800 bg-neutral-950 py-16">
+ <div class="mx-auto max-w-7xl px-4 sm:px-6">
+  <header class="mb-10 flex flex-wrap items-end justify-between gap-5"><div><p class="mb-3 text-sm font-bold uppercase tracking-widest text-red-400">{copy[6]}</p><h2 class="text-3xl font-bold text-white md:text-4xl">{copy[0]}</h2><p class="mt-3 max-w-2xl text-neutral-400">{copy[1]}</p></div><a href={locale==='en'?'/videos/':`/${locale}/videos/`} class="font-semibold text-red-400">{copy[4]} →</a></header>
+  {initial.featured && <div class="grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(20rem,1fr)]">
+   <div data-video-location="homepage_featured">
+    <div class="aspect-video overflow-hidden rounded-lg border border-neutral-800"><iframe data-rotation-player class="h-full w-full" src={`https://www.youtube.com/embed/${initial.featured.id}?rel=0&enablejsapi=1`} title={initial.featured.title} data-analytics-video-id={initial.featured.id} loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+    <p data-rotation-label class="mt-5 text-xs font-semibold uppercase tracking-wide text-red-400">{copy[2]}</p>
+    <h3 data-rotation-title class="mt-2 text-xl font-bold text-white">{initial.featured.title}</h3>
+    <a data-rotation-link href={`/video/${initial.featured.id}/`} data-analytics-event="content_card_click" data-analytics-content-type="video" data-analytics-content-slug={initial.featured.id} data-analytics-content-title={initial.featured.title} class="mt-3 inline-block font-semibold text-blue-400">{copy[5]} →</a>
+   </div>
+   <div data-rotation-cards class="flex flex-col border-y border-neutral-700">
+    {candidates.map(video=><a data-rotation-card={video.id} href={`/video/${video.id}/`} data-analytics-event="content_card_click" data-analytics-content-type="video" data-analytics-content-slug={video.id} data-analytics-content-title={video.title} class="video-rotation-card group grid grid-cols-[8rem_1fr] gap-4 border-b border-neutral-700 py-5 last:border-b-0"><div><img src={video.thumbnail} alt={video.title} loading="lazy" class="aspect-video w-full rounded object-cover"/></div><div><h3 class="font-bold text-white group-hover:text-red-400">{video.title}</h3><p class="mt-2 text-xs text-neutral-500">{video.duration_formatted}</p></div></a>)}
+   </div>
+  </div>}
+  <script type="application/json" data-rotation-data set:html={JSON.stringify(payload).replaceAll('<','\\u003c')}/>
+ </div>
+</section>
+<style>.video-rotation-card[hidden]{display:none}</style>
+<script>
+ import {rotationPick} from '../lib/homeVideoRotation.js';
+ import {captureEvent} from '../lib/analytics.js';
+ function rotateHomeVideos(){
+  const root=document.querySelector<HTMLElement>('[data-home-video-rotation]');if(!root || root.dataset.rotationReady)return;root.dataset.rotationReady='true';
+  const pools=JSON.parse(root.querySelector('[data-rotation-data]').textContent);
+  let count=0;try{count=Number(sessionStorage.getItem('toft-home-video-visit'))||0;sessionStorage.setItem('toft-home-video-visit',String(count+1));}catch{}
+  const {mode,featured,related}=rotationPick(pools,count);if(!featured)return;
+  root.dataset.rotationMode=mode;root.dataset.featuredVideo=featured.id;
+  const player=root.querySelector<HTMLIFrameElement>('[data-rotation-player]');player.src=`https://www.youtube.com/embed/${featured.id}?rel=0&enablejsapi=1`;player.title=featured.title;player.dataset.analyticsVideoId=featured.id;
+  root.querySelector('[data-rotation-title]').textContent=featured.title;root.querySelector('[data-rotation-label]').textContent=pools.labels[mode];
+  const link=root.querySelector<HTMLAnchorElement>('[data-rotation-link]');link.href=`/video/${featured.id}/`;link.dataset.analyticsContentSlug=featured.id;link.dataset.analyticsContentTitle=featured.title;
+  root.querySelectorAll<HTMLElement>('[data-rotation-card]').forEach(card=>{const index=related.findIndex(v=>v.id===card.dataset.rotationCard);card.hidden=index<0;card.style.order=String(index);});
+  captureEvent('homepage_video_selection',{mode,video_id:featured.id,rotation_version:'latest-popular-v1'});
+ }
+ rotateHomeVideos();document.addEventListener('astro:page-load',rotateHomeVideos);
+</script>

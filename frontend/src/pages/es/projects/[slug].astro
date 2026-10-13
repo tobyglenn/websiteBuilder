@@ -1,0 +1,5 @@
+---
+import Page, {getStaticPaths as paths} from '../../projects/[slug].astro';
+export const getStaticPaths = () => paths().filter(p => ['wild-rebellion','monstrum-world','ironvane-chronicle','lilly'].includes(p.params.slug));
+---
+<Page {...Astro.props} />

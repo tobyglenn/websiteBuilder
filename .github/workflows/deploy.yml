@@ -40,7 +40,7 @@ jobs:
 
       - name: Validate video catalog generation
         run: |
-          node --test frontend/scripts/tests/game-journal.test.mjs scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs
+          node --test frontend/scripts/tests/release-locales.test.mjs frontend/scripts/tests/game-journal.test.mjs scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs
           python3 scripts/tests/video-transcripts.test.py
           python3 scripts/tests/nightly-game-journal.test.py
 
@@ -64,17 +64,6 @@ jobs:
           PUBLIC_POSTHOG_HOST: ${{ vars.PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com' }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Submit to IndexNow
-        run: |
-          echo "Submitting sitemap to Bing IndexNow..."
-          curl -X POST "https://www.bing.com/indexnow" \
-            -H "Content-Type: application/json" \
-            -d '{
-              "host": "tobyonfitnesstech.com",
-              "key": "21df5f0e15ba46c9ba198d5c8c3d53c6",
-              "sitemap": "https://tobyonfitnesstech.com/sitemap-index.xml"
-            }' || echo "IndexNow submission failed (non-critical)"
-
       - name: Test deployment asset retention and visibility safeguards
         run: node --test frontend/scripts/tests/retain-deploy-assets.test.mjs frontend/scripts/tests/gsc-data-quality.test.mjs
 
@@ -91,3 +80,8 @@ jobs:
           publish_branch: gh-pages
           force_orphan: false
           commit_message: "deploy: ${{ github.sha }}"
+
+      - name: Notify IndexNow after publishing
+        continue-on-error: true
+        run: node scripts/submit-indexnow.mjs
+        working-directory: frontend

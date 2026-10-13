@@ -36,6 +36,7 @@ export default function LanguageSwitcher({ currentLang = 'en' }: LanguageSwitche
 
   // These paths have locale versions. Blog article targets are verified before navigation.
   const LOCALE_PATHS = [
+    /^\/(?:compare|games(?:\/journal(?:\/[^/]+)?)?|projects(?:\/(?:wild-rebellion|monstrum-world|ironvane-chronicle|lilly))?)\/?$/,
     /^\/podcasts\/(?:agentstack|openclaw)\/?$/,
     /^\/podcasts\/episode-\d+\/?$/,
     /^\/blog\/?$/,

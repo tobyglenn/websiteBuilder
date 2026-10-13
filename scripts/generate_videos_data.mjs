@@ -12,6 +12,8 @@ const channelVideosBasePath = path.join(rootDir, 'scripts', 'channel_videos_base
 const transcriptsDir = path.join(rootDir, 'frontend', 'src', 'data', 'transcripts');
 const videosJsonPath = path.join(rootDir, 'frontend', 'src', 'data', 'videos.json');
 
+const excludedVideos = new Set(JSON.parse(fs.readFileSync(path.join(rootDir, 'frontend/src/data/excludedVideos.json'), 'utf8')));
+
 const ytVideos = JSON.parse(fs.readFileSync(ytPath, 'utf8'));
 const transcriptIndex = JSON.parse(fs.readFileSync(transcriptIndexPath, 'utf8'));
 
@@ -156,7 +158,7 @@ for (const ytVideo of ytVideos) {
 }
 
 // 3. Process all videos into the final catalog
-const generatedVideos = Array.from(allVideoItemsMap.values()).map((v) => {
+const generatedVideos = Array.from(allVideoItemsMap.values()).filter(v => !excludedVideos.has(v.id)).map((v) => {
   const transcriptEntry = transcriptMap.get(v.id);
   let transcriptContent = '';
   if (transcriptEntry && transcriptEntry.file) {

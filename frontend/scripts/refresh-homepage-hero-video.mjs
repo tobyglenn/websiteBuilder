@@ -1,3 +1,5 @@
+import excludedVideoIds from '../src/data/excludedVideos.json' with {type:'json'};
+const excludedVideos = new Set(excludedVideoIds);
 import { readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -58,7 +60,7 @@ async function getFallbackFromVideosJson() {
   try {
     const raw = await readFile(VIDEOS_JSON, 'utf8');
     const data = JSON.parse(raw);
-    const videos = data.videos || [];
+    const videos = (data.videos || []).filter(v => !excludedVideos.has(v.id));
     const longForm = videos.find((v) => !v.is_short && !v.is_live);
     if (!longForm) return null;
     return {
@@ -81,11 +83,11 @@ async function updateVideosJson(entries) {
   try {
     const raw = await readFile(VIDEOS_JSON, 'utf8');
     const data = JSON.parse(raw);
-    const existingVideos = data.videos || [];
+    const existingVideos = (data.videos || []).filter(v => !excludedVideos.has(v.id));
     const existingIds = new Set(existingVideos.map((v) => v.id));
 
     let addedCount = 0;
-    const toAdd = [...entries].reverse().filter((entry) => !existingIds.has(entry.id));
+    const toAdd = [...entries].reverse().filter((entry) => !existingIds.has(entry.id) && !excludedVideos.has(entry.id));
 
     for (const entry of toAdd) {
       const newVideo = {
@@ -127,7 +129,7 @@ async function main() {
     }
 
     const feedXml = await response.text();
-    const entries = parseFeedEntries(feedXml);
+    const entries = parseFeedEntries(feedXml).filter(entry => !excludedVideos.has(entry.id));
     await updateVideosJson(entries);
     featuredVideo = entries.find((entry) => !entry.is_short && !entry.is_live) ?? null;
   } catch (error) {

@@ -16,7 +16,8 @@ test('catalog preserves fresh inventory and metadata, quotes sources, and verifi
   write('scripts/channel_videos_base.json', { fetchedAt: '2026-09-21', channelStats: { subscriberCount: 370 }, videos: [video] });
   const stats = { subscriberCount: 374, videoCount: 2 };
   write('frontend/src/data/videos.json', { fetchedAt: '2026-09-28', channelStats: stats, videos: [video, { ...video, id: 'new', title: 'Newest video', description: '- This is a quoted point from the actual description.' }] });
-  write('yt_videos_full.json', [{ id: 'old', title: 'Stale title', date: '2025-01-01' }]);
+  write('frontend/src/data/excludedVideos.json', ['removed']);
+  write('yt_videos_full.json', [{ id: 'old', title: 'Stale title', date: '2025-01-01' }, {id:'removed',title:'Do not restore this video'}]);
   write('transcript_index.json', [{ video_id: 'old', file: 'missing.txt', word_count: 30 }, { video_id: 'new', file: 'new.txt', word_count: 6 }]);
   write('frontend/src/data/transcripts/new.txt', 'A real transcript about the latest video.');
   const run = () => execFileSync(process.execPath, [resolve('scripts/generate_videos_data.mjs')], { env: { ...process.env, VIDEO_CATALOG_ROOT: root } });
