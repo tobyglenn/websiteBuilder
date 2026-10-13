@@ -3,7 +3,12 @@
   if (!config || !config.key || window.__TOFT_POSTHOG_READY__) return;
   window.__TOFT_POSTHOG_READY__ = true;
 
+  const qaProps = () => {
+    const run = new URLSearchParams(window.location.search).get('qa_run') || '';
+    return /^release-\d{8}$/.test(run) ? {qa_run: run, is_release_qa: true} : {};
+  };
   const releaseProps = () => ({
+    ...qaProps(),
     site_release: document.querySelector('meta[name="toft-release"]')?.content || config.release || 'unknown',
     analytics_version: config.analyticsVersion || 'unknown',
   });
