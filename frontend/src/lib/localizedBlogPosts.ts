@@ -1,4 +1,5 @@
 import type { BlogPost } from './blogPosts';
+import { MANUAL_REDIRECTS } from './blogSlugRedirects';
 
 export const BLOG_TRANSLATION_LOCALES = ['de', 'es', 'pt', 'hi'] as const;
 export type BlogTranslationLocale = typeof BLOG_TRANSLATION_LOCALES[number];
@@ -19,7 +20,7 @@ const translationModules = import.meta.glob('../generated/blog-translations/*/*.
 }) as Record<string, LocalizedBlogPost>;
 
 const localizedPosts = Object.values(translationModules).filter((post) =>
-  Boolean(post?.slug && post?.lang && post?.title && post?.excerpt && post?.content),
+  Boolean(post?.slug && post?.lang && post?.title && post?.excerpt && post?.content && !MANUAL_REDIRECTS[post.slug]),
 );
 
 const localesBySlug = new Map<string, Set<BlogTranslationLocale>>();

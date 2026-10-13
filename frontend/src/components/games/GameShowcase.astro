@@ -15,15 +15,15 @@ const schema = {'@context':'https://schema.org','@type':'VideoGame',name:game.ti
 <div class:list={['game-world',game.accent]} data-pagefind-body data-pagefind-filter="type:Games" data-game-showcase={game.slug}>
 <div class="gw-wrap">
   <div class="gw-top"><a href="/games/">← Our Roblox worlds</a><a href="/games/journal/">The development journal ↗</a></div>
-  <header class="gw-hero">
-    <div><p class="gw-eyebrow">{game.eyebrow}</p><p class="gw-name">{game.title}</p><h1>{game.headline}</h1><p class="gw-lead">{game.summary}</p>
+  <header data-page-intro class="gw-hero">
+    <div><p class="gw-eyebrow">{game.eyebrow}</p><h1 data-page-title>{game.title}</h1><p class="gw-lead">{game.summary}</p>
       <div class="gw-actions"><a class="gw-button primary" href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug} data-analytics-content-title={game.title}>Play on Roblox ↗</a><a class="gw-button" href="#watch">Watch {game.slug === 'monstrum-world' ? 'the trailer' : 'the game'} ↓</a></div>
-      {latest && <p class="gw-release-latest">From the release journal · <a href={journalHref(latest)}>{latest.title} →</a></p>}
     </div>
-    <figure class="gw-art"><img src={game.hero.src} alt={game.hero.alt} width="1200" height="900" fetchpriority="high"/><figcaption class="gw-caption">{game.hero.caption}</figcaption></figure>
+
   </header>
   <div class="gw-stats">{game.stats.map(([value,label]) => <div class="gw-stat"><strong>{value}</strong><span>{label}</span></div>)}</div>
   <nav class="gw-nav" aria-label={`${game.title} sections`}><a href="#world">Explore the world</a><a href="#watch">Watch</a><a href="#making">How it comes to life</a><a href="#updates">Release journal</a><a href="#start">Start playing</a></nav>
+<figure class="gw-art gw-overview-art"><img src={game.hero.src} alt={game.hero.alt} width="1200" height="900" fetchpriority="high"/><figcaption class="gw-caption">{game.hero.caption}</figcaption></figure>
   <section id="world" class="gw-section">
     <div class="gw-intro"><div><p class="gw-eyebrow">Inside the game</p><h2>{game.slug === 'wild-rebellion' ? 'Her characters. Your adventure.' : 'More than a collection. A team.'}</h2></div><div>{game.intro.map(p => <p>{p}</p>)}</div></div>
     {game.features.map((feature,index) => <article class="gw-feature"><figure><img src={feature.image.src} alt={feature.image.alt} width="800" height="500" loading="lazy"/><figcaption class="gw-caption">{feature.image.caption}</figcaption></figure><div><p class="gw-eyebrow">0{index + 1} / Explore</p><h3>{feature.title}</h3><p>{feature.text}</p></div></article>)}

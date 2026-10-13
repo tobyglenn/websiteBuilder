@@ -208,3 +208,16 @@ test('loads exactly one canonical translation source per slug', async () => {
   assert.equal(speediance.length, 1);
   assert.match(speediance[0].title, /Surprise Update That Changes Everything/);
 });
+
+
+test('rejects leaked reasoning and unresolved translation placeholders', () => {
+  const translated = {
+    title: 'WHOOP-Erholungstest',
+    excerpt: 'Eine klare Beschreibung des vollständigen Artikels für Leser.',
+    category: 'Wearables', tags: ['WHOOP'],
+    content: '## Ergebnis\n\nLesen Sie die [WHOOP-Seite](/whoop/) und https://example.com/data. Der vollständige übersetzte Inhalt bleibt erhalten. '.repeat(8),
+  };
+  for (const leakage of ['<think>Internal reasoning</think>', '__TOFT_KEEP_AB__']) {
+    assert.throws(() => validateTranslationDraft({...translated, content: translated.content + leakage},source), /model or command leakage/);
+  }
+});

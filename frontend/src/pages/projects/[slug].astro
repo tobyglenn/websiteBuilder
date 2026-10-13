@@ -46,12 +46,12 @@ const schema = {
     <div class="project-shell">
       <a class="back-link" href="/projects/">← All Projects</a>
 
-      <header class="project-hero">
+      <header data-page-intro class="project-hero">
         <div class="hero-copy">
           <div class="eyebrow"><span>{project.group}</span><span class="status">{project.status}</span></div>
-          <h1>{project.title}</h1>
+          <h1 data-page-title>{project.title}</h1>
           <p class="summary">{project.description}</p>
-          <div class="tags">{project.tags.map((tag) => <span>{tag}</span>)}</div>
+
           <div class="project-actions">
             {project.links.map((link, index) => (
               <a
@@ -69,8 +69,7 @@ const schema = {
             ))}
           </div>
         </div>
-        <nav class="page-nav" aria-label={`${project.title} page sections`}>
-          <p>On this page</p>
+        <details class="project-page-menu"><summary>On this page</summary><nav class="page-nav" aria-label={`${project.title} page sections`}>
           <a href="#overview"><span>What it is</span></a>
           {project.updates && <a href="#updates"><span>Latest updates</span></a>}
           {project.featuredYoutubeId && <a href="#featured-video"><span>Featured episode</span></a>}
@@ -83,7 +82,7 @@ const schema = {
           <a href="#getting-started"><span>{isPokemon ? 'Recreate setup' : 'Get started'}</span></a>
           {isPokemon && <a href="#documentation"><span>Documentation</span></a>}
           <a href="#project-notes"><span>Project notes</span></a>
-        </nav>
+        </nav></details>
       </header>
 
       {project.heroImage && (
@@ -127,7 +126,7 @@ const schema = {
         </section>
       )}
 
-      <section id="overview" class="content-section overview" aria-labelledby="overview-heading">
+      <section id="overview" class="content-section overview" aria-labelledby="overview-heading"><div class="tags">{project.tags.map((tag) => <span>{tag}</span>)}</div>
         <div class="section-heading"><p class="section-label">The project</p><h2 id="overview-heading">What it is</h2></div>
         <div class="prose">{project.overview.map((paragraph) => <p>{paragraph}</p>)}</div>
       </section>

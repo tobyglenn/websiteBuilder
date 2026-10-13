@@ -1,4 +1,5 @@
 ---
+import HomeReviewHeading from '../components/HomeReviewHeading.astro';
 import Layout from '../layouts/Layout.astro';
 import { getHomepageFeature } from '../lib/homepageFeature';
 import Hero from '../components/Hero.jsx';
@@ -168,12 +169,11 @@ const webPageSchema = {
   jsonLd={webPageSchema}
 >
   <div
-    data-homepage-section="hero"
     data-homepage-title="Hero and featured story"
     data-homepage-purpose="orientation"
-    data-homepage-layout-version="home-2026-10-07-weekly-pick"
-    data-homepage-test-id="hero-weekly-pick"
-    data-homepage-test-variant="recent-articles-with-latest-video"
+    data-homepage-layout-version="compact-2026-10-13"
+    data-homepage-test-id="compact-introduction"
+    data-homepage-test-variant="compact-comparison-and-reviews"
   >
     <Hero lang="en" {...getHomepageFeature('en')} />
   </div>
@@ -183,25 +183,10 @@ const webPageSchema = {
     data-homepage-section="latest-articles"
     data-homepage-title="Latest articles"
     data-homepage-purpose="content-discovery"
-    class="border-t border-neutral-800 bg-neutral-950 py-16"
+    class="home-recent-reviews border-t border-neutral-800 bg-neutral-950 py-16"
   >
     <div class="container mx-auto px-4">
-      <div class="mb-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-        <div>
-          <span class="mb-2 block text-sm font-bold uppercase tracking-widest text-blue-400">Latest from the Blog</span>
-          <h2 class="text-3xl font-bold text-white md:text-4xl">Fresh Analysis & Reviews</h2>
-          <p class="mt-3 max-w-2xl text-neutral-400">The newest posts on fitness tech, training trends, and what the data actually says.</p>
-        </div>
-        <a
-          href="/blog/"
-          class="inline-flex items-center gap-2 self-start rounded-lg border border-neutral-700 px-5 py-2.5 font-semibold text-white transition-colors hover:border-blue-500/60 hover:text-blue-400 md:self-auto"
-          data-analytics-content-type="blog"
-          data-analytics-content-slug="/blog/"
-          data-analytics-content-title="View all posts"
-        >
-          View all posts <ArrowRight size={16} />
-        </a>
-      </div>
+      <HomeReviewHeading />
 
       <div class="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         {recentPosts.map((post, index) => (

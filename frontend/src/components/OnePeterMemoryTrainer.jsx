@@ -443,7 +443,7 @@ export default function OnePeterMemoryTrainer({ lang = 'en' }) {
         <div className="mx-auto flex max-w-7xl flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
             <p className="text-xs font-black uppercase tracking-[0.18em] text-amber-200">{t.alertPrep}</p>
-            <h1 className="mt-2 text-4xl font-black tracking-normal md:text-6xl">{t.title}</h1>
+            <h1 data-page-title className="mt-2 text-4xl font-black tracking-normal md:text-6xl">{t.title}</h1>
             <p className="mt-3 max-w-3xl text-base text-neutral-200 md:text-lg">
               {t.subtitle}
             </p>

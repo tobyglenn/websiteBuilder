@@ -66,7 +66,7 @@ const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
   
   <main class="bg-neutral-950 min-h-screen pb-20">
     <!-- Hero Section -->
-    <section class="pt-20 pb-10 px-4">
+    <section data-page-intro class="pt-6 pb-6 px-4">
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-3 mb-4">
           <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
@@ -75,7 +75,7 @@ const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
           </span>
           <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS} nights tracked</span>
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Sleep Stats</h1>
+        <h1 data-page-title class="text-4xl md:text-5xl font-bold text-white mb-4">Sleep Stats</h1>
         <p class="text-lg text-neutral-400 max-w-2xl">
           Real sleep data from my 8Sleep Pod 3 — sleep scores, HRV, sleep stages breakdown, and temperature tracking.
         </p>

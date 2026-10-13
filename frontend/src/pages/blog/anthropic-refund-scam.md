@@ -1,100 +1,43 @@
 ---
+updated: "2026-10-13"
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
-title: "Claude Refund Policy: Why Anthropic Denied My Request"
+title: "My Claude Refund Request: Lockout, Denial and Evidence"
 date: 2026-04-06
 image: "/images/anthropic-refund-scam.jpg"
-description: "Claude refund policy explained through my Anthropic support timeline: account lockout, refund request, denial, and the steps I followed."
+description: "My April 2026 account of a Claude access interruption and rejected refund request, with the original screenshot and an evidence checklist."
 categories: ["AI Tech", "Rant"]
 tags: ["AI", "Claude", "Anthropic", "Customer Experience", "Subscription", "Scam"]
 ---
 
-This week I learned something fascinating: **some companies don't just have bad customer service, they have customer service that's been deliberately engineered to give you the *impression* of recourse while ensuring you can never actually exercise it.**
+## What happened in my case
 
-I'm talking about Anthropic.
+In this account, originally published in April 2026, I described losing access to my paid Claude subscription and trying to obtain a refund. I reported receiving an email promising a follow-up refund option, not receiving that follow-up, and then being rejected by the self-service tool.
 
-![Claude.ai billing settings showing failed refund attempt](/images/anthropic-refund-scam.jpg)
+![My original screenshot of the Claude refund attempt](/images/anthropic-refund-scam.jpg)
 
-## The Setup
+The rejection said:
 
-Three days ago, I was locked out of my Claude Pro subscription. No warning, no explanation, no option to downgrade or pause — just: access revoked. Then the emails started flying. Other users had noticed the same thing. Models getting slower. Capabilities getting quietly dialed back. And then came the official email.
+> “We've determined that your purchase doesn't meet our refund eligibility criteria due to falling outside of the timeframe for our policy.”
 
-**"You will receive another email from us tomorrow where you'll have the ability to refund your subscription if you prefer."**
+I also reported unsuccessful cancellation attempts. I was angry because I could not find a working resolution path while paying for access I said I could not use.
 
-That was the promise. A clear, unambiguous commitment. Exercise your refund, get your money back, walk away clean.
+## What the evidence establishes
 
-## The Problem
+The screenshot and this account preserve my complaint. They do not establish how every refund request is handled, prove deliberate misconduct, or describe Anthropic's current refund policy. My difficulty reaching a person is not proof that nobody can reach support.
 
-No email arrived the next day.
+For a new refund request, use the current terms and support routes shown in your account. Do not assume my April experience establishes your eligibility or the result you will receive.
 
-I waited a second day. Nothing.
+## Keep the record of your own case
 
-So I went to their billing portal myself. I clicked "manage subscription." I found the "request a refund" link — it's right there, front and center, next to "cancel subscription." Very official. Very customer-friendly. Very reassuring.
+| Record | Why it matters |
+| --- | --- |
+| Original refund email | Preserves the promise, sender and date |
+| Access-error screenshots | Documents when the problem occurred |
+| Full rejection screen | Shows the reason given |
+| Cancellation attempts | Records what the account controls did |
+| Invoice and billing period | Identifies the payment and service period |
+| Support messages | Separates attempted contact from replies received |
 
-I clicked it.
+Keep the original records and redact private account information before sharing them publicly. If support does not resolve a billing dispute, your payment provider can explain its dispute process and deadlines; a successful refund is not guaranteed.
 
-> **"We've determined that your purchase doesn't meet our refund eligibility criteria due to falling outside of the timeframe for our policy."**
-
-Excuse me?
-
-I had been locked out for three days. Three days without access to the product I paid for. And not only will they not refund the unused portion — the days I was locked out don't even get prorated. They charge you for the full month whether you can access the service or not. The billing runs through today, the lockout started three days ago, and they are keeping every penny of the difference.
-
-## The Logic Is Insane
-
-Let's be precise about what just happened here:
-
-1. They locked me out of my subscription — three days of zero access
-2. They publicly promised a refund option in writing
-3. They sent no follow-up email to activate it
-4. When I tried to use the self-service refund tool, it rejected me automatically
-5. The unused/locked-out days don't get prorated — they keep the full monthly fee regardless
-6. There is no way to cancel the plan either — I tried hitting cancel multiple times, every single attempt refused with the same error: the refund system was broken and there was nothing I could do
-7. There is no human to contact, no appeal process, no email address, no chat, no form — **no way to actually talk to a human being**
-
-This isn't a refund policy. This is a **refund theater** — the performance of offering a refund while engineering the system to ensure zero people can actually get one.
-
-<span id="refund-evidence-checklist"></span>
-
-## Refund Evidence Checklist
-
-Before contacting support again or escalating through your payment provider, preserve the record while every date and message is still easy to find. This is the evidence trail I wish had been obvious from the start:
-
-| Evidence | What to save | What it establishes |
-| --- | --- | --- |
-| Written refund promise | The complete email with sender, date, and wording visible | What Anthropic said would happen |
-| Access interruption | Screenshots of the lockout and the first date access failed | When the paid service stopped working |
-| Self-service denial | The complete rejection screen, including the stated reason | What happened when you followed the refund path |
-| Cancellation attempts | Screenshots or recordings of each failed cancellation attempt | Whether the account controls worked |
-| Billing record | Invoice, charge date, plan period, and amount | What period and service the charge covered |
-| Support timeline | A dated list of every contact attempt and response | How long the issue remained unresolved |
-
-Keep the originals, not just cropped excerpts, and redact account numbers before sharing anything publicly. This is documentation of my experience, not legal or financial advice.
-
-## The Pattern
-
-This isn't even the first time Anthropic has done this.
-
-Remember when they quietly changed rate limits on their API and users only found out because things stopped working? Remember when they "improved" the models and everyone noticed they got noticeably worse? And now this — a refund promise that exists only in the email, never in any actionable form.
-
-They do everything the slow way. The hidden way. The way that ensures maximum plausible deniability.
-
-It's the same playbook Comcast used when they introduced data caps in 2008. It's the same playbook every company uses when they want to change terms but don't want to actually give customers a real exit.
-
-## What I Want
-
-I want exactly what they promised: **a refund.**
-
-I want to be clear: I'm not anti-Anthropic, I'm not anti-Claude. I've recommended Claude to people. I've defended their pricing. I've praised their model capabilities.
-
-But this? This is indefensible.
-
-**A company that emails you to promise a refund, then engineers its self-service tool to automatically reject every single refund request, with zero human escalation path, is running a scam.**
-
-The only question left is whether they did it deliberately or through sheer indifferent incompetence. And honestly? I'm not sure which answer is worse.
-
-## If You're In The Same Boat
-
-If you tried to get a refund and got the same automated rejection I did, you have my sympathy. I've been there this week.
-
-The only recourse I've found is disputing the charge with your credit card company. That's the real backstop when a company's own refund system is designed to say no no matter what.
-
-And next time a company promises something in an email, take a screenshot. Because apparently, **a company's own written promise means nothing if their backend isn't built to honor it.**
+My objection remains the gap between the refund option I expected and the denial I received. This page is a documented personal complaint, not a general finding about every customer or a current policy guide.

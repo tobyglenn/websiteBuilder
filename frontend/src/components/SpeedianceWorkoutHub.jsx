@@ -1034,7 +1034,7 @@ export default function SpeedianceWorkoutHub() {
 
   return (
     <div className="min-h-screen bg-[#0b0c0e] font-sans text-neutral-100 antialiased">
-      <section className="relative border-b border-white/[0.08] bg-gradient-to-b from-orange-500/10 via-transparent to-transparent py-12">
+      <section className="relative border-b border-white/[0.08] bg-gradient-to-b from-orange-500/10 via-transparent to-transparent py-6">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
@@ -1042,7 +1042,7 @@ export default function SpeedianceWorkoutHub() {
                 <Database size={13} />
                 Speediance Workout Hub
               </span>
-              <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              <h1 data-page-title className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
                 Share custom workouts. Compete on real data.
               </h1>
               <p className="mt-4 text-lg text-neutral-400">

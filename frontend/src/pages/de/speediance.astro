@@ -104,14 +104,14 @@ const donutJSON = JSON.stringify(donutData);
   <main class="min-h-screen bg-neutral-950 text-white">
 
     {/* ── Hero ──────────────────────────────────────────────────────────────── */}
-    <section id="hero" class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+    <section data-page-intro id="hero" class="pt-6 pb-6 md:pt-8 md:pb-8 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-orange-900/10 to-transparent pointer-events-none" />
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(249,115,22,0.08),_transparent_70%)] pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-orange-500 uppercase mb-4">Speediance-Daten · Jul 2025 – Feb 2026</p>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            {stats.totalVolumeFmt} lbs gehoben:<br />
+          <h1 data-page-title class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            {stats.totalVolumeFmt} lbs gehoben:{' '}
             <span class="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
               Meine Speediance-Reise
             </span>

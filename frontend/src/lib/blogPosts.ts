@@ -30,10 +30,6 @@ type RawFallbackBlogPost = Partial<BlogPost> & {
 };
 
 const SEO_OVERRIDES: Record<string, Pick<BlogPost, 'title' | 'excerpt'>> = {
-  'whoop-5-not-smaller-review': {
-    title: 'WHOOP 4.0 vs 5.0: Size, Thickness & Upgrade Differences',
-    excerpt: 'WHOOP 4.0 vs 5.0 tested on wrist: exact dimensions, thickness, band width and compatibility, comfort, battery, and upgrade value.',
-  },
   'garmin-and-whoop-what-each-is-actually-for': {
     title: 'Garmin vs WHOOP: What Each Tracker Is Actually For',
     excerpt: 'Garmin and WHOOP overlap, but they answer different training questions. Here is where each tracker is more useful.',
@@ -315,7 +311,7 @@ for (const post of BLOG_POSTS) {
   }
 }
 
-export const CANONICAL_BLOG_POSTS: BlogPost[] = Array.from(listingPostsByIdentity.values());
+export const CANONICAL_BLOG_POSTS: BlogPost[] = Array.from(listingPostsByIdentity.values()).filter(post => !MANUAL_REDIRECTS[post.slug]);
 export const LISTING_BLOG_POSTS: BlogPost[] = CANONICAL_BLOG_POSTS;
 
 export const BLOG_REDIRECTS: Record<string, string> = Object.fromEntries(

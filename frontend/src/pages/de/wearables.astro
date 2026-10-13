@@ -56,7 +56,7 @@ const articleSchema = {
   lang="de"
   translationBase="/wearables/"
 >
-  <section class="relative flex min-h-[460px] items-end overflow-hidden border-b border-neutral-800">
+  <section data-page-intro class="relative flex min-h-0 items-end overflow-hidden border-b border-neutral-800">
     <img
       src="/images/gear/whoop-5.0.jpg"
       alt="WHOOP-Wearable für Tobys Erholungs-Tracking"
@@ -65,13 +65,13 @@ const articleSchema = {
     />
     <div class="absolute inset-0 bg-black/70"></div>
     <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/55 to-transparent"></div>
-    <div class="container relative z-10 mx-auto px-4 pb-14 pt-32">
+    <div class="container relative z-10 mx-auto px-4 pb-14 pt-6">
       <div class="max-w-3xl">
         <div class="mb-4 flex items-center gap-2 text-sm font-semibold text-cyan-300">
           <Watch size={18} />
           Unabhängige Wearable-Tests
         </div>
-        <h1 class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">
+        <h1 data-page-title class="mb-5 text-4xl font-bold leading-tight text-white md:text-6xl">
           Wearable-Testberichte und Erholungsdaten
         </h1>
         <p class="max-w-2xl text-lg leading-relaxed text-neutral-200 md:text-xl">

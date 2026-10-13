@@ -9,6 +9,7 @@ import sitemap from '@astrojs/sitemap';
 const SITE_URL = 'https://tobyonfitnesstech.com';
 
 const EXCLUDED_SITEMAP_PATHS = [
+  /^\/(?:(?:de|es|pt|hi)\/)?blog\/(?:2026-01-14-the-truth-about-whoop-5-is-it-really-smaller|whoop-vs-garmin-bjj-review|2026-01-16-whoop-vs-garmin-for-jiu-jitsu-strength-training-honest-review|speediance-vs-tonal-the-warranty-debate-uncovered)\/$/,
   /^\/(?:de\/|es\/|pt\/|hi\/)?(?:404|500|search)(?:\/|\.html)?$/,
   /^\/(?:de\/|es\/|pt\/|hi\/)?affiliate\/?$/,
   /^\/(?:de\/|es\/|pt\/|hi\/)?podcasts\/openclaw\/?$/,  // redirect pages (deleted 2026-07-04) -> /{locale}/podcasts/
@@ -61,8 +62,9 @@ const loadMarkdownBlogLastmods = () => {
     const slug = filename.replace(/\.md$/, '');
     const file = sourceUrl(`./src/pages/blog/${filename}`);
     const raw = readFileSync(file, 'utf8');
+    const updatedMatch = raw.match(/^updated:\s*["']?(\d{4}-\d{2}-\d{2})["']?\s*$/m);
     const dateMatch = raw.match(/^date:\s*["']?(\d{4}-\d{2}-\d{2})["']?\s*$/m);
-    addLastmod(`/blog/${slug}/`, isoFromDateOnly(dateMatch?.[1]) ?? statSync(file).mtime.toISOString());
+    addLastmod(`/blog/${slug}/`, isoFromDateOnly(updatedMatch?.[1] ?? dateMatch?.[1]) ?? statSync(file).mtime.toISOString());
   }
 };
 
@@ -84,8 +86,19 @@ const loadMockBlogLastmods = () => {
   }
 };
 
-loadMarkdownBlogLastmods();
 loadMockBlogLastmods();
+// Source-owned Markdown overrides fallback catalog rows, including their edit dates.
+loadMarkdownBlogLastmods();
+for (const locale of ['de', 'es', 'pt', 'hi']) {
+  const directory = sourceUrl(`./src/generated/blog-translations/${locale}/`);
+  if (!existsSync(directory)) continue;
+  for (const filename of readdirSync(directory).filter(name => name.endsWith('.json'))) {
+    const post = JSON.parse(readFileSync(new URL(filename, directory), 'utf8'));
+    if (post.slug && Number.isFinite(Date.parse(post.translatedAt))) {
+      addLastmod(`/${locale}/blog/${post.slug}/`, new Date(post.translatedAt).toISOString());
+    }
+  }
+}
 
 const LIVE_DATA_LASTMOD = [
   './src/data/homepageFitnessData.json',

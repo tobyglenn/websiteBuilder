@@ -148,14 +148,14 @@ const appleCons = [
   <main class="min-h-screen bg-neutral-950 text-white">
 
     {/* Hero */}
-    <section class="pt-32 pb-16 md:pt-40 md:pb-24 relative overflow-hidden">
+    <section data-page-intro class="pt-6 pb-6 md:pt-8 md:pb-8 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
       <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(59,130,246,0.08),_transparent_70%)] pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">Comparación de trackers de fitness · Datos reales</p>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            WHOOP vs Garmin<br />
+          <h1 data-page-title class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            WHOOP vs Garmin{' '}
             <span class="bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent">
               vs Apple Watch
             </span>
@@ -459,7 +459,7 @@ const appleCons = [
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-10 text-center">¿Cuál es el adecuado para ti?</h2>
         <div class="grid md:grid-cols-3 gap-6">
-          
+
           {/* WHOOP */}
           <div class="bg-neutral-900 border border-purple-500/30 rounded-2xl p-6 text-center">
             <div class="w-14 h-14 rounded-2xl bg-purple-900/40 flex items-center justify-center mx-auto mb-4">
@@ -559,7 +559,7 @@ const appleCons = [
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold mb-2 text-center">Mi configuración actual</h2>
         <p class="text-neutral-400 text-center mb-10">Esto es lo que me funciona a mí — tu experiencia puede variar</p>
-        
+
         <div class="max-w-2xl mx-auto">
           <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
             <div class="flex items-center justify-center gap-8 mb-6">
@@ -603,20 +603,20 @@ const appleCons = [
           Mira la calculadora ROI para ver exactamente cuánto ahorrarías, o explora mis reseñas detalladas de equipo.
         </p>
         <div class="flex flex-wrap justify-center gap-4">
-          <a 
-            href="/roi/" 
+          <a
+            href="/roi/"
             class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
           >
             Calculadora ROI
           </a>
-          <a 
-            href="/gear/" 
+          <a
+            href="/gear/"
             class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
           >
             Reseñas de equipo
           </a>
-          <a 
-            href="/compare/" 
+          <a
+            href="/compare/"
             class="bg-neutral-800 hover:bg-neutral-700 text-white font-bold py-3 px-8 rounded-lg transition-colors border border-neutral-700"
           >
             Comparación de gimnasios

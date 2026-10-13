@@ -1,7 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { marked } from 'marked';
-import { BLOG_POSTS, BLOG_REDIRECTS, DYNAMIC_BLOG_POSTS } from '../../lib/blogPosts';
+import { CANONICAL_BLOG_POSTS as BLOG_POSTS, BLOG_REDIRECTS, DYNAMIC_BLOG_POSTS } from '../../lib/blogPosts';
 import { hasCompleteBlogTranslation } from '../../lib/localizedBlogPosts';
 import ShareButtons from '../../components/ShareButtons.jsx';
 import PriorityEntryPath from '../../components/PriorityEntryPath.astro';
@@ -46,7 +46,7 @@ if (redirectSlug) {
 <meta name="description" content="${redirectDescription}">
 <link rel="canonical" href="https://tobyonfitnesstech.com${redirectUrl}">
 <meta http-equiv="refresh" content="0;url=${redirectUrl}">
-</head><body>
+</head><body data-pagefind-ignore>
 <h1>${escapedTitle}</h1>
 <p>This page has moved. <a href="${redirectUrl}">Click here</a> if you are not redirected automatically.</p>
 <script>window.location.replace("${redirectUrl}")<\/script>
@@ -209,7 +209,7 @@ const articleJsonLd = {
 >
   <article class="bg-neutral-950 min-h-screen pb-24">
     {/* Header / Hero */}
-    <div class="relative bg-neutral-900 border-b border-neutral-800 pb-16 pt-24 md:pt-32">
+    <div data-page-intro class="relative bg-neutral-900 border-b border-neutral-800 pb-6 pt-6 md:pt-8">
       <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10 max-w-4xl">
         <a href="/blog/" class="inline-flex items-center text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors mb-8 group">
@@ -222,7 +222,7 @@ const articleJsonLd = {
             <span>{readTime(post.content)}</span>
         </div>
         
-        <h1 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
+        <h1 data-page-title class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight">
           {post.title}
         </h1>
 

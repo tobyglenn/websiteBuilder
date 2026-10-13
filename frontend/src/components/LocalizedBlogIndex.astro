@@ -129,13 +129,13 @@ const schema = {
     { name: ui.title, url: `/${locale}/blog/` },
   ]}
 >
-  <aside class="mx-auto mt-8 max-w-6xl rounded-xl border border-neutral-700 bg-neutral-900 p-6 text-white" aria-label="Game development journal"><a href="/games/journal/" class="text-lg font-bold text-blue-300">Building our games →</a><p class="mt-2 text-neutral-300">Wild Rebellion and Monstrum World: creation stories, gameplay, and published release updates.</p></aside>
 
-  <main class="min-h-screen bg-neutral-950 pb-24 pt-24 md:pt-32" data-pagefind-body>
-    <section class="border-b border-neutral-800">
+
+  <main class="min-h-screen bg-neutral-950 pb-24 pt-6 md:pt-8" data-pagefind-body>
+    <section data-page-intro class="border-b border-neutral-800">
       <div class="container mx-auto max-w-6xl px-4 pb-12">
         <p class="mb-3 text-xs font-bold uppercase text-blue-400">{ui.eyebrow}</p>
-        <h1 class="text-4xl font-black text-white md:text-6xl">{ui.title}</h1>
+        <h1 data-page-title class="text-4xl font-black text-white md:text-6xl">{ui.title}</h1>
         <p class="mt-5 max-w-3xl text-lg leading-relaxed text-neutral-300">{ui.description}</p>
 
         <div class="mt-8 max-w-xl">
@@ -163,6 +163,7 @@ const schema = {
         )}
       </div>
     </section>
+<aside class="journal-index-link" aria-label="Game development journal"><a href="/games/journal/" class="text-lg font-bold text-blue-300">Building our games →</a><p class="mt-2 text-neutral-300">Wild Rebellion and Monstrum World: creation stories, gameplay, and published release updates.</p></aside>
 
     <div class="container mx-auto max-w-6xl px-4 py-12" data-blog-index>
       {featuredPost ? (

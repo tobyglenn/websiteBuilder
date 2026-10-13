@@ -25,10 +25,10 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
 ---
 
 <Layout title="Suche - Toby über Fitness-Tech" description="Suche nach Videos, Blogbeiträgen und Gear-Reviews auf TobyOnFitnessTech." noindex={true}>
-  <div class="container mx-auto px-4 py-16 min-h-[60vh]">
+  <div class="container mx-auto px-4 py-6 min-h-[60vh]">
     
-    <div class="mb-12 border-b border-neutral-800 pb-8">
-        <h1 class="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3">
+    <div data-page-intro class="mb-4 border-b border-neutral-800 pb-8">
+        <h1 data-page-title class="text-3xl md:text-4xl font-bold mb-4 flex items-center gap-3">
             <SearchIcon size={32} class="text-blue-500" /> Suchergebnisse
         </h1>
         <p id="search-summary" class="text-neutral-400 text-lg">Gib oben einen Suchbegriff ein, um Videos und Artikel zu finden.</p>

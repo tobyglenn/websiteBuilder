@@ -53,10 +53,10 @@ const chartWidth = formattedMonthly.length * 40 + 20;
 >
   <Header client:load currentPath="/training-log" />
 
-  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
     <!-- Hero -->
-    <div class="text-center mb-12">
-      <h1 class="text-4xl font-black tracking-tight mb-4">
+    <div data-page-intro class="text-center mb-4">
+      <h1 data-page-title class="text-4xl font-black tracking-tight mb-4">
         Training <span class="text-blue-500">Consistency</span>
       </h1>
       <p class="text-neutral-400 text-lg max-w-xl mx-auto">
@@ -90,8 +90,8 @@ const chartWidth = formattedMonthly.length * 40 + 20;
       
       <div class="overflow-x-auto">
         <div 
-          class="inline-grid gap-1"
-          style={`grid-template-columns: repeat(${weeks}, ${CELL_SIZE}px); grid-template-rows: repeat(7, ${CELL_SIZE}px);`}
+          class="inline-grid"
+          style={`gap: ${GAP}px; grid-template-columns: repeat(${weeks}, ${CELL_SIZE}px); grid-template-rows: repeat(7, ${CELL_SIZE}px);`}
         >
           {heatmapData.map((day, i) => {
             const weekIndex = Math.floor(i / 7);
@@ -111,15 +111,14 @@ const chartWidth = formattedMonthly.length * 40 + 20;
             );
           })}
         </div>
-      </div>
-
-      <!-- Month labels -->
-      <div class="mt-4 flex text-xs text-neutral-500">
+      <!-- Month labels scroll with their calendar columns. -->
+      <div class="relative mt-4 h-5 text-xs text-neutral-500" style={`width: ${weeks * (CELL_SIZE + GAP) - GAP}px;`}>
         {monthStarts.map(m => (
-          <span style={`margin-left: ${m.x * (CELL_SIZE + GAP) / (CELL_SIZE + GAP)}px;`}>
+          <span class="absolute whitespace-nowrap" style={`left: ${m.x}px;`}>
             {m.label.slice(5)}-{m.label.slice(2, 4)}
           </span>
         ))}
+      </div>
       </div>
 
       <!-- Legend -->
@@ -135,7 +134,7 @@ const chartWidth = formattedMonthly.length * 40 + 20;
     <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6">
       <h2 class="text-lg font-bold mb-6">Monthly Activity</h2>
       
-      <div class="flex items-end gap-1 h-32">
+      <div class="overflow-x-auto"><div class="flex items-end gap-1 h-32" style={`min-width: ${formattedMonthly.length * 44}px;`}>
         {formattedMonthly.map(m => (
           <div class="flex-1 flex flex-col items-center">
             <div 
@@ -146,7 +145,7 @@ const chartWidth = formattedMonthly.length * 40 + 20;
             <span class="text-xs text-neutral-500 mt-2">{m.label}</span>
           </div>
         ))}
-      </div>
+      </div></div>
     </div>
 
     <!-- Footer note -->

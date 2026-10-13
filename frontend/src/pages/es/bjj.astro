@@ -20,8 +20,8 @@ const bjjPosts = CANONICAL_BLOG_POSTS.filter(post => {
   const tags = post.tags?.map(t => t.toLowerCase()) || [];
   const title = post.title?.toLowerCase() || '';
   const excerpt = post.excerpt?.toLowerCase() || '';
-  
-  return category === 'bjj' || 
+
+  return category === 'bjj' ||
     tags.some(tag => tag === 'bjj' || tag === 'jiu-jitsu' || tag === 'jiu jitsu') ||
     title.includes('bjj') || title.includes('jiu-jitsu') || title.includes('jiu jitsu') ||
     excerpt.includes('bjj') || excerpt.includes('jiu-jitsu') || excerpt.includes('jiu jitsu');
@@ -32,8 +32,8 @@ const totalBjjPosts = CANONICAL_BLOG_POSTS.filter(post => {
   const tags = post.tags?.map(t => t.toLowerCase()) || [];
   const title = post.title?.toLowerCase() || '';
   const excerpt = post.excerpt?.toLowerCase() || '';
-  
-  return category === 'bjj' || 
+
+  return category === 'bjj' ||
     tags.some(tag => tag === 'bjj' || tag === 'jiu-jitsu' || tag === 'jiu jitsu') ||
     title.includes('bjj') || title.includes('jiu-jitsu') || title.includes('jiu jitsu') ||
     excerpt.includes('bjj') || excerpt.includes('jiu-jitsu') || excerpt.includes('jiu jitsu');
@@ -145,16 +145,16 @@ const webPageSchema = {
   jsonLd={webPageSchema}
 >
   <main class="min-h-screen bg-neutral-950 text-white">
-    
+
     {/* ── Hero Section ─────────────────────────────────────────────────────── */}
-    <section class="pt-28 pb-14 md:pt-36 md:pb-20 relative overflow-hidden">
+    <section data-page-intro class="pt-6 pb-6 md:pt-8 md:pb-8 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-blue-900/10 via-transparent to-transparent pointer-events-none" />
       <div class="absolute right-0 top-0 w-72 h-72 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-3xl">
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-4">🥋 Brazilian Jiu-Jitsu</p>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Brazilian<br />
+          <h1 data-page-title class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+            Brazilian{' '}
             <span class="text-blue-500">Jiu-Jitsu</span>
           </h1>
           <p class="text-xl text-neutral-400 mb-10 leading-relaxed max-w-2xl">
@@ -276,10 +276,10 @@ const webPageSchema = {
           <p class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-2">Entrenamiento</p>
           <h2 class="text-3xl md:text-4xl font-bold mb-4">Horario de entrenamiento de BJJ</h2>
           <p class="text-neutral-400 mb-8 leading-relaxed max-w-2xl">
-            Entreno BJJ 2-3 veces por semana en un gimnasio dedicado a BJJ. Cada sesión incluye trabajo técnico, drills posicionales y sparring en vivo (rolling). 
+            Entreno BJJ 2-3 veces por semana en un gimnasio dedicado a BJJ. Cada sesión incluye trabajo técnico, drills posicionales y sparring en vivo (rolling).
             Mi entrenamiento ocupa el tercer lugar en mi jerarquía de fitness: <span class="text-blue-400 font-semibold">Running &gt; Lifting &gt; BJJ</span>
           </p>
-          
+
           <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
@@ -302,8 +302,8 @@ const webPageSchema = {
           </div>
 
           <div class="mt-6 text-center">
-            <a 
-              href="/training/" 
+            <a
+              href="/training/"
               class="inline-flex items-center gap-2 text-sm text-blue-500 hover:text-blue-400 transition-colors font-medium"
             >
               Ver semana completa de entrenamiento
@@ -379,8 +379,8 @@ const webPageSchema = {
             </div>
 
             <div class="mt-8 text-center">
-              <a 
-                href="/blog/" 
+              <a
+                href="/blog/"
                 class="inline-flex items-center gap-2 text-sm text-blue-500 hover:text-blue-400 transition-colors font-medium"
               >
                 Ver todos los posts del blog

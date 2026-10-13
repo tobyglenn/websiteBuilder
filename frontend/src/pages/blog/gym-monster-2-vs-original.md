@@ -1,4 +1,5 @@
 ---
+updated: "2026-10-13"
 layout: "../../layouts/MarkdownBlogPostLayout.astro"
 image: /images/blog/gym-monster-2-vs-original.jpg
 title: "Speediance Gym Monster 1 vs 2: Is the Upgrade Worth It?"
@@ -7,6 +8,9 @@ description: "Speediance Gym Monster 1 vs 2 comparison covering resistance, hard
 categories: ["Fitness Tech", "Reviews"]
 tags: ["Speediance", "Gym Monster", "Smart Home Gym", "Strength Training", "AI Fitness"]
 ---
+
+Evidence: this guide compares published model specifications. My [original versus 2S ownership video](/video/J3W59IR2Las/) is separate first-hand evidence about those machines; it is not a controlled original-versus-2 test.
+
 
 ## The short answer
 

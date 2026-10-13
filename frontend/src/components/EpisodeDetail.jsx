@@ -45,8 +45,8 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
       </div>
 
       {/* Hero */}
-      <header className="max-w-4xl mx-auto px-4 pt-6 pb-10">
-        <div className="flex flex-col sm:flex-row gap-6 items-start">
+      <header data-page-intro className="podcast-intro max-w-4xl mx-auto px-4 pt-4 pb-6">
+        <div className="podcast-intro-grid flex gap-4 items-start">
           {/* Cover art */}
           {episode.coverImage && (
             <img
@@ -61,7 +61,7 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
 
           {/* Meta + title */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center gap-2 mb-3 text-xs text-neutral-500 font-mono">
+            <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-neutral-500 font-mono">
               <span className="text-blue-400 font-bold tracking-widest uppercase">Episode {episode.number}</span>
               <span>·</span>
               <span>{episode.date}</span>
@@ -69,39 +69,23 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
               <span>{episode.duration}</span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight mb-4">
+            <h1 data-page-title className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent leading-tight mb-4">
               {episode.title}
             </h1>
 
-            <p className="text-neutral-300 text-lg leading-relaxed max-w-2xl mb-6">
-              {episode.description}
-            </p>
-
-            <a
-              href={episode.audioUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-semibold text-white transition-all duration-200 shadow-lg shadow-blue-900/30 hover:shadow-blue-900/50 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>🎧</span> Listen to Episode
-            </a>
-
-            {/* Listen & Subscribe */}
-            <div className="mt-6">
-              <p className="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-3">
-                Listen &amp; Subscribe
-              </p>
-              <PodcastSubscribeButtons
-                spotifyUrl={OPENCLAW_SPOTIFY}
-                appleUrl={OPENCLAW_APPLE}
-                iheartUrl={OPENCLAW_IHEART}
-                amazonUrl={OPENCLAW_AMAZON}
-                rssUrl={rssUrl}
-                youtubeUrl="https://www.youtube.com/@AgentStackDaily"
-              />
-            </div>
           </div>
         </div>
+        <p className="podcast-description text-neutral-300 text-base leading-relaxed mt-4 mb-4">
+          {episode.description}
+        </p>
+        <a
+          href={episode.audioUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 px-5 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 rounded-xl font-semibold text-white transition-colors"
+        >
+          <span>🎧</span> Listen to Episode
+        </a>
       </header>
 
       {/* Sticky tab bar */}

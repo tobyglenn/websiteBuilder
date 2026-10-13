@@ -1,0 +1,127 @@
+/* Explicit page-title/intro markers keep this rhythm out of tables, charts and body copy. */
+.site-content [data-page-title] {
+  font-size: clamp(1.65rem, 2.8vw, 2.25rem) !important;
+  line-height: 1.16 !important;
+  letter-spacing: -.025em !important;
+  margin-top: 0 !important;
+  margin-bottom: .65rem !important;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+.site-content [data-page-title] + p,
+.site-content [data-page-intro] :is(.hero-desc, .gw-lead) {
+  font-size: 1rem !important;
+  line-height: 1.55 !important;
+  margin-top: .5rem !important;
+  margin-bottom: 1rem !important;
+  max-width: 72ch;
+}
+.site-content [data-page-intro] :is(.mb-8, .mb-10, .mb-12, .mb-16) { margin-bottom: 1rem; }
+.site-content [data-page-intro] :is(.mt-8, .mt-10, .mt-12, .mt-16) { margin-top: 1rem; }
+.site-content [data-page-intro] :is(.gap-12, .gap-16) { gap: 1.5rem; }
+.site-content .project-hero[data-page-intro] { padding: 1.5rem 0; gap: 1.5rem; }
+.site-content .project-page { padding-top: 1rem; }
+.site-content .project-hero .tags { margin-top: .8rem; }
+.site-content .project-hero .project-actions { margin-top: 1rem; }
+.site-content .game-world .gw-wrap { padding-top: 1rem; }
+.site-content .game-world :is(.gw-hero, .gw-journal-title, .gw-article-head)[data-page-intro] { padding: 1.25rem 0; gap: 1.5rem; min-height: 0; }
+.site-content .game-world .gw-hero { grid-template-columns: minmax(0, 1.4fr) minmax(180px, .65fr); }
+.site-content .game-world .gw-art img { max-height: 230px; object-fit: cover; }
+.site-content .game-world .gw-hero .gw-actions { margin-top: 1rem; }
+.site-content [data-page-intro] img[src^='/progress/'] { max-height: 180px; width: auto; margin-inline: auto; }
+.site-content [data-page-intro] div:has(> img[src^='/progress/']) { width: auto; }
+.site-content [data-page-title].video-title { font-size: clamp(1.5rem, 2.4vw, 2rem) !important; }
+
+.home-intro { padding: 1.75rem 1rem; background: var(--color-neutral-950); border-bottom: 1px solid var(--color-neutral-800); }
+.home-intro-grid { max-width: 1248px; margin: auto; display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(300px, 1fr); align-items: center; gap: 2rem; }
+.home-intro-copy > p { color: var(--color-neutral-400); max-width: 62ch; margin: .5rem 0 1rem; line-height: 1.5; }
+.home-intro h1 { color: var(--color-neutral-100); }
+.home-intro-links { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+.home-intro-links a { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; min-height: 44px; padding: .55rem .8rem; border-radius: .5rem; font-size: .875rem; font-weight: 650; }
+.home-compare-link { background: #2563eb; color: #fff; }
+.home-compare-link:hover { background: #1d4ed8; }
+.home-intro-links .home-reviews-link { color: var(--color-blue-400); padding-inline: .5rem; }
+.weekly-pick-card { display: grid; grid-template-columns: 104px minmax(0, 1fr); align-items: center; gap: 1rem; padding: .85rem; border: 1px solid var(--color-neutral-700); border-radius: .75rem; background: var(--color-neutral-900); color: var(--color-neutral-100); }
+.weekly-pick-card:hover { border-color: var(--color-blue-400); }
+.weekly-pick-card > img { width: 104px; height: 96px; object-fit: cover; border-radius: .4rem; }
+.weekly-pick-card .weekly-pick-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .07em; color: var(--color-blue-400); font-weight: 700; margin: 0 0 .35rem; }
+.weekly-pick-card h2 { font-size: 1rem; line-height: 1.35; font-weight: 700; margin: 0; }
+.weekly-pick-card article > span { display: flex; align-items: center; gap: .4rem; color: var(--color-blue-400); font-size: .75rem; margin-top: .5rem; }
+.home-recent-reviews { padding-block: 1.5rem; }
+.home-recent-reviews > div > div:first-child { margin-bottom: 1rem; gap: .75rem; }
+.home-recent-reviews h2 { font-size: 1.5rem; }
+.home-recent-reviews a > div:has(> img) { height: 132px; aspect-ratio: auto; }
+.home-recent-reviews a > div:has(> h3) { padding: .85rem; }
+.home-recent-reviews h3 { font-size: 1rem; }
+.home-recent-reviews h3 + div { margin-top: .4rem; }
+.home-intro a:focus-visible { outline: 3px solid var(--color-blue-400); outline-offset: 4px; }
+
+/* The comparison's controls and devices belong in the first screen. */
+.site-content #comparison-app .hero { padding: 1.25rem 0 1rem; }
+.site-content #comparison-app .hero h1 { max-width: none; }
+.site-content #comparison-app .hero > p:not(.eyebrow) { margin: .5rem 0 0; max-width: 72ch; font-size: 1rem; }
+.site-content #comparison-app .hero .eyebrow { margin-bottom: .5rem; }
+.site-content #comparison-app .experience-pills { margin: .75rem 0 0; gap: .4rem; }
+.site-content #comparison-app .experience-pills span { padding: .3rem .55rem; font-size: .7rem; }
+.site-content #comparison-app .hero small { margin-top: .4rem; }
+.site-content #comparison-app .tabs { margin-bottom: 1rem; }
+.site-content #comparison-app #panel > .section-heading { margin: 1rem 0 .7rem; }
+.site-content #comparison-app #panel > .section-heading .eyebrow { display: none; }
+.site-content #comparison-app #panel > .section-heading h2 { font-size: 1.25rem; margin: 0; }
+.site-content #comparison-app #matrix-intro { margin-top: .3rem; font-size: .875rem; }
+.site-content #comparison-app .comparison-topline { margin: .6rem 0; }
+.site-content #comparison-app .matrix-tools { margin: .6rem 0; }
+
+@media (max-width: 767px) {
+  .home-intro { padding: 1.25rem 1rem; }
+  .home-intro-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .home-intro-links { gap: .4rem; }
+  .home-intro-links a { font-size: .8rem; padding-inline: .65rem; }
+  .weekly-pick-card { grid-template-columns: 80px minmax(0, 1fr); gap: .75rem; padding: .65rem; }
+  .weekly-pick-card > img { width: 80px; height: 80px; }
+  .weekly-pick-card h2 { font-size: .9rem; }
+  .home-recent-reviews { padding-block: 1.25rem; }
+  .home-recent-reviews a:has(> div > img) { display: grid; grid-template-columns: 100px minmax(0, 1fr); }
+  .home-recent-reviews a > div:has(> img) { height: 100%; min-height: 110px; }
+  .home-recent-reviews a > div:has(> h3) { padding: .7rem; }
+  .home-recent-reviews a > div > p { font-size: .8rem; margin-top: .4rem; }
+  .site-content .game-world .gw-hero { grid-template-columns: 1fr; gap: 1rem; }
+  .site-content .game-world .gw-art img { max-height: 160px; width: 100%; object-fit: cover; }
+  .site-content .project-hero[data-page-intro] { gap: 1rem; padding-block: 1rem; }
+  .site-content #comparison-app .hero { padding: 1rem 0 .75rem; }
+  .site-content #comparison-app .hero .eyebrow { font-size: .6rem; letter-spacing: .08em; }
+  .site-content #comparison-app .experience-pills { gap: .3rem; }
+  .site-content #comparison-app .tabs button { padding: .75rem .8rem; }
+  .site-content #comparison-app #panel > .section-heading { gap: .5rem; }
+  .site-content #comparison-app .mobile-selectors { margin-block: .6rem; }
+}
+.home-review-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem; }
+.home-review-heading h2 { font-weight: 750; color: var(--color-neutral-100); }
+.home-review-heading a { display: inline-flex; align-items: center; min-height: 44px; color: var(--color-blue-400); font-size: .875rem; font-weight: 650; }
+.site-content .game-world .gw-top { padding-block: .8rem; }
+.site-content .game-world .gw-hero .gw-name { margin-bottom: .5rem; }
+.site-content .game-world .gw-hero h1 { white-space: normal; }
+.site-content #comparison-app .comparison-evidence { padding-block: 1rem; color: var(--muted); }
+.journal-index-link { max-width: 1248px; margin: 0 auto; padding: .6rem 1rem; border-bottom: 1px solid var(--color-neutral-800); }
+.journal-index-link > a { display: inline-flex; align-items: center; min-height: 32px; font-size: .875rem; }
+.journal-index-link > p { display: none; }
+.site-content .game-world .gw-hero { display: block; max-width: 900px; }
+.site-content .game-world .gw-overview-art { margin: 1.5rem 0; }
+.site-content .game-world .gw-overview-art img { max-height: 320px; object-fit: contain; }
+.site-content .podcast-intro-grid > img { width: 96px; height: 96px; }
+@media (max-width: 767px) {
+  .site-content [data-page-intro] img[src^='/progress/'] { max-height: 120px; }
+  .site-content .project-hero .page-nav { border: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem 1rem; }
+  .site-content .project-hero .page-nav > p { flex-basis: 100%; margin: 0; }
+  .site-content .game-world .gw-overview-art img { max-height: 200px; }
+  .site-content .podcast-intro-grid > img { width: 64px; height: 64px; }
+}
+.site-content .project-hero[data-page-intro] { display: block; }
+.project-page-menu { margin-top: 1rem; }
+.project-page-menu > summary { cursor: pointer; min-height: 44px; padding-block: .6rem; color: var(--color-blue-400); font-size: .875rem; font-weight: 650; }
+.site-content .project-page-menu .page-nav { border: 0; padding: .5rem 0; display: flex; flex-wrap: wrap; gap: .4rem 1.25rem; }
+.site-content .project-page-menu .page-nav a { min-height: 36px; }
+.site-content .game-world .gw-journal-title .gw-eyebrow { margin-bottom: .6rem; }
+
+.podcast-description { overflow-wrap: anywhere; }
+.podcast-list article { overflow-wrap: anywhere; }

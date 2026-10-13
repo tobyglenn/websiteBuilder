@@ -2,6 +2,7 @@
 import { podcastTranslationLocales } from '../lib/podcastLocales';
 import { personSocialUrls, organizationSocialUrls } from '../data/socialProfiles.js';
 import '../styles/global.css';
+import '../styles/page-intro.css';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
@@ -580,7 +581,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <div data-pagefind-ignore>
       <Header client:load initialPathname={Astro.url.pathname} />
     </div>
-    <main class="flex-grow pt-16" data-pagefind-body>
+    <main class="site-content flex-grow pt-16" data-pagefind-body>
       {/^\/(de|es|hi|pt)\/?$/.test(Astro.url.pathname) && <TrainingDataNotice lang={lang} />}
       <slot />
     </main>

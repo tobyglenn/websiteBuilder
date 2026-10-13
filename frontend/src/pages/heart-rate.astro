@@ -133,7 +133,7 @@ scaledLinePoints.forEach((p, i) => {
   <main class="min-h-screen bg-neutral-950 text-white">
 
     {/* ── Hero ───────────────────────────────────────────────────────────── */}
-    <section class="pt-28 pb-14 md:pt-36 md:pb-20 relative overflow-hidden">
+    <section data-page-intro class="pt-6 pb-6 md:pt-8 md:pb-8 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-br from-red-900/10 via-transparent to-transparent pointer-events-none" />
       <div class="absolute right-0 top-0 w-64 h-64 bg-red-600/5 rounded-full blur-3xl pointer-events-none" />
       <div class="container mx-auto px-4 relative z-10">
@@ -141,14 +141,14 @@ scaledLinePoints.forEach((p, i) => {
           <p class="text-xs font-bold tracking-widest text-red-500 uppercase mb-4">
             Garmin Fenix 7 · Feb 2025 – Feb 2026
           </p>
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight">
-            Heart Rate<br />
+          <h1 data-page-title class="text-4xl md:text-5xl lg:text-6xl font-bold mb-5 leading-tight">
+            Heart Rate{' '}
             <span class="bg-gradient-to-r from-red-400 to-orange-500 bg-clip-text text-transparent">
               Zone Analysis.
             </span>
           </h1>
           <p class="text-lg text-neutral-400 leading-relaxed max-w-2xl mb-8">
-            Track your cardiovascular fitness with detailed HR zone breakdowns. 
+            Track your cardiovascular fitness with detailed HR zone breakdowns.
             See how much time you spend in each zone and monitor your aerobic training progress over time.
           </p>
           <div class="flex flex-wrap gap-3">
@@ -220,7 +220,7 @@ scaledLinePoints.forEach((p, i) => {
             <svg width={donutW} height={donutH} viewBox={`0 0 ${donutW} ${donutH}`} aria-label="HR Zone distribution donut chart">
               {/* Background circle */}
               <circle cx={cx} cy={cy} r={donutR} fill="none" stroke="#262626" stroke-width={donutThick} />
-              
+
               {/* Zone arcs */}
               {zoneArcs.map(arc => (
                 <path
@@ -294,7 +294,7 @@ scaledLinePoints.forEach((p, i) => {
                 <stop offset="100%" stop-color="#f87171" stop-opacity="0" />
               </linearGradient>
             </defs>
-            <path 
+            <path
               d={`${linePath} L${scaledLinePoints[scaledLinePoints.length - 1]?.x || 0},${lineH - padB} L${padL},${lineH - padB} Z`}
               fill="url(#areaGrad)"
             />

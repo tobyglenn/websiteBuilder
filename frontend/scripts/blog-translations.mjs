@@ -32,6 +32,8 @@ const PROTECTED_NAMES = [
   'BJJ',
 ];
 const TRANSLATION_LEAK_PATTERNS = [
+  /<(?:think|analysis)>/i,
+  /__TOFT_KEEP_[A-Z]+__/i,
   /--max-tokens\b/i,
   /--no-fallback\b/i,
   /--system\b/i,
