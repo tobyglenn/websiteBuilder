@@ -68,7 +68,7 @@ function formatViews(count) {
 }
 
 const translatedBySlug = new Map(getLocalizedBlogPosts('de').map(post => [post.slug, post]));
-const recentPosts = selectDiverseBlogPosts(CANONICAL_BLOG_POSTS.filter(post => translatedBySlug.has(post.slug))).map(post => translatedBySlug.get(post.slug)!);
+const recentPosts = selectDiverseBlogPosts(CANONICAL_BLOG_POSTS.filter(post => translatedBySlug.has(post.slug))).map(post => ({...translatedBySlug.get(post.slug)!, updated_at:post.updated_at}));
 
 const formattedLifetimeStats = {
   lbsLifted: new Intl.NumberFormat('de-DE').format(lifetimeStats.totalLbsLifted),
@@ -135,7 +135,7 @@ const webPageSchema = {
 								{post.title}
 							</h3>
 							<div class="mt-2 text-xs text-neutral-500 flex items-center gap-2">
-								<span>{formatBlogDate(post.published_at)}</span>
+								<span>{post.updated_at && post.updated_at !== post.published_at ? 'Aktualisiert ' : ''}{formatBlogDate(post.updated_at || post.published_at)}</span>
 								<span>•</span>
 								<span>{readTime(post.content)}</span>
 							</div>

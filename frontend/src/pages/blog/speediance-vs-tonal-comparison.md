@@ -4,7 +4,7 @@ title: "Speediance vs Tonal: Cost, Controls, Workouts and Ownership"
 description: "My Speediance and original Tonal experience: compare long-term cost, membership, workout controls and accessories before choosing a smart home gym."
 date: "2026-03-01"
 updated: "2026-10-14"
-categories: ["Training Tips"]
+categories: ["Reviews"]
 tags: ["fitness", "home gym", "smart gym", "Speediance", "Tonal"]
 image: "/images/blog/speediance-vs-tonal-comparison.jpg"
 author: "Toby Glenn Peters"
