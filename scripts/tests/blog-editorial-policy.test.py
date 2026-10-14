@@ -31,7 +31,7 @@ class TopicRotation(unittest.TestCase):
   with tempfile.TemporaryDirectory() as temp:
    pending=Path(temp)/'pending.json'; pending.write_text(json.dumps({'slug':'new-tonal','title':'New Tonal model','reviewed':True}))
    before=pending.read_text()
-   with patch.object(pipeline,'PENDING',pending), patch.object(pipeline,'ensure_dirs'), patch.object(pipeline,'require_paths'), patch.object(pipeline,'validate_draft'), patch.object(pipeline,'read_used_slugs',return_value=set()), patch.object(pipeline,'read_used_video_ids',return_value=set()), patch.object(pipeline,'assert_unpublished_source'), patch.object(pipeline,'topic_rotation',return_value={'previous':[{'slug':'yesterday'}],'candidates':[{'allowed':False,'topic':'gym'}]}), patch.object(pipeline,'ensure_thumbnail') as thumbnail, patch.object(pipeline,'frontend_build') as build:
+   with patch.object(pipeline,'PENDING',pending), patch.object(pipeline,'ensure_dirs'), patch.object(pipeline,'require_paths'), patch.object(pipeline,'validate_draft'), patch.object(pipeline,'read_used_slugs',return_value=set()), patch.object(pipeline,'read_used_video_ids',return_value=set()), patch.object(pipeline,'assert_available_section'), patch.object(pipeline,'topic_rotation',return_value={'previous':[{'slug':'yesterday'}],'candidates':[{'allowed':False,'topic':'gym'}]}), patch.object(pipeline,'ensure_thumbnail') as thumbnail, patch.object(pipeline,'frontend_build') as build:
     with self.assertRaisesRegex(RuntimeError,'Topic rotation hold'): pipeline.publish_stage()
     thumbnail.assert_not_called();build.assert_not_called()
    self.assertEqual(pending.read_text(),before)

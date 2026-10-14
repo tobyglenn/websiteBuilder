@@ -174,7 +174,7 @@ def load_state(path: Path) -> dict[str, Any]:
 
 
 def eligible_for_article(video: dict[str, Any]) -> bool:
-    return not bool(video.get("is_short")) and int(video.get("duration_seconds") or 0) >= MIN_LONG_FORM_SECONDS
+    return video.get("is_short") is False and int(video.get("duration_seconds") or 0) >= MIN_LONG_FORM_SECONDS
 
 
 def retry_is_due(video_id: str, state: dict[str, Any]) -> bool:
@@ -221,7 +221,7 @@ def is_ip_block_error(exc: BaseException) -> bool:
     )
 
 
-def fetch_transcript(video_id: str) -> tuple[str, str]:
+def fetch_transcript(video_id: str) -> tuple[str, str, list[dict]]:
     try:
         from youtube_transcript_api import YouTubeTranscriptApi
     except ImportError as exc:
@@ -235,7 +235,7 @@ def fetch_transcript(video_id: str) -> tuple[str, str]:
     language = str(getattr(transcript, "language_code", "en") or "en")
     if len(text.split()) < 40:
         raise RuntimeError(f"caption transcript too short ({len(text.split())} words)")
-    return text, language
+    return text, language, [{"start": item.start, "end": item.start + item.duration, "text": html.unescape(item.text)} for item in transcript if item.text.strip()]
 
 
 def filename_for(video: dict[str, Any], used_files: dict[str, str]) -> str:
@@ -250,10 +250,10 @@ def filename_for(video: dict[str, Any], used_files: dict[str, str]) -> str:
 
 def queue_item(video: dict[str, Any], indexed_ids: set[str], state: dict[str, Any]) -> dict[str, Any]:
     video_id = str(video["id"])
-    if video_id in indexed_ids:
+    if video.get("is_short") is not False:
+        status = "excluded_short_or_unknown"
+    elif video_id in indexed_ids:
         status = "transcript_ready"
-    elif bool(video.get("is_short")):
-        status = "short_enrichment_candidate"
     elif int(video.get("duration_seconds") or 0) < MIN_LONG_FORM_SECONDS:
         status = "too_short_for_article"
     elif not retry_is_due(video_id, state):
@@ -289,7 +289,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--clear-failures", action="store_true",
                         help="forget all recorded caption failures before running "
                              "(use after a mass failure caused by IP throttling)")
-    parser.add_argument("--include-shorts", action="store_true", help="allow individual Shorts as article sources")
+    parser.add_argument("--timed-dir", type=Path, default=draft_root / "timed-transcripts")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--sleep", type=float, default=0.35, help="seconds between transcript requests")
     return parser.parse_args()
@@ -313,9 +313,9 @@ def main() -> int:
     candidates = [
         video
         for video in catalog
-        if str(video["id"]) not in indexed_ids
+        if (str(video["id"]) not in indexed_ids or not (args.timed_dir / (str(video["id"]) + ".json")).exists())
         and retry_is_due(str(video["id"]), state)
-        and (args.include_shorts or eligible_for_article(video))
+        and eligible_for_article(video)
     ]
     candidates.sort(
         key=lambda video: (
@@ -334,8 +334,9 @@ def main() -> int:
             video_id = str(video["id"])
             print(f"[{number}/{len(selected)}] {video['title']} ({video_id})", flush=True)
             try:
-                text, language = fetch_transcript(video_id)
-                filename = filename_for(video, used_files)
+                text, language, segments = fetch_transcript(video_id)
+                filename = combined.get(video_id, {}).get("file") or filename_for(video, used_files)
+                atomic_write_json(args.timed_dir / (video_id + ".json"), {"video_id": video_id, "source": "youtube-captions", "segments": segments})
                 atomic_write_text(args.output_dir / filename, text)
                 entry = {
                     "file": filename,
@@ -352,6 +353,7 @@ def main() -> int:
                     "language": language,
                     "synced_at": iso_now(),
                 }
+                writable = [item for item in writable if item.get("video_id") != video_id]
                 writable.append(entry)
                 combined[video_id] = entry
                 indexed_ids.add(video_id)
@@ -390,7 +392,7 @@ def main() -> int:
         "catalog_total": len(catalog),
         "transcript_ready": sum(item["status"] == "transcript_ready" for item in queue),
         "long_form_needing_transcript": sum(item["status"] == "needs_transcript" for item in queue),
-        "short_enrichment_candidates": sum(item["status"] == "short_enrichment_candidate" for item in queue),
+        "excluded_short_or_unknown": sum(item["status"] == "excluded_short_or_unknown" for item in queue),
         "caption_retry_wait": sum(item["status"] == "caption_retry_wait" for item in queue),
         "fetched_this_run": fetched,
         "failed_this_run": failures,
@@ -398,7 +400,7 @@ def main() -> int:
     document = {
         "generated_at": iso_now(),
         "channel_id": CHANNEL_ID,
-        "strategy": "Long-form, search-intent videos become articles; Shorts enrich or update related articles instead of creating thin duplicate pages.",
+        "strategy": "Only verified long-form video sections feed articles. Shorts are excluded from all blog sourcing. Preserve timed captions for canonical section coverage.",
         "summary": summary,
         "items": queue,
     }
