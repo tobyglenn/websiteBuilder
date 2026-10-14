@@ -14,7 +14,7 @@ import json
 import math
 import re
 
-VERSION = 'canonical-sections-v1'
+VERSION = 'canonical-sections-v2'
 
 def sha(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True, ensure_ascii=False).encode()).hexdigest()
@@ -46,6 +46,73 @@ def valid_timing(document, video_id, length):
             raise ValueError('Missing, unordered, or invalid caption timestamps')
         previous = a
     return rows
+
+def caption_text(rows):
+    """Remove rolling-caption overlap, retaining original cue timing as evidence."""
+    output=[]; previous_end=-1
+    for row in rows:
+        words=row['text'].split()
+        count=0
+        if row['start'] < previous_end:
+            count=next((n for n in range(min(len(output),len(words)),1,-1)
+                        if output[-n:]==words[:n]),0)
+        output.extend(words[count:])
+        previous_end=row['end']
+    return ' '.join(output)
+
+
+def history_source_identity(video, rows):
+    return sha({'video_id':video['id'],'duration':duration(video),
+                'recorded_at':video.get('publishedAt') or video.get('published_at'),
+                'title':video.get('title'),'segments':rows})
+
+
+def reconcile_history(manifest, catalog, rows, corpus):
+    """Validate explicit reservations/releases. No implicit unused gaps are allowed.
+
+    Reservations are an editorial anti-repetition decision, NOT a claim that every
+    second appeared in an article. Only inspected, evidenced releases permit reuse.
+    Any legacy corpus drift invalidates releases (including newly added unbounded
+    articles); ordinary new publications carry their own source_section ledger.
+    """
+    resolved={}; failures={}
+    if not manifest: return resolved,failures
+    if manifest.get('version')!='historical-ranges-v1':
+        raise ValueError('Unsupported historical coverage manifest')
+    corpus_ok=manifest.get('corpus_sha256')==sha(corpus)
+    for entry in manifest.get('videos',[]):
+        key=entry['video_id']
+        if key in resolved or key in failures: raise ValueError('Duplicate historical video')
+        try:
+            video=catalog[key]
+            if key not in rows: raise ValueError('Original timed captions required')
+            cues=rows[key]
+            if video.get('is_short') is not False: raise ValueError('Shorts cannot be reconciled as sources')
+            if not corpus_ok: raise ValueError('Historical article corpus changed; review reservations before reuse')
+            if entry.get('source_sha256')!=history_source_identity(video,cues):
+                raise ValueError('Original transcript, duration or identity changed')
+            refs=entry.get('article_refs',[])
+            if not refs or any(ref not in corpus for ref in refs):
+                raise ValueError('Historical article evidence missing')
+            spans=entry.get('ranges',[]); cursor=0
+            for span in spans:
+                a,b=span.get('start'),span.get('end')
+                if (not isinstance(a,(int,float)) or not isinstance(b,(int,float))
+                    or not math.isfinite(a+b) or a!=cursor or not a<b<=duration(video)
+                    or span.get('disposition') not in ('reserved','uncovered')
+                    or not span.get('rationale') or not span.get('title')):
+                    raise ValueError('Historical ranges must partition the original without gaps')
+                cursor=b
+                if span['disposition']=='uncovered':
+                    evidence=span.get('evidence',[])
+                    if len(evidence)<2 or any(e not in cues or not a<=e['start']<e['end']<=b+0.001 for e in evidence):
+                        raise ValueError('Released range needs exact in-range caption evidence')
+            if cursor!=duration(video): raise ValueError('Incomplete historical coverage partition')
+            resolved[key]=spans
+        except (KeyError,ValueError,TypeError) as exc:
+            failures[key]=str(exc) or 'Original timed captions required'
+    return resolved,failures
+
 
 def published_sections(text):
     """Read flat source metadata across JSON/JS quoting and formatter line breaks."""
@@ -156,7 +223,7 @@ def subtract_coverage(span, key, coverage):
     return [{**span,'start':a,'end':b} for a,b in pieces]
 
 
-def build_inventory(catalog, texts, timed, legacy_used, published=(), min_words=600, curated=None):
+def build_inventory(catalog, texts, timed, legacy_used, published=(), min_words=600, curated=None, historical=None, article_corpus=None):
     videos={v['id']:v for v in catalog if v.get('is_short') is False and duration(v)>0}
     # Prefer timed text for alignment; never interpolate timestamps into flat text.
     rows={}; holds={}
@@ -173,7 +240,13 @@ def build_inventory(catalog, texts, timed, legacy_used, published=(), min_words=
             lineage_holds[key] = 'Upload describes an excerpt; original range must be verified'
 
     holds.update(lineage_holds)
+    reconciled, history_holds=reconcile_history(historical,videos,rows,article_corpus or {})
+    holds.update(history_holds)
     coverage=[]
+    for key,spans in reconciled.items():
+        coverage.extend({'video_id':key,'start':r['start'],'end':r['end'],
+                         'kind':'legacy-reservation','reason':r['rationale']}
+                        for r in spans if r['disposition']=='reserved')
     unresolved=set()
     for item in published:
         key=item.get('video_id');a=item.get('start');b=item.get('end')
@@ -195,7 +268,7 @@ def build_inventory(catalog, texts, timed, legacy_used, published=(), min_words=
             try:
                 coverage.extend({**span,'kind':'legacy-clip','upload_id':key} for span in timed_alias(mapping,texts[parent],rows[parent]))
             except (KeyError,ValueError): unresolved.add(parent)
-        else: unresolved.add(key)
+        elif key not in reconciled: unresolved.add(key)
     # Partial overlaps cannot make the parent silently eligible either.
     for child in lineage_holds:
         unresolved.add(child)
@@ -211,7 +284,7 @@ def build_inventory(catalog, texts, timed, legacy_used, published=(), min_words=
         if key not in texts: holds.setdefault(key,'Transcript missing');continue
         if key not in rows: holds.setdefault(key,'Original timed captions required');continue
         chapters=video.get('chapters') or []
-        spans=(curated or {}).get(key)
+        spans=reconciled.get(key, (curated or {}).get(key))
         if spans is None:
             if chapters:
                 starts=[float(c['seconds']) for c in chapters]
@@ -227,17 +300,19 @@ def build_inventory(catalog, texts, timed, legacy_used, published=(), min_words=
             a,b=span['start'],span['end']
             if not 0<=a<b<=duration(video): raise ValueError('Invalid curated section')
             selected=[r for r in rows[key] if a<=r['start']<b and r['end']<=b+0.001]
-            text='\n'.join(r['text'] for r in selected)
+            text=caption_text(selected)
             item={'video_id':key,'start':a,'end':b,'title':span['title'],'recorded_at':str(video.get('publishedAt') or video.get('published_at') or '')[:10],'text':text,'words':len(tokens(text)),'source_url':f'https://www.youtube.com/watch?v={key}&t={int(a)}s','timing_sha256':sha(rows[key])}
             item['section_id']=f'{key}:{a:g}-{b:g}'
             item['sha256']=sha({k:item[k] for k in ('video_id','start','end','text','timing_sha256','recorded_at')})
             if key in holds: item['status']='lineage-hold';item['reason']=holds[key]
             elif key in unresolved: item['status']='legacy-coverage-unresolved';item['reason']='Earlier coverage has no verified range; reconcile before reusing'
+            elif any(overlap(item,c) and c.get('kind')=='legacy-reservation' for c in coverage):
+                item['status']='historical-reserved';item['reason']='Existing article topics or uncertain details reserved; not a claim of verbatim use'
             elif any(overlap(item,c) for c in coverage): item['status']='covered'
             elif item['words']<min_words: item['status']='insufficient-source'
             else: item['status']='available'
             sections.append(item)
-    return {'policy':VERSION,'sections':sections,'aliases':aliases,'holds':holds,'coverage':coverage,'legacy_unresolved':sorted(unresolved),'excluded_shorts':sum(v.get('is_short') is True for v in catalog)}
+    return {'policy':VERSION,'sections':sections,'aliases':aliases,'holds':holds,'coverage':coverage,'historical_reconciled':sorted(reconciled),'historical_holds':history_holds,'legacy_unresolved':sorted(unresolved),'excluded_shorts':sum(v.get('is_short') is True for v in catalog)}
 
 def identity(section):
     return {key:section[key] for key in ('video_id','start','end','section_id','sha256','timing_sha256')}

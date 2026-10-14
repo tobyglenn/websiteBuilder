@@ -537,7 +537,18 @@ def source_inventory() -> dict[str, Any]:
     # Coverage is committed with the article, not just a separate mutable ledger.
     # This survives a crash after push and before pending.json cleanup.
     published = sections.published_sections(MOCK_JS.read_text())
-    result = sections.build_inventory(catalog, texts, timed, legacy["video_ids"], published, min_words=min_transcript_words())
+    history_path = WEBSITE_DIR / "scripts/dgx/blog-historical-ranges.json"
+    historical = json.loads(history_path.read_text()) if history_path.exists() else None
+    corpus = {}
+    if historical:
+        exported = subprocess.run(
+            ["node", str(FRONTEND_DIR / "scripts/blog-coverage-corpus.mjs")],
+            cwd=FRONTEND_DIR, text=True, capture_output=True, timeout=120, check=True,
+        )
+        corpus = json.loads(exported.stdout)
+    result = sections.build_inventory(catalog, texts, timed, legacy["video_ids"], published,
+                                      min_words=min_transcript_words(), historical=historical,
+                                      article_corpus=corpus)
     return result
 
 
@@ -582,7 +593,7 @@ def check_content_runway(remaining: int) -> None:
             "[BLOG PIPELINE CONTENT EXHAUSTED]\n"
             "No distinct long-form transcript topics remain for a new article.\n"
             f"topic queue: {DRAFT_DIR / 'topic_queue.json'}\n"
-            "action: inspect caption retries or plan a Shorts-based content update.",
+            "action: inspect caption retries or reconcile unused sections of original long-form videos. Never use Shorts.",
         )
     else:
         notify_message(

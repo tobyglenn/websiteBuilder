@@ -1,0 +1,899 @@
+{
+  "version": "historical-ranges-v1",
+  "reviewed_at": "2026-10-14",
+  "policy": "Only explicit caption-evidenced uncovered passages are reusable. Reserved means prior topic coverage or uncertainty; it does not assert every second was previously quoted. Removed/merged posts remain part of the corpus. Source or article drift closes reuse. Shorts are never sources.",
+  "corpus_sha256": "918d60c545dfd676dcae9e94d0438b1d0d1b5d0b38335d4dae0f684cbda3d2f9",
+  "videos": [
+    {
+      "video_id": "-BuRtR6WNOc",
+      "title": "Speediance V3 Software Is Here… But Is It Good?",
+      "source_sha256": "11aff706ddbccbe8cff405af2c12a6221109e3dc0509140fbf9c0ff770de93ac",
+      "article_refs": [
+        "mock:2026-01-27-speediance-v3-software-is-here-but-is-it-good",
+        "mock:speediance-v3-software-review"
+      ],
+      "article_sha256": {
+        "mock:2026-01-27-speediance-v3-software-is-here-but-is-it-good": "e7c6c41590200404551337e96faac5a7ffc6d33edeabaf446aaeb6a3e22cf18d",
+        "mock:speediance-v3-software-review": "f2f2da5a6bc73ad91c6620d1b381db42a60e0ee784a8f28f4f678e3ae383d5ed"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1696,
+          "disposition": "reserved",
+          "title": "Speediance V3 Software Is Here… But Is It Good?",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ],
+      "review_note": "Catalog chapters extend past the 28:16 recording and do not align to its captions. Ignore those chapters for automated reuse; reserve the original interval."
+    },
+    {
+      "video_id": "5BLoGlR1DZ4",
+      "title": "AEKE K1 vs Speediance: The Camera Changes Everything",
+      "source_sha256": "10a9229050631fdb425c2b7ec39654ee3de8137fe79d116ee1a19f161094f747",
+      "article_refs": [
+        "mock:aeke-k1-vs-speediance-the-camera-changes-everything"
+      ],
+      "article_sha256": {
+        "mock:aeke-k1-vs-speediance-the-camera-changes-everything": "dbe687d0b5f5af020aea5f42a5e77a9db0f85fbee57ce85177c7232e1234922b"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2393,
+          "disposition": "reserved",
+          "title": "AEKE K1 vs Speediance: The Camera Changes Everything",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "69-NIAJIhtA",
+      "title": "Whoop 5.0 Garments Failed Grapplers",
+      "source_sha256": "aef82809ac865691091d0cfc1cb89de3d794d593d32818749d936411728c9c22",
+      "article_refs": [
+        "mock:whoop-5-0-garments-failed-grapplers"
+      ],
+      "article_sha256": {
+        "mock:whoop-5-0-garments-failed-grapplers": "9ea58b5567ddba43394e69104cdc088406547a3115fb20e5b04bfdc301852912"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2208,
+          "disposition": "reserved",
+          "title": "Whoop 5.0 Garments Failed Grapplers",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "9JA9pjANcPo",
+      "title": "What AI Actually Does for Me: Codex, Claude, Blender & Everyday Tasks",
+      "source_sha256": "9de1b85080214f6c8917aebfa6ea47e96c599056c2023723ef5e3b843dd0782a",
+      "article_refs": [
+        "mock:what-ai-actually-does-for-me-codex-claude-blender-everyday-tasks"
+      ],
+      "article_sha256": {
+        "mock:what-ai-actually-does-for-me-codex-claude-blender-everyday-tasks": "8c3597eda2f491b254a553e93ac2bf453abde040647004064983c60b50af565f"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1673,
+          "disposition": "reserved",
+          "title": "What AI Actually Does for Me: Codex, Claude, Blender & Everyday Tasks",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "BJXsv663p4E",
+      "title": "Progressive Overload: The Science of Never Plateauing (Animated)",
+      "source_sha256": null,
+      "article_refs": [
+        "mock:progressive-overload-the-science-of-never-plateauing-animated"
+      ],
+      "article_sha256": {
+        "mock:progressive-overload-the-science-of-never-plateauing-animated": "f760bb384061f94dee2d05728c273f229fee798034bf350d6c81fce93e86a8e0"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 494,
+          "disposition": "reserved",
+          "title": "Progressive Overload: The Science of Never Plateauing (Animated)",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ],
+      "blocker": "Original timed captions unavailable. YouTube caption API returned IpBlocked on 2026-10-14; no timing inferred from flat text."
+    },
+    {
+      "video_id": "BeNyWQYINz8",
+      "title": "Basics of Node Part 1",
+      "source_sha256": "b5fc0d34ffe6db269a778aad89386986921f514dad04c87ad8362ac7448f019e",
+      "article_refs": [
+        "mock:2015-03-16-basics-of-node-part-1"
+      ],
+      "article_sha256": {
+        "mock:2015-03-16-basics-of-node-part-1": "5e860d50ec157b498a2b31337402babf1641b12590d10a0e9b80b36cc8670fd1"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1985,
+          "disposition": "reserved",
+          "title": "Basics of Node Part 1",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "FV2IyHFDWTQ",
+      "title": "How I Train Around Elbow & Wrist Pain Without Skipping Progressive Overload",
+      "source_sha256": "804818a0648ab46b45bd8281ab787cf8e092331cdc860fc797ecc47bca25e70b",
+      "article_refs": [
+        "mock:how-i-train-around-elbow-wrist-pain-without-skipping-progressive-overload"
+      ],
+      "article_sha256": {
+        "mock:how-i-train-around-elbow-wrist-pain-without-skipping-progressive-overload": "dc9671ff963a7beac8bb3f8728ac57ce8d9e6ac92ff307179c451f242eb69316"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2512.319,
+          "disposition": "reserved",
+          "title": "Historical coverage before reviewed passage",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        },
+        {
+          "start": 2512.319,
+          "end": 2703.28,
+          "title": "Balancing training goals with family time",
+          "rationale": "The historical pain article covers positioning, supports, equipment and seasonal cutting. It does not tell the Hershey Park / skipped Sunday run story or develop intentional family-time decisions. Reviewed full article and this entire caption passage; other family-workout articles cover lifting with children, not this time-allocation story.",
+          "disposition": "uncovered",
+          "evidence": [
+            {
+              "start": 2512.319,
+              "end": 2516.0,
+              "text": "in general I think you should have fun"
+            },
+            {
+              "start": 2609.28,
+              "end": 2613.8390000000004,
+              "text": "both a cardio form and a strength"
+            },
+            {
+              "start": 2697.28,
+              "end": 2703.28,
+              "text": "think is a big measure of success."
+            }
+          ],
+          "deduplicated_words": 636
+        },
+        {
+          "start": 2703.28,
+          "end": 3360,
+          "disposition": "reserved",
+          "title": "Historical coverage after reviewed passage",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "GzqAzoSKBWQ",
+      "title": "I Owe Greg Doucette an Apology",
+      "source_sha256": "2f3ec0c23d1a05ba3290ca342d96e11cfcf35771aefea298f2f6a32cec56eb7b",
+      "article_refs": [
+        "mock:i-owe-greg-doucette-an-apology"
+      ],
+      "article_sha256": {
+        "mock:i-owe-greg-doucette-an-apology": "af5170a392b12a6bc0acc67b93f55abcc5dd301b0688c06080466237272de4df"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 4101,
+          "disposition": "reserved",
+          "title": "I Owe Greg Doucette an Apology",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "J3W59IR2Las",
+      "title": "Speediance 2S vs Original: Real User Review, Tips & Upgrades After 600,000+ lbs Lifted!",
+      "source_sha256": "debb7d3d3993d49ab55863b8e4e9b9738c9b26e6217f21c14ca9ce852fdbbb5a",
+      "article_refs": [
+        "markdown:2025-09-20-is-the-speediance-gym-monster-2s-worth-the-investment",
+        "markdown:gym-monster-2-vs-original",
+        "mock:2025-11-07-speediance-2s-vs-original-real-user-review-tips-upgrades-after-600000-lbs-lifted",
+        "mock:gym-monster-2-vs-original",
+        "mock:speediance-2s-vs-original-processor-reveal",
+        "mock:speediance-2s-vs-original-real-user-review"
+      ],
+      "article_sha256": {
+        "markdown:2025-09-20-is-the-speediance-gym-monster-2s-worth-the-investment": "cdf8f4af8a1849bc8d86af919b2dceaf2ee62ce114b1d99e171ea057947a9fc7",
+        "markdown:gym-monster-2-vs-original": "cb2981a98ede36811b85785d117e0cd0b234dc0dbd3a095632d0336732de84dd",
+        "mock:2025-11-07-speediance-2s-vs-original-real-user-review-tips-upgrades-after-600000-lbs-lifted": "46fb54481b670039b781a20a7aa868dc23d4a7bdec9e805d79ce9bd5242a1e5b",
+        "mock:gym-monster-2-vs-original": "80e0cf7b5befac4155d66dc36ed2476815752314d1c8f8413d0cc1c04d90f2f7",
+        "mock:speediance-2s-vs-original-processor-reveal": "d86cb00e1b1907b551e8cb7585b9d47ed0421863e583ab1da91d84f15485b13a",
+        "mock:speediance-2s-vs-original-real-user-review": "27feb634eac4219705578373a584be96b25424df8ffaaae6b1de133c5506319f"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2129,
+          "disposition": "reserved",
+          "title": "Speediance 2S vs Original: Real User Review, Tips & Upgrades After 600,000+ lbs Lifted!",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "JxRdaMTOOHo",
+      "title": "Build Your Best Training Split: Arnold Blueprint (PPL), Full Body, or Bro Split?",
+      "source_sha256": "a854dda02fe75a0c74f6086d92f7670ac0c5702cdbfa1ec1b3b8f6ef602df3cb",
+      "article_refs": [
+        "markdown:build-your-best-training-split",
+        "mock:2026-01-14-build-your-best-training-split-arnold-blueprint-ppl-full-body-or-bro-split",
+        "mock:build-your-best-training-split"
+      ],
+      "article_sha256": {
+        "markdown:build-your-best-training-split": "d85383a960b79838f39bed8a5e51446023663980d9520aa6489871a53ce9e911",
+        "mock:2026-01-14-build-your-best-training-split-arnold-blueprint-ppl-full-body-or-bro-split": "d3930dfb74952212e59f178b170c0db8fc18d72016a3ea028709fa1d3222e1cf",
+        "mock:build-your-best-training-split": "f6372dc9cd103ac223f7b4a3d1e1cd772da312f1ec88c76d647fc7ad7d1bb07a"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3806,
+          "disposition": "reserved",
+          "title": "Build Your Best Training Split: Arnold Blueprint (PPL), Full Body, or Bro Split?",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "M07Aq93TCkM",
+      "title": "Extreme Weight Loss The Honest Truth About My Transformation, Prescription Meds, and Fitness Journey",
+      "source_sha256": "2730fca9c07d0fbcdad492e48adc21081a50d7f18b3f972376d78d8f9da94d3f",
+      "article_refs": [
+        "mock:2025-10-07-extreme-weight-loss-the-honest-truth-about-my-transformation-prescription-meds-a",
+        "mock:242-to-188-the-honest-truth",
+        "mock:242-to-188-transformation-truth",
+        "mock:extreme-weight-loss-transformation-honest-truth",
+        "mock:honest-truth-about-my-weight-loss"
+      ],
+      "article_sha256": {
+        "mock:2025-10-07-extreme-weight-loss-the-honest-truth-about-my-transformation-prescription-meds-a": "fa1331956693c23c7f26d49d6dca743ce0d56175b971ea2e925f915d6e15cc3e",
+        "mock:242-to-188-the-honest-truth": "e818474871220595b17d36371f8b918617c141454af6dc4ef05404658c491672",
+        "mock:242-to-188-transformation-truth": "78cca9fb3a09c613b92995a079261a95c4cc81528f6237d6ebeaa6a4b1516b92",
+        "mock:extreme-weight-loss-transformation-honest-truth": "eccbb62273061bcad3b6f94d11040118515ef07ba3bd33cac9a53acc4b29ca43",
+        "mock:honest-truth-about-my-weight-loss": "a982df1cbf8966658748558a8d87ffb77d0655fb21b75b91b8b7b900ac47124f"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1908,
+          "disposition": "reserved",
+          "title": "Extreme Weight Loss The Honest Truth About My Transformation, Prescription Meds, and Fitness Journey",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "MsdQU6uuHaE",
+      "title": "BJJ Buddy Progress, OpenClaw basics/setup, my use cases",
+      "source_sha256": "7069f75d4b9efc9db252e3e293cc9348a4cc952f94773cca4647f950ff51b4d3",
+      "article_refs": [
+        "mock:bjj-buddy-progress-openclaw-basics-setup-my-use-cases"
+      ],
+      "article_sha256": {
+        "mock:bjj-buddy-progress-openclaw-basics-setup-my-use-cases": "04544fc0f56d2341060f305139e1c76280642efd1221d1f0da462c3ef2217289"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3269,
+          "disposition": "reserved",
+          "title": "BJJ Buddy Progress, OpenClaw basics/setup, my use cases",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "NDe6b6yzrCk",
+      "title": "Stop Asking How Many Days You Should Train (Do This Instead)",
+      "source_sha256": null,
+      "article_refs": [
+        "mock:stop-asking-how-many-days-you-should-train-do-this-instead"
+      ],
+      "article_sha256": {
+        "mock:stop-asking-how-many-days-you-should-train-do-this-instead": "88c539d8346cc74bf671a83bf86d7e8bef3bcb264554245e6b838dfee8693c4b"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 595,
+          "disposition": "reserved",
+          "title": "Stop Asking How Many Days You Should Train (Do This Instead)",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ],
+      "blocker": "Original timed captions unavailable. YouTube caption API returned IpBlocked on 2026-10-14; no timing inferred from flat text."
+    },
+    {
+      "video_id": "NKY4uXpFTns",
+      "title": "Speediance 2s Max Lat Pulldown 260lbs -Does it break the machine?",
+      "source_sha256": "913d7f82d579c839acf64b58bd54a0205ce55c47bea4e2d824f13d961d2699c8",
+      "article_refs": [
+        "markdown:speediance-260lb-lat-pulldown-machine-test",
+        "mock:2025-09-06-speediance-2s-max-lat-pulldown-260lbs--does-it-break-the-machine",
+        "mock:2025-09-06-speediance-2s-max-lat-pulldown-260lbs-does-it-break-the-machine",
+        "mock:i-pulled-260-pounds-on-the-speediance-2s-did-it-break",
+        "mock:speediance-260lb-lat-pulldown-machine-test",
+        "mock:speediance-2s-260-lb-lat-pulldown",
+        "mock:speediance-2s-max-lat-pulldown-260lbs",
+        "mock:speediance-lat-pulldown-260lbs-test"
+      ],
+      "article_sha256": {
+        "markdown:speediance-260lb-lat-pulldown-machine-test": "aad67a5b95c51503e8cf1391bddee0b1ecfc41d428adb1e5b57adfddca7a68ca",
+        "mock:2025-09-06-speediance-2s-max-lat-pulldown-260lbs--does-it-break-the-machine": "b8faa7b758029125fe6f35252384998d33565c22f1b07118ce711da1f36b371f",
+        "mock:2025-09-06-speediance-2s-max-lat-pulldown-260lbs-does-it-break-the-machine": "dd41bb67f36d6c0688dbf266d3a446cc6de7d6eeedd2651b90ff240055536f17",
+        "mock:i-pulled-260-pounds-on-the-speediance-2s-did-it-break": "4d6d71d85c2b29fc5b8cab1b57489e50bd56dfbb8a8e6e9d8eff9e1367ea82f1",
+        "mock:speediance-260lb-lat-pulldown-machine-test": "67ef5e51ad593760d75c0347c4d6d9cc01483ee03a1fb619ba6773c9df9383c7",
+        "mock:speediance-2s-260-lb-lat-pulldown": "3cf9b5956bc841a89e748ee483e797a27cafaac56b61e4c3780df9997f075a77",
+        "mock:speediance-2s-max-lat-pulldown-260lbs": "bf37788b972000cb251a1f2d5f3e2c92f69b7bedae5843bf42946d5a79d93862",
+        "mock:speediance-lat-pulldown-260lbs-test": "ff0b204aa7fe0ee0dbbbb10e37ae3d1eb1806274f2da42ca3838010e6bcee85e"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1663,
+          "disposition": "reserved",
+          "title": "Speediance 2s Max Lat Pulldown 260lbs -Does it break the machine?",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "Ndso4yB1GbM",
+      "title": "Family Fitness Fun: Speediance Workout With Dad & Daughter | Safe Lifting for Kids",
+      "source_sha256": "dc3a772f0713e7d56fd319226bdbfcb2bdba7f9fa9ad46166d9f6cd5384cf4f8",
+      "article_refs": [
+        "mock:2025-09-23-family-fitness-fun-speediance-workout-with-dad-daughter-safe-lifting-for-kids",
+        "mock:speediance-family-workout-lily"
+      ],
+      "article_sha256": {
+        "mock:2025-09-23-family-fitness-fun-speediance-workout-with-dad-daughter-safe-lifting-for-kids": "48a78eb1edae4e880d07c2b2b6931d4edbcebb3db148626e2ca7bf7e7cc04614",
+        "mock:speediance-family-workout-lily": "d7bbf86e510459f8b814ddb5eba9b3bd908909dce49fa3a076e39a2244585240"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1635,
+          "disposition": "reserved",
+          "title": "Family Fitness Fun: Speediance Workout With Dad & Daughter | Safe Lifting for Kids",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "UMCJi_Mkn8w",
+      "title": "INNODIGYM vs Speediance: Smart Home Gym Comparison",
+      "source_sha256": null,
+      "article_refs": [
+        "mock:innodigym-vs-speediance-smart-home-gym-comparison"
+      ],
+      "article_sha256": {
+        "mock:innodigym-vs-speediance-smart-home-gym-comparison": "530fa7d86d0ae86f7d1ac2a6ab3ecbd883362aae994c41c8eebb57fed7862f9e"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2841,
+          "disposition": "reserved",
+          "title": "INNODIGYM vs Speediance: Smart Home Gym Comparison",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ],
+      "blocker": "Original timed captions unavailable. YouTube caption API returned IpBlocked on 2026-10-14; no timing inferred from flat text."
+    },
+    {
+      "video_id": "VRIcxx1GD-8",
+      "title": "Healthy Foods Can Still Make You Gain Fat (Here's Why)\"",
+      "source_sha256": null,
+      "article_refs": [
+        "mock:healthy-foods-can-still-make-you-gain-fat-heres-why"
+      ],
+      "article_sha256": {
+        "mock:healthy-foods-can-still-make-you-gain-fat-heres-why": "a6569184a105b45d8dbad7f77c20ee7fb430fab01f7dbdef6ce9ea4a1a020502"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 724,
+          "disposition": "reserved",
+          "title": "Healthy Foods Can Still Make You Gain Fat (Here's Why)\"",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ],
+      "blocker": "Original timed captions unavailable. YouTube caption API returned IpBlocked on 2026-10-14; no timing inferred from flat text."
+    },
+    {
+      "video_id": "ZbEstduW90I",
+      "title": "Speediance 2S V3.1 Review: New Safety Start, Firmware Changes & Real‑World Lifting",
+      "source_sha256": "57abc1165ec291a6354f00e96c753b3fa0ed1f114852de0383b07fec066fb386",
+      "article_refs": [
+        "markdown:2026-02-04-speediance-2s-v31-review-new-safety-start-firmware-changes-realworld-lifting",
+        "markdown:speediance-safety-start-problem",
+        "markdown:speediance-vs-tonal-comparison",
+        "mock:2026-02-04-speediance-2s-v31-review-new-safety-start-firmware-changes-realworld-lifting",
+        "mock:speediance-2s-v3-1-review-new-safety-start-firmware-changes-and-real-world-lifting",
+        "mock:speediance-safety-start-problem",
+        "mock:speediance-v31-safety-start-deep-dive"
+      ],
+      "article_sha256": {
+        "markdown:2026-02-04-speediance-2s-v31-review-new-safety-start-firmware-changes-realworld-lifting": "85100f5fda6f972196b87fcf03d45ba96cca96760cf030adbe25ee649d027acf",
+        "markdown:speediance-safety-start-problem": "a596288863e62b7856fdebf3f24dca359c9c31bd4bcfc709f3c59c3a37d5c2a8",
+        "markdown:speediance-vs-tonal-comparison": "8a7199d73f3a5903bd15e22d169adf5ec6e732a3755ed6ce9c4bdbae000af369",
+        "mock:2026-02-04-speediance-2s-v31-review-new-safety-start-firmware-changes-realworld-lifting": "79834e1e1bd823b16b0f946de947ec66215795db076f72a602a51dca99907485",
+        "mock:speediance-2s-v3-1-review-new-safety-start-firmware-changes-and-real-world-lifting": "348ac1d7f630c9b7cb6a8145c92c357e235cec10b30fc18023dfa7e00162e38f",
+        "mock:speediance-safety-start-problem": "ca22cb3ec4dc6621d7a4681c0af79cce6ba0c302c65792caf1e37735667b0752",
+        "mock:speediance-v31-safety-start-deep-dive": "f20205fca0f6dd9d191a3cb698851986e786f01cee5576ba9dc036d8e5b40337"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3828,
+          "disposition": "reserved",
+          "title": "Speediance 2S V3.1 Review: New Safety Start, Firmware Changes & Real‑World Lifting",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "_43qCeKVCNw",
+      "title": "Build BJJ Buddy Live + Speediance | AI Dev Session 🔥",
+      "source_sha256": "f7d0ca9cfb1d27cec9f22727210401d807e3be80e1037817838e86ee5afa6bcc",
+      "article_refs": [
+        "mock:build-bjj-buddy-live-speediance-ai-dev-session"
+      ],
+      "article_sha256": {
+        "mock:build-bjj-buddy-live-speediance-ai-dev-session": "2e9a0886551156b4b7fdff1f3dff9a2a0bebdabff462992cf28e33c574e1d1ab"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3785.4,
+          "disposition": "reserved",
+          "title": "Historical coverage before reviewed passage",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        },
+        {
+          "start": 3785.4,
+          "end": 4045.3590000000004,
+          "title": "Checking AI-written biographies and choosing website photos",
+          "rationale": "The stream article covers BJJ Buddy backend, coding agents, lifting and wearable metrics. This separate website segment describes correcting a false claim about winning all white-belt matches and checking Facebook photo selections. Reviewed full stream article and full passage, and searched legacy corpus for these incidents; neither incident appears in the historical article corpus.",
+          "disposition": "uncovered",
+          "evidence": [
+            {
+              "start": 3785.4,
+              "end": 3788.6800000000003,
+              "text": "launch. So, first it was my new website"
+            },
+            {
+              "start": 3916.56,
+              "end": 3921.7999999999997,
+              "text": "is that I was so new to BJJ and so happy"
+            },
+            {
+              "start": 4040.8,
+              "end": 4045.3590000000004,
+              "text": "information that I would want on there."
+            }
+          ],
+          "deduplicated_words": 772
+        },
+        {
+          "start": 4045.3590000000004,
+          "end": 4762,
+          "disposition": "reserved",
+          "title": "Historical coverage after reviewed passage",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "cN4YyRwoxXc",
+      "title": "Speediance 2S 1RM EXPOSED: How to Actually Unlock 260lbs on the 2S",
+      "source_sha256": "a4fd81371289b5ff0e76a5fa2e2ff647995721d73aebe727e1e80812f3cf7087",
+      "article_refs": [
+        "markdown:speediance-1rm-system-exposed",
+        "mock:2025-11-21-speediance-2s-1rm-exposed-how-to-actually-unlock-260lbs-on-the-2s",
+        "mock:speediance-1rm-system-exposed",
+        "mock:speediance-2s-1rm-exposed"
+      ],
+      "article_sha256": {
+        "markdown:speediance-1rm-system-exposed": "930fc5c35e8908a0f986b978bf1802440705102bede36d20ecfd2c12fc833fad",
+        "mock:2025-11-21-speediance-2s-1rm-exposed-how-to-actually-unlock-260lbs-on-the-2s": "ee0a779e7713dd1c070e797e31f8fd3c2636184e849de63b3513958c06eed465",
+        "mock:speediance-1rm-system-exposed": "bef24eb34dba4b1ceeb024cf0d1d00b1c704d8ff0ae4915becc547a400c294bb",
+        "mock:speediance-2s-1rm-exposed": "6f785f24c85c93f388bfa2d21039a87550947f3e723b2f0543c057daadc0548e"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2779,
+          "disposition": "reserved",
+          "title": "Speediance 2S 1RM EXPOSED: How to Actually Unlock 260lbs on the 2S",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "csEZTntGi3E",
+      "title": "Purple Belt Changed Everything: Coaching, Ego, Real Progress",
+      "source_sha256": "a66c7114f3636ce9d62e71e6ce53b037930923d9f8743305fce90653ac7f9c01",
+      "article_refs": [
+        "mock:purple-belt-changed-everything-coaching-ego-real-progress"
+      ],
+      "article_sha256": {
+        "mock:purple-belt-changed-everything-coaching-ego-real-progress": "ab7470d94c91c232f6474364064a9d2487fa090540eb017ef0cef9577220e2bd"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1211,
+          "disposition": "reserved",
+          "title": "Purple Belt Changed Everything: Coaching, Ego, Real Progress",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "dG8GPamRHmA",
+      "title": "Is Mike Israetel Really a Legit BJJ Black Belt? My Experience & Why the Internet Is Wrong",
+      "source_sha256": "bdf468f94dabd8ae0e0809a3388eee975780bc8f884e1532cb8ab9b3c63dfe0d",
+      "article_refs": [
+        "markdown:mike-israetel-bjj-black-belt-defence",
+        "mock:2025-11-13-is-mike-israetel-really-a-legit-bjj-black-belt-my-experience-why-the-internet-is",
+        "mock:mike-israetel-bjj-black-belt-defence",
+        "mock:mike-israetel-bjj-black-belt-legit",
+        "mock:mike-israetel-black-belt-controversy",
+        "mock:mike-israetel-slow-rolling-debate"
+      ],
+      "article_sha256": {
+        "markdown:mike-israetel-bjj-black-belt-defence": "a168d6d03f5d05d65da38bd12d6a74f17092e6d32b4089ef37180062a1f76e5f",
+        "mock:2025-11-13-is-mike-israetel-really-a-legit-bjj-black-belt-my-experience-why-the-internet-is": "4872332bc80e56c04f4e67373891c72668f50c0ba5fde52d94ca0c6272dbd927",
+        "mock:mike-israetel-bjj-black-belt-defence": "ddd5bd9274d155cf4dda02ec26ca2bfc69bf603ec8fd8529a6cf8ba03c44baff",
+        "mock:mike-israetel-bjj-black-belt-legit": "ff1484e863b8bf42ebbc6b7d88a7eb0e0285d50f2adbe68d99a90fc9c8233149",
+        "mock:mike-israetel-black-belt-controversy": "8fee1600955398b7a742aee6eb7f49ef1b04e55d39cf05bec15006e5b0054c0e",
+        "mock:mike-israetel-slow-rolling-debate": "64c9747bc3e26cd17d616b87ca0136c27f7dd2b6d55b805db58b6f39d06fa942"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3203,
+          "disposition": "reserved",
+          "title": "Is Mike Israetel Really a Legit BJJ Black Belt? My Experience & Why the Internet Is Wrong",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "h6wBT76Ivq8",
+      "title": "How I Avoided Blue Belt Blues in Brazilian Jiu-Jitsu",
+      "source_sha256": "00c67b1205d0746ddafecbd8a540379ac1ba23f3dbee2f6b290bb804c8412ec4",
+      "article_refs": [
+        "mock:how-i-avoided-blue-belt-blues-in-brazilian-jiu-jitsu"
+      ],
+      "article_sha256": {
+        "mock:how-i-avoided-blue-belt-blues-in-brazilian-jiu-jitsu": "7eecfa1b6e8ebf50822bc44fac2e4fefe5eeee313e3813443882462cb0f6736f"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1053,
+          "disposition": "reserved",
+          "title": "How I Avoided Blue Belt Blues in Brazilian Jiu-Jitsu",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "iOYPjqDTdas",
+      "title": "Is Tonal a scam!",
+      "source_sha256": "b684e1143c7d3af4d7afcff1934cd2c04d725cfe55e85b458ed78c9b03706f8a",
+      "article_refs": [
+        "markdown:is-tonal-a-scam-honest-review",
+        "mock:2025-08-26-is-tonal-a-scam",
+        "mock:is-tonal-a-scam-honest-review",
+        "mock:tonal-scam-review"
+      ],
+      "article_sha256": {
+        "markdown:is-tonal-a-scam-honest-review": "aa476bbab13c4892f2fabdbe4b4153d7eb1ef6cacf800984c7c9592ebf8da1f9",
+        "mock:2025-08-26-is-tonal-a-scam": "90bc5ee70a2e637037ae1143150780a46bac631ddda1bb7412538d49ddf5853b",
+        "mock:is-tonal-a-scam-honest-review": "bdbbd584fcdb59054736f2e370f7018a6e0308cf830f3eb143275836e9380054",
+        "mock:tonal-scam-review": "61b8005a301d32378c1912421b6ca1cea71ff2ffed1665621048f67a649de4bd"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1166,
+          "disposition": "reserved",
+          "title": "Is Tonal a scam!",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "kgjZDRp90kA",
+      "title": "Is the Speediance Ring Actually Trash? Here's the Truth",
+      "source_sha256": "57f01182ef0e42c4216250de48ead7c86355479e2fc0cb90bef0a6f629f29124",
+      "article_refs": [
+        "mock:is-the-speediance-ring-actually-trash-heres-the-truth"
+      ],
+      "article_sha256": {
+        "mock:is-the-speediance-ring-actually-trash-heres-the-truth": "89d51e82fcde56bc70535854a68f3feb1c098aa2388a2e3d150a8de45daaa0d8"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1793,
+          "disposition": "reserved",
+          "title": "Is the Speediance Ring Actually Trash? Here's the Truth",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "lUpvAAglrEs",
+      "title": "What White Belts Actually Need to Learn in Brazilian Jiu-Jitsu",
+      "source_sha256": "bd00cbf0ee16bbb4b500b1235f03e4364a530cfc69a80758058b4344afbb0688",
+      "article_refs": [
+        "mock:what-white-belts-actually-need-to-learn-in-brazilian-jiu-jitsu"
+      ],
+      "article_sha256": {
+        "mock:what-white-belts-actually-need-to-learn-in-brazilian-jiu-jitsu": "4ea530133c23095217fc757a03b4ea7c6912fb64ef7e5b6fd2e33dfcbb686946"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2232,
+          "disposition": "reserved",
+          "title": "What White Belts Actually Need to Learn in Brazilian Jiu-Jitsu",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "moinyXD_iMc",
+      "title": "Hermes Desktop vs Claude Code vs Codex vs MiniMax Code vs OpenClaw vs Antigravity — Live Showdown",
+      "source_sha256": "f0ef1fc57ad82d1751b6cfd8b164bec3ba72241684547094cd51ad12cbcc0051",
+      "article_refs": [
+        "mock:hermes-desktop-vs-claude-code-vs-codex-vs-minimax-code-vs-openclaw-vs-antigravity-live-showdown"
+      ],
+      "article_sha256": {
+        "mock:hermes-desktop-vs-claude-code-vs-codex-vs-minimax-code-vs-openclaw-vs-antigravity-live-showdown": "43909b9f65645f31f38260838e0983af3845d4e77990791d8dfee222c7fbd544"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3161,
+          "disposition": "reserved",
+          "title": "Hermes Desktop vs Claude Code vs Codex vs MiniMax Code vs OpenClaw vs Antigravity — Live Showdown",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "pMdn1a5EA1s",
+      "title": "Speediance Spotter Modes Explained: How to Safely Do Drop Sets & Avoid Injury",
+      "source_sha256": "8855d68f1b263e356ff497a7d016afd2dd85cfcb8b48560560bf2db0d8ce8bfb",
+      "article_refs": [
+        "mock:2025-09-20-speediance-spotter-modes-explained-how-to-safely-do-drop-sets-avoid-injury",
+        "mock:speediance-spotter-modes-drop-sets",
+        "mock:speediance-spotter-modes-explained"
+      ],
+      "article_sha256": {
+        "mock:2025-09-20-speediance-spotter-modes-explained-how-to-safely-do-drop-sets-avoid-injury": "0cfdb540df59466b2299f48c8111534408abe335f18c67f93287460673951d9c",
+        "mock:speediance-spotter-modes-drop-sets": "23113f33b6bc23b123b86608173a628bd205e6d0bea5fce43353feb186ef2124",
+        "mock:speediance-spotter-modes-explained": "803190e9184f27064a2f7b56a3cd90c79b184a4c1dbf50356f6d40b699ec6173"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3943,
+          "disposition": "reserved",
+          "title": "Speediance Spotter Modes Explained: How to Safely Do Drop Sets & Avoid Injury",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "qyXBR0vhxxw",
+      "title": "Speediance 2s Modes Explained",
+      "source_sha256": "559f1d659448bf966230f40a9a685d6393d953571538c32d49ca333f352b4ccd",
+      "article_refs": [
+        "mock:2025-09-13-speediance-2s-modes-explained",
+        "mock:speediance-2s-modes-explained"
+      ],
+      "article_sha256": {
+        "mock:2025-09-13-speediance-2s-modes-explained": "0e52dd123033587bba346f60478f52170d6b36fe17b3bb03134c74cd9d7b5214",
+        "mock:speediance-2s-modes-explained": "393ace0f1586198ff4ca2fa2d9a4014f7f97ac162a5b0c7d5d9381e87a119d70"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2125,
+          "disposition": "reserved",
+          "title": "Speediance 2s Modes Explained",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "txBZRCIcbXA",
+      "title": "Speediance Gym Monster 3 & Ultra: Why I'm Keeping My 2S",
+      "source_sha256": "46cb0f724018c1522ee5a290033c61f678a3b3246d736db89576c63ebaf61f05",
+      "article_refs": [
+        "mock:speediance-gym-monster-3-ultra-why-im-keeping-my-2s"
+      ],
+      "article_sha256": {
+        "mock:speediance-gym-monster-3-ultra-why-im-keeping-my-2s": "3c7bd0bed27c62c4c9ab5bc5f9b428fc7ee0a4a199b03b5307b206c8c2480803"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1647,
+          "disposition": "reserved",
+          "title": "Speediance Gym Monster 3 & Ultra: Why I'm Keeping My 2S",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "udS5Iu6SXWM",
+      "title": "Speediance first thing to do, Immediately change this setting!",
+      "source_sha256": "a8defeec3e032015e4881eb6f1a3da074bdc1ebfae9cc65bcc830a9e1deb4e18",
+      "article_refs": [
+        "markdown:2025-09-01-speediance-first-thing-to-do-immediately-change-this-setting",
+        "markdown:speediance-unlimited-sets-eccentric-mode-setup",
+        "mock:2025-09-01-speediance-first-thing-to-do-immediately-change-this-setting",
+        "mock:speediance-unlimited-sets-eccentric-mode-setup",
+        "mock:speediance-unlimited-sets-setting"
+      ],
+      "article_sha256": {
+        "markdown:2025-09-01-speediance-first-thing-to-do-immediately-change-this-setting": "34eb492e5d7e51471f66f3686f28e1a06d5875ec0fa698a4afe17453885dc6a8",
+        "markdown:speediance-unlimited-sets-eccentric-mode-setup": "3dc9233a554449edbe5f412b45ecd22dae7f97e313b2946452fca5fd452455ba",
+        "mock:2025-09-01-speediance-first-thing-to-do-immediately-change-this-setting": "e31f0464d3609792b17f6583fba5b63072c7335acca9a2631e992368222bc759",
+        "mock:speediance-unlimited-sets-eccentric-mode-setup": "0699a0ddc6091df5c1723b4f6d765e6c048716e681d5337b131a4d538f0bce17",
+        "mock:speediance-unlimited-sets-setting": "a1c13ff91a97629bcc748a95ccc2ed8896fafa2231d095164a41e4e699a2ed54"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1346,
+          "disposition": "reserved",
+          "title": "Speediance first thing to do, Immediately change this setting!",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "wMT8i8E14NU",
+      "title": "Speediance Broke Partner Mode?! The “Lost” Free Lift Feature Demo With My Daughter",
+      "source_sha256": "71c49cbc9ce67bb68634e866e7874c0e28db7fd63078888ba758d0f1f0972158",
+      "article_refs": [
+        "markdown:speediance-partner-mode-v2-vs-v3",
+        "mock:2026-01-24-speediance-broke-partner-mode-the-lost-free-lift-feature-demo-with-my-daughter",
+        "mock:speediance-broke-partner-mode-lost-free-lift-feature",
+        "mock:speediance-broke-partner-mode-lost-freelift-feature-demo-daughter",
+        "mock:speediance-partner-mode-v2-vs-v3",
+        "mock:speediance-partner-mode-v3-removed"
+      ],
+      "article_sha256": {
+        "markdown:speediance-partner-mode-v2-vs-v3": "09edb58b5235f3f0a0211fe1dfad7f18df0a62b8825a9c1442095f1423aef867",
+        "mock:2026-01-24-speediance-broke-partner-mode-the-lost-free-lift-feature-demo-with-my-daughter": "52ba05dd507d4bb0df84eb20be98a20a00c04d04a304ce7037ad2c37eb3ec4b6",
+        "mock:speediance-broke-partner-mode-lost-free-lift-feature": "f916c1487066e761a3d1e08f283b02a2822d7eb3da11f2481b1c284b800dcdf8",
+        "mock:speediance-broke-partner-mode-lost-freelift-feature-demo-daughter": "2c217dd5e97f2777e6ff60c9a0e9289bdc1f5c7fe667e0c4af4d4184d6678a3f",
+        "mock:speediance-partner-mode-v2-vs-v3": "630968cbbb1beae11236b6eae44ff0a59f6085d0c53f21988a3a6494058305d1",
+        "mock:speediance-partner-mode-v3-removed": "d899ccc1c50857f91f9c176254b9ac062438bfe4fbb4f8300322362afc54cfce"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 1879,
+          "disposition": "reserved",
+          "title": "Speediance Broke Partner Mode?! The “Lost” Free Lift Feature Demo With My Daughter",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "xFknwPPhVnI",
+      "title": "OpenClaw basics, current setup, my primary use case",
+      "source_sha256": "a859ba499f77d0e7ef19828bf3bb45f6f9aba682d832af00b4e3e69206034556",
+      "article_refs": [
+        "mock:2026-02-18-openclaw-basics-current-setup-my-primary-use-case",
+        "mock:ai-morning-fitness-report-openclaw-build",
+        "mock:how-i-built-my-ai-fitness-assistant-with-openclaw",
+        "mock:openclaw-automation",
+        "mock:openclaw-fitness-automation-setup"
+      ],
+      "article_sha256": {
+        "mock:2026-02-18-openclaw-basics-current-setup-my-primary-use-case": "ce60ff3fdf39cf70df1ac9e23571ceccc5c674dfc6bfc2f7418abf6dba6d0468",
+        "mock:ai-morning-fitness-report-openclaw-build": "e05179dd33ecbc05a533e954d87eb865edfde401e420985cea79c81554dc50a6",
+        "mock:how-i-built-my-ai-fitness-assistant-with-openclaw": "1d1f18e98cf54caa30bf71bda14840ec4a0afcc8b1696c26b2f55e80db2db837",
+        "mock:openclaw-automation": "decf0b45bc742a2d6eb2f3f976aaa85fe5ee7e3389ccd83d4973c5e06c0374d8",
+        "mock:openclaw-fitness-automation-setup": "f94d2b6b11d9ca79b6fbfc06c01d1cd7a6079984c04aa71ace9c48a17bf996d7"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 2891,
+          "disposition": "reserved",
+          "title": "OpenClaw basics, current setup, my primary use case",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    },
+    {
+      "video_id": "yeYeMNBC2Lc",
+      "title": "Speediance 2s first look and demo",
+      "source_sha256": "90aab5075e8170a5a48d1bfbd8d321b9ab1c6647424573322c631632ed9e4436",
+      "article_refs": [
+        "mock:2025-08-28-speediance-2s-first-look-and-demo",
+        "mock:speediance-2s-first-look-review"
+      ],
+      "article_sha256": {
+        "mock:2025-08-28-speediance-2s-first-look-and-demo": "567b7804af4600dcd027777f901a330973031447bfac8071cb2e054c289a8519",
+        "mock:speediance-2s-first-look-review": "2aba6292a8cbba3a72d46b73185fcd26f3c806476e14174b2fb47f88fd5fd891"
+      },
+      "review_basis": "Direct source links where present; otherwise source-title/transcript-filename and article-subject association. Thumbnails are not identity evidence. Active, retired and replacement articles are retained.",
+      "ranges": [
+        {
+          "start": 0,
+          "end": 3559,
+          "disposition": "reserved",
+          "title": "Speediance 2s first look and demo",
+          "rationale": "Reserved for existing article coverage and unverified finer details. Do not reinterpret this reservation as evidence that every source sentence has been published."
+        }
+      ]
+    }
+  ]
+}

@@ -83,6 +83,75 @@ class SectionTests(unittest.TestCase):
    root=Path(temp);black=root/'blacklist.txt';black.write_text('');pending=root/'pending.json';pending.write_text('{}')
    with patch.object(p,'BLACKLIST',black),patch.object(p,'PENDING',pending):p.finalize_published_draft(d)
    self.assertNotIn(ROOT,black.read_text())
+class HistoricalCoverageTests(unittest.TestCase):
+ def setUp(self):
+  self.corpus={'mock:old-post':[{'title':'Training routine','content':'Original article'}],
+               'markdown:merged-guide':'Updated guide keeps the original training material'}
+  self.manifest={'version':'historical-ranges-v1','corpus_sha256':s.sha(self.corpus),'videos':[
+   {'video_id':ROOT,'source_sha256':s.history_source_identity(VIDEO,ROWS),
+    'article_refs':['mock:old-post','markdown:merged-guide'],'ranges':[
+     {'start':0,'end':480,'title':'Training','disposition':'reserved','rationale':'Earlier article covered this topic'},
+     {'start':480,'end':960,'title':'Software','disposition':'uncovered','rationale':'Entire passage reviewed against historical corpus',
+      'evidence':[ROWS[8],ROWS[-1]]}]}]}
+ def build(self,**kwargs):
+  args=dict(historical=self.manifest,article_corpus=self.corpus)
+  args.update(kwargs)
+  return s.build_inventory([VIDEO],{ROOT:' '.join(TEXT)},
+     {ROOT:{'video_id':ROOT,'segments':ROWS}},[ROOT],**args)
+ def test_only_explicit_reviewed_passage_becomes_available(self):
+  x=self.build();self.assertEqual(x['legacy_unresolved'],[])
+  self.assertEqual([r['status'] for r in x['sections']],['historical-reserved','available'])
+ def test_ordinary_new_publication_consumes_only_its_range(self):
+  x=self.build(published=[{'video_id':ROOT,'start':480,'end':600}])
+  self.assertEqual(x['sections'][1]['start'],600);self.assertEqual(x['sections'][1]['status'],'available')
+ def test_source_changes_reclose_reuse(self):
+  self.manifest['videos'][0]['source_sha256']='stale'
+  x=self.build();self.assertIn(ROOT,x['legacy_unresolved'])
+  self.assertFalse(any(v['status']=='available' for v in x['sections']))
+ def test_edit_delete_merge_or_add_unbounded_article_recloses_reuse(self):
+  variants=[{**self.corpus,'mock:old-post':'Changed'},
+            {'mock:old-post':self.corpus['mock:old-post']},
+            {**self.corpus,'markdown:merged-guide':'Changed guide'},
+            {**self.corpus,'mock:unbounded-new-post':'Untracked new material'}]
+  for corpus in variants:
+   with self.subTest(corpus=corpus):
+    x=self.build(article_corpus=corpus)
+    self.assertFalse(any(v['status']=='available' for v in x['sections']))
+    self.assertIn('corpus changed',x['historical_holds'][ROOT])
+ def test_missing_captions_never_get_interpolated(self):
+  x=s.build_inventory([VIDEO],{ROOT:' '.join(TEXT)},{},[ROOT],historical=self.manifest,article_corpus=self.corpus)
+  self.assertIn(ROOT,x['legacy_unresolved']);self.assertFalse(x['sections'])
+  self.assertEqual(x['historical_holds'][ROOT],'Original timed captions required')
+ def test_gaps_overlaps_out_of_bounds_and_nan_are_held(self):
+  for a,b in [(481,960),(479,960),(480,961),(float('nan'),960)]:
+   m=copy.deepcopy(self.manifest);m['videos'][0]['ranges'][1].update(start=a,end=b)
+   x=self.build(historical=m);self.assertIn(ROOT,x['legacy_unresolved'])
+   self.assertFalse(any(v['status']=='available' for v in x['sections']))
+ def test_no_implicit_release_from_omitted_ranges(self):
+  self.manifest['videos'][0]['ranges'].pop()
+  self.assertIn(ROOT,self.build()['legacy_unresolved'])
+ def test_invented_quote_or_evidence_from_other_range_is_held(self):
+  for evidence in [[{**ROWS[8],'text':'Invented quote'},ROWS[-1]],[ROWS[0],ROWS[-1]]]:
+   m=copy.deepcopy(self.manifest);m['videos'][0]['ranges'][1]['evidence']=evidence
+   self.assertIn(ROOT,self.build(historical=m)['legacy_unresolved'])
+ def test_historical_clip_overrides_released_range(self):
+  clip={'id':CLIP,'is_short':False,'title':'Excerpt','duration_seconds':420}
+  x=s.build_inventory([VIDEO,clip],{ROOT:' '.join(TEXT),CLIP:' '.join(TEXT[8:15])},
+       {ROOT:{'video_id':ROOT,'segments':ROWS}},[ROOT,CLIP],historical=self.manifest,article_corpus=self.corpus)
+  self.assertFalse(any(v['status']=='available' for v in x['sections']))
+  self.assertEqual(x['sections'][-1]['start'],900)
+ def test_all_reserved_is_not_reported_as_exact_consumption(self):
+  self.manifest['videos'][0]['ranges'][1]['disposition']='reserved'
+  self.assertTrue(all(v['status']=='historical-reserved' for v in self.build()['sections']))
+ def test_repeated_rolling_captions_do_not_inflate_source_length(self):
+  rows=[{'start':0,'end':4,'text':'one two three four'},
+        {'start':2,'end':6,'text':'three four five six'},
+        {'start':7,'end':9,'text':'five six seven eight'}]
+  self.assertEqual(s.caption_text(rows),'one two three four five six five six seven eight')
+ def test_duplicate_manifest_video_is_rejected(self):
+  self.manifest['videos'].append(copy.deepcopy(self.manifest['videos'][0]))
+  with self.assertRaisesRegex(ValueError,'Duplicate'):self.build()
+
 class CaptionImporterTests(unittest.TestCase):
  def setUp(self):
   file=Path(__file__).resolve().parents[1]/'fetch_transcripts.py'
