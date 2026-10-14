@@ -6,10 +6,11 @@ export function articleTopic({ category = '', title = '', slug = '', tags = [] }
   if (['build logs', 'ai tech'].includes(c)) return 'ai';
   if (['bjj', 'mat science'].includes(c)) return 'bjj';
   if (c === 'wearables') return 'wearables';
-  if (/openclaw|agentstack|hermes|codex|claude|anthropic|ai coding|ai assistant/.test(text)) return 'ai';
+  if (/openclaw|agentstack|hermes|codex|claude|anthropic|chatgpt|gemini|minimax|ollama|language model|ai coding|ai assistant/.test(text)) return 'ai';
   if (/jiu.jitsu|\bbjj\b|grappl|belt progression/.test(text)) return 'bjj';
-  if (/speediance|tonal|gym monster|smart gym|voltra|aeke|oxfit/.test(text)) return 'gym';
-  if (/whoop|oura|garmin|wearable|recovery|sleep|hrv/.test(text)) return 'wearables';
+  if (/speediance|tonal|gym monster|smart gym|voltra|aeke|oxfit|vitruvian|innodigym/.test(text)) return 'gym';
+  if (/whoop|oura|garmin|wearable|smartwatch|apple watch|fitness tracker|fitbit|morpheus|recovery|sleep|hrv/.test(text)) return 'wearables';
+  if (/\bai\b|artificial intelligence|\bllm\b|\bgpt\b/.test(text)) return 'ai';
   return 'training';
 }
 export function normalizeBlogCategory(category = '', context = {}) {

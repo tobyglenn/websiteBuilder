@@ -1,4 +1,5 @@
 ---
+import HomeBlogCover from '../components/HomeBlogCover.astro';
 import { selectDiverseBlogPosts } from '../lib/blogEditorial.mjs';
 import HomeReviewHeading from '../components/HomeReviewHeading.astro';
 import Layout from '../layouts/Layout.astro';
@@ -40,7 +41,7 @@ function formatBlogDate(value) {
   return new Date(timestamp).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
-    year: 'numeric',
+    year: 'numeric', timeZone: 'UTC',
   });
 }
 
@@ -197,11 +198,7 @@ const webPageSchema = {
             data-analytics-content-title={post.title}
             data-analytics-item-position={index + 1}
           >
-            {post.image && (
-              <div class="aspect-video overflow-hidden bg-neutral-950">
-                <img src={post.image} alt={post.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" loading="lazy" />
-              </div>
-            )}
+            <HomeBlogCover post={post} />
             <div class="p-5">
               <span class="text-xs font-semibold uppercase tracking-wide text-blue-400">{post.category}</span>
               <h3 class="mt-3 line-clamp-2 text-lg font-bold leading-snug text-white transition-colors group-hover:text-blue-400">{post.title}</h3>

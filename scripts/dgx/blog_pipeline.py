@@ -22,6 +22,7 @@ import sys
 import urllib.request
 from datetime import datetime, timedelta
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from typing import Any
 
 
@@ -447,13 +448,67 @@ def _legacy_usable_transcripts() -> list[tuple[Path, str]]:
     return prioritize_transcripts(usable)
 
 
+def publication_day() -> str:
+    return datetime.now(ZoneInfo("America/New_York")).strftime("%Y-%m-%d")
+
+
+def topic_rotation(candidates: list[dict[str, Any]]) -> dict[str, Any]:
+    """Use the same taxonomy and normalized publication history as the website."""
+    result = subprocess.run(
+        ["node", str(FRONTEND_DIR / "scripts/blog-topic-rotation.mjs")],
+        cwd=FRONTEND_DIR, input=json.dumps({"candidates": candidates, "today": publication_day()}),
+        text=True, capture_output=True, timeout=120, check=False,
+    )
+    if result.returncode:
+        raise RuntimeError(f"Cannot verify topic rotation; holding publication: {result.stderr}")
+    context = json.loads(result.stdout)
+    if len(context["candidates"]) != len(candidates):
+        raise RuntimeError("Incomplete topic rotation result; holding publication")
+    return context
+
+
+def assert_topic_rotation(draft: dict[str, Any]) -> None:
+    context = topic_rotation([draft])
+    candidate = context["candidates"][0]
+    if not candidate["allowed"]:
+        previous = ", ".join(post["slug"] for post in context["previous"])
+        raise RuntimeError(f"Topic rotation hold: {candidate['topic']} repeats the last publication ({previous}); choose a different broad topic")
+
+
+def defer_repeated_pending() -> None:
+    """Preserve a blocked draft so tomorrow's selection can choose another topic."""
+    if not PENDING.exists():
+        return
+    try:
+        draft = json.loads(PENDING.read_text())
+    except (ValueError, OSError):
+        return  # Existing malformed-draft recovery owns this case.
+    if not isinstance(draft, dict) or not draft.get("title") or draft.get("slug") in read_used_slugs():
+        return
+    context = topic_rotation([draft])
+    if context["candidates"][0]["allowed"]:
+        return
+    destination = DRAFT_DIR / "deferred-topics"
+    destination.mkdir(parents=True, exist_ok=True)
+    saved = destination / f"{datetime.now().strftime('%Y%m%d-%H%M%S-%f')}-{slugify(str(draft.get('slug', 'draft')))}.json"
+    PENDING.replace(saved)
+    log("draft", f"topic rotation held draft at {saved}; source remains eligible after another topic")
+
+
 def prioritize_transcripts(items: list[tuple[Path, str]]) -> list[tuple[Path, str]]:
     """Rank durable search-intent topics ahead of chronological filename order."""
     def rank(item: tuple[Path, str]) -> tuple[int, int, str]:
         path, _ = item
         return (-editorial_score(path), -transcript_word_count(path), path.name.lower())
 
-    return sorted(items, key=rank)
+    if not items:
+        return []
+    metadata = transcript_index()
+    candidates = [{"slug": slug, "title": str(metadata.get(path.name.lower(), {}).get("title") or path.stem.replace("_", " "))}
+                  for path, slug in items]
+    context = topic_rotation(candidates)
+    eligible = [item for item, decision in zip(items, context["candidates"]) if decision["allowed"]]
+    return sorted(eligible, key=rank)
 
 
 def usable_transcripts() -> list[tuple[Path, str]]:
@@ -701,6 +756,7 @@ def quarantine_pending(stage: str, reason: str) -> Path:
 def draft_stage() -> int:
     ensure_dirs()
     require_paths()
+    defer_repeated_pending()
     if PENDING.exists():
         draft: dict[str, Any] | None = None
         reviewed = False
@@ -758,8 +814,7 @@ def draft_stage() -> int:
     sync_transcript_backlog()
     usable = usable_transcripts()
     if not usable:
-        log("draft", "no unused transcripts found — content queue exhausted")
-        check_content_runway(0)
+        log("draft", "no eligible alternate topic available; holding publication and preserving transcript backlog")
         return 0
     transcript_path, slug = usable[0]
     check_content_runway(len(usable) - 1)
@@ -1197,10 +1252,13 @@ def publish_stage() -> int:
             )
         return 0
     assert_unpublished_source(draft, read_used_video_ids())
+    assert_topic_rotation(draft)
     dirty_mock = git_status(["frontend/src/data/mock.js"])
     if dirty_mock:
         raise RuntimeError(f"mock.js has uncommitted changes; refusing publish: {dirty_mock}")
 
+    draft["date"] = publication_day()
+    save_pending(draft)
     thumb_path = ensure_thumbnail(draft)
     original_mock = MOCK_JS.read_text(encoding="utf-8")
     insert_at = original_mock.rfind("\n];")

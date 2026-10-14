@@ -94,3 +94,17 @@ Internal links in built HTML and RSS are rewritten to final destinations, preser
 - Release-specific build audit passed for all five homepages, 40 revised canonical guide routes and 140 retired article routes.
 - The redirect exporter produced 8,663 unique exact mappings. The verified change set contains 572 rows: 560 variants of the 28 retired slugs, plus 12 variants of three older aliases that must bypass the retired destinations.
 - Original publication dates are retained. Eight revised guides contain approximately 800–1,000 words each, before their source and revision notes.
+
+
+## Daily topic rotation and homepage photography
+
+The DGX publisher now uses the website's `articleTopic` taxonomy at candidate selection and again immediately before publishing: gym equipment (Tonal and Speediance together), training, BJJ, wearables and AI/build logs. It must switch away from every topic published on the latest publication day, even after a skipped day. Original publication dates drive the rule; a guide's `updated` date does not. Retired article URLs remain part of the publication history. This is an editorial safeguard, not a claim about Google's ranking algorithm.
+
+`frontend/scripts/blog-topic-rotation.mjs` loads the normalized source collection through Vite, including static Markdown and legacy entries, and returns decisions to the Python publisher. An unavailable or invalid history check holds publishing. New publications record the actual America/New_York publication date. Already-published draft recovery remains unchanged.
+
+At the next draft cycle, a pending draft that repeats the prior topic is preserved under `blog-drafts/deferred-topics/`, allowing selection of a different source. The source is not blacklisted. When no alternate subject is eligible, the publisher holds instead of forcing another same-topic article. Existing schedules are unchanged.
+
+All five homepages share `HomeBlogCover.astro`. It uses reviewed topic photography with responsive WebP output and deliberate crops, independently of old article thumbnails. The equipment card pairs the existing Speediance and Tonal product photos; training uses Toby's workout photo; BJJ uses the existing mat photo. Localized cards carry English topic metadata, so translating the headline does not change the image selection. These are decorative topic covers, not new evidence or claims about the article's subjects.
+
+
+Translation promotion now writes the exact record that passed the current source-hash check. It previously selected a valid output record but copied an unrelated stale staging file, which could restore an old unmerged article. Regression coverage verifies stale staging cannot replace current guides, fresh staging still promotes, and incomplete groups are held. Existing uncommitted stale output is backed up before restoring the committed validated records.

@@ -221,3 +221,28 @@ test('rejects leaked reasoning and unresolved translation placeholders', () => {
     assert.throws(() => validateTranslationDraft({...translated, content: translated.content + leakage},source), /model or command leakage/);
   }
 });
+
+import { mkdtemp, mkdir, writeFile, readFile, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { promoteCompletePost, LOCALES } from '../blog-translations.mjs';
+
+test('promotion cannot overwrite a current merged guide with stale staging bytes', async () => {
+ const directory=await mkdtemp(join(tmpdir(),'toft-promotion-'));
+ const staging=join(directory,'staging'); const output=join(directory,'output');
+ try {
+  for (const lang of LOCALES) {
+   await mkdir(join(staging,lang),{recursive:true}); await mkdir(join(output,lang),{recursive:true});
+   await writeFile(join(staging,lang,'example.json'),JSON.stringify({slug:'example',lang,sourceHash:'old-source',content:'old unmerged article'}));
+   await writeFile(join(output,lang,'example.json'),JSON.stringify({slug:'example',lang,sourceHash:computeSourceHash(source),content:'current merged guide'}));
+  }
+  assert.equal(await promoteCompletePost(source,{staging,output}),true);
+  for (const lang of LOCALES) assert.equal(JSON.parse(await readFile(join(output,lang,'example.json'),'utf8')).content,'current merged guide');
+  await writeFile(join(staging,'de','example.json'),JSON.stringify({slug:'example',lang:'de',sourceHash:computeSourceHash(source),content:'current new translation'}));
+  assert.equal(await promoteCompletePost(source,{staging,output}),true);
+  assert.equal(JSON.parse(await readFile(join(output,'de','example.json'),'utf8')).content,'current new translation');
+  await rm(join(output,'hi','example.json'));
+  assert.equal(await promoteCompletePost(source,{staging,output}),false);
+  assert.equal(JSON.parse(await readFile(join(output,'de','example.json'),'utf8')).content,'current new translation');
+ } finally { await rm(directory,{recursive:true,force:true}); }
+});

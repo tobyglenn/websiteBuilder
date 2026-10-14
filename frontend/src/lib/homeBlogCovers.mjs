@@ -1,0 +1,19 @@
+import { articleTopic } from './blogEditorial.mjs';
+
+// Reviewed topic photography for homepage cards. Keep headline graphics out of
+// this small surface; the article title is already real, localized text below.
+export function homeBlogCover(post) {
+  const topic = articleTopic({ ...post, category: post.categoryKey || post.category,
+    title: post.sourceTitle || post.title });
+  const covers = {
+    gym: [
+      { src: '/images/comparison/speediance-v3.png', fit: 'cover', position: '50% 50%', background: '#929292' },
+      { src: '/images/gear/tonal.jpg', fit: 'cover', position: '50% 50%', background: '#c6e9ec' },
+    ],
+    training: [{ src: '/progress/workout_action.jpg', fit: 'cover', position: '50% 42%' }],
+    bjj: [{ src: '/images/about/bjj_day4.jpg', fit: 'cover', position: '50% 50%' }],
+    wearables: [{ src: '/images/gear/whoop-5.0.jpg', fit: 'contain', position: '50% 50%', background: '#fff' }],
+    ai: [{ src: '/images/gear/openclaw-mac-studio.jpg', fit: 'contain', position: '50% 50%', background: '#fff' }],
+  };
+  return covers[topic];
+}

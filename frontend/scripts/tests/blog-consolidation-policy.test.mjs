@@ -25,3 +25,40 @@ test('old internal links keep language and query/hash but use final destination'
  assert.equal(canonicalBlogHref(`http://www.tobyonfitnesstech.com/blog/${old}`),'https://tobyonfitnesstech.com/blog/speediance-vs-tonal-comparison/');
  assert.equal(canonicalBlogHref(`https://example.com/blog/${old}/`),`https://example.com/blog/${old}/`);
 });
+
+import { rotationContext } from '../blog-topic-rotation.mjs';
+import { homeBlogCover } from '../../src/lib/homeBlogCovers.mjs';
+import { existsSync, readFileSync } from 'node:fs';
+
+test('rotation uses publication history, including retired articles, not guide revisions', () => {
+  const history = [
+    {...post('guide', 'BJJ guide', '2025-01-01', 'BJJ'), updated_at:'2026-10-14'},
+    post('retired-tonal', 'Tonal hardware', '2026-10-13'),
+    post('future', 'WHOOP news', '2026-10-20'),
+  ];
+  const result = rotationContext(history, [post('new-gym','Speediance software'), post('new-bjj','BJJ training')], '2026-10-14');
+  assert.deepEqual(result.previous.map(p=>p.slug), ['retired-tonal']);
+  assert.deepEqual(result.candidates.map(p=>p.allowed), [false,true]);
+  assert.equal(rotationContext(history, [post('later','Tonal hardware')], '2026-10-19').candidates[0].allowed, false);
+});
+test('rotation blocks every subject from the latest publication day and fails on unreadable dates', () => {
+  const history = [post('gym','Tonal','2026-10-13'),post('bjj','BJJ training','2026-10-13')];
+  assert.deepEqual(rotationContext(history,[{title:'Speediance'},{title:'BJJ training'},{title:'WHOOP review'}],'2026-10-14').candidates.map(p=>p.allowed), [false,false,true]);
+  assert.throws(()=>rotationContext([{title:'Tonal',slug:'invalid'}],[],'2026-10-14'), /No dated publication/);
+  assert.equal(rotationContext([], [{title:'Tonal'}], '2026-10-14').candidates[0].allowed, true);
+});
+test('homepage covers use reviewed photos and English topic metadata across locales', () => {
+  const english = post('comparison','Speediance vs Tonal','2026-10-13');
+  const localized = {...english,title:'अनुवाद',category:'अनुवाद',sourceTitle:english.title,categoryKey:'Reviews'};
+  assert.deepEqual(homeBlogCover(localized),homeBlogCover(english));
+  for (const category of ['Reviews','BJJ','Wearables','Build Logs','Training Tips']) {
+    for (const photo of homeBlogCover({category})) {
+      assert.ok(existsSync(new URL(`../../public${photo.src}`, import.meta.url)));
+      assert.ok(!photo.src.includes('/images/blog/'));
+    }
+  }
+  for (const locale of ['', 'de/','es/','pt/','hi/']) {
+    const html=readFileSync(new URL(`../../src/pages/${locale}index.astro`,import.meta.url),'utf8');
+    assert.match(html, /<HomeBlogCover post=\{post\}/);
+  }
+});

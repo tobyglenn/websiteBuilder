@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, renameSync, rmSync, writeFileSync } from 'node:fs';
-import { mkdir, readFile, rename, writeFile, copyFile, readdir } from 'node:fs/promises';
+import { mkdir, readFile, rename, writeFile, readdir } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -575,27 +575,27 @@ const clearFailure = async (key) => {
   await writeJsonAtomic(failuresPath, failures);
 };
 
-const readCurrentRecord = async (post, locale) => {
+const readCurrentRecord = async (post, locale, roots = [stagingRoot, outputRoot]) => {
   const sourceHash = computeSourceHash(post);
-  for (const root of [stagingRoot, outputRoot]) {
+  for (const root of roots) {
     const record = await readJson(translationPath(root, locale, post.slug));
     if (record?.sourceHash === sourceHash && record?.lang === locale) return record;
   }
   return null;
 };
 
-const promoteCompletePost = async (post) => {
+export const promoteCompletePost = async (post, { staging = stagingRoot, output = outputRoot } = {}) => {
   const records = [];
   for (const locale of LOCALES) {
-    const record = await readCurrentRecord(post, locale);
+    const record = await readCurrentRecord(post, locale, [staging, output]);
     if (!record) return false;
     records.push(record);
   }
   for (const record of records) {
-    const target = translationPath(outputRoot, record.lang, post.slug);
-    await mkdir(dirname(target), { recursive: true });
-    const staged = translationPath(stagingRoot, record.lang, post.slug);
-    if (existsSync(staged)) await copyFile(staged, target);
+    const target = translationPath(output, record.lang, post.slug);
+    // Write the exact record whose source hash was checked. An old staged file
+    // may exist even when the current record was found in the output directory.
+    await writeJsonAtomic(target, record);
   }
   return true;
 };

@@ -14,3 +14,10 @@ test('legacy categories become usable filters without flattening valid categorie
  assert.equal(normalizeBlogCategory('Training'),'Training Tips');
  for(const c of BLOG_CATEGORIES) assert.equal(normalizeBlogCategory(c),c);
 });
+
+test('generic AI and additional device titles get a useful rotation topic', () => {
+ for (const title of ['Why your AI comparison might be totally unfair', 'Minimax vs Kodak: AI design', 'Using an LLM at home', 'Gemini coding']) assert.equal(articleTopic({title}), 'ai');
+ for (const title of ['Smartwatch showdown: Garmin vs OnePlus for AI control', 'Apple Watch battery life']) assert.equal(articleTopic({title}), 'wearables');
+ for (const title of ['INNODIGYM vs Speediance', 'Vitruvian review']) assert.equal(articleTopic({title}), 'gym');
+ assert.equal(articleTopic({title:'Training with a daily walk'}), 'training');
+});
