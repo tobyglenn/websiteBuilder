@@ -1,4 +1,6 @@
 ---
+import { selectDiverseBlogPosts } from '../../lib/blogEditorial.mjs';
+import { getLocalizedBlogPosts } from '../../lib/localizedBlogPosts';
 import HomeReviewHeading from '../../components/HomeReviewHeading.astro';
 import HomeVideos from '../../components/HomeVideos.astro';
 import HomeGames from '../../components/HomeGames.astro';
@@ -65,9 +67,8 @@ function formatViews(count) {
   return count + ' Aufrufe';
 }
 
-const recentPosts = [...CANONICAL_BLOG_POSTS]
-  .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
-  .slice(0, 3);
+const translatedBySlug = new Map(getLocalizedBlogPosts('de').map(post => [post.slug, post]));
+const recentPosts = selectDiverseBlogPosts(CANONICAL_BLOG_POSTS.filter(post => translatedBySlug.has(post.slug))).map(post => translatedBySlug.get(post.slug)!);
 
 const formattedLifetimeStats = {
   lbsLifted: new Intl.NumberFormat('de-DE').format(lifetimeStats.totalLbsLifted),
@@ -115,7 +116,7 @@ const webPageSchema = {
 
 			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
 				{recentPosts.map((post) => (
-					<a href={`/blog/${post.slug}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
+					<a href={`/de/blog/${post.slug}/`} class="group block bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all">
 						{post.image && (
 						<div class="aspect-video overflow-hidden bg-neutral-950">
 							<img
@@ -531,12 +532,12 @@ const webPageSchema = {
 					<article class="flex flex-col group border-l-2 border-neutral-800 pl-6 hover:border-blue-500 transition-colors py-2">
 						<span class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-2">{post.category}</span>
 						<h3 class="text-xl font-bold text-white mb-3 leading-tight group-hover:text-blue-400 transition-colors">
-							<a href={`/blog/${post.slug}/`}>{post.title}</a>
+							<a href={`/de/blog/${post.slug}/`}>{post.title}</a>
 						</h3>
 						<p class="text-neutral-400 text-sm line-clamp-3 mb-4 leading-relaxed flex-grow">
 							{post.excerpt}
 						</p>
-						<a href={`/blog/${post.slug}/`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
+						<a href={`/de/blog/${post.slug}/`} class="text-sm font-semibold text-blue-500 hover:text-blue-400 flex items-center gap-1 group/link">
 							Artikel lesen <ArrowRight size={14} class="group-hover/link:translate-x-1 transition-transform" />
 						</a>
 					</article>

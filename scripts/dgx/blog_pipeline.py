@@ -10,6 +10,7 @@ Stages:
 
 from __future__ import annotations
 
+from blog_editorial_policy import existing_guide
 from blog_source_identity import (read_used_slugs as identity_slugs, published_video_ids, source_video_id, assert_unpublished_source)
 
 import argparse
@@ -324,6 +325,12 @@ def published_titles() -> list[str]:
     ]
 
 
+def consolidated_guide(title: str) -> str | None:
+    path = FRONTEND_DIR / "src/data/blog-consolidations.json"
+    guides = json.loads(path.read_text()) if path.exists() else []
+    return existing_guide(title, guides)
+
+
 def is_near_duplicate_topic(title: str, existing_titles: list[str]) -> bool:
     candidate = topic_tokens(title)
     if len(candidate) < 3:
@@ -477,6 +484,9 @@ def usable_transcripts() -> list[tuple[Path, str]]:
                 log("draft", f"skipping transcript with bare video-ID slug: {path.name}")
                 continue
             if transcript_word_count(path) < min_transcript_words():
+                continue
+            if consolidated_guide(source_title):
+                # Leave the source in the backlog for a guide update; do not blacklist it.
                 continue
             if is_near_duplicate_topic(source_title, existing_titles):
                 continue
@@ -919,6 +929,9 @@ Fix all issues and return ONLY the corrected JSON object. Rules:
 
 def validate_draft(draft: dict[str, Any], *, require_review: bool) -> None:
     errors = []
+    guide = consolidated_guide(str(draft.get("title", "")) + " " + str(draft.get("target_query", "")))
+    if guide and draft.get("slug") != guide:
+        errors.append(f"Existing guide /blog/{guide}/ answers this question; hold this draft for an update instead of a new URL")
     for field in ["slug", "title", "excerpt", "category", "date", "readTime", "content"]:
         if not draft.get(field):
             errors.append(f"missing {field}")

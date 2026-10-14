@@ -23,7 +23,7 @@
     "translate:priority-pages:status": "node ./scripts/priority-page-translations.mjs status",
     "translate:priority-pages:promote": "node ./scripts/priority-page-translations.mjs promote",
     "translate:priority-pages:validate": "node ./scripts/priority-page-translations.mjs validate-output",
-    "build": "npm run snapshot:fitness-podcast-feed && TOFT_FITNESS_PODCAST_FEED_SNAPSHOT=.cache/fitness-podcast-feed.xml astro build && npx pagefind --site dist && npm run audit:indexability && npm run audit:hreflang && npm run audit:release-locales && npm run audit:blog-translations",
+    "build": "npm run snapshot:fitness-podcast-feed && TOFT_FITNESS_PODCAST_FEED_SNAPSHOT=.cache/fitness-podcast-feed.xml astro build && node scripts/canonicalize-blog-links.mjs && npx pagefind --site dist && npm run audit:indexability && npm run audit:hreflang && npm run audit:release-locales && npm run audit:blog-translations",
     "preview": "astro preview",
     "astro": "astro",
     "transcripts:sync": "python3 ../scripts/sync_and_translate_video_transcripts.py",

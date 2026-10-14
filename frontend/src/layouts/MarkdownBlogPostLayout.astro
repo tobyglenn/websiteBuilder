@@ -89,7 +89,7 @@ function formatPostDate(value = '') {
           </div>
           <div class="flex items-center gap-2">
             <Calendar size={16} />
-            <span>{formatPostDate(post.date)}</span>
+            <span>{formatPostDate(post.date)}{post.updated !== post.date && <span> · Updated {formatPostDate(post.updated)}</span>}</span>
           </div>
         </div>
 

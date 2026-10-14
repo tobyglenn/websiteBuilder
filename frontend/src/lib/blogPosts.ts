@@ -12,6 +12,7 @@ export type BlogPost = {
   excerpt: string;
   category: string;
   published_at: string;
+  updated_at?: string;
   image?: string;
   tags: string[];
   content: string;
@@ -109,6 +110,7 @@ function markdownPostFromRaw(path: string, raw: string, fallback?: PartialBlogPo
     excerpt: String(frontmatter.description || fallback?.excerpt || frontmatter.title || slug),
     category,
     published_at: String(frontmatter.date || fallback?.published_at || ''),
+    updated_at: String(frontmatter.updated || frontmatter.date || fallback?.published_at || ''),
     image: resolveCoverImage(String(frontmatter.image || fallback?.image || ''), slug, title, category),
     tags: tags.map((tag) => String(tag)),
     content,

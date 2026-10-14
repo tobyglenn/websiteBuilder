@@ -1,6 +1,6 @@
 ---
 const locale=Astro.url.pathname.match(/^\/(es|de|pt|hi)(?:\/|$)/)?.[1] || 'en';
-const copy={en:['Recent reviews','All reviews'],es:['Análisis recientes','Todos los análisis'],de:['Aktuelle Tests','Alle Tests'],pt:['Análises recentes','Todas as análises'],hi:['नई समीक्षाएँ','सभी समीक्षाएँ']}[locale];
+const copy={en:['Explore three topics','All articles'],es:['Explora tres temas','Todos los artículos'],de:['Drei Themen entdecken','Alle Artikel'],pt:['Explore três temas','Todos os artigos'],hi:['तीन विषय देखें','सभी लेख']}[locale];
 const href=locale==='en'?'/blog/':`/${locale}/blog/`;
 ---
 <div class="home-review-heading"><h2>{copy[0]}</h2><a href={href} data-analytics-event="content_card_click" data-analytics-content-type="blog" data-analytics-content-slug="/blog/" data-analytics-position="homepage_latest_reviews">{copy[1]} →</a></div>

@@ -1,4 +1,5 @@
 ---
+import { selectDiverseBlogPosts } from '../lib/blogEditorial.mjs';
 import HomeReviewHeading from '../components/HomeReviewHeading.astro';
 import Layout from '../layouts/Layout.astro';
 import { getHomepageFeature } from '../lib/homepageFeature';
@@ -99,9 +100,7 @@ const channelLatestDate = latestLongFormVideos[0]
     })
   : 'N/A';
 
-const recentPosts = [...CANONICAL_BLOG_POSTS]
-  .sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime())
-  .slice(0, 3);
+const recentPosts = selectDiverseBlogPosts(CANONICAL_BLOG_POSTS);
 
 const formattedLifetimeStats = {
   lbsLifted: new Intl.NumberFormat('en-US').format(lifetimeStats.totalLbsLifted),
