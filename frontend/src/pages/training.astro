@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import trainingPlan from '../data/trainingPlan.json';
 
 // Disciplines are declared once; every colour, label and blurb on the page
 // comes from here so nothing has to be kept in sync by hand.
@@ -32,7 +33,7 @@ const disciplines = {
     focus: "text-purple-400",
     card: "border-purple-500/30 hover:border-purple-500/60",
     panel: "border-purple-500/20",
-    blurb: "Full-body sessions minus legs (Speediance handles the heavy compounds). Pressing, pulling and hypertrophy to keep the frame durable.",
+    blurb: "Upper-body strength and hypertrophy on Speediance. Pressing and pulling build muscle while I leave leg recovery for BJJ and running.",
   },
 };
 
@@ -48,8 +49,8 @@ const weeklySchedule = [
   {
     day: "Tuesday",
     icon: "🏃",
-    trains: ["running"],
-    exercises: ["5K easy run", "Zone 2 effort", "Mobility work"],
+    trains: ["running", "lifting"],
+    exercises: ["Easy run", "Zone 2 effort", "Chest Press", "Seated Row", "Lateral Raise"],
   },
   {
     day: "Wednesday",
@@ -61,7 +62,7 @@ const weeklySchedule = [
     day: "Thursday",
     icon: "🏃",
     trains: ["running", "lifting"],
-    exercises: ["6K tempo run", "Deadlift", "Hip Thrust", "Pull-ups", "Face Pulls"],
+    exercises: ["6K tempo run", "Incline Press", "Lat Pulldown", "Pull-ups", "Face Pulls"],
   },
   {
     day: "Friday",
@@ -72,8 +73,8 @@ const weeklySchedule = [
   {
     day: "Saturday",
     icon: "🥋",
-    trains: ["bjj", "running"],
-    exercises: ["Open mat", "Technical drilling", "Easy shakeout run"],
+    trains: ["bjj", "running", "lifting"],
+    exercises: ["Optional open mat", "Easy shakeout run", "Cable Row", "Biceps Curl", "Triceps Extension"],
   },
   {
     day: "Sunday",
@@ -108,14 +109,14 @@ const focusLabel = (day) =>
         .map((k) => disciplines[k].label)
         .join(" + ");
 
-const pageTitle = "Training Week";
-const pageDescription = `A typical training week: BJJ, running and full-body lifting (minus legs). My prioritized approach to fitness: ${priorityLabel}.`;
+const pageTitle = "Example Training Week";
+const pageDescription = `An example week built around four upper-body lifting sessions, BJJ and running. My prioritized approach to fitness: ${priorityLabel}.`;
 
 const courseSchema = {
   "@context": "https://schema.org",
   "@type": "Course",
   "name": "Toby's Training Week",
-  "description": `A weekly training program combining Brazilian Jiu-Jitsu, running and full-body lifting, prioritized ${priorityLabel}.`,
+  "description": `A weekly training program combining Brazilian Jiu-Jitsu, running and upper-body lifting, prioritized ${priorityLabel}.`,
   "provider": {
     "@type": "Person",
     "name": "Toby"
@@ -132,9 +133,9 @@ const courseSchema = {
   <main class="max-w-5xl mx-auto px-4 py-6">
     {/* Hero Section */}
     <section data-page-intro class="text-center mb-4">
-      <h1 data-page-title class="text-4xl md:text-5xl font-bold text-white mb-4">Training Week</h1>
+      <h1 data-page-title class="text-4xl md:text-5xl font-bold text-white mb-4">Example Training Week</h1>
       <p class="text-lg text-neutral-400 max-w-2xl mx-auto">
-        A typical week balancing my three pillars: BJJ, running, and full-body lifting (minus legs).
+        An example week balancing my three pillars: BJJ, running, and upper-body lifting.
         Everything's prioritized: <span class="text-blue-400 font-semibold">{priorityLabel}</span>
       </p>
     </section>
@@ -144,7 +145,7 @@ const courseSchema = {
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
           <div class="text-3xl font-bold text-green-400 mb-1">{workoutsPerWeek}</div>
-          <div class="text-sm text-neutral-400">Workouts/Week</div>
+          <div class="text-sm text-neutral-400">Training Days/Week</div>
         </div>
         <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6 text-center">
           <div class="text-3xl font-bold text-white mb-1">{restDays}</div>
@@ -159,10 +160,12 @@ const courseSchema = {
       </div>
     </section>
 
+    <p class="text-neutral-300 mb-8">{trainingPlan.splitDescription} The days below are an example, not a fixed attendance log; I move or scale sessions when recovery calls for it.</p>
+
     {/* Weekly Schedule Grid */}
     <section class="mb-16">
       <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-        <span>📅</span> Weekly Schedule
+        <span>📅</span> Example Weekly Schedule
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
         {weeklySchedule.map((day) => {

@@ -1,3 +1,4 @@
+import { summarizeRuns } from '../lib/fitnessMetrics.mjs';
 /**
  * running.js — server-side Garmin data for /running & /about pages.
  * Runs at build time in Node.js context only.
@@ -48,36 +49,7 @@ function cleanRunName(name) {
 }
 
 function calcStatsGroup(runsList, locale = 'en-US') {
-  const totalRuns = runsList.length;
-  const totalDist = runsList.reduce((s, r) => s + getDist(r), 0);
-  const totalMin = runsList.reduce((s, r) => s + durMin(r), 0);
-  const totalCal = runsList.reduce((s, r) => s + (r.calories || 0), 0);
-  const avgPace = totalDist > 0 ? totalMin / totalDist : 0;
-  const outdoorRuns = runsList.filter(r => r.activityType === 'running').length;
-  const treadmillRuns = runsList.filter(r => r.activityType === 'treadmill_running').length;
-  const longest = [...runsList].sort((a, b) => getDist(b) - getDist(a))[0];
-
-  const firstRun = runsList[0];
-  const lastRun = runsList[runsList.length - 1];
-
-  const monthYear = (d) =>
-    new Date((d || '').slice(0, 10) + 'T00:00:00').toLocaleDateString(locale, { month: 'short', year: 'numeric' });
-
-  return {
-    totalRuns,
-    totalDistMi: +totalDist.toFixed(1),
-    totalDistLabel: Math.round(totalDist).toLocaleString(locale),
-    totalHrs: +(totalMin / 60).toFixed(1),
-    totalCal: Math.round(totalCal),
-    avgPace: fmtPace(avgPace),
-    outdoorRuns,
-    treadmillRuns,
-    longestMi: +(getDist(longest)).toFixed(2),
-    longestDate: longest ? fmtDate(longest.date || longest.startTimeLocal, 'long') : '',
-    firstDate: firstRun?.date || firstRun?.startTimeLocal || '',
-    lastDate: lastRun?.date || lastRun?.startTimeLocal || '',
-    rangeLabel: firstRun && lastRun ? `${monthYear(firstRun.date || firstRun.startTimeLocal)} – ${monthYear(lastRun.date || lastRun.startTimeLocal)}` : '',
-  };
+  return summarizeRuns(runsList, locale);
 }
 
 export function getRunningData(locale = 'en-US') {

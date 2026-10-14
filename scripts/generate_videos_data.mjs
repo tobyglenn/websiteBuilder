@@ -13,6 +13,9 @@ const transcriptsDir = path.join(rootDir, 'frontend', 'src', 'data', 'transcript
 const videosJsonPath = path.join(rootDir, 'frontend', 'src', 'data', 'videos.json');
 
 const excludedVideos = new Set(JSON.parse(fs.readFileSync(path.join(rootDir, 'frontend/src/data/excludedVideos.json'), 'utf8')));
+const editorialOverridesPath = path.join(rootDir, 'frontend/src/data/videoEditorialOverrides.json');
+const editorialOverrides = fs.existsSync(editorialOverridesPath) ? JSON.parse(fs.readFileSync(editorialOverridesPath, 'utf8')) : {};
+
 
 const ytVideos = JSON.parse(fs.readFileSync(ytPath, 'utf8'));
 const transcriptIndex = JSON.parse(fs.readFileSync(transcriptIndexPath, 'utf8'));
@@ -159,6 +162,7 @@ for (const ytVideo of ytVideos) {
 
 // 3. Process all videos into the final catalog
 const generatedVideos = Array.from(allVideoItemsMap.values()).filter(v => !excludedVideos.has(v.id)).map((v) => {
+  const editorialOverride = editorialOverrides[v.id] || {};
   const transcriptEntry = transcriptMap.get(v.id);
   let transcriptContent = '';
   if (transcriptEntry && transcriptEntry.file) {
@@ -206,14 +210,14 @@ const generatedVideos = Array.from(allVideoItemsMap.values()).filter(v => !exclu
 
   return {
     id: v.id,
-    title: v.title,
+    title: editorialOverride.title || v.title,
     description: v.description || v.title,
     full_description: v.description || v.title,
     thumbnail: v.thumbnail || `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
     publishedAt: publishedAt,
     published_at: publishedDate,
-    category: category,
-    tags: tags,
+    category: editorialOverride.category || category,
+    tags: editorialOverride.tags || tags,
     key_takeaways: keyTakeaways,
     chapters: chapters,
     transcript_file: transcriptEntry ? transcriptEntry.file : null,

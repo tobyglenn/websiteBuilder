@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const updated = 'July 2026';
+const updated = '2026-10-14';
 
 const privacySchema = {
   '@context': 'https://schema.org',
@@ -26,7 +26,7 @@ const privacySchema = {
 
 <Layout
   title="Privacy Policy | Toby on Fitness Tech"
-  description="Read how TobyOnFitnessTech handles data from WHOOP, Garmin, 8Sleep, Speediance, and OpenClaw workflows for fitness tracking and AI-powered reporting."
+  description="Read how TobyOnFitnessTech handles data from WHOOP, Garmin, 8Sleep, Speediance, and AI workflows for fitness tracking and AI-powered reporting."
   jsonLd={privacySchema}
 >
   <section data-page-intro class="bg-neutral-950 text-white border-b border-neutral-800">
@@ -48,7 +48,7 @@ const privacySchema = {
         <p class="mt-4">
           TobyOnFitnessTech is a personal website operated by Toby Glenn Peters. The site focuses on
           fitness technology, including wearable metrics, training logs, and automated summaries powered
-          by OpenClaw. We collect and process only the data needed to run the site, generate personal
+          by AI workflows. We collect and process only the data needed to run the site, generate personal
           performance insights, and publish educational fitness content.
         </p>
       </section>
@@ -74,7 +74,7 @@ const privacySchema = {
             reps, sets, resistance, and volume totals.
           </li>
           <li>
-            <span class="font-semibold text-white">OpenClaw automation:</span> metadata used to generate
+            <span class="font-semibold text-white">AI automation:</span> metadata used to generate
             morning and nightly fitness reports, workflow timestamps, and summarized performance outputs.
           </li>
         </ul>
@@ -105,11 +105,12 @@ const privacySchema = {
         <p class="mt-4">
           TobyOnFitnessTech may use PostHog for privacy-conscious website and product analytics. This helps
           us understand which pages, videos, podcast links, searches, calculators, newsletter forms, and
-          contact links are useful so we can improve the site. Session replay and interaction autocapture are
+          contact links are useful so we can improve the site. For PostHog, session replay and interaction autocapture are
           enabled to diagnose navigation, performance, and broken-interface problems, but replay text, images,
           and element attributes are masked. Form values, email addresses, names, health records, and free-text
           messages are not intentionally collected for analytics, and client IP addresses are discarded at ingestion.
         </p>
+        <p class="mt-4">We also use Microsoft Clarity for session replay and heatmaps to understand page navigation, clicks, scrolling, and interface problems. Clarity collects website usage and device/browser information and may use cookies or similar technologies. Microsoft processes this information to provide the service. Read the <a href="https://privacy.microsoft.com/privacystatement" class="text-blue-400 underline" target="_blank" rel="noopener noreferrer">Microsoft Privacy Statement</a> for details about Microsoft's handling of this data.</p>
       </section>
 
       <section class="rounded-xl border border-neutral-800 bg-neutral-900/40 p-6 md:p-8">

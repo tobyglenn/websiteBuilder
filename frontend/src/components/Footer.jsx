@@ -134,7 +134,7 @@ export default function Footer({ showNewsletter = true }) {
                 Get the Weekly Brief
               </h4>
               <p className="text-neutral-400 text-sm">
-                Fitness tech insights, Speediance tips, and OpenClaw updates. No spam.
+                Fitness tech insights, Speediance tips, and AI workflow updates. No spam.
               </p>
             </div>
             

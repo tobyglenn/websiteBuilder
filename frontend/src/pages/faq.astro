@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import trainingPlan from '../data/trainingPlan.json';
 
 const faqSchema = {
   "@context": "https://schema.org",
@@ -18,7 +19,7 @@ const faqSchema = {
       "name": "What's your current training split?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Full body minus legs, 4x per week on the Speediance. BJJ 3–4x per week. Running 2–3x per week. That's roughly 10 hours of training total — which is my ceiling before WHOOP starts flashing red and recovery tanks. I don't do dedicated leg work because BJJ and running cover it adequately, and I'm not competing in powerlifting."
+        "text": trainingPlan.splitDescription
       }
     },
     {
@@ -34,7 +35,7 @@ const faqSchema = {
       "name": "How do you track progress?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "WHOOP for daily recovery score and HRV. Garmin for every run (GPS, HR zones, pace, training load). Speediance tracks lifting volume, 1RM estimates, and PR history automatically. 8Sleep for sleep stages. I built an AI morning report on OpenClaw that pulls all of this together before I wake up and gives me a training recommendation with confidence percentage."
+        "text": "WHOOP for daily recovery score and HRV. Garmin for every run (GPS, HR zones, pace, training load). Speediance tracks lifting volume, 1RM estimates, and PR history automatically. 8Sleep for sleep stages. I built an AI morning report with AI agents that pulls all of this together before I wake up and gives me a training recommendation with confidence percentage."
       }
     },
     {
@@ -122,7 +123,7 @@ const faqSchema = {
       "name": "How do I contact you?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "YouTube comments are the best way — I read them and respond to ones worth answering in video form. For quick questions, the comment section gets a response faster than email. For business inquiries, use the email in the YouTube channel About section."
+        "text": "Use my contact page at https://tobyonfitnesstech.com/contact/ for sponsorships, consulting, and collaborations. YouTube comments are also welcome for questions about a video."
       }
     }
   ]
@@ -169,7 +170,7 @@ const faqSchema = {
                 <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
               </summary>
               <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
-                Full body minus legs, 4x per week on the Speediance. BJJ 3–4x per week. Running 2–3x per week. That's roughly 10 hours of training total — which is my ceiling before WHOOP starts flashing red and recovery tanks. I don't do dedicated leg work because BJJ and running cover it adequately, and I'm not competing in powerlifting.
+                {trainingPlan.splitDescription}
               </div>
             </details>
             <details class="group bg-neutral-900 border border-neutral-800 rounded-xl overflow-hidden">
@@ -187,7 +188,7 @@ const faqSchema = {
                 <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
               </summary>
               <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
-                WHOOP for daily recovery score and HRV. Garmin for every run (GPS, HR zones, pace, training load). Speediance tracks lifting volume, 1RM estimates, and PR history automatically. 8Sleep for sleep stages. I built an AI morning report on OpenClaw that pulls all of this together before I wake up and gives me a training recommendation with confidence percentage.
+                WHOOP for daily recovery score and HRV. Garmin for every run (GPS, HR zones, pace, training load). Speediance tracks lifting volume, 1RM estimates, and PR history automatically. 8Sleep for sleep stages. I built an AI morning report with AI agents that pulls all of this together before I wake up and gives me a training recommendation with confidence percentage.
               </div>
             </details>
           </div>
@@ -307,7 +308,7 @@ const faqSchema = {
                 <span class="text-neutral-500 group-open:rotate-180 transition-transform flex-shrink-0 ml-4">▼</span>
               </summary>
               <div class="px-5 pb-5 text-neutral-400 leading-relaxed">
-                YouTube comments are the best way — I read them and respond to ones worth answering in video form. For quick questions, the comment section gets a response faster than email. For business inquiries, use the email in the YouTube channel About section.
+                Use my <a href="/contact/" class="text-blue-400 hover:text-blue-300 underline">contact page</a> for sponsorships, consulting, and collaborations. YouTube comments are also welcome for questions about a video.
               </div>
             </details>
           </div>

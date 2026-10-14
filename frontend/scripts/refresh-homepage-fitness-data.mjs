@@ -928,6 +928,7 @@ async function main() {
   };
 
   await writeFile(OUTPUT_FILE, `${JSON.stringify(output, null, 2)}\n`, 'utf8');
+  await import('./build-site-metrics.mjs');
 
   console.log(
     `Updated homepage fitness data for ${analysisDateKey}: ` +

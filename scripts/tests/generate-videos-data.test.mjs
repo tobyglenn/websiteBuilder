@@ -17,6 +17,7 @@ test('catalog preserves fresh inventory and metadata, quotes sources, and verifi
   const stats = { subscriberCount: 374, videoCount: 2 };
   write('frontend/src/data/videos.json', { fetchedAt: '2026-09-28', channelStats: stats, videos: [video, { ...video, id: 'new', title: 'Newest video', description: '- This is a quoted point from the actual description.' }] });
   write('frontend/src/data/excludedVideos.json', ['removed']);
+  write('frontend/src/data/videoEditorialOverrides.json', {new:{title:'Corrected title', category:'wearables', tags:['wearables']}});
   write('yt_videos_full.json', [{ id: 'old', title: 'Stale title', date: '2025-01-01' }, {id:'removed',title:'Do not restore this video'}]);
   write('transcript_index.json', [{ video_id: 'old', file: 'missing.txt', word_count: 30 }, { video_id: 'new', file: 'new.txt', word_count: 6 }]);
   write('frontend/src/data/transcripts/new.txt', 'A real transcript about the latest video.');
@@ -34,6 +35,9 @@ test('catalog preserves fresh inventory and metadata, quotes sources, and verifi
   assert.deepEqual(old.key_takeaways, []);
   assert.ok(!old.tags.includes('coding'), 'training must not match the substring ai');
   assert.deepEqual(output.videos.find(v => v.id === 'new').key_takeaways, ['This is a quoted point from the actual description.']);
+  assert.equal(output.videos.find(v => v.id === 'new').title, 'Corrected title');
+  assert.equal(output.videos.find(v => v.id === 'new').category, 'wearables');
+  assert.deepEqual(output.videos.find(v => v.id === 'new').tags, ['wearables']);
   assert.equal(output.videosWithTranscripts, 1);
   run();
   assert.equal(readFileSync(join(root, 'frontend/src/data/videos.json'), 'utf8'), first);

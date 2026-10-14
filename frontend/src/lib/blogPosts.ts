@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { BLOG_POSTS as FALLBACK_BLOG_POSTS } from '../data/mock.js';
 import { MANUAL_REDIRECTS } from './blogSlugRedirects';
 import { normalizeBlogCategory } from './blogEditorial.mjs';
+import { firstPersonExcerpt } from './blogVoice.mjs';
 
 export type BlogPost = {
   slug: string;
@@ -107,7 +108,7 @@ function markdownPostFromRaw(path: string, raw: string, fallback?: PartialBlogPo
   return {
     slug,
     title,
-    excerpt: String(frontmatter.description || fallback?.excerpt || frontmatter.title || slug),
+    excerpt: firstPersonExcerpt(frontmatter.description || fallback?.excerpt || frontmatter.title || slug, slug),
     category,
     published_at: String(frontmatter.date || fallback?.published_at || ''),
     updated_at: String(frontmatter.updated || frontmatter.date || fallback?.published_at || ''),
@@ -246,7 +247,7 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
   return {
     slug,
     title,
-    excerpt: String(override?.excerpt || post.excerpt || post.description || post.title || post.slug || ''),
+    excerpt: firstPersonExcerpt(override?.excerpt || post.excerpt || post.description || post.title || post.slug || '', slug),
     category,
     published_at,
     image,

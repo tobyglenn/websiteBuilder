@@ -1,4 +1,4 @@
-import { currentSpeedianceStats, garminStats, whoopStats, eightSleepStats } from './fitnessStats';
+import { whoopStats, formatMetric, whoopWindowDescription, currentSpeedianceStats, garminStats, eightSleepStats, eightSleepWindowDescription } from './fitnessStats';
 
 export type GearVerdict = 'Not Recommended' | 'Good' | 'Great' | 'Essential';
 export type GearStatus = 'current' | 'replaced';
@@ -43,7 +43,7 @@ export const gearItems: GearItem[] = [
     shortDescription: 'Quiet cable machine with huge logged volume, but firmware decisions introduced regressions.',
     detailIntro: 'Primary upstairs machine with massive real-world usage.',
     details: [
-      'It is significantly quieter than my original unit and office-friendly. I have logged 1,296,447 lbs of total volume across both Speediance machines with a best single session of 35,305 lbs in 50 minutes.',
+      '`It is significantly quieter than my original unit and office-friendly. My recorded Speediance history shows ${currentSpeedianceStats.totalVolumeLbs.toLocaleString("en-US")} lbs across ${currentSpeedianceStats.totalWorkouts} sessions (${currentSpeedianceStats.dateRange?.start} – ${currentSpeedianceStats.dateRange?.end}). My best single session was 35,305 lbs in 50 minutes.`',
       'Post-V3.1 firmware changes made cable behavior worse for my training style. I have publicly criticized the retraction behavior and app responsiveness issues.',
       'Even with software frustrations, the physical utility for daily heavy cable work is high enough that it remains a core part of my training.'
     ],
@@ -58,7 +58,7 @@ export const gearItems: GearItem[] = [
       'Software changes hurt user trust over time'
     ],
     metrics: [
-      { label: 'Total Volume (Both Machines)', value: '1,296,447 lbs' },
+      { label: 'Recorded Speediance Volume', value: `${currentSpeedianceStats.totalVolumeLbs.toLocaleString("en-US")} lbs` },
       { label: 'Single Session Best Volume', value: '35,305 lbs' },
       { label: 'Single Session Duration', value: '50 minutes' }
     ],
@@ -93,7 +93,7 @@ export const gearItems: GearItem[] = [
       'Same software/firmware limitations as the rest of the ecosystem'
     ],
     metrics: [
-      { label: 'Total Workouts Logged (Both)', value: '88' },
+      { label: 'Recorded Speediance Sessions', value: String(currentSpeedianceStats.totalWorkouts) },
       { label: 'Primary Use', value: 'Downstairs supplementary lifting' }
     ],
     editorialNote: 'No purchase link: judge this older model by its used condition, price, remaining support, and included accessories.',
@@ -136,38 +136,29 @@ export const gearItems: GearItem[] = [
     verdict: 'Essential',
     location: 'On Wrist (24/7)',
     image: '/images/gear/whoop-5.0.jpg',
-    shortDescription: 'Continuous strain, HRV, and recovery anchor. 30-day avg recovery 62% (n=30), HRV 28.0 ms, RHR 72 bpm.',
-    detailIntro: 'My primary 24/7 recovery monitor and strain engine — 1,646 recovery scores on file since Feb 2026.',
+    shortDescription: `Continuous strain, HRV, and recovery anchor. 30-day averages: ${formatMetric(whoopStats.recoveryAvg)}% recovery, ${formatMetric(whoopStats.hrvAvg, 1)} ms HRV, ${formatMetric(whoopStats.rhrAvg)} bpm RHR.`,
+    detailIntro: `My primary recovery monitor and strain tracker — ${whoopStats.totalRecords.toLocaleString('en-US')} recovery records in the bundled history.`,
     details: [
-      'I rely on WHOOP for continuous HRV, resting heart rate, and sleep strain tracking. The most recent 30 days of recovery data show a 62% average (n=30) with HRV 28.0 ms and resting HR 72 bpm.',
-      'Sleep data over the same window averages 7.3h in bed, 6.6h asleep, 2.2h REM, 1.4h deep, and 76% sleep performance. That composition tracks with my long-term pattern (all-time 30.6% green days, 52.2% yellow, 17.2% red across 1,646 recoveries).',
-      '30-day average strain sits at 6.9 with peaks at 14.1. The battery pack mechanism avoids the battery-degradation issues I experienced with other wearables, which is why WHOOP replaced my Oura ring in this slot.',
-      'Data flows directly into my daily readiness model to decide whether to push Speediance volume, scale back, or shift to mobility and BJJ work.'
+      `The shared 30-day snapshot shows ${formatMetric(whoopStats.recoveryAvg)}% recovery, ${formatMetric(whoopStats.hrvAvg, 1)} ms HRV, and ${formatMetric(whoopStats.rhrAvg)} bpm resting heart rate. Window: ${whoopWindowDescription}.`,
+      `Sleep in that same calendar window averages ${formatMetric(whoopStats.asleepHoursAvg, 1)} hours asleep, with ${formatMetric(whoopStats.sleepPerfAvg)}% sleep performance.`,
+      'The battery pack lets me charge without taking the tracker off, which helps me keep a continuous recovery history.',
+      'I use recovery trends alongside how I feel to decide whether to push strength volume, scale back, or leave room for BJJ and running.'
     ],
-    pros: [
-      'Continuous 24/7 monitoring without off-wrist charging downtime',
-      'Consistent HRV and recovery trend modeling (1,600+ days of personal history)',
-      'No battery replacement failure mode like ring form factors',
-      'Strong strain/sleep correlation with subjective readiness'
-    ],
-    cons: [
-      'Subscription model required for ongoing use',
-      'Screenless design requires phone app for real-time checks',
-      'Web experience has degraded over multiple product cycles'
-    ],
+    pros: ['Continuous tracking without off-wrist charging', 'Recovery and strain trends alongside my training logs', 'Strong day-to-day context for recovery decisions'],
+    cons: ['Subscription required', 'Screenless design requires the phone app for checks', 'Web experience has degraded over multiple product cycles'],
     metrics: [
-      { label: '30-Day Avg Recovery', value: '62%' },
-      { label: '30-Day Avg HRV', value: '28.0 ms' },
-      { label: '30-Day Avg RHR', value: '72 bpm' },
-      { label: '30-Day Avg Sleep Performance', value: '76%' },
-      { label: '30-Day Avg Time Asleep', value: '6.6h' },
-      { label: '30-Day Avg REM Sleep', value: '2.2h' },
-      { label: '30-Day Avg Deep Sleep', value: '1.4h' },
-      { label: '30-Day Avg Strain', value: '6.9 (peak 14.1)' },
-      { label: 'All-Time Green Recovery Days', value: '30.6%' },
-      { label: 'Total Recovery Records', value: '1,646 days' }
+      { label: '30-Day Avg Recovery', value: `${formatMetric(whoopStats.recoveryAvg)}%` },
+      { label: '30-Day Avg HRV', value: `${formatMetric(whoopStats.hrvAvg, 1)} ms` },
+      { label: '30-Day Avg RHR', value: `${formatMetric(whoopStats.rhrAvg)} bpm` },
+      { label: '30-Day Avg Sleep Performance', value: `${formatMetric(whoopStats.sleepPerfAvg)}%` },
+      { label: '30-Day Avg Time Asleep', value: `${formatMetric(whoopStats.asleepHoursAvg, 1)}h` },
+      { label: '30-Day Avg REM Sleep', value: `${formatMetric(whoopStats.remHoursAvg, 1)}h` },
+      { label: '30-Day Avg Deep Sleep', value: `${formatMetric(whoopStats.deepHoursAvg, 1)}h` },
+      { label: '30-Day Avg Strain', value: formatMetric(whoopStats.strainAvg, 1) },
+      { label: 'All-Time Green Recovery Days', value: `${formatMetric(whoopStats.allTimeGreenPct, 1)}%` },
+      { label: 'Recovery Records', value: whoopStats.totalRecords.toLocaleString('en-US') }
     ],
-    editorialNote: 'Real data from 1,600+ days of personal use — the live section on this page recomputes on every build.',
+    editorialNote: `All WHOOP figures share one build-time snapshot. ${whoopWindowDescription}.`,
     sortOrder: 4
   },
   {
@@ -196,8 +187,8 @@ export const gearItems: GearItem[] = [
       'Fewer third-party smartwatch app integrations than Apple Watch'
     ],
     metrics: [
-      { label: 'Total Distance (Lifetime)', value: '4,012 mi' },
-      { label: 'Total Run Sessions', value: '1,385' }
+      { label: 'Lifetime Running Distance', value: `${garminStats.totalMiles} mi` },
+      { label: 'Total Run Sessions', value: garminStats.totalRuns.toLocaleString("en-US") }
     ],
     editorialNote: 'Recommendation based on my recorded Garmin training data.',
     sortOrder: 5
@@ -256,10 +247,10 @@ export const gearItems: GearItem[] = [
       'Requires periodic water maintenance and priming'
     ],
     metrics: [
-      { label: 'Recent Avg Sleep Score', value: '69' },
-      { label: 'Recent Avg Sleep Duration', value: '5.8h' }
+      { label: 'Recorded Avg Sleep Score', value: formatMetric(eightSleepStats.avgScore) },
+      { label: 'Recorded Avg Sleep Duration', value: `${formatMetric(eightSleepStats.avgHours, 1)}h` }
     ],
-    editorialNote: 'Recommendation based on my nightly 8Sleep data.',
+    editorialNote: `Recorded 8Sleep sample: ${eightSleepWindowDescription}. These historical observations are separate from current WHOOP readings.`,
     sortOrder: 7
   },
   {
@@ -304,7 +295,7 @@ export const gearItems: GearItem[] = [
     details: [
       'Upgraded from the M1 Mac Mini to the M3 Mac Studio for massive unified memory headroom, faster CPU/GPU cores, and sustained throughput.',
       'Now hosts three concurrent agent stacks: OpenAI Codex, Google Antigravity, and Anthropic Claude (run from the command line).',
-      'Replaced the original OpenClaw-only setup with an integrated agentic developer environment for code generation, project builds, and long-context local tasks.',
+      'Replaced the original single-agent setup with an integrated agentic developer environment for code generation, project builds, and long-context local tasks.',
       'If you are considering an M1 Mac Mini for self-hosted AI today, I would skip it and go straight to an M3 Mac Studio unless your workload is very light.'
     ],
     pros: [
@@ -328,12 +319,12 @@ export const gearItems: GearItem[] = [
     categoryEmoji: '🤖',
     status: 'current',
     verdict: 'Essential',
-    location: 'Local AI Server (192.168.1.6)',
+    location: 'Local AI Server',
     image: '/images/gear/dgx-gx10.jpg',
     shortDescription: 'NVIDIA DGX Spark (a.k.a. GX10) running Hermes local AI models for high-throughput on-prem inferencing and background agent workloads.',
     detailIntro: 'My dedicated on-prem AI server — the GX10 runs Hermes models locally for the heavy background work that the M3 Mac Studio is too small for.',
     details: [
-      'The NVIDIA DGX Spark (codename GX10) lives at 192.168.1.6 and serves as my dedicated local AI compute engine.',
+      'The NVIDIA DGX Spark (codename GX10) serves as my dedicated local AI compute engine.',
       'Powered by Hermes local AI models for ultra-fast inference response times, high context bandwidth, and zero cloud API dependency.',
       'Handles continuous background tasks, automated data processing pipelines, and Hermes tool invocations with high memory throughput.',
       'Reachable from the M3 Mac Studio over SSH — this is the rig that hosts the gear site you are reading right now.'
@@ -347,7 +338,7 @@ export const gearItems: GearItem[] = [
     cons: [
       'Higher power draw during continuous heavy inference batches',
       'Requires dedicated Linux host management and server configuration',
-      'Not portable — lives at 192.168.1.6 in the rack'
+      'Not portable — stays in the rack'
     ],
     editorialNote: 'No commercial relationship. This is the rig that serves this very website.',
     sortOrder: 10

@@ -1,65 +1,12 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { currentGearItems, replacedGearItems } from '../../../data/gearItems';
-import speedianceJson from '../../../data/speediance_dashboard_data.json';
-import garminJson from '../../../data/garmin_all_activities.json';
-import whoopJson from '../../../data/whoop_v2_latest.json';
-import csvRawImport from '../../../data/eight_sleep_historical.csv?raw';
+import siteMetrics from '../../../data/siteMetrics.json';
+import { garminStats, formatMetric, whoopWindowDescription, eightSleepWindowDescription } from '../../../data/fitnessStats';
 
-let speedianceStats = { totalVolume: 0, totalWorkouts: 0 };
-let garminStats = { totalMiles: '0', totalRuns: 0 };
-let avgRecovery = 0, avgHRV = 0, avgRHR = 0;
-let avgSleepScore = 0, avgSleepHours = 0;
-
-try {
-  const speedianceData: any = speedianceJson;
-  speedianceStats = {
-    totalVolume: speedianceData.totalVolumeLbs || 0,
-    totalWorkouts: speedianceData.totalWorkouts || 0,
-  };
-} catch (e) {}
-
-try {
-  const garminActivities: any[] = (garminJson as any).activities || garminJson || [];
-  const totalMiles = garminActivities.reduce((sum: number, a: any) => sum + (a.distance_miles || a.distance || 0), 0);
-  const totalRuns = garminActivities.filter((a: any) => (a.activityType || a.type || '').toLowerCase().includes('run')).length;
-  garminStats = { totalMiles: totalMiles.toFixed(1), totalRuns };
-} catch (e) {}
-
-try {
-  const whoopData: any = whoopJson;
-  const recoveries: any[] = whoopData?.recoveries || whoopData?.data || [];
-  const scores: number[] = [], hrvs: number[] = [], rhrs: number[] = [];
-  for (const d of recoveries.slice(0, 30)) {
-    const score = d.score?.recovery_score ?? d.recovery_score ?? d.score;
-    const hrv = d.score?.hrv_rmssd_milli ?? d.hrv_rmssd_milli;
-    const rhr = d.score?.resting_heart_rate ?? d.resting_heart_rate;
-    if (typeof score === 'number') scores.push(score > 1 ? score : score * 100);
-    if (typeof hrv === 'number') hrvs.push(hrv);
-    if (typeof rhr === 'number') rhrs.push(rhr);
-  }
-  if (scores.length) avgRecovery = scores.reduce((a, b) => a + b, 0) / scores.length;
-  if (hrvs.length) avgHRV = hrvs.reduce((a, b) => a + b, 0) / hrvs.length;
-  if (rhrs.length) avgRHR = rhrs.reduce((a, b) => a + b, 0) / rhrs.length;
-} catch (e) {}
-
-try {
-  const csvRaw = csvRawImport;
-  let records: any[] = [];
-  try { records = JSON.parse(csvRaw); } catch {
-    const lines = csvRaw.trim().split('\n');
-    const headers = lines[0].split(',').map(h => h.trim());
-    records = lines.slice(1).map(line => {
-      const vals = line.split(',');
-      return Object.fromEntries(headers.map((h, i) => [h, vals[i]?.trim()]));
-    });
-  }
-  const recent = records.slice(0, 30);
-  const scores = recent.map(r => parseFloat(r.sleep_score || r.score || '0')).filter(n => !isNaN(n));
-  const hours = recent.map(r => parseFloat(r.time_slept_hours || r.hours || '0')).filter(n => !isNaN(n));
-  if (scores.length) avgSleepScore = scores.reduce((a, b) => a + b, 0) / scores.length;
-  if (hours.length) avgSleepHours = hours.reduce((a, b) => a + b, 0) / hours.length;
-} catch (e) {}
+const speedianceStats = { totalVolume: siteMetrics.strength.totalVolumeLbs, totalWorkouts: siteMetrics.strength.totalWorkouts };
+const avgRecovery = siteMetrics.whoop.recoveryAvg, avgHRV = siteMetrics.whoop.hrvAvg, avgRHR = siteMetrics.whoop.rhrAvg;
+const avgSleepScore = siteMetrics.eightSleep.avgScore, avgSleepHours = siteMetrics.eightSleep.avgHours;
 
 const gearJsonLd = {
   '@context': 'https://schema.org',
@@ -155,19 +102,19 @@ const verdictClasses: Record<string, string> = {
             <p class="text-sm text-neutral-400 mb-6">Kontinuierliches Gesundheitsmonitoring mit Erholungstracking.</p>
             <div class="grid grid-cols-3 gap-3">
               <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgRecovery.toFixed(0)}</div>
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{formatMetric(avgRecovery, 0)}</div>
                 <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Ø Erholung</div>
               </div>
               <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgHRV.toFixed(1)}</div>
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{formatMetric(avgHRV, 1)}</div>
                 <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">HRV (ms)</div>
               </div>
               <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                <div class="text-xl md:text-2xl font-bold text-cyan-400">{avgRHR.toFixed(0)}</div>
+                <div class="text-xl md:text-2xl font-bold text-cyan-400">{formatMetric(avgRHR, 0)}</div>
                 <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">RHF (bpm)</div>
               </div>
             </div>
-            <p class="text-xs text-neutral-500 mt-3">30-Tage-Durchschnitte</p>
+            <p class="text-xs text-neutral-500 mt-3">WHOOP: {whoopWindowDescription}</p>
           </div>
 
           <div class="group rounded-2xl border border-neutral-800 bg-neutral-900/60 hover:border-cyan-500/40 hover:bg-neutral-900 transition-all p-6 md:p-8">
@@ -179,15 +126,15 @@ const verdictClasses: Record<string, string> = {
             <p class="text-sm text-neutral-400 mb-6">Smart-Matratze mit Temperatursteuerung und Schlaftracking.</p>
             <div class="grid grid-cols-2 gap-4">
               <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
-                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{avgSleepScore.toFixed(0)}</div>
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{formatMetric(avgSleepScore)}</div>
                 <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Ø Schlafwert</div>
               </div>
               <div class="bg-neutral-950 rounded-lg p-4 border border-neutral-800">
-                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{avgSleepHours.toFixed(1)}</div>
+                <div class="text-2xl md:text-3xl font-bold text-cyan-400">{formatMetric(avgSleepHours, 1)}</div>
                 <div class="text-xs text-neutral-500 uppercase tracking-wide mt-1">Ø Stunden</div>
               </div>
             </div>
-            <p class="text-xs text-neutral-500 mt-3">30-Tage-Durchschnitte</p>
+            <p class="text-xs text-neutral-500 mt-3">8Sleep: {eightSleepWindowDescription}</p>
           </div>
         </div>
       </div>

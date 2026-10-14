@@ -1,8 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { weightData, getStats, formatWeight } from '../data/weight.js';
-import { getRunningData } from '../data/running.js';
-const runningData = getRunningData();
+import siteMetrics from '../data/siteMetrics.json';
+import trainingPlan from '../data/trainingPlan.json';
+const runningData = siteMetrics.running;
 const allRunningStats = runningData.stats;
 const preRunningStats = runningData.preStats;
 const postRunningStats = runningData.postStats;
@@ -10,16 +11,16 @@ import homepageFitnessData from '../data/homepageFitnessData.json';
 
 const siteUrl = "https://tobyonfitnesstech.com";
 const beltcheckerUrl = "https://www.beltchecker.com/profile.php?id=11297";
-const totalLbsLifted = Number(homepageFitnessData.lifetimeStats?.totalLbsLifted || 0);
+const totalLbsLifted = Number(siteMetrics.lifetimeStats?.totalLbsLifted || 0);
 const totalLbsLiftedFormatted = totalLbsLifted.toLocaleString('en-US');
 const totalLbsLiftedCompact = totalLbsLifted >= 1000000
   ? `${(totalLbsLifted / 1000000).toFixed(1)}M+`
   : `${Math.round(totalLbsLifted / 1000)}K+`;
-const strengthSessions = Number(homepageFitnessData.lifetimeStats?.sourceBreakdown?.strengthSessions || 0);
+const strengthSessions = Number(siteMetrics.lifetimeStats?.sourceBreakdown?.strengthSessions || 0);
 const strengthSessionsFormatted = strengthSessions.toLocaleString('en-US');
 
 // Weight chart
-const weightStats = getStats();
+const weightStats = siteMetrics.weight;
 const currentWeightDisplay = formatWeight(weightStats.current);
 const currentWeightRoundedDisplay = Math.round(weightStats.current).toLocaleString('en-US');
 const latestWeightDate = new Date(`${weightStats.currentDate}T12:00:00Z`).toLocaleDateString('en-US', {
@@ -224,7 +225,7 @@ const profilePageSchema = {
               I decided to engineer a smarter solution.
             </p>
             <p>
-              I chose to to be a computer programmer. I went deep on the data: WHOOP recovery scores, Garmin activity tracking, 8Sleep sleep quality, and meticulous calorie logging via Cronometer.
+              I chose to be a computer programmer. I went deep on the data: WHOOP recovery scores, Garmin activity tracking, 8Sleep sleep quality, and meticulous calorie logging via Cronometer.
               Every variable that I could control, I controlled. Every variable I could, I measured.
             </p>
             <p>
@@ -443,7 +444,7 @@ const profilePageSchema = {
             </p>
             <p>
               Every training decision now runs through the stack: WHOOP gives me a recovery score each morning,
-              8Sleep tells me how the night actually went, and the AI assistant I built on <strong class="text-white">OpenClaw</strong> reads all of it —
+              8Sleep tells me how the night actually went, and the AI reporting workflow I built reads all of it —
               Garmin activity, sleep data, HRV trends — and generates a daily readiness recommendation before I decide whether to push or pull back.
               The system makes the decisions defensible. No guessing, no going on feel when the data says otherwise.
             </p>
@@ -525,7 +526,7 @@ const profilePageSchema = {
           <div class="space-y-4">
             <h3 class="text-xl font-bold text-white">Data & Automation</h3>
             <p class="text-neutral-400">
-              From Whoop recovery scores to building my own AI assistant (OpenClaw) to manage my schedule and training.
+              From Whoop recovery scores to building my own AI reporting workflow to manage my schedule and training.
               If it can be measured and automated, I'm interested.
             </p>
           </div>
@@ -556,100 +557,11 @@ const profilePageSchema = {
                 <h3 class="text-xl font-bold text-white mb-2">BJJ + Lifting + Running = The Stack</h3>
                 <p class="text-neutral-400">
                   I don't choose between them — I do all three. BJJ 3-4x/week keeps my grappling sharp and provides cardio.
-                  Speediance lifting 4x/week builds muscle and strength. Running 2-3x/week maintains cardiovascular base.
+                  Speediance lifting {trainingPlan.liftingSessions}x/week builds muscle and strength. Running 2-3x/week maintains cardiovascular base.
                   The key is not doing too much of any one: 10 hours total training/week is my ceiling before recovery suffers.
                 </p>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Running Stats Section */}
-    <section class="py-16 border-t border-neutral-900">
-      <div class="container mx-auto px-4">
-        <div class="max-w-5xl mx-auto">
-          <div class="text-center mb-10">
-            <span class="text-blue-500 font-bold uppercase tracking-widest text-sm mb-2 block">The Miles</span>
-            <h2 class="text-3xl md:text-4xl font-bold text-white">Running Log — Pre vs. Post Transformation</h2>
-            <p class="text-neutral-400 mt-3 max-w-xl mx-auto">I didn't run during the 54 lb weight loss cut. Running was rebuilt post-transformation — adding {postRunningStats.totalDistMi} miles onto a 3,808 mile lifetime foundation.</p>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            {/* Post Transformation Breakdown */}
-            <div class="bg-neutral-900 border border-blue-500/30 rounded-xl p-6">
-              <h3 class="text-lg font-bold text-blue-400 mb-4 flex items-center justify-between">
-                <span>Post-Transformation (Rebuild)</span>
-                <span class="text-xs bg-blue-950 text-blue-300 font-semibold px-2.5 py-1 rounded-full">Jan 2024 – Present</span>
-              </h3>
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-white">{postRunningStats.totalDistMi}</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Miles</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-white">{postRunningStats.totalRuns}</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Runs</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-white">{postRunningStats.totalHrs}h</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Hours</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-white">{postRunningStats.avgPace}</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Avg Pace</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-white">{postRunningStats.longestMi} mi</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Longest</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-white">76.8 mi</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Peak Month</div>
-                </div>
-              </div>
-            </div>
-
-            {/* Pre Transformation Breakdown */}
-            <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-6">
-              <h3 class="text-lg font-bold text-neutral-300 mb-4 flex items-center justify-between">
-                <span>Pre-Transformation</span>
-                <span class="text-xs bg-neutral-800 text-neutral-400 font-semibold px-2.5 py-1 rounded-full">2017 – Jan 2024</span>
-              </h3>
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.totalDistMi.toLocaleString('en-US')}</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Miles</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.totalRuns.toLocaleString('en-US')}</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Runs</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.totalHrs}h</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Hours</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.avgPace}</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Avg Pace</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-neutral-200">{preRunningStats.longestMi} mi</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Longest</div>
-                </div>
-                <div class="bg-neutral-950 rounded-lg p-3 border border-neutral-800">
-                  <div class="text-2xl font-black text-neutral-200">155.2 mi</div>
-                  <div class="text-[10px] text-neutral-400 uppercase">Peak Month</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <a href="/running/" class="inline-flex items-center gap-2 text-blue-500 hover:text-blue-400 font-semibold transition-colors text-sm">
-              See Full Running Dashboard →
-            </a>
           </div>
         </div>
       </div>
@@ -670,7 +582,7 @@ const profilePageSchema = {
             Competition has been a compass. At brown belt I earned third place at a regional tournament with a reverse triangle finish that reminded me grit beats perfection. That finish is logged in detail in my <a href="/video/HcA7f7V1kKk/" class="text-blue-500 hover:text-cyan-400 font-semibold">reverse-triangle tournament video</a>, and the lessons from that scramble still shape how I stack strength work with rolling.
           </p>
           <p class="text-neutral-300 text-base md:text-lg mb-4">
-            The mat never stops teaching me. For more context on how I pair this journey with broader BJJ commentary, read the <a href="/blog/mike-israetel-bjj-black-belt-defence/" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science take on belt culture</a> or trace how my OpenClaw BJJ buddy project ties training data into every report (<a href="/blog/openclaw-automation/" class="text-blue-500 hover:text-cyan-400 font-semibold">BJJ automation build log</a>).
+            The mat never stops teaching me. For more context on how I pair this journey with broader BJJ commentary, read the <a href="/blog/mike-israetel-bjj-black-belt-defence/" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science take on belt culture</a> or trace how my BJJ Buddy automation project ties training data into every report (<a href="/blog/openclaw-automation/" class="text-blue-500 hover:text-cyan-400 font-semibold">BJJ automation build log</a>).
           </p>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8">
@@ -726,7 +638,7 @@ const profilePageSchema = {
           </div>
 
           <p class="text-neutral-500 text-sm mt-6 text-center">
-            Dive deeper into the journey with the <a href="/blog/mike-israetel-bjj-black-belt-defence/" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science belt debate</a> or the <a href="/blog/openclaw-automation/" class="text-blue-500 hover:text-cyan-400 font-semibold">OpenClaw BJJ automation build log</a>.
+            Dive deeper into the journey with the <a href="/blog/mike-israetel-bjj-black-belt-defence/" class="text-blue-500 hover:text-cyan-400 font-semibold">Mat Science belt debate</a> or the <a href="/blog/openclaw-automation/" class="text-blue-500 hover:text-cyan-400 font-semibold">BJJ automation build log</a>.
           </p>
         </div>
       </div>
@@ -741,23 +653,23 @@ const profilePageSchema = {
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
               <img
                 src="/images/about/fishing.jpg"
-                alt="Fishing landscape: rod on river bank, scenic, no people"
+                alt="Fishing by the river"
                 class="w-full object-contain aspect-video bg-neutral-950"
                 loading="lazy"
               />
               <div class="p-4">
-                <p class="text-center text-neutral-300">Fishing landscape: rod on river bank, scenic, no people</p>
+                <p class="text-center text-neutral-300">Fishing by the river</p>
               </div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl overflow-hidden">
               <img
                 src="/images/about/selfie_dbz.jpg"
-                alt="Solo selfie: Dragon Ball Z shirt, smiling, outdoor with painted rabbit sculpture"
+                alt="Outside in my Dragon Ball Z shirt, next to a painted rabbit sculpture"
                 class="w-full object-contain aspect-video bg-neutral-950"
                 loading="lazy"
               />
               <div class="p-4">
-                <p class="text-center text-neutral-300">Solo selfie: Dragon Ball Z shirt, smiling, outdoor with painted rabbit sculpture</p>
+                <p class="text-center text-neutral-300">Outside in my Dragon Ball Z shirt, next to a painted rabbit sculpture</p>
               </div>
             </div>
           </div>
@@ -785,78 +697,9 @@ const profilePageSchema = {
               <div class="text-xs text-neutral-600 mt-2">54 lbs lost while BJJ complicated the cut</div>
             </div>
             <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 text-center">
-              <div class="text-4xl font-bold text-white mb-2">{currentWeightRoundedDisplay} lbs</div>
+              <div class="text-4xl font-bold text-white mb-2">{currentWeightDisplay} lbs</div>
               <div class="text-sm text-neutral-400 uppercase tracking-wider">Latest Measured (2026)</div>
               <div class="text-xs text-neutral-600 mt-2">Measured on {latestWeightDate}</div>
-            </div>
-          </div>
-
-          {/* Belt Progression Timeline */}
-          <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-8 mb-10">
-            <h3 class="text-xl font-bold text-white mb-6 text-center">Belt Progression Timeline</h3>
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
-              {/* White Belt */}
-              <div class="flex flex-col items-center flex-1">
-                <div class="w-16 h-16 rounded-full bg-white border-4 border-neutral-300 flex items-center justify-center mb-3">
-                  <span class="text-neutral-800 font-bold text-xs">WHT</span>
-                </div>
-                <div class="text-center">
-                  <div class="text-white font-bold">White Belt</div>
-                  <div class="text-neutral-500 text-sm">Started BJJ</div>
-                  <div class="text-blue-400 text-xs mt-1">Apr 4, 2017</div>
-                </div>
-              </div>
-
-              {/* Arrow */}
-              <div class="hidden md:block text-neutral-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </div>
-
-              {/* Blue Belt */}
-              <div class="flex flex-col items-center flex-1">
-                <div class="w-16 h-16 rounded-full bg-blue-600 border-4 border-blue-400 flex items-center justify-center mb-3">
-                  <span class="text-white font-bold text-xs">BLU</span>
-                </div>
-                <div class="text-center">
-                  <div class="text-white font-bold">Blue Belt</div>
-                  <div class="text-neutral-500 text-sm">Promoted at seminar</div>
-                  <div class="text-blue-400 text-xs mt-1">Sep 22, 2019</div>
-                </div>
-              </div>
-
-              {/* Arrow */}
-              <div class="hidden md:block text-neutral-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </div>
-
-              {/* Purple Belt */}
-              <div class="flex flex-col items-center flex-1">
-                <div class="w-16 h-16 rounded-full bg-purple-600 border-4 border-purple-400 flex items-center justify-center mb-3">
-                  <span class="text-white font-bold text-xs">PRP</span>
-                </div>
-                <div class="text-center">
-                  <div class="text-white font-bold">Purple Belt</div>
-                  <div class="text-neutral-500 text-sm">The Factory Dillsburg</div>
-                  <div class="text-blue-400 text-xs mt-1">Dec 7, 2020</div>
-                </div>
-              </div>
-
-              {/* Arrow */}
-              <div class="hidden md:block text-neutral-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </div>
-
-              {/* Brown Belt */}
-              <div class="flex flex-col items-center flex-1">
-                <div class="w-16 h-16 rounded-full bg-amber-700 border-4 border-amber-500 flex items-center justify-center mb-3">
-                  <span class="text-white font-bold text-xs">BRN</span>
-                </div>
-                <div class="text-center">
-                  <div class="text-white font-bold">Brown Belt</div>
-                  <div class="text-neutral-500 text-sm">Current rank</div>
-                  <div class="text-blue-400 text-xs mt-1">Apr 9, 2024-Present</div>
-                </div>
-              </div>
             </div>
           </div>
 

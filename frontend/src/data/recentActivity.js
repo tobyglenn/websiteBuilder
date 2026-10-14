@@ -1,3 +1,4 @@
+import { cleanWorkoutTitle } from '../lib/fitnessMetrics.mjs';
 import garminRaw from './garmin_all_activities.json';
 import speedianceRaw from './speediance_dashboard_data.json';
 
@@ -81,7 +82,7 @@ export function getRecentActivity() {
       type: 'workout',
       date: formatDate(dateObj),
       dateValue: dateObj,
-      title: session.title || 'Strength workout',
+      title: cleanWorkoutTitle(session.title),
       subtitle: `${formatDuration(duration)} • ${new Intl.NumberFormat('en-US').format(Math.round(volume))} lbs`,
     });
   });

@@ -1,6 +1,6 @@
-import homepageFitnessData from './homepageFitnessData.json';
+import siteMetrics from './siteMetrics.json';
 
-export const lifetimeStats = homepageFitnessData.lifetimeStats || {
+export const lifetimeStats = siteMetrics.lifetimeStats || {
   totalLbsLifted: 0,
   totalMilesRun: 0,
   totalWorkouts: 0,
