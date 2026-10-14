@@ -1,4 +1,4 @@
-import { readdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, join } from 'node:path';
 const dist = resolve(process.argv[2] || 'dist');
 const output = resolve(process.argv[3] || 'seo-redirects.csv');
@@ -55,6 +55,21 @@ for (const path of malformed) {
   const target = path.match(/^(\/(?:de\/|es\/|pt\/|hi\/)?podcasts\/episode-\d+\/)/)?.[1];
   if (!target) throw new Error(`Invalid malformed-path mapping: ${path}`);
   alias(path, target);
+}
+// Read redirect stubs from the actual build to include automatic and manual aliases.
+for (const locale of ['', ...locales]) {
+  const prefix = locale ? `/${locale}` : '';
+  const directory = join(dist, prefix, 'blog');
+  for (const entry of readdirSync(directory, {withFileTypes:true})) {
+    if (!entry.isDirectory()) continue;
+    const htmlPath = join(directory, entry.name, 'index.html');
+    if (!existsSync(htmlPath)) continue;
+    const html = readFileSync(htmlPath, 'utf8');
+    if (!/http-equiv=["']refresh["']/i.test(html)) continue;
+    const canonical = html.match(/<link[^>]*rel=["']canonical["'][^>]*href=["']([^"']+)/i)?.[1];
+    if (!canonical || new URL(canonical).origin !== origin) throw new Error(`Invalid blog redirect: ${htmlPath}`);
+    alias(`${prefix}/blog/${entry.name}/`, new URL(canonical).pathname);
+  }
 }
 for (const [path, target] of aliases) {
   const variants = new Set([path]);

@@ -1,5 +1,6 @@
 ---
 import Layout from './Layout.astro';
+import { normalizeBlogCategory } from '../lib/blogEditorial.mjs';
 import ShareButtons from '../components/ShareButtons.jsx';
 import PriorityEntryPath from '../components/PriorityEntryPath.astro';
 import TopicNextSteps from '../components/TopicNextSteps.astro';
@@ -19,7 +20,7 @@ const post = {
   author: String(frontmatter?.author || 'Toby Glenn Peters'),
 };
 
-const category = String(post.categories[0] || 'Analysis');
+const category = normalizeBlogCategory(String(post.categories[0] || 'Analysis'), {title:post.title, tags:post.tags});
 const topicContext = [post.title, category, ...post.tags].join(' ');
 const translationSlug = Astro.url.pathname.split('/').filter(Boolean).at(-1) || '';
 const rawBody = typeof Astro.props.rawContent === 'function'
@@ -99,6 +100,7 @@ function formatPostDate(value = '') {
     <div class="container mx-auto px-4 py-12 max-w-3xl">
       <PriorityEntryPath
         context={topicContext}
+        category={category}
         sourceType="blog"
         sourceSlug={Astro.url.pathname}
       />
@@ -123,6 +125,7 @@ function formatPostDate(value = '') {
 
       <TopicNextSteps
         context={topicContext}
+        category={category}
         sourceType="blog"
         sourceSlug={Astro.url.pathname}
       />

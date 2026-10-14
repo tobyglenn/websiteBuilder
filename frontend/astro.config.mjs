@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 
+const blogRedirects = JSON.parse(readFileSync(new URL('./src/data/blog-redirects.json', import.meta.url), 'utf8'));
 const SITE_URL = 'https://tobyonfitnesstech.com';
 
 const EXCLUDED_SITEMAP_PATHS = [
@@ -22,6 +23,8 @@ const EXCLUDED_SITEMAP_PATHS = [
 
 const shouldIncludeInSitemap = (page) => {
   const pathname = new URL(page).pathname;
+  const blogSlug = pathname.match(/^\/(?:de\/|es\/|pt\/|hi\/)?blog\/([^/]+)\/$/)?.[1];
+  if (blogSlug && blogRedirects[blogSlug]) return false;
   if (pathname === '/speediance/workouts/' && process.env.PUBLIC_WORKOUT_HUB_ENABLED !== 'true') {
     return false;
   }

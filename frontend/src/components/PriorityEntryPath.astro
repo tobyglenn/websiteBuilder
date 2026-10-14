@@ -1,19 +1,22 @@
 ---
+import { articleTopic } from '../lib/blogEditorial.mjs';
 import { ArrowRight, Cpu, Dumbbell, FileText, Watch } from 'lucide-react';
 
 interface Props {
   context?: string;
+  category?: string;
   sourceType?: string;
   sourceSlug?: string;
 }
 
 const {
   context = '',
+  category = '',
   sourceType = 'content',
   sourceSlug = Astro.url.pathname,
 } = Astro.props;
 
-const haystack = `${Astro.url.pathname} ${context}`.toLowerCase();
+const topic = articleTopic({category, title:context, slug:Astro.url.pathname});
 const isAnthropicRefundArticle = /\/blog\/anthropic-refund-scam\/?$/.test(sourceSlug)
   || /\/blog\/anthropic-refund-scam\/?$/.test(Astro.url.pathname);
 
@@ -26,7 +29,9 @@ const route = isAnthropicRefundArticle
       label: 'Open evidence checklist',
       icon: FileText,
     }
-  : /speediance|tonal|gym monster|smart gym|voltra|aeke/.test(haystack)
+  : topic === 'bjj'
+  ? {eyebrow:'Training on the mat?', title:'Connect this article to my BJJ training log', description:'See the training context, techniques and BJJ Buddy project behind these articles.', href:'/bjj/', label:'Explore my BJJ training', icon:Dumbbell}
+  : topic === 'gym'
   ? {
       eyebrow: 'Comparing smart gyms?',
       title: 'Start with Gym Monster 1 vs 2 vs 2S',
@@ -35,7 +40,7 @@ const route = isAnthropicRefundArticle
       label: 'Open the model comparison',
       icon: Dumbbell,
     }
-  : /whoop|oura|garmin|wearable|recovery|sleep|hrv/.test(haystack)
+  : topic === 'wearables'
     ? {
         eyebrow: 'Choosing a wearable?',
         title: 'Compare WHOOP 5, WHOOP 4.0, Oura, and Garmin',
@@ -44,7 +49,7 @@ const route = isAnthropicRefundArticle
         label: 'Open the wearable comparison',
         icon: Watch,
       }
-    : /openclaw|agentstack|agent stack|claude|anthropic|local ai|ai fitness/.test(haystack)
+    : topic === 'ai'
       ? {
           eyebrow: 'Following the AI work?',
           title: 'Start with the AgentStack and OpenClaw pillar',

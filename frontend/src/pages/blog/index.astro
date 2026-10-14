@@ -1,4 +1,5 @@
 ---
+import { BLOG_CATEGORIES } from '../../lib/blogEditorial.mjs';
 import Layout from '../../layouts/Layout.astro';
 import { LISTING_BLOG_POSTS } from '../../lib/blogPosts';
 
@@ -64,15 +65,7 @@ const siteUrl = "https://tobyonfitnesstech.com";
 
 // Read category from URL and set activeCategory
 const urlCategory = Astro.url.searchParams.get('category');
-const CATEGORY_OPTIONS = [
-  'All',
-  'Speediance',
-  'BJJ',
-  'Wearables',
-  'Training',
-  'Field Reports',
-  'The Long Game',
-];
+const CATEGORY_OPTIONS = ['All', ...BLOG_CATEGORIES];
 const activeCategory = CATEGORY_OPTIONS.includes(String(urlCategory || ''))
   ? String(urlCategory)
   : 'All';
@@ -437,6 +430,7 @@ const description = "Independent reviews, training data and buying advice.";
   </div>
 
   <script>
+    import { BLOG_CATEGORIES, normalizeBlogCategory } from '../../lib/blogEditorial.mjs';
     function updateCategoryUrl(category) {
       const nextCategory = categories.includes(category) ? category : 'All';
       const nextUrl = nextCategory === 'All'
@@ -511,11 +505,12 @@ const description = "Independent reviews, training data and buying advice.";
       gridSection.insertAdjacentHTML('afterend', noResultsHtml);
     }
 
-    const categories = ['All', 'Speediance', 'BJJ', 'Wearables', 'Training', 'Field Reports', 'The Long Game'];
+    const categories = ['All', ...BLOG_CATEGORIES];
     const initialUrl = new URL(window.location.href);
     const hashCategory = decodeURIComponent(initialUrl.hash.replace(/^#/, ''));
     const legacyCategory = initialUrl.searchParams.get('category');
-    const initialCategory = categories.includes(hashCategory) ? hashCategory : legacyCategory;
+    const selectedCategory = hashCategory || legacyCategory;
+    const initialCategory = selectedCategory && selectedCategory !== 'All' ? normalizeBlogCategory(selectedCategory) : 'All';
     let activeCategory = categories.includes(initialCategory) ? initialCategory : 'All';
 
     if (legacyCategory) {

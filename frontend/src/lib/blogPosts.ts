@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 import { BLOG_POSTS as FALLBACK_BLOG_POSTS } from '../data/mock.js';
 import { MANUAL_REDIRECTS } from './blogSlugRedirects';
+import { normalizeBlogCategory } from './blogEditorial.mjs';
 
 export type BlogPost = {
   slug: string;
@@ -100,7 +101,7 @@ function markdownPostFromRaw(path: string, raw: string, fallback?: PartialBlogPo
   const categories = Array.isArray(frontmatter.categories) ? frontmatter.categories : [];
   const tags = Array.isArray(frontmatter.tags) ? frontmatter.tags : [];
   const title = String(frontmatter.title || fallback?.title || slug);
-  const category = String(categories[0] || fallback?.category || 'Analysis');
+  const category = normalizeBlogCategory(String(categories[0] || fallback?.category || 'Analysis'), {title, slug});
 
   return {
     slug,
@@ -237,7 +238,7 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
   const slug = String(post.slug || '');
   const override = SEO_OVERRIDES[slug];
   const title = String(override?.title || post.title || post.slug || '');
-  const category = String(post.category || 'Analysis');
+  const category = normalizeBlogCategory(String(post.category || 'Analysis'), {title, slug, tags});
   const image = resolveCoverImage(String(post.image || post.thumbnail || ''), slug, title, category);
 
   return {
