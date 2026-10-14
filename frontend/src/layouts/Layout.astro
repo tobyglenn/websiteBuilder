@@ -1,4 +1,6 @@
 ---
+import { resolve } from 'node:path';
+import { staticTranslationRoutes } from '../lib/staticTranslationRoutes.mjs';
 import { podcastTranslationLocales } from '../lib/podcastLocales';
 import { personSocialUrls, organizationSocialUrls } from '../data/socialProfiles.js';
 import '../styles/global.css';
@@ -258,9 +260,13 @@ if (countChars(seoTitle) < MIN_TITLE_LENGTH) {
 seoTitle = trimTitleForSerp(seoTitle, MAX_TITLE_LENGTH);
 
 // Build hreflang links — only for pages with actual translated versions
+const staticBase = normalizedPathname.endsWith('/') ? normalizedPathname : `${normalizedPathname}/`;
+const staticLocales = staticTranslationRoutes(resolve('src/pages')).get(staticBase);
 let hreflangBase: string | null = null;
 if (translationBase) {
   hreflangBase = translationBase;
+} else if (staticLocales) {
+  hreflangBase = staticBase;
 } else if (/^\/(?:compare|games(?:\/journal(?:\/[^/]+)?)?|projects(?:\/(?:wild-rebellion|monstrum-world|ironvane-chronicle|lilly))?)\/?$/.test(normalizedPathname)) {
   hreflangBase = normalizedPathname.endsWith('/') ? normalizedPathname : `${normalizedPathname}/`;
 } else if (episodeSlug) {
@@ -274,7 +280,7 @@ if (translationBase) {
   hreflangBase = candidateBase.endsWith('/') ? candidateBase : `${candidateBase}/`;
 }
 const podcastSlug = hreflangBase?.match(/^\/podcasts\/(episode-\d+)\/$/)?.[1];
-const alternateLocales = translationLocales || (podcastSlug ? await podcastTranslationLocales(podcastSlug) : locales);
+const alternateLocales = translationLocales || staticLocales || (podcastSlug ? await podcastTranslationLocales(podcastSlug) : locales);
 const hreflangLinks = hreflangBase && !noindex ? alternateLocales.map((locale) => ({
   lang: locale,
   href: locale === 'en' ? `${siteUrl}${hreflangBase}` : `${siteUrl}/${locale}${hreflangBase}`,

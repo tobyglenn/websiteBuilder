@@ -109,19 +109,19 @@ Search Console reports lag behind live fixes. Check a reported URL with `curl -I
 
 Astro generates the sitemap index during the production build. Blog `lastmod` dates and sitemap exclusions are configured in `frontend/astro.config.mjs`.
 
-Cloudflare managed redirects for legacy podcast, locale, feed, and malformed transcript URLs are defined by:
+Cloudflare exact bulk redirects are generated from the built sitemap and reviewed legacy aliases:
 
 ```bash
 cd /home/toby/.openclaw/workspace/websiteBuilder/frontend
-npm run cloudflare:redirect:podcast-transcripts
+npm run build
+npm run export:seo-redirects -- dist /tmp/toft-seo-redirects.csv
 ```
 
-That command requires the Cloudflare API token and zone configuration in the DGX environment. Test representative redirects after any rule change:
+Import into the existing account bulk list `toft_seo_canonical_20261014` (ID `d9de02915d1f452ba2785f08fcc4d933`) and retain its enabled rule. Review differences before replacing entries. The list is a snapshot: regenerate it when sitemap routes change. The compatibility `cloudflare:redirect:podcast-transcripts` command now exports this safe CSV; it no longer installs the old broad zone rules.
 
-```bash
-curl -I https://tobyonfitnesstech.com/podcasts/hi/
-curl -I https://tobyonfitnesstech.com/blog/rss.xml
-```
+The CSV normalizes known sitemap routes (www and missing slash), preserves query strings, and uses exact legacy replacements. Localized TOFT aliases go to the same English episode when no translation exists. Reversed language directories go to the corresponding localized index. Malformed transcript suffixes go to their actual localized episode. It does not redirect arbitrary 404s to the homepage or change feeds/assets with a blanket slash rule. GitHub Pages already supplies one-hop HTTP-to-HTTPS for canonical slash URLs.
+
+After importing, test GET requests with redirects followed, including HTTP/www/missing-slash combinations, query filters, a localized alias, and a genuine unknown 404. `npm run audit:hreflang` checks all built sitemap pages for language identity, self annotations and reciprocal HTML links, in addition to the existing indexability audit.
 
 ## Daily Blog Publishing
 
