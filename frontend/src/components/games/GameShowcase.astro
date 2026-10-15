@@ -9,38 +9,86 @@ const stories = storiesFor(game.slug);
 const releases = releasesFor(game.slug);
 const videos = mediaFor(game.mediaIds);
 const latest = releases[0];
-const schema = {'@context':'https://schema.org','@type':'VideoGame',name:game.title,description:game.summary,url:`https://tobyonfitnesstech.com${gameHref(game)}`,image:`https://tobyonfitnesstech.com${game.hero.src}`,gamePlatform:'Roblox',sameAs:playHref(game)};
+const isWild = game.slug === 'wild-rebellion';
+const supportEmail = game.supportEmail;
+const supportHref = supportEmail ? `mailto:${supportEmail}?subject=${encodeURIComponent(`${game.shortTitle || game.title} — support`)}&body=${encodeURIComponent(`Game: ${game.title}\nDevice / platform:\nWhat happened:\nSteps to reproduce:\n`)}` : undefined;
+const schema = {
+  '@context': 'https://schema.org', '@type': 'VideoGame', name: game.title,
+  description: game.summary, url: `https://tobyonfitnesstech.com${gameHref(game)}`,
+  image: `https://tobyonfitnesstech.com${game.hero.src}`, gamePlatform: 'Roblox', sameAs: playHref(game),
+};
 ---
-<Layout title={`${game.title} — Play, Watch & Follow the Build | Toby on Fitness Tech`} description={game.summary} image={game.hero.src} jsonLd={schema} breadcrumbs={[{name:'Home',url:'/'},{name:'Games',url:'/games/'},{name:game.title,url:gameHref(game)}]}>
-<div class:list={['game-world',game.accent]} data-pagefind-body data-pagefind-filter="type:Games" data-game-showcase={game.slug}>
-<div class="gw-wrap">
-  <div class="gw-top"><a href="/games/">← Our Roblox worlds</a><a href="/games/journal/">The development journal ↗</a></div>
-  <header data-page-intro class="gw-hero">
-    <div><p class="gw-eyebrow">{game.eyebrow}</p><h1 data-page-title>{game.title}</h1><p class="gw-lead">{game.summary}</p>
-      <div class="gw-actions"><a class="gw-button primary" href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug} data-analytics-content-title={game.title}>Play on Roblox ↗</a><a class="gw-button" href="#watch">Watch {game.slug === 'monstrum-world' ? 'the trailer' : 'the game'} ↓</a></div>
+<Layout title={`${game.title} — Play, Watch & Get Help | Toby on Fitness Tech`} description={game.summary} image={game.hero.src} jsonLd={schema} breadcrumbs={[{name:'Home',url:'/'},{name:'Games',url:'/games/'},{name:game.title,url:gameHref(game)}]}>
+  <div class:list={['game-world', 'gw-showcase', game.accent]} data-pagefind-body data-pagefind-filter="type:Games" data-game-showcase={game.slug}>
+    <div class="gw-wrap">
+      <div class="gw-top"><a href="/games/">← Explore our games</a>{supportEmail && <a href="#support">Game support ↗</a>}</div>
+      <header data-page-intro class="gw-hero">
+        <div class="gw-hero-copy">
+          <p class="gw-eyebrow">{game.eyebrow}</p>
+          <h1 data-page-title>{game.shortTitle || game.title}</h1>
+          {game.shortTitle && <p class="gw-subtitle">Battle Academy</p>}
+          <p class="gw-lead">{game.summary}</p>
+          <div class="gw-actions">
+            <a class="gw-button primary" href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug} data-analytics-content-title={game.title}>Play on Roblox <span aria-hidden="true">↗</span></a>
+            <a class="gw-button" href="#watch">Watch {isWild ? 'the game' : 'the trailer'} <span aria-hidden="true">↓</span></a>
+          </div>
+          <p class="gw-hero-note">{isWild ? 'Original characters, stories, and imagination by Lilly.' : 'A creature-raising adventure, from the ranch to the arena.'}</p>
+        </div>
+        <figure class="gw-art gw-hero-art">
+          <img src={game.hero.src} alt={game.hero.alt} width="1200" height="900" fetchpriority="high" decoding="async" />
+          <figcaption class="gw-caption">{game.hero.caption}</figcaption>
+        </figure>
+      </header>
+      <div class="gw-stats" aria-label="At a glance">{game.stats.map(([value,label]) => <div class="gw-stat"><strong>{value}</strong><span>{label}</span></div>)}</div>
+      <nav class="gw-nav" aria-label={`${game.title} sections`}>
+        <a href="#world">The world</a><a href="#watch">Videos</a><a href="#updates">What’s new</a><a href="#making">Behind the build</a><a href="#start">Getting started</a>{supportEmail && <a href="#support">Support</a>}
+      </nav>
+      <section id="world" class="gw-section" aria-labelledby="world-heading">
+        <div class="gw-intro"><div><p class="gw-eyebrow">Find your adventure</p><h2 id="world-heading">{isWild ? 'A little story. A whole world.' : 'Meet your next favorite companion.'}</h2></div><div>{game.intro.map(p => <p>{p}</p>)}</div></div>
+        <div class="gw-feature-grid">
+          {game.features.map((feature,index) => <article class="gw-feature">
+            <figure><img src={feature.image.src} alt={feature.image.alt} width="800" height="500" loading="lazy" decoding="async" /><figcaption class="gw-caption">{feature.image.caption}</figcaption></figure>
+            <div class="gw-feature-copy"><p class="gw-eyebrow">0{index + 1} / Explore</p><h3>{feature.title}</h3><p>{feature.text}</p></div>
+          </article>)}
+        </div>
+        <div class="gw-cast-label"><p class="gw-eyebrow">{isWild ? 'A few familiar faces' : 'People you’ll meet'}</p></div>
+        <div class="gw-cast">{game.characters.map(([name,description]) => <div><h3>{name}</h3><p>{description}</p></div>)}</div>
+      </section>
+      <section id="watch" class="gw-section" aria-labelledby="watch-heading">
+        <div class="gw-heading"><div><p class="gw-eyebrow">See it in motion</p><h2 id="watch-heading">{isWild ? 'Lilly’s world, on screen.' : 'Your first look at Monstrum.'}</h2></div><p>{isWild ? 'Explore with the family, meet the original characters, and see how the adventure took shape.' : 'Watch the official trailer, then follow the journal for the changes that came after it.'}</p></div>
+        {videos.length > 0 && <div class="gw-featured-video"><GameVideo video={videos[0]}/></div>}
+        {videos.length > 1 && <div class="gw-grid three gw-video-library">{videos.slice(1).map(video => <GameVideo video={video}/>)}</div>}
+      </section>
+      <section id="updates" class="gw-section" aria-labelledby="updates-heading">
+        <div class="gw-heading"><div><p class="gw-eyebrow">The release journal</p><h2 id="updates-heading">More to come back for.</h2></div><p>New adventures, thoughtful improvements, and the story behind each update.</p></div>
+        {latest && <article class="gw-update-spotlight">
+          <div><span class="gw-version">v{latest.version}</span><time datetime={latest.date}>{formatDate(latest.date)}</time></div>
+          <div><h3><a href={journalHref(latest)}>{latest.title}</a></h3><p>{latest.summary}</p><a class="gw-text-link" href={journalHref(latest)} data-analytics-event="content_card_click" data-analytics-content-type="game_release" data-analytics-content-slug={latest.slug}>See what changed <span aria-hidden="true">→</span></a></div>
+        </article>}
+        {releases.slice(1, 3).map(entry => <article class="gw-release"><div><span class="gw-version">v{entry.version}</span><time datetime={entry.date}>{formatDate(entry.date)}</time></div><div><h3><a href={journalHref(entry)}>{entry.title}</a></h3><p>{entry.summary}</p></div></article>)}
+        <a class="gw-text-link" href={`/games/journal/#${game.slug}`}>Browse all development stories →</a>
+      </section>
+      <section id="making" class="gw-section" aria-labelledby="making-heading">
+        <div class="gw-heading"><div><p class="gw-eyebrow">Behind the build</p><h2 id="making-heading">From an idea to a place.</h2></div><p>{game.creation}</p></div>
+        <div class="gw-making-grid">{stories.filter(s => s.kind === 'making-of').map(entry => <JournalCard entry={entry}/>)}</div>
+      </section>
+      <section id="start" class="gw-section" aria-labelledby="start-heading">
+        <div class="gw-heading"><div><p class="gw-eyebrow">Your first visit</p><h2 id="start-heading">Jump in. Find your rhythm.</h2></div></div>
+        <div class="gw-steps">{game.steps.map(([title,description]) => <article class="gw-step"><h3>{title}</h3><p>{description}</p></article>)}</div>
+        <div class="gw-actions"><a class="gw-button primary" href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug}>Open {game.shortTitle || game.title} in Roblox <span aria-hidden="true">↗</span></a></div>
+      </section>
+      <section class="gw-section gw-faq" aria-labelledby="faq-heading"><div class="gw-heading"><h2 id="faq-heading">Good to know.</h2></div>{game.faq.map(([q,a]) => <details><summary>{q}</summary><p>{a}</p></details>)}</section>
+      {supportEmail && <section id="support" class="gw-section gw-support" aria-labelledby="support-heading">
+        <div><p class="gw-eyebrow">Game support</p><h2 id="support-heading">Something not quite right?</h2><p>Found a bug, lost progress, or have a question about {game.shortTitle || game.title}? Send us a note.</p></div>
+        <div class="gw-support-card">
+          <span class="gw-meta">CONTACT THE GAME CREATOR</span>
+          <a class="gw-support-email" href={supportHref} data-analytics-event="project_support_click" data-analytics-content-slug={game.slug}>{supportEmail}</a>
+          <p>Include your device or platform, what happened, and the steps that led to it. A screenshot helps us understand the issue.</p>
+          <a class="gw-button primary" href={supportHref} data-analytics-event="project_support_click" data-analytics-content-slug={game.slug}>Email game support <span aria-hidden="true">↗</span></a>
+          <p class="gw-support-platform">For Roblox account or billing help, <a href="https://www.roblox.com/support" target="_blank" rel="noopener noreferrer">contact Roblox Support ↗</a>.</p>
+        </div>
+      </section>}
+      <footer class="gw-footer"><p class="gw-eyebrow">Keep exploring</p><div class="gw-actions"><a class="gw-button" href="/games/">Our games →</a><a class="gw-button" href="/games/journal/">Development journal →</a><a class="gw-button" href="/projects/lilly/">Lilly Plays →</a></div></footer>
     </div>
-
-  </header>
-  <div class="gw-stats">{game.stats.map(([value,label]) => <div class="gw-stat"><strong>{value}</strong><span>{label}</span></div>)}</div>
-  <nav class="gw-nav" aria-label={`${game.title} sections`}><a href="#world">Explore the world</a><a href="#watch">Watch</a><a href="#making">How it comes to life</a><a href="#updates">Release journal</a><a href="#start">Start playing</a></nav>
-<figure class="gw-art gw-overview-art"><img src={game.hero.src} alt={game.hero.alt} width="1200" height="900" fetchpriority="high"/><figcaption class="gw-caption">{game.hero.caption}</figcaption></figure>
-  <section id="world" class="gw-section">
-    <div class="gw-intro"><div><p class="gw-eyebrow">Inside the game</p><h2>{game.slug === 'wild-rebellion' ? 'Her characters. Your adventure.' : 'More than a collection. A team.'}</h2></div><div>{game.intro.map(p => <p>{p}</p>)}</div></div>
-    {game.features.map((feature,index) => <article class="gw-feature"><figure><img src={feature.image.src} alt={feature.image.alt} width="800" height="500" loading="lazy"/><figcaption class="gw-caption">{feature.image.caption}</figcaption></figure><div><p class="gw-eyebrow">0{index + 1} / Explore</p><h3>{feature.title}</h3><p>{feature.text}</p></div></article>)}
-    <div class="gw-cast">{game.characters.map(([name,description]) => <div><h3>{name}</h3><p>{description}</p></div>)}</div>
-  </section>
-  <section id="watch" class="gw-section"><div class="gw-heading"><div><p class="gw-eyebrow">See the world in motion</p><h2>{game.slug === 'wild-rebellion' ? 'Play it. Explain it. Build it.' : 'Meet Monstrum World.'}</h2></div><p>{game.slug === 'wild-rebellion' ? 'A full family play session, Lilly’s original ideas, and a look behind the build.' : 'The official trailer introduces the adventure. The release journal below follows what has changed since.'}</p></div>
-    {videos.length > 0 && <div class="gw-featured-video"><GameVideo video={videos[0]}/></div>}
-    <div class="gw-grid">{videos.slice(1).map(video => <GameVideo video={video}/>)}</div>
-  </section>
-  <section id="making" class="gw-section"><div class="gw-heading"><div><p class="gw-eyebrow">Building our games</p><h2>How a world comes to life.</h2></div><p>{game.creation}</p></div><div class="gw-grid">{stories.filter(s=>s.kind === 'making-of').map(entry=><JournalCard entry={entry}/>)}{latest && <JournalCard entry={latest}/>}</div></section>
-  <section id="updates" class="gw-section"><div class="gw-heading"><div><p class="gw-eyebrow">The release journal</p><h2>A world that keeps growing.</h2></div><p>Dated stories about published updates: what changed, why it matters, and what to try next.</p></div>
-    {releases.map(entry=><article class="gw-release"><div><span class="gw-version">v{entry.version}</span><time datetime={entry.date}>{formatDate(entry.date)}</time></div><div><h3><a href={journalHref(entry)}>{entry.title}</a></h3><p>{entry.summary}</p><a class="gw-text-link" href={journalHref(entry)} data-analytics-event="content_card_click" data-analytics-content-type="game_release" data-analytics-content-slug={entry.slug}>Explore the update →</a></div></article>)}
-    <a class="gw-text-link" href={`/games/journal/#${game.slug}`}>Browse this game’s development stories →</a>
-  </section>
-  <section id="start" class="gw-section"><div class="gw-heading"><div><p class="gw-eyebrow">Your first visit</p><h2>Find your next adventure.</h2></div></div><div class="gw-steps">{game.steps.map(([title,description])=><article class="gw-step"><h3>{title}</h3><p>{description}</p></article>)}</div><div class="gw-actions"><a class="gw-button primary" href={playHref(game)} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug={game.slug}>Open {game.shortTitle || game.title} in Roblox ↗</a></div></section>
-  <section class="gw-section gw-faq"><div class="gw-heading"><h2>Before you jump in.</h2></div>{game.faq.map(([q,a])=><details><summary>{q}</summary><p>{a}</p></details>)}</section>
-  <footer class="gw-footer"><p class="gw-eyebrow">Keep exploring</p><div class="gw-actions"><a class="gw-button" href="/games/">Our games →</a><a class="gw-button" href="/games/journal/">Development journal →</a><a class="gw-button" href="/projects/lilly/">Lilly Plays →</a></div></footer>
-</div>
-</div>
+  </div>
 </Layout>

@@ -4,14 +4,14 @@
     "game": "wild-rebellion",
     "kind": "making-of",
     "date": "2026-10-13",
-    "title": "How Lilly\u2019s drawings became a world you can play",
+    "title": "How Lilly’s drawings became a world you can play",
     "summary": "Follow the path from original characters to animated stories, Roblox adventures, and family playtests.",
     "sections": [
       {
         "heading": "Start with the characters",
         "paragraphs": [
-          "Wild Rebellion starts with Lilly\u2019s own drawings and the stories attached to them. A character is more than a model to put in a scene: it needs a personality, a place in the world, and a reason for a player to care.",
-          "In \u201cMy Drawings Came to Life,\u201d Lilly introduces that original creative world. Her Episode 3 explanation adds more characters and drawings, giving the game a source of ideas beyond a feature checklist."
+          "Wild Rebellion starts with Lilly’s own drawings and the stories attached to them. A character is more than a model to put in a scene: it needs a personality, a place in the world, and a reason for a player to care.",
+          "In “My Drawings Came to Life,” Lilly introduces that original creative world. Her Episode 3 explanation adds more characters and drawings, giving the game a source of ideas beyond a feature checklist."
         ]
       },
       {
@@ -24,8 +24,8 @@
       {
         "heading": "Turn imagination into working systems",
         "paragraphs": [
-          "Toby\u2019s September discussion describes the early workflow across Blender, AI coding tools, and a Roblox prototype. The game now uses modular Luau systems for the world, characters, quests, interface, and audio.",
-          "The tools help produce and revise the implementation. The creative thread remains Lilly\u2019s world: the point is to preserve what makes her characters recognizable as they move from a drawing into animation and interactive play."
+          "Toby’s September discussion describes the early workflow across Blender, AI coding tools, and a Roblox prototype. The game now uses modular Luau systems for the world, characters, quests, interface, and audio.",
+          "The tools help produce and revise the implementation. The creative thread remains Lilly’s world: the point is to preserve what makes her characters recognizable as they move from a drawing into animation and interactive play."
         ]
       },
       {
@@ -62,7 +62,7 @@
       {
         "heading": "Less interface in the way",
         "paragraphs": [
-          "On a smaller screen, an open quest list, a map, a tip, and a conversation can compete with the world itself. This update starts the map and quest panels collapsed and remembers the player\u2019s explicit choice to open or close them.",
+          "On a smaller screen, an open quest list, a map, a tip, and a conversation can compete with the world itself. This update starts the map and quest panels collapsed and remembers the player’s explicit choice to open or close them.",
           "The quest information is still available. The change gives players more control over when they see it, rather than making a panel reopen whenever an objective changes."
         ]
       },
@@ -76,7 +76,7 @@
       {
         "heading": "Make the world sound like itself",
         "paragraphs": [
-          "The jukebox offers 34 music tracks, including the Episode 3 songs \u201cEvery Friend Has a Story,\u201d \u201cRoom for You,\u201d and \u201cOne More Chapter.\u201d Players can pick a song from the scrolling list or return to automatic music.",
+          "The jukebox offers 34 music tracks, including the Episode 3 songs “Every Friend Has a Story,” “Room for You,” and “One More Chapter.” Players can pick a song from the scrolling list or return to automatic music.",
           "The music belongs to the experience in Roblox. This update does not depend on a separate streaming release."
         ]
       },
@@ -91,7 +91,7 @@
     "image": {
       "src": "/images/projects/wild-rebellion/open_world.webp",
       "alt": "Exploration in the Wild Rebellion village",
-      "caption": "A look at Wild Rebellion\u2019s open world."
+      "caption": "A look at Wild Rebellion’s open world."
     },
     "mediaIds": [
       "Lr5TtbVgK9I"
@@ -170,7 +170,7 @@
     "kind": "release",
     "date": "2026-10-12",
     "title": "A kitchen for the ranch. Clearer choices for your team.",
-    "summary": "Juniper\u2019s cooking, better disc rewards, and an interface pass for battles and fusion.",
+    "summary": "Juniper’s cooking, better disc rewards, and an interface pass for battles and fusion.",
     "sections": [
       {
         "heading": "Bring your ingredients home",
@@ -248,7 +248,7 @@
         "heading": "Keep time consistent",
         "paragraphs": [
           "The interface waits for a ready save and uses the server clock. Readiness can return without a rejoin, and a shared boss-health update cannot reset personal recovery. Battles and raids also suppress actionable invitations.",
-          "Post-fight text reports the remaining time. It distinguishes the boss\u2019s respawn from the player\u2019s own recovery so those two timers do not tell conflicting stories."
+          "Post-fight text reports the remaining time. It distinguishes the boss’s respawn from the player’s own recovery so those two timers do not tell conflicting stories."
         ]
       },
       {
@@ -381,7 +381,7 @@
       {
         "heading": "A gentler start and a clearer next step",
         "paragraphs": [
-          "A starter checklist, a 75-coin welcome gift, gentler first fights, and a spawn signpost help the opening experience. \u201cWhere am I?\u201d adds another way to get your bearings.",
+          "A starter checklist, a 75-coin welcome gift, gentler first fights, and a spawn signpost help the opening experience. “Where am I?” adds another way to get your bearings.",
           "Those additions address a practical part of building an open world: freedom feels better when a new player has enough direction to use it."
         ]
       },
@@ -414,5 +414,61 @@
       "Wild Rebellion publish/PUBLISH_STATUS.md, October 10 public v37 and October 11 saved v38",
       "Read-only v37 download checked October 13 against recorded build SHA-256"
     ]
+  },
+  {
+    "slug": "wild-rebellion-v42-new-adventures-and-a-growing-farm",
+    "game": "wild-rebellion",
+    "kind": "release",
+    "date": "2026-10-15",
+    "version": 42,
+    "title": "New adventures, a growing farm, and smoother play",
+    "summary": "Episode 4 brings new places to explore, farming gains more depth, and a round of character and control fixes makes the adventure clearer.",
+    "image": {
+      "src": "/images/projects/wild-rebellion/open_world.webp",
+      "alt": "Wild Rebellion village and its surrounding world",
+      "caption": "Wild Rebellion world artwork. Explore the newest activities in Roblox."
+    },
+    "mediaIds": [],
+    "sections": [
+      {
+        "heading": "Step into the next chapter",
+        "paragraphs": [
+          "Episode 4 turns more of Lilly’s ideas into places and activities you can play. Visit the water park and cinema, meet the expanded cast, and follow the new adventures. Across Episodes 3 and 4, there are 28 playable chapters."
+        ]
+      },
+      {
+        "heading": "Make the farm your own",
+        "paragraphs": [
+          "Farming now has more reasons to return. Care for crops, complete deliveries, build farming ranks, and work toward permanent upgrades. The farm offers a gentler rhythm between story quests and Kart Park races."
+        ]
+      },
+      {
+        "heading": "A clearer, more comfortable adventure",
+        "paragraphs": [
+          "This release improves small-screen layouts, keeps attack controls clear of the jump button, and makes instructions respond when you switch input devices. Racing nameplates take up less of the view, while menus and location helpers get out of the way during a race.",
+          "The flicker on Kim’s shoulders came from overlapping surfaces. A small change to the shared sleeve geometry fixes that overlap for the biped characters and outfits."
+        ]
+      },
+      {
+        "heading": "Try it in a fresh server",
+        "paragraphs": [
+          "Open Wild Rebellion in Roblox to join the adventure. Version 42 is published and its downloaded build matches the tested release. Existing running servers can remain on an earlier version until players join a new server."
+        ]
+      }
+    ],
+    "sources": [
+      "Wild Rebellion publish/public-v42.json",
+      "Wild Rebellion qa/2026-10-14-pre-ads/REVIEW.md"
+    ],
+    "release": {
+      "public": true,
+      "byteMatched": true,
+      "version": 42,
+      "placeId": "137414447181099",
+      "universeId": "10767746288",
+      "verifiedAt": "2026-10-15T11:57:14.124589+00:00",
+      "sourceCommit": "fbe99bba3131bafd3b002b6c1218df576eb7e882",
+      "buildSha256": "2ac2c53cf3866111603f7b8f6a9c966aada6bc0c0590185a464971a115b539b1"
+    }
   }
 ]
