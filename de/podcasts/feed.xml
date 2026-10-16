@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Thu, 08 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 122 -->
+    <item>
+      <title>Folge 122: OpenAI liefert GPT-6 aus, Gemini wird agentisch und EmbeddingGemma 2 sieht alles</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep122/episode_122.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-122/</link>
+      <description><![CDATA[OpenAI liefert GPT-6 weltweit mit einer intelligenten Benutzeroberfläche aus. Google verwandelt Gemini in einen objektbasierten Arbeitsplatzagenten und...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-122/]]></description>
+      <pubDate>Tue, 13 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_122.mp3" length="37788987" type="audio/mpeg"/>
+      <itunes:duration>39:21</itunes:duration>
+      <itunes:episode>122</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep122/episode_122_cover.png"/>
+    </item>
+
     <!-- Episode 121 -->
     <item>
       <title>Folge 121: Mistral Large 4, EmbeddingGemma 2 und OpenTPU</title>
