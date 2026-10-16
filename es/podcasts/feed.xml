@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Thu, 08 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 13 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 122 -->
+    <item>
+      <title>Episodio 122: OpenAI lanza GPT-6, Gemini se vuelve agéntico y EmbeddingGemma 2 ve todo</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep122/episode_122.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-122/</link>
+      <description><![CDATA[OpenAI lanza GPT-6 a nivel mundial con una Interfaz Inteligente. Google convierte a Gemini en un agente laboral que acepta objetivos, y EmbeddingGemma 2 de...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-122/]]></description>
+      <pubDate>Tue, 13 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_122.mp3" length="34567358" type="audio/mpeg"/>
+      <itunes:duration>36:00</itunes:duration>
+      <itunes:episode>122</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep122/episode_122_cover.png"/>
+    </item>
+
     <!-- Episode 121 -->
     <item>
       <title>Episodio 121: Mistral Large 4, EmbeddingGemma 2 y OpenTPU</title>
