@@ -29,6 +29,30 @@
   // send CustomEvent.detail, input text, arbitrary object keys, or URL queries.
   let browserExceptionContext = null;
   const exceptionContextVersion = '20260928-browser-event-v1';
+  let exceptionNavigationPhase = document.readyState === 'complete' ? 'ready' : 'initial-load';
+  for (const [event, phase] of Object.entries({
+    'astro:before-preparation': 'preparing',
+    'astro:after-preparation': 'prepared',
+    'astro:before-swap': 'swapping',
+    'astro:after-swap': 'swapped',
+    'astro:page-load': 'ready',
+  })) document.addEventListener(event, () => { exceptionNavigationPhase = phase; });
+  const exceptionUiContext = () => {
+    const islands = [...document.querySelectorAll('astro-island')];
+    const pending = islands.filter(island => island.hasAttribute('ssr'));
+    return {
+      exception_ui_context_version: '20261019-ui-phase-v1',
+      exception_navigation_phase: exceptionNavigationPhase,
+      exception_island_count: islands.length,
+      exception_pending_island_count: pending.length,
+      // Only known component names, never arbitrary DOM text or component props.
+      exception_pending_islands: [...new Set(pending.map(island => {
+        const file = (island.getAttribute('component-url') || '').split('/').pop() || '';
+        return ['Header', 'NewsletterSignup', 'Search', 'VideoGrid', 'VideoPlayer']
+          .find(name => file.startsWith(name + '.')) || 'other';
+      }))].slice(0, 6),
+    };
+  };
   const safeRead = (object, key) => {
     try { return object == null ? undefined : object[key]; } catch { return undefined; }
   };
@@ -72,6 +96,7 @@
       const detail = safeRead(event, 'detail');
       const detailReason = safeRead(detail, 'reason');
       const context = {
+        ...exceptionUiContext(),
         exception_context_scope: 'same-task-browser-event',
         exception_browser_event_type: exceptionEventType(event),
         exception_browser_event_class: exceptionValueType(event),
