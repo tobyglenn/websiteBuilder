@@ -67,7 +67,7 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
   </div>
 </Layout>
 
-<script define:vars={{ videosData, blogData }}>
+<script define:vars={{ videosData, blogData }} data-astro-rerun>
 (() => {
   const VIDEOS = JSON.parse(videosData);
   const BLOG_POSTS = JSON.parse(blogData);
@@ -196,6 +196,7 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
     renderResults();
   });
   window.addEventListener('popstate', renderResults);
+  document.addEventListener('astro:before-swap', () => window.removeEventListener('popstate', renderResults), { once: true });
   document.getElementById('results-grid').addEventListener('click', (event) => {
     const link = event.target instanceof Element ? event.target.closest('a') : null;
     if (!link) return;

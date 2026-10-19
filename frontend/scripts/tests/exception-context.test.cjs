@@ -48,11 +48,14 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(first.properties.exception_event_trusted, false);
       assert.equal(first.properties.exception_context_scope, 'same-task-browser-event');
       assert.equal(first.properties.site_release, 'test-release');
+      assert.equal(first.properties.exception_ui_context_version, '20261019-ui-phase-v1');
+      assert.equal(first.properties.exception_pending_island_count, 0);
       assert.ok(first.properties.exception_source_frames.some(frame => frame.startsWith('/js/failing-widget.js:')));
       assert.doesNotMatch(JSON.stringify(first), /DO-NOT-CAPTURE|private@example|token=/);
       await page.evaluate(() => {
         const manual = { event: '$exception', properties: { $exception_list: [{ type: 'Error', value: 'later error' }] } };
         window.captured.push(window.options.before_send(manual));
+        document.dispatchEvent(new Event('astro:before-swap'));
         const event = new CustomEvent('unhandledrejection');
         Object.defineProperty(event, 'detail', { get() { throw new Error('private getter'); } });
         window.dispatchEvent(event);
@@ -64,6 +67,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(events[1].properties.exception_source_frames, undefined);
       assert.equal(events[3].properties.exception_browser_event_type, 'error');
       assert.equal(events[3].properties.exception_reason_type, 'Error');
+      assert.equal(events[3].properties.exception_navigation_phase, 'swapping');
       assert.equal(events[3].properties.$exception_list[0].type, 'Error');
       assert.equal(await page.evaluate(() => window.options.capture_exceptions), true);
       await page.evaluate(() => {
