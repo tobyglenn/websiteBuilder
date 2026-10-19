@@ -248,4 +248,71 @@ class RecoveryTests(unittest.TestCase):
             with self.assertRaisesRegex(RuntimeError,'recovery required'):p.select_daily_draft(refresh=False)
 
 
+class PrepareOutageTests(unittest.TestCase):
+    def test_empty_fact_checker_response_retries_exact_model(self):
+        provider,model=q.AUDIT_MODEL.split('/',1)
+        failure={'ok':False,'error':'no content in response'}
+        success={'ok':True,'text':'{}','provider':provider,'model':model,'server_model':model,'finish_reason':'stop'}
+        runs=[subprocess.CompletedProcess([],0,json.dumps(value),'') for value in [failure,success]]
+        with patch.object(p,'run',side_effect=runs) as run,patch.object(p.time,'sleep') as sleep,patch.object(p,'log'):
+            text,receipt=p.editorial_model_call('Audit all units',stage='fact-check',model=q.AUDIT_MODEL)
+            self.assertEqual(text,'{}');self.assertEqual(receipt['model'],q.AUDIT_MODEL)
+            self.assertEqual(run.call_count,2);sleep.assert_called_once_with(35)
+            self.assertTrue(all(call.args[0][-1]==q.AUDIT_MODEL for call in run.call_args_list))
+
+    def test_empty_success_response_is_never_approved(self):
+        result={'ok':True,'text':'  ','provider':'minimax','model':'MiniMax-M3','server_model':'MiniMax-M3'}
+        with patch.object(p,'run',return_value=subprocess.CompletedProcess([],0,json.dumps(result),'')) as run,patch.object(p.time,'sleep'),patch.object(p,'log'):
+            with self.assertRaises(p.PinnedModelUnavailable):p.editorial_model_call('Audit',stage='fact-check',model=q.AUDIT_MODEL)
+            self.assertEqual(run.call_count,2)
+
+    def test_checkpoint_resumes_fact_check_and_cannot_publish_alone(self):
+        draft=copy.deepcopy(F['DRAFT'])
+        responses=[(json.dumps(draft),F['call']('review',q.REVIEW_MODEL)),p.PinnedModelUnavailable('no content in response')]
+        with patch.object(p,'editorial_model_call',side_effect=responses):
+            with self.assertRaises(p.PinnedModelUnavailable) as caught:p.review_grounded_draft_once(draft,F['SOURCE'])
+        staged=caught.exception.candidate
+        self.assertFalse(staged['reviewed']);self.assertTrue(p.valid_editorial_checkpoint(staged,F['SOURCE']))
+        with self.assertRaises(ValueError):q.require_approval(staged,F['SOURCE'])
+        for altered in [dict(staged,title='Changed title'),dict(staged,content=staged['content']+'<p>Changed claim</p>')]:
+            self.assertFalse(p.valid_editorial_checkpoint(altered,F['SOURCE']))
+        self.assertFalse(p.valid_editorial_checkpoint(staged,dict(F['SOURCE'],sha256='c'*64)))
+        with patch.object(p,'editorial_model_call',return_value=(json.dumps(F['audit'](staged)),F['call']('fact-check',q.AUDIT_MODEL))) as call,patch.object(p,'log'):
+            approved=p.review_grounded_draft_once(staged,F['SOURCE'])
+            call.assert_called_once();self.assertEqual(call.call_args.kwargs['stage'],'fact-check')
+            q.require_approval(approved,F['SOURCE']);self.assertNotIn('_editorial_checkpoint',approved)
+
+    def test_factual_rejection_does_not_reuse_checkpoint(self):
+        staged=copy.deepcopy(F['DRAFT'])
+        staged['_editorial_checkpoint']={'article_sha256':q.article_digest(staged),'source_sha256':F['SOURCE']['sha256'],'review_call':F['call']('review',q.REVIEW_MODEL)}
+        rejection=F['audit'](staged);rejection.update(verdict='hold',issues=[{'reason':'unsupported claim'}])
+        with patch.object(p,'editorial_model_call',return_value=(json.dumps(rejection),F['call']('fact-check',q.AUDIT_MODEL))),patch.object(p,'log'):
+            with self.assertRaises(ValueError) as caught:p.review_grounded_draft_once(staged,F['SOURCE'])
+            self.assertNotIn('_editorial_checkpoint',caught.exception.candidate)
+
+    def test_reserve_quality_hold_does_not_change_daily_hold(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);ready=root/'ready';ready.mkdir();daily=root/'quality-hold.json';daily.write_text('daily state')
+            with patch.multiple(p,DRAFT_DIR=root,READY_DIR=ready,PENDING=ready/'preparing.json'):
+                p.record_quality_hold('review','no content in response','reserve')
+                self.assertEqual(daily.read_text(),'daily state');self.assertTrue((ready/'quality-hold.json').exists())
+                p.clear_quality_hold();self.assertEqual(daily.read_text(),'daily state')
+                self.assertFalse((ready/'quality-hold.json').exists())
+
+    def test_only_protected_daily_delivery_allows_reserve_deferral(self):
+        for protected,error,expected in [({'state':'approved_pending','slug':'today'},'no content in response',0),(None,'no content in response',1),({'state':'approved_pending'},'HTTP 403 invalid credential',1)]:
+            with self.subTest(protected=protected,error=error),tempfile.TemporaryDirectory() as temp:
+                root=Path(temp)
+                with patch.multiple(p,DRAFT_DIR=root,ensure_dirs=lambda:None,protected_daily_article=lambda:protected,log=lambda *a:None),patch.object(sys,'argv',['blog_pipeline.py','prepare']),patch.object(p,'prepare_stage',side_effect=p.PinnedModelUnavailable(error)),patch.object(p,'notify_failure') as notify:
+                    self.assertEqual(p.main(),expected)
+                    self.assertEqual(notify.call_count,0 if expected==0 else 1)
+                    self.assertEqual((root/'prepare-status.json').exists(),expected==0)
+
+    def test_unapproved_daily_article_cannot_suppress_prepare_failure(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);pending=root/'pending.json';draft=dict(F['DRAFT'],date=p.publication_day());pending.write_text(json.dumps(draft))
+            with patch.multiple(p,PENDING=pending,load_quality_source=lambda draft:F['SOURCE'],validate_draft=lambda *a,**kw:None):
+                with self.assertRaises(ValueError):p.protected_daily_article()
+
+
 if __name__=='__main__':unittest.main()
