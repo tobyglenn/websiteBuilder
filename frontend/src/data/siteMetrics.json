@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-18T11:31:13.742Z",
+  "generatedAt": "2026-10-18T23:51:21.072Z",
   "definitions": {
     "running": "Garmin running and treadmill_running activities only",
     "lifting": "Lifetime recorded volume across smart cable machines",
     "whoop": "30 calendar days ending on the latest bundled recovery date; duplicate IDs and sleep naps excluded"
   },
   "sourceDates": {
-    "fitness": "2026-10-18T11:31:13.522Z",
+    "fitness": "2026-10-18T23:51:20.801Z",
     "running": "2026-10-12",
-    "whoop": "2026-10-18T07:30:40.067537",
+    "whoop": "2026-10-18T19:50:38.093662",
     "weight": "2026-07-05"
   },
   "lifetimeStats": {
@@ -74,25 +74,25 @@
     "windowStart": "2026-09-19",
     "windowEnd": "2026-10-18",
     "sampleCount": 30,
-    "recoveryAvg": 57.6,
-    "hrvAvg": 33.03121563333333,
-    "rhrAvg": 65.6,
-    "spo2Avg": 96.23197126666665,
-    "inBedHoursAvg": 8.130454814814815,
-    "asleepHoursAvg": 7.1007765740740725,
-    "remHoursAvg": 2.0400429629629633,
-    "deepHoursAvg": 1.5717617592592592,
-    "sleepPerfAvg": 80.4,
-    "sleepEffAvg": 87.60948123333336,
-    "respiratoryAvg": 17.100174883333334,
-    "strainAvg": 6.119159308666667,
+    "recoveryAvg": 57.733333333333334,
+    "hrvAvg": 32.891483799999996,
+    "rhrAvg": 65.66666666666667,
+    "spo2Avg": 96.22634346666663,
+    "inBedHoursAvg": 8.241671111111112,
+    "asleepHoursAvg": 7.182520185185184,
+    "remHoursAvg": 2.072295,
+    "deepHoursAvg": 1.5701043518518518,
+    "sleepPerfAvg": 81.1,
+    "sleepEffAvg": 87.48953623333335,
+    "respiratoryAvg": 17.064335016666668,
+    "strainAvg": 6.131317565333333,
     "strainMax": 11.541035,
     "totalRecords": 1726,
-    "allTimeRecoveryAvg": 55.08864426419467,
+    "allTimeRecoveryAvg": 55.0909617612978,
     "allTimeGreenPct": 31.170336037079956,
     "allTimeYellowPct": 51.738122827346466,
     "allTimeRedPct": 17.091541135573582,
-    "lastSynced": "2026-10-18T07:30:40.067537"
+    "lastSynced": "2026-10-18T19:50:38.093662"
   },
   "strength": {
     "totalVolumeLbs": 1105614.2,
