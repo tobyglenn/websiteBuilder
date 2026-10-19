@@ -138,6 +138,25 @@ class PipelineQuality(unittest.TestCase):
    q.require_approval(fixed,SOURCE)
    self.assertEqual(model.call_count,3)
    self.assertIn('only these exact IDs',model.call_args.args[0])
+ def test_locked_copy_is_preserved_and_independently_audited(self):
+  locked=dict(DRAFT,editorial_lock=True)
+  review={'verdict':'pass','issues':[],'checks':{k:True for k in q.CHECKS}}
+  responses=[(json.dumps(review),call('review',q.REVIEW_MODEL)),(json.dumps(audit()),call('fact-check',q.AUDIT_MODEL))]
+  with patch.object(p,'editorial_model_call',side_effect=responses) as model:
+   fixed=p.review_grounded_draft(locked,SOURCE)
+   self.assertEqual(q.article_digest(fixed),q.article_digest(locked));q.require_approval(fixed,SOURCE)
+   self.assertEqual(model.call_count,2)
+   for args in model.call_args_list:self.assertIn(SOURCE['text'],args.args[0])
+ def test_locked_copy_stops_when_editor_holds(self):
+  response=({'verdict':'hold','issues':['unsupported context'],'checks':{k:False for k in q.CHECKS}})
+  with patch.object(p,'editorial_model_call',return_value=(json.dumps(response),call('review',q.REVIEW_MODEL))) as model:
+   with self.assertRaisesRegex(ValueError,'unsupported context'):p.review_grounded_draft(dict(DRAFT,editorial_lock=True),SOURCE)
+   self.assertEqual(model.call_count,1)
+ def test_locked_copy_still_requires_fact_checker_approval(self):
+  review={'verdict':'pass','issues':[],'checks':{k:True for k in q.CHECKS}};failed=audit();failed['verdict']='hold';failed['issues']=[{'reason':'unsupported context'}]
+  responses=[(json.dumps(review),call('review',q.REVIEW_MODEL)),(json.dumps(failed),call('fact-check',q.AUDIT_MODEL))]
+  with patch.object(p,'editorial_model_call',side_effect=responses):
+   with self.assertRaisesRegex(ValueError,'unsupported context'):p.review_grounded_draft(dict(DRAFT,editorial_lock=True),SOURCE)
  def test_final_publisher_rejects_legacy_review_flag_before_any_write(self):
   with tempfile.TemporaryDirectory() as temp:
    pending=Path(temp)/'pending.json';pending.write_text(json.dumps(DRAFT));before=pending.read_text()
