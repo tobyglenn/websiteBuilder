@@ -90,24 +90,24 @@ class ModelAccountTests(unittest.TestCase):
         responses=[SimpleNamespace(ok=False,raw={'__http_status__':429}),SimpleNamespace(ok=True,raw={})]
         from unittest.mock import Mock
         call=Mock(side_effect=responses)
-        result,account=models.call_google_accounts(q.REVIEW_MODEL,{'prompt':'review','timeout':60},providers,lambda *a:'configured-key',call)
+        result,account=models.call_google_accounts('google/gemini-3.8-flash',{'prompt':'review','timeout':60},providers,lambda *a:'configured-key',call)
         self.assertTrue(result.ok);self.assertEqual(account,'google-2');self.assertEqual(call.call_count,2)
         for request in call.call_args_list:
-            self.assertEqual(request.args[0],'google');self.assertEqual(request.args[1],'https://generativelanguage.googleapis.com/v1beta');self.assertEqual(request.args[3],'gemini-3-flash-preview')
+            self.assertEqual(request.args[0],'google');self.assertEqual(request.args[1],'https://generativelanguage.googleapis.com/v1beta');self.assertEqual(request.args[3],'gemini-3.8-flash')
 
     def test_configured_account_cannot_redirect_credentials_to_another_service(self):
         providers={'google':{'api':'google-generative-ai','baseUrl':'https://other.example/v1beta'}}
         from unittest.mock import Mock
         resolve=Mock();call=Mock()
         with self.assertRaisesRegex(ValueError,'pinned Google service'):
-            models.call_google_accounts(q.REVIEW_MODEL,{'prompt':'review','timeout':60},providers,resolve,call)
+            models.call_google_accounts('google/gemini-3.8-flash',{'prompt':'review','timeout':60},providers,resolve,call)
         resolve.assert_not_called();call.assert_not_called()
 
     def test_permanent_provider_error_does_not_cycle_accounts(self):
         providers={name:{'api':'google-generative-ai','baseUrl':'https://generativelanguage.googleapis.com/v1beta'} for name in ['google','google-2']}
         from unittest.mock import Mock
         call=Mock(return_value=SimpleNamespace(ok=False,raw={'__http_status__':400}))
-        result,account=models.call_google_accounts(q.REVIEW_MODEL,{'prompt':'review','timeout':60},providers,lambda *a:'configured-key',call)
+        result,account=models.call_google_accounts('google/gemini-3.8-flash',{'prompt':'review','timeout':60},providers,lambda *a:'configured-key',call)
         self.assertFalse(result.ok);self.assertEqual(account,'google');self.assertEqual(call.call_count,1)
 
 
@@ -313,6 +313,102 @@ class PrepareOutageTests(unittest.TestCase):
             root=Path(temp);pending=root/'pending.json';draft=dict(F['DRAFT'],date=p.publication_day());pending.write_text(json.dumps(draft))
             with patch.multiple(p,PENDING=pending,load_quality_source=lambda draft:F['SOURCE'],validate_draft=lambda *a,**kw:None):
                 with self.assertRaises(ValueError):p.protected_daily_article()
+
+
+class ReviewerMigrationTests(unittest.TestCase):
+    def legacy_approved(self):
+        draft=F['approved']()
+        receipt=draft['quality_approval']
+        receipt['policy']=q.LEGACY_POLICY_VERSION
+        receipt['review_call']=F['call']('review',q.LEGACY_REVIEW_MODEL)
+        return draft
+
+    def test_existing_approved_articles_remain_valid_without_rewriting(self):
+        draft=self.legacy_approved();before=json.dumps(draft,sort_keys=True)
+        q.require_approval(draft,F['SOURCE'])
+        self.assertEqual(json.dumps(draft,sort_keys=True),before)
+
+    def test_legacy_approval_still_binds_source_text_and_all_claims(self):
+        draft=self.legacy_approved();draft['content']+='<p>An invented new claim.</p>'
+        with self.assertRaises(ValueError):q.require_approval(draft,F['SOURCE'])
+        draft=self.legacy_approved()
+        with self.assertRaises(ValueError):q.require_approval(draft,dict(F['SOURCE'],sha256='c'*64))
+        draft=self.legacy_approved();draft['quality_approval']['audit']['units'].pop()
+        with self.assertRaises(ValueError):q.require_approval(draft,F['SOURCE'])
+
+    def test_old_google_model_cannot_issue_new_approvals(self):
+        with self.assertRaises(ValueError):q.approval(F['DRAFT'],F['SOURCE'],F['audit'](),F['call']('review',q.LEGACY_REVIEW_MODEL),F['call']('fact-check',q.AUDIT_MODEL))
+        with patch.object(p,'run') as run:
+            with self.assertRaises(ValueError):p.editorial_model_call('review',stage='review',model=q.LEGACY_REVIEW_MODEL)
+            run.assert_not_called()
+
+    def test_policy_cannot_mislabel_old_review_as_current(self):
+        draft=self.legacy_approved();draft['quality_approval']['policy']=q.POLICY_VERSION
+        with self.assertRaises(ValueError):q.require_approval(draft,F['SOURCE'])
+
+    def test_exact_nvidia_serving_alias_is_accepted_and_recorded(self):
+        alias='private/nvidia/nemotron-3.5-super-120b-a12b'
+        review=F['call']('review',q.REVIEW_MODEL);review['server_model']=alias
+        receipt=q.approval(F['DRAFT'],F['SOURCE'],F['audit'](),review,F['call']('fact-check',q.AUDIT_MODEL))
+        self.assertEqual(receipt['review_call']['server_model'],alias)
+        with self.assertRaises(ValueError):q.approval(F['DRAFT'],F['SOURCE'],F['audit'](),dict(review,server_model='private/nvidia/other-model'),F['call']('fact-check',q.AUDIT_MODEL))
+
+    def test_live_nvidia_identity_passes_pipeline_without_normalizing_away_alias(self):
+        result={'ok':True,'text':'{}','model':q.REVIEW_MODEL.split('/',1)[1],'provider':'nvidia','server_model':'private/nvidia/nemotron-3.5-super-120b-a12b','finish_reason':'stop'}
+        with patch.object(p,'run',return_value=subprocess.CompletedProcess([],0,json.dumps(result),'')),patch.object(p,'log'):
+            _,receipt=p.editorial_model_call('review',stage='review',model=q.REVIEW_MODEL)
+            self.assertEqual(receipt['server_model'],result['server_model']);self.assertEqual(receipt['model'],q.REVIEW_MODEL)
+
+    def test_google_checkpoint_requires_fresh_edit_under_current_model(self):
+        draft=copy.deepcopy(F['DRAFT']);draft['_editorial_checkpoint']={'article_sha256':q.article_digest(draft),'source_sha256':F['SOURCE']['sha256'],'review_call':F['call']('review',q.LEGACY_REVIEW_MODEL)}
+        self.assertFalse(p.valid_editorial_checkpoint(draft,F['SOURCE']))
+
+    def test_nvidia_credentials_are_restricted_to_nvidia_endpoint(self):
+        models.validate_nvidia_provider({'api':'openai-completions','baseUrl':'https://integrate.api.nvidia.com/v1'})
+        for url in ['https://other.example/v1','http://integrate.api.nvidia.com/v1','https://integrate.api.nvidia.com/v1?redirect=1','https://integrate.api.nvidia.com/v1#fragment','https://user@integrate.api.nvidia.com/v1']:
+            with self.subTest(url=url),self.assertRaises(ValueError):models.validate_nvidia_provider({'api':'openai-completions','baseUrl':url})
+
+
+class NvidiaTransportTests(unittest.TestCase):
+    BLOCK={'api':'openai-completions','baseUrl':'https://integrate.api.nvidia.com/v1'}
+    REQUEST={'prompt':'Public source review','timeout':60,'max_tokens':32768}
+    RESPONSE={'model':'private/nvidia/nemotron-3.5-super-120b-a12b','choices':[{'message':{'content':'{}'},'finish_reason':'stop'}]}
+
+    def test_completion_uses_explicit_nonstreaming_low_reasoning(self):
+        with patch.object(models,'nvidia_request',return_value=(200,self.RESPONSE,{})) as request:
+            result=models.call_nvidia_model(q.REVIEW_MODEL,self.REQUEST,self.BLOCK,lambda *a:'test-configured-key')
+            self.assertTrue(result.ok);self.assertEqual(result.provider,'nvidia')
+            args=request.call_args.args;self.assertEqual(args[0],'https://integrate.api.nvidia.com/v1/chat/completions')
+            self.assertEqual(args[2]['model'],'nvidia/nemotron-3.5-super-vl-120b-a12b')
+            self.assertFalse(args[2]['stream']);self.assertEqual(args[2]['reasoning_effort'],'low');self.assertEqual(args[2]['max_tokens'],32768)
+
+    def test_pending_generation_is_polled_without_resubmitting(self):
+        with patch.object(models,'nvidia_request',side_effect=[(202,{'requestId':'request-123'},{}),(202,{},{}),(200,self.RESPONSE,{})]) as request,patch.object(models.time,'sleep'):
+            result=models.call_nvidia_model(q.REVIEW_MODEL,self.REQUEST,self.BLOCK,lambda *a:'test-configured-key')
+            self.assertTrue(result.ok);self.assertEqual(request.call_count,3)
+            for call in request.call_args_list[1:]:
+                self.assertEqual(call.args[0],'https://integrate.api.nvidia.com/v1/status/request-123');self.assertIsNone(call.args[2])
+
+    def test_pending_without_valid_request_id_never_passes(self):
+        for response in [({},{}),({'requestId':'https://other.example/key'},{}),({}, {'NVCF-REQID':'../redirect'})]:
+            with self.subTest(response=response),patch.object(models,'nvidia_request',return_value=(202,*response)) as request:
+                result=models.call_nvidia_model(q.REVIEW_MODEL,self.REQUEST,self.BLOCK,lambda *a:'test-configured-key')
+                self.assertFalse(result.ok);request.assert_called_once()
+
+    def test_pending_id_from_header_is_supported(self):
+        with patch.object(models,'nvidia_request',side_effect=[(202,{}, {'NVCF-REQID':'request-456'}),(200,self.RESPONSE,{})]),patch.object(models.time,'sleep'):
+            self.assertTrue(models.call_nvidia_model(q.REVIEW_MODEL,self.REQUEST,self.BLOCK,lambda *a:'test-configured-key').ok)
+
+    def test_service_error_and_empty_completion_never_approve(self):
+        for status,data in [(503,{'error':{'message':'capacity unavailable'}}),(200,{'choices':[]})]:
+            with self.subTest(status=status),patch.object(models,'nvidia_request',return_value=(status,data,{})):
+                result=models.call_nvidia_model(q.REVIEW_MODEL,self.REQUEST,self.BLOCK,lambda *a:'test-configured-key')
+                self.assertFalse(result.ok);self.assertTrue(p.retryable_model_failure(result.error))
+
+    def test_pending_timeout_never_approves(self):
+        with patch.object(models,'nvidia_request',return_value=(202,{'requestId':'request-123'},{})),patch.object(models.time,'monotonic',side_effect=[0,61]):
+            result=models.call_nvidia_model(q.REVIEW_MODEL,self.REQUEST,self.BLOCK,lambda *a:'test-configured-key')
+            self.assertFalse(result.ok);self.assertIn('timed out',result.error)
 
 
 if __name__=='__main__':unittest.main()
