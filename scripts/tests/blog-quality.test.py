@@ -129,8 +129,9 @@ class PipelineQuality(unittest.TestCase):
    self.assertEqual(pending.read_text(),before)
  def test_expected_quality_hold_does_not_force_daily_article(self):
   with tempfile.TemporaryDirectory() as temp:
-   with patch.object(p,'DRAFT_DIR',Path(temp)),patch.object(p,'PENDING',Path(temp)/'pending.json'),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'log'):
+   with patch.object(p,'DRAFT_DIR',Path(temp)),patch.object(p,'PENDING',Path(temp)/'pending.json'),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'log'),patch.object(p,'run',return_value=subprocess.CompletedProcess([],0,'','')) as sender:
     p.record_quality_hold('draft','No substantial source')
     self.assertEqual(p.publish_stage(),0)
+    sender.assert_called_once()
 
 if __name__=='__main__':unittest.main()
