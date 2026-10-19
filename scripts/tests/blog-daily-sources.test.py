@@ -210,6 +210,23 @@ class RecoveryTests(unittest.TestCase):
                 self.assertIn('candidate-1',calls[1][0])
                 self.assertTrue((root/'ready/candidate-2.json').exists())
 
+    def test_service_failure_preserves_staged_reserve_for_next_preparation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp);pending=root/'pending.json';pending.write_text(json.dumps(dict(F['DRAFT'],slug='today')));before=pending.read_bytes()
+            def select(**kwargs):p.save_pending(dict(F['DRAFT'],slug='reserve',reviewed=False));return 0
+            with patch.multiple(p,PENDING=pending,DRAFT_DIR=root,FAILED_DIR=root/'failed',READY_DIR=root/'ready',ensure_dirs=lambda:None,require_paths=lambda:None,refresh_editorial_library=lambda:None,ready_drafts=lambda:iter([]),load_quality_source=lambda draft:F['SOURCE'],assert_available_section=lambda draft:None,assert_distinct_article=lambda draft:None,validate_draft=lambda *a,**k:None,ensure_thumbnail=lambda draft:None,log=lambda *a:None),patch.object(p,'select_daily_draft',side_effect=select) as generate,patch.object(p,'review_grounded_draft',side_effect=p.PinnedModelUnavailable('HTTP 503')) as review,patch.object(q,'require_approval'):
+                with self.assertRaises(p.PinnedModelUnavailable):p.prepare_stage()
+                self.assertTrue((root/'ready/preparing.json').exists());self.assertEqual(pending.read_bytes(),before)
+                review.side_effect=lambda draft,source:dict(draft,reviewed=True)
+                self.assertEqual(p.prepare_stage(),0)
+                generate.assert_called_once();self.assertTrue((root/'ready/reserve.json').exists());self.assertEqual(pending.read_bytes(),before)
+
+    def test_generation_service_failure_does_not_waste_other_source_packets(self):
+        rows=[({'slug':'one'},F['SOURCE'],'youtube'),({'slug':'two'},F['SOURCE'],'creator-production')]
+        with patch.multiple(p,promote_ready=lambda:False,candidate_library=lambda excluded:(rows,[])),patch.object(p,'generate_grounded_draft',side_effect=p.PinnedModelUnavailable('HTTP 503')) as generate:
+            with self.assertRaises(p.PinnedModelUnavailable):p.select_daily_draft(refresh=False)
+            generate.assert_called_once()
+
     def test_repeated_article_prose_is_rejected_even_with_a_new_title(self):
         draft=dict(F['DRAFT'],source_bundle={'topic_id':'new-title'})
         with patch.object(p,'editorial_history',return_value=[{'slug':'previous','content':draft['content']} ]):

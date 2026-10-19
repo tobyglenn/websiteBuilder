@@ -32,6 +32,10 @@ from zoneinfo import ZoneInfo
 from typing import Any
 
 
+class PinnedModelUnavailable(RuntimeError):
+    """Service failure: retain work and retry later without changing the model."""
+
+
 VALID_CATEGORIES = {
     "Field Reports",
     "The Long Game",
@@ -845,13 +849,13 @@ print(json.dumps({'ok':result.ok,'text':result.text,'model':result.model,'provid
                    input_text=json.dumps({"prompt": prompt, "timeout": min(timeout, 360), "max_tokens": 32768}),
                    timeout=timeout, env_extra={"PYTHONPATH": str(SCRIPTS_DIR)+os.pathsep+str(FREECALL_ROOT), "PATH": os.environ.get("PATH", "")})
         if proc.returncode != 0:
-            raise RuntimeError(f"Pinned {stage} model failed; holding instead of falling back: {(proc.stderr or proc.stdout)[-500:]}")
+            raise PinnedModelUnavailable(f"Pinned {stage} model failed; holding instead of falling back: {(proc.stderr or proc.stdout)[-500:]}")
         result = json.loads(proc.stdout)
         if result.get("ok") is True or attempt or not re.search(r"\b(?:429|503)\b", str(result.get("error", ""))):break
         log(stage, "Pinned reviewer temporarily unavailable; retrying the same model after cooldown")
         time.sleep(35)
     if result.get("ok") is not True or not result.get("text"):
-        raise RuntimeError(f"Pinned {stage} model failed; holding instead of falling back: {str(result.get('error'))[:500]}")
+        raise PinnedModelUnavailable(f"Pinned {stage} model failed; holding instead of falling back: {str(result.get('error'))[:500]}")
     actual_model = str(result.get("provider", "")) + "/" + str(result.get("model", ""))
     if actual_model != model or result.get("server_model") not in {model, model.split("/",1)[1]}:
         raise RuntimeError("Model identity missing or changed; editorial approval refused")
@@ -1173,6 +1177,9 @@ def select_daily_draft(excluded=(), refresh=True, use_reserve=True):
             validate_draft(draft,require_review=False);save_pending(draft);clear_quality_hold()
             log("draft","Saved daily candidate from "+lane+": "+draft["slug"])
             return 0
+        except PinnedModelUnavailable:
+            if use_reserve and promote_ready():return 0
+            raise
         except Exception as exc:
             failures.append(identity["slug"]+": "+str(exc)[:400])
             log("draft","Candidate rejected; trying another evidence packet: "+failures[-1])
@@ -1191,8 +1198,17 @@ def prepare_stage():
     if original.exists():reserved_slug=json.loads(original.read_text()).get("slug","")
     PENDING=READY_DIR/"preparing.json"
     try:
-        PENDING.unlink(missing_ok=True)
-        select_daily_draft(excluded=[reserved_slug],refresh=False,use_reserve=False)
+        if PENDING.exists():
+            try:
+                staged=json.loads(PENDING.read_text())
+                if staged.get("slug")==reserved_slug:raise ValueError("Today's pending article is excluded")
+                validate_draft(staged,require_review=False)
+                quality.validate_grounding(staged,load_quality_source(staged))
+                assert_available_section(staged)
+                log("prepare","Resuming staged reserve after an earlier service failure: "+staged["slug"])
+            except Exception as exc:
+                log("prepare","Staged reserve needs replacement: "+str(exc)[:200]);PENDING.unlink()
+        if not PENDING.exists():select_daily_draft(excluded=[reserved_slug],refresh=False,use_reserve=False)
         review_stage(recover=True, excluded=[reserved_slug], use_reserve=False)
         draft=json.loads(PENDING.read_text());quality.require_approval(draft,load_quality_source(draft))
         PENDING.replace(READY_DIR/(draft["slug"]+".json"))
@@ -1292,6 +1308,9 @@ def review_stage(recover=True, excluded=(), use_reserve=True) -> int:
         return 0
     except Exception as exc:
         record_quality_hold("review", str(exc), str(draft.get("slug", "")))
+        if isinstance(exc,PinnedModelUnavailable):
+            if use_reserve and promote_ready():return 0
+            raise  # Keep the staged draft; changing sources cannot repair an outage.
         if recover:
             excluded=list(excluded)+[draft.get("slug", "")]
             quarantine_pending("review", str(exc)[:500])
