@@ -14,6 +14,7 @@ export type BlogPost = {
   category: string;
   published_at: string;
   updated_at?: string;
+  editorial_lane?: string;
   image?: string;
   tags: string[];
   content: string;
@@ -23,6 +24,7 @@ type PartialBlogPost = Partial<BlogPost> & { slug: string };
 type RawFallbackBlogPost = Partial<BlogPost> & {
   slug: string;
   id?: string;
+  source_bundle?: {lane?: string};
   date?: string;
   published?: string;
   publishedAt?: string;
@@ -253,6 +255,7 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
     image,
     tags,
     content: String(post.content || ''),
+    editorial_lane: post.editorial_lane || post.source_bundle?.lane,
   };
 }
 

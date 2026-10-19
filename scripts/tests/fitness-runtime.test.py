@@ -63,16 +63,13 @@ class RuntimeTests(unittest.TestCase):
                 scope['main']()
         self.assertEqual(result.exception.code, 1)
 
-    def test_blog_hold_is_notified_once(self):
+    def test_blog_hold_uses_recovery_instead_of_no_publication_notice(self):
         with tempfile.TemporaryDirectory() as d:
-            root = Path(d)
-            hold = root / 'quality-hold.json'
-            hold.write_text(json.dumps({'day': blog.publication_day(), 'reason': 'No verified sources'}))
-            with patch.multiple(blog, DRAFT_DIR=root, PENDING=root/'pending.json', ensure_dirs=lambda: None, require_paths=lambda: None, log=lambda *a: None), patch.object(blog, 'run', return_value=subprocess.CompletedProcess([],0,'','')) as send:
-                self.assertEqual(blog.publish_stage(), 0)
-                self.assertEqual(blog.publish_stage(), 0)
-                self.assertEqual(send.call_count, 1)
-                self.assertIn('No new article was published', send.call_args.kwargs['input_text'])
+            root=Path(d)
+            (root/'quality-hold.json').write_text(json.dumps({'day':blog.publication_day(),'reason':'old transcript-only hold'}))
+            with patch.multiple(blog,DRAFT_DIR=root,PENDING=root/'pending.json',ensure_dirs=lambda:None,require_paths=lambda:None,has_post_dated=lambda day:False,promote_ready=lambda:False),patch.object(blog,'select_daily_draft',side_effect=RuntimeError('recovery invoked')) as recover:
+                with self.assertRaisesRegex(RuntimeError,'recovery invoked'):blog.publish_stage()
+                recover.assert_called_once()
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,694 @@
+{
+  "version": "daily-evidence-plan-v1",
+  "daily_publication": true,
+  "private_source_code": "never ingest or publish",
+  "documents": [
+    {
+      "id": "wild-project",
+      "kind": "public-page",
+      "title": "Wild Rebellion project and production overview",
+      "url": "https://tobyonfitnesstech.com/projects/wild-rebellion/"
+    },
+    {
+      "id": "monstrum-project",
+      "kind": "public-page",
+      "title": "Monstrum World project overview",
+      "url": "https://tobyonfitnesstech.com/projects/monstrum-world/"
+    },
+    {
+      "id": "ironvane-project",
+      "kind": "public-page",
+      "title": "Ironvane Chronicle production overview",
+      "url": "https://tobyonfitnesstech.com/projects/ironvane-chronicle/"
+    },
+    {
+      "id": "pokemon-project",
+      "kind": "public-page",
+      "title": "Pokémon GO automation public project",
+      "url": "https://tobyonfitnesstech.com/projects/pokemon-go-automation/"
+    },
+    {
+      "id": "wild-rebellion-from-drawings-to-roblox",
+      "kind": "public-page",
+      "title": "From Lilly drawings to a playable world",
+      "url": "https://tobyonfitnesstech.com/games/journal/wild-rebellion-from-drawings-to-roblox/"
+    },
+    {
+      "id": "wild-rebellion-v36-a-clearer-adventure",
+      "kind": "public-page",
+      "title": "Wild Rebellion interface clarity",
+      "url": "https://tobyonfitnesstech.com/games/journal/wild-rebellion-v36-a-clearer-adventure/"
+    },
+    {
+      "id": "wild-rebellion-v37-more-reasons-to-explore",
+      "kind": "public-page",
+      "title": "Wild Rebellion exploration and racing",
+      "url": "https://tobyonfitnesstech.com/games/journal/wild-rebellion-v37-more-reasons-to-explore/"
+    },
+    {
+      "id": "wild-rebellion-v42-new-adventures-and-a-growing-farm",
+      "kind": "public-page",
+      "title": "Wild Rebellion farm and adventures",
+      "url": "https://tobyonfitnesstech.com/games/journal/wild-rebellion-v42-new-adventures-and-a-growing-farm/"
+    },
+    {
+      "id": "monstrum-world-raising-a-partner",
+      "kind": "public-page",
+      "title": "Monstrum World companion design",
+      "url": "https://tobyonfitnesstech.com/games/journal/monstrum-world-raising-a-partner/"
+    },
+    {
+      "id": "monstrum-world-v46-cooking-and-clearer-choices",
+      "kind": "public-page",
+      "title": "Monstrum World cooking and team choices",
+      "url": "https://tobyonfitnesstech.com/games/journal/monstrum-world-v46-cooking-and-clearer-choices/"
+    },
+    {
+      "id": "monstrum-world-v47-world-boss-readiness",
+      "kind": "public-page",
+      "title": "Monstrum World boss readiness",
+      "url": "https://tobyonfitnesstech.com/games/journal/monstrum-world-v47-world-boss-readiness/"
+    },
+    {
+      "id": "monstrum-world-v48-a-soundtrack-for-the-ranch",
+      "kind": "public-page",
+      "title": "Monstrum World soundtrack",
+      "url": "https://tobyonfitnesstech.com/games/journal/monstrum-world-v48-a-soundtrack-for-the-ranch/"
+    },
+    {
+      "id": "pokemon-readme",
+      "kind": "public-repo-doc",
+      "title": "Pokémon automation overview",
+      "repo": "tobyglenn/pokemon-go-automation",
+      "path": "docs/README.md"
+    },
+    {
+      "id": "pokemon-architecture",
+      "kind": "public-repo-doc",
+      "title": "Pokémon automation architecture",
+      "repo": "tobyglenn/pokemon-go-automation",
+      "path": "docs/architecture.md"
+    },
+    {
+      "id": "pokemon-privacy",
+      "kind": "public-repo-doc",
+      "title": "Pokémon automation privacy boundaries",
+      "repo": "tobyglenn/pokemon-go-automation",
+      "path": "docs/privacy.md"
+    },
+    {
+      "id": "pokemon-workflows",
+      "kind": "public-repo-doc",
+      "title": "Pokémon automation workflows",
+      "repo": "tobyglenn/pokemon-go-automation",
+      "path": "docs/workflows.md"
+    },
+    {
+      "id": "pokemon-testing",
+      "kind": "public-repo-doc",
+      "title": "Pokémon automation testing",
+      "repo": "tobyglenn/pokemon-go-automation",
+      "path": "docs/testing.md"
+    },
+    {
+      "id": "pokemon-configuration",
+      "kind": "public-repo-doc",
+      "title": "Pokémon automation configuration",
+      "repo": "tobyglenn/pokemon-go-automation",
+      "path": "docs/configuration.md"
+    },
+    {
+      "id": "website-readme",
+      "kind": "public-repo-doc",
+      "title": "Website architecture and catalog",
+      "repo": "tobyglenn/websiteBuilder",
+      "path": "README.md"
+    },
+    {
+      "id": "workout-manager",
+      "kind": "public-repo-doc",
+      "title": "Public Speediance and SmartGym workout manager",
+      "repo": "clawdassistant85-netizen/speediance-smartgym-workout-manager",
+      "path": "README.md"
+    },
+    {
+      "id": "workout-safety",
+      "kind": "public-repo-doc",
+      "title": "Workout manager public extraction boundaries",
+      "repo": "clawdassistant85-netizen/speediance-smartgym-workout-manager",
+      "path": "PUBLICATION_SAFETY.md"
+    },
+    {
+      "id": "owner-workflow-20261019",
+      "kind": "owner-approved-note",
+      "title": "Toby production and model workflow note, October 19, 2026",
+      "approved_at": "2026-10-19",
+      "publication_approved": true,
+      "disclosure": "narrative-only-no-private-code",
+      "text": "I build open-source projects and work on Wild Rebellion. There are hours of material on my YouTube channel. Making Lilly's content is also part of my work and a subject I want to discuss. I want to explain what we built and how we built it, including narrative descriptions of work whose repository is private. I do not want source code from a private repository published. I use OpenAI five five in this work. I now have access to Argon and we are using it for some things. My specific opinions about the models, exact roles for Argon, comparative performance, prices, and model-release availability are not supplied in this note and must not be invented. This is a firsthand workflow note, not a vendor product announcement."
+    },
+    {
+      "id": "youtube-workflow-9JA9pjANcPo",
+      "kind": "public-video-transcript",
+      "title": "What AI Actually Does for Me: Codex, Claude, Blender and Everyday Tasks",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "9JA9pjANcPo",
+      "is_short": false
+    },
+    {
+      "id": "youtube-9JA9pjANcPo:0-1673",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "9JA9pjANcPo",
+      "is_short": false,
+      "title": "What AI Actually Does for Me: Codex, Claude, Blender & Everyday Tasks",
+      "start": 0,
+      "end": 1673
+    },
+    {
+      "id": "youtube-csEZTntGi3E-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "csEZTntGi3E",
+      "is_short": false,
+      "title": "Purple Belt Changed Everything: Coaching, Ego, Real Progress"
+    },
+    {
+      "id": "youtube-lUpvAAglrEs-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "lUpvAAglrEs",
+      "is_short": false,
+      "title": "What White Belts Actually Need to Learn in Brazilian Jiu-Jitsu"
+    },
+    {
+      "id": "youtube-1liD1s8HlsQ-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "1liD1s8HlsQ",
+      "is_short": false,
+      "title": "Why I Still Do Jiu-Jitsu"
+    },
+    {
+      "id": "youtube-69-NIAJIhtA-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "69-NIAJIhtA",
+      "is_short": false,
+      "title": "Whoop 5.0 Garments Failed Grapplers"
+    },
+    {
+      "id": "youtube-moinyXD_iMc-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "moinyXD_iMc",
+      "is_short": false,
+      "title": "Hermes Desktop vs Claude Code vs Codex vs MiniMax Code vs OpenClaw vs Antigravity — Live Showdown"
+    },
+    {
+      "id": "youtube-kgjZDRp90kA-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "kgjZDRp90kA",
+      "is_short": false,
+      "title": "Is the Speediance Ring Actually Trash? Here's the Truth"
+    },
+    {
+      "id": "youtube-GzqAzoSKBWQ-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "GzqAzoSKBWQ",
+      "is_short": false,
+      "title": "I Owe Greg Doucette an Apology"
+    },
+    {
+      "id": "youtube-FV2IyHFDWTQ-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "FV2IyHFDWTQ",
+      "is_short": false,
+      "title": "Balancing training goals with family time"
+    },
+    {
+      "id": "youtube-5BLoGlR1DZ4-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "5BLoGlR1DZ4",
+      "is_short": false,
+      "title": "AEKE K1 vs Speediance: The Camera Changes Everything"
+    },
+    {
+      "id": "youtube-_43qCeKVCNw-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "_43qCeKVCNw",
+      "is_short": false,
+      "title": "Historical coverage before reviewed passage"
+    },
+    {
+      "id": "youtube-MsdQU6uuHaE-full",
+      "kind": "public-video-transcript",
+      "repo": "tobyglenn/websiteBuilder",
+      "video_id": "MsdQU6uuHaE",
+      "is_short": false,
+      "title": "BJJ Buddy Progress, OpenClaw basics/setup, my use cases"
+    }
+  ],
+  "topics": [
+    {
+      "id": "wr-guidance",
+      "lane": "game-development",
+      "title": "Making Wild Rebellion easier to understand",
+      "question": "How do quest guidance and quieter interfaces help players find the adventure?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-v36-a-clearer-adventure"
+      ]
+    },
+    {
+      "id": "wr-explore",
+      "lane": "game-development",
+      "title": "Giving Wild Rebellion more reasons to explore",
+      "question": "How do racing, village homes and exploration give players different ways to spend a session?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-v37-more-reasons-to-explore"
+      ]
+    },
+    {
+      "id": "wr-farm",
+      "lane": "game-development",
+      "title": "Connecting farming with the adventure in Wild Rebellion",
+      "question": "How does a growing farm sit alongside the story adventures?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-v42-new-adventures-and-a-growing-farm"
+      ]
+    },
+    {
+      "id": "wr-perspectives",
+      "lane": "game-development",
+      "title": "Letting players choose a side in Wild Rebellion",
+      "question": "What changes when a game lets players approach the same world as heroes or villains?",
+      "documents": [
+        "wild-project"
+      ]
+    },
+    {
+      "id": "wr-locations",
+      "lane": "game-development",
+      "title": "Turning story locations into places players can use",
+      "question": "How do homes, travel and story locations become interactive places?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-from-drawings-to-roblox"
+      ]
+    },
+    {
+      "id": "lilly-drawings",
+      "lane": "creator-production",
+      "title": "Keeping Lilly characters recognizable across formats",
+      "question": "How do Lilly drawings carry through animation and a playable world?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-from-drawings-to-roblox"
+      ]
+    },
+    {
+      "id": "lilly-playtest",
+      "lane": "creator-production",
+      "title": "What a full family play session can show",
+      "question": "What can a full play session reveal that a trailer does not show?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-v36-a-clearer-adventure"
+      ]
+    },
+    {
+      "id": "lilly-story-game",
+      "lane": "creator-production",
+      "title": "Giving an animated story an interactive counterpart",
+      "question": "How does the Wild Rebellion production connect videos and playable adventures?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-from-drawings-to-roblox"
+      ]
+    },
+    {
+      "id": "lilly-character-work",
+      "lane": "creator-production",
+      "title": "Starting a production with characters and personalities",
+      "question": "Why begin with a character and its world before adding game features?",
+      "documents": [
+        "wild-project",
+        "wild-rebellion-from-drawings-to-roblox"
+      ]
+    },
+    {
+      "id": "monstrum-companion",
+      "lane": "game-development",
+      "title": "Building a companion worth returning to",
+      "question": "What makes a monster feel like a companion rather than a collection entry?",
+      "documents": [
+        "monstrum-project",
+        "monstrum-world-raising-a-partner"
+      ]
+    },
+    {
+      "id": "monstrum-kitchen",
+      "lane": "game-development",
+      "title": "A kitchen as part of the monster-raising loop",
+      "question": "How can cooking become part of looking after a team?",
+      "documents": [
+        "monstrum-project",
+        "monstrum-world-v46-cooking-and-clearer-choices"
+      ]
+    },
+    {
+      "id": "monstrum-readiness",
+      "lane": "game-development",
+      "title": "Inviting players to a world boss when they are ready",
+      "question": "How does the public boss-readiness design balance an invitation with preparation?",
+      "documents": [
+        "monstrum-project",
+        "monstrum-world-v47-world-boss-readiness"
+      ]
+    },
+    {
+      "id": "monstrum-music",
+      "lane": "game-development",
+      "title": "Giving a game ranch its own soundtrack",
+      "question": "What role does the soundtrack play in returning to the ranch?",
+      "documents": [
+        "monstrum-project",
+        "monstrum-world-v48-a-soundtrack-for-the-ranch"
+      ]
+    },
+    {
+      "id": "monstrum-team",
+      "lane": "game-development",
+      "title": "Making team choices easier to understand",
+      "question": "How does interface clarity support decisions about a monster team?",
+      "documents": [
+        "monstrum-project",
+        "monstrum-world-v46-cooking-and-clearer-choices"
+      ]
+    },
+    {
+      "id": "pokemon-private-config",
+      "lane": "public-projects",
+      "title": "Keeping private device details out of a public project",
+      "question": "How does the Pokémon automation project separate shared workflows from private configuration?",
+      "documents": [
+        "pokemon-project",
+        "pokemon-readme",
+        "pokemon-privacy",
+        "pokemon-configuration"
+      ]
+    },
+    {
+      "id": "pokemon-workflow-order",
+      "lane": "public-projects",
+      "title": "Documenting device automation as separate workflows",
+      "question": "Why does the public automation project document gifts, battles and trades as separate workflows?",
+      "documents": [
+        "pokemon-project",
+        "pokemon-readme",
+        "pokemon-workflows"
+      ]
+    },
+    {
+      "id": "pokemon-architecture",
+      "lane": "public-projects",
+      "title": "Organizing a public device automation project",
+      "question": "How does the public architecture divide its responsibilities?",
+      "documents": [
+        "pokemon-project",
+        "pokemon-readme",
+        "pokemon-architecture"
+      ]
+    },
+    {
+      "id": "pokemon-testing",
+      "lane": "public-projects",
+      "title": "Making device automation changes reviewable",
+      "question": "How does the project describe its checks and testing workflow?",
+      "documents": [
+        "pokemon-project",
+        "pokemon-readme",
+        "pokemon-testing"
+      ]
+    },
+    {
+      "id": "pokemon-config-contract",
+      "lane": "public-projects",
+      "title": "Making private configuration explicit",
+      "question": "How do examples and configuration boundaries help someone understand a public automation project?",
+      "documents": [
+        "pokemon-project",
+        "pokemon-readme",
+        "pokemon-configuration",
+        "pokemon-privacy"
+      ]
+    },
+    {
+      "id": "pokemon-public-handoff",
+      "lane": "public-projects",
+      "title": "What belongs in an open-source automation handoff",
+      "question": "What can a public project explain without exposing device credentials or personal account details?",
+      "documents": [
+        "pokemon-project",
+        "pokemon-readme",
+        "pokemon-privacy",
+        "pokemon-architecture"
+      ]
+    },
+    {
+      "id": "website-catalog",
+      "lane": "public-projects",
+      "title": "Building a useful video library around a large archive",
+      "question": "How do categories, transcripts and timestamps help readers navigate a large YouTube archive?",
+      "documents": [
+        "website-readme"
+      ]
+    },
+    {
+      "id": "website-islands",
+      "lane": "public-projects",
+      "title": "Using a static site with interactive islands",
+      "question": "How does the public website architecture combine generated pages and interactive components?",
+      "documents": [
+        "website-readme"
+      ]
+    },
+    {
+      "id": "website-search",
+      "lane": "public-projects",
+      "title": "Making an archive searchable and linkable",
+      "question": "How do catalog URLs and search indexing help readers reach the relevant material?",
+      "documents": [
+        "website-readme"
+      ]
+    },
+    {
+      "id": "workout-export",
+      "lane": "public-projects",
+      "title": "Sharing a workout manager without private fitness reports",
+      "question": "What is included in the public workout manager and what stays outside it?",
+      "documents": [
+        "workout-manager",
+        "workout-safety"
+      ]
+    },
+    {
+      "id": "workout-workflow",
+      "lane": "public-projects",
+      "title": "Connecting a workout manager to a training workflow",
+      "question": "How does the public manager organize its workout tasks?",
+      "documents": [
+        "workout-manager"
+      ]
+    },
+    {
+      "id": "models-project-context",
+      "lane": "model-workflows",
+      "title": "Talking about model use through the projects being built",
+      "question": "How can I explain my model workflow through concrete projects without inventing benchmark claims?",
+      "documents": [
+        "owner-workflow-20261019",
+        "website-readme",
+        "wild-project",
+        "youtube-workflow-9JA9pjANcPo"
+      ]
+    },
+    {
+      "id": "models-private-boundary",
+      "lane": "model-workflows",
+      "title": "Explaining a private build without publishing its source",
+      "question": "What can I say about what we built and the tools used while keeping private source code private?",
+      "documents": [
+        "owner-workflow-20261019",
+        "pokemon-privacy",
+        "workout-safety",
+        "website-readme",
+        "youtube-workflow-9JA9pjANcPo"
+      ]
+    },
+    {
+      "id": "models-roles-evidence",
+      "lane": "model-workflows",
+      "title": "Separating my model workflow from vendor claims",
+      "question": "What have I actually said about OpenAI five five and Argon, and what would need more firsthand evidence?",
+      "documents": [
+        "owner-workflow-20261019",
+        "website-readme",
+        "youtube-workflow-9JA9pjANcPo"
+      ]
+    },
+    {
+      "id": "ironvane-production",
+      "lane": "creator-production",
+      "title": "Following an animated production from story to episode",
+      "question": "What does the public Ironvane project show about its production workflow?",
+      "documents": [
+        "ironvane-project"
+      ]
+    },
+    {
+      "id": "ironvane-world",
+      "lane": "creator-production",
+      "title": "Giving an animated world a consistent visual identity",
+      "question": "How does the public project describe its characters, visuals and episode structure?",
+      "documents": [
+        "ironvane-project"
+      ]
+    },
+    {
+      "id": "youtube-harness-tasks",
+      "lane": "youtube",
+      "title": "What the tools around a model do in my workflow",
+      "question": "How do Codex, Claude and Blender fit into the concrete work described in my video?",
+      "documents": [
+        "youtube-workflow-9JA9pjANcPo"
+      ]
+    },
+    {
+      "id": "youtube-everyday-projects",
+      "lane": "youtube",
+      "title": "Connecting coding tools with everyday project work",
+      "question": "Which everyday tasks in my video connect the coding workflow with the projects being built?",
+      "documents": [
+        "youtube-workflow-9JA9pjANcPo",
+        "owner-workflow-20261019"
+      ]
+    },
+    {
+      "id": "youtube-9ja9pjancpo0-1673",
+      "lane": "youtube",
+      "title": "What AI Actually Does for Me: Codex, Claude, Blender & Everyday Tasks",
+      "question": "What does my discussion of What AI Actually Does for Me: Codex, Claude, Blender & Everyday Tasks show about the choices and tradeoffs in this work?",
+      "documents": [
+        "youtube-9JA9pjANcPo:0-1673"
+      ]
+    },
+    {
+      "id": "youtube-cseztntgi3e-full",
+      "lane": "youtube",
+      "title": "Purple Belt Changed Everything: Coaching, Ego, Real Progress",
+      "question": "What choices and tradeoffs do I describe in Purple Belt Changed Everything: Coaching, Ego, Real Progress?",
+      "documents": [
+        "youtube-csEZTntGi3E-full"
+      ]
+    },
+    {
+      "id": "youtube-lupvaaglres-full",
+      "lane": "youtube",
+      "title": "What White Belts Actually Need to Learn in Brazilian Jiu-Jitsu",
+      "question": "What choices and tradeoffs do I describe in What White Belts Actually Need to Learn in Brazilian Jiu-Jitsu?",
+      "documents": [
+        "youtube-lUpvAAglrEs-full"
+      ]
+    },
+    {
+      "id": "youtube-1lid1s8hlsq-full",
+      "lane": "youtube",
+      "title": "Why I Still Do Jiu-Jitsu",
+      "question": "What choices and tradeoffs do I describe in Why I Still Do Jiu-Jitsu?",
+      "documents": [
+        "youtube-1liD1s8HlsQ-full"
+      ]
+    },
+    {
+      "id": "youtube-69-niajihta-full",
+      "lane": "youtube",
+      "title": "Whoop 5.0 Garments Failed Grapplers",
+      "question": "What choices and tradeoffs do I describe in Whoop 5.0 Garments Failed Grapplers?",
+      "documents": [
+        "youtube-69-NIAJIhtA-full"
+      ]
+    },
+    {
+      "id": "youtube-moinyxd-imc-full",
+      "lane": "youtube",
+      "title": "Hermes Desktop vs Claude Code vs Codex vs MiniMax Code vs OpenClaw vs Antigravity — Live Showdown",
+      "question": "What choices and tradeoffs do I describe in Hermes Desktop vs Claude Code vs Codex vs MiniMax Code vs OpenClaw vs Antigravity — Live Showdown?",
+      "documents": [
+        "youtube-moinyXD_iMc-full"
+      ]
+    },
+    {
+      "id": "youtube-kgjzdrp90ka-full",
+      "lane": "youtube",
+      "title": "Is the Speediance Ring Actually Trash? Here's the Truth",
+      "question": "What choices and tradeoffs do I describe in Is the Speediance Ring Actually Trash? Here's the Truth?",
+      "documents": [
+        "youtube-kgjZDRp90kA-full"
+      ]
+    },
+    {
+      "id": "youtube-gzqazoskbwq-full",
+      "lane": "youtube",
+      "title": "I Owe Greg Doucette an Apology",
+      "question": "What choices and tradeoffs do I describe in I Owe Greg Doucette an Apology?",
+      "documents": [
+        "youtube-GzqAzoSKBWQ-full"
+      ]
+    },
+    {
+      "id": "youtube-fv2iyhfdwtq-full",
+      "lane": "youtube",
+      "title": "Balancing training goals with family time",
+      "question": "What choices and tradeoffs do I describe in Balancing training goals with family time?",
+      "documents": [
+        "youtube-FV2IyHFDWTQ-full"
+      ]
+    },
+    {
+      "id": "youtube-5bloglr1dz4-full",
+      "lane": "youtube",
+      "title": "AEKE K1 vs Speediance: The Camera Changes Everything",
+      "question": "What does my discussion of AEKE K1 vs Speediance: The Camera Changes Everything show about the choices and tradeoffs in this work?",
+      "documents": [
+        "youtube-5BLoGlR1DZ4-full"
+      ]
+    },
+    {
+      "id": "youtube-43qcekvcnw-full",
+      "lane": "youtube",
+      "title": "Historical coverage before reviewed passage",
+      "question": "What does my discussion of Historical coverage before reviewed passage show about the choices and tradeoffs in this work?",
+      "documents": [
+        "youtube-_43qCeKVCNw-full"
+      ]
+    },
+    {
+      "id": "youtube-msdqu6uuhae-full",
+      "lane": "youtube",
+      "title": "BJJ Buddy Progress, OpenClaw basics/setup, my use cases",
+      "question": "What does my discussion of BJJ Buddy Progress, OpenClaw basics/setup, my use cases show about the choices and tradeoffs in this work?",
+      "documents": [
+        "youtube-MsdQU6uuHaE-full"
+      ]
+    }
+  ]
+}

@@ -157,18 +157,19 @@ class PipelineQuality(unittest.TestCase):
   responses=[(json.dumps(review),call('review',q.REVIEW_MODEL)),(json.dumps(failed),call('fact-check',q.AUDIT_MODEL))]
   with patch.object(p,'editorial_model_call',side_effect=responses):
    with self.assertRaisesRegex(ValueError,'unsupported context'):p.review_grounded_draft(dict(DRAFT,editorial_lock=True),SOURCE)
- def test_final_publisher_rejects_legacy_review_flag_before_any_write(self):
+ def test_final_publisher_recovers_legacy_review_flag_before_any_write(self):
   with tempfile.TemporaryDirectory() as temp:
    pending=Path(temp)/'pending.json';pending.write_text(json.dumps(DRAFT));before=pending.read_text()
-   with patch.object(p,'PENDING',pending),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'validate_draft'),patch.object(p,'read_used_slugs',return_value=set()),patch.object(p,'read_used_video_ids',return_value=set()),patch.object(p,'assert_available_section'),patch.object(p,'assert_topic_rotation'),patch.object(p,'load_quality_source',return_value=SOURCE),patch.object(p,'ensure_thumbnail') as thumb,patch.object(p,'frontend_build') as build:
-    with self.assertRaisesRegex(ValueError,'reviewed=true'):p.publish_stage()
+   with patch.object(p,'PENDING',pending),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'validate_draft'),patch.object(p,'read_used_slugs',return_value=set()),patch.object(p,'read_used_video_ids',return_value=set()),patch.object(p,'assert_available_section'),patch.object(p,'assert_topic_rotation'),patch.object(p,'load_quality_source',return_value=SOURCE),patch.object(p,'ensure_thumbnail') as thumb,patch.object(p,'frontend_build') as build,patch.object(p,'review_stage',side_effect=RuntimeError('approval recovery requested')) as recover:
+    with self.assertRaisesRegex(RuntimeError,'approval recovery requested'):p.publish_stage()
+    recover.assert_called_once()
     thumb.assert_not_called();build.assert_not_called()
    self.assertEqual(pending.read_text(),before)
- def test_expected_quality_hold_does_not_force_daily_article(self):
+ def test_old_quality_hold_triggers_daily_recovery(self):
   with tempfile.TemporaryDirectory() as temp:
-   with patch.object(p,'DRAFT_DIR',Path(temp)),patch.object(p,'PENDING',Path(temp)/'pending.json'),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'log'),patch.object(p,'run',return_value=subprocess.CompletedProcess([],0,'','')) as sender:
-    p.record_quality_hold('draft','No substantial source')
-    self.assertEqual(p.publish_stage(),0)
-    sender.assert_called_once()
+   with patch.object(p,'DRAFT_DIR',Path(temp)),patch.object(p,'PENDING',Path(temp)/'pending.json'),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'log'),patch.object(p,'has_post_dated',return_value=False),patch.object(p,'promote_ready',return_value=False),patch.object(p,'select_daily_draft',side_effect=RuntimeError('operational recovery attempted')) as recover:
+    p.record_quality_hold('draft','The narrow video queue was empty')
+    with self.assertRaisesRegex(RuntimeError,'operational recovery attempted'):p.publish_stage()
+    recover.assert_called_once()
 
 if __name__=='__main__':unittest.main()

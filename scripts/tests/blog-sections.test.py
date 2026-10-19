@@ -72,8 +72,9 @@ class SectionTests(unittest.TestCase):
  def test_final_publication_rechecks_coverage_before_writes(self):
   with tempfile.TemporaryDirectory() as temp:
    pending=Path(temp)/'pending.json';pending.write_text(json.dumps({'slug':'test','reviewed':True}))
-   with patch.object(p,'PENDING',pending),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'validate_draft'),patch.object(p,'read_used_slugs',return_value=set()),patch.object(p,'source_inventory',return_value=inventory()),patch.object(p,'ensure_thumbnail') as thumb,patch.object(p,'frontend_build') as build:
-    with self.assertRaisesRegex(ValueError,'section'):p.publish_stage()
+   with patch.object(p,'PENDING',pending),patch.object(p,'ensure_dirs'),patch.object(p,'require_paths'),patch.object(p,'validate_draft'),patch.object(p,'read_used_slugs',return_value=set()),patch.object(p,'source_inventory',return_value=inventory()),patch.object(p,'ensure_thumbnail') as thumb,patch.object(p,'frontend_build') as build,patch.object(p,'review_stage',side_effect=RuntimeError('source recovery required')) as recover:
+    with self.assertRaisesRegex(RuntimeError,'source recovery required'):p.publish_stage()
+    recover.assert_called_once()
     thumb.assert_not_called();build.assert_not_called()
  def test_metadata_survives_publish_and_no_whole_video_blacklist(self):
   section=inventory()['sections'][0];d={'slug':'test','title':'Test','excerpt':'Test','category':'Reviews','date':'2026-10-14','content':'<p>Test</p>','source_video_id':ROOT,'source_url':section['source_url'],'source_section':s.identity(section),'transcript_basename':ROOT}

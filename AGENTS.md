@@ -100,3 +100,11 @@ cd frontend && npm run preview
 1. **Keep Data Valid**: Always ensure TypeScript exports in `src/data/` (such as `gearItems.ts` and `projects.ts`) have complete string literals and conform to required types.
 2. **Run Sync & Build**: After altering video or project data schemas, run `npx astro sync` and `npm run build` in `frontend/` to confirm that all 2,300+ pages and localized routes build cleanly without errors.
 3. **Preserve Analytics Integrity**: When modifying interactive components, retain `data-analytics-event` attributes and `captureEvent()` telemetry calls.
+
+## Daily blog source and recovery policy
+
+Publish one useful, independently reviewed article daily. Draw from the public YouTube archive (including distinct supported questions within older recordings), Lilly production, public/open-source project prose, Wild Rebellion and other game journals, and owner-approved narrative descriptions of current work. The versioned source plan is `scripts/dgx/blog-source-plan.json`.
+
+Never ingest or publish private repository source code. Public repository intake must verify public visibility and read only explicitly listed prose documents. Private-project narratives require explicit owner approval. Discuss model use and opinions only when supported by the owner's actual statements; do not invent model assignments, benchmarks or experiences.
+
+Keep an approved reserve pool, replenish source angles, and recover a failed draft or review by trying another evidence packet. Reuse of a source requires a distinct reader question and new reader value, not rewritten prior prose. Do not report routine content scarcity or silently skip the daily publication. Report real technical failures after recovery attempts fail. Preserve existing approvals and schedules, including the 19:00 America/New_York publish slot. DGX is canonical; never deploy from a stale Mac checkout.

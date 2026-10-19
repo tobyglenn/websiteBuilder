@@ -10,7 +10,7 @@ try {
   const { BLOG_POSTS } = await server.ssrLoadModule('/src/data/mock.js');
   const corpus = {};
   for (const post of BLOG_POSTS) {
-    if (post.source_section) continue;
+    if (post.source_section || post.source_bundle) continue;
     const key = `mock:${post.slug}`;
     (corpus[key] ??= []).push({ title: post.title, content: post.content || '' });
   }

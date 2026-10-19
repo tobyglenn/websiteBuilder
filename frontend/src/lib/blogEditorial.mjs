@@ -1,6 +1,9 @@
 export const BLOG_CATEGORIES = ['Speediance','Wearables','BJJ','Reviews','Build Logs','Field Reports','Training Tips','The Numbers','The Long Game','Transformation','Signal vs. Noise'];
 // Shared category and reader-intent policy. A source video is not itself a topic.
-export function articleTopic({ category = '', title = '', slug = '', tags = [] } = {}) {
+export function articleTopic({ category = '', title = '', slug = '', tags = [], editorial_lane = '', source_bundle } = {}) {
+  const lane = editorial_lane || source_bundle?.lane;
+  const lanes = {'game-development':'games','creator-production':'creator','public-projects':'projects','model-workflows':'ai'};
+  if (lanes[lane]) return lanes[lane];
   const c = category.toLowerCase();
   const text = `${title} ${slug} ${tags.join(' ')}`.toLowerCase();
   if (['build logs', 'ai tech'].includes(c)) return 'ai';

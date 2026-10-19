@@ -21,3 +21,11 @@ test('generic AI and additional device titles get a useful rotation topic', () =
  for (const title of ['INNODIGYM vs Speediance', 'Vitruvian review']) assert.equal(articleTopic({title}), 'gym');
  assert.equal(articleTopic({title:'Training with a daily walk'}), 'training');
 });
+
+
+test('daily source lanes preserve separate reader topics in Build Logs', () => {
+ for (const [lane, topic] of Object.entries({'game-development':'games','creator-production':'creator','public-projects':'projects','model-workflows':'ai'})) {
+  assert.equal(articleTopic({category:'Build Logs',source_bundle:{lane}}), topic);
+  assert.equal(articleTopic({category:'Build Logs',editorial_lane:lane}), topic);
+ }
+});
