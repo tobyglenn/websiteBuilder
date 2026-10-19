@@ -885,6 +885,7 @@ def review_grounded_draft(draft: dict[str, Any], source: dict[str, Any]) -> dict
             return review_grounded_draft_once(candidate, source)
         except ValueError as exc:
             if attempt == 2: raise
+            candidate = dict(getattr(exc, 'candidate', candidate))
             findings.append(str(exc)[:2000])
             candidate['editorial_feedback'] = '\n'.join(findings)
             log('review', 'quality gate requested source-grounded repair: ' + str(exc)[:500])
@@ -907,12 +908,26 @@ Return ONLY corrected JSON with title (under 75 characters), excerpt (120-180 ch
     fixed["date"] = publication_day()
     fixed = normalize_draft(fixed)
     fixed["reviewed"] = True
-    quality.validate_grounding(fixed, source)
-    response, audit_call = editorial_model_call(quality.audit_prompt(fixed, source), stage="fact-check", model=quality.AUDIT_MODEL)
-    audit = extract_json_object(response)
-    fixed["model_provenance"] = draft.get("model_provenance", []) + [review_call, audit_call]
-    fixed["quality_approval"] = quality.approval(fixed, source, audit, review_call, audit_call)
-    return fixed
+    try:
+        quality.validate_grounding(fixed, source)
+        prompt = quality.audit_prompt(fixed, source)
+        for audit_attempt in range(2):
+            response, audit_call = editorial_model_call(prompt, stage="fact-check", model=quality.AUDIT_MODEL)
+            audit = extract_json_object(response)
+            try:
+                fixed["quality_approval"] = quality.approval(fixed, source, audit, review_call, audit_call)
+                break
+            except ValueError as exc:
+                if audit_attempt or "invalid source passage reference" not in str(exc):
+                    raise
+                # Repair auditor citation formatting against the identical article.
+                # All claim checks, exact quotes and model identity remain mandatory.
+                prompt += "\nYour last audit used a source passage ID that does not exist. Return a fresh audit using only these exact IDs: " + json.dumps([p["id"] for p in quality.source_passages(source)])
+        fixed["model_provenance"] = draft.get("model_provenance", []) + [review_call, audit_call]
+        return fixed
+    except ValueError as exc:
+        exc.candidate = fixed
+        raise
 
 
 def draft_stage() -> int:

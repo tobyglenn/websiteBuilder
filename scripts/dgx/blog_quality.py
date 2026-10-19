@@ -176,10 +176,10 @@ def resolve_audit(audit: dict, source: dict) -> dict:
 
 
 def validate_audit(draft: dict, source: dict, audit: dict) -> None:
-    audit = resolve_audit(audit, source)
-    units = validate_grounding(draft, source)
     if audit.get('verdict') != 'pass' or audit.get('issues') != []:
         raise ValueError('Quality hold: fact checker did not approve: ' + str(audit.get('issues', audit.get('verdict'))))
+    audit = resolve_audit(audit, source)
+    units = validate_grounding(draft, source)
     if any(audit.get('checks', {}).get(key) is not True for key in CHECKS):
         raise ValueError('Quality hold: incomplete or failed editorial checks')
     records = audit.get('units', [])
@@ -209,8 +209,8 @@ def validate_audit(draft: dict, source: dict, audit: dict) -> None:
 
 
 def approval(draft: dict, source: dict, audit: dict, review_call: dict, audit_call: dict) -> dict:
-    audit = resolve_audit(audit, source)
     validate_audit(draft, source, audit)
+    audit = resolve_audit(audit, source)
     for receipt, expected in ((review_call, REVIEW_MODEL), (audit_call, AUDIT_MODEL)):
         if receipt.get('model') != expected or receipt.get('requested_model') != expected or receipt.get('server_model') not in {expected, expected.split('/',1)[1]}:
             raise ValueError('Quality hold: reviewer model provenance does not match approved models')

@@ -120,6 +120,24 @@ class PipelineQuality(unittest.TestCase):
    p.review_grounded_draft(DRAFT,SOURCE)
    feedback=reviewer.call_args.args[0]['editorial_feedback']
    self.assertIn('unsupported year',feedback);self.assertIn('unsupported photo context',feedback)
+ def test_repair_uses_the_last_corrected_article(self):
+  changed=dict(DRAFT,title='Corrected title')
+  exc=ValueError('unsupported detail');exc.candidate=changed
+  with patch.object(p,'review_grounded_draft_once',side_effect=[exc,dict(DRAFT)]) as reviewer,patch.object(p,'log'):
+   p.review_grounded_draft(DRAFT,SOURCE)
+   self.assertEqual(reviewer.call_args.args[0]['title'],'Corrected title')
+ def test_failed_verdict_reports_findings_before_empty_citations(self):
+  failed=audit();failed['verdict']='hold';failed['issues']=[{'unit_id':'block-1','reason':'unsupported context'}];failed['units'][0]['source_ids']=[]
+  with self.assertRaisesRegex(ValueError,'unsupported context'):
+   q.approval(DRAFT,SOURCE,failed,call('review',q.REVIEW_MODEL),call('fact-check',q.AUDIT_MODEL))
+ def test_invalid_auditor_citations_retry_the_same_article(self):
+  invalid=audit();invalid['units'][0]['source_ids']=['not-a-real-passage']
+  responses=[(json.dumps(DRAFT),call('review',q.REVIEW_MODEL)),(json.dumps(invalid),call('fact-check',q.AUDIT_MODEL)),(json.dumps(audit()),call('fact-check',q.AUDIT_MODEL))]
+  with patch.object(p,'editorial_model_call',side_effect=responses) as model:
+   fixed=p.review_grounded_draft_once(DRAFT,SOURCE)
+   q.require_approval(fixed,SOURCE)
+   self.assertEqual(model.call_count,3)
+   self.assertIn('only these exact IDs',model.call_args.args[0])
  def test_final_publisher_rejects_legacy_review_flag_before_any_write(self):
   with tempfile.TemporaryDirectory() as temp:
    pending=Path(temp)/'pending.json';pending.write_text(json.dumps(DRAFT));before=pending.read_text()

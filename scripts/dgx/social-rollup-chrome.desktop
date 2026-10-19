@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Social statistics Chrome
+Comment=Sign into the Chrome profile used by the weekly statistics collector
+Exec=/bin/bash /home/toby/.openclaw/workspace/scripts/wrappers/social_chrome_signin.sh
+Icon=google-chrome
+Terminal=false
+Categories=Network;WebBrowser;

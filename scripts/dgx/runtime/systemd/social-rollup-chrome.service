@@ -1,0 +1,14 @@
+[Unit]
+Description=Chrome for the existing weekly social statistics collector
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/google-chrome --headless=new --remote-debugging-address=127.0.0.1 --remote-debugging-port=9222 --user-data-dir=/home/toby/.openclaw/browser-profiles/social-rollup --no-first-run --no-default-browser-check --disable-dev-shm-usage about:blank
+Restart=on-failure
+RestartSec=5
+KillMode=control-group
+UMask=0077
+
+[Install]
+WantedBy=default.target
