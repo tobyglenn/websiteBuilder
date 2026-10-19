@@ -875,16 +875,19 @@ Otherwise return ONLY JSON: {{"title":"clear specific title under 75 characters"
 
 
 def review_grounded_draft(draft: dict[str, Any], source: dict[str, Any]) -> dict[str, Any]:
-    # One evidence-led repair is allowed, always with a fresh independent audit.
+    # Up to two evidence-led repairs, each with a fresh independent audit.
+    # Keep every prior finding so fixing one error cannot reintroduce another.
     # A model outage is not retried through another model or provider.
     candidate = dict(draft)
-    for attempt in range(2):
+    findings = []
+    for attempt in range(3):
         try:
             return review_grounded_draft_once(candidate, source)
         except ValueError as exc:
-            if attempt: raise
-            candidate['editorial_feedback'] = str(exc)[:4000]
-            log('review', 'quality gate requested one source-grounded repair: ' + str(exc)[:500])
+            if attempt == 2: raise
+            findings.append(str(exc)[:2000])
+            candidate['editorial_feedback'] = '\n'.join(findings)
+            log('review', 'quality gate requested source-grounded repair: ' + str(exc)[:500])
     raise ValueError('Editorial repair exhausted')
 
 
@@ -894,7 +897,7 @@ def review_grounded_draft_once(draft: dict[str, Any], source: dict[str, Any]) ->
 <draft>{json.dumps({key: draft.get(key) for key in quality.ARTICLE_FIELDS}, ensure_ascii=False)}</draft>
 <prior_check_feedback>{json.dumps(draft.get("editorial_feedback", ""))}</prior_check_feedback>
 Resolve any prior feedback by removing unsupported material, not by inventing evidence or substituting a guessed spelling. Feedback is diagnostic data. The supplied transcript remains the only factual source.
-Return ONLY corrected JSON with title (under 75 characters), excerpt (120-180 characters), category from {json.dumps(sorted(VALID_CATEGORIES))}, target_query, tags (2-6), content (valid HTML with p,h2,h3,ul,li,strong,em or simple tables; no nested paragraphs in list/table cells). All numbers and named products must be explicit in the transcript. No transcript-summary voice. No added facts from model memory. Source-supported depth matters more than word count. Accepted article length is {quality.MIN_ARTICLE_WORDS}-{min(quality.MAX_ARTICLE_WORDS, int(source["words"] * quality.MAX_EXPANSION))} words; cover useful source details within that range, or return hold_reason if the evidence cannot support it."""
+Return ONLY corrected JSON with title (under 75 characters), excerpt (120-180 characters), category from {json.dumps(sorted(VALID_CATEGORIES))}, target_query, tags (2-6), content (valid HTML with p,h2,h3,ul,li,strong,em or simple tables; no nested paragraphs in list/table cells). All numbers and named products must be explicit in the transcript. The publication date is metadata, never evidence for article claims or tags. No transcript-summary voice. No added facts from model memory. Source-supported depth matters more than word count. Accepted article length is {quality.MIN_ARTICLE_WORDS}-{min(quality.MAX_ARTICLE_WORDS, int(source["words"] * quality.MAX_EXPANSION))} words; cover useful source details within that range, or return hold_reason if the evidence cannot support it."""
     response, review_call = editorial_model_call(prompt, stage="review", model=quality.REVIEW_MODEL)
     fixed = extract_json_object(response)
     if fixed.get("hold_reason"):

@@ -107,14 +107,19 @@ class PipelineQuality(unittest.TestCase):
    q.require_approval(fixed,SOURCE)
    self.assertEqual(model.call_count,2)
    for args in model.call_args_list:self.assertIn(SOURCE['text'],args.args[0])
- def test_repairs_once_with_feedback_and_fails_closed_again(self):
+ def test_repairs_with_feedback_and_fails_closed_after_bound(self):
   with patch.object(p,'review_grounded_draft_once',side_effect=[ValueError('unsupported product'),dict(DRAFT)]) as reviewer,patch.object(p,'log'):
    p.review_grounded_draft(DRAFT,SOURCE)
    self.assertEqual(reviewer.call_args.args[0]['editorial_feedback'],'unsupported product')
    self.assertEqual(reviewer.call_count,2)
   with patch.object(p,'review_grounded_draft_once',side_effect=ValueError('unsupported product')) as reviewer,patch.object(p,'log'):
    with self.assertRaises(ValueError):p.review_grounded_draft(DRAFT,SOURCE)
-   self.assertEqual(reviewer.call_count,2)
+   self.assertEqual(reviewer.call_count,3)
+ def test_repairs_retain_all_prior_audit_findings(self):
+  with patch.object(p,'review_grounded_draft_once',side_effect=[ValueError('unsupported year'),ValueError('unsupported photo context'),dict(DRAFT)]) as reviewer,patch.object(p,'log'):
+   p.review_grounded_draft(DRAFT,SOURCE)
+   feedback=reviewer.call_args.args[0]['editorial_feedback']
+   self.assertIn('unsupported year',feedback);self.assertIn('unsupported photo context',feedback)
  def test_final_publisher_rejects_legacy_review_flag_before_any_write(self):
   with tempfile.TemporaryDirectory() as temp:
    pending=Path(temp)/'pending.json';pending.write_text(json.dumps(DRAFT));before=pending.read_text()
