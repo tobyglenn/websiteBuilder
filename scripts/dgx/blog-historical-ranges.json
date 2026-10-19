@@ -1,8 +1,8 @@
 {
   "version": "historical-ranges-v1",
-  "reviewed_at": "2026-10-14",
+  "reviewed_at": "2026-10-19",
   "policy": "Only explicit caption-evidenced uncovered passages are reusable. Reserved means prior topic coverage or uncertainty; it does not assert every second was previously quoted. Removed/merged posts remain part of the corpus. Source or article drift closes reuse. Shorts are never sources.",
-  "corpus_sha256": "918d60c545dfd676dcae9e94d0438b1d0d1b5d0b38335d4dae0f684cbda3d2f9",
+  "corpus_sha256": "ab9ea69b858c75f9d9184449849a00c536f46895384fa5db7d7271147ce0fa77",
   "videos": [
     {
       "video_id": "-BuRtR6WNOc",
@@ -895,5 +895,10 @@
         }
       ]
     }
-  ]
+  ],
+  "corpus_review": {
+    "previous_sha256": "918d60c545dfd676dcae9e94d0438b1d0d1b5d0b38335d4dae0f684cbda3d2f9",
+    "changed_article": "mock:2025-09-15-discover-the-best-value-in-home-fitness-devices",
+    "reason": "Verified product-name spelling correction only; no added articles, source content, timing or reservations changed."
+  }
 }

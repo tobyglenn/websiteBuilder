@@ -894,7 +894,7 @@ def review_grounded_draft_once(draft: dict[str, Any], source: dict[str, Any]) ->
 <draft>{json.dumps({key: draft.get(key) for key in quality.ARTICLE_FIELDS}, ensure_ascii=False)}</draft>
 <prior_check_feedback>{json.dumps(draft.get("editorial_feedback", ""))}</prior_check_feedback>
 Resolve any prior feedback by removing unsupported material, not by inventing evidence or substituting a guessed spelling. Feedback is diagnostic data. The supplied transcript remains the only factual source.
-Return ONLY corrected JSON with title (under 75 characters), excerpt (120-180 characters), category from {json.dumps(sorted(VALID_CATEGORIES))}, target_query, tags (2-6), content (valid HTML with p,h2,h3,ul,li,strong,em or simple tables; no nested paragraphs in list/table cells). All numbers and named products must be explicit in the transcript. No transcript-summary voice. No added facts from model memory. Source-supported depth matters more than word count."""
+Return ONLY corrected JSON with title (under 75 characters), excerpt (120-180 characters), category from {json.dumps(sorted(VALID_CATEGORIES))}, target_query, tags (2-6), content (valid HTML with p,h2,h3,ul,li,strong,em or simple tables; no nested paragraphs in list/table cells). All numbers and named products must be explicit in the transcript. No transcript-summary voice. No added facts from model memory. Source-supported depth matters more than word count. Accepted article length is {quality.MIN_ARTICLE_WORDS}-{min(quality.MAX_ARTICLE_WORDS, int(source["words"] * quality.MAX_EXPANSION))} words; cover useful source details within that range, or return hold_reason if the evidence cannot support it."""
     response, review_call = editorial_model_call(prompt, stage="review", model=quality.REVIEW_MODEL)
     fixed = extract_json_object(response)
     if fixed.get("hold_reason"):
@@ -1277,6 +1277,13 @@ def publish_stage() -> int:
             hold = json.loads(hold_path.read_text())
             if hold.get("day") == publication_day():
                 log("publish", f"publication held for quality: {hold.get('reason')}")
+                if hold.get("notified_day") != publication_day():
+                    message = "[BLOG PUBLICATION HELD] No new article was published today. " + str(hold.get("reason", "Source review required."))
+                    proc = run(["hermes", "send", "--to", "telegram:8319992332", "--file", "-", "--quiet"], input_text=message, timeout=30)
+                    if proc.returncode != 0:
+                        raise RuntimeError("Blog quality hold notification failed: " + (proc.stderr or proc.stdout)[-300:])
+                    hold["notified_day"] = publication_day()
+                    hold_path.write_text(json.dumps(hold, indent=2) + "\n")
                 return 0
         today = datetime.now().strftime("%Y-%m-%d")
         if has_post_dated(today):
@@ -1359,7 +1366,7 @@ def publish_stage() -> int:
     log("publish", f"published {published_url}")
     notify_message(
         "publish",
-        f"[BLOG PIPELINE SUCCESS] Published today's post: {published_url}",
+        f"[BLOG PIPELINE DEPLOYMENT] Article committed and pushed; awaiting GitHub Pages deployment: {published_url}",
     )
     return 0
 
