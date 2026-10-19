@@ -116,7 +116,7 @@ if "$VENV_PY" "$SCRIPTS_DIR/utils/wait_for_whoop_recovery.py" "$TODAY" \
     log "✅ Same-day WHOOP recovery present"
 else
     log "⚠️ No same-day WHOOP recovery by $RECOVERY_DEADLINE — degraded mode (report only, no email/voice)"
-    telegram_alert "⚠️ Morning pipeline $TODAY: no same-day WHOOP recovery by $RECOVERY_DEADLINE. Web report will be generated, but email/voice/adaptive workout are withheld so no wrong numbers go out. Check WHOOP sync/auth or whether the strap was worn." "warn"
+    telegram_alert "⚠️ Morning pipeline $TODAY: no same-day WHOOP recovery by $RECOVERY_DEADLINE. Web report will be generated, but email/voice are withheld so no wrong numbers go out. Check WHOOP sync/auth or whether the strap was worn." "warn"
 fi
 
 # ── Phase 2: reports ─────────────────────────────────────────────────────────
@@ -144,16 +144,7 @@ if [ "$RECOVERY_OK" = "1" ]; then
         telegram_alert "🚨 Morning pipeline $TODAY: notification send FAILED. See $MAIN_LOG" "critical"
     fi
 
-    # Non-BJJ-day adaptive workouts should arrive with the morning report.
-    # BJJ days keep the separate post-BJJ refresh after class.
-    if is_bjj_day; then
-        log "⏭ Skipped non-BJJ adaptive workout — BJJ day uses post-BJJ job"
-    elif morning_adaptive_already_created; then
-        log "✅ Non-BJJ adaptive workout already created for $TODAY; skipping duplicate"
-    elif ! run_phase /tmp/phase2b_morning_adaptive.log "Phase 2b: non-BJJ adaptive Speediance workout" \
-            bash "$SCRIPT_DIR/run_adaptive_training_report.sh" "$TODAY" morning; then
-        telegram_alert "🚨 Morning pipeline $TODAY: adaptive Speediance workout creation FAILED. Morning report was sent; see $MAIN_LOG" "critical"
-    fi
+    # Training is self-directed; completed workouts continue to sync normally.
 
     if ! run_phase /tmp/phase3_morning.log "Phase 3: voice summary" \
             bash "$SCRIPT_DIR/send_triple_voice.sh" --morning; then
