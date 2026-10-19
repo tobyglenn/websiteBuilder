@@ -27,8 +27,9 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         assert.equal(performed[0].properties.search_query_length, 'Speediance'.length);
         assert.ok(performed[0].properties.result_count > 0);
         assert.doesNotMatch(JSON.stringify(performed), /Speediance|search_query"/);
+        // Re-submit the same query without fabricating a browser history navigation.
+        await page.locator('#standalone-search-form button').click();
         await page.evaluate(() => {
-          window.dispatchEvent(new Event('popstate'));
           document.querySelector('#blog-results a').addEventListener('click', e => e.preventDefault());
         });
         await page.locator('#blog-results a').first().click();

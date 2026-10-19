@@ -113,7 +113,8 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(result.properties.exception_context_version, '20260928-browser-event-v1');
       assert.equal(result.properties.exception_browser_event_type, 'unhandledrejection');
       assert.equal(result.properties.exception_browser_event_class, 'CustomEvent');
-      assert.equal(result.properties.analytics_version, '20261005-error-attribution');
+      assert.equal(result.properties.analytics_version, await page.evaluate(() => window.__TOFT_POSTHOG_CONFIG__.analyticsVersion));
+      assert.equal(result.properties.exception_ui_context_version, '20261019-ui-phase-v1');
       console.log(`${name}: verified deployed release ${result.properties.site_release}`);
     } finally { await browser.close(); }
   });
