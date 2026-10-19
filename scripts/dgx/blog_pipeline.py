@@ -1317,7 +1317,9 @@ def review_stage(recover=True, excluded=(), use_reserve=True) -> int:
             for attempt in range(int(os.environ.get("BLOG_REVIEW_FALLBACKS","3"))):
                 try:
                     select_daily_draft(excluded,refresh=False,use_reserve=use_reserve)
-                    return review_stage(recover=False)
+                    return review_stage(recover=False,use_reserve=use_reserve)
+                except PinnedModelUnavailable:
+                    raise
                 except Exception as retry:
                     log("review","Fallback candidate failed; continuing: "+str(retry)[:400])
                     if PENDING.exists():
