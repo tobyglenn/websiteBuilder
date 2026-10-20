@@ -26,19 +26,26 @@ exec > >(tee -a "$LOG_FILE") 2>&1
 notify_failure() {
   local exit_code=$?
   local line=${1:-unknown}
-  local message="[WEBSITE AUTOMATION FAILURE] stage: clarity-daily exit: $exit_code line: $line log: $LOG_FILE"
+  trap - ERR
+  local message="Website analytics: today's Clarity refresh could not complete. The last successful report is preserved. The next daily run will retry. Details are saved on DGX."
+  local diagnostic="[WEBSITE AUTOMATION FAILURE] stage: clarity-daily exit: $exit_code line: $line log: $LOG_FILE"
 
-  if [[ -f "$FAILURE_MARKER" ]] && find "$FAILURE_MARKER" -mmin -60 -print -quit | grep -q .; then
-    printf '[%s] %s (notification cooldown active)\n' "$(date --iso-8601=seconds)" "$message" >&2
+  # One Telegram notice per incident. Only a successful collection resets it.
+  if [[ -f "$FAILURE_MARKER" ]]; then
+    printf '[%s] %s (incident already notified)\n' "$(date --iso-8601=seconds)" "$diagnostic" >&2
     exit "$exit_code"
   fi
 
-  touch "$FAILURE_MARKER"
+  printf '[%s] %s\n' "$(date --iso-8601=seconds)" "$diagnostic" >&2
   if [[ -f "$BUILD_LOG_HELPER" ]]; then
-    python3 "$BUILD_LOG_HELPER" --error --to build-log --quiet "$message" || true
+    python3 "$BUILD_LOG_HELPER" --error "$diagnostic" || true
   fi
   if command -v hermes >/dev/null 2>&1; then
-    hermes send --to "$FAILURE_TARGET" --file "$LOG_FILE" --quiet || true
+    if printf '%s\n' "$message" | hermes send --to "$FAILURE_TARGET" --file - --quiet; then
+      touch "$FAILURE_MARKER"
+    else
+      printf '[%s] Clarity notification delivery failed; will retry next run.\n' "$(date --iso-8601=seconds)" >&2
+    fi
   fi
   exit "$exit_code"
 }
@@ -99,13 +106,16 @@ fi
 
 if [[ ! -r "$SECRET_FILE" ]]; then
   echo "Missing readable Clarity secret file: $SECRET_FILE" >&2
-  exit 1
+  false # Trigger the same concise failure handler as collection errors.
 fi
 
 set -a
 source "$SECRET_FILE"
 set +a
-: "${CLARITY_API_TOKEN:?CLARITY_API_TOKEN is missing from $SECRET_FILE}"
+if [[ -z "${CLARITY_API_TOKEN:-}" ]]; then
+  echo "CLARITY_API_TOKEN is missing from $SECRET_FILE" >&2
+  false
+fi
 
 cd "$FRONTEND_ROOT"
 npm run collect:clarity

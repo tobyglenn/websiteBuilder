@@ -1,4 +1,5 @@
 import { existsSync } from 'node:fs';
+import { execFile } from 'node:child_process';
 import { mkdir, readFile, readdir, rename, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -15,6 +16,13 @@ const REPORT_DIR = process.env.CLARITY_REPORT_DIR
   || join(homedir(), '.openclaw/logs/analytics/clarity');
 const SNAPSHOT_DIR = join(REPORT_DIR, 'snapshots');
 const token = process.env.CLARITY_API_TOKEN || '';
+let httpRequestCount = 0;
+const countRequest = () => {
+  // Leave room within Clarity's ten-request daily allowance. Failed transports
+  // count too; a recovery attempt must never create an unbounded request loop.
+  if (httpRequestCount >= 9) throw new Error('Clarity collection request budget exhausted.');
+  httpRequestCount += 1;
+};
 
 const writeJsonAtomic = async (filename, value) => {
   await mkdir(dirname(filename), { recursive: true });
@@ -23,13 +31,43 @@ const writeJsonAtomic = async (filename, value) => {
   await rename(temporary, filename);
 };
 
-const apiError = async (response) => {
-  const body = (await response.text()).trim();
-  if (response.status === 429) {
+const apiError = ({ status, body }) => {
+  if (status === 429) {
     return new Error('Clarity API daily request quota exceeded; maximum is 10 requests per project per day.');
   }
-  return new Error(`Clarity API ${response.status}${body ? `: ${body}` : ''}`);
+  return new Error(`Clarity API ${status}${body ? `: ${body}` : ''}`);
 };
+
+// Clarity can reject Node's HTTP client with an empty 400 while accepting the
+// identical authenticated request from Python. Keep credentials on stdin, never
+// in process arguments, and only try this transport for that specific response.
+const PYTHON_REQUEST = `
+import json, sys, urllib.request, urllib.error
+request = json.load(sys.stdin)
+req = urllib.request.Request(request['url'], headers=request['headers'])
+try:
+    response = urllib.request.urlopen(req, timeout=30)
+except urllib.error.HTTPError as error:
+    response = error
+with response:
+    print(json.dumps({'status': response.code, 'body': response.read().decode('utf-8')}))
+`;
+
+const pythonRequest = (url, headers) => new Promise((resolveRequest, reject) => {
+  const child = execFile('python3', ['-c', PYTHON_REQUEST], {
+    timeout: 35_000,
+    maxBuffer: 16 * 1024 * 1024,
+  }, (error, stdout) => {
+    if (error) return reject(new Error('Clarity fallback transport failed.', { cause: error }));
+    try {
+      resolveRequest(JSON.parse(stdout));
+    } catch (cause) {
+      reject(new Error('Clarity fallback returned an invalid response.', { cause }));
+    }
+  });
+  child.stdin.on('error', () => {}); // execFile reports startup/timeout failures.
+  child.stdin.end(JSON.stringify({ url: String(url), headers }));
+});
 
 export const fetchClarityMetrics = async ({ dimensions = [], numOfDays = 1 }) => {
   if (!token) throw new Error('Missing CLARITY_API_TOKEN.');
@@ -39,14 +77,33 @@ export const fetchClarityMetrics = async ({ dimensions = [], numOfDays = 1 }) =>
     url.searchParams.set(`dimension${index + 1}`, dimension);
   });
 
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'application/json',
-    },
-  });
-  if (!response.ok) throw await apiError(response);
-  const payload = await response.json();
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  };
+  let result;
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      countRequest();
+      const response = await fetch(url, { headers, signal: AbortSignal.timeout(30_000) });
+      result = { status: response.status, body: (await response.text()).trim() };
+      if (result.status === 400 && !result.body) {
+        countRequest();
+        result = await pythonRequest(url, headers);
+      }
+    } catch (error) {
+      if (attempt === 1) throw new Error('Clarity request failed after two attempts.', { cause: error });
+      await new Promise((done) => setTimeout(done, 1_000));
+      continue;
+    }
+    if ((result.status >= 500 || (result.status === 400 && !result.body)) && attempt === 0) {
+      await new Promise((done) => setTimeout(done, 1_000));
+      continue;
+    }
+    break;
+  }
+  if (result.status < 200 || result.status >= 300) throw apiError(result);
+  const payload = JSON.parse(result.body);
   if (!Array.isArray(payload)) throw new Error('Clarity API returned a non-array response.');
   for (const metric of payload) {
     if (typeof metric?.metricName !== 'string' || !Array.isArray(metric?.information)) {
@@ -83,10 +140,14 @@ const collect = async () => {
   const snapshotDate = collectedAt.slice(0, 10);
   const queries = {};
   for (const definition of CLARITY_QUERY_DEFINITIONS) {
-    queries[definition.key] = {
-      dimensions: definition.dimensions,
-      metrics: await fetchClarityMetrics({ dimensions: definition.dimensions }),
-    };
+    try {
+      queries[definition.key] = {
+        dimensions: definition.dimensions,
+        metrics: await fetchClarityMetrics({ dimensions: definition.dimensions }),
+      };
+    } catch (cause) {
+      throw new Error(`Clarity ${definition.key} collection failed: ${cause.message}`, { cause });
+    }
   }
 
   const snapshot = {
@@ -95,7 +156,7 @@ const collect = async () => {
     collectedAt,
     snapshotDate,
     window: { numOfDays: 1, hours: 24 },
-    requestCount: CLARITY_QUERY_DEFINITIONS.length,
+    requestCount: httpRequestCount,
     queries,
   };
   const snapshotPath = join(SNAPSHOT_DIR, `clarity-${snapshotDate}.json`);
