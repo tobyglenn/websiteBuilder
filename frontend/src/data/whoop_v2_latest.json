@@ -55528,18 +55528,18 @@
                 "id": 1888369153,
                 "user_id": 1781625,
                 "created_at": "2026-10-20T08:35:10.986Z",
-                "updated_at": "2026-10-20T11:15:28.183Z",
+                "updated_at": "2026-10-20T19:15:53.525Z",
                 "start": "2026-10-20T01:57:31.380Z",
                 "end": null,
                 "timezone_offset": "-04:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 4.219957,
-                    "kilojoule": 3645.857,
-                    "average_heart_rate": 75,
+                    "strain": 4.675752,
+                    "kilojoule": 8368.347,
+                    "average_heart_rate": 76,
                     "max_heart_rate": 149
                 },
-                "step_count": 87
+                "step_count": 8618
             }
         ]
     },
@@ -183031,11 +183031,42 @@
                     }
                 },
                 "sport_id": 63
+            },
+            {
+                "id": "b9196f66-9694-4d9a-806f-0802145d37c4",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-10-20T19:15:48.727Z",
+                "updated_at": "2026-10-20T19:15:53.082Z",
+                "start": "2026-10-20T18:47:00.560Z",
+                "end": "2026-10-20T18:59:59.560Z",
+                "timezone_offset": "-04:00",
+                "sport_name": "walking",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 4.2985196,
+                    "average_heart_rate": 107,
+                    "max_heart_rate": 132,
+                    "kilojoule": 150.55238,
+                    "percent_recorded": 1.0,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 563000,
+                        "zone_one_milli": 216000,
+                        "zone_two_milli": 0,
+                        "zone_three_milli": 0,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 63
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-10-20T07:30:40.127880"
+    "last_synced": "2026-10-20T19:50:38.083554"
 }
