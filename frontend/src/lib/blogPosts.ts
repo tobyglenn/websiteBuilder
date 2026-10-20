@@ -149,6 +149,12 @@ function imageExists(imagePath: string): boolean {
 }
 
 function defaultCoverImage(slug: string, title: string, category: string): string {
+  // Editorial cover overrides take precedence over older generated covers.
+  const editorialCovers: Record<string, string> = {
+    'checking-ai-written-biographies-and-choosing-website-photos': '/images/blog/ai-automation-qa-hero.jpg',
+  };
+  if (imageExists(editorialCovers[slug])) return editorialCovers[slug];
+
   const haystack = `${slug} ${title} ${category}`.toLowerCase();
   const perPostBlogImage = `/images/blog/${slug}.jpg`;
 

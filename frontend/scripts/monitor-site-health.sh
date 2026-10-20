@@ -5,7 +5,9 @@ set -Eeuo pipefail
 export TZ=${TZ:-America/New_York}
 
 DOMAIN=${SITE_HEALTH_DOMAIN:-tobyonfitnesstech.com}
-AUTHORITATIVE_NS_CSV=${SITE_HEALTH_AUTHORITATIVE_NS:-launch1.spaceship.net,launch2.spaceship.net}
+# Discover delegation; registrar nameservers and proxy addresses can change.
+AUTHORITATIVE_NS_CSV=${SITE_HEALTH_AUTHORITATIVE_NS:-}
+DNS_MODE=${SITE_HEALTH_DNS_MODE:-auto}
 EXPECTED_A=${SITE_HEALTH_EXPECTED_A:-185.199.108.153,185.199.109.153,185.199.110.153,185.199.111.153}
 EXPECTED_WWW_CNAME=${SITE_HEALTH_EXPECTED_WWW_CNAME:-tobyglenn.github.io.}
 STATE_DIR=${SITE_HEALTH_STATE_DIR:-/home/toby/.openclaw/state/website-health}
@@ -75,46 +77,64 @@ fi
 [[ "$failure_count" =~ ^[0-9]+$ ]] || failure_count=0
 failures=()
 
-expected_a_sorted=$(printf '%s' "$EXPECTED_A" | normalize_csv)
+dns_query() {
+  local server=$1 record=$2 name=$3 answer
+  answer=$(dig "@$server" +norecurse +time=4 +tries=1 +short "$record" "$name" 2>/dev/null || true)
+  if [[ -z "$answer" ]]; then
+    answer=$(dig "@$server" +tcp +norecurse +time=4 +tries=1 +short "$record" "$name" 2>/dev/null || true)
+  fi
+  printf '%s\n' "$answer"
+}
+
+if [[ -z "$AUTHORITATIVE_NS_CSV" ]]; then
+  AUTHORITATIVE_NS_CSV=$(dig +time=4 +tries=2 +short NS "$DOMAIN" 2>/dev/null |
+    sed -nE '/^[[:alnum:]_.-]+\.$/p' | sort | paste -sd, - || true)
+fi
 IFS=',' read -r -a authoritative_nameservers <<< "$AUTHORITATIVE_NS_CSV"
+if [[ "$DNS_MODE" == auto ]]; then
+  DNS_MODE=proxied
+  for nameserver in "${authoritative_nameservers[@]}"; do
+    if [[ "${nameserver%.}" != *.ns.cloudflare.com ]]; then DNS_MODE=direct; fi
+  done
+fi
+if [[ "$DNS_MODE" != direct && "$DNS_MODE" != proxied ]]; then
+  failures+=("unsupported DNS mode: $DNS_MODE")
+fi
+if [[ -z "$AUTHORITATIVE_NS_CSV" ]]; then
+  failures+=("DNS verification failed: cannot discover authoritative nameservers")
+fi
+expected_a_sorted=$(printf '%s' "$EXPECTED_A" | normalize_csv)
 a_matches=0
 www_matches=0
 for nameserver in "${authoritative_nameservers[@]}"; do
   nameserver=${nameserver//[[:space:]]/}
   [[ -n "$nameserver" ]] || continue
-
-  actual_a=$(dig "@$nameserver" +time=4 +tries=2 +short A "$DOMAIN" 2>/dev/null | sort | paste -sd, - || true)
-  if [[ -z "$actual_a" ]]; then
-    actual_a=$(dig "@$nameserver" +tcp +time=4 +tries=2 +short A "$DOMAIN" 2>/dev/null | sort | paste -sd, - || true)
-  fi
-  if [[ "$actual_a" == "$expected_a_sorted" ]]; then
-    ((a_matches += 1))
-  elif [[ -n "$actual_a" ]]; then
-    failures+=("authoritative A mismatch at $nameserver: expected $expected_a_sorted; got $actual_a")
-  fi
-
-  actual_aaaa=$(dig "@$nameserver" +time=4 +tries=2 +short AAAA "$DOMAIN" 2>/dev/null | sort | paste -sd, - || true)
-  if [[ -n "$actual_aaaa" ]]; then
-    failures+=("unexpected authoritative AAAA at $nameserver: $actual_aaaa")
-  fi
-
-  actual_www=$(dig "@$nameserver" +time=4 +tries=2 +short CNAME "www.$DOMAIN" 2>/dev/null | head -n 1 || true)
-  if [[ -z "$actual_www" ]]; then
-    actual_www=$(dig "@$nameserver" +tcp +time=4 +tries=2 +short CNAME "www.$DOMAIN" 2>/dev/null | head -n 1 || true)
-  fi
-  if [[ "$actual_www" == "$EXPECTED_WWW_CNAME" ]]; then
-    ((www_matches += 1))
-  elif [[ -n "$actual_www" ]]; then
-    failures+=("www CNAME mismatch at $nameserver: expected $EXPECTED_WWW_CNAME; got $actual_www")
+  actual_a=$(dns_query "$nameserver" A "$DOMAIN" | sed -nE '/^([0-9]{1,3}\.){3}[0-9]{1,3}$/p' | sort | paste -sd, -)
+  if [[ "$DNS_MODE" == proxied ]]; then
+    # Cloudflare hides origin A/CNAME records and legitimately serves IPv6.
+    # Require public address answers; HTTPS/content/redirect checks below verify service.
+    [[ -z "$actual_a" ]] || ((a_matches += 1))
+    actual_www=$(dns_query "$nameserver" A "www.$DOMAIN" | sed -nE '/^([0-9]{1,3}\.){3}[0-9]{1,3}$/p' | sort | paste -sd, -)
+    [[ -z "$actual_www" ]] || ((www_matches += 1))
+  else
+    if [[ "$actual_a" == "$expected_a_sorted" ]]; then
+      ((a_matches += 1))
+    elif [[ -n "$actual_a" ]]; then
+      failures+=("DNS configuration mismatch at $nameserver: expected A $expected_a_sorted; got $actual_a")
+    fi
+    actual_aaaa=$(dns_query "$nameserver" AAAA "$DOMAIN" | sed -n '/^[0-9a-fA-F:]*:[0-9a-fA-F:]*$/p' | sort | paste -sd, -)
+    if [[ -n "$actual_aaaa" ]]; then failures+=("unexpected direct-origin AAAA at $nameserver: $actual_aaaa"); fi
+    actual_www=$(dns_query "$nameserver" CNAME "www.$DOMAIN" | head -n 1)
+    if [[ "$actual_www" == "$EXPECTED_WWW_CNAME" ]]; then
+      ((www_matches += 1))
+    elif [[ -n "$actual_www" ]]; then
+      failures+=("DNS configuration mismatch at $nameserver: expected www CNAME $EXPECTED_WWW_CNAME; got $actual_www")
+    fi
   fi
 done
-
-if ((a_matches == 0)); then
-  failures+=("no authoritative nameserver returned the expected A records ($expected_a_sorted)")
-fi
-if ((www_matches == 0)); then
-  failures+=("no authoritative nameserver returned the expected www CNAME ($EXPECTED_WWW_CNAME)")
-fi
+if ((a_matches == 0)); then failures+=("DNS verification failed: no authoritative apex A answer matched $DNS_MODE mode"); fi
+if ((www_matches == 0)); then failures+=("DNS verification failed: no authoritative www answer matched $DNS_MODE mode"); fi
+printf '[%s] INFO: DNS mode=%s; authoritative nameservers=%s\n' "$(date --iso-8601=seconds)" "$DNS_MODE" "${AUTHORITATIVE_NS_CSV:-unavailable}"
 
 curl_args=(--fail --silent --show-error --location --max-time 20 --retry 2 --retry-delay 2 --retry-all-errors)
 homepage=$(mktemp "$STATE_DIR/.homepage.XXXXXX")
@@ -123,7 +143,7 @@ trap 'rm -f "$homepage" "$sitemap"' EXIT
 
 if ! curl "${curl_args[@]}" "https://$DOMAIN/" -o "$homepage"; then
   failures+=("HTTPS homepage request failed")
-elif ! grep -Eqi '<html|<!doctype html' "$homepage"; then
+elif ! grep -Eqi '<html|<!doctype html' "$homepage" || ! grep -qi 'Toby' "$homepage"; then
   failures+=("HTTPS homepage returned unexpected content")
 fi
 
@@ -158,7 +178,7 @@ if ((${#failures[@]})); then
   fi
 
   printf 'unhealthy' > "$STATE_FILE"
-  message="ERROR: Public website health check failed on $(hostname) for $failure_count consecutive checks: $detail. Log: $LOG_FILE"
+  message="ERROR: Public website health checks failed on $(hostname) for $failure_count consecutive checks: $detail. Log: $LOG_FILE"
   printf '[%s] %s\n' "$timestamp" "$message"
   if [[ "$previous_state" != "unhealthy" || ! -f "$ALERTED_FILE" ]]; then
     if notify_error "$message"; then
@@ -171,7 +191,7 @@ fi
 printf 'healthy' > "$STATE_FILE"
 printf '0' > "$FAILURE_COUNT_FILE"
 if [[ "$previous_state" == "unhealthy" ]]; then
-  message="OK: Public website recovered on $(hostname): authoritative DNS, HTTPS, redirects, and sitemap are healthy."
+  message="OK: Public website recovered on $(hostname): current authoritative DNS ($DNS_MODE mode), HTTPS, redirects, and sitemap pass. This confirms the checks now pass; the previous DNS alert may have reflected outdated monitor assumptions."
   printf '[%s] %s\n' "$timestamp" "$message"
   if [[ -f "$ALERTED_FILE" ]]; then
     notify_recovery "$message" || true
