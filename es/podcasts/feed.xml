@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Tue, 13 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 123 -->
+    <item>
+      <title>Episodio 123: Reflection&#x27;s Beam 1.0 llega a OpenRouter como un MoE de codificación de 501B</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep123/episode_123.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-123/</link>
+      <description><![CDATA[Hoy en AgentStack Daily: Reflection's Beam 1.0 debuta en OpenRouter como un MoE de codificación de 501B. Apple MLX ejecuta un Muse Spark de casi un billón...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-123/]]></description>
+      <pubDate>Wed, 21 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_123.mp3" length="34602884" type="audio/mpeg"/>
+      <itunes:duration>36:02</itunes:duration>
+      <itunes:episode>123</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep123/episode_123_cover.png"/>
+    </item>
+
     <!-- Episode 122 -->
     <item>
       <title>Episodio 122: OpenAI lanza GPT-6, Gemini se vuelve agéntico y EmbeddingGemma 2 ve todo</title>
