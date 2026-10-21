@@ -134,13 +134,13 @@ def stage(package):
     else:
         write_json(target,package);target.chmod(0o444)
     review={'schema':SCHEMA,'sha256':h,'status':'awaiting_user_review','slug':package['article']['slug'],'locales':['en']+sorted(t['lang'] for t in package['translations']),'package_path':str(target)}
-    write_json(target.parent/'review.json',review)
     a=package['article']
     images=''.join('<figure><img style="max-width:100%" src="data:image/'+('jpeg' if x['path'].endswith(('.jpg','.jpeg')) else PurePosixPath(x['path']).suffix[1:])+';base64,'+x['base64']+'"><figcaption>'+html.escape(x['path'])+'</figcaption></figure>' for x in package['assets'])
     metadata={k:v for k,v in a.items() if k!='content'}
     body='<h1>'+html.escape(a['title'])+'</h1><p><strong>AWAITING YOUR APPROVAL — version '+h+'</strong></p>'+images+a['content']+'<h2>Exact metadata</h2><pre>'+html.escape(json.dumps(metadata,ensure_ascii=False,indent=2))+'</pre><h2>Source evidence and reviewed translations</h2><pre>'+html.escape(json.dumps({'sources':package['sources'],'translations':package['translations']},ensure_ascii=False,indent=2))+'</pre>'
     (target.parent/'review.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Review '+html.escape(a['title'])+'</title><body style="max-width:900px;margin:2rem auto;font:18px/1.6 system-ui;padding:1rem;overflow-wrap:anywhere">'+body+'</body></html>')
     review['review_path']=str(target.parent/'review.html')
+    write_json(target.parent/'review.json',review)
     return review
 
 
@@ -251,6 +251,7 @@ def publish(h,dry_run=False):
         receipt_path=STATE/'receipts'/(h+'.json')
         if receipt_path.exists():
             receipt=read_json(receipt_path)
+            if receipt.get('schema')!=SCHEMA or receipt.get('sha256')!=h or receipt.get('slug')!=package['article']['slug']:raise ValueError('Publication receipt does not match this version')
             if receipt.get('status')=='pushed':return receipt
         log=STATE/'logs'/(h+('-preflight' if dry_run else '')+'.log');log.parent.mkdir(parents=True,exist_ok=True)
         # A previous uncertain push must be reconciled, never duplicated.
@@ -260,9 +261,9 @@ def publish(h,dry_run=False):
             if previous and previous.get('commit'):
                 commit=previous['commit']
                 if run(['git','merge-base','--is-ancestor',commit,'origin/main'],check=False).returncode==0:
-                    previous.update(status='pushed',confirmed_at=stamp());write_json(receipt_path,previous);return previous
+                    previous.update(status='pushed',confirmed_at=stamp());previous['checkout_status']='advanced' if run(['git','merge','--ff-only',commit],check=False).returncode==0 else 'needs_reconciliation';write_json(receipt_path,previous);return previous
                 log_command(['git','push','origin',commit+':refs/heads/main'],REPO,log)
-                previous.update(status='pushed',confirmed_at=stamp());write_json(receipt_path,previous);return previous
+                previous.update(status='pushed',confirmed_at=stamp());previous['checkout_status']='advanced' if run(['git','merge','--ff-only',commit],check=False).returncode==0 else 'needs_reconciliation';write_json(receipt_path,previous);return previous
             if run(['git','merge-base','--is-ancestor','origin/main','HEAD'],check=False).returncode:
                 raise ValueError('Repository base is stale/diverged; hold for explicit infrastructure reconciliation')
         with release_tree() as tree:
@@ -281,7 +282,9 @@ def publish(h,dry_run=False):
             for t in package['translations']:
                 if read_json(tree/f"frontend/src/generated/blog-translations/{t['lang']}/{t['slug']}.json")!=t:raise ValueError('Translation changed during build')
             result={'schema':SCHEMA,'sha256':h,'slug':package['article']['slug'],'status':'preflight_passed' if dry_run else 'built','at':stamp(),'log':str(log),'url':'https://tobyonfitnesstech.com/blog/'+package['article']['slug']}
-            if dry_run:return result
+            if dry_run:
+                write_json(STATE/'preflights'/(h+'.json'),result)
+                return result
             require_approval(h)
             log_command(['git','add','--',*changed],tree,log)
             log_command(['git','commit','-m','Blog approved package '+h],tree,log)

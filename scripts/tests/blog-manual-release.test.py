@@ -63,6 +63,9 @@ class Boundary(unittest.TestCase):
     def test_partial_translation_set_rejected(self):
         p=fixture();p['translations']=[{'lang':'de'}]
         with self.assertRaises(ValueError):m.validate(p)
+    def test_publication_receipt_must_match_version(self):
+        h=m.stage(fixture())['sha256'];m.record_approval(h,'test-user-approval');m.write_json(m.STATE/'receipts'/(h+'.json'),{'schema':m.SCHEMA,'sha256':'0'*64,'slug':'wrong','status':'pushed'})
+        with self.assertRaisesRegex(ValueError,'receipt does not match'):m.publish(h)
     def test_empty_approval_reference_rejected(self):
         h=m.stage(fixture())['sha256']
         with self.assertRaises(ValueError):m.record_approval(h,' ')
@@ -98,7 +101,7 @@ class IsolatedGit(unittest.TestCase):
             return out
         with patch.object(m,'log_command',side_effect=uncertain):
             with self.assertRaisesRegex(RuntimeError,'lost response'):m.publish(h)
-        count=self.git('rev-list','--count','origin/main');r=m.publish(h);self.assertEqual(r['status'],'pushed');self.assertEqual(count,self.git('rev-list','--count','origin/main'))
+        count=self.git('rev-list','--count','origin/main');r=m.publish(h);self.assertEqual(r['status'],'pushed');self.assertEqual(count,self.git('rev-list','--count','origin/main'));self.assertEqual(self.git('rev-parse','HEAD'),self.git('rev-parse','origin/main'))
 
 
 if __name__=='__main__':unittest.main()
