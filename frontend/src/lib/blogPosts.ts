@@ -1,3 +1,4 @@
+import { resolveReviewCover } from './blogReviewCover.mjs';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -228,6 +229,7 @@ function repairLegacyImagePath(imagePath: string, slug: string, title: string, c
 }
 
 function resolveCoverImage(rawImage: string, slug: string, title: string, category: string): string {
+  return resolveReviewCover(rawImage, imageExists, () => {
   const repaired = repairLegacyImagePath(rawImage, slug, title, category);
   if (repaired && repaired !== rawImage && imageExists(repaired)) {
     return repaired;
@@ -239,6 +241,7 @@ function resolveCoverImage(rawImage: string, slug: string, title: string, catego
 
   const fallback = defaultCoverImage(slug, title, category);
   return imageExists(fallback) ? fallback : '';
+  });
 }
 
 function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
