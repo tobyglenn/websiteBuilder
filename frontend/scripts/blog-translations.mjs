@@ -842,6 +842,9 @@ const quarantineInvalidOutput = async () => {
 const main = async () => {
   const [command = 'status', ...rest] = process.argv.slice(2);
   const options = parseArgs(rest);
+  if (['translate-one', 'promote', 'quarantine-invalid'].includes(command)) {
+    throw new Error('Automatic blog translation mutation retired. Supply reviewed translations in an exact-version blog_release.py package.');
+  }
   if (command === 'translate-one') return translateOne(options);
   if (command === 'promote') return promoteAll();
   if (command === 'validate-output') return validateOutput();

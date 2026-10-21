@@ -40,11 +40,12 @@ jobs:
 
       - name: Validate video catalog generation
         run: |
-          node --test frontend/scripts/tests/blog-consolidation-policy.test.mjs frontend/scripts/tests/blog-editorial.test.mjs frontend/scripts/tests/static-translation-routes.test.mjs frontend/scripts/tests/blog-translations.test.mjs frontend/scripts/tests/content-consolidation.test.mjs frontend/scripts/tests/release-locales.test.mjs frontend/scripts/tests/game-journal.test.mjs scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs frontend/scripts/tests/fitness-metrics.test.mjs
+          node --test frontend/scripts/tests/home-blog-covers.test.mjs frontend/scripts/tests/blog-consolidation-policy.test.mjs frontend/scripts/tests/blog-editorial.test.mjs frontend/scripts/tests/static-translation-routes.test.mjs frontend/scripts/tests/blog-translations.test.mjs frontend/scripts/tests/content-consolidation.test.mjs frontend/scripts/tests/release-locales.test.mjs frontend/scripts/tests/game-journal.test.mjs scripts/tests/generate-videos-data.test.mjs frontend/scripts/tests/video-transcript-validation.test.mjs frontend/scripts/tests/weekly-feature.test.mjs frontend/scripts/tests/fitness-metrics.test.mjs
           python3 frontend/scripts/tests/monitor-site-health.test.py
           python3 scripts/tests/blog-source-identity.test.py
           python3 scripts/tests/blog-editorial-policy.test.py
           python3 scripts/tests/blog-daily-sources.test.py
+          python3 scripts/tests/blog-manual-release.test.py
           python3 scripts/tests/blog-quality.test.py
           python3 scripts/tests/blog-sections.test.py
           python3 scripts/tests/video-transcripts.test.py

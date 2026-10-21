@@ -13,7 +13,10 @@ export function homeBlogCover(post) {
     training: [{ src: '/progress/workout_action.jpg', fit: 'cover', position: '50% 42%' }],
     bjj: [{ src: '/images/about/bjj_day4.jpg', fit: 'cover', position: '50% 50%' }],
     wearables: [{ src: '/images/gear/whoop-5.0.jpg', fit: 'contain', position: '50% 50%', background: '#fff' }],
+    games: [{ src: '/images/projects/monstrum-world/hero.webp', fit: 'cover', position: '50% 50%' }],
+    creator: [{ src: '/images/projects/ironvane-chronicle/hero.webp', fit: 'cover', position: '50% 50%' }],
+    projects: [{ src: '/images/projects/pokemon-go-automation/hero.png', fit: 'cover', position: '50% 50%' }],
     ai: [{ src: '/images/gear/openclaw-mac-studio.jpg', fit: 'contain', position: '50% 50%', background: '#fff' }],
   };
-  return covers[topic];
+  return covers[topic] || covers.training;
 }

@@ -10,6 +10,11 @@ Stages:
 
 from __future__ import annotations
 
+# Retired 2026-10-21: legacy CLI may never generate, review or publish a blog.
+# Keep historical helpers importable for regression tests only.
+if __name__ == "__main__":
+    raise SystemExit("Legacy automatic blog pipeline retired. Use blog_release.py; publishing requires exact-version user approval.")
+
 from blog_editorial_policy import existing_guide
 import blog_quality as quality
 import blog_sources as editorial

@@ -25,14 +25,13 @@ if ! flock -n 9; then
   exit 0
 fi
 
+# Blog copy and translations are now supplied by ARIA and personally approved.
+# Preserve the separate priority-page workflow; never generate blog translations.
 cd "$TRANSLATION_FRONTEND_ROOT"
-blog_remaining="$(node ./scripts/blog-translations.mjs status | jq -r '.remaining')"
 priority_remaining="$(node ./scripts/priority-page-translations.mjs status | jq -r '.remaining')"
 
 if (( priority_remaining > 0 )); then
   translation_command=(npm run translate:priority-pages:one)
-elif (( blog_remaining > 0 )); then
-  translation_command=(npm run translate:blog:one)
 else
   exit 0
 fi

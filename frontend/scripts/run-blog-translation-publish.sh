@@ -35,8 +35,6 @@ if git status --short | grep -q '^UU\|^AA\|^DD\|^UA\|^AU'; then
 fi
 
 cd "$TRANSLATION_FRONTEND_ROOT"
-npm run translate:blog:promote
-npm run translate:blog:validate
 npm run translate:priority-pages:promote
 npm run translate:priority-pages:validate
 
@@ -48,15 +46,15 @@ npm run translate:priority-pages:validate
 # first new Short that lands.
 node ../scripts/generate_videos_data.mjs
 
-blog_remaining="$(node ./scripts/blog-translations.mjs status | jq -r '.remaining')"
 priority_remaining="$(node ./scripts/priority-page-translations.mjs status | jq -r '.remaining')"
-if (( blog_remaining > 0 || priority_remaining > 0 )); then
-  echo "Translation publish deferred: blog_remaining=$blog_remaining priority_remaining=$priority_remaining"
+if (( priority_remaining > 0 )); then
+  echo "Translation publish deferred: priority_remaining=$priority_remaining"
   exit 0
 fi
 
 cd "$TRANSLATION_REPO_ROOT"
-publish_paths=(frontend/src/generated/blog-translations)
+# No blog path may be staged by this independent priority-page publisher.
+publish_paths=()
 priority_count=0
 priority_sources=(
   agentstack.astro
@@ -87,8 +85,7 @@ if git diff --cached --quiet -- "${publish_paths[@]}"; then
   exit 0
 fi
 
-translated_count="$(find frontend/src/generated/blog-translations -type f -name '*.json' | wc -l | tr -d ' ')"
-git commit -m "content: publish validated translations"
+git commit --only -m "content: publish validated priority-page translations" -- "${publish_paths[@]}"
 
 # Use plain pull (merge) rather than --rebase so concurrent automation pushes
 # to the same repo don't trap this script in an unresolvable rebase state.
@@ -104,4 +101,4 @@ if ! git push origin HEAD:main; then
   exit 1
 fi
 
-translation_notify_info "[BLOG TRANSLATIONS] published $translated_count blog and $priority_count priority-page translations; GitHub deployment started"
+translation_notify_info "[PRIORITY PAGE TRANSLATIONS] published $priority_count priority-page translations; GitHub deployment started"
