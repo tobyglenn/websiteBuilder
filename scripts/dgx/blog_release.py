@@ -237,7 +237,7 @@ def log_command(args,cwd,log):
     if r.returncode:
         lines=output.splitlines()
         errors=[line for line in lines if re.search(r'error|failed|TypeError|ReferenceError|Cannot ',line,re.I)]
-        detail='\n'.join((errors[-12:] or lines[-18:]))
+        detail='\n'.join(errors[-6:]+lines[-18:])
         raise RuntimeError(f'Command failed ({r.returncode}); full log: {log}\n{detail}')
     return r.stdout.strip()
 
@@ -266,7 +266,9 @@ def publish(h,dry_run=False):
             if run(['git','merge-base','--is-ancestor','origin/main','HEAD'],check=False).returncode:
                 raise ValueError('Repository base is stale/diverged; hold for explicit infrastructure reconciliation')
         with release_tree() as tree:
-            (tree/'frontend/node_modules').symlink_to(REPO/'frontend/node_modules',target_is_directory=True)
+            # Astro virtual CSS IDs require dependencies under this worktree root.
+            # A symlink to the canonical node_modules breaks ClientRouter metadata.
+            shutil.copytree(REPO/'frontend/node_modules',tree/'frontend/node_modules',symlinks=True,ignore=shutil.ignore_patterns('.vite','.vite-temp','.cache'))
             changed=inject(tree,package)
             package_path=STATE/'packages'/h/'package.json'
             log_command(['node','--input-type=module','-e',VERIFY_JS,str(package_path)],tree/'frontend',log)
