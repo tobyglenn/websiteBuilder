@@ -3,6 +3,7 @@ import { articleTopic } from './blogEditorial.mjs';
 // Reviewed topic photography for homepage cards. Keep headline graphics out of
 // this small surface; the article title is already real, localized text below.
 export function homeBlogCover(post) {
+  if (post.slug === "wild-rebellion-guidance-without-open-panels") return [{ src: "/images/blog/wild-rebellion-guidance-without-open-panels-wild-racing-aria-review.png", fit: "contain", position: "50% 50%" }];
   const topic = articleTopic({ ...post, category: post.categoryKey || post.category,
     title: post.sourceTitle || post.title });
   const covers = {

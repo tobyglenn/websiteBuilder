@@ -5,6 +5,7 @@ import tonal from '../../public/images/gear/tonal.jpg';
 import training from '../../public/progress/workout_action.jpg';
 import bjj from '../../public/images/about/bjj_day4.jpg';
 import wearables from '../../public/images/gear/whoop-5.0.jpg';
+import wildRacingReviewed from '../../public/images/blog/wild-rebellion-guidance-without-open-panels-wild-racing-aria-review.png';
 import games from '../../public/images/projects/monstrum-world/hero.webp';
 import creator from '../../public/images/projects/ironvane-chronicle/hero.webp';
 import projects from '../../public/images/projects/pokemon-go-automation/hero.png';
@@ -14,6 +15,7 @@ import { homeBlogCover } from '../lib/homeBlogCovers.mjs';
 const { post } = Astro.props;
 const photos = homeBlogCover(post);
 const assets: Record<string, ImageMetadata> = {
+  "/images/blog/wild-rebellion-guidance-without-open-panels-wild-racing-aria-review.png": wildRacingReviewed,
   '/images/comparison/speediance-v3.png': speediance,
   '/images/gear/tonal.jpg': tonal,
   '/progress/workout_action.jpg': training,

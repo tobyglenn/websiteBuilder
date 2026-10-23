@@ -212,6 +212,7 @@ const description = "Independent reviews, training data and buying advice.";
             {featuredPost.image && (
               <img
                 src={featuredPost.image}
+                    style={featuredPost.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined}
                 alt={featuredPost.title}
                 class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="eager"
@@ -295,6 +296,7 @@ const description = "Independent reviews, training data and buying advice.";
                   {post.image && (
                     <img
                       src={post.image}
+                    style={post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined}
                       alt={post.title}
                       class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
@@ -366,6 +368,7 @@ const description = "Independent reviews, training data and buying advice.";
                 {post.image && (
                   <img
                     src={post.image}
+                    style={post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined}
                     alt={post.title}
                     class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
