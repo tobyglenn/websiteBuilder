@@ -1,25 +1,25 @@
 {
-  "generatedAt": "2026-10-22T23:51:03.458Z",
+  "generatedAt": "2026-10-23T11:30:54.215Z",
   "definitions": {
     "running": "Garmin running and treadmill_running activities only",
     "lifting": "Lifetime recorded volume across smart cable machines",
     "whoop": "30 calendar days ending on the latest bundled recovery date; duplicate IDs and sleep naps excluded"
   },
   "sourceDates": {
-    "fitness": "2026-10-22T23:51:03.243Z",
+    "fitness": "2026-10-23T11:30:53.947Z",
     "running": "2026-10-12",
-    "whoop": "2026-10-22T19:50:08.464578",
+    "whoop": "2026-10-23T07:30:09.872021",
     "weight": "2026-07-05"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9949734,
     "totalMilesRun": 3814.3,
-    "totalWorkouts": 2781,
+    "totalWorkouts": 2782,
     "sourceBreakdown": {
       "strengthSessions": 1002,
       "garminRuns": 1389,
       "currentYearLiftingSessions": 93,
-      "allTimeBjjSessions": 297
+      "allTimeBjjSessions": 298
     }
   },
   "running": {
@@ -71,28 +71,28 @@
   },
   "whoop": {
     "available": true,
-    "windowStart": "2026-09-23",
-    "windowEnd": "2026-10-22",
+    "windowStart": "2026-09-24",
+    "windowEnd": "2026-10-23",
     "sampleCount": 30,
-    "recoveryAvg": 57.93333333333333,
-    "hrvAvg": 32.686945833333326,
-    "rhrAvg": 66.26666666666667,
-    "spo2Avg": 96.39939033333333,
-    "inBedHoursAvg": 8.212391944444443,
-    "asleepHoursAvg": 7.1723884259259245,
-    "remHoursAvg": 2.1829554629629633,
-    "deepHoursAvg": 1.5462823148148148,
-    "sleepPerfAvg": 82.7,
-    "sleepEffAvg": 87.87271609999999,
-    "respiratoryAvg": 17.00147698333333,
-    "strainAvg": 6.056431408666667,
+    "recoveryAvg": 57.733333333333334,
+    "hrvAvg": 32.79750249999999,
+    "rhrAvg": 66.36666666666666,
+    "spo2Avg": 96.44522366666666,
+    "inBedHoursAvg": 8.208491851851852,
+    "asleepHoursAvg": 7.164230555555554,
+    "remHoursAvg": 2.190843055555556,
+    "deepHoursAvg": 1.5426816666666667,
+    "sleepPerfAvg": 82.8,
+    "sleepEffAvg": 87.77085943333331,
+    "respiratoryAvg": 16.95203038333333,
+    "strainAvg": 5.764306152,
     "strainMax": 11.541035,
-    "totalRecords": 1730,
-    "allTimeRecoveryAvg": 55.07745664739885,
-    "allTimeGreenPct": 31.156069364161848,
-    "allTimeYellowPct": 51.73410404624278,
-    "allTimeRedPct": 17.109826589595375,
-    "lastSynced": "2026-10-22T19:50:08.464578"
+    "totalRecords": 1731,
+    "allTimeRecoveryAvg": 55.06585788561525,
+    "allTimeGreenPct": 31.138070479491624,
+    "allTimeYellowPct": 51.76198729058348,
+    "allTimeRedPct": 17.0999422299249,
+    "lastSynced": "2026-10-23T07:30:09.872021"
   },
   "strength": {
     "totalVolumeLbs": 1105614.2,
