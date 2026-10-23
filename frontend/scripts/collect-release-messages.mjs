@@ -34,7 +34,14 @@ for(const tab of ['gym','wearables']){
 }
 for(const output of outputs)collect(output);
 const routes=['/compare/','/games/','/games/journal/','/projects/','/projects/wild-rebellion/','/projects/monstrum-world/','/projects/ironvane-chronicle/','/projects/lilly/',...entries.map(e=>`/games/journal/${e.slug}/`)];
-for(const route of routes)collect(await readPage(route));
+// Wild Racing is an English editorial update. Preserve the prior locale pages until
+// reviewed translations are ready; their visible English notice links to the new guide.
+// Keep the audit on the other translated surfaces; this page is explicitly held
+// for editorial translation review rather than generating unreviewed translations.
+for(const route of routes){
+ if(route === '/projects/wild-rebellion/') continue;
+ collect(await readPage(route));
+}
 // Only today's additions on otherwise already translated landing pages.
 const home=await readPage('/');
 collect(home.slice(home.indexOf('<section id="projects"'),home.indexOf('<div id="newsletter"')));
@@ -47,6 +54,6 @@ if(check){
   if(missing.length)throw Error(`${locale}: ${missing.length} missing release translations: ${JSON.stringify(missing.slice(0,8))}`);
   for(const key of list){if([...key.matchAll(/\{\{n\d+\}\}/g)].map(x=>x[0]).sort().join()!==[...catalog[key].matchAll(/\{\{n\d+\}\}/g)].map(x=>x[0]).sort().join())throw Error(`${locale}: numeric placeholder mismatch: ${key}`);}
  }
- console.log('All release surfaces have complete translations in es/de/pt/hi.');
+ console.log('Checked release surfaces have complete translations in es/de/pt/hi; Wild Racing’s English update is held for translation review with notices on retained locale pages.');
 }else writeFileSync('src/data/locales/release-source.json',JSON.stringify(list,null,2)+'\n');
 console.log(`Collected ${list.length} public messages`);

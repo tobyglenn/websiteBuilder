@@ -1,0 +1,111 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { storiesFor, journalHref } from '../../lib/gameJournal.mjs';
+const title = 'Wild Racing';
+const description = 'Race karts and boats in Lilly’s Roblox world. Discover why Wild Rebellion became Wild Racing, watch Toby’s livestream, and explore Adventure and Story through the hub.';
+const play = 'https://www.roblox.com/games/137414447181099/';
+const video = 'https://www.youtube.com/watch?v=ig4M6ifI070';
+const videoTitle = 'I Built a Roblox World With My Daughter Using AI | Wild Racing + AI Update';
+const stories = storiesFor('wild-rebellion');
+const schema = {
+  '@context': 'https://schema.org', '@type': 'VideoGame', name: title,
+  alternateName: 'Wild Rebellion', description,
+  url: 'https://tobyonfitnesstech.com/projects/wild-rebellion/',
+  image: 'https://tobyonfitnesstech.com/images/projects/wild-racing/race-your-friends.png',
+  gamePlatform: 'Roblox', sameAs: play,
+  subjectOf: { '@type': 'VideoObject', name: videoTitle,
+    description: 'Toby explains how Lilly’s drawings became a Roblox world and why racing became its core loop.',
+    thumbnailUrl: 'https://i.ytimg.com/vi/ig4M6ifI070/maxresdefault.jpg',
+    uploadDate: '2026-10-22T05:00:30Z', duration: 'PT33M47S',
+    contentUrl: video, embedUrl: 'https://www.youtube.com/embed/ig4M6ifI070' }
+};
+---
+<Layout title="Wild Racing — Karts, Boats & the Wild Rebellion Story" description={description} image="/images/projects/wild-racing/race-your-friends.png" jsonLd={schema} breadcrumbs={[{name:'Home',url:'/'},{name:'Games',url:'/games/'},{name:title,url:'/projects/wild-rebellion/'}]}>
+<article class="wr" data-pagefind-body data-pagefind-filter="type:Games" data-game-showcase="wild-rebellion">
+  <div class="wr-shell">
+    <div class="wr-top"><a href="/games/">← All games</a><span>A world imagined by Lilly</span></div>
+    <header class="wr-hero" data-page-intro>
+      <div>
+        <p class="wr-kicker">Roblox · Karts + boats + a whole world</p>
+        <h1 data-page-title>Wild <em>Racing.</em></h1>
+        <p class="wr-deck">The side adventure<br/>took the starting line.</p>
+        <p class="wr-lead">Race friends and CPU rivals through Lilly’s colorful world. What began as Wild Rebellion now puts racing first—with the original Adventure and Story just a portal away.</p>
+        <div class="wr-actions"><a class="wr-button wr-primary" href={play} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug="wild-rebellion" data-analytics-content-title={title}>Play Wild Racing ↗</a><a class="wr-button" href="#watch">Why the pivot? ↓</a></div>
+        <p class="wr-small">Same Roblox experience. A new starting point.</p>
+      </div>
+      <figure class="wr-hero-art"><img src="/images/projects/wild-racing/race-your-friends.png" alt="Wild Racing promotional artwork showing Lilly’s colorful characters racing karts" width="768" height="432" fetchpriority="high"/><figcaption>Official Wild Racing promotional artwork from its Roblox listing; not a gameplay capture.</figcaption></figure>
+    </header>
+    <nav class="wr-nav" aria-label="Wild Racing sections"><a href="#race">The racing</a><a href="#pivot">Why it changed</a><a href="#watch">Toby’s livestream</a><a href="#world">The original world</a><a href="#start">Start playing</a></nav>
+    <div class="wr-numbers" aria-label="Current racing lineup"><div><strong>06</strong><span>Kart tracks</span></div><div><strong>03</strong><span>Boat courses</span></div><div><strong>01</strong><span>World, more ways to play</span></div></div>
+    <section class="wr-section" id="race" aria-labelledby="race-heading">
+      <span id="overview"></span><span id="capabilities"></span>
+      <div class="wr-heading"><div><p class="wr-kicker">The game today</p><h2 id="race-heading">Find your line.<br/>Make some waves.</h2></div><p>Grab items, hit BOOST, and chase the finish. The current Roblox listing describes nine courses, from neon loops and icy corners to cloud corkscrews, cherry-lined roads, and open water.</p></div>
+      <div class="wr-course-grid">
+        <figure><img src="/images/projects/wild-racing/take-on-the-loops.png" alt="Official promotional illustration of two Wild Racing karts on a purple loop track" width="768" height="432" loading="lazy"/><figcaption>“Take on the loops” — official Roblox promotional art.</figcaption></figure>
+        <figure><img src="/images/projects/wild-racing/make-waves.png" alt="Official promotional illustration of Wild Racing characters driving boats between buoys" width="768" height="432" loading="lazy"/><figcaption>“Make waves” — official Roblox promotional art.</figcaption></figure>
+      </div>
+      <div class="wr-cards">
+        <div><span class="wr-index">01 / COMPETE</span><h3>Race together. Or race the clock.</h3><p>Challenge friends and CPU rivals, or try solo Time Trials. World Rim Rally and Coral Cove are listed for up to 24 racers.</p></div>
+        <div><span class="wr-index">02 / BUILD</span><h3>A garage you make your own.</h3><p>Complete racing goals to earn racers, vehicles, and parts, then upgrade and style your rides. Racing unlocks are separate from Adventure and Story.</p></div>
+        <div><span class="wr-index">03 / RETURN</span><h3>Another lap, another perspective.</h3><p>Choose chase or cockpit view. The game also lists a daily coin gift to collect when you return.</p></div>
+      </div>
+      <p class="wr-source">Current features above follow the <a href={play}>public Roblox description</a>, checked October 23, 2026. Availability and access are governed by Roblox; check the experience page before joining.</p>
+    </section>
+    <section class="wr-section wr-pivot" id="pivot" aria-labelledby="pivot-heading">
+      <div><p class="wr-kicker">Why Wild Rebellion became Wild Racing</p><h2 id="pivot-heading">Follow the part<br/>you keep playing.</h2><p class="wr-pull">A family playtest became a change in direction.</p></div>
+      <div class="wr-reasons">
+        <div><span>01</span><div><h3>The world had grown complicated.</h3><p>Toby describes adding a theater, roller coasters, and a sprawling RPG. The family enjoyed it, but a friend’s reaction helped underline how much there was for a new player to take in.</p><a href={`${video}&t=374s`}>Hear the context · 6:14 ↗</a></div></div>
+        <div><span>02</span><div><h3>Racing was the part they came back to.</h3><p>A racing mode built on a whim became something Toby and the kids played several nights in a row. In the livestream, he explains deciding to put that mode at the front and make it the core loop.</p><a href={`${video}&t=576s`}>Hear the pivot · 9:36 ↗</a></div></div>
+        <div><span>03</span><div><h3>A simpler name. The same imagination.</h3><p>Toby says “Wild Racing” is easier to spell and makes the main activity clearer. Adventure and Story remain ways into Lilly’s original world, rather than disappearing with the new name.</p><a href={`${video}&t=603s`}>Hear the name change · 10:03 ↗</a></div></div>
+      </div>
+    </section>
+    <section class="wr-section" id="watch" aria-labelledby="watch-heading">
+      <span id="featured-video"></span><span id="episodes"></span>
+      <div class="wr-heading"><div><p class="wr-kicker">Latest livestream about the pivot</p><h2 id="watch-heading">The story, from Toby.</h2></div><p>From Lilly’s drawings to a playable world—and the decision to make racing its front door. The rest of the stream covers Toby’s broader AI workflow.</p></div>
+      <div class="wr-video" data-wild-player><button type="button" data-wild-play data-video-title={videoTitle} aria-label={`Play livestream: ${videoTitle}`} data-analytics-event="project_video_click" data-analytics-content-slug="wild-rebellion"><img src="/images/projects/wild-racing/livestream-thumbnail.jpg" alt="Toby’s official Wild Racing and AI Update livestream thumbnail" width="1280" height="720" loading="lazy"/><span>▶ Play the livestream</span></button></div>
+      <div class="wr-video-caption"><div><p class="wr-kicker">Livestream · October 21, 2026 · 33:47</p><h3>{videoTitle}</h3><p class="wr-small">Replay published October 22, 2026 (UTC).</p></div><a class="wr-button" href={video} target="_blank" rel="noopener noreferrer" data-analytics-event="project_video_click" data-analytics-content-slug="wild-rebellion" data-analytics-content-title={videoTitle}>Watch on YouTube ↗</a></div>
+      <div class="wr-chapters"><a href={`${video}&t=55s`}><b>00:55</b> Lilly’s drawings →</a><a href={`${video}&t=374s`}><b>06:14</b> Building the world →</a><a href={`${video}&t=576s`}><b>09:36</b> Why racing →</a></div>
+      <aside class="wr-note"><strong>What comes next?</strong><p>Toby describes room to improve the racing and hopes the clearer focus will help engagement. Those are development goals from the livestream, not additional shipped features or a promised release date.</p></aside>
+    </section>
+    <section class="wr-section" id="world" aria-labelledby="world-heading">
+      <span id="characters"></span><span id="gallery"></span><span id="production-pipeline"></span>
+      <div class="wr-heading"><div><p class="wr-kicker">Wild Rebellion lives on</p><h2 id="world-heading">A new front door.<br/>A familiar world.</h2></div><p>Lilly’s drawings and stories are still the foundation. Racing is the entry point; the hub’s Adventure and Story portals keep the wider world within reach.</p></div>
+      <div class="wr-modes"><article><span class="wr-index">START HERE</span><h3>Racing</h3><p>Karts, boats, race goals, and your garage. The focus of Wild Racing, with its own unlocks.</p></article><article><span class="wr-index">THROUGH THE HUB</span><h3>Adventure + Story</h3><p>A change of pace in the original Wild Rebellion world. Toby confirms the original components remain; the earlier journal records how the village, characters, and adventures developed.</p></article></div>
+      <a class="wr-text-link" href="/projects/lilly/">Meet Lilly and explore the original stories →</a>
+      <details class="wr-history" id="updates"><summary>Explore the earlier Wild Rebellion journal</summary><p>These dated stories describe earlier stages of the project. They are preserved as history, not a list of the latest racing changes.</p><ul>{stories.map(story=><li><time datetime={story.date}>{story.date}</time><a href={journalHref(story)}>{story.title}</a></li>)}</ul></details>
+    </section>
+    <section class="wr-section wr-start" id="start" aria-labelledby="start-heading"><span id="getting-started"></span>
+      <p class="wr-kicker">Your first visit</p><h2 id="start-heading">Take the starting line.</h2>
+      <ol><li><strong>Open Wild Racing on Roblox.</strong><p>Use the same experience link as Wild Rebellion. Check Roblox’s current access requirements for your account.</p></li><li><strong>Choose your race.</strong><p>Try a kart track or boat course, compete with rivals, or work on your own best time.</p></li><li><strong>Explore beyond the finish.</strong><p>Build your garage through racing goals, or use the hub portals to visit Adventure and Story.</p></li></ol>
+      <div class="wr-actions"><a class="wr-button wr-primary" href={play} target="_blank" rel="noopener noreferrer" data-analytics-event="project_destination_click" data-analytics-content-slug="wild-rebellion">Open Wild Racing on Roblox ↗</a><a class="wr-button" href="mailto:admin@tobyonfitnesstech.com?subject=Wild%20Racing%20support" data-analytics-event="project_support_click" data-analytics-content-slug="wild-rebellion">Get game support ↗</a></div>
+      <p class="wr-small" id="project-notes">Found a problem? Include your device, what happened, and the steps to reproduce it. For account or billing questions, use <a href="https://www.roblox.com/support">Roblox Support</a>.</p>
+    </section>
+  </div>
+</article>
+</Layout>
+<script>
+  function bindWildPlayer() {
+    document.querySelectorAll<HTMLButtonElement>('[data-wild-play]').forEach(button => {
+      if (button.dataset.bound) return;
+      button.dataset.bound = 'true';
+      button.addEventListener('click', () => {
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube.com/embed/ig4M6ifI070?autoplay=1&rel=0&enablejsapi=1';
+        iframe.title = button.dataset.videoTitle || 'Wild Racing livestream';
+        iframe.allow = 'autoplay; encrypted-media; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.dataset.analyticsVideoId = 'ig4M6ifI070';
+        button.replaceWith(iframe);
+        iframe.focus();
+      });
+    });
+  }
+  bindWildPlayer();
+  document.addEventListener('astro:page-load', bindWildPlayer);
+</script>
+<style>
+.wr{--wr-bg:#07111b;--wr-panel:#101f2d;--wr-text:#f5f8f7;--wr-muted:#b6c8cf;--wr-line:#2b3e49;--wr-accent:#dcfa67;background:radial-gradient(ellipse at 85% 5%,#1e4750 0,transparent 32%),var(--wr-bg);color:var(--wr-text);padding-bottom:60px}.wr-shell{max-width:1240px;width:calc(100% - 64px);margin:auto}.wr-top{display:flex;justify-content:space-between;gap:24px;padding:32px 0;color:var(--wr-muted);font-size:.85rem}.wr a{color:inherit}.wr a:hover{text-decoration:underline;text-underline-offset:5px}.wr a:focus-visible,.wr summary:focus-visible{outline:3px solid var(--wr-accent);outline-offset:5px}.wr-hero{display:grid;grid-template-columns:.95fr 1.15fr;align-items:center;gap:42px;padding:38px 0 56px}.wr-kicker{font-size:.73rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--wr-accent);margin:0 0 18px}.wr h1[data-page-title]{font-size:clamp(3.6rem,7.5vw,6.5rem)!important;font-weight:850;line-height:.94!important;letter-spacing:-.06em!important;margin:0 0 24px!important;max-width:none!important}.wr h1 em{display:block;font-style:normal;color:var(--wr-accent)}.wr-deck{font-size:1.65rem;line-height:1.2;font-weight:650;letter-spacing:-.03em;margin-bottom:22px}.wr-lead{font-size:1.06rem;line-height:1.75;max-width:47ch;color:var(--wr-muted)}.wr-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}.wr-button{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:12px 18px;border:1px solid var(--wr-line);border-radius:8px;font-size:.9rem;font-weight:750}.wr .wr-primary{background:var(--wr-accent);border-color:var(--wr-accent);color:#14200a}.wr-small{font-size:.8rem;color:var(--wr-muted);line-height:1.6;margin-top:18px}.wr-small a,.wr-source a{text-decoration:underline}.wr figure{margin:0}.wr img{display:block;width:100%;height:auto;border-radius:12px}.wr-hero-art{padding:10px;background:var(--wr-panel);border:1px solid var(--wr-line);border-radius:18px;transform:rotate(1.5deg)}.wr figcaption{font-size:.72rem;line-height:1.5;color:var(--wr-muted);padding:12px 6px 4px}.wr-nav{display:flex;gap:10px 30px;flex-wrap:wrap;border-block:1px solid var(--wr-line);padding:14px 0}.wr-nav a{display:flex;align-items:center;min-height:44px;font-size:.85rem;font-weight:650}.wr-numbers{display:grid;grid-template-columns:repeat(3,1fr);padding:30px 0;border-bottom:1px solid var(--wr-line)}.wr-numbers>div{display:flex;align-items:center;gap:18px;padding:0 24px;border-right:1px solid var(--wr-line)}.wr-numbers>div:first-child{padding-left:0}.wr-numbers>div:last-child{border:0}.wr-numbers strong{font-size:2.8rem;font-weight:800;letter-spacing:-.07em;color:var(--wr-accent)}.wr-numbers span{font-size:.85rem;max-width:16ch;color:var(--wr-muted)}.wr-section{padding:72px 0;border-bottom:1px solid var(--wr-line);scroll-margin-top:100px}.wr h2{font-size:clamp(2rem,3.5vw,3.3rem);font-weight:800;line-height:1.08;letter-spacing:-.045em;margin:0 0 22px}.wr-heading{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:30px}.wr-heading>p{color:var(--wr-muted);line-height:1.8;max-width:55ch;margin-bottom:20px}.wr-course-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.wr-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:36px 0}.wr h3{font-size:1.28rem;font-weight:750;letter-spacing:-.02em;line-height:1.3;margin:12px 0}.wr-cards p,.wr-reasons p,.wr-modes p,.wr-start li p{color:var(--wr-muted);font-size:.95rem;line-height:1.75}.wr-index{font-size:.67rem;letter-spacing:.13em;color:var(--wr-accent);font-weight:750}.wr-source{font-size:.75rem;color:var(--wr-muted);line-height:1.7;max-width:95ch}.wr-pivot{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px}.wr-pull{font-size:1.2rem;line-height:1.5;max-width:22ch;color:var(--wr-muted)}.wr-reasons>div{display:flex;gap:22px;padding:0 0 26px;margin-bottom:26px;border-bottom:1px solid var(--wr-line)}.wr-reasons>div:last-child{border:0;margin-bottom:0;padding-bottom:0}.wr-reasons>div>span{color:var(--wr-accent);font-size:.8rem;padding-top:15px}.wr-reasons a{display:inline-block;color:var(--wr-accent);font-size:.8rem;margin-top:12px}.wr-video{aspect-ratio:16/9;background:#000;border-radius:12px;overflow:hidden}.wr-video button{display:block;position:relative;width:100%;height:100%;padding:0;border:0;cursor:pointer}.wr-video button img{height:100%;object-fit:contain;border-radius:0}.wr-video button span{position:absolute;bottom:24px;left:24px;padding:14px 22px;border-radius:8px;background:#dcfa67;color:#14200a;font-weight:800}.wr-video button:focus-visible{outline:4px solid var(--wr-accent);outline-offset:-5px}.wr-video iframe{width:100%;height:100%;border:0}.wr-video-caption{display:flex;justify-content:space-between;align-items:center;gap:30px;margin:24px 0}.wr-video-caption .wr-kicker{margin:0}.wr-video-caption h3{max-width:55ch}.wr-video-caption .wr-button{flex-shrink:0}.wr-chapters{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.wr-chapters a{padding:16px;background:var(--wr-panel);border:1px solid var(--wr-line);border-radius:8px;font-size:.85rem}.wr-chapters b{color:var(--wr-accent);margin-right:12px}.wr-note{border-left:3px solid var(--wr-accent);padding:18px 22px;background:var(--wr-panel);margin-top:28px;font-size:.9rem}.wr-note p{color:var(--wr-muted);line-height:1.7;margin-top:8px}.wr-modes{display:grid;grid-template-columns:1fr 1.4fr;gap:20px}.wr-modes article{background:var(--wr-panel);padding:28px;border:1px solid var(--wr-line);border-radius:12px}.wr-text-link{display:inline-block;margin-top:26px;color:var(--wr-accent)!important;font-weight:650}.wr-history{margin-top:36px;border-top:1px solid var(--wr-line);padding-top:22px}.wr-history summary{cursor:pointer;font-weight:700;min-height:44px}.wr-history p{color:var(--wr-muted);max-width:75ch;line-height:1.7}.wr-history ul{list-style:none;margin-top:22px}.wr-history li{display:flex;gap:25px;border-top:1px solid var(--wr-line);padding:14px 0;font-size:.88rem}.wr-history time{color:var(--wr-muted);white-space:nowrap}.wr-start ol{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;list-style:decimal;padding-left:24px;margin:32px 0}.wr-start li::marker{color:var(--wr-accent);font-weight:800}.wr-start li p{margin-top:10px}.wr :is(section,span[id],details[id]){scroll-margin-top:100px}:global([data-theme='light']) .wr{--wr-bg:#f5f8f3;--wr-panel:#fff;--wr-text:#132a34;--wr-muted:#415c67;--wr-line:#c5d3d5;--wr-accent:#3e6410;background:radial-gradient(ellipse at 85% 5%,#d6efda 0,transparent 32%),var(--wr-bg)}:global([data-theme='light']) .wr .wr-primary{background:#d8f86b;color:#14200a;border-color:#a9ca42}
+@media(max-width:900px){.wr-shell{width:calc(100% - 40px)}.wr-hero{gap:26px;grid-template-columns:1fr 1fr}.wr-hero-art{transform:none}.wr-pivot{gap:32px}.wr-heading{gap:32px}.wr-numbers>div{padding:0 16px;gap:12px}.wr-chapters{grid-template-columns:1fr}.wr-video-caption{align-items:flex-start;flex-direction:column}}
+@media(max-width:640px){.wr-shell{width:calc(100% - 32px)}.wr-top{font-size:.72rem;padding:24px 0;gap:16px}.wr-hero{grid-template-columns:1fr;padding:24px 0 32px}.wr-deck{font-size:1.45rem}.wr-hero-art{margin-top:12px}.wr-nav{gap:4px 20px}.wr-numbers{padding:20px 0}.wr-numbers>div{display:block;padding:0 12px}.wr-numbers strong{font-size:2.3rem;display:block}.wr-numbers span{font-size:.7rem;display:block;margin-top:6px}.wr-section{padding:44px 0}.wr-heading,.wr-pivot,.wr-course-grid,.wr-cards,.wr-modes,.wr-start ol{grid-template-columns:1fr;gap:24px}.wr-heading{margin-bottom:22px;gap:0}.wr-cards{gap:26px}.wr-cards>div{border-top:1px solid var(--wr-line);padding-top:22px}.wr-history li{flex-direction:column;gap:6px}.wr-actions .wr-button{flex:1 1 auto}.wr-video-caption .wr-button{width:100%}}
+@media(prefers-reduced-motion:reduce){.wr *{scroll-behavior:auto!important}}
+</style>

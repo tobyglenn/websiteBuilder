@@ -21,6 +21,7 @@ const schema = {
 <Layout title={`${game.title} — Play, Watch & Get Help | Toby on Fitness Tech`} description={game.summary} image={game.hero.src} jsonLd={schema} breadcrumbs={[{name:'Home',url:'/'},{name:'Games',url:'/games/'},{name:game.title,url:gameHref(game)}]}>
   <div class:list={['game-world', 'gw-showcase', game.accent]} data-pagefind-body data-pagefind-filter="type:Games" data-game-showcase={game.slug}>
     <div class="gw-wrap">
+      {isWild && /^\/(de|es|hi|pt)\//.test(Astro.url.pathname) && <aside lang="en" data-translation-pending style="padding:20px;border:1px solid var(--line);margin-top:20px;border-radius:10px"><strong>English update available: Wild Racing.</strong><p>This is the earlier translated project overview. The new racing guide and Toby’s pivot livestream are available in English while translations await review.</p><a href="https://tobyonfitnesstech.com/projects/wild-rebellion/" style="text-decoration:underline">Read the current English racing guide →</a></aside>}
       <div class="gw-top"><a href="/games/">← Explore our games</a>{supportEmail && <a href="#support">Game support ↗</a>}</div>
       <header data-page-intro class="gw-hero">
         <div class="gw-hero-copy">

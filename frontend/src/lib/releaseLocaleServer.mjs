@@ -34,6 +34,8 @@ export function transformReleaseHtml(html, {locale, messages = {}, collect} = {}
   function visit(node) {
     const attrs = node.attrs || [];
     const attr = name => attrs.find(a => a.name === name)?.value;
+    // Explicit English notices stay English, including their destination links.
+    if (attrs.some(a => a.name === 'data-translation-pending')) return;
     if (node.tagName === 'script') {
       if (attr('type') === 'application/ld+json') {
         try {node.childNodes[0].value = JSON.stringify(schema(JSON.parse(node.childNodes[0].value))).replaceAll('<','\\u003c');} catch {}

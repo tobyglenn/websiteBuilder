@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import GameShowcase from '../../components/games/GameShowcase.astro';
+import WildRacingShowcase from '../../components/games/WildRacingShowcase.astro';
 import { gameBySlug } from '../../lib/gameJournal.mjs';
 import { pokemonRepository, projectHref, projects } from '../../data/projects';
 
@@ -35,7 +36,7 @@ const schema = {
 };
 ---
 
-{game ? <GameShowcase game={game}/> : <Layout
+{game?.slug === 'wild-rebellion' && !/^\/(de|es|hi|pt)\//.test(Astro.url.pathname) ? <WildRacingShowcase/> : game ? <GameShowcase game={game}/> : <Layout
   title={`${project.title} project guide | Toby on Fitness Tech`}
   description={project.description}
   image={project.heroImage?.src}
