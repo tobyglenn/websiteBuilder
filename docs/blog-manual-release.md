@@ -154,3 +154,30 @@ The original `blog-drafts/pending.json` is preserved byte-for-byte. `import-pend
 stages its content/image/source packet for review and strips the old model approval
 fields; it never grants personal approval. Migration backups live under
 `/home/toby/.openclaw/backups/blog-manual-migration-20261021/`.
+
+## Approved existing-article image correction
+
+`blog_image_update.py` provides a separate guarded operation for the reviewed
+Wild Rebellion image correction. The original new-article duplicate-slug guard
+remains unchanged. Stage the replacement package normally, then use:
+
+```sh
+python3 scripts/dgx/blog_image_update.py preflight --original-sha256 ORIGINAL_HASH --sha256 REPLACEMENT_HASH
+python3 scripts/dgx/blog_image_update.py approve-and-update --original-sha256 ORIGINAL_HASH --sha256 REPLACEMENT_HASH --approval-message-ref TRUSTED_USER_MESSAGE
+```
+
+The approval must explicitly cover the replacement image and scoped layout.
+It binds both package hashes and layout version. Only thumbnail and embedded
+asset may differ; article text, date, metadata, sources and translations cannot.
+The original must have a pushed receipt. The deterministic layout allowlist
+contains the homepage cover mapping/component and blog index; only this slug
+gets the reviewed cover and contain/no-zoom treatment. No arbitrary patches
+are accepted. The operation uses an isolated worktree, verifies the original
+and replacement canonical article, builds, rechecks hashes and approval, then
+pushes normally. It never changes another task's active checkout.
+
+Approvals, logs, preflights and idempotent receipts live beneath
+`manual-release/image-updates/`. An uncertain push is checked against the remote;
+a non-confirmed pending commit is held for explicit reconciliation, never blindly
+republished. Other existing-article revisions require a separately reviewed
+workflow. This command does not change source evidence or generate translations.

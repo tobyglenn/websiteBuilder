@@ -46,6 +46,7 @@ jobs:
           python3 scripts/tests/blog-editorial-policy.test.py
           python3 scripts/tests/blog-daily-sources.test.py
           python3 scripts/tests/blog-manual-release.test.py
+          python3 scripts/tests/blog-image-update.test.py
           python3 scripts/tests/blog-quality.test.py
           python3 scripts/tests/blog-sections.test.py
           python3 scripts/tests/video-transcripts.test.py
