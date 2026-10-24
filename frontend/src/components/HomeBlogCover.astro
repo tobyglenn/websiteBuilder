@@ -11,6 +11,7 @@ import creator from '../../public/images/projects/ironvane-chronicle/hero.webp';
 import projects from '../../public/images/projects/pokemon-go-automation/hero.png';
 import ai from '../../public/images/gear/openclaw-mac-studio.jpg';
 import type { ImageMetadata } from 'astro';
+import { usesPokemonFeatureImage } from '../lib/pokemonBlogPresentation.mjs';
 import { homeBlogCover } from '../lib/homeBlogCovers.mjs';
 const { post } = Astro.props;
 const photos = homeBlogCover(post);
@@ -27,16 +28,18 @@ const assets: Record<string, ImageMetadata> = {
   '/images/projects/pokemon-go-automation/hero.png': projects,
 };
 ---
-<div class="home-blog-cover" aria-hidden="true">
+<div class:list={["home-blog-cover", { "reviewed-pokemon-cover": usesPokemonFeatureImage(post) }]} aria-hidden="true">
   {photos.map(photo => (
     <div style={{ background: photo.background || '#171717' }}>
-      <Image src={assets[photo.src]} alt="" loading="lazy" decoding="async" width={800} widths={[400, 800, 1200]} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw" format="webp" quality={82}
+      {assets[photo.src] ? <Image src={assets[photo.src]} alt="" loading="lazy" decoding="async" width={800} widths={[400, 800, 1200]} sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw" format="webp" quality={82}
         style={{ objectFit: photo.fit, objectPosition: photo.position }} />
+        : <img src={photo.src} alt="" loading="lazy" decoding="async" style={{ objectFit: photo.fit, objectPosition: photo.position }} />}
     </div>
   ))}
 </div>
 <style>
   .home-blog-cover { display: flex; aspect-ratio: 16 / 9; overflow: hidden; background: #171717; }
+  .home-blog-cover.reviewed-pokemon-cover { aspect-ratio: 4 / 5; max-height: 420px; }
   .home-blog-cover > div { flex: 1; min-width: 0; overflow: hidden; }
   .home-blog-cover img { display: block; width: 100%; height: 100%; }
 </style>

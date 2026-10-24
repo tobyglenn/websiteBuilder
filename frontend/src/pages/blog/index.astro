@@ -1,4 +1,5 @@
 ---
+import { pokemonFeatureImageStyle, usesPokemonFeatureImage } from '../../lib/pokemonBlogPresentation.mjs';
 import { BLOG_CATEGORIES } from '../../lib/blogEditorial.mjs';
 import Layout from '../../layouts/Layout.astro';
 import { LISTING_BLOG_POSTS } from '../../lib/blogPosts';
@@ -207,12 +208,12 @@ const description = "Independent reviews, training data and buying advice.";
           data-title={featuredPost.title.toLowerCase()}
           data-excerpt={featuredPost.excerpt?.toLowerCase() || ''}
         >
-          <a href={`/blog/${featuredPost.slug}/`} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
+          <a href={`/blog/${featuredPost.slug}/`} style={usesPokemonFeatureImage(featuredPost) ? "aspect-ratio: 4 / 5; max-height: 560px" : undefined} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
             <div class="absolute inset-0 z-0 bg-neutral-800" />
             {featuredPost.image && (
               <img
                 src={featuredPost.image}
-                    style={featuredPost.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined}
+                    style={pokemonFeatureImageStyle(featuredPost) || (featuredPost.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined)}
                 alt={featuredPost.title}
                 class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="eager"
@@ -296,7 +297,7 @@ const description = "Independent reviews, training data and buying advice.";
                   {post.image && (
                     <img
                       src={post.image}
-                    style={post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined}
+                    style={pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined)}
                       alt={post.title}
                       class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
@@ -363,12 +364,12 @@ const description = "Independent reviews, training data and buying advice.";
               data-title={post.title.toLowerCase()}
               data-excerpt={post.excerpt?.toLowerCase() || ''}
             >
-              <a href={`/blog/${post.slug}/`} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
+              <a href={`/blog/${post.slug}/`} style={usesPokemonFeatureImage(post) ? "aspect-ratio: 4 / 5; max-height: 420px" : undefined} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
                 <div class="absolute inset-0 z-0 bg-neutral-800" />
                 {post.image && (
                   <img
                     src={post.image}
-                    style={post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined}
+                    style={pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined)}
                     alt={post.title}
                     class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"

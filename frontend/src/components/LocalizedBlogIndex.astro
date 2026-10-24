@@ -1,4 +1,5 @@
 ---
+import { pokemonFeatureImageStyle } from '../lib/pokemonBlogPresentation.mjs';
 import Layout from '../layouts/Layout.astro';
 import {
   getLocalizedBlogPosts,
@@ -177,7 +178,7 @@ const schema = {
             >
               <a href={articleUrl(featuredPost.slug)} class="block min-h-56 bg-neutral-800">
                 {featuredPost.image
-                  ? <img src={featuredPost.image} alt="" class="h-full w-full object-cover" loading="eager" />
+                  ? <img src={featuredPost.image} style={pokemonFeatureImageStyle(featuredPost)} alt="" class="h-full w-full object-cover" loading="eager" />
                   : <div class="flex h-full min-h-56 items-center justify-center px-6 text-center text-sm font-bold uppercase text-neutral-500">{featuredPost.category}</div>}
               </a>
               <div class="flex flex-col p-7">
