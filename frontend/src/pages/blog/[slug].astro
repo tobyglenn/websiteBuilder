@@ -252,6 +252,12 @@ const articleJsonLd = {
 
     {/* Content */}
     <div class="container mx-auto px-4 py-12 max-w-3xl">
+      {post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg" && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-muse-art>
+          <img src={post.image} alt="Toby beside illustrated racing characters in the Wild Racing and AI Update livestream thumbnail." width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">Artwork for the full October 21 Wild Racing and AI livestream, which included the Muse discussion. This is not a Muse interface screenshot.</figcaption>
+        </figure>
+      )}
       {usesPokemonFeatureImage(post) && (
         <figure class="mb-8 flex justify-center rounded-xl bg-neutral-900 p-4" data-reviewed-game-art>
           <img src={post.image} alt={post.title} width="1224" height="2992" class="h-auto max-h-[70vh] max-w-full object-contain" loading="eager" />

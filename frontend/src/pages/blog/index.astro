@@ -208,12 +208,12 @@ const description = "Independent reviews, training data and buying advice.";
           data-title={featuredPost.title.toLowerCase()}
           data-excerpt={featuredPost.excerpt?.toLowerCase() || ''}
         >
-          <a href={`/blog/${featuredPost.slug}/`} style={usesPokemonFeatureImage(featuredPost) ? "aspect-ratio: 4 / 5; max-height: 560px" : undefined} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
+          <a href={`/blog/${featuredPost.slug}/`} style={usesPokemonFeatureImage(featuredPost) ? "aspect-ratio: 4 / 5; max-height: 560px" : featuredPost.slug === "what-changed-my-mind-about-muse" && featuredPost.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg" ? "aspect-ratio: 16 / 9" : undefined} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
             <div class="absolute inset-0 z-0 bg-neutral-800" />
             {featuredPost.image && (
               <img
                 src={featuredPost.image}
-                    style={pokemonFeatureImageStyle(featuredPost) || (featuredPost.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined)}
+                    style={pokemonFeatureImageStyle(featuredPost) || (featuredPost.slug === "wild-rebellion-guidance-without-open-panels" || (featuredPost.slug === "what-changed-my-mind-about-muse" && featuredPost.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
                 alt={featuredPost.title}
                 class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="eager"
@@ -297,7 +297,7 @@ const description = "Independent reviews, training data and buying advice.";
                   {post.image && (
                     <img
                       src={post.image}
-                    style={pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined)}
+                    style={pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" || (post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
                       alt={post.title}
                       class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
@@ -369,7 +369,7 @@ const description = "Independent reviews, training data and buying advice.";
                 {post.image && (
                   <img
                     src={post.image}
-                    style={pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" ? "object-fit: contain; transform: none" : undefined)}
+                    style={pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" || (post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
                     alt={post.title}
                     class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"

@@ -80,6 +80,25 @@ interface Props {
 
 const { lang, post } = Astro.props as Props;
 const ui = UI[lang];
+const museArtwork = {
+  "de": {
+    "alt": "Toby neben gezeichneten Rennfiguren im Vorschaubild des Livestreams Wild Racing und AI Update.",
+    "caption": "Artwork für den gesamten Wild-Racing- und KI-Livestream vom 21. Oktober, in dem auch Muse besprochen wurde. Dies ist kein Screenshot der Muse-Oberfläche."
+  },
+  "es": {
+    "alt": "Toby junto a personajes de carreras ilustrados en la miniatura del directo Wild Racing y AI Update.",
+    "caption": "Imagen del directo completo sobre Wild Racing y novedades de IA del 21 de octubre, que incluyó la conversación sobre Muse. No es una captura de la interfaz de Muse."
+  },
+  "pt": {
+    "alt": "Toby ao lado de personagens de corrida ilustrados na miniatura da transmissão Wild Racing e AI Update.",
+    "caption": "Arte da transmissão completa de 21 de outubro sobre Wild Racing e novidades de IA, que incluiu a conversa sobre o Muse. Não é uma captura da interface do Muse."
+  },
+  "hi": {
+    "alt": "Wild Racing और AI Update लाइवस्ट्रीम की थंबनेल में चित्रित रेसिंग पात्रों के साथ Toby।",
+    "caption": "21 अक्टूबर की पूरी Wild Racing और एआई अपडेट लाइवस्ट्रीम की तस्वीर, जिसमें Muse पर चर्चा भी शामिल थी। यह Muse के इंटरफ़ेस का स्क्रीनशॉट नहीं है।"
+  }
+} as const;
+const usesMuseArtwork = post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg";
 
 // Redirect pages for renamed slugs (mirrors the English blog template).
 // The old slug stays out of the sitemap (see EXCLUDED_SITEMAP_PATHS in
@@ -184,6 +203,12 @@ const blogSchema = {
     </header>
 
     <div class="container mx-auto max-w-3xl px-4 py-12">
+      {usesMuseArtwork && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-muse-art>
+          <img src={post.image} alt={museArtwork[lang].alt} width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">{museArtwork[lang].caption}</figcaption>
+        </figure>
+      )}
       {usesPokemonFeatureImage(post) && (
         <figure class="mb-8 flex justify-center rounded-xl bg-neutral-900 p-4" data-reviewed-game-art>
           <img src={post.image} alt={post.title} width="1224" height="2992" class="h-auto max-h-[70vh] max-w-full object-contain" loading="eager" />
