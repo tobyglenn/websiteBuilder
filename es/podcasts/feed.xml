@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 21 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 124 -->
+    <item>
+      <title>Episodio 124: MiniMax M3.1 Flash busca agentes de IA más rápidos y económicos</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep124/episode_124.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-124/</link>
+      <description><![CDATA[Las noticias de hoy incluyen MiniMax M3.1 Flash, el enrutamiento consciente de caché de llm-d 1.0, el nuevo soporte de familias de modelos de SGLang y los...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-124/]]></description>
+      <pubDate>Sat, 24 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_124.mp3" length="36089565" type="audio/mpeg"/>
+      <itunes:duration>37:35</itunes:duration>
+      <itunes:episode>124</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep124/episode_124_cover.png"/>
+    </item>
+
     <!-- Episode 123 -->
     <item>
       <title>Episodio 123: Reflection&#x27;s Beam 1.0 llega a OpenRouter como un MoE de codificación de 501B</title>

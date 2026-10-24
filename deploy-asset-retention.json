@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "builtAt": "2026-10-24T23:52:49.605Z",
+  "builtAt": "2026-10-24T23:59:13.312Z",
   "retentionDays": 30,
   "active": [
     "_astro/BrandIcons.D2THtdzM.js",
@@ -21,12 +21,12 @@
     "_astro/ShareButtons.c-LBOfhZ.js",
     "_astro/SpeedianceWorkoutHub.MGOhCYpR.js",
     "_astro/StickySubscribeBar.Bk8NVjfE.js",
-    "_astro/ThisWeekWidget.CMcjqaI6.js",
-    "_astro/TrainingFocus.CbLn-0rr.js",
-    "_astro/VideoGrid.CX_eVS_X.js",
+    "_astro/ThisWeekWidget.C983jcR7.js",
+    "_astro/TrainingFocus.BixqDRxO.js",
+    "_astro/VideoGrid.DqpSfDw9.js",
     "_astro/VideoPlayer.B9u3BEK0.js",
-    "_astro/WorkoutHeatmap.D9rXw5_G.js",
-    "_astro/YearlyGoals.DJeQLbL2.js",
+    "_astro/WorkoutHeatmap.BjrAx8sD.js",
+    "_astro/YearlyGoals.Cx65zN81.js",
     "_astro/_slug_._22MMCp6.css",
     "_astro/activity.yoxgGQdQ.js",
     "_astro/analytics.bIP4sfLS.js",
@@ -39,7 +39,7 @@
     "_astro/compare.xBOHbLL8.css",
     "_astro/createLucideIcon.B6ijzXYg.js",
     "_astro/game-showcase.Baw_Lusl.css",
-    "_astro/homepageFitnessData.B9Y35Nkt.js",
+    "_astro/homepageFitnessData.VaNaWs2h.js",
     "_astro/index.astro_astro_type_script_index_0_lang.h122Fb7w.js",
     "_astro/jsx-runtime.BPMVGbCv.js",
     "_astro/mail.BUNVSvmV.js",
@@ -211,16 +211,16 @@
       "lastUsedAt": "2026-10-08T04:24:27.412Z"
     },
     {
-      "path": "_astro/homepageFitnessData.49bu90yf.js",
-      "lastUsedAt": "2026-09-24T23:54:05.266Z"
-    },
-    {
       "path": "_astro/homepageFitnessData.B0BZ1Ojk.js",
       "lastUsedAt": "2026-10-01T11:34:26.262Z"
     },
     {
       "path": "_astro/homepageFitnessData.B6615reo.js",
       "lastUsedAt": "2026-10-19T00:01:48.596Z"
+    },
+    {
+      "path": "_astro/homepageFitnessData.B9Y35Nkt.js",
+      "lastUsedAt": "2026-10-24T23:52:49.605Z"
     },
     {
       "path": "_astro/homepageFitnessData.BdqmVnu6.js",
@@ -695,6 +695,10 @@
       "lastUsedAt": "2026-10-14T11:34:45.788Z"
     },
     {
+      "path": "_astro/ThisWeekWidget.CMcjqaI6.js",
+      "lastUsedAt": "2026-10-24T23:52:49.605Z"
+    },
+    {
       "path": "_astro/ThisWeekWidget.CMDlSdm6.js",
       "lastUsedAt": "2026-10-05T11:34:25.207Z"
     },
@@ -753,10 +757,6 @@
     {
       "path": "_astro/ThisWeekWidget.D0lDDNzp.js",
       "lastUsedAt": "2026-10-06T11:38:17.855Z"
-    },
-    {
-      "path": "_astro/ThisWeekWidget.D7G7gqpU.js",
-      "lastUsedAt": "2026-09-24T23:54:05.266Z"
     },
     {
       "path": "_astro/ThisWeekWidget.DBfzs7Gp.js",
@@ -907,10 +907,6 @@
       "lastUsedAt": "2026-10-04T23:54:32.742Z"
     },
     {
-      "path": "_astro/TrainingFocus.C14LOUAd.js",
-      "lastUsedAt": "2026-09-24T23:54:05.266Z"
-    },
-    {
       "path": "_astro/TrainingFocus.C76324r0.js",
       "lastUsedAt": "2026-09-27T23:53:56.573Z"
     },
@@ -921,6 +917,10 @@
     {
       "path": "_astro/TrainingFocus.C9tQRCtg.js",
       "lastUsedAt": "2026-10-19T23:56:03.797Z"
+    },
+    {
+      "path": "_astro/TrainingFocus.CbLn-0rr.js",
+      "lastUsedAt": "2026-10-24T23:52:49.605Z"
     },
     {
       "path": "_astro/TrainingFocus.CDI31tOw.js",
@@ -1211,6 +1211,10 @@
       "lastUsedAt": "2026-10-06T11:38:17.855Z"
     },
     {
+      "path": "_astro/VideoGrid.CX_eVS_X.js",
+      "lastUsedAt": "2026-10-24T23:52:49.605Z"
+    },
+    {
       "path": "_astro/VideoGrid.CzpqZAwl.js",
       "lastUsedAt": "2026-10-24T11:34:30.835Z"
     },
@@ -1225,10 +1229,6 @@
     {
       "path": "_astro/VideoGrid.D4t3D610.js",
       "lastUsedAt": "2026-10-21T15:37:55.267Z"
-    },
-    {
-      "path": "_astro/VideoGrid.Dal5qyKi.js",
-      "lastUsedAt": "2026-09-24T23:54:05.266Z"
     },
     {
       "path": "_astro/VideoGrid.DBunPnnf.js",
@@ -1455,10 +1455,6 @@
       "lastUsedAt": "2026-10-08T23:54:20.652Z"
     },
     {
-      "path": "_astro/WorkoutHeatmap.CjgUn-7j.js",
-      "lastUsedAt": "2026-09-24T23:54:05.266Z"
-    },
-    {
       "path": "_astro/WorkoutHeatmap.CmrSt4dK.js",
       "lastUsedAt": "2026-10-21T11:40:29.451Z"
     },
@@ -1509,6 +1505,10 @@
     {
       "path": "_astro/WorkoutHeatmap.D42KUfyA.js",
       "lastUsedAt": "2026-10-17T11:35:53.723Z"
+    },
+    {
+      "path": "_astro/WorkoutHeatmap.D9rXw5_G.js",
+      "lastUsedAt": "2026-10-24T23:52:49.605Z"
     },
     {
       "path": "_astro/WorkoutHeatmap.DbMIHOf7.js",
@@ -1601,10 +1601,6 @@
     {
       "path": "_astro/YearlyGoals.25DAKtwQ.js",
       "lastUsedAt": "2026-10-20T11:36:15.167Z"
-    },
-    {
-      "path": "_astro/YearlyGoals.5umoNvgB.js",
-      "lastUsedAt": "2026-09-24T23:54:05.266Z"
     },
     {
       "path": "_astro/YearlyGoals.B_UzqX_P.js",
@@ -1757,6 +1753,10 @@
     {
       "path": "_astro/YearlyGoals.DHOtxOza.js",
       "lastUsedAt": "2026-09-26T23:53:34.733Z"
+    },
+    {
+      "path": "_astro/YearlyGoals.DJeQLbL2.js",
+      "lastUsedAt": "2026-10-24T23:52:49.605Z"
     },
     {
       "path": "_astro/YearlyGoals.DJr_1T7f.js",
