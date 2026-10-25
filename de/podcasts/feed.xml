@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Wed, 21 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 24 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 124 -->
+    <item>
+      <title>Folge 124: MiniMax M3.1 Flash zielt auf schnellere, günstigere KI-Agenten</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep124/episode_124.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-124/</link>
+      <description><![CDATA[Zu den heutigen Themen gehören MiniMax M3.1 Flash, das Cache-Aware Routing von llm-d 1.0, die Unterstützung neuer Modellfamilien durch SGLang sowie die...
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-124/]]></description>
+      <pubDate>Sat, 24 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_124.mp3" length="39663534" type="audio/mpeg"/>
+      <itunes:duration>41:18</itunes:duration>
+      <itunes:episode>124</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep124/episode_124_cover.png"/>
+    </item>
+
     <!-- Episode 123 -->
     <item>
       <title>Folge 123: Reflection&#x27;s Beam 1.0 startet auf OpenRouter als 501B Coding MoE</title>
