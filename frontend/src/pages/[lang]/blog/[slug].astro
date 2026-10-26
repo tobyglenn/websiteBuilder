@@ -1,4 +1,5 @@
 ---
+import { usesWildRacingReviewImage } from '../../../lib/wildRacingBlogPresentation.mjs';
 import { usesPokemonFeatureImage } from '../../../lib/pokemonBlogPresentation.mjs';
 import Layout from '../../../layouts/Layout.astro';
 import ShareButtons from '../../../components/ShareButtons.jsx';
@@ -80,6 +81,24 @@ interface Props {
 
 const { lang, post } = Astro.props as Props;
 const ui = UI[lang];
+const wildRacingArtwork = {
+  "de": {
+    "alt": "Original-Vorschaubild der Folge mit Toby, dem Wild-Skies-Flugspiel und dem Schriftzug AI BUILT MY GAME.",
+    "caption": "Original-Vorschaubild der Entwicklungsaufnahme vom 25. Oktober, einschließlich der Vorführung der Wild-Skies-Beta."
+  },
+  "es": {
+    "alt": "Miniatura original del episodio con Toby, la pantalla de vuelo de Wild Skies y el texto AI BUILT MY GAME.",
+    "caption": "Miniatura original de la grabación sobre el desarrollo del 25 de octubre, incluida la demostración de la beta de Wild Skies."
+  },
+  "pt": {
+    "alt": "Miniatura original do episódio com Toby, a tela do jogo de voo Wild Skies e o texto AI BUILT MY GAME.",
+    "caption": "Miniatura original da gravação sobre o desenvolvimento de 25 de outubro, incluindo a demonstração da versão beta de Wild Skies."
+  },
+  "hi": {
+    "alt": "एपिसोड का मूल थंबनेल, जिसमें Toby, Wild Skies उड़ान गेम की स्क्रीन और AI BUILT MY GAME लिखा हुआ दिखाई देता है।",
+    "caption": "25 अक्टूबर की विकास संबंधी रिकॉर्डिंग का मूल थंबनेल, जिसमें Wild Skies बीटा का प्रदर्शन भी शामिल है।"
+  }
+};
 const museArtwork = {
   "de": {
     "alt": "Toby neben gezeichneten Rennfiguren im Vorschaubild des Livestreams Wild Racing und AI Update.",
@@ -203,6 +222,12 @@ const blogSchema = {
     </header>
 
     <div class="container mx-auto max-w-3xl px-4 py-12">
+      {usesWildRacingReviewImage(post) && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-wild-racing-art>
+          <img src={post.image} alt={wildRacingArtwork[lang].alt} width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">{wildRacingArtwork[lang].caption}</figcaption>
+        </figure>
+      )}
       {usesMuseArtwork && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-muse-art>
           <img src={post.image} alt={museArtwork[lang].alt} width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />

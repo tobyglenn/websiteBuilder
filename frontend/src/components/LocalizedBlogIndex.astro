@@ -1,4 +1,5 @@
 ---
+import { usesWildRacingReviewImage, wildRacingReviewImageStyle } from '../lib/wildRacingBlogPresentation.mjs';
 import { pokemonFeatureImageStyle } from '../lib/pokemonBlogPresentation.mjs';
 import Layout from '../layouts/Layout.astro';
 import {
@@ -175,13 +176,14 @@ const schema = {
           <section class="grid gap-8 border-b border-neutral-800 pb-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(260px,0.8fr)]" data-lead-section>
             <article
               class="group grid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 md:grid-cols-[minmax(240px,0.9fr)_minmax(0,1.1fr)]"
+              style={usesWildRacingReviewImage(featuredPost) ? "display: flex; flex-direction: column" : undefined}
               data-post-card
               data-category={featuredPost.categoryKey}
               data-search={`${featuredPost.title} ${featuredPost.excerpt}`.toLocaleLowerCase(locale)}
             >
-              <a href={articleUrl(featuredPost.slug)} aria-label={usesMuseArtwork(featuredPost) ? featuredPost.title : undefined} class="block min-h-56 bg-neutral-800">
+              <a href={articleUrl(featuredPost.slug)} aria-label={usesMuseArtwork(featuredPost) || usesWildRacingReviewImage(featuredPost) ? featuredPost.title : undefined} style={usesWildRacingReviewImage(featuredPost) ? "min-height: 0; aspect-ratio: 16 / 9" : undefined} class="block min-h-56 bg-neutral-800">
                 {featuredPost.image
-                  ? <img src={featuredPost.image} style={pokemonFeatureImageStyle(featuredPost) || (usesMuseArtwork(featuredPost) ? "object-fit: contain; object-position: center; transform: none" : undefined)} alt="" class="h-full w-full object-cover" loading="eager" />
+                  ? <img src={featuredPost.image} style={wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (usesMuseArtwork(featuredPost) ? "object-fit: contain; object-position: center; transform: none" : undefined)} alt="" class="h-full w-full object-cover" loading="eager" />
                   : <div class="flex h-full min-h-56 items-center justify-center px-6 text-center text-sm font-bold uppercase text-neutral-500">{featuredPost.category}</div>}
               </a>
               <div class="flex flex-col p-7">
@@ -208,7 +210,7 @@ const schema = {
                     data-category={post.categoryKey}
                     data-search={`${post.title} ${post.excerpt}`.toLocaleLowerCase(locale)}
                   >
-                    {usesMuseArtwork(post) && (
+                    {(usesMuseArtwork(post) || usesWildRacingReviewImage(post)) && (
                       <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art>
                         <img src={post.image} alt="" width="1280" height="720" class="block h-auto w-full object-contain" loading="lazy" />
                       </a>
@@ -233,7 +235,7 @@ const schema = {
                     data-category={post.categoryKey}
                     data-search={`${post.title} ${post.excerpt}`.toLocaleLowerCase(locale)}
                   >
-                    {usesMuseArtwork(post) && (
+                    {(usesMuseArtwork(post) || usesWildRacingReviewImage(post)) && (
                       <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art>
                         <img src={post.image} alt="" width="1280" height="720" class="block h-auto w-full object-contain" loading="lazy" />
                       </a>
