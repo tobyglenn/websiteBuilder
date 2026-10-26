@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-10-25T11:30:59.254Z",
+  "generatedAt": "2026-10-25T23:51:09.125Z",
   "definitions": {
     "running": "Garmin running and treadmill_running activities only",
     "lifting": "Lifetime recorded volume across smart cable machines",
     "whoop": "30 calendar days ending on the latest bundled recovery date; duplicate IDs and sleep naps excluded"
   },
   "sourceDates": {
-    "fitness": "2026-10-25T11:30:58.975Z",
+    "fitness": "2026-10-25T23:51:08.857Z",
     "running": "2026-10-12",
-    "whoop": "2026-10-25T07:30:10.066101",
+    "whoop": "2026-10-25T19:50:08.447716",
     "weight": "2026-07-05"
   },
   "lifetimeStats": {
@@ -74,25 +74,25 @@
     "windowStart": "2026-09-26",
     "windowEnd": "2026-10-25",
     "sampleCount": 30,
-    "recoveryAvg": 57.766666666666666,
-    "hrvAvg": 32.85601956666666,
-    "rhrAvg": 66.7,
+    "recoveryAvg": 58.733333333333334,
+    "hrvAvg": 33.19576476666666,
+    "rhrAvg": 66.56666666666666,
     "spo2Avg": 96.48258253333333,
-    "inBedHoursAvg": 8.160653518518517,
-    "asleepHoursAvg": 7.135024259259259,
-    "remHoursAvg": 2.2372441666666663,
-    "deepHoursAvg": 1.555986851851852,
-    "sleepPerfAvg": 82.8,
-    "sleepEffAvg": 87.98582429999998,
-    "respiratoryAvg": 16.93562415,
-    "strainAvg": 5.500447339666667,
+    "inBedHoursAvg": 8.259369907407406,
+    "asleepHoursAvg": 7.21011,
+    "remHoursAvg": 2.280060462962963,
+    "deepHoursAvg": 1.5534868518518519,
+    "sleepPerfAvg": 82.9,
+    "sleepEffAvg": 87.78969413333331,
+    "respiratoryAvg": 16.927811616666666,
+    "strainAvg": 5.637273155333333,
     "strainMax": 11.541035,
     "totalRecords": 1733,
-    "allTimeRecoveryAvg": 55.06058857472591,
-    "allTimeGreenPct": 31.102135025966533,
-    "allTimeYellowPct": 51.81765724177726,
+    "allTimeRecoveryAvg": 55.077322562031156,
+    "allTimeGreenPct": 31.159838430467396,
+    "allTimeYellowPct": 51.7599538372764,
     "allTimeRedPct": 17.080207732256202,
-    "lastSynced": "2026-10-25T07:30:10.066101"
+    "lastSynced": "2026-10-25T19:50:08.447716"
   },
   "strength": {
     "totalVolumeLbs": 1105614.2,
