@@ -144,6 +144,29 @@ test('builds complete one-period comparisons and ranks page friction', () => {
   assert.equal(report.currentAcquisition[0].source, 'Google');
 });
 
+test('fourteen stored snapshots do not prove two complete weeks when a date is missing', () => {
+  const dates = ['2026-10-12', '2026-10-13', '2026-10-14', '2026-10-15', '2026-10-16', '2026-10-17', '2026-10-18', '2026-10-19', '2026-10-20', '2026-10-22', '2026-10-23', '2026-10-24', '2026-10-25', '2026-10-26'];
+  const snapshots = dates.map(date => snapshot({ date, readers: 4, bots: 1, scroll: 40, active: 20, total: 50 }));
+  const report = buildClarityReport(snapshots);
+  assert.equal(report.comparisonReady, false);
+  assert.equal(report.periods.current.snapshots, 7);
+  assert.equal(report.periods.current.complete, false);
+  assert.equal(report.periods.prior.complete, true);
+  assert.deepEqual(report.dataQuality.missingDates, ['2026-10-21']);
+  assert.deepEqual(report.dataQuality.outsideWindowDates, ['2026-10-12']);
+  assert.equal(report.periods.current.readerSessions, 28);
+});
+
+test('contiguous dates remain comparable after a late backfill', () => {
+  const snapshots = Array.from({ length: 14 }, (_, i) => snapshot({ date: `2026-10-${String(i + 12).padStart(2, '0')}`, readers: 4, bots: 1, scroll: 40, active: 20, total: 50 }));
+  snapshots[0].collectedAt = '2026-10-26T11:00:00Z';
+  const report = buildClarityReport(snapshots);
+  assert.equal(report.comparisonReady, true);
+  assert.equal(report.periods.prior.start, '2026-10-12');
+  assert.equal(report.periods.current.end, '2026-10-25');
+  assert.deepEqual(report.dataQuality.missingDates, []);
+});
+
 test('labels a weekly report partial until fourteen daily snapshots exist', () => {
   const current = snapshot({
     date: '2026-08-18', readers: 4, bots: 1, dead: 0, rage: 0,

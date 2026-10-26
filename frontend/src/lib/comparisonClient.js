@@ -13,6 +13,36 @@ const localized = handler => event => {try {handler(event);} finally {translateC
 const mobile=window.matchMedia('(max-width:900px)');
 const fees={monthly:150,joining:0};
 const state={replacing:null,tab:'gym',years:5,group:'All features',differences:false,selected:{gym:new Set(['speediance','innodigym','tonal','aeke-s1-pro']),wearables:new Set(['garmin','whoop','fitbit','helio'])},pair:{gym:['speediance','innodigym'],wearables:['garmin','whoop']}};
+// Observe outcomes after the existing synchronous handlers, without changing selection behavior.
+function observeSelection(event) {
+ const control=event.target instanceof Element?event.target.closest('button,select'):null;
+ if(!control)return;
+ const product=control.dataset.product;
+ const action=product?'product':control.id==='reset-picks'?'reset':['mobile-a','mobile-b'].includes(control.id)?control.id:null;
+ if(!action || (event.type==='change') !== (action==='mobile-a'||action==='mobile-b'))return;
+ if(product&&!lineup().some(item=>item.id===product))return;
+ const tab=state.tab,pairMode=mobile.matches,before=pairMode?[...state.pair[tab]]:[...state.selected[tab]];
+ let reason='unchanged_selection';
+ if(action==='reset')reason='already_default';
+ else if(pairMode&&product&&before.includes(product))reason='already_selected_mobile';
+ else if(state.replacing&&before.includes(product)&&product!==state.replacing)reason='already_selected_replacement';
+ else if(!pairMode&&!before.includes(product)&&before.length===4&&!state.replacing)reason='selection_limit';
+ else if(!pairMode&&before.includes(product)&&before.length===1&&!state.replacing)reason='minimum_selection';
+ setTimeout(()=>{
+  if(controller.signal.aborted)return;
+  const after=pairMode?[...state.pair[tab]]:[...state.selected[tab]];
+  const changed=JSON.stringify(before)!==JSON.stringify(after);
+  captureEvent('comparison_selection_outcome',{
+   surface:'compare',interaction_version:'compare-selection-20261026',category:tab,
+   action,selector_mode:pairMode?'pair':'multi',requested_device:product||'',
+   outcome:changed?'changed':action==='reset'?'unchanged':'blocked',
+   reason:changed?'selection_updated':reason,before_count:before.length,selected_count:after.length,
+   selected_devices:after,
+  });
+ },0);
+}
+root.addEventListener('click',observeSelection,{capture:true,signal:controller.signal});
+root.addEventListener('change',observeSelection,{capture:true,signal:controller.signal});
 function gymBaseline(){return {id:'traditional',brand:'BASELINE',name:'Traditional gym',bundle:'Editable local membership',hardware:fees.joining,setup:0,annual:fees.monthly*12,priceLabel:'Your example',availability:'Local facility dependent',baseline:true,features:{bundle:'Local gym membership; no home hardware',subscription:'Membership; cancellation terms depend on gym',availability:'Editable scenario, not a market average',resistance:'Depends on equipment inventory; no fixed digital ceiling',cables:'Facility dependent',eccentric:'Manual eccentric lowering; overload may need partner',spotter:'Human spotter / safety racks, where available',modes:'Free weights, cable stacks and facility equipment',form:'Staff / personal coaching, sometimes extra',app:'Facility dependent; optional logging apps',tracking:'Manual or chosen app',offline:'Physical equipment; opening hours apply',warranty:'Not applicable to member-owned hardware',support:'On-site staff; quality varies',space:'No dedicated training space at home',setup:'Join, travel, train; fees shown above',portability:'Travel to the facility',evidence:'Years in traditional gyms'}};}
 function lineup(){return data[state.tab];}
 function chosen(){const all=lineup();return mobile.matches?state.pair[state.tab].map(id=>all.find(p=>p.id===id)).filter(Boolean):[...state.selected[state.tab]].map(id=>all.find(p=>p.id===id)).filter(Boolean);}

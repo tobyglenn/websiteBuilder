@@ -296,13 +296,20 @@ const acquisitionRows = (snapshots) => {
     .sort((a, b) => b.readerSessions - a.readerSessions || a.botShare - b.botShare);
 };
 
-const periodMetadata = (snapshots, expectedDays) => ({
-  start: snapshots[0]?.snapshotDate || null,
-  end: snapshots.at(-1)?.snapshotDate || null,
-  snapshots: snapshots.length,
-  expectedSnapshots: expectedDays,
-  complete: snapshots.length === expectedDays,
-});
+const periodMetadata = (snapshots, expectedDays) => {
+  const dates = snapshots.map(snapshot => snapshot.snapshotDate);
+  const end = dates.at(-1) || null;
+  const endMs = end ? Date.parse(`${end}T00:00:00Z`) : NaN;
+  const expectedDates = Number.isFinite(endMs) ? Array.from({ length: expectedDays }, (_, index) =>
+    new Date(endMs - (expectedDays - index - 1) * 86400000).toISOString().slice(0, 10)) : [];
+  const missingDates = expectedDates.filter(date => !dates.includes(date));
+  const outsideWindowDates = dates.filter(date => !expectedDates.includes(date));
+  return {
+    start: dates[0] || null, end, snapshots: snapshots.length, expectedSnapshots: expectedDays,
+    missingDates, outsideWindowDates,
+    complete: snapshots.length === expectedDays && missingDates.length === 0 && outsideWindowDates.length === 0,
+  };
+};
 
 const metricComparison = (current, prior) => ({
   current: round(current),
@@ -325,7 +332,7 @@ export const buildClarityReport = (
   }
 
   const snapshots = [...snapshotsByDate.values()]
-    .sort((a, b) => a.collectedAt.localeCompare(b.collectedAt))
+    .sort((a, b) => a.snapshotDate.localeCompare(b.snapshotDate))
     .slice(-(periodDays * 2));
   const currentSnapshots = snapshots.slice(-periodDays);
   const priorSnapshots = snapshots.slice(0, Math.max(0, snapshots.length - periodDays));
@@ -359,7 +366,8 @@ export const buildClarityReport = (
         ...priorSummary,
       },
     },
-    comparisonReady: currentSnapshots.length === periodDays && priorSnapshots.length === periodDays,
+    comparisonReady: periodMetadata(snapshots, periodDays * 2).complete,
+    dataQuality: periodMetadata(snapshots, periodDays * 2),
     comparisons: {
       readerSessions: metricComparison(currentSummary.readerSessions, priorSummary.readerSessions),
       botSessions: metricComparison(currentSummary.botSessions, priorSummary.botSessions),
