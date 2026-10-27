@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-10-26T23:50:54.403Z",
+  "generatedAt": "2026-10-27T11:30:59.234Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Oct 26, 2026",
-    "hubTodayKey": "2026-10-26",
-    "analysisDateKey": "2026-10-26",
+    "hubTodayLabel": "Oct 27, 2026",
+    "hubTodayKey": "2026-10-27",
+    "analysisDateKey": "2026-10-27",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-10-26T19:50:08.399088"
+    "whoopLastSynced": "2026-10-27T07:30:10.376824"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9949734,
@@ -25,21 +25,21 @@
     "runCount": 0,
     "workoutCount": 0,
     "bjjCount": 1,
-    "windowStart": "2026-10-20",
-    "windowEnd": "2026-10-26"
+    "windowStart": "2026-10-21",
+    "windowEnd": "2026-10-27"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-10-26",
+    "anchorDate": "2026-10-27",
     "dateRange": {
-      "thisWeekStart": "2026-10-20",
-      "thisWeekEnd": "2026-10-26",
-      "lastWeekStart": "2026-10-13",
-      "lastWeekEnd": "2026-10-19"
+      "thisWeekStart": "2026-10-21",
+      "thisWeekEnd": "2026-10-27",
+      "lastWeekStart": "2026-10-14",
+      "lastWeekEnd": "2026-10-20"
     },
     "workouts": {
       "thisWeek": 1,
-      "lastWeek": 2
+      "lastWeek": 1
     },
     "runs": {
       "thisWeek": 0,
@@ -47,7 +47,7 @@
     },
     "volume": {
       "thisWeek": 0,
-      "lastWeek": 24851
+      "lastWeek": 22363
     },
     "miles": {
       "thisWeek": 0,
@@ -89,8 +89,8 @@
     "totalActive": 1814,
     "currentStreak": 0,
     "longestStreak": 60,
-    "rangeStart": "2025-10-28",
-    "rangeEnd": "2026-10-26",
+    "rangeStart": "2025-10-29",
+    "rangeEnd": "2026-10-27",
     "days": [
       {
         "date": "2025-11-01",
@@ -1434,11 +1434,11 @@
     "thisMonthMiles": 3.4
   },
   "recovery": {
-    "currentScore": 60,
-    "lastSleepScore": 75
+    "currentScore": 28,
+    "lastSleepScore": 62
   },
   "labels": {
-    "thisWeek": "October 20, 2026 - October 26, 2026",
-    "lastWeek": "October 13, 2026 - October 19, 2026"
+    "thisWeek": "October 21, 2026 - October 27, 2026",
+    "lastWeek": "October 14, 2026 - October 20, 2026"
   }
 }
