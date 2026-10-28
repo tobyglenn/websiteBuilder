@@ -1,3 +1,4 @@
+import { usesWildRacingAiReviewImage } from './wildRacingAiBlogPresentation.mjs';
 import { usesWildRacingReviewImage } from './wildRacingBlogPresentation.mjs';
 import { usesPokemonFeatureImage } from './pokemonBlogPresentation.mjs';
 import { articleTopic } from './blogEditorial.mjs';
@@ -5,6 +6,7 @@ import { articleTopic } from './blogEditorial.mjs';
 // Reviewed topic photography for homepage cards. Keep headline graphics out of
 // this small surface; the article title is already real, localized text below.
 export function homeBlogCover(post) {
+  if (usesWildRacingAiReviewImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesWildRacingReviewImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (post.slug === 'what-changed-my-mind-about-muse' && post.image === '/images/blog/what-changed-my-mind-about-muse-aria-review.jpg') return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesPokemonFeatureImage(post)) return [{ src: post.image, fit: "contain", position: "50% 50%" }];
