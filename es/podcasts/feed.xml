@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Sat, 24 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 125 -->
+    <item>
+      <title>Episodio 125: Kimi K3.1 Pro lleva un contexto de 1M de tokens a OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep125/episode_125.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-125/</link>
+      <description><![CDATA[AgentStack Daily comienza con Kimi K3.1 Pro, ya disponible en OpenRouter con una ventana de contexto de 1 millón de tokens.
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-125/]]></description>
+      <pubDate>Wed, 28 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_125.mp3" length="35768155" type="audio/mpeg"/>
+      <itunes:duration>37:15</itunes:duration>
+      <itunes:episode>125</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep125/episode_125_cover.png"/>
+    </item>
+
     <!-- Episode 124 -->
     <item>
       <title>Episodio 124: MiniMax M3.1 Flash busca agentes de IA más rápidos y económicos</title>

@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/de/podcasts/openclaw/</link>
     <description>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</description>
     <language>de-de</language>
-    <lastBuildDate>Sat, 24 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Tägliche Updates zu agentischer KI, local-first Infrastruktur, Entwicklertools, Modell-Releases und den Systemen hinter modernen KI-Workflows.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 125 -->
+    <item>
+      <title>Folge 125: Kimi K3.1 Pro bringt 1M-Token-Kontext zu OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep125/episode_125.mp3</guid>
+      <link>https://tobyonfitnesstech.com/de/podcasts/episode-125/</link>
+      <description><![CDATA[AgentStack Daily beginnt mit Kimi K3.1 Pro, das nun bei OpenRouter mit einem Kontextfenster von 1 Mio. Token gelistet ist.
+
+Show notes: https://tobyonfitnesstech.com/de/podcasts/episode-125/]]></description>
+      <pubDate>Wed, 28 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/de/episode_125.mp3" length="39868752" type="audio/mpeg"/>
+      <itunes:duration>41:31</itunes:duration>
+      <itunes:episode>125</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep125/episode_125_cover.png"/>
+    </item>
+
     <!-- Episode 124 -->
     <item>
       <title>Folge 124: MiniMax M3.1 Flash zielt auf schnellere, günstigere KI-Agenten</title>
