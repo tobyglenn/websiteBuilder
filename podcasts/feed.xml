@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/podcasts/</link>
     <description>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows. Hosted by Nova and Alloy.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 28 Oct 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova &amp; Alloy</itunes:author>
     <itunes:summary>Daily updates on agentic AI, local-first infrastructure, developer tools, model releases, and the systems behind modern AI workflows — everything builders and operators need to track the future of AI systems.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://clawdassistant85-netizen.github.io/openclaw-podcast-audio/show_art_en.png"/>
     <itunes:category text="Technology"/>
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 125 -->
+    <item>
+      <title>Episode 125: Kimi K3.1 Pro Brings 1M-Token Context to OpenRouter</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep125/episode_125.mp3</guid>
+      <link>https://tobyonfitnesstech.com/podcasts/episode-125/</link>
+      <description><![CDATA[AgentStack Daily leads with Kimi K3.1 Pro, now listed by OpenRouter with a 1M-token context window. Anthropic’s expanded agent sandbox, OpenAI’s Decisions...
+
+Show notes: https://tobyonfitnesstech.com/podcasts/episode-125/]]></description>
+      <pubDate>Wed, 28 Oct 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep125/episode_125.mp3" length="32307453" type="audio/mpeg"/>
+      <itunes:duration>33:39</itunes:duration>
+      <itunes:episode>125</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep125/episode_125_cover.png"/>
+    </item>
+
     <!-- Episode 124 -->
     <item>
       <title>Episode 124: MiniMax M3.1 Flash Targets Faster, Cheaper AI Agents</title>
