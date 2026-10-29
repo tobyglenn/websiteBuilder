@@ -1,4 +1,5 @@
 ---
+import { usesBjjHomeTrainingImage } from '../../../lib/bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage } from '../../../lib/wildRacingAiBlogPresentation.mjs';
 import { usesWildRacingReviewImage } from '../../../lib/wildRacingBlogPresentation.mjs';
 import { usesPokemonFeatureImage } from '../../../lib/pokemonBlogPresentation.mjs';
@@ -82,6 +83,24 @@ interface Props {
 
 const { lang, post } = Astro.props as Props;
 const ui = UI[lang];
+const bjjHomeTrainingArtwork = {
+  "de": {
+    "alt": "Toby sitzt vor einem Kamin; in einem Einzelbild aus seinem BJJ-Update ist sein blaues Auge zu sehen.",
+    "caption": "Toby im am 28. Oktober 2026 veröffentlichten BJJ-Update bei 8:33. Einzelbild aus dem tatsächlichen Video, auf dem sein blaues Auge zu sehen ist."
+  },
+  "es": {
+    "alt": "Toby sentado delante de una chimenea, con un ojo morado visible, en un fotograma de su actualización de BJJ.",
+    "caption": "Toby en la actualización de BJJ publicada el 28 de octubre de 2026, en el minuto 8:33. Fotograma del vídeo original en el que se ve su ojo morado."
+  },
+  "pt": {
+    "alt": "Toby sentado em frente a uma lareira, com um olho roxo visível, em um quadro de sua atualização de BJJ.",
+    "caption": "Toby na atualização de BJJ publicada em 28 de outubro de 2026, em 8:33. Quadro do vídeo original, mostrando seu olho roxo."
+  },
+  "hi": {
+    "alt": "अपने BJJ अपडेट के एक वीडियो फ़्रेम में Toby फ़ायरप्लेस के सामने बैठे हैं और उनकी आँख के आसपास की चोट का काला निशान दिख रहा है।",
+    "caption": "28 अक्टूबर 2026 को प्रकाशित BJJ अपडेट में 8:33 पर Toby। असली वीडियो का फ़्रेम, जिसमें उनकी आँख के आसपास का काला निशान दिख रहा है।"
+  }
+};
 const wildRacingAiArtwork = {
   "de": {
     "alt": "Wild-Racing-Figuren fahren in bunten Booten zwischen Bojen auf der offiziellen Make-Waves-Spielgrafik.",
@@ -241,6 +260,12 @@ const blogSchema = {
     </header>
 
     <div class="container mx-auto max-w-3xl px-4 py-12">
+      {usesBjjHomeTrainingImage(post) && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-bjj-home-training-art>
+          <img src={post.image} alt={bjjHomeTrainingArtwork[lang].alt} width="1920" height="1080" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">{bjjHomeTrainingArtwork[lang].caption}</figcaption>
+        </figure>
+      )}
       {usesWildRacingAiReviewImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-wild-racing-ai-art>
           <img src={post.image} alt={wildRacingAiArtwork[lang].alt} width="768" height="432" class="block h-auto w-full object-contain" loading="eager" />

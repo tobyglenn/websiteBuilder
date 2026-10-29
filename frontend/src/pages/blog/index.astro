@@ -1,4 +1,5 @@
 ---
+import { usesBjjHomeTrainingImage, bjjHomeTrainingImageStyle } from '../../lib/bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage, wildRacingAiReviewImageStyle } from '../../lib/wildRacingAiBlogPresentation.mjs';
 import { usesWildRacingReviewImage, wildRacingReviewImageStyle } from '../../lib/wildRacingBlogPresentation.mjs';
 import { pokemonFeatureImageStyle, usesPokemonFeatureImage } from '../../lib/pokemonBlogPresentation.mjs';
@@ -210,12 +211,12 @@ const description = "Independent reviews, training data and buying advice.";
           data-title={featuredPost.title.toLowerCase()}
           data-excerpt={featuredPost.excerpt?.toLowerCase() || ''}
         >
-          <a href={`/blog/${featuredPost.slug}/`} style={usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost) ? "aspect-ratio: 16 / 9" : usesPokemonFeatureImage(featuredPost) ? "aspect-ratio: 4 / 5; max-height: 560px" : featuredPost.slug === "what-changed-my-mind-about-muse" && featuredPost.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg" ? "aspect-ratio: 16 / 9" : undefined} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
+          <a href={`/blog/${featuredPost.slug}/`} style={usesBjjHomeTrainingImage(featuredPost) ? "aspect-ratio: 16 / 9" : usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost) ? "aspect-ratio: 16 / 9" : usesPokemonFeatureImage(featuredPost) ? "aspect-ratio: 4 / 5; max-height: 560px" : featuredPost.slug === "what-changed-my-mind-about-muse" && featuredPost.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg" ? "aspect-ratio: 16 / 9" : undefined} class="block overflow-hidden aspect-[16/8] relative flex-shrink-0">
             <div class="absolute inset-0 z-0 bg-neutral-800" />
             {featuredPost.image && (
               <img
                 src={featuredPost.image}
-                    style={wildRacingAiReviewImageStyle(featuredPost) || wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (featuredPost.slug === "wild-rebellion-guidance-without-open-panels" || (featuredPost.slug === "what-changed-my-mind-about-muse" && featuredPost.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
+                    style={bjjHomeTrainingImageStyle(featuredPost) || wildRacingAiReviewImageStyle(featuredPost) || wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (featuredPost.slug === "wild-rebellion-guidance-without-open-panels" || (featuredPost.slug === "what-changed-my-mind-about-muse" && featuredPost.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
                 alt={featuredPost.title}
                 class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                 loading="eager"
@@ -295,11 +296,11 @@ const description = "Independent reviews, training data and buying advice.";
                 data-title={post.title.toLowerCase()}
                 data-excerpt={post.excerpt?.toLowerCase() || ''}
               >
-                <a href={`/blog/${post.slug}/`} style={usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post) ? "height: auto; aspect-ratio: 16 / 9; align-self: flex-start" : undefined} class="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden relative bg-neutral-800">
+                <a href={`/blog/${post.slug}/`} style={usesBjjHomeTrainingImage(post) ? "height: auto; aspect-ratio: 16 / 9; align-self: flex-start" : usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post) ? "height: auto; aspect-ratio: 16 / 9; align-self: flex-start" : undefined} class="flex-shrink-0 w-20 h-16 rounded-lg overflow-hidden relative bg-neutral-800">
                   {post.image && (
                     <img
                       src={post.image}
-                    style={wildRacingAiReviewImageStyle(post) || wildRacingReviewImageStyle(post) || pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" || (post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
+                    style={bjjHomeTrainingImageStyle(post) || wildRacingAiReviewImageStyle(post) || wildRacingReviewImageStyle(post) || pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" || (post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
                       alt={post.title}
                       class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
@@ -366,12 +367,12 @@ const description = "Independent reviews, training data and buying advice.";
               data-title={post.title.toLowerCase()}
               data-excerpt={post.excerpt?.toLowerCase() || ''}
             >
-              <a href={`/blog/${post.slug}/`} style={usesPokemonFeatureImage(post) ? "aspect-ratio: 4 / 5; max-height: 420px" : undefined} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
+              <a href={`/blog/${post.slug}/`} style={usesBjjHomeTrainingImage(post) ? "aspect-ratio: 16 / 9" : usesPokemonFeatureImage(post) ? "aspect-ratio: 4 / 5; max-height: 420px" : undefined} class="block aspect-[16/9] overflow-hidden relative flex-shrink-0">
                 <div class="absolute inset-0 z-0 bg-neutral-800" />
                 {post.image && (
                   <img
                     src={post.image}
-                    style={wildRacingAiReviewImageStyle(post) || wildRacingReviewImageStyle(post) || pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" || (post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
+                    style={bjjHomeTrainingImageStyle(post) || wildRacingAiReviewImageStyle(post) || wildRacingReviewImageStyle(post) || pokemonFeatureImageStyle(post) || (post.slug === "wild-rebellion-guidance-without-open-panels" || (post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg") ? "object-fit: contain; object-position: center; transform: none" : undefined)}
                     alt={post.title}
                     class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
