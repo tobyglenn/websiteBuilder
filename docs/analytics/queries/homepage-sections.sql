@@ -17,7 +17,8 @@ FROM (
     properties.homepage_test_id AS test_id,
     properties.homepage_test_variant AS variant,
     person_id, properties.homepage_visit_id AS visit_id,
-    argMax(toFloat(properties.visible_seconds), timestamp) AS visible_seconds,
+    max(toFloat(properties.visible_seconds)) AS visible_seconds,
+    max(if(properties.homepage_section_viewed = true, 1, 0)) AS viewed,
     max(if(properties.homepage_section_engaged = true, 1, 0)) AS engaged,
     max(if(toInt(properties.homepage_section_clicks) > 0, 1, 0)) AS clicked,
     max(toFloat(properties.maximum_intersection_ratio)) AS maximum_intersection_ratio
@@ -29,6 +30,7 @@ FROM (
   GROUP BY period, homepage_layout_version, viewport, homepage_section_position,
     homepage_section_title, homepage_section_purpose, test_id, variant, person_id, visit_id
 )
+WHERE viewed = 1
 GROUP BY period, homepage_layout_version, viewport, homepage_section_position,
   homepage_section_title, homepage_section_purpose, test_id, variant
 ORDER BY period, homepage_section_position, viewport

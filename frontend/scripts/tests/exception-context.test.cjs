@@ -48,7 +48,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(first.properties.exception_event_trusted, false);
       assert.equal(first.properties.exception_context_scope, 'same-task-browser-event');
       assert.equal(first.properties.site_release, 'test-release');
-      assert.equal(first.properties.exception_ui_context_version, '20261019-ui-phase-v1');
+      assert.equal(first.properties.exception_ui_context_version, '20261102-ui-hydration-v2');
       assert.equal(first.properties.exception_pending_island_count, 0);
       assert.ok(first.properties.exception_source_frames.some(frame => frame.startsWith('/js/failing-widget.js:')));
       assert.doesNotMatch(JSON.stringify(first), /DO-NOT-CAPTURE|private@example|token=/);
@@ -59,7 +59,14 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         const event = new CustomEvent('unhandledrejection');
         Object.defineProperty(event, 'detail', { get() { throw new Error('private getter'); } });
         window.dispatchEvent(event);
+        const island = document.createElement('astro-island');
+        island.setAttribute('component-url', '/_astro/NewsletterSignup.fixture.js');
+        island.setAttribute('props', 'DO-NOT-CAPTURE');
+        island.textContent = 'private@example.test';
+        document.body.append(island);
+        island.dispatchEvent(new CustomEvent('astro:hydrate'));
         window.dispatchEvent(new ErrorEvent('error', { error: new Error('real application error'), message: 'real application error' }));
+        document.dispatchEvent(new Event('astro:before-swap'));
       });
       const events = await page.evaluate(() => window.captured);
       assert.equal(events.length, 4);
@@ -68,6 +75,9 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(events[3].properties.exception_browser_event_type, 'error');
       assert.equal(events[3].properties.exception_reason_type, 'Error');
       assert.equal(events[3].properties.exception_navigation_phase, 'swapping');
+      assert.equal(events[3].properties.exception_recent_hydrated_island, 'NewsletterSignup');
+      assert.ok(events[3].properties.exception_recent_hydration_age_ms < 5000);
+      assert.doesNotMatch(JSON.stringify(events[3]), /DO-NOT-CAPTURE|private@example/);
       assert.equal(events[3].properties.$exception_list[0].type, 'Error');
       assert.equal(await page.evaluate(() => window.options.capture_exceptions), true);
       await page.evaluate(() => {
@@ -76,6 +86,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       await page.waitForFunction(() => window.captured.length === 5);
       const rejection = await page.evaluate(() => window.captured[4]);
       assert.equal(rejection.properties.exception_reason_type, 'CustomEvent');
+      assert.equal(rejection.properties.exception_recent_hydrated_island, undefined);
       assert.equal(rejection.properties.exception_browser_event_type, 'unhandledrejection');
       assert.equal(rejection.properties.exception_reason_event_type, 'other');
       assert.doesNotMatch(JSON.stringify(rejection), /DO-NOT-CAPTURE|opaque-error/);
@@ -114,7 +125,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
       assert.equal(result.properties.exception_browser_event_type, 'unhandledrejection');
       assert.equal(result.properties.exception_browser_event_class, 'CustomEvent');
       assert.equal(result.properties.analytics_version, await page.evaluate(() => window.__TOFT_POSTHOG_CONFIG__.analyticsVersion));
-      assert.equal(result.properties.exception_ui_context_version, '20261019-ui-phase-v1');
+      assert.equal(result.properties.exception_ui_context_version, '20261102-ui-hydration-v2');
       console.log(`${name}: verified deployed release ${result.properties.site_release}`);
     } finally { await browser.close(); }
   });

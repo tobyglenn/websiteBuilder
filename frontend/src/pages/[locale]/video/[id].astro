@@ -34,7 +34,7 @@ const jsonLd = {
     <a href={`/${locale}/videos/`} class="text-sm text-blue-400">← {copy.videos}</a>
     <p class="mt-6 text-sm text-neutral-400">{copy.heading}</p>
     <h1 data-page-title class="video-title mt-2 mb-6 text-2xl font-bold leading-tight md:text-4xl" data-pagefind-meta="title">{transcript.title}</h1>
-    <div id="video-player-wrapper" class="scroll-mt-24"><VideoPlayer client:load videoId={video.id} /></div>
+    <div id="video-player-wrapper" class="scroll-mt-24"><VideoPlayer client:load videoId={video.id} origin={Astro.site?.origin} /></div>
     <p class="mt-4"><a href={original} class="text-blue-400 underline underline-offset-4">{copy.original}</a></p>
     <VideoTranscript video={video} locale={locale} expanded />
   </article>

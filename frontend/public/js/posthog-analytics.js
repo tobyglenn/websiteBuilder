@@ -37,20 +37,32 @@
     'astro:after-swap': 'swapped',
     'astro:page-load': 'ready',
   })) document.addEventListener(event, () => { exceptionNavigationPhase = phase; });
+  const knownIslandName = island => {
+    const file = (island?.getAttribute?.('component-url') || '').split('/').pop() || '';
+    return ['Header', 'NewsletterSignup', 'Search', 'VideoGrid', 'VideoPlayer']
+      .find(name => file.startsWith(name + '.')) || 'other';
+  };
+  let recentHydration = null;
+  document.addEventListener('astro:hydrate', event => {
+    if (event.target instanceof Element && event.target.matches('astro-island')) {
+      recentHydration = { name: knownIslandName(event.target), at: performance.now() };
+    }
+  }, true);
+  document.addEventListener('astro:before-swap', () => { recentHydration = null; });
   const exceptionUiContext = () => {
     const islands = [...document.querySelectorAll('astro-island')];
     const pending = islands.filter(island => island.hasAttribute('ssr'));
     return {
-      exception_ui_context_version: '20261019-ui-phase-v1',
+      exception_ui_context_version: '20261102-ui-hydration-v2',
       exception_navigation_phase: exceptionNavigationPhase,
       exception_island_count: islands.length,
       exception_pending_island_count: pending.length,
       // Only known component names, never arbitrary DOM text or component props.
-      exception_pending_islands: [...new Set(pending.map(island => {
-        const file = (island.getAttribute('component-url') || '').split('/').pop() || '';
-        return ['Header', 'NewsletterSignup', 'Search', 'VideoGrid', 'VideoPlayer']
-          .find(name => file.startsWith(name + '.')) || 'other';
-      }))].slice(0, 6),
+      exception_pending_islands: [...new Set(pending.map(knownIslandName))].slice(0, 6),
+      ...(recentHydration && performance.now() - recentHydration.at < 5000 ? {
+        exception_recent_hydrated_island: recentHydration.name,
+        exception_recent_hydration_age_ms: Math.max(0, Math.round(performance.now() - recentHydration.at)),
+      } : {}),
     };
   };
   const safeRead = (object, key) => {

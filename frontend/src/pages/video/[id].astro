@@ -192,7 +192,7 @@ relatedVideos = relatedVideos.slice(0, 8);
           </script>
         ) : (
           <div id="video-player-wrapper" class="relative scroll-mt-24">
-            <VideoPlayer client:load videoId={video.id} />
+            <VideoPlayer client:load videoId={video.id} origin={Astro.site?.origin} />
           </div>
         )}
 

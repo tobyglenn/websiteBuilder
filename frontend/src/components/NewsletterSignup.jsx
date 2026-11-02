@@ -1,4 +1,4 @@
-import React, { useId, useRef, useState } from 'react';
+import React, { useEffect, useId, useRef, useState } from 'react';
 import { Mail, CheckCircle2 } from 'lucide-react';
 import { captureEvent } from '../lib/analytics.js';
 
@@ -11,6 +11,9 @@ export default function NewsletterSignup({
   placeholder = 'Enter your email',
 }) {
   const id = useId();
+  // Browser translation must not rewrite deferred SSR text before React claims it.
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => { setHydrated(true); }, []);
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -52,7 +55,7 @@ export default function NewsletterSignup({
   };
 
   const content = (
-    <div className="w-full">
+    <div className="w-full" translate={hydrated ? 'yes' : 'no'}>
       {submitted ? (
         <div role="status" className="bg-green-500/10 border border-green-500/20 rounded-lg p-6 text-center text-green-400">
           <CheckCircle2 className="w-6 h-6 mx-auto mb-3" aria-hidden="true" />
@@ -84,7 +87,7 @@ export default function NewsletterSignup({
   );
   if (hideHeader) return content;
   return (
-    <section className="py-16 bg-neutral-900 border-t border-neutral-800">
+    <section className="py-16 bg-neutral-900 border-t border-neutral-800" translate={hydrated ? 'yes' : 'no'}>
       <div className="container mx-auto px-4 text-center max-w-2xl">
         <Mail className="w-7 h-7 text-blue-400 mx-auto mb-6" aria-hidden="true" />
         <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">{title}</h2>

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 
-export default function VideoPlayer({ videoId }) {
+export default function VideoPlayer({ videoId, origin = '' }) {
   const [startTime, setStartTime] = useState(0);
 
   useEffect(() => {
@@ -35,9 +35,9 @@ export default function VideoPlayer({ videoId }) {
   const src = useMemo(() => {
     if (!videoId) return '';
     const startParam = startTime > 0 ? `&start=${startTime}` : '';
-    const origin = typeof window !== 'undefined' ? `&origin=${encodeURIComponent(window.location.origin)}` : '';
-    return `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=0&enablejsapi=1${origin}${startParam}`;
-  }, [videoId, startTime]);
+    const originParam = origin ? `&origin=${encodeURIComponent(origin)}` : '';
+    return `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=0&enablejsapi=1${originParam}${startParam}`;
+  }, [videoId, startTime, origin]);
 
   if (!videoId) return null;
 
