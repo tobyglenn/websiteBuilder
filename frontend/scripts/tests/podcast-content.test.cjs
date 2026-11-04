@@ -48,6 +48,18 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
           assert.equal(new URL(page.url()).hash, '');
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
         }
+        const archive = await page.goto(`${base}/podcasts/agentstack/`);
+        assert.ok(Buffer.byteLength(await archive.text()) < 300 * 1024);
+        assert.ok(await page.locator('.pa-card').count() >= 100);
+        await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
+        await page.locator('[data-theme-toggle]:visible').first().click();
+        assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
+        const colors = await page.evaluate(() => ({
+          background: getComputedStyle(document.querySelector('.pa-card')).backgroundColor,
+          title: getComputedStyle(document.querySelector('.pa-title')).color,
+        }));
+        assert.equal(colors.background, 'rgb(255, 255, 255)');
+        assert.equal(colors.title, 'rgb(15, 23, 42)');
         assert.deepEqual(errors, []);
       } finally {
         await browser.close();

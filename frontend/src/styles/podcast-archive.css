@@ -1,6 +1,7 @@
 @reference './global.css';
 
-/* Archive cards share CSS instead of repeating long utility lists per episode. */
+/* Archive cards share layout CSS. Color utilities in the markup remain hooks
+   for the site's existing light-theme overrides. */
 .podcast-list .pa-card {
   @apply bg-neutral-900 border border-neutral-800 rounded-xl p-6 hover:shadow-xl hover:shadow-blue-400/5 hover:border-neutral-700 transition-all;
 }
