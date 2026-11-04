@@ -64,7 +64,7 @@ export function retainDeployAssets({ repo = process.cwd(), dist = 'dist', ref = 
 
 // Direct Pages deployments retain browser bundles from the currently live site,
 // so generated output no longer needs a second Git branch.
-export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://tobyonfitnesstech.com', days = 30, now = new Date(), fetchAsset = fetch } = {}) {
+export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://tobyonfitnesstech.com', days = 30, now = new Date(), fetchAsset = fetch, retryDelayMs = 1000 } = {}) {
   const output = resolve(dist);
   const active = [];
   const visit = (folder, prefix) => {
@@ -78,9 +78,23 @@ export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://to
   visit(join(output, '_astro'), '_astro');
   if (!active.length) throw Error('No current hashed assets found; refusing an empty deployment.');
   const get = async (path) => {
-    const response = await fetchAsset(new URL(path, `${site.replace(/\/$/, '')}/`), { signal: AbortSignal.timeout(30000) });
-    if (!response.ok) throw Error(`Cannot retain live asset ${path}: HTTP ${response.status}`);
-    return response;
+    let failure;
+    for (let attempt = 0; attempt < 4; attempt++) {
+      let response;
+      try {
+        response = await fetchAsset(new URL(path, `${site.replace(/\/$/, '')}/`), { signal: AbortSignal.timeout(30000) });
+      } catch (error) {
+        failure = new Error(`Cannot retain live asset ${path}: ${error.message}`);
+      }
+      if (response?.ok) return response;
+      if (response) {
+        failure = new Error(`Cannot retain live asset ${path}: HTTP ${response.status}`);
+        await response.body?.cancel();
+        if (![429, 500, 502, 503, 504].includes(response.status)) throw failure;
+      }
+      if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, retryDelayMs * 2 ** attempt));
+    }
+    throw failure;
   };
   const previous = await (await get(MANIFEST)).json();
   if (previous.version !== 1 || !Array.isArray(previous.active) || !Array.isArray(previous.retained) || !Number.isFinite(Date.parse(previous.builtAt))) throw Error('Invalid asset retention manifest.');
@@ -96,7 +110,7 @@ export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://to
   for (const asset of previous.retained) add(asset.path, asset.lastUsedAt);
   const queue = [...candidates];
   const retained = [];
-  await Promise.all(Array.from({ length: Math.min(8, queue.length) }, async () => {
+  await Promise.all(Array.from({ length: Math.min(4, queue.length) }, async () => {
     while (queue.length) {
       const [path, lastUsedAt] = queue.shift();
       const response = await get(path);

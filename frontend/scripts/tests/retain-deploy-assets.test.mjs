@@ -93,3 +93,26 @@ test('live retention fails on unavailable bundles, HTML fallback or malformed ma
   }
   await assert.rejects(retainLiveDeployAssets({ dist: f.dist, fetchAsset: async () => Response.json({ version: 2 }) }), /Invalid asset retention/);
 });
+
+
+test('live retention retries temporary upstream errors and network failures, and still fails when exhausted', async (t) => {
+  const { retainLiveDeployAssets } = await import('../retain-deploy-assets.mjs');
+  const f = fixture(t);
+  const previous = { version: 1, builtAt: new Date().toISOString(), active: ['_astro/Header.12345678.js'], retained: [] };
+  let calls = 0;
+  await retainLiveDeployAssets({ dist: f.dist, retryDelayMs: 0, fetchAsset: async (url) => {
+    if (url.pathname.endsWith('.json')) return Response.json(previous);
+    calls++;
+    if (calls === 1) return new Response('upstream busy', { status: 503 });
+    if (calls === 2) throw Error('connection reset');
+    return new Response('old bundle');
+  } });
+  assert.equal(calls, 3);
+  assert.equal(readFileSync(join(f.dist, '_astro/Header.12345678.js'), 'utf8'), 'old bundle');
+  calls = 0;
+  await assert.rejects(retainLiveDeployAssets({ dist: f.dist, retryDelayMs: 0, fetchAsset: async () => {
+    calls++;
+    return new Response('unavailable', { status: 503 });
+  } }), /HTTP 503/);
+  assert.equal(calls, 4);
+});
