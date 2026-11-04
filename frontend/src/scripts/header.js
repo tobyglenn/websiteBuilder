@@ -110,11 +110,7 @@ function buildMobileNav(drawer) {
     button.dataset.mobileSectionButton = '';
     button.append(desktopButton.textContent.trim());
     const chevron = desktopButton.querySelector('span')?.cloneNode(true);
-    if (chevron) {
-      chevron.querySelector('svg')?.setAttribute('width', '18');
-      chevron.querySelector('svg')?.setAttribute('height', '18');
-      button.append(chevron);
-    }
+    if (chevron) button.append(chevron);
     const panel = document.createElement('div');
     panel.className = 'grid gap-1 pb-4 sm:grid-cols-2';
     panel.dataset.mobileSectionPanel = '';

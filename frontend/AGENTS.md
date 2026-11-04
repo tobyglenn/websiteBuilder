@@ -4,8 +4,8 @@
 
 - **Framework**: Astro 7.x (`astro@^7.1.6`) with `@astrojs/react`, `@astrojs/rss`, `@astrojs/sitemap`.
 - **CSS Engine**: Tailwind CSS v4 (`tailwindcss@^4.3.3`) via `@tailwindcss/vite` configured in `frontend/astro.config.mjs`.
-- **State & React Islands**: React 19 (`react@^19.2.8`) islands for interactive components (`VideoGrid.jsx`, `VideoPlayer.jsx`, `NewsletterSignup.jsx`, `Header.jsx`, `WorkoutHub.jsx`).
-- **Search**: The header modal and the `/search/` pages share `/search-index.json` (titles, excerpts, tags). The `/search/` pages also query the Pagefind index built during `npm run build` (`dist/pagefind`) for full-text article matches (`src/lib/standaloneSearch.js`). Never inline the catalog into page HTML.
+- **State & React Islands**: React 19 (`react@^19.2.8`) islands only where needed (`VideoGrid.jsx`, `NewsletterSignup.jsx`, `SpeedianceWorkoutHub.jsx`). The header (`Header.astro` + `src/scripts/header.js`) and YouTube player (`VideoPlayer.astro`, click-to-play) ship no React.
+- **Search**: The header modal (`src/scripts/SearchModal.js`) queries the Pagefind index built during `npm run build`, filtered by `type:article` / `type:video` from `PagefindMeta.astro` on article and video pages. The `/search/` pages use `/search-index.json` plus Pagefind for full-text article matches (`src/lib/standaloneSearch.js`). Never inline the catalog into page HTML.
 - **Client Transitions**: Astro `<ClientRouter />` enabled in `Layout.astro` for smooth client-side navigation.
 
 ---
@@ -59,7 +59,7 @@ Translated video transcripts use `src/pages/[locale]/video/[id].astro` and are p
 
 - **Theme Engine**: Dark (default) and Light themes powered by CSS variables in `frontend/src/styles/global.css`.
 - **Anti-FOUC**: Inline script in `frontend/src/layouts/Layout.astro` `<head>` sets `document.documentElement.dataset.theme = 'light' | 'dark'` before first render from `localStorage.getItem('toft-theme')`.
-- **Toggle**: Header Sun/Moon toggle button in `frontend/src/components/Header.jsx` with keyboard accessibility and mobile menu support.
+- **Toggle**: Header Sun/Moon toggle button in `frontend/src/components/Header.astro` with keyboard accessibility and mobile menu support.
 - **Contrast**:
   - Dark mode: Background `#0a0a0a` / `#171717`, Text `#ffffff` / `#d4d4d4`, Accent `#3b82f6`.
   - Light mode: Background `#f8fafc` / `#ffffff`, Text `#0f172a` / `#334155`, Border `#cbd5e1`.
@@ -71,11 +71,15 @@ Translated video transcripts use `src/pages/[locale]/video/[id].astro` and are p
 - **Images**: `npm run build:image-variants` writes resized WebP copies of local artwork to `public/_variants/` (gitignored) before `astro build`. When rendering a local image on a card or article hero, keep `src` and add `{...imageVariants(src, sizes)}` from `src/lib/imageVariants.mjs`, with `sizes` matching the rendered width.
 - **Island props**: Pass React islands only the fields they render. `VideoGrid` gets `toGridVideo()` rows from `src/data/mock.js` and loads the rest from `/videos/all.json`; never import `videos.json` into client components.
 - **Layout**: Pages render inside `Layout.astro`, which already provides the header, footer and `<main>`. Don't add another `<Header>`, `<Footer>` or `<main>` in a page.
+- **Localized page copies**: search, videos, nutrition, sleep, fitness-age and whoop pages are thin wrappers around `src/components/localized/*Page.astro` with per-language string tables; edit the shared component.
+- **Heatmaps**: use `CalendarHeatmap.astro` (compact data, drawn client-side) instead of one element per day.
+- **Budget**: `npm run audit:page-budget` fails the build for HTML over 300 KB or scripts over 100 KB gzipped; exceptions need a reason in `scripts/audit-page-budget.mjs`.
 - **Analytics loader**: `public/js/posthog-analytics.js` stays readable in the repo; `scripts/minify-public-scripts.mjs` minifies the copy in `dist/` during the build.
 
 ## 6. Analytics & Conversion Tracking
 
-- **PostHog Analytics**: Loaded via `public/js/posthog-analytics.js` and abstracted through `src/lib/analytics.js` (`captureEvent`).
+- **Microsoft Clarity** loads after the page is idle; it stays only for the daily DGX Clarity report.
+- **PostHog Analytics** (primary): Loaded via `public/js/posthog-analytics.js` and abstracted through `src/lib/analytics.js` (`captureEvent`).
 - **Core Events**:
   - `filter_changed`: Triggered when category, duration, or sort filters change.
   - `content_card_click`: Triggered on video card selection (`data-analytics-event="content_card_click"`).
