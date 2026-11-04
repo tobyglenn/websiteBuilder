@@ -6,7 +6,7 @@
     <link>https://tobyonfitnesstech.com/es/podcasts/openclaw/</link>
     <description>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</description>
     <language>es-es</language>
-    <lastBuildDate>Wed, 28 Oct 2026 18:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 04 Nov 2026 18:00:00 +0000</lastBuildDate>
     <itunes:author>Nova y Alloy</itunes:author>
     <itunes:summary>Actualizaciones diarias sobre IA agentiva, infraestructura local-first, herramientas para desarrolladores, lanzamientos de modelos y los sistemas detrás de los flujos modernos de IA.</itunes:summary>
     <itunes:owner>
@@ -16,6 +16,22 @@
     <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/channel-art/show_art.png" />
     <itunes:category text="Technology" />
     <itunes:explicit>false</itunes:explicit>
+    <!-- Episode 126 -->
+    <item>
+      <title>Episodio 126: Gemini 4 Carbon se enfoca en la ingeniería de larga duración y la defensa cibernética</title>
+      <guid isPermaLink="false">https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep126/episode_126.mp3</guid>
+      <link>https://tobyonfitnesstech.com/es/podcasts/episode-126/</link>
+      <description><![CDATA[Gemini 4 Carbon encabeza las noticias sobre agentes y modelos, junto con los resultados de OpenAI en tres problemas científicos y el hito de Retell de...
+
+Show notes: https://tobyonfitnesstech.com/es/podcasts/episode-126/]]></description>
+      <pubDate>Wed, 04 Nov 2026 18:00:00 +0000</pubDate>
+      <enclosure url="https://op3.dev/e/https://openclaw-audio-proxy.tobypeters.workers.dev/audio/es/episode_126.mp3" length="35645693" type="audio/mpeg"/>
+      <itunes:duration>37:07</itunes:duration>
+      <itunes:episode>126</itunes:episode>
+      <itunes:episodeType>full</itunes:episodeType>
+      <itunes:image href="https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep126/episode_126_cover.png"/>
+    </item>
+
     <!-- Episode 125 -->
     <item>
       <title>Episodio 125: Kimi K3.1 Pro lleva un contexto de 1M de tokens a OpenRouter</title>
