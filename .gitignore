@@ -49,3 +49,8 @@ backend/.workout-hub-key
 # Internal tracking files (not for public repo)
 PROGRESS.json
 improvement-log.json
+
+# Full-size podcast originals live on public GitHub; commit only WebP previews.
+frontend/public/images/podcast/*.png
+frontend/public/images/podcast/*.jpg
+frontend/public/images/podcast/*.jpeg

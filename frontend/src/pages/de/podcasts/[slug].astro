@@ -1,6 +1,5 @@
 ---
-import { existsSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { resolvePublicAsset } from '../../../lib/publicAssets';
 import { marked } from 'marked';
 import Layout from '../../../layouts/Layout.astro';
 import PodcastEpisode from '../../../components/PodcastEpisode.astro';
@@ -78,8 +77,7 @@ export async function getStaticPaths() {
     const baseEpNum = String(episodeNum).padStart(3, '0');
     const localeCover = `/images/podcast/episode_${baseEpNum}_cover_de.png`;
     const fallbackCover = `/images/podcast/episode_${baseEpNum}_cover.png`;
-    const localeCoverPath = fileURLToPath(new URL(`../../../../public${localeCover}`, import.meta.url));
-    const coverImage = existsSync(localeCoverPath) ? localeCover : fallbackCover;
+    const coverImage = resolvePublicAsset([localeCover, fallbackCover], fallbackCover);
 
     return {
       params: { slug },

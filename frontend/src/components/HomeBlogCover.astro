@@ -12,7 +12,7 @@ const sizes = photos.length > 1
 <div class:list={["home-blog-cover", { "reviewed-pokemon-cover": usesPokemonFeatureImage(post) }]} aria-hidden="true">
   {photos.map(photo => (
     <div style={{ background: photo.background || '#171717' }}>
-      <img src={photo.src} {...imageVariants(photo.src, sizes)} alt="" loading="lazy" decoding="async" style={{ objectFit: photo.fit, objectPosition: photo.position }} />
+      <img {...{ src: photo.src, ...imageVariants(photo.src, sizes) }} alt="" loading="lazy" decoding="async" style={{ objectFit: photo.fit, objectPosition: photo.position }} />
     </div>
   ))}
 </div>

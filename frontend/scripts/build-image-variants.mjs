@@ -7,7 +7,7 @@
 //
 // Unchanged sources are skipped, so repeat runs are fast. Any image without a
 // variant keeps rendering from its original file.
-import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { availableParallelism } from 'node:os';
 import { dirname, join, relative, resolve } from 'node:path';
 import sharp from 'sharp';
@@ -17,12 +17,11 @@ const publicDir = join(root, 'public');
 const outputDir = join(publicDir, '_variants');
 const manifestPath = join(root, '.cache', 'image-variants.json');
 
-const SOURCE_DIRS = ['images/blog', 'images/projects', 'images/gear', 'images/about', 'images/comparison', 'progress', 'images/podcast'];
+const SOURCE_DIRS = ['images/blog', 'images/projects', 'images/gear', 'images/about', 'images/comparison', 'progress'];
 const WIDTHS = [480, 960, 1600];
-// Podcast covers are 1400px squares shown at 176px or less.
-const WIDTHS_BY_DIR = { 'images/podcast': [320, 640] };
-const widthsFor = (publicPath) =>
-  Object.entries(WIDTHS_BY_DIR).find(([dir]) => publicPath.startsWith(`/${dir}/`))?.[1] || WIDTHS;
+// Podcast previews are versioned in public/images/podcast; discard old build caches.
+rmSync(join(outputDir, 'images/podcast'), { recursive: true, force: true });
+const widthsFor = () => WIDTHS;
 const MIN_SOURCE_BYTES = 60 * 1024; // smaller files are already cheap
 const QUALITY = 78;
 

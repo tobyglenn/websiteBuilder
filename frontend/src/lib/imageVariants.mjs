@@ -4,6 +4,7 @@
 // get no extra attributes and load their original file.
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { podcastAsset } from './podcastAssets.mjs';
 
 let manifest;
 
@@ -18,15 +19,20 @@ function variantManifest() {
 }
 
 /**
- * Returns srcset/sizes attributes to spread next to an existing src. The
- * original src stays as the fallback, so markup that matches on src={...}
- * keeps working; browsers download only the srcset candidate they need.
+ * Returns responsive image attributes. Podcast artwork overrides src with a
+ * versioned WebP; its full-size original is hosted on public GitHub.
  *
  * @param {string | undefined} src  Public path such as /images/blog/cover.png
  * @param {string} sizes            The image's rendered width, as for the sizes attribute
- * @returns {{ srcset?: string, sizes?: string }}
+ * @returns {{ src?: string, srcset?: string, sizes?: string }}
  */
 export function imageVariants(src, sizes) {
+  const podcast = podcastAsset(src);
+  if (podcast) return {
+    src: podcast.variants[0].src,
+    srcset: podcast.variants.map((variant) => `${variant.src} ${variant.width}w`).join(', '),
+    sizes,
+  };
   if (typeof src !== 'string' || !src.startsWith('/')) return {};
   const entry = variantManifest()[src.split(/[?#]/)[0]];
   if (!entry?.variants?.length) return {};

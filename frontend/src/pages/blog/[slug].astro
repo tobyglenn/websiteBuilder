@@ -260,31 +260,31 @@ const articleJsonLd = {
     <div class="container mx-auto px-4 py-12 max-w-3xl">
       {usesBjjHomeTrainingImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-bjj-home-training-art>
-          <img src={post.image} {...imageVariants(post.image, "(min-width: 768px) 736px, 100vw")} alt="Toby seated in front of a fireplace, with a black eye visible, in a frame from his BJJ update." width="1920" height="1080" class="block h-auto w-full object-contain" loading="eager" />
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt="Toby seated in front of a fireplace, with a black eye visible, in a frame from his BJJ update." width="1920" height="1080" class="block h-auto w-full object-contain" loading="eager" />
           <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">Toby in the BJJ update published October 28, 2026, at 8:33. Frame from the actual video, showing his black eye.</figcaption>
         </figure>
       )}
       {usesWildRacingAiReviewImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-wild-racing-ai-art>
-          <img src={post.image} {...imageVariants(post.image, "(min-width: 768px) 736px, 100vw")} alt="Wild Racing characters racing colorful boats between buoys in the official Make Waves game artwork." width="768" height="432" class="block h-auto w-full object-contain" loading="eager" />
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt="Wild Racing characters racing colorful boats between buoys in the official Make Waves game artwork." width="768" height="432" class="block h-auto w-full object-contain" loading="eager" />
           <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">Official Wild Racing “Make Waves” artwork from the game’s public Roblox listing. Promotional illustration; not a gameplay capture or a record of the specific AI tests.</figcaption>
         </figure>
       )}
       {usesWildRacingReviewImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-wild-racing-art>
-          <img src={post.image} {...imageVariants(post.image, "(min-width: 768px) 736px, 100vw")} alt="Original episode thumbnail showing Toby and the Wild Skies flight-game screen, with AI BUILT MY GAME text." width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt="Original episode thumbnail showing Toby and the Wild Skies flight-game screen, with AI BUILT MY GAME text." width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
           <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">Original thumbnail for the October 25 development recording, including the Wild Skies beta demonstration.</figcaption>
         </figure>
       )}
       {post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg" && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-muse-art>
-          <img src={post.image} {...imageVariants(post.image, "(min-width: 768px) 736px, 100vw")} alt="Toby beside illustrated racing characters in the Wild Racing and AI Update livestream thumbnail." width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt="Toby beside illustrated racing characters in the Wild Racing and AI Update livestream thumbnail." width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
           <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">Artwork for the full October 21 Wild Racing and AI livestream, which included the Muse discussion. This is not a Muse interface screenshot.</figcaption>
         </figure>
       )}
       {usesPokemonFeatureImage(post) && (
         <figure class="mb-8 flex justify-center rounded-xl bg-neutral-900 p-4" data-reviewed-game-art>
-          <img src={post.image} {...imageVariants(post.image, "(min-width: 768px) 736px, 100vw")} alt={post.title} width="1224" height="2992" class="h-auto max-h-[70vh] max-w-full object-contain" loading="eager" />
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt={post.title} width="1224" height="2992" class="h-auto max-h-[70vh] max-w-full object-contain" loading="eager" />
         </figure>
       )}
       <PriorityEntryPath
@@ -360,7 +360,7 @@ const articleJsonLd = {
                   <div class="absolute inset-0 z-0 bg-neutral-800" />
                   {relatedPost.image && (
                     <img
-                      src={relatedPost.image} {...imageVariants(relatedPost.image, "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw")}
+                      {...{ src: relatedPost.image, ...imageVariants(relatedPost.image, "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw") }}
                       alt={relatedPost.title}
                       class="relative z-10 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"

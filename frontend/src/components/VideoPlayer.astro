@@ -48,7 +48,7 @@ const embedParams = new URLSearchParams({ rel: '0', enablejsapi: '1', origin });
     title={title}
     aria-label={title}
   >
-    <img src={poster} {...imageVariants(poster, "(min-width: 1024px) 896px, 100vw")} alt="" class="absolute inset-0 h-full w-full object-cover" loading={priority ? "eager" : "lazy"} fetchpriority={priority ? "high" : undefined} decoding="async" width="1280" height="720" />
+    <img {...{ src: poster, ...imageVariants(poster, "(min-width: 1024px) 896px, 100vw") }} alt="" class="absolute inset-0 h-full w-full object-cover" loading={priority ? "eager" : "lazy"} fetchpriority={priority ? "high" : undefined} decoding="async" width="1280" height="720" />
     <span class="absolute inset-0 bg-black/10 transition-colors group-hover:bg-black/0" aria-hidden="true"></span>
     <span class="absolute left-1/2 top-1/2 flex h-16 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-red-600/90 shadow-2xl transition-transform group-hover:scale-110 group-focus-visible:scale-110" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white"><polygon points="7 4 20 12 7 20 7 4" /></svg>

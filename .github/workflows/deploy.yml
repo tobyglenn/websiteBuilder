@@ -13,7 +13,9 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
   group: "pages"
@@ -23,9 +25,15 @@ jobs:
   build-and-deploy:
     name: Build and Deploy
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -73,21 +81,19 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Test deployment asset retention and visibility safeguards
-        run: node --test frontend/scripts/tests/retain-deploy-assets.test.mjs frontend/scripts/tests/gsc-data-quality.test.mjs
+        run: node --test frontend/scripts/tests/retain-deploy-assets.test.mjs frontend/scripts/tests/podcast-assets.test.mjs frontend/scripts/tests/gsc-data-quality.test.mjs
 
       - name: Preserve recently used hashed browser assets
-        run: |
-          git fetch --no-tags --shallow-since="$(date -u -d '35 days ago' +%Y-%m-%d)" origin +refs/heads/gh-pages:refs/remotes/origin/gh-pages
-          node frontend/scripts/retain-deploy-assets.mjs frontend/dist
+        run: node frontend/scripts/retain-deploy-assets.mjs frontend/dist --live
 
-      - name: Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: frontend/dist
-          publish_branch: gh-pages
-          force_orphan: false
-          commit_message: "deploy: ${{ github.sha }}"
+          path: frontend/dist
+
+      - name: Publish Pages from main
+        id: deployment
+        uses: actions/deploy-pages@v4
 
       - name: Notify IndexNow after publishing
         continue-on-error: true

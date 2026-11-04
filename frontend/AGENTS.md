@@ -68,8 +68,9 @@ Translated video transcripts use `src/pages/[locale]/video/[id].astro` and are p
 
 ## 5a. Performance Guardrails
 
-- **Images**: `npm run build:image-variants` writes resized WebP copies of local artwork to `public/_variants/` (gitignored) before `astro build`. When rendering a local image on a card or article hero, keep `src` and add `{...imageVariants(src, sizes)}` from `src/lib/imageVariants.mjs`, with `sizes` matching the rendered width.
+- **Images**: `npm run build:image-variants` writes resized WebP copies of local artwork to `public/_variants/` (gitignored) before `astro build`. When rendering a local image on a card or article hero, use `{...{ src, ...imageVariants(src, sizes) }}` from `src/lib/imageVariants.mjs`, with `sizes` matching the rendered width.
 - **Island props**: Pass React islands only the fields they render. `VideoGrid` gets `toGridVideo()` rows from `src/data/mock.js` and loads the rest from `/videos/all.json`; never import `videos.json` into client components.
+- **Podcast artwork**: originals stay in existing public GitHub releases/archive. `src/data/podcast-assets.json` maps legacy paths to those originals and versioned 320/640px WebPs in `public/images/podcast/`. Import new published art with `scripts/sync-podcast-assets.mjs`; never copy original PNG/JPG files into this repo.
 - **Podcast content**: `PodcastEpisode.astro` passes notes and transcripts to the tab island as static slots. Keep full content in the rendered HTML without duplicating it in serialized props. Archive cards share `podcast-archive.css` and use short previews; full episode content stays on the episode route.
 - **Layout**: Pages render inside `Layout.astro`, which already provides the header, footer and `<main>`. Don't add another `<Header>`, `<Footer>` or `<main>` in a page.
 - **Localized page copies**: search, videos, nutrition, sleep, fitness-age and whoop pages are thin wrappers around `src/components/localized/*Page.astro` with per-language string tables; edit the shared component.

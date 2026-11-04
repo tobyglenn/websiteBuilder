@@ -2,14 +2,16 @@
 import EpisodeDetail from './EpisodeDetail.jsx';
 import { imageVariants } from '../lib/imageVariants.mjs';
 import { preparePodcastHtml } from '../lib/podcastHtml.mjs';
+import { publicImageUrl } from '../lib/podcastAssets.mjs';
 
 const { episode, rssUrl } = Astro.props;
 // Long notes and transcripts are static slots, not duplicated serialized props.
 const { showNotesHtml = '', transcriptHtml = '', ...metadata } = episode;
+const cover = imageVariants(episode.coverImage, '176px');
 ---
 
 <EpisodeDetail
-  episode={{ ...metadata, hasShowNotes: Boolean(showNotesHtml), coverSrcset: imageVariants(episode.coverImage, '176px').srcset }}
+  episode={{ ...metadata, coverImage: cover.src || publicImageUrl(episode.coverImage), hasShowNotes: Boolean(showNotesHtml), coverSrcset: cover.srcset }}
   rssUrl={rssUrl}
   client:load
 >

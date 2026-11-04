@@ -91,7 +91,7 @@ cd frontend && npm run preview
   - Automatically runs on pushes to `main` branch.
   - Installs dependencies using Node 24.
   - Generates video data and builds the static site into `frontend/dist/`.
-  - Deploys directly to GitHub Pages with zero downtime.
+  - Uploads a Pages artifact and deploys it directly from `main`. The `gh-pages` output branch is retired; do not recreate it. Recently used hashed browser assets are retained from the live site for 30 days.
 
 ---
 

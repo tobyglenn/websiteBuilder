@@ -62,6 +62,59 @@ export function retainDeployAssets({ repo = process.cwd(), dist = 'dist', ref = 
   return { active: active.length, retained: retained.length, retentionDays: days };
 }
 
+// Direct Pages deployments retain browser bundles from the currently live site,
+// so generated output no longer needs a second Git branch.
+export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://tobyonfitnesstech.com', days = 30, now = new Date(), fetchAsset = fetch } = {}) {
+  const output = resolve(dist);
+  const active = [];
+  const visit = (folder, prefix) => {
+    if (!existsSync(folder)) return;
+    for (const entry of readdirSync(folder, { withFileTypes: true })) {
+      const path = `${prefix}/${entry.name}`;
+      if (entry.isDirectory()) visit(join(folder, entry.name), path);
+      else if (entry.isFile() && allowed(path)) active.push(path);
+    }
+  };
+  visit(join(output, '_astro'), '_astro');
+  if (!active.length) throw Error('No current hashed assets found; refusing an empty deployment.');
+  const get = async (path) => {
+    const response = await fetchAsset(new URL(path, `${site.replace(/\/$/, '')}/`), { signal: AbortSignal.timeout(30000) });
+    if (!response.ok) throw Error(`Cannot retain live asset ${path}: HTTP ${response.status}`);
+    return response;
+  };
+  const previous = await (await get(MANIFEST)).json();
+  if (previous.version !== 1 || !Array.isArray(previous.active) || !Array.isArray(previous.retained) || !Number.isFinite(Date.parse(previous.builtAt))) throw Error('Invalid asset retention manifest.');
+  const cutoff = now.getTime() - days * DAY;
+  const current = new Set(active);
+  const candidates = new Map();
+  const add = (path, date) => {
+    if (typeof path === 'string' && allowed(path) && !current.has(path) && Date.parse(date) >= cutoff && Date.parse(date) <= now.getTime()) {
+      if (!candidates.has(path) || Date.parse(date) > Date.parse(candidates.get(path))) candidates.set(path, date);
+    }
+  };
+  for (const path of previous.active) add(path, previous.builtAt);
+  for (const asset of previous.retained) add(asset.path, asset.lastUsedAt);
+  const queue = [...candidates];
+  const retained = [];
+  await Promise.all(Array.from({ length: Math.min(8, queue.length) }, async () => {
+    while (queue.length) {
+      const [path, lastUsedAt] = queue.shift();
+      const response = await get(path);
+      const bytes = Buffer.from(await response.arrayBuffer());
+      if (bytes.length > 10 * 1024 * 1024 || /^\s*(?:<!doctype html|<html)/i.test(bytes.subarray(0, 100).toString())) throw Error(`Invalid live asset: ${path}`);
+      const target = join(output, path);
+      mkdirSync(dirname(target), { recursive: true });
+      writeFileSync(target, bytes);
+      retained.push({ path, lastUsedAt });
+    }
+  }));
+  const manifest = { version: 1, builtAt: now.toISOString(), retentionDays: days, active: active.sort(), retained: retained.sort((a, b) => a.path.localeCompare(b.path)) };
+  writeFileSync(join(output, MANIFEST), `${JSON.stringify(manifest, null, 2)}\n`);
+  return { active: active.length, retained: retained.length, retentionDays: days };
+}
+
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  console.log(JSON.stringify(retainDeployAssets({ dist: process.argv[2] || 'dist' })));
+  console.log(JSON.stringify(process.argv.includes('--live')
+    ? await retainLiveDeployAssets({ dist: process.argv[2] || 'dist' })
+    : retainDeployAssets({ dist: process.argv[2] || 'dist' })));
 }

@@ -62,3 +62,34 @@ test('rejects an empty current build and a corrupt previous manifest', (t) => {
   rmSync(join(f.dist, '_astro'), { recursive: true });
   assert.throws(() => retainDeployAssets({ ...f, ref: 'HEAD' }), /No current hashed assets/);
 });
+
+test('live retention preserves usage dates and accepts only immutable assets, without a deployment branch', async (t) => {
+  const { retainLiveDeployAssets } = await import('../retain-deploy-assets.mjs');
+  const f = fixture(t);
+  const requested = [];
+  const previous = { version: 1, builtAt: '2026-09-20T12:00:00Z', active: ['_astro/Header.12345678.js', '_astro/Current.abcdefgh.js', 'old/index.html', '_astro/../secret.12345678.js'], retained: [
+    { path: '_astro/Layout.87654321.css', lastUsedAt: '2026-09-01T12:00:00Z' },
+    { path: '_astro/Expired.12345678.js', lastUsedAt: '2026-08-01T12:00:00Z' },
+    { path: '_astro/Header.12345678.js.map', lastUsedAt: '2026-09-20T12:00:00Z' },
+  ] };
+  const fetchAsset = async (url) => {
+    requested.push(url.pathname);
+    return new Response(url.pathname.endsWith('.json') ? JSON.stringify(previous) : 'old bundle');
+  };
+  const result = await retainLiveDeployAssets({ dist: f.dist, now: new Date('2026-09-25T12:00:00Z'), fetchAsset });
+  assert.equal(result.retained, 2);
+  assert.deepEqual(requested.sort(), ['/deploy-asset-retention.json', '/_astro/Header.12345678.js', '/_astro/Layout.87654321.css'].sort());
+  assert.equal(readFileSync(join(f.dist, '_astro/Current.abcdefgh.js'), 'utf8'), 'current');
+  const manifest = JSON.parse(readFileSync(join(f.dist, 'deploy-asset-retention.json')));
+  assert.equal(manifest.retained.find(a => a.path.endsWith('.css')).lastUsedAt, '2026-09-01T12:00:00Z');
+});
+
+test('live retention fails on unavailable bundles, HTML fallback or malformed manifest', async (t) => {
+  const { retainLiveDeployAssets } = await import('../retain-deploy-assets.mjs');
+  const f = fixture(t);
+  const previous = { version: 1, builtAt: new Date().toISOString(), active: ['_astro/Header.12345678.js'], retained: [] };
+  for (const response of [new Response('', { status: 404 }), new Response('<!doctype html><html>404')]) {
+    await assert.rejects(retainLiveDeployAssets({ dist: f.dist, fetchAsset: async (url) => url.pathname.endsWith('.json') ? Response.json(previous) : response }), /HTTP 404|Invalid live asset/);
+  }
+  await assert.rejects(retainLiveDeployAssets({ dist: f.dist, fetchAsset: async () => Response.json({ version: 2 }) }), /Invalid asset retention/);
+});
