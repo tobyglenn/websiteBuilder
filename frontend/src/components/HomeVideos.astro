@@ -48,7 +48,7 @@ const payload={latest:pools.latest.map(compact),popular:pools.popular.map(compac
   const facade=player?.querySelector<HTMLElement>('[data-youtube-facade]');
   if(player && facade && player.dataset.videoId!==featured.id){
    player.dataset.videoId=featured.id;player.dataset.videoTitle=featured.title;
-   facade.dataset.analyticsVideoId=featured.id;facade.title=featured.title;facade.setAttribute('aria-label',`Play video: ${featured.title}`);
+   facade.dataset.analyticsVideoId=featured.id;facade.title=featured.title;facade.setAttribute('aria-label',featured.title);
    const poster=facade.querySelector('img');if(poster){poster.removeAttribute('srcset');poster.src=featured.thumbnail||`https://i.ytimg.com/vi/${featured.id}/hqdefault.jpg`;}
   }
   root.querySelector('[data-rotation-title]').textContent=featured.title;root.querySelector('[data-rotation-label]').textContent=pools.labels[mode];

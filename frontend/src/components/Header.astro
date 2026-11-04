@@ -55,7 +55,7 @@ const iconButtonClass = 'inline-flex h-9 w-9 items-center justify-center rounded
         <div class="relative" data-desktop-menu={menu.name} data-item-count={menu.items.length}>
           <button type="button" class={menuButtonClass} aria-expanded="false" data-desktop-menu-button>
             {menu.label}
-            <ChevronDown size={14} class="transition-transform group-aria-expanded:rotate-180" />
+            <span class="inline-flex transition-transform group-aria-expanded:rotate-180"><ChevronDown size={14} /></span>
           </button>
           <div class="absolute left-1/2 top-full z-[200] w-72 -translate-x-1/2 pt-2" data-desktop-menu-panel hidden>
             <div class="grid gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
@@ -69,7 +69,7 @@ const iconButtonClass = 'inline-flex h-9 w-9 items-center justify-center rounded
       <div class="relative" data-desktop-menu={menus[2].name} data-item-count={menus[2].items.length}>
         <button type="button" class={menuButtonClass} aria-expanded="false" data-desktop-menu-button>
           {menus[2].label}
-          <ChevronDown size={14} class="transition-transform group-aria-expanded:rotate-180" />
+          <span class="inline-flex transition-transform group-aria-expanded:rotate-180"><ChevronDown size={14} /></span>
         </button>
         <div class="absolute left-1/2 top-full z-[200] w-72 -translate-x-1/2 pt-2" data-desktop-menu-panel hidden>
           <div class="grid gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
@@ -83,8 +83,8 @@ const iconButtonClass = 'inline-flex h-9 w-9 items-center justify-center rounded
 
     <div class="hidden items-center gap-2 xl:flex">
       <button type="button" class={iconButtonClass} data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode">
-        <Sun size={17} class="theme-icon-sun" />
-        <Moon size={17} class="theme-icon-moon" />
+        <span class="theme-icon-sun"><Sun size={17} /></span>
+        <span class="theme-icon-moon"><Moon size={17} /></span>
       </button>
       <div class="relative" data-language-menu>
         <button type="button" class={iconButtonClass} aria-label="Choose language" title="Choose language" aria-expanded="false" data-language-button>
@@ -110,8 +110,8 @@ const iconButtonClass = 'inline-flex h-9 w-9 items-center justify-center rounded
 
     <div class="flex items-center gap-1 xl:hidden">
       <button type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode">
-        <Sun size={17} class="theme-icon-sun" />
-        <Moon size={17} class="theme-icon-moon" />
+        <span class="theme-icon-sun"><Sun size={17} /></span>
+        <span class="theme-icon-moon"><Moon size={17} /></span>
       </button>
       <button type="button" class="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" aria-label="Open navigation" aria-expanded="false" data-mobile-menu-open>
         <Menu size={24} />

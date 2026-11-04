@@ -109,10 +109,10 @@ function buildMobileNav(drawer) {
     button.setAttribute('aria-expanded', 'false');
     button.dataset.mobileSectionButton = '';
     button.append(desktopButton.textContent.trim());
-    const chevron = desktopButton.querySelector('svg')?.cloneNode(true);
+    const chevron = desktopButton.querySelector('span')?.cloneNode(true);
     if (chevron) {
-      chevron.setAttribute('width', '18');
-      chevron.setAttribute('height', '18');
+      chevron.querySelector('svg')?.setAttribute('width', '18');
+      chevron.querySelector('svg')?.setAttribute('height', '18');
       button.append(chevron);
     }
     const panel = document.createElement('div');

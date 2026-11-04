@@ -33,7 +33,7 @@ const priority = location === 'video_detail';
     data-analytics-video-id={videoId}
     data-analytics-embed-mode="click_to_play"
     title={title}
-    aria-label={`Play video: ${title}`}
+    aria-label={title}
   >
     <img src={poster} {...imageVariants(poster, "(min-width: 1024px) 896px, 100vw")} alt="" class="absolute inset-0 h-full w-full object-cover" loading={priority ? "eager" : "lazy"} fetchpriority={priority ? "high" : undefined} decoding="async" width="1280" height="720" />
     <span class="absolute inset-0 bg-black/10 transition-colors group-hover:bg-black/0" aria-hidden="true"></span>

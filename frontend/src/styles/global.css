@@ -376,6 +376,7 @@ html.light .bg-red-600 * {
 .markdown-article th, .markdown-article td { border: 1px solid var(--color-border, #525252); padding: .75rem; text-align: left; vertical-align: top; min-width: 8rem; }
 
 /* Header theme toggle: show the icon for the theme you would switch to. */
+.theme-icon-sun { display: inline-flex; }
 .theme-icon-moon { display: none; }
 :root[data-theme="light"] .theme-icon-sun { display: none; }
-:root[data-theme="light"] .theme-icon-moon { display: inline; }
+:root[data-theme="light"] .theme-icon-moon { display: inline-flex; }
