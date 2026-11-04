@@ -6,7 +6,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 spec = importlib.util.spec_from_file_location('nightly', Path(__file__).parents[1] / 'nightly-game-journal.py')
 nightly = importlib.util.module_from_spec(spec)
@@ -33,6 +33,29 @@ class NightlyTests(unittest.TestCase):
 
     def report(self):
         return nightly.scanner.inventory(self.site, self.wild, self.mon)
+
+    def test_artifact_deployment_requires_matching_source_and_live_article(self):
+        pending = {'sha': 'abc123', 'articles': [('new-release', 'New release')]}
+        deployment = {'id': 42, 'sha': 'abc123', 'environment': 'github-pages'}
+        response = MagicMock()
+        response.__enter__.return_value.read.return_value = 'New release — Try it in Roblox'.encode()
+        with patch.object(nightly, 'wait_run', return_value='https://github.com/run/1') as wait, \
+             patch.object(nightly, 'run', side_effect=[json.dumps([deployment]), json.dumps([{'state': 'success', 'log_url': 'https://github.com/run/1'}])]) as api, \
+             patch.object(nightly, 'urlopen', return_value=response):
+            result = nightly.verify_deployment(pending)
+        self.assertEqual(result['source'], 'abc123')
+        wait.assert_called_once_with('abc123', 'Deploy to GitHub Pages')
+        self.assertIn('sha=abc123', api.call_args_list[0].args[0][-1])
+
+    def test_artifact_deployment_rejects_wrong_commit_and_failed_deployments(self):
+        for deployments, statuses in [
+            ([{'id': 42, 'sha': 'different', 'environment': 'github-pages'}], []),
+            ([{'id': 42, 'sha': 'abc123', 'environment': 'github-pages'}], [{'state': 'failure'}]),
+        ]:
+            with patch.object(nightly, 'wait_run', return_value='build'), \
+                 patch.object(nightly, 'run', side_effect=[json.dumps(deployments), json.dumps(statuses)]):
+                with self.assertRaisesRegex(RuntimeError, 'No successful'):
+                    nightly.verify_deployment({'sha': 'abc123', 'articles': []})
 
     def test_no_changes_never_starts_codex(self):
         args = argparse.Namespace(job_dir=self.job, wild_root=self.wild,

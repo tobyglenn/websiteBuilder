@@ -70,10 +70,20 @@ def wait_run(sha, workflow):
 
 def verify_deployment(pending):
     build = wait_run(pending['sha'], 'Deploy to GitHub Pages')
-    deploy = json.loads(run(['gh', 'api', 'repos/' + REPOSITORY + '/commits/gh-pages']))
-    if pending['sha'] not in deploy['commit']['message']:
-        raise RuntimeError('gh-pages does not identify the expected source commit; inspect concurrent deployments')
-    pages = wait_run(deploy['sha'], 'pages build and deployment')
+    deployments = json.loads(run(['gh', 'api', 'repos/' + REPOSITORY +
+        '/deployments?environment=github-pages&sha=' + pending['sha'] + '&per_page=100']))
+    pages = None
+    for deployment in deployments:
+        if deployment.get('sha') != pending['sha'] or deployment.get('environment') != 'github-pages':
+            continue
+        statuses = json.loads(run(['gh', 'api', 'repos/' + REPOSITORY +
+            '/deployments/' + str(deployment['id']) + '/statuses']))
+        successful = next((status for status in statuses if status.get('state') == 'success'), None)
+        if successful:
+            pages = successful.get('log_url') or build
+            break
+    if not pages:
+        raise RuntimeError('No successful github-pages deployment for the expected source commit')
     # Public article bodies must actually be served before recording success.
     for slug, title in pending['articles']:
         url = SITE + '/games/journal/' + slug + '/'
