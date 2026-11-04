@@ -54,6 +54,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         await page.locator('[data-theme-toggle]:visible').first().click();
         assert.equal(await page.locator('html').getAttribute('data-theme'), 'light');
+        await page.waitForFunction(() => getComputedStyle(document.querySelector('.pa-card')).backgroundColor === 'rgb(255, 255, 255)');
         const colors = await page.evaluate(() => ({
           background: getComputedStyle(document.querySelector('.pa-card')).backgroundColor,
           title: getComputedStyle(document.querySelector('.pa-title')).color,
