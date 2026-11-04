@@ -51,6 +51,8 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
           {episode.coverImage && (
             <img
               src={episode.coverImage}
+              srcSet={episode.coverSrcset}
+              sizes={episode.coverSrcset ? '176px' : undefined}
               alt={`${episode.title} — Episode ${episode.number} cover art`}
               className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl object-cover shrink-0 border border-neutral-700 shadow-xl shadow-black/40"
               loading="lazy"

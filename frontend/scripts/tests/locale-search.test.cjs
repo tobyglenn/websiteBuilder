@@ -27,7 +27,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         assert.equal(await page.locator('#search-summary img').count(), 0);
         assert.equal(await page.evaluate(() => window.searchInjected), undefined);
         await page.goto(`${base}/`);
-        await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+        await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         await page.waitForFunction(() => !!window.toftAnalytics);
         await page.evaluate(() => {
           window.searchEvents = [];
@@ -49,7 +49,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         console.log(`${name} ${width}: result clicked`);
         await page.waitForFunction(() => window.searchEvents.some(x => x.event === 'search_result_click'));
         await page.waitForURL(/\/blog\//);
-        await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+        await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         if (width < 1280) await page.getByRole('button', { name: 'Open navigation', exact: true }).click();
         await page.getByRole('button', { name: 'Open search', exact: true }).filter({ visible: true }).click();
         await page.locator('input[type="text"]').filter({ visible: true }).last().fill('zzqnovalidmatch20260928');

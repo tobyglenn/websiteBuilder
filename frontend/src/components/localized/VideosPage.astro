@@ -1,0 +1,176 @@
+---
+// Shared /videos/ page for every locale. Page files under src/pages only pick the language.
+import Layout from '../../layouts/Layout.astro';
+import VideoGrid from '../VideoGrid.jsx';
+import { VIDEOS, toGridVideo } from '../../data/mock.js';
+
+type Lang = 'en' | 'de' | 'es' | 'pt' | 'hi';
+interface Props {
+  lang: Lang;
+}
+
+const COPY = {
+  "en": {
+    "title": "All Videos - Toby on Fitness Tech",
+    "description": "Browse all {count} videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and transformation content.",
+    "schemaName": "Toby on Fitness Tech — Full Video Library",
+    "schemaDescription": "All {count} videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. No scripts, no sponsors.",
+    "aboutTech": "Fitness Technology",
+    "aboutHomeGym": "Home Gym Equipment",
+    "listName": "Top Videos by Toby on Fitness Tech",
+    "home": "Home",
+    "eyebrow": "VIDEO LIBRARY",
+    "headline": "Everything on Camera.",
+    "headlineMuted": "No Scripts. No Sponsors.",
+    "intro": "{count} videos covering Speediance reviews, BJJ commentary, fitness tech deep-dives, and real transformation data. Filter by topic below.",
+    "videosCrumb": "Videos"
+  },
+  "de": {
+    "title": "Alle Videos - Toby on Fitness Tech",
+    "description": "Durchstöbere alle {count} Videos mit Speediance-Reviews, BJJ-Kommentaren, Fitness-Tech-Tiefenanalyse und Transformationsinhalten.",
+    "schemaName": "Toby on Fitness Tech — Vollständige Videobibliothek",
+    "schemaDescription": "Alle {count} Videos mit Speediance-Reviews, BJJ-Kommentaren, Fitness-Tech-Tiefenanalyse und echten Transformationsdaten. Keine Skripte, keine Sponsoren.",
+    "aboutTech": "Fitnesstechnologie",
+    "aboutHomeGym": "Heimtrainingsgeräte",
+    "listName": "Top-Videos von Toby on Fitness Tech",
+    "home": "Startseite",
+    "eyebrow": "VIDEOBIBLIOTHEK",
+    "headline": "Alles vor der Kamera.",
+    "headlineMuted": "Keine Skripte. Keine Sponsoren.",
+    "intro": "{count} Videos mit Speediance-Reviews, BJJ-Kommentaren, Fitness-Tech-Tiefenanalyse und echten Transformationsdaten. Unten nach Thema filtern.",
+    "videosCrumb": "Videos"
+  },
+  "es": {
+    "title": "Todos los videos - Toby on Fitness Tech",
+    "description": "Explora los {count} videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y contenido de transformación.",
+    "schemaName": "Toby on Fitness Tech — Biblioteca completa de videos",
+    "schemaDescription": "Los {count} videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y datos reales de transformación. Sin guiones, sin patrocinadores.",
+    "aboutTech": "Tecnología fitness",
+    "aboutHomeGym": "Equipo de gimnasio en casa",
+    "listName": "Videos destacados de Toby on Fitness Tech",
+    "home": "Inicio",
+    "eyebrow": "BIBLIOTECA DE VIDEOS",
+    "headline": "Todo en cámara.",
+    "headlineMuted": "Sin guiones. Sin patrocinadores.",
+    "intro": "{count} videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y datos reales de transformación. Filtra por tema abajo.",
+    "videosCrumb": "Videos"
+  },
+  "pt": {
+    "title": "Todos os vídeos - Toby on Fitness Tech",
+    "description": "Navegue por todos os {count} vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e conteúdo de transformação.",
+    "schemaName": "Toby on Fitness Tech — Biblioteca completa de vídeos",
+    "schemaDescription": "Todos os {count} vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Sem roteiros, sem patrocinadores.",
+    "aboutTech": "Tecnologia fitness",
+    "aboutHomeGym": "Equipamentos de academia em casa",
+    "listName": "Principais vídeos de Toby on Fitness Tech",
+    "home": "Início",
+    "eyebrow": "BIBLIOTECA DE VÍDEOS",
+    "headline": "Tudo na câmera.",
+    "headlineMuted": "Sem roteiros. Sem patrocinadores.",
+    "intro": "{count} vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Filtre por tópico abaixo.",
+    "videosCrumb": "Vídeos"
+  },
+  "hi": {
+    "title": "सभी वीडियो - Toby on Fitness Tech",
+    "description": "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और ट्रांसफॉर्मेशन कंटेंट वाले सभी {count} वीडियो देखें।",
+    "schemaName": "Toby on Fitness Tech — पूरी वीडियो लाइब्रेरी",
+    "schemaDescription": "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले सभी {count} वीडियो। बिना स्क्रिप्ट, बिना स्पॉन्सर।",
+    "aboutTech": "फिटनेस टेक्नोलॉजी",
+    "aboutHomeGym": "होम जिम उपकरण",
+    "listName": "Toby on Fitness Tech के शीर्ष वीडियो",
+    "home": "होम",
+    "eyebrow": "वीडियो लाइब्रेरी",
+    "headline": "कैमरे पर सब कुछ।",
+    "headlineMuted": "कोई स्क्रिप्ट नहीं। कोई स्पॉन्सर नहीं।",
+    "intro": "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले {count} वीडियो। नीचे विषय के अनुसार फ़िल्टर करें।",
+    "videosCrumb": "वीडियो"
+  }
+} as const;
+
+const { lang } = Astro.props;
+const t = COPY[lang];
+const withCount = (text: string) => text.replaceAll('{count}', String(VIDEOS.length));
+const prefix = lang === 'en' ? '' : `/${lang}`;
+const siteUrl = "https://tobyonfitnesstech.com";
+
+// Initial server-rendered page size for the video grid. The remaining videos
+// load client-side from /videos/all.json via the grid's "Load more" button.
+const INITIAL_VIDEO_COUNT = 48;
+
+// CollectionPage + ItemList schema for the top 20 videos by views.
+const topVideos = [...VIDEOS]
+  .sort((a: { view_count?: number }, b: { view_count?: number }) => (b.view_count || 0) - (a.view_count || 0))
+  .slice(0, 20);
+
+const videosCollectionSchema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": `${siteUrl}${prefix}/videos/#collection`,
+  "name": t.schemaName,
+  "description": withCount(t.schemaDescription),
+  "url": `${siteUrl}${prefix}/videos/`,
+  "inLanguage": lang,
+  "isPartOf": { "@id": `${siteUrl}/#website` },
+  "author": { "@id": `${siteUrl}/#toby` },
+  "publisher": { "@id": `${siteUrl}/#organization` },
+  "about": [
+    { "@type": "Thing", "name": t.aboutTech },
+    { "@type": "Thing", "name": "Speediance" },
+    { "@type": "Thing", "name": "Brazilian Jiu-Jitsu" },
+    { "@type": "Thing", "name": t.aboutHomeGym }
+  ],
+  "mainEntity": {
+    "@type": "ItemList",
+    "name": t.listName,
+    "numberOfItems": VIDEOS.length,
+    "itemListElement": topVideos.map((video: any, index: number) => ({
+      "@type": "ListItem",
+      "position": index + 1,
+      "url": `${siteUrl}/video/${video.id}/`,
+      "name": video.title,
+      "item": {
+        "@type": "VideoObject",
+        "@id": `${siteUrl}/video/${video.id}/#video`,
+        "name": video.title,
+        "description": video.description,
+        "thumbnailUrl": video.thumbnail || `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`,
+        "uploadDate": video.upload_date || video.published_at,
+        "url": `${siteUrl}/video/${video.id}/`,
+        "embedUrl": `https://www.youtube.com/embed/${video.id}`,
+        "contentUrl": `https://www.youtube.com/watch?v=${video.id}`,
+        "author": { "@id": `${siteUrl}/#toby` },
+        "publisher": { "@id": `${siteUrl}/#organization` },
+        ...(video.duration_iso && video.duration_iso !== "P0D" && video.duration_iso !== "LIVE" ? { "duration": video.duration_iso } : {}),
+        ...(video.view_count && video.view_count > 0 ? {
+          "interactionStatistic": {
+            "@type": "InteractionCounter",
+            "interactionType": { "@type": "WatchAction" },
+            "userInteractionCount": video.view_count
+          }
+        } : {})
+      }
+    }))
+  }
+};
+---
+
+<Layout title={t.title} description={withCount(t.description)} breadcrumbs={[{ name: t.home, url: `${prefix}/` }, { name: t.videosCrumb, url: `${prefix}/videos` }]} jsonLd={videosCollectionSchema}>
+  <!-- Hero -->
+  <section data-page-intro class="bg-neutral-950 border-b border-neutral-800">
+    <div class="container mx-auto px-4 py-6 md:py-8 max-w-3xl text-center">
+      <p class="text-blue-500 text-xs font-bold uppercase tracking-widest mb-4">{t.eyebrow}</p>
+      <h1 data-page-title class="text-4xl md:text-5xl font-black text-white leading-tight mb-4">
+        {t.headline}{' '}
+        <span class="text-neutral-400">{t.headlineMuted}</span>
+      </h1>
+      <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
+        {withCount(t.intro)}
+      </p>
+    </div>
+  </section>
+
+  <!-- Grid -->
+  <div class="container mx-auto px-4 py-10">
+    <VideoGrid client:load showFilters={true} videos={VIDEOS.slice(0, INITIAL_VIDEO_COUNT).map(toGridVideo)} pageSize={INITIAL_VIDEO_COUNT} videosJsonUrl="/videos/all.json" hideShortsByDefault={true} />
+  </div>
+</Layout>

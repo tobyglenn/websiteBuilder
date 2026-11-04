@@ -162,6 +162,7 @@ export function getHeatmapData() {
       longestStreak,
       totalDays: workoutDates.size,
       thisYear: thisYearCount,
+      lastWorkout: workoutDateArray.length ? [...workoutDateArray].sort().at(-1) : null,
     },
     monthlyData,
   };

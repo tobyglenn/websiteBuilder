@@ -34,7 +34,10 @@ async function pagefindBlogSlugs(query) {
     if (!pagefind) return new Set();
     const search = await pagefind.search(query);
     const pages = await Promise.all(
-      (search?.results || []).slice(0, PAGEFIND_RESULT_LIMIT).map((result) => result.data()),
+      (search?.results || [])
+        .filter((result) => !Array.isArray(result.words) || result.words.length > 0)
+        .slice(0, PAGEFIND_RESULT_LIMIT)
+        .map((result) => result.data()),
     );
     const slugs = pages
       .map((page) => page?.url?.match(/^\/(?:(?:de|es|pt|hi)\/)?blog\/([^/?#]+)\/?/)?.[1])

@@ -1,4 +1,5 @@
 ---
+import CalendarHeatmap from '../components/CalendarHeatmap.astro';
 import Layout from '../layouts/Layout.astro';
 import { getStreakData } from '../data/streaks.js';
 
@@ -43,6 +44,30 @@ const streakPageSchema = {
     ]
   }
 };
+
+// Weekly intensity drawn day by day (src/components/CalendarHeatmap.astro).
+const STREAK_COLORS = [
+  'var(--color-neutral-800)',
+  'color-mix(in oklab, var(--color-blue-900) 60%, transparent)',
+  'color-mix(in oklab, var(--color-blue-700) 80%, transparent)',
+  'var(--color-blue-500)',
+  'var(--color-blue-400)',
+];
+const STREAK_ARIA = 'Activity Heatmap';
+const streakToday = new Date();
+const streakDays = streakData.weeklyData.flatMap((week) =>
+  [0, 1, 2, 3, 4, 5, 6].map((dayIdx) => {
+    const cellDate = new Date(week.date);
+    cellDate.setDate(cellDate.getDate() + dayIdx);
+    const isFuture = cellDate > streakToday;
+    return {
+      date: cellDate.toISOString().split('T')[0],
+      level: isFuture ? 0 : Math.min(4, week.intensity || 0),
+      value: week.activeDays > 0 ? `${week.activeDays} active days this week` : '',
+    };
+  }),
+);
+
 ---
 
 <Layout 
@@ -51,7 +76,7 @@ const streakPageSchema = {
   breadcrumbs={[{ name: "Home", url: "/" }, { name: "Training Streaks", url: "/streaks" }]}
   jsonLd={streakPageSchema}
 >
-  <main class="min-h-screen bg-neutral-950 text-white">
+  <div class="min-h-screen bg-neutral-950 text-white">
     {/* Hero Section */}
     <section data-page-intro class="pt-6 pb-6 md:pt-8 md:pb-8 relative overflow-hidden">
       <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />
@@ -172,37 +197,12 @@ const streakPageSchema = {
               
               <!-- Contribution grid -->
               <div class="flex gap-0.5 flex-1 overflow-x-auto pb-2">
-                {streakData.weeklyData.map((week) => (
-                  <div class="flex flex-col gap-0.5">
-                    {[0, 1, 2, 3, 4, 5, 6].map((dayIdx) => {
-                      const weekStart = new Date(week.date);
-                      const cellDate = new Date(weekStart);
-                      cellDate.setDate(weekStart.getDate() + dayIdx);
-                      const today = new Date();
-                      const isFuture = cellDate > today;
-                      const intensity = week.intensity;
-                      
-                      return (
-                        <div 
-                          class={`w-3 h-3 rounded-sm ${
-                            isFuture 
-                              ? 'bg-neutral-800' 
-                              : intensity === 0 
-                                ? 'bg-neutral-800'
-                                : intensity === 1 
-                                  ? 'bg-blue-900/60'
-                                  : intensity === 2 
-                                    ? 'bg-blue-700/80'
-                                    : intensity === 3 
-                                      ? 'bg-blue-500'
-                                      : 'bg-blue-400'
-                          }`}
-                          title={`${cellDate.toISOString().split('T')[0]}: ${week.activeDays > 0 ? week.activeDays + ' active days this week' : 'No activity'}`}
-                        />
-                      );
-                    })}
-                  </div>
-                ))}
+                <CalendarHeatmap
+                  days={streakDays}
+                  colors={STREAK_COLORS}
+                  ariaLabel={STREAK_ARIA}
+                  emptyLabel="No activity"
+                />
               </div>
             </div>
             
@@ -387,5 +387,5 @@ const streakPageSchema = {
         </div>
       </div>
     </section>
-  </main>
+  </div>
 </Layout>

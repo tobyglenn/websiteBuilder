@@ -1,0 +1,507 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { Moon, Heart, Activity, Thermometer, Clock, TrendingUp } from 'lucide-react';
+import {
+  currentData,
+  RECENT_SLEEP,
+  TREND_DATA,
+  SLEEP_STAGES,
+  LAST_SYNCED,
+  TOTAL_NIGHTS,
+  avgSleepScore,
+  avgHRV,
+  avgHeartRate,
+  avgTimeSlept,
+  avgSleepQuality,
+} from '../../data/sleep.js';
+
+// Shared page for every locale; files under src/pages only pick the language.
+type Lang = 'en' | 'de' | 'es' | 'pt' | 'hi';
+interface Props {
+  lang: Lang;
+}
+
+const COPY = {
+  "en": {
+    "s1": "Deep",
+    "s2": "Light",
+    "s3": "Awake",
+    "s4": "8Sleep Data | TobyOnFitnessTech",
+    "s5": "Real sleep data from my 8Sleep Pod 3 — sleep scores, HRV, sleep stages, and temperature tracking. See how I optimize recovery through sleep.",
+    "s6": "Sleep Data",
+    "s7": "nights tracked",
+    "s8": "Sleep Stats",
+    "s9": "Real sleep data from my 8Sleep Pod 3 — sleep scores, HRV, sleep stages breakdown, and temperature tracking.",
+    "s10": "Sleep Score",
+    "s11": "Sleep Quality",
+    "s12": "Avg HRV",
+    "s13": "Avg Heart Rate",
+    "s14": "Avg Time Asleep",
+    "s15": "hrs",
+    "s16": "Bed Temp",
+    "s17": "Sleep Stages Breakdown",
+    "s18": "Sleep Score Trend",
+    "s19": "No sleep score data available",
+    "s20": "Recent Sleep (Last 7 Days",
+    "s21": "Date",
+    "s22": "Sleep Score",
+    "s23": "Quality",
+    "s24": "HR",
+    "s25": "Time Asleep",
+    "s26": "Track Your Sleep",
+    "s27": "See how 8Sleep data integrates with my broader fitness ecosystem.",
+    "s28": "WHOOP Data",
+    "s29": "Training Overview",
+    "s30": "A Day in the Data",
+    "home": "Home",
+    "crumb": "Sleep Data",
+    "dateLocale": "en-US",
+    "hours": "hrs",
+    "lastSynced": "Last synced:",
+    "na": "N/A"
+  },
+  "de": {
+    "s1": "Tief",
+    "s2": "Leicht",
+    "s3": "Wach",
+    "s4": "8Sleep-Daten | TobyOnFitnessTech",
+    "s5": "Echte Schlafdaten von meinem 8Sleep Pod 3 — Schlafwerte, HRV, Schlafphasen und Temperatur-Tracking. Sieh, wie ich meine Regeneration durch Schlaf optimiere.",
+    "s6": "Schlafdaten",
+    "s7": "Nächte erfasst",
+    "s8": "Schlafstatistiken",
+    "s9": "Echte Schlafdaten von meinem 8Sleep Pod 3 — Schlafwerte, HRV, Aufschlüsselung der Schlafphasen und Temperatur-Tracking.",
+    "s10": "Schlafwert",
+    "s11": "Schlafqualität",
+    "s12": "Ø HRV",
+    "s13": "Ø Herzfrequenz",
+    "s14": "Ø Schlafdauer",
+    "s15": "Std.",
+    "s16": "Betttemperatur",
+    "s17": "Aufschlüsselung der Schlafphasen",
+    "s18": "Trend des Schlafwerts",
+    "s19": "Keine Schlafwertdaten verfügbar",
+    "s20": "Letzter Schlaf (letzte 7 Tage",
+    "s21": "Datum",
+    "s22": "Schlafwert",
+    "s23": "Qualität",
+    "s24": "HF",
+    "s25": "Schlafdauer",
+    "s26": "Verfolge deinen Schlaf",
+    "s27": "Sieh, wie sich 8Sleep-Daten in mein breiteres Fitness-Ökosystem integrieren.",
+    "s28": "WHOOP-Daten",
+    "s29": "Trainingsüberblick",
+    "s30": "Ein Tag in den Daten",
+    "home": "Startseite",
+    "crumb": "Schlafdaten",
+    "dateLocale": "de-DE",
+    "hours": "Std.",
+    "lastSynced": "Zuletzt synchronisiert:",
+    "na": "Nicht verfügbar"
+  },
+  "es": {
+    "s1": "Profundo",
+    "s2": "Ligero",
+    "s3": "Despierto",
+    "s4": "Datos de 8Sleep | TobyOnFitnessTech",
+    "s5": "Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, fases del sueño y seguimiento de temperatura. Mira cómo optimizo la recuperación a través del sueño.",
+    "s6": "Datos de sueño",
+    "s7": "noches registradas",
+    "s8": "Estadísticas de sueño",
+    "s9": "Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, desglose de las fases del sueño y seguimiento de temperatura.",
+    "s10": "Puntuación de sueño",
+    "s11": "Calidad del sueño",
+    "s12": "HRV prom.",
+    "s13": "Frecuencia cardíaca prom.",
+    "s14": "Tiempo promedio dormido",
+    "s15": "h",
+    "s16": "Temp. de la cama",
+    "s17": "Desglose de las fases del sueño",
+    "s18": "Tendencia de la puntuación de sueño",
+    "s19": "No hay datos de puntuación de sueño disponibles",
+    "s20": "Sueño reciente (últimos 7 días",
+    "s21": "Fecha",
+    "s22": "Puntuación de sueño",
+    "s23": "Calidad",
+    "s24": "FC",
+    "s25": "Tiempo dormido",
+    "s26": "Haz seguimiento de tu sueño",
+    "s27": "Mira cómo los datos de 8Sleep se integran con mi ecosistema de fitness más amplio.",
+    "s28": "Datos de WHOOP",
+    "s29": "Resumen de entrenamiento",
+    "s30": "Un día en los datos",
+    "home": "Inicio",
+    "crumb": "Datos de sueño",
+    "dateLocale": "es-MX",
+    "hours": "h",
+    "lastSynced": "Última sincronización:",
+    "na": "N/D"
+  },
+  "pt": {
+    "s1": "Profundo",
+    "s2": "Leve",
+    "s3": "Acordado",
+    "s4": "Dados do 8Sleep | TobyOnFitnessTech",
+    "s5": "Dados reais de sono do meu 8Sleep Pod 3 — pontuações de sono, HRV, estágios do sono e monitoramento de temperatura. Veja como eu otimizo a recuperação por meio do sono.",
+    "s6": "Dados do sono",
+    "s7": "noites registradas",
+    "s8": "Estatísticas do sono",
+    "s9": "Dados reais de sono do meu 8Sleep Pod 3 — pontuações de sono, HRV, detalhamento dos estágios do sono e monitoramento de temperatura.",
+    "s10": "Pontuação do sono",
+    "s11": "Qualidade do sono",
+    "s12": "HRV méd.",
+    "s13": "Frequência cardíaca méd.",
+    "s14": "Tempo médio dormindo",
+    "s15": "h",
+    "s16": "Temp. da cama",
+    "s17": "Detalhamento dos estágios do sono",
+    "s18": "Tendência da pontuação do sono",
+    "s19": "Nenhum dado de pontuação do sono disponível",
+    "s20": "Sono recente (últimos 7 dias",
+    "s21": "Data",
+    "s22": "Pontuação do sono",
+    "s23": "Qualidade",
+    "s24": "FC",
+    "s25": "Tempo dormindo",
+    "s26": "Acompanhe seu sono",
+    "s27": "Veja como os dados do 8Sleep se integram ao meu ecossistema fitness mais amplo.",
+    "s28": "Dados do WHOOP",
+    "s29": "Visão geral do treino",
+    "s30": "Um dia nos dados",
+    "home": "Início",
+    "crumb": "Dados do sono",
+    "dateLocale": "pt-BR",
+    "hours": "h",
+    "lastSynced": "Última sincronização:",
+    "na": "N/D"
+  },
+  "hi": {
+    "s1": "गहरी",
+    "s2": "हल्की",
+    "s3": "जागृत",
+    "s4": "8Sleep डेटा | TobyOnFitnessTech",
+    "s5": "मेरे 8Sleep Pod 3 से वास्तविक नींद डेटा — स्लीप स्कोर, HRV, नींद के चरण और तापमान ट्रैकिंग। देखें कि मैं नींद के ज़रिए रिकवरी को कैसे बेहतर बनाता हूँ।",
+    "s6": "नींद डेटा",
+    "s7": "रातें ट्रैक की गईं",
+    "s8": "नींद आँकड़े",
+    "s9": "मेरे 8Sleep Pod 3 से वास्तविक नींद डेटा — स्लीप स्कोर, HRV, नींद के चरणों का विवरण और तापमान ट्रैकिंग।",
+    "s10": "स्लीप स्कोर",
+    "s11": "नींद की गुणवत्ता",
+    "s12": "औसत HRV",
+    "s13": "औसत हृदय गति",
+    "s14": "औसत सोने का समय",
+    "s15": "घंटे",
+    "s16": "बिस्तर का तापमान",
+    "s17": "नींद के चरणों का विवरण",
+    "s18": "स्लीप स्कोर रुझान",
+    "s19": "कोई स्लीप स्कोर डेटा उपलब्ध नहीं है",
+    "s20": "हाल की नींद (पिछले 7 दिन",
+    "s21": "तारीख",
+    "s22": "स्लीप स्कोर",
+    "s23": "गुणवत्ता",
+    "s24": "HR",
+    "s25": "सोने का समय",
+    "s26": "अपनी नींद ट्रैक करें",
+    "s27": "देखें कि 8Sleep डेटा मेरे व्यापक फिटनेस इकोसिस्टम के साथ कैसे जुड़ता है।",
+    "s28": "WHOOP डेटा",
+    "s29": "ट्रेनिंग अवलोकन",
+    "s30": "डेटा में एक दिन",
+    "home": "होम",
+    "crumb": "नींद डेटा",
+    "dateLocale": "hi-IN",
+    "hours": "घंटे",
+    "lastSynced": "आखिरी सिंक:",
+    "na": "उपलब्ध नहीं"
+  }
+} as const;
+
+const { lang } = Astro.props;
+const t = COPY[lang];
+const prefix = lang === 'en' ? '' : `/${lang}`;
+
+
+// Chart dimensions
+const chartWidth = 600;
+const chartHeight = 200;
+const chartPadding = 30;
+
+// Generate trend line SVG points
+function generateTrendLine(data, valueKey, maxVal = 100) {
+  if (!data.length || data.every(d => !d[valueKey] || d[valueKey] === 0)) return '';
+  const validData = data.filter(d => d[valueKey] > 0);
+  if (validData.length < 2) return '';
+  return validData
+    .map((d, i) => {
+      const x = chartPadding + (i / (validData.length - 1)) * (chartWidth - 2 * chartPadding);
+      const y = chartHeight - chartPadding - (d[valueKey] / maxVal) * (chartHeight - 2 * chartPadding);
+      return `${x},${y}`;
+    })
+    .join(' ');
+}
+
+const sleepScorePoints = generateTrendLine(TREND_DATA, 'sleep_score', 100);
+
+// Sleep stage bar chart calculations
+const stageColors = {
+  deep: '#8B5CF6',
+  rem: '#3B82F6',
+  light: '#10B981',
+  awake: '#EF4444',
+};
+
+const stages = [
+  { name: t.s1, hours: SLEEP_STAGES.deep.hours, pct: SLEEP_STAGES.deep.pct, color: stageColors.deep },
+  { name: 'REM', hours: SLEEP_STAGES.rem.hours, pct: SLEEP_STAGES.rem.pct, color: stageColors.rem },
+  { name: t.s2, hours: SLEEP_STAGES.light.hours, pct: SLEEP_STAGES.light.pct, color: stageColors.light },
+  { name: t.s3, hours: SLEEP_STAGES.awake.hours, pct: SLEEP_STAGES.awake.pct, color: stageColors.awake },
+];
+
+const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
+
+---
+
+
+<Layout 
+  title={t.s4}
+  description={t.s5}
+  breadcrumbs={[{ name: t.home, url: "/" }, { name: t.crumb, url: "/sleep" }]}
+>
+  
+  <div class="bg-neutral-950 min-h-screen pb-20">
+    <!-- Hero Section -->
+    <section data-page-intro class="pt-6 pb-6 px-4">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="px-3 py-1 bg-blue-500/20 text-blue-400 text-sm font-medium rounded-full flex items-center gap-2">
+            <Moon class="w-4 h-4" />
+            {t.s6}
+          </span>
+          <span class="text-neutral-500 text-sm">{TOTAL_NIGHTS} {t.s7}</span>
+        </div>
+        <h1 data-page-title class="text-4xl md:text-5xl font-bold text-white mb-4">{t.s8}</h1>
+        <p class="text-lg text-neutral-400 max-w-2xl">
+          {t.s9}
+        </p>
+      </div>
+    </section>
+
+    <!-- Stats Grid - 6 cards -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Moon class="w-4 h-4" />
+              {t.s10}
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.sleep_score}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Activity class="w-4 h-4" />
+              {t.s11}
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.sleep_quality_score}<span class="text-lg text-neutral-500">/100</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Heart class="w-4 h-4" />
+              {t.s12}
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHRV}<span class="text-lg text-neutral-500">ms</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <TrendingUp class="w-4 h-4" />
+              {t.s13}
+            </div>
+            <div class="text-3xl font-bold text-white">{avgHeartRate}<span class="text-lg text-neutral-500">bpm</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Clock class="w-4 h-4" />
+              {t.s14}
+            </div>
+            <div class="text-3xl font-bold text-white">{avgTimeSlept}<span class="text-lg text-neutral-500">{t.s15}</span></div>
+          </div>
+          <div class="bg-neutral-900 rounded-xl p-5 border border-neutral-800">
+            <div class="flex items-center gap-2 text-neutral-400 text-sm mb-2">
+              <Thermometer class="w-4 h-4" />
+              {t.s16}
+            </div>
+            <div class="text-3xl font-bold text-white">{currentData.bed_temp}<span class="text-lg text-neutral-500">°C</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sleep Stages Breakdown -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">{t.s17}</h2>
+          
+          <!-- Stacked bar chart -->
+          <div class="mb-6">
+            <div class="flex h-8 rounded-lg overflow-hidden">
+              {stages.map((stage) => (
+                <div 
+                  class={`transition-all duration-500`}
+                  style={`width: ${totalPct > 0 ? (parseFloat(stage.pct) / totalPct) * 100 : 0}%; background-color: ${stage.color};`}
+                  title={`${stage.name}: ${stage.hours}h (${stage.pct}%)`}
+                />
+              ))}
+            </div>
+          </div>
+
+          <!-- Legend with details -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {stages.map((stage) => (
+              <div class="flex items-center gap-3">
+                <div class={`w-3 h-3 rounded-full`} style={`background-color: ${stage.color};`}></div>
+                <div>
+                  <div class="text-white font-medium">{stage.name}</div>
+                  <div class="text-neutral-400 text-sm">{stage.hours}h ({stage.pct}%)</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Historical Trend Chart -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">{t.s18}</h2>
+          {sleepScorePoints ? (
+            <div class="overflow-x-auto">
+              <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
+                <!-- Grid -->
+                <line x1={chartPadding} y1={chartHeight - chartPadding} x2={chartWidth - chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
+                
+                <!-- Y-axis labels -->
+                <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
+                
+                <!-- Line -->
+                <polyline
+                  points={sleepScorePoints}
+                  fill="none"
+                  stroke="#3B82F6"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                
+                <!-- Data points -->
+                {TREND_DATA.filter(d => d.sleep_score > 0).map((d, i) => {
+                  const validData = TREND_DATA.filter(d => d.sleep_score > 0);
+                  const x = chartPadding + (i / (validData.length - 1)) * (chartWidth - 2 * chartPadding);
+                  const y = chartHeight - chartPadding - (d.sleep_score / 100) * (chartHeight - 2 * chartPadding);
+                  return (
+                    <circle cx={x} cy={y} r="3" fill="#3B82F6" />
+                  );
+                })}
+              </svg>
+            </div>
+          ) : (
+            <p class="text-neutral-400">{t.s19}</p>
+          )}
+        </div>
+      </div>
+    </section>
+
+    <!-- Recent Sleep Table -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
+          <h2 class="text-xl font-bold text-white mb-6">{t.s20})</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full">
+              <thead>
+                <tr class="text-neutral-400 text-sm border-b border-neutral-800">
+                  <th class="text-left py-2 px-2">{t.s21}</th>
+                  <th class="text-left py-2 px-2">{t.s22}</th>
+                  <th class="text-left py-2 px-2">{t.s23}</th>
+                  <th class="text-left py-2 px-2">HRV</th>
+                  <th class="text-left py-2 px-2">{t.s24}</th>
+                  <th class="text-left py-2 px-2">{t.s25}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {RECENT_SLEEP.map((row) => (
+                  <tr class="border-b border-neutral-800/50">
+                    <td class="py-2 px-2 text-white text-sm">
+                      {new Date(row.date).toLocaleDateString(t.dateLocale, { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </td>
+                    <td class="py-2 px-2">
+                      {row.sleep_score > 0 ? (
+                        <span class={`px-2 py-0.5 rounded text-sm font-medium ${
+                          row.sleep_score >= 67 ? 'text-green-400 bg-green-400/10' : 
+                          row.sleep_score >= 34 ? 'text-yellow-400 bg-yellow-400/10' : 
+                          'text-red-400 bg-red-400/10'
+                        }`}>
+                          {row.sleep_score}
+                        </span>
+                      ) : (
+                        <span class="text-neutral-500 text-sm">-</span>
+                      )}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.sleep_quality_score ? row.sleep_quality_score : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.current_hrv ? `${row.current_hrv} ms` : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.current_heart_rate ? `${row.current_heart_rate} bpm` : '-'}
+                    </td>
+                    <td class="py-2 px-2 text-neutral-300 text-sm">
+                      {row.time_slept_hours ? `${row.time_slept_hours} ${t.hours}` : '-'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto">
+        <div class="bg-gradient-to-r from-purple-900/30 to-blue-900/30 rounded-xl p-8 border border-purple-800/30">
+          <h2 class="text-2xl font-bold text-white mb-4">{t.s26}</h2>
+          <p class="text-neutral-400 mb-6">
+            {t.s27}
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <a href="/whoop/" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors">
+              {t.s28}
+            </a>
+            <a href="/training/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              {t.s29}
+            </a>
+            <a href="/day/" class="px-6 py-3 bg-neutral-800 hover:bg-neutral-700 text-white rounded-lg font-medium transition-colors">
+              {t.s30}
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Last Updated -->
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto">
+        <div class="flex items-center gap-2 text-neutral-500 text-sm">
+          <Clock class="w-4 h-4" />
+          <span>{t.lastSynced} {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : t.na}</span>
+        </div>
+      </div>
+    </section>
+  </div>
+
+</Layout>

@@ -17,8 +17,12 @@ const publicDir = join(root, 'public');
 const outputDir = join(publicDir, '_variants');
 const manifestPath = join(root, '.cache', 'image-variants.json');
 
-const SOURCE_DIRS = ['images/blog', 'images/projects', 'images/gear', 'images/about', 'images/comparison', 'progress'];
+const SOURCE_DIRS = ['images/blog', 'images/projects', 'images/gear', 'images/about', 'images/comparison', 'progress', 'images/podcast'];
 const WIDTHS = [480, 960, 1600];
+// Podcast covers are 1400px squares shown at 176px or less.
+const WIDTHS_BY_DIR = { 'images/podcast': [320, 640] };
+const widthsFor = (publicPath) =>
+  Object.entries(WIDTHS_BY_DIR).find(([dir]) => publicPath.startsWith(`/${dir}/`))?.[1] || WIDTHS;
 const MIN_SOURCE_BYTES = 60 * 1024; // smaller files are already cheap
 const QUALITY = 78;
 
@@ -44,7 +48,7 @@ async function processImage(sourcePath) {
   try {
     const { width: sourceWidth, height: sourceHeight } = await sharp(sourcePath).metadata();
     if (!sourceWidth || !sourceHeight) return;
-    const widths = [...new Set(WIDTHS.map((width) => Math.min(width, sourceWidth)))];
+    const widths = [...new Set(widthsFor(publicPath).map((width) => Math.min(width, sourceWidth)))];
     const variants = [];
     for (const width of widths) {
       const outputPath = join(outputDir, `${base}-${width}.webp`);

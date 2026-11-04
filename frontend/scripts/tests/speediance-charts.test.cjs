@@ -18,7 +18,7 @@ for (const [engineName, engine] of Object.entries({ chromium, webkit })) {
         });
         for (const locale of ['de', 'es', 'pt', 'hi', 'de']) {
           await page.goto(`${base}/${locale}/training/`);
-          await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+          await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
           await page.evaluate(() => {
             window.__chartNavigationSentinel = true;
             window.__menuEvents = [];

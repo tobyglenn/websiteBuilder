@@ -1,0 +1,438 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { HeartPulse, Activity, Gauge, CalendarCheck2, Route, Zap, ArrowDown, ArrowUp, Equal } from 'lucide-react';
+import { FITNESS_AGE_DATA } from '../../data/fitnessAge.js';
+
+// Shared page for every locale; files under src/pages only pick the language.
+type Lang = 'en' | 'de' | 'es' | 'pt' | 'hi';
+interface Props {
+  lang: Lang;
+}
+
+const COPY = {
+  "en": {
+    "s1": "Fitness Age Calculator",
+    "s2": "A fitness age estimate using WHOOP recovery trends and Garmin running volume, weighted across HRV, resting heart rate, consistency, and cardio output.",
+    "s3": "WHOOP Recovery Data",
+    "s4": "Garmin Activity History",
+    "s5": "Fitness Age Calculator | TobyOnFitnessTech",
+    "s6": "See Toby's calculated fitness age using real WHOOP recovery and Garmin running data, including HRV, resting heart rate, consistency, and cardio score.",
+    "s7": "Data-Driven Longevity Metric",
+    "s8": "Fitness Age",
+    "s9": "A blended estimate of biological fitness based on recovery physiology and cardio training load.",
+    "s10": "Calculated Fitness Age",
+    "s11": "Actual age",
+    "s12": "years",
+    "s13": "Composite score",
+    "s14": "Avg HRV",
+    "s15": "Resting HR",
+    "s16": "Recovery Score",
+    "s17": "Weekly Workouts",
+    "s18": "Running Miles",
+    "s19": "wk",
+    "s20": "Cardio Score",
+    "s21": "How It’s Calculated",
+    "s22": "Inputs and windows",
+    "s23": "Weighting model",
+    "s24": "HRV score (30%): higher is better vs age norms",
+    "s25": "Resting HR score (25%): lower is better vs age norms",
+    "s26": "Workout consistency (20%): frequent training boosts score",
+    "s27": "Cardio volume (15%): more running miles improves score",
+    "s28": "WHOOP recovery quality (10%): recovery trend stability",
+    "s29": "Fitness Age vs Actual Age",
+    "s30": "With an actual age in the 40s, current recovery and cardio trends indicate a physiological profile that trends",
+    "s31": "This estimate updates as WHOOP and Garmin data evolve.",
+    "home": "Home",
+    "crumb": "Fitness Age",
+    "whoopWindow": "WHOOP recovery window:",
+    "days": "days",
+    "runningWindow": "Garmin running window:",
+    "consistency": "Workout consistency:",
+    "consistencyTail": "% of days active",
+    "avgPace": "Average pace:",
+    "na": "N/A",
+    "years": "years",
+    "thanChrono": "than chronological age.",
+    "younger": "younger",
+    "older": "older",
+    "same": "same",
+    "step1Name": "Compute baseline recovery metrics",
+    "step1Text": "Calculate average HRV, resting heart rate, and recovery score from WHOOP records.",
+    "step2Name": "Measure training consistency",
+    "step2Text": "Estimate percent of active days from WHOOP workouts over the recent window.",
+    "step3Name": "Evaluate cardiovascular load",
+    "step3Text": "Use Garmin running miles and run frequency to create a cardio score.",
+    "step4Name": "Generate fitness age",
+    "step4Text": "Blend weighted scores and map the result to an age delta against chronological age."
+  },
+  "de": {
+    "s1": "Fitnessalter-Rechner",
+    "s2": "Eine Schätzung des Fitnessalters anhand von WHOOP-Erholungstrends und Garmin-Laufvolumen, gewichtet nach HRV, Ruhepuls, Konstanz und Cardio-Leistung.",
+    "s3": "WHOOP-Erholungsdaten",
+    "s4": "Garmin-Aktivitätsverlauf",
+    "s5": "Fitnessalter-Rechner | TobyOnFitnessTech",
+    "s6": "Sieh dir Tobys berechnetes Fitnessalter anhand echter WHOOP-Erholungs- und Garmin-Laufdaten an, einschließlich HRV, Ruhepuls, Konstanz und Cardio-Score.",
+    "s7": "Datengestützter Langlebigkeitswert",
+    "s8": "Fitnessalter",
+    "s9": "Eine kombinierte Schätzung der biologischen Fitness auf Basis von Erholungsphysiologie und kardiovaskulärer Trainingsbelastung.",
+    "s10": "Berechnetes Fitnessalter",
+    "s11": "Tatsächliches Alter",
+    "s12": "Jahre",
+    "s13": "Kombinierter Score",
+    "s14": "Durchschn. HRV",
+    "s15": "Ruhepuls",
+    "s16": "Erholungswert",
+    "s17": "Wöchentliche Workouts",
+    "s18": "Gelaufene Meilen",
+    "s19": " Wo.",
+    "s20": "Cardio-Score",
+    "s21": "So wird es berechnet",
+    "s22": "Eingaben und Zeitfenster",
+    "s23": "Gewichtungsmodell",
+    "s24": "HRV-Score (30%): höher ist besser im Vergleich zu Altersnormen",
+    "s25": "Ruhepuls-Score (25%): niedriger ist besser im Vergleich zu Altersnormen",
+    "s26": "Workout-Konstanz (20%): häufiges Training steigert den Score",
+    "s27": "Cardio-Volumen (15%): mehr Laufmeilen verbessern den Score",
+    "s28": "WHOOP-Erholungsqualität (10%): Stabilität des Erholungstrends",
+    "s29": "Fitnessalter vs. tatsächliches Alter",
+    "s30": "Bei einem tatsächlichen Alter in den 40ern deuten die aktuellen Erholungs- und Cardio-Trends auf ein physiologisches Profil hin, das",
+    "s31": "Diese Schätzung wird aktualisiert, wenn sich WHOOP- und Garmin-Daten verändern.",
+    "home": "Startseite",
+    "crumb": "Fitnessalter",
+    "whoopWindow": "WHOOP-Erholungsfenster:",
+    "days": "Tage",
+    "runningWindow": "Garmin-Lauffenster:",
+    "consistency": "Workout-Konstanz:",
+    "consistencyTail": "% der Tage aktiv",
+    "avgPace": "Durchschnittstempo:",
+    "na": "k. A.",
+    "years": "Jahre",
+    "thanChrono": "ist als das chronologische Alter.",
+    "younger": "jünger",
+    "older": "älter",
+    "same": "gleich",
+    "step1Name": "Basis-Erholungsmetriken berechnen",
+    "step1Text": "Berechne durchschnittliche HRV, Ruhepuls und Erholungswert aus WHOOP-Datensätzen.",
+    "step2Name": "Trainingskonstanz messen",
+    "step2Text": "Schätze den Prozentsatz aktiver Tage anhand der WHOOP-Workouts im jüngsten Zeitraum.",
+    "step3Name": "Kardiovaskuläre Belastung bewerten",
+    "step3Text": "Nutze Garmin-Laufkilometer und Laufhäufigkeit, um einen Cardio-Score zu erstellen.",
+    "step4Name": "Fitnessalter erzeugen",
+    "step4Text": "Kombiniere gewichtete Scores und ordne das Ergebnis einer Altersdifferenz im Vergleich zum chronologischen Alter zu."
+  },
+  "es": {
+    "s1": "Calculadora de edad fitness",
+    "s2": "Una estimación de la edad fitness usando tendencias de recuperación de WHOOP y volumen de carrera de Garmin, ponderada por HRV, frecuencia cardíaca en reposo, consistencia y rendimiento cardiovascular.",
+    "s3": "Datos de recuperación de WHOOP",
+    "s4": "Historial de actividad de Garmin",
+    "s5": "Calculadora de edad fitness | TobyOnFitnessTech",
+    "s6": "Mira la edad fitness calculada de Toby usando datos reales de recuperación de WHOOP y carrera de Garmin, incluyendo HRV, frecuencia cardíaca en reposo, consistencia y puntuación de cardio.",
+    "s7": "Métrica de longevidad basada en datos",
+    "s8": "Edad fitness",
+    "s9": "Una estimación combinada de la condición biológica basada en la fisiología de recuperación y la carga de entrenamiento cardiovascular.",
+    "s10": "Edad fitness calculada",
+    "s11": "Edad real",
+    "s12": "años",
+    "s13": "Puntuación compuesta",
+    "s14": "HRV prom.",
+    "s15": "FC en reposo",
+    "s16": "Puntuación de recuperación",
+    "s17": "Entrenamientos semanales",
+    "s18": "Millas corridas",
+    "s19": " sem",
+    "s20": "Puntuación de cardio",
+    "s21": "Cómo se calcula",
+    "s22": "Entradas y ventanas",
+    "s23": "Modelo de ponderación",
+    "s24": "Puntuación de HRV (30%): cuanto más alta, mejor frente a las normas por edad",
+    "s25": "Puntuación de FC en reposo (25%): cuanto más baja, mejor frente a las normas por edad",
+    "s26": "Consistencia de entrenamiento (20%): entrenar con frecuencia mejora la puntuación",
+    "s27": "Volumen de cardio (15%): más millas corriendo mejoran la puntuación",
+    "s28": "Calidad de recuperación WHOOP (10%): estabilidad de la tendencia de recuperación",
+    "s29": "Edad fitness vs. edad real",
+    "s30": "Con una edad real en los 40, las tendencias actuales de recuperación y cardio indican un perfil fisiológico que es",
+    "s31": "Esta estimación se actualiza a medida que evolucionan los datos de WHOOP y Garmin.",
+    "home": "Inicio",
+    "crumb": "Edad fitness",
+    "whoopWindow": "Ventana de recuperación WHOOP:",
+    "days": "días",
+    "runningWindow": "Ventana de carrera Garmin:",
+    "consistency": "Consistencia de entrenamiento:",
+    "consistencyTail": "% de días activos",
+    "avgPace": "Ritmo promedio:",
+    "na": "N/D",
+    "years": "años",
+    "thanChrono": "que la edad cronológica.",
+    "younger": "más joven",
+    "older": "mayor",
+    "same": "igual",
+    "step1Name": "Calcular métricas base de recuperación",
+    "step1Text": "Calcula el HRV promedio, la frecuencia cardíaca en reposo y la puntuación de recuperación a partir de los registros de WHOOP.",
+    "step2Name": "Medir la consistencia del entrenamiento",
+    "step2Text": "Estima el porcentaje de días activos a partir de los entrenamientos de WHOOP en la ventana reciente.",
+    "step3Name": "Evaluar la carga cardiovascular",
+    "step3Text": "Usa las millas corridas en Garmin y la frecuencia de carrera para crear una puntuación de cardio.",
+    "step4Name": "Generar la edad fitness",
+    "step4Text": "Combina puntuaciones ponderadas y asigna el resultado a una diferencia de edad frente a la edad cronológica."
+  },
+  "pt": {
+    "s1": "Calculadora de idade fitness",
+    "s2": "Uma estimativa de idade fitness usando tendências de recuperação do WHOOP e volume de corrida do Garmin, ponderada por HRV, frequência cardíaca em repouso, consistência e desempenho cardiovascular.",
+    "s3": "Dados de recuperação do WHOOP",
+    "s4": "Histórico de atividades do Garmin",
+    "s5": "Calculadora de idade fitness | TobyOnFitnessTech",
+    "s6": "Veja a idade fitness calculada do Toby usando dados reais de recuperação do WHOOP e corrida do Garmin, incluindo HRV, frequência cardíaca em repouso, consistência e pontuação de cardio.",
+    "s7": "Métrica de longevidade orientada por dados",
+    "s8": "Idade fitness",
+    "s9": "Uma estimativa combinada da condição biológica com base na fisiologia de recuperação e na carga de treino cardiovascular.",
+    "s10": "Idade fitness calculada",
+    "s11": "Idade real",
+    "s12": "anos",
+    "s13": "Pontuação composta",
+    "s14": "HRV média",
+    "s15": "FC em repouso",
+    "s16": "Pontuação de recuperação",
+    "s17": "Treinos semanais",
+    "s18": "Milhas corridas",
+    "s19": " sem",
+    "s20": "Pontuação de cardio",
+    "s21": "Como é calculada",
+    "s22": "Entradas e janelas",
+    "s23": "Modelo de ponderação",
+    "s24": "Pontuação de HRV (30%): quanto maior, melhor em relação às normas por idade",
+    "s25": "Pontuação de FC em repouso (25%): quanto menor, melhor em relação às normas por idade",
+    "s26": "Consistência de treino (20%): treinar com frequência aumenta a pontuação",
+    "s27": "Volume de cardio (15%): mais milhas de corrida melhoram a pontuação",
+    "s28": "Qualidade de recuperação do WHOOP (10%): estabilidade da tendência de recuperação",
+    "s29": "Idade fitness vs. idade real",
+    "s30": "Com uma idade real na faixa dos 40 anos, as tendências atuais de recuperação e cardio indicam um perfil fisiológico que está",
+    "s31": "Essa estimativa é atualizada conforme os dados do WHOOP e do Garmin evoluem.",
+    "home": "Início",
+    "crumb": "Idade fitness",
+    "whoopWindow": "Janela de recuperação do WHOOP:",
+    "days": "dias",
+    "runningWindow": "Janela de corrida do Garmin:",
+    "consistency": "Consistência de treino:",
+    "consistencyTail": "% dos dias ativos",
+    "avgPace": "Ritmo médio:",
+    "na": "N/D",
+    "years": "anos",
+    "thanChrono": "do que a idade cronológica.",
+    "younger": "mais jovem",
+    "older": "mais velho",
+    "same": "igual",
+    "step1Name": "Calcular métricas básicas de recuperação",
+    "step1Text": "Calcule a HRV média, a frequência cardíaca em repouso e a pontuação de recuperação a partir dos registros do WHOOP.",
+    "step2Name": "Medir a consistência do treino",
+    "step2Text": "Estime a porcentagem de dias ativos a partir dos treinos do WHOOP na janela recente.",
+    "step3Name": "Avaliar a carga cardiovascular",
+    "step3Text": "Use as milhas de corrida do Garmin e a frequência de corrida para criar uma pontuação de cardio.",
+    "step4Name": "Gerar a idade fitness",
+    "step4Text": "Combine pontuações ponderadas e converta o resultado em uma diferença de idade em relação à idade cronológica."
+  },
+  "hi": {
+    "s1": "फ़िटनेस आयु कैलकुलेटर",
+    "s2": "WHOOP रिकवरी ट्रेंड्स और Garmin रनिंग वॉल्यूम का उपयोग करके फ़िटनेस आयु का एक अनुमान, जिसमें HRV, आराम की हृदय गति, निरंतरता और कार्डियो आउटपुट को वेट किया गया है।",
+    "s3": "WHOOP रिकवरी डेटा",
+    "s4": "Garmin गतिविधि इतिहास",
+    "s5": "फ़िटनेस आयु कैलकुलेटर | TobyOnFitnessTech",
+    "s6": "WHOOP रिकवरी और Garmin रनिंग के वास्तविक डेटा का उपयोग करके Toby की गणना की गई फ़िटनेस आयु देखें, जिसमें HRV, आराम की हृदय गति, निरंतरता और कार्डियो स्कोर शामिल हैं।",
+    "s7": "डेटा-आधारित दीर्घायु मेट्रिक",
+    "s8": "फ़िटनेस आयु",
+    "s9": "रिकवरी फिज़ियोलॉजी और कार्डियो ट्रेनिंग लोड पर आधारित जैविक फिटनेस का एक संयुक्त अनुमान।",
+    "s10": "गणना की गई फ़िटनेस आयु",
+    "s11": "वास्तविक आयु",
+    "s12": "वर्ष",
+    "s13": "संयुक्त स्कोर",
+    "s14": "औसत HRV",
+    "s15": "आराम की HR",
+    "s16": "रिकवरी स्कोर",
+    "s17": "साप्ताहिक वर्कआउट्स",
+    "s18": "दौड़ी गई माइल्स",
+    "s19": " सप्ताह",
+    "s20": "कार्डियो स्कोर",
+    "s21": "यह कैसे गणना की जाती है",
+    "s22": "इनपुट और विंडो",
+    "s23": "वेटिंग मॉडल",
+    "s24": "HRV स्कोर (30%): आयु मानकों की तुलना में जितना अधिक, उतना बेहतर",
+    "s25": "आराम की HR स्कोर (25%): आयु मानकों की तुलना में जितना कम, उतना बेहतर",
+    "s26": "वर्कआउट निरंतरता (20%): नियमित ट्रेनिंग स्कोर बढ़ाती है",
+    "s27": "कार्डियो वॉल्यूम (15%): अधिक रनिंग माइल्स स्कोर बेहतर बनाती हैं",
+    "s28": "WHOOP रिकवरी गुणवत्ता (10%): रिकवरी ट्रेंड की स्थिरता",
+    "s29": "फ़िटनेस आयु बनाम वास्तविक आयु",
+    "s30": "वास्तविक आयु 40s में होने पर, मौजूदा रिकवरी और कार्डियो ट्रेंड्स एक ऐसे शारीरिक प्रोफ़ाइल की ओर इशारा करते हैं जो",
+    "s31": "WHOOP और Garmin डेटा बदलने के साथ यह अनुमान भी अपडेट होता रहता है।",
+    "home": "होम",
+    "crumb": "फ़िटनेस आयु",
+    "whoopWindow": "WHOOP रिकवरी विंडो:",
+    "days": "दिन",
+    "runningWindow": "Garmin रनिंग विंडो:",
+    "consistency": "वर्कआउट निरंतरता:",
+    "consistencyTail": "% दिन सक्रिय",
+    "avgPace": "औसत पेस:",
+    "na": "उपलब्ध नहीं",
+    "years": "वर्ष",
+    "thanChrono": "है वास्तविक कालानुक्रमिक आयु की तुलना में।",
+    "younger": "कम",
+    "older": "ज़्यादा",
+    "same": "बराबर",
+    "step1Name": "बेसलाइन रिकवरी मेट्रिक्स की गणना करें",
+    "step1Text": "WHOOP रिकॉर्ड्स से औसत HRV, आराम की हृदय गति और रिकवरी स्कोर निकालें।",
+    "step2Name": "ट्रेनिंग निरंतरता मापें",
+    "step2Text": "हालिया अवधि में WHOOP वर्कआउट्स के आधार पर सक्रिय दिनों का प्रतिशत अनुमानित करें।",
+    "step3Name": "हृदय-स्वास्थ्य लोड का मूल्यांकन करें",
+    "step3Text": "Garmin की रनिंग माइल्स और रन फ़्रीक्वेंसी का उपयोग करके कार्डियो स्कोर बनाएं।",
+    "step4Name": "फ़िटनेस आयु तैयार करें",
+    "step4Text": "वेटेड स्कोर को मिलाकर परिणाम को वास्तविक आयु के मुकाबले आयु-अंतर में मैप करें।"
+  }
+} as const;
+
+const { lang } = Astro.props;
+const t = COPY[lang];
+const prefix = lang === 'en' ? '' : `/${lang}`;
+
+
+const {
+  fitnessAge,
+  actualAge,
+  ageDelta,
+  avgHRV,
+  avgRHR,
+  avgRecovery,
+  weeklyWorkouts,
+  runningMiles,
+  cardioScore,
+  workoutConsistency,
+  compositeScore,
+  avgPaceMinPerMile,
+  dataWindows,
+} = FITNESS_AGE_DATA;
+
+const deltaLabel = ageDelta > 0 ? t.younger : ageDelta < 0 ? t.older : t.same;
+const deltaAbs = Math.abs(ageDelta);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HowTo',
+  name: t.s1,
+  description:
+    t.s2,
+  totalTime: 'P1D',
+  tool: [
+    { '@type': 'HowToTool', name: t.s3 },
+    { '@type': 'HowToTool', name: t.s4 },
+  ],
+  step: [
+    { '@type': 'HowToStep', name: t.step1Name, text: t.step1Text },
+    { '@type': 'HowToStep', name: t.step2Name, text: t.step2Text },
+    { '@type': 'HowToStep', name: t.step3Name, text: t.step3Text },
+    { '@type': 'HowToStep', name: t.step4Name, text: t.step4Text },
+  ],
+};
+---
+
+<Layout
+  title={t.s5}
+  description={t.s6}
+  breadcrumbs={[{ name: t.home, url: `${prefix}/` }, { name: t.crumb, url: `${prefix}/fitness-age` }]}
+  jsonLd={jsonLd}
+>
+
+  <div class="bg-neutral-950 min-h-screen text-white pb-20">
+    <section data-page-intro class="pt-6 pb-6 px-4">
+      <div class="max-w-6xl mx-auto">
+        <span class="inline-flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-blue-500/20 text-blue-400 mb-4">
+          <Gauge class="w-4 h-4" />
+          {t.s7}
+        </span>
+        <h1 data-page-title class="text-4xl md:text-5xl font-bold mb-3">{t.s8}</h1>
+        <p class="text-neutral-400 text-lg max-w-2xl">
+          {t.s9}
+        </p>
+
+        <div class="mt-8 bg-neutral-900 border border-neutral-800 rounded-2xl p-8 flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+          <div>
+            <p class="text-neutral-400 text-sm uppercase tracking-wide">{t.s10}</p>
+            <p class="text-6xl font-extrabold text-blue-400 leading-none mt-2">{fitnessAge}</p>
+          </div>
+          <div class="text-neutral-300">
+            <p class="text-sm">{t.s11}: <span class="text-white font-semibold">{actualAge}</span></p>
+            <p class="mt-1 text-lg font-semibold flex items-center gap-2">
+              {ageDelta > 0 ? <ArrowDown class="w-5 h-5 text-green-400" /> : ageDelta < 0 ? <ArrowUp class="w-5 h-5 text-yellow-400" /> : <Equal class="w-5 h-5 text-blue-400" />}
+              {deltaAbs} {t.s12} {deltaLabel}
+            </p>
+            <p class="text-neutral-500 text-sm mt-1">{t.s13}: {compositeScore}/100</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><HeartPulse class="w-4 h-4" /> {t.s14}</p>
+          <p class="text-3xl font-bold mt-2">{avgHRV}<span class="text-neutral-500 text-lg"> ms</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Activity class="w-4 h-4" /> {t.s15}</p>
+          <p class="text-3xl font-bold mt-2">{avgRHR}<span class="text-neutral-500 text-lg"> bpm</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Zap class="w-4 h-4" /> {t.s16}</p>
+          <p class="text-3xl font-bold mt-2">{avgRecovery}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><CalendarCheck2 class="w-4 h-4" /> {t.s17}</p>
+          <p class="text-3xl font-bold mt-2">{weeklyWorkouts}</p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Route class="w-4 h-4" /> {t.s18}</p>
+          <p class="text-3xl font-bold mt-2">{runningMiles}<span class="text-neutral-500 text-lg"> /12{t.s19}</span></p>
+        </div>
+        <div class="bg-neutral-900 border border-neutral-800 rounded-xl p-5">
+          <p class="text-neutral-400 text-sm flex items-center gap-2"><Gauge class="w-4 h-4" /> {t.s20}</p>
+          <p class="text-3xl font-bold mt-2 text-blue-400">{cardioScore}<span class="text-neutral-500 text-lg"> /100</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-10">
+      <div class="max-w-6xl mx-auto bg-neutral-900 border border-neutral-800 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">{t.s21}</h2>
+        <div class="grid md:grid-cols-2 gap-6 text-neutral-300">
+          <div>
+            <p class="font-semibold text-white mb-2">{t.s22}</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>{t.whoopWindow} {dataWindows.whoopDays} {t.days}</li>
+              <li>{t.runningWindow} {dataWindows.runningDays} {t.days}</li>
+              <li>{t.consistency} {workoutConsistency}{t.consistencyTail}</li>
+              <li>{t.avgPace} {avgPaceMinPerMile > 0 ? `${avgPaceMinPerMile} min/mi` : t.na}</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold text-white mb-2">{t.s23}</p>
+            <ul class="space-y-2 list-disc list-inside">
+              <li>{t.s24}</li>
+              <li>{t.s25}</li>
+              <li>{t.s26}</li>
+              <li>{t.s27}</li>
+              <li>{t.s28}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="px-4 pb-20">
+      <div class="max-w-6xl mx-auto bg-gradient-to-r from-blue-900/25 to-sky-900/20 border border-blue-800/30 rounded-2xl p-8">
+        <h2 class="text-2xl font-bold mb-3">{t.s29}</h2>
+        <p class="text-neutral-300 max-w-3xl">
+          {t.s30}
+          <span class="text-blue-400 font-semibold"> {deltaAbs} {t.years} {deltaLabel}</span> {t.thanChrono}{' '}
+          {t.s31}
+        </p>
+      </div>
+    </section>
+  </div>
+
+</Layout>

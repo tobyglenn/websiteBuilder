@@ -1,4 +1,5 @@
 ---
+import CalendarHeatmap from '../../components/CalendarHeatmap.astro';
 import Layout from '../../layouts/Layout.astro';
 import { getRunningData } from '../../data/running.js';
 
@@ -79,6 +80,8 @@ while (cur <= endDate) {
 
 const heatW = weeks.length * step;
 const heatH = 7 * step;
+
+const HEAT_COLORS = ['#1a1a2e', '#1e3a5f', '#1d4ed8', '#2563eb', '#3b82f6', '#60a5fa'];
 
 function heatColor(mi) {
   if (mi === 0) return '#1a1a2e';
@@ -275,52 +278,14 @@ weeks.forEach((week, wi) => {
         <p class="text-neutral-500 text-sm mb-8">Ein Jahr Läufe · dunkler = weiter</p>
 
         <div class="bg-neutral-900 border border-neutral-800 rounded-2xl p-6 overflow-x-auto">
-          <svg
-            width={heatW + 30}
-            height={heatH + 26}
-            viewBox={`0 0 ${heatW + 30} ${heatH + 26}`}
-            aria-label="Heatmap der Laufaktivität"
-          >
-            {/* Day of week labels */}
-            {['', 'M', '', 'M', '', 'F', ''].map((label, di) => (
-              <text
-                key={di}
-                x={2}
-                y={di * step + step / 2 + 20 + 4}
-                fill="#525252"
-                font-size="9"
-                dominant-baseline="middle"
-              >
-                {label}
-              </text>
-            ))}
-
-            {/* Month labels */}
-            {monthLabels.map(({ x, label }) => (
-              <text key={label + x} x={x + 20} y={10} fill="#737373" font-size="9">
-                {label}
-              </text>
-            ))}
-
-            {/* Cells */}
-            <g transform="translate(20, 18)">
-              {weeks.map((week, wi) =>
-                week.map((day) => (
-                  <rect
-                    key={day.date}
-                    x={wi * step}
-                    y={day.dow * step}
-                    width={cellSize}
-                    height={cellSize}
-                    rx="2"
-                    fill={heatColor(day.mi)}
-                  >
-                    <title>{day.date}: {day.mi > 0 ? `${day.mi}mi` : 'Ruhetag'}</title>
-                  </rect>
-                ))
-              )}
-            </g>
-          </svg>
+          <CalendarHeatmap
+            days={weeks.flat().map((day) => ({ date: day.date, level: HEAT_COLORS.indexOf(heatColor(day.mi)), value: day.mi > 0 ? `${day.mi}mi` : '' }))}
+            colors={HEAT_COLORS}
+            ariaLabel="Heatmap der Laufaktivität"
+            emptyLabel="Ruhetag"
+            monthLabels={monthLabels.map(({ x, label }) => ({ week: x / step, label }))}
+            dayLabels={['', 'M', '', 'W', '', 'F', '']}
+          />
 
           {/* Heatmap legend */}
           <div class="flex items-center gap-1.5 mt-3 text-xs text-neutral-600">

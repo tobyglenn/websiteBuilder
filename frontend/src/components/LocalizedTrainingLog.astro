@@ -1,6 +1,6 @@
 ---
+import CalendarHeatmap from './CalendarHeatmap.astro';
 import Layout from '../layouts/Layout.astro';
-import Header from './Header.jsx';
 import { getHeatmapData } from '../lib/trainingHeatmap.js';
 
 interface Props {
@@ -17,6 +17,7 @@ const translations = {
     consistency: 'Konsistenz',
     intro: 'Deine Heatmap der Trainingshäufigkeit. Jedes blaue Quadrat ist ein Tag, an dem du trainiert hast.',
     currentStreak: 'Aktuelle Serie',
+    lastWorkout: 'Letztes Training',
     longestStreak: 'Längste Serie',
     totalDays: 'Trainingstage insgesamt',
     thisYear: 'Dieses Jahr',
@@ -37,6 +38,7 @@ const translations = {
     consistency: 'Constante',
     intro: 'Tu mapa de frecuencia de entrenamiento. Cada cuadro azul representa un día en el que entrenaste.',
     currentStreak: 'Racha actual',
+    lastWorkout: 'Último entrenamiento',
     longestStreak: 'Racha más larga',
     totalDays: 'Días de entrenamiento',
     thisYear: 'Este año',
@@ -57,6 +59,7 @@ const translations = {
     consistency: 'Consistente',
     intro: 'Seu mapa de frequência de treinos. Cada quadrado azul representa um dia em que você treinou.',
     currentStreak: 'Sequência atual',
+    lastWorkout: 'Último treino',
     longestStreak: 'Maior sequência',
     totalDays: 'Dias de treino',
     thisYear: 'Este ano',
@@ -77,6 +80,7 @@ const translations = {
     consistency: 'निरंतरता',
     intro: 'यह आपकी कसरत की आवृत्ति का हीटमैप है। हर नीला वर्ग उस दिन को दिखाता है जब आपने ट्रेनिंग की।',
     currentStreak: 'मौजूदा स्ट्रीक',
+    lastWorkout: 'आख़िरी वर्कआउट',
     longestStreak: 'सबसे लंबी स्ट्रीक',
     totalDays: 'कुल ट्रेनिंग दिन',
     thisYear: 'इस वर्ष',
@@ -94,16 +98,20 @@ const translations = {
 
 const copy = translations[locale];
 const { heatmapData, stats, monthlyData } = getHeatmapData();
+// A zero streak usually means the data hasn't synced today; show the last workout instead.
+const DATE_LOCALES = { de: 'de-DE', es: 'es-ES', pt: 'pt-BR', hi: 'hi-IN' };
 const CELL_SIZE = 12;
 const GAP = 3;
-const weeks = Math.ceil(heatmapData.length / 7);
+// Monday-first rows: blank cells before the first day keep columns as calendar weeks.
+const leadingBlanks = heatmapData[0]?.dow || 0;
+const weeks = Math.ceil((heatmapData.length + leadingBlanks) / 7);
 
 const monthStarts = [];
 let lastMonth = '';
 heatmapData.forEach((day, index) => {
   const month = day.date.slice(0, 7);
   if (month !== lastMonth && day.dow === 0) {
-    monthStarts.push({ label: month, x: Math.floor(index / 7) * (CELL_SIZE + GAP) });
+    monthStarts.push({ label: month, x: Math.floor((index + leadingBlanks) / 7) * (CELL_SIZE + GAP) });
     lastMonth = month;
   }
 });
@@ -122,9 +130,8 @@ const formattedMonthly = monthlyData.map(month => ({
   lang={locale}
   translationBase="/training-log/"
 >
-  <Header client:load currentPath={`/${locale}/training-log`} />
 
-  <main class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
+  <div class="mx-auto max-w-6xl px-4 py-6 sm:px-6 lg:px-8">
     <div data-page-intro class="mb-4 text-center">
       <h1 data-page-title class="mb-4 text-4xl font-black tracking-tight">
         {copy.training} <span class="text-blue-500">{copy.consistency}</span>
@@ -134,7 +141,9 @@ const formattedMonthly = monthlyData.map(month => ({
 
     <div class="mb-12 grid grid-cols-2 gap-4 md:grid-cols-4">
       {[
-        [stats.currentStreak, copy.currentStreak],
+        stats.currentStreak > 0 || !stats.lastWorkout
+          ? [stats.currentStreak, copy.currentStreak]
+          : [new Date(`${stats.lastWorkout}T12:00:00Z`).toLocaleDateString(DATE_LOCALES[locale], { month: 'short', day: 'numeric', timeZone: 'UTC' }), copy.lastWorkout],
         [stats.longestStreak, copy.longestStreak],
         [stats.totalDays, copy.totalDays],
         [stats.thisYear, copy.thisYear],
@@ -149,21 +158,14 @@ const formattedMonthly = monthlyData.map(month => ({
     <section class="mb-12 rounded-lg border border-neutral-800 bg-neutral-900 p-6">
       <h2 class="mb-6 text-lg font-bold">{copy.frequency}</h2>
       <div class="overflow-x-auto">
-        <div
-          class="inline-grid"
-          style={`gap: ${GAP}px; grid-template-columns: repeat(${weeks}, ${CELL_SIZE}px); grid-template-rows: repeat(7, ${CELL_SIZE}px);`}
-        >
-          {heatmapData.map((day, index) => {
-            const col = Math.floor(index / 7);
-            return (
-              <div
-                class={`rounded-sm transition-all hover:ring-2 hover:ring-blue-400/50 ${day.count > 0 ? 'bg-blue-500' : 'bg-neutral-800'}`}
-                style={`width: ${CELL_SIZE}px; height: ${CELL_SIZE}px; grid-column: ${col + 1}; grid-row: ${day.dow + 1};`}
-                title={`${day.date}: ${day.count > 0 ? copy.workout : copy.rest}`}
-              />
-            );
-          })}
-        </div>
+        <CalendarHeatmap
+          days={heatmapData.map((day) => ({ date: day.date, level: day.count > 0 ? 1 : 0, value: day.count > 0 ? copy.workout : '' }))}
+          colors={['var(--color-neutral-800)', 'var(--color-blue-500)']}
+          ariaLabel={copy.frequency}
+          emptyLabel={copy.rest}
+          gap={GAP}
+          leadingBlanks={leadingBlanks}
+        />
       <div class="relative mt-4 h-5 text-xs text-neutral-500" style={`width: ${weeks * (CELL_SIZE + GAP) - GAP}px;`}>
         {monthStarts.map(month => (
           <span class="absolute whitespace-nowrap" style={`left: ${month.x}px;`}>
@@ -198,5 +200,5 @@ const formattedMonthly = monthlyData.map(month => ({
     </section>
 
     <p class="mt-8 text-center text-sm text-neutral-600">{copy.source}</p>
-  </main>
+  </div>
 </Layout>

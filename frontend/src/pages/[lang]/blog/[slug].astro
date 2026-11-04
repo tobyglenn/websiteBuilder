@@ -1,4 +1,5 @@
 ---
+import PagefindMeta from '../../../components/PagefindMeta.astro';
 import { imageVariants } from '../../../lib/imageVariants.mjs';
 import { usesBjjHomeTrainingImage } from '../../../lib/bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage } from '../../../lib/wildRacingAiBlogPresentation.mjs';
@@ -233,6 +234,7 @@ const blogSchema = {
   ]}
 >
   <article class="min-h-screen bg-neutral-950 pb-24" data-pagefind-body>
+    <PagefindMeta type="article" date={post.published_at} category={post.category} />
     <header data-page-intro class="border-b border-neutral-800 bg-neutral-900 pb-6 pt-6 md:pt-8">
       <div class="container mx-auto max-w-4xl px-4">
         <a

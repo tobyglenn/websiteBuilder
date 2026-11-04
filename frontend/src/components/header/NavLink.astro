@@ -1,0 +1,40 @@
+---
+import { NAVIGATION_SCHEMA_VERSION, isActiveHref } from '../../lib/navigation.js';
+
+interface Props {
+  item: { name: string; href: string; icon?: any; navigationTestId?: string; navigationTestVariant?: string };
+  pathname: string;
+  surface?: string;
+  group?: string;
+  position?: number;
+}
+
+const { item, pathname, surface = 'desktop', group = 'primary', position = 0 } = Astro.props;
+const active = isActiveHref(pathname, item.href);
+const Icon = item.icon;
+---
+
+<a
+  href={item.href}
+  data-nav-close
+  data-analytics-event="navigation_click"
+  data-analytics-content-type="navigation"
+  data-analytics-content-slug={item.href}
+  data-analytics-content-title={item.name}
+  data-navigation-item="true"
+  data-navigation-surface={surface}
+  data-navigation-group={group}
+  data-navigation-label={item.name}
+  data-navigation-position={position}
+  data-navigation-current={active ? 'true' : 'false'}
+  data-navigation-version={NAVIGATION_SCHEMA_VERSION}
+  data-navigation-test-id={item.navigationTestId || ''}
+  data-navigation-test-variant={item.navigationTestVariant || ''}
+  class:list={[
+    'flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+    active ? 'bg-neutral-800 text-white' : 'text-neutral-300 hover:bg-neutral-900 hover:text-white',
+  ]}
+>
+  {Icon && <Icon size={16} aria-hidden="true" />}
+  <span>{item.name}</span>
+</a>

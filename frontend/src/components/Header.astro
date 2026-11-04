@@ -1,0 +1,164 @@
+---
+// Site header. Static HTML plus a small script (src/scripts/header.js); no React
+// on the client. Menus, theme, language and search behaviour live in the script.
+import { ChevronDown, Globe, Menu, Moon, Search, Sun, X } from 'lucide-react';
+import NavLink from './header/NavLink.astro';
+import {
+  LOCALE_LABELS,
+  NAVIGATION_SCHEMA_VERSION,
+  NAVIGATION_TEST_ID,
+  NAVIGATION_TEST_VARIANT,
+  SUPPORTED_LOCALES,
+  localizedHref,
+  navigationFor,
+} from '../lib/navigation.js';
+
+const pathname = Astro.url.pathname;
+const { locale, t, reviewItems, trainingItems, projectItems, primaryItems } = navigationFor(pathname);
+const menus = [
+  { name: 'reviews', label: t.reviews, items: reviewItems },
+  { name: 'training', label: t.training, items: trainingItems },
+  { name: 'projects', label: t.podcasts, items: projectItems },
+];
+const brandAttrs = {
+  'data-analytics-event': 'navigation_click',
+  'data-analytics-content-type': 'navigation',
+  'data-analytics-content-slug': '/',
+  'data-analytics-content-title': 'brand',
+  'data-navigation-item': 'true',
+  'data-navigation-group': 'brand',
+  'data-navigation-label': 'TobyOnFitnessTech',
+  'data-navigation-position': '1',
+  'data-navigation-current': pathname === '/' ? 'true' : 'false',
+  'data-navigation-version': NAVIGATION_SCHEMA_VERSION,
+};
+const menuButtonClass = 'group flex items-center gap-1 rounded-md px-2 py-2 text-sm font-medium text-neutral-300 transition-colors hover:bg-neutral-900 hover:text-white';
+const iconButtonClass = 'inline-flex h-9 w-9 items-center justify-center rounded-md border border-neutral-800 bg-neutral-900 text-neutral-300 hover:text-white transition-colors';
+---
+
+<header
+  data-site-header
+  data-locale={locale}
+  data-navigation-version={NAVIGATION_SCHEMA_VERSION}
+  data-navigation-test-id={NAVIGATION_TEST_ID}
+  data-navigation-test-variant={NAVIGATION_TEST_VARIANT}
+  data-primary-count={primaryItems.length}
+  class="fixed inset-x-0 top-0 z-50 border-b transition-colors border-transparent bg-neutral-950/75 backdrop-blur-sm"
+>
+  <div class="container mx-auto flex h-16 items-center justify-between px-4">
+    <a href={localizedHref(locale, '/')} class="shrink-0 text-lg font-bold text-white transition-colors hover:text-blue-400" data-navigation-surface="global" {...brandAttrs}>
+      TobyOnFitnessTech
+    </a>
+
+    <nav class="mx-4 hidden min-w-0 items-center gap-1 xl:flex" aria-label="Primary navigation">
+      {[menus[0], menus[1]].map((menu) => (
+        <div class="relative" data-desktop-menu={menu.name} data-item-count={menu.items.length}>
+          <button type="button" class={menuButtonClass} aria-expanded="false" data-desktop-menu-button>
+            {menu.label}
+            <ChevronDown size={14} class="transition-transform group-aria-expanded:rotate-180" />
+          </button>
+          <div class="absolute left-1/2 top-full z-[200] w-72 -translate-x-1/2 pt-2" data-desktop-menu-panel hidden>
+            <div class="grid gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
+              {menu.items.map((item, index) => <NavLink item={item} pathname={pathname} group={menu.name} position={index + 1} />)}
+            </div>
+          </div>
+        </div>
+      ))}
+      <NavLink item={primaryItems[0]} pathname={pathname} position={3} />
+      <NavLink item={primaryItems[1]} pathname={pathname} position={4} />
+      <div class="relative" data-desktop-menu={menus[2].name} data-item-count={menus[2].items.length}>
+        <button type="button" class={menuButtonClass} aria-expanded="false" data-desktop-menu-button>
+          {menus[2].label}
+          <ChevronDown size={14} class="transition-transform group-aria-expanded:rotate-180" />
+        </button>
+        <div class="absolute left-1/2 top-full z-[200] w-72 -translate-x-1/2 pt-2" data-desktop-menu-panel hidden>
+          <div class="grid gap-1 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50">
+            {menus[2].items.map((item, index) => <NavLink item={item} pathname={pathname} group={menus[2].name} position={index + 1} />)}
+          </div>
+        </div>
+      </div>
+      <NavLink item={primaryItems[2]} pathname={pathname} position={6} />
+      <NavLink item={primaryItems[3]} pathname={pathname} position={7} />
+    </nav>
+
+    <div class="hidden items-center gap-2 xl:flex">
+      <button type="button" class={iconButtonClass} data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode">
+        <Sun size={17} class="theme-icon-sun" />
+        <Moon size={17} class="theme-icon-moon" />
+      </button>
+      <div class="relative" data-language-menu>
+        <button type="button" class={iconButtonClass} aria-label="Choose language" title="Choose language" aria-expanded="false" data-language-button>
+          <Globe size={17} />
+        </button>
+        <div class="absolute right-0 mt-2 w-44 rounded-lg border border-neutral-800 bg-neutral-950 p-2 shadow-2xl shadow-black/50" data-language-panel hidden>
+          {SUPPORTED_LOCALES.map((code) => (
+            <button
+              type="button"
+              data-language-choice={code}
+              class:list={['w-full rounded-md px-3 py-2 text-left text-sm', locale === code ? 'bg-blue-600 text-white' : 'text-neutral-300 hover:bg-neutral-900 hover:text-white']}
+            >
+              {LOCALE_LABELS[code]}
+            </button>
+          ))}
+        </div>
+      </div>
+      <button type="button" data-search-open class="flex items-center gap-2 rounded-md border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-400 transition-colors hover:border-neutral-600 hover:text-white" aria-label="Open search">
+        <Search size={14} />
+        <span class="hidden lg:inline">Search</span>
+      </button>
+    </div>
+
+    <div class="flex items-center gap-1 xl:hidden">
+      <button type="button" class="inline-flex h-9 w-9 items-center justify-center rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" data-theme-toggle aria-label="Switch to light mode" title="Switch to light mode">
+        <Sun size={17} class="theme-icon-sun" />
+        <Moon size={17} class="theme-icon-moon" />
+      </button>
+      <button type="button" class="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" aria-label="Open navigation" aria-expanded="false" data-mobile-menu-open>
+        <Menu size={24} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="fixed inset-0 z-[100] overflow-y-auto bg-neutral-950 xl:hidden" data-mobile-menu hidden>
+  <div class="mx-auto flex min-h-full max-w-3xl flex-col px-5 pb-8 pt-5">
+    <div class="mb-6 flex items-center justify-between">
+      <a href={localizedHref(locale, '/')} class="text-lg font-bold text-white" data-navigation-surface="mobile" data-nav-close {...brandAttrs}>
+        TobyOnFitnessTech
+      </a>
+      <button type="button" class="rounded-md p-2 text-neutral-300 hover:bg-neutral-900 hover:text-white" aria-label="Close navigation" data-mobile-menu-close>
+        <X size={24} />
+      </button>
+    </div>
+
+    <!-- Filled from the desktop menu on first open (src/scripts/header.js) to keep the HTML small. -->
+    <div class="grid grid-cols-2 gap-1 border-y border-neutral-800 py-3 sm:grid-cols-4" data-mobile-primary></div>
+    <div data-mobile-sections></div>
+
+    <div class="mt-6">
+      <div class="mb-3 flex items-center gap-2 text-sm font-semibold text-neutral-300"><Globe size={16} /> Language</div>
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-5">
+        {SUPPORTED_LOCALES.map((code) => (
+          <button
+            type="button"
+            data-language-choice={code}
+            class:list={['rounded-md px-3 py-2 text-sm', locale === code ? 'bg-blue-600 text-white' : 'bg-neutral-900 text-neutral-300 hover:text-white']}
+          >
+            {LOCALE_LABELS[code]}
+          </button>
+        ))}
+      </div>
+    </div>
+
+    <div class="mt-auto pt-8">
+      <button type="button" data-search-open class="flex items-center gap-2 rounded-md border border-neutral-800 bg-neutral-900 px-3 py-2 text-sm text-neutral-400 transition-colors hover:border-neutral-600 hover:text-white" aria-label="Open search">
+        <Search size={14} />
+        <span class="hidden lg:inline">Search</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/header.js';
+</script>

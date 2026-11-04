@@ -1,0 +1,81 @@
+---
+// Day-by-day calendar heatmap. The page ships one digit per day plus a sparse
+// tooltip map; src/scripts/calendarHeatmap.js draws one SVG path per colour
+// level (instead of thousands of elements), shows a hover tooltip and scrolls
+// the surrounding scroller to the most recent weeks.
+interface Day {
+  date: string; // YYYY-MM-DD; with leadingBlanks, the first day sits in row leadingBlanks
+  level: number; // index into colors
+  value?: string; // tooltip text after the date; empty uses emptyLabel
+}
+
+interface Props {
+  days: Day[];
+  colors: string[];
+  ariaLabel: string;
+  emptyLabel: string;
+  cellSize?: number;
+  gap?: number;
+  monthLabels?: Array<{ week: number; label: string }>;
+  dayLabels?: string[];
+  labelColor?: string;
+  /** Empty cells before the first day so rows line up with weekdays. */
+  leadingBlanks?: number;
+}
+
+const {
+  days,
+  colors,
+  ariaLabel,
+  emptyLabel,
+  cellSize = 12,
+  gap = 2,
+  monthLabels = [],
+  dayLabels = [],
+  labelColor = '#737373',
+  leadingBlanks = 0,
+} = Astro.props;
+
+const step = cellSize + gap;
+const weeks = Math.ceil((days.length + leadingBlanks) / 7);
+const DAY_MS = 86400000;
+const start = days[0] ? new Date(Date.parse(`${days[0].date}T00:00:00Z`) - leadingBlanks * DAY_MS).toISOString().slice(0, 10) : '';
+const left = dayLabels.length ? 20 : 0;
+const top = monthLabels.length ? 18 : 0;
+const width = left + weeks * step - gap;
+const height = top + 7 * step - gap;
+const levels = '-'.repeat(leadingBlanks) + days.map((day) => Math.max(0, Math.min(colors.length - 1, day.level))).join('');
+const values = days
+  .map((day, index) => (day.value ? `${index + leadingBlanks}:${day.value.replaceAll(';', ',')}` : ''))
+  .filter(Boolean)
+  .join(';');
+---
+
+<div
+  class="relative inline-block align-top"
+  data-calendar-heatmap
+  data-start={start}
+  data-levels={levels}
+  data-values={values}
+  data-colors={JSON.stringify(colors)}
+  data-cell={cellSize}
+  data-gap={gap}
+  data-left={left}
+  data-top={top}
+  data-empty={emptyLabel}
+>
+  <svg width={width} height={height} viewBox={`0 0 ${width} ${height}`} role="img" aria-label={ariaLabel} style={`width:${width}px;min-width:${width}px;display:block`}>
+    {dayLabels.map((label, row) => label && (
+      <text x="0" y={top + row * step + cellSize / 2} fill={labelColor} font-size="9" dominant-baseline="middle">{label}</text>
+    ))}
+    {monthLabels.map(({ week, label }) => (
+      <text x={left + week * step} y="10" fill={labelColor} font-size="9">{label}</text>
+    ))}
+    <g data-cells transform={`translate(${left} ${top})`}></g>
+  </svg>
+  <div data-heatmap-tip hidden class="pointer-events-none absolute z-10 whitespace-nowrap rounded bg-neutral-950 px-2 py-1 text-xs text-white shadow-lg ring-1 ring-neutral-700"></div>
+</div>
+
+<script>
+  import '../scripts/calendarHeatmap.js';
+</script>

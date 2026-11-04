@@ -1,4 +1,5 @@
 ---
+import PagefindMeta from '../../components/PagefindMeta.astro';
 import { imageVariants } from '../../lib/imageVariants.mjs';
 import { usesBjjHomeTrainingImage } from '../../lib/bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage } from '../../lib/wildRacingAiBlogPresentation.mjs';
@@ -213,6 +214,7 @@ const articleJsonLd = {
   ]}
 >
   <article class="bg-neutral-950 min-h-screen pb-24">
+    <PagefindMeta type="article" date={post.published_at} category={post.category} />
     {/* Header / Hero */}
     <div data-page-intro class="relative bg-neutral-900 border-b border-neutral-800 pb-6 pt-6 md:pt-8">
       <div class="absolute inset-0 bg-gradient-to-b from-blue-900/10 to-transparent pointer-events-none" />

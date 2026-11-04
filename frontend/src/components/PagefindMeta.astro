@@ -1,0 +1,21 @@
+---
+// Search metadata for the header search modal (src/scripts/SearchModal.js).
+// Hidden; Pagefind reads the attribute values when it indexes the page.
+interface Props {
+  type: 'article' | 'video';
+  image?: string;
+  date?: string;
+  category?: string;
+  duration?: string;
+  kind?: string;
+}
+
+const { type, image, date, category, duration, kind } = Astro.props;
+const meta = { image, date: date ? String(date).slice(0, 10) : undefined, category, duration, kind };
+---
+
+<div hidden data-pagefind-filter={`type:${type}`}>
+  {Object.entries(meta).filter(([, value]) => value).map(([key, value]) => (
+    <span data-pagefind-meta={`${key}:${value}`}></span>
+  ))}
+</div>

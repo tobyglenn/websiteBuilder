@@ -1,6 +1,8 @@
 ---
+import PagefindMeta from '../../../components/PagefindMeta.astro';
+import { isLikelyShortVideo } from '../../../lib/videoMeta.js';
 import Layout from '../../../layouts/Layout.astro';
-import VideoPlayer from '../../../components/VideoPlayer.jsx';
+import VideoPlayer from '../../../components/VideoPlayer.astro';
 import VideoTranscript from '../../../components/VideoTranscript.astro';
 import { VIDEOS } from '../../../data/mock.js';
 import { getVideoTranscript, videoTranscriptLocales, videoTranscriptPath } from '../../../lib/videoTranscripts';
@@ -31,10 +33,11 @@ const jsonLd = {
   lang={locale} translationBase={original} translationLocales={videoTranscriptLocales(video)} jsonLd={jsonLd}
   breadcrumbs={[{ name: copy.videos, url: `/${locale}/videos/` }, { name: transcript.title, url: path }]}>
   <article data-page-intro class="container mx-auto max-w-4xl px-4 py-8">
+    <PagefindMeta type="video" image={video.thumbnail} duration={video.duration_formatted} kind={isLikelyShortVideo(video) ? 'Short' : 'Video'} />
     <a href={`/${locale}/videos/`} class="text-sm text-blue-400">← {copy.videos}</a>
     <p class="mt-6 text-sm text-neutral-400">{copy.heading}</p>
     <h1 data-page-title class="video-title mt-2 mb-6 text-2xl font-bold leading-tight md:text-4xl" data-pagefind-meta="title">{transcript.title}</h1>
-    <div id="video-player-wrapper" class="scroll-mt-24"><VideoPlayer client:load videoId={video.id} origin={Astro.site?.origin} /></div>
+    <div id="video-player-wrapper" class="scroll-mt-24"><VideoPlayer videoId={video.id} title={transcript.title} thumbnail={video.thumbnail} origin={Astro.site?.origin} /></div>
     <p class="mt-4"><a href={original} class="text-blue-400 underline underline-offset-4">{copy.original}</a></p>
     <VideoTranscript video={video} locale={locale} expanded />
   </article>

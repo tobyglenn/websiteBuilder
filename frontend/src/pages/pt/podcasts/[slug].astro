@@ -1,4 +1,5 @@
 ---
+import { imageVariants } from '../../../lib/imageVariants.mjs';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
@@ -115,7 +116,7 @@ const { episode } = Astro.props;
   lang="pt"
   episodeSlug={episode.slug}
 >
-  <EpisodeDetail episode={episode} rssUrl="https://tobyonfitnesstech.com/pt/podcasts/feed.xml" client:load />
+  <EpisodeDetail episode={{ ...episode, coverSrcset: imageVariants(episode.coverImage, "176px").srcset }} rssUrl="https://tobyonfitnesstech.com/pt/podcasts/feed.xml" client:load />
   <StickySubscribeBar client:load />
 </Layout>
 

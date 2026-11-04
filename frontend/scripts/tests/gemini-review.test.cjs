@@ -26,7 +26,7 @@ for (const [engineName, engine] of Object.entries({ chromium, webkit })) {
           window.posthog = { __SV: true, init() {}, register() {}, capture: (event, properties) => window.reviewEvents.push({ event, properties }) };
           window.toftAnalytics = { capture: window.posthog.capture };
         });
-        const headerReady = () => page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+        const headerReady = () => page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         await page.goto(`${base}/start-here/`);
         await headerReady();
         await page.getByRole('button', { name: 'Switch to light mode' }).filter({ visible: true }).click();

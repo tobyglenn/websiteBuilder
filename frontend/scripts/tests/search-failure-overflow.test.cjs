@@ -28,7 +28,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
           const pre = document.querySelector('.markdown-article pre:last-child');
           return pre.scrollWidth > pre.clientWidth && document.documentElement.scrollWidth <= innerWidth + 1;
         }), true);
-        await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+        await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         await page.waitForFunction(() => !!window.toftAnalytics);
         const sourceSignals = await page.evaluate(() => {
           const captured = [];

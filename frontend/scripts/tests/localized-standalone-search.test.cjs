@@ -61,7 +61,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         page.on('pageerror', error => errors.push(error.message));
         await page.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
         await page.goto(base);
-        await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+        await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         await page.locator('input[type="email"]').scrollIntoViewIfNeeded();
         await page.locator('astro-island[component-url*="NewsletterSignup"]:not([ssr])').waitFor();
         assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);

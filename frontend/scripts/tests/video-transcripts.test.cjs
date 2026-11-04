@@ -39,7 +39,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         assert.equal(await page.locator('#transcript details').getAttribute('open'), '');
         await page.locator('#transcript a[data-seconds="35"]').click();
         await page.waitForFunction(() => document.querySelector('#video-player-wrapper iframe')?.src.includes('start=35'));
-        await page.locator('astro-island[component-url*="Header"]:not([ssr])').waitFor();
+        await page.locator('header[data-header-ready]').waitFor({ state: 'attached' });
         await page.getByRole('button', { name: width < 1280 ? 'Open navigation' : 'Choose language', exact: true }).filter({ visible: true }).click();
         await page.getByRole('button', { name: 'Español', exact: true }).filter({ visible: true }).click();
         await page.waitForURL(/\/es\/video\/qTgprkmjw4w\/$/);

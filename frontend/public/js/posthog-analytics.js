@@ -1110,6 +1110,7 @@
       video_id: videoId,
       video_title: cleanText(iframe.getAttribute("title") || "", 100),
       player_location: iframe.closest("[data-video-location]")?.getAttribute("data-video-location") || "embedded",
+      embed_mode: iframe.getAttribute("data-analytics-embed-mode") || "embedded",
       ...extra,
     });
   };
@@ -1155,24 +1156,35 @@
 
     ensureYoutubeApi().then((YT) => {
       let progressTimer = null;
+      let lastState = null;
+      const handleState = (state) => {
+        if (state === lastState) return;
+        lastState = state;
+        if (state === YT.PlayerState.PLAYING) {
+          captureVideoEvent(iframe.dataset.analyticsPlayed ? "video_resume" : "video_play", iframe);
+          iframe.dataset.analyticsPlayed = "true";
+          clearInterval(progressTimer);
+          progressTimer = setInterval(() => trackYoutubeProgress(player, iframe), 5000);
+        }
+        if (state === YT.PlayerState.PAUSED) {
+          clearInterval(progressTimer);
+          trackYoutubeProgress(player, iframe);
+          captureVideoEvent("video_pause", iframe);
+        }
+        if (state === YT.PlayerState.ENDED) {
+          clearInterval(progressTimer);
+          captureVideoEvent("video_complete", iframe, { progress_percent: 100 });
+        }
+      };
       const player = new YT.Player(iframe, {
         events: {
+          // Click-to-play embeds autoplay, so playback can start before this
+          // tracker attaches; report the state the player is already in.
+          onReady: function () {
+            try { handleState(player.getPlayerState()); } catch {}
+          },
           onStateChange: function (event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-              captureVideoEvent(iframe.dataset.analyticsPlayed ? "video_resume" : "video_play", iframe);
-              iframe.dataset.analyticsPlayed = "true";
-              clearInterval(progressTimer);
-              progressTimer = setInterval(() => trackYoutubeProgress(player, iframe), 5000);
-            }
-            if (event.data === YT.PlayerState.PAUSED) {
-              clearInterval(progressTimer);
-              trackYoutubeProgress(player, iframe);
-              captureVideoEvent("video_pause", iframe);
-            }
-            if (event.data === YT.PlayerState.ENDED) {
-              clearInterval(progressTimer);
-              captureVideoEvent("video_complete", iframe, { progress_percent: 100 });
-            }
+            handleState(event.data);
           },
         },
       });
@@ -1224,8 +1236,16 @@
     youtubeInitObserver.observe(iframe);
     youtubeViewObserver.observe(iframe);
   };
+  // Click-to-play placeholders (src/scripts/youtubeFacade.js) report the same
+  // video_embed_viewed impression an iframe would; the iframe inherits the flag.
+  const setupYoutubeFacade = (facade) => {
+    if (youtubeObservedIframes.has(facade) || !youtubeViewObserver) return;
+    youtubeObservedIframes.add(facade);
+    youtubeViewObserver.observe(facade);
+  };
   const setupYoutubeIframes = () => {
     document.querySelectorAll('iframe[src*="youtube.com/embed/"]').forEach(setupYoutubeIframe);
+    document.querySelectorAll("[data-youtube-facade]").forEach(setupYoutubeFacade);
   };
 
   setupYoutubeIframes();

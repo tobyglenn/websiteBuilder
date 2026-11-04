@@ -5,7 +5,7 @@ import { podcastTranslationLocales } from '../lib/podcastLocales';
 import { personSocialUrls, organizationSocialUrls } from '../data/socialProfiles.js';
 import '../styles/global.css';
 import '../styles/page-intro.css';
-import Header from '../components/Header.jsx';
+import Header from '../components/Header.astro';
 import Footer from '../components/Footer.jsx';
 import { SEO } from 'astro-seo';
 import { ClientRouter } from 'astro:transitions';
@@ -370,26 +370,6 @@ const organizationSchema = {
   ]
 };
 
-// SiteNavigationElement — defines the main site navigation for search engines
-const siteNavigationSchema = {
-  "@context": "https://schema.org",
-  "@type": "SiteNavigationElement",
-  "name": "Main Navigation",
-  "description": "Primary navigation menu for Toby on Fitness Tech",
-  "mainEntityOfPage": pageUrl('/'),
-  "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "url": pageUrl('/') },
-    { "@type": "ListItem", "position": 2, "name": "Speediance", "url": pageUrl('/speediance/') },
-    { "@type": "ListItem", "position": 3, "name": "Wearables", "url": pageUrl('/wearables/') },
-    { "@type": "ListItem", "position": 4, "name": "Training Data", "url": pageUrl('/training/') },
-    { "@type": "ListItem", "position": 5, "name": "Articles", "url": pageUrl('/blog/') },
-    { "@type": "ListItem", "position": 6, "name": "Videos", "url": pageUrl('/videos/') },
-    { "@type": "ListItem", "position": 7, "name": "Projects", "url": pageUrl('/projects/') },
-    { "@type": "ListItem", "position": 8, "name": "AgentStack", "url": pageUrl('/agentstack/') },
-    { "@type": "ListItem", "position": 9, "name": "About", "url": pageUrl('/about/') }
-  ]
-};
-
 const pathSegments = Astro.url.pathname.split('/').filter(Boolean);
 
 const staticBreadcrumbNameMap: Record<string, string> = {
@@ -453,15 +433,8 @@ const breadcrumbSchema = finalBreadcrumbs.length > 0 ? {
   }))
 } : null;
 
-// Merge global schemas + breadcrumb + any page-specific schema
-// SpeakableSpecification — marks key sections for voice search (Google Assistant, Siri, Alexa)
-const speakableSchema = {
-  "@context": "https://schema.org",
-  "@type": "SpeakableSpecification",
-  "cssSelector": ["h1", "h2", "[data-speakable]", "article p:first-of-type", "meta[name='description']"]
-};
-
-const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, siteNavigationSchema, speakableSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
+// Global schemas + breadcrumb + any page-specific schema
+const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...(jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [])];
 ---
 
 <!doctype html>
@@ -529,12 +502,8 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
             { name: "article:author", content: author || "Toby Glenn Peters" },
           ] : []),
           { name: "author", content: "Toby Glenn Peters" },
-          { name: "ai-content-type", content: "educational" },
-          { name: "ai-purpose", content: "product reviews, fitness analysis, tech comparison" },
-          { name: "ai-target-audience", content: "fitness enthusiasts, tech adopters, home gym owners" },
           { name: "googlebot", content: crawlerRobotsContent },
           { name: "bingbot", content: crawlerRobotsContent },
-          { name: "keywords", content: "fitness tech, Speediance, Tonal, Whoop, Garmin, BJJ, home gym, smart fitness equipment, wearables" },
         ],
         link: [
           { rel: "alternate", type: "application/rss+xml", title: "Blog Feed", href: `${siteUrl}/rss.xml` },
@@ -570,7 +539,7 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
   </head>
   <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
     <div data-pagefind-ignore>
-      <Header client:load initialPathname={Astro.url.pathname} />
+      <Header />
     </div>
     <main class="site-content flex-grow pt-16" data-pagefind-body>
       {/^\/(de|es|hi|pt)\/?$/.test(Astro.url.pathname) && <TrainingDataNotice lang={lang} />}

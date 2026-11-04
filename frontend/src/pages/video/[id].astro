@@ -1,6 +1,8 @@
 ---
+import PagefindMeta from '../../components/PagefindMeta.astro';
+import { isLikelyShortVideo } from '../../lib/videoMeta.js';
 import Layout from '../../layouts/Layout.astro';
-import VideoPlayer from '../../components/VideoPlayer.jsx';
+import VideoPlayer from '../../components/VideoPlayer.astro';
 import VideoTranscript from '../../components/VideoTranscript.astro';
 import NewsletterSignup from '../../components/NewsletterSignup.jsx';
 import { getVideoTranscript, videoTranscriptLocales } from '../../lib/videoTranscripts';
@@ -192,7 +194,7 @@ relatedVideos = relatedVideos.slice(0, 8);
           </script>
         ) : (
           <div id="video-player-wrapper" class="relative scroll-mt-24">
-            <VideoPlayer client:load videoId={video.id} origin={Astro.site?.origin} />
+            <VideoPlayer videoId={video.id} title={video.title} thumbnail={video.thumbnail} origin={Astro.site?.origin} />
           </div>
         )}
 
@@ -220,6 +222,7 @@ relatedVideos = relatedVideos.slice(0, 8);
 
         {/* Video Title & Meta */}
         <div data-page-intro>
+          <PagefindMeta type="video" image={video.thumbnail} duration={video.duration_formatted} kind={isLikelyShortVideo(video) ? 'Short' : 'Video'} />
           <h1 data-page-title class="video-title text-2xl md:text-3xl font-bold mb-4 leading-tight">{video.title}</h1>
           
           <div class="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 pb-4 mb-6">

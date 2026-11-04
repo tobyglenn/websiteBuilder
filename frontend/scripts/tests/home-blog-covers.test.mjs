@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {readFileSync,existsSync} from 'node:fs';
+import {existsSync} from 'node:fs';
 import {fileURLToPath} from 'node:url';
 import test from 'node:test';
 import {homeBlogCover} from '../../src/lib/homeBlogCovers.mjs';
@@ -9,9 +9,9 @@ for (const lane of lanes) test(`homepage cover supports ${lane}`,()=>{
  const post={category:'Build Logs',title:'An approved daily article',source_bundle:{lane}};
  const photos=homeBlogCover(post);
  assert.ok(Array.isArray(photos) && photos.length>0,articleTopic(post));
- const component=readFileSync(new URL('../../src/components/HomeBlogCover.astro',import.meta.url),'utf8');
  for(const photo of photos){
-  assert.ok(component.includes(`'${photo.src}':`),`Astro asset mapping missing: ${photo.src}`);
+  // scripts/build-image-variants.mjs makes resized copies for these folders.
+  assert.match(photo.src,/^\/(?:images\/(?:blog|projects|gear|about|comparison)|progress)\//,`Cover outside resized folders: ${photo.src}`);
   assert.ok(existsSync(fileURLToPath(new URL('../../public'+photo.src,import.meta.url))));
  }
 });

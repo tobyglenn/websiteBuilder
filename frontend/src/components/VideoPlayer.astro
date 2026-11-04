@@ -1,0 +1,48 @@
+---
+import { imageVariants } from '../lib/imageVariants.mjs';
+// YouTube player that shows the thumbnail until the visitor presses play, so a
+// page view doesn't download YouTube's ~1 MB player. Behaviour (play, chapter
+// seeking, #t=123s links) lives in src/scripts/youtubeFacade.js.
+interface Props {
+  videoId: string;
+  title: string;
+  thumbnail?: string;
+  origin?: string;
+  location?: string;
+  class?: string;
+}
+
+const { videoId, title, thumbnail, origin = '', location = 'video_detail', class: className = 'rounded-xl shadow-2xl' } = Astro.props;
+const poster = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+// The detail-page player is the main content; other placements sit lower on the page.
+const priority = location === 'video_detail';
+---
+
+<div
+  class:list={["relative pb-[56.25%] h-0 overflow-hidden bg-black", className]}
+  data-video-location={location}
+  data-youtube-player
+  data-video-id={videoId}
+  data-video-title={title}
+  data-origin={origin}
+>
+  <button
+    type="button"
+    class="group absolute inset-0 h-full w-full cursor-pointer"
+    data-youtube-facade
+    data-analytics-video-id={videoId}
+    data-analytics-embed-mode="click_to_play"
+    title={title}
+    aria-label={`Play video: ${title}`}
+  >
+    <img src={poster} {...imageVariants(poster, "(min-width: 1024px) 896px, 100vw")} alt="" class="absolute inset-0 h-full w-full object-cover" loading={priority ? "eager" : "lazy"} fetchpriority={priority ? "high" : undefined} decoding="async" width="1280" height="720" />
+    <span class="absolute inset-0 bg-black/10 transition-colors group-hover:bg-black/0" aria-hidden="true"></span>
+    <span class="absolute left-1/2 top-1/2 flex h-16 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-red-600/90 shadow-2xl transition-transform group-hover:scale-110 group-focus-visible:scale-110" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white"><polygon points="7 4 20 12 7 20 7 4" /></svg>
+    </span>
+  </button>
+</div>
+
+<script>
+  import '../scripts/youtubeFacade.js';
+</script>
