@@ -14,7 +14,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         await page.route('**/*', route => new URL(route.request().url()).origin === new URL(base).origin ? route.continue() : route.abort());
         await page.goto(`${base}/video/qTgprkmjw4w/`);
         await page.locator('a[data-analytics-event="transcript_open"]').click();
-        await page.locator('astro-island[component-url*="VideoPlayer"]:not([ssr])').waitFor();
+        await page.locator('[data-youtube-player][data-youtube-ready]').waitFor({ state: 'attached' });
         assert.equal(await page.locator('#transcript details').getAttribute('open'), '');
         assert.match(await page.locator('.video-transcript').textContent(), /Blender/);
         await page.locator('#transcript a[data-seconds="35"]').click();

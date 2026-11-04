@@ -4,7 +4,7 @@
 
 - **Framework**: Astro 7.x (`astro@^7.1.6`) with `@astrojs/react`, `@astrojs/rss`, `@astrojs/sitemap`.
 - **CSS Engine**: Tailwind CSS v4 (`tailwindcss@^4.3.3`) via `@tailwindcss/vite` configured in `frontend/astro.config.mjs`.
-- **State & React Islands**: React 19 (`react@^19.2.8`) islands only where needed (`VideoGrid.jsx`, `NewsletterSignup.jsx`, `SpeedianceWorkoutHub.jsx`). The header (`Header.astro` + `src/scripts/header.js`) and YouTube player (`VideoPlayer.astro`, click-to-play) ship no React.
+- **State & React Islands**: React 19 (`react@^19.2.8`) islands only where needed (`VideoGrid.jsx`, `NewsletterSignup.jsx`, `SpeedianceWorkoutHub.jsx`). The header (`Header.astro` + `src/scripts/header.js`) and YouTube player (`VideoPlayer.astro`) ship no React. Dedicated video pages render a discoverable iframe without interaction; homepage and game previews use click-to-play.
 - **Search**: The header modal (`src/scripts/SearchModal.js`) queries the Pagefind index built during `npm run build`, filtered by `type:article` / `type:video` from `PagefindMeta.astro` on article and video pages. The `/search/` pages use `/search-index.json` plus Pagefind for full-text article matches (`src/lib/standaloneSearch.js`). Never inline the catalog into page HTML.
 - **Client Transitions**: Astro `<ClientRouter />` enabled in `Layout.astro` for smooth client-side navigation.
 
@@ -70,6 +70,7 @@ Translated video transcripts use `src/pages/[locale]/video/[id].astro` and are p
 
 - **Images**: `npm run build:image-variants` writes resized WebP copies of local artwork to `public/_variants/` (gitignored) before `astro build`. When rendering a local image on a card or article hero, keep `src` and add `{...imageVariants(src, sizes)}` from `src/lib/imageVariants.mjs`, with `sizes` matching the rendered width.
 - **Island props**: Pass React islands only the fields they render. `VideoGrid` gets `toGridVideo()` rows from `src/data/mock.js` and loads the rest from `/videos/all.json`; never import `videos.json` into client components.
+- **Podcast content**: `PodcastEpisode.astro` passes notes and transcripts to the tab island as static slots. Keep full content in the rendered HTML without duplicating it in serialized props. Archive cards share `podcast-archive.css` and use short previews; full episode content stays on the episode route.
 - **Layout**: Pages render inside `Layout.astro`, which already provides the header, footer and `<main>`. Don't add another `<Header>`, `<Footer>` or `<main>` in a page.
 - **Localized page copies**: search, videos, nutrition, sleep, fitness-age and whoop pages are thin wrappers around `src/components/localized/*Page.astro` with per-language string tables; edit the shared component.
 - **Heatmaps**: use `CalendarHeatmap.astro` (compact data, drawn client-side) instead of one element per day.

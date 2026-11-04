@@ -1,0 +1,18 @@
+---
+import EpisodeDetail from './EpisodeDetail.jsx';
+import { imageVariants } from '../lib/imageVariants.mjs';
+import { preparePodcastHtml } from '../lib/podcastHtml.mjs';
+
+const { episode, rssUrl } = Astro.props;
+// Long notes and transcripts are static slots, not duplicated serialized props.
+const { showNotesHtml = '', transcriptHtml = '', ...metadata } = episode;
+---
+
+<EpisodeDetail
+  episode={{ ...metadata, hasShowNotes: Boolean(showNotesHtml), coverSrcset: imageVariants(episode.coverImage, '176px').srcset }}
+  rssUrl={rssUrl}
+  client:load
+>
+  <div slot="showNotes" class="show-notes-content prose prose-invert prose-sm min-w-0 max-w-none break-words overflow-x-auto text-neutral-300" set:html={preparePodcastHtml(showNotesHtml, episode.mdUrl)} />
+  <div slot="transcript" class="min-w-0 max-w-[65ch] break-words overflow-x-auto text-neutral-300 text-[1.0625rem] leading-[1.85] transcript-content" set:html={preparePodcastHtml(transcriptHtml, episode.mdUrl)} />
+</EpisodeDetail>

@@ -1,8 +1,7 @@
 ---
 import { imageVariants } from '../lib/imageVariants.mjs';
-// YouTube player that shows the thumbnail until the visitor presses play, so a
-// page view doesn't download YouTube's ~1 MB player. Behaviour (play, chapter
-// seeking, #t=123s links) lives in src/scripts/youtubeFacade.js.
+// Dedicated watch pages expose an iframe without requiring interaction so
+// search engines can discover the video. Previews keep the lightweight facade.
 interface Props {
   videoId: string;
   title: string;
@@ -12,10 +11,11 @@ interface Props {
   class?: string;
 }
 
-const { videoId, title, thumbnail, origin = '', location = 'video_detail', class: className = 'rounded-xl shadow-2xl' } = Astro.props;
+const { videoId, title, thumbnail, origin = Astro.site?.origin || Astro.url.origin, location = 'video_detail', class: className = 'rounded-xl shadow-2xl' } = Astro.props;
 const poster = thumbnail || `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
-// The detail-page player is the main content; other placements sit lower on the page.
 const priority = location === 'video_detail';
+const embedMode = priority ? 'embedded' : 'click_to_play';
+const embedParams = new URLSearchParams({ rel: '0', enablejsapi: '1', origin });
 ---
 
 <div
@@ -25,8 +25,21 @@ const priority = location === 'video_detail';
   data-video-id={videoId}
   data-video-title={title}
   data-origin={origin}
+  data-embed-mode={embedMode}
+  data-active={priority ? 'true' : undefined}
 >
-  <button
+  {priority ? <iframe
+    class="absolute top-0 left-0 w-full h-full"
+    src={`https://www.youtube.com/embed/${encodeURIComponent(videoId)}?${embedParams}`}
+    title={title}
+    data-analytics-video-id={videoId}
+    data-analytics-start-time="0"
+    data-analytics-embed-mode={embedMode}
+    loading="eager"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+  /> : <button
     type="button"
     class="group absolute inset-0 h-full w-full cursor-pointer"
     data-youtube-facade
@@ -40,7 +53,7 @@ const priority = location === 'video_detail';
     <span class="absolute left-1/2 top-1/2 flex h-16 w-24 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-2xl bg-red-600/90 shadow-2xl transition-transform group-hover:scale-110 group-focus-visible:scale-110" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white"><polygon points="7 4 20 12 7 20 7 4" /></svg>
     </span>
-  </button>
+  </button>}
 </div>
 
 <script>

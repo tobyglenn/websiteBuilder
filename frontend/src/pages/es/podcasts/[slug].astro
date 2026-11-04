@@ -1,10 +1,9 @@
 ---
-import { imageVariants } from '../../../lib/imageVariants.mjs';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { marked } from 'marked';
 import Layout from '../../../layouts/Layout.astro';
-import EpisodeDetail from '../../../components/EpisodeDetail.jsx';
+import PodcastEpisode from '../../../components/PodcastEpisode.astro';
 import StickySubscribeBar from '../../../components/StickySubscribeBar.jsx';
 import {
   ensureEpisodeFromFallbackFeed,
@@ -116,7 +115,7 @@ const { episode } = Astro.props;
   lang="es"
   episodeSlug={episode.slug}
 >
-  <EpisodeDetail episode={{ ...episode, coverSrcset: imageVariants(episode.coverImage, "176px").srcset }} rssUrl="https://tobyonfitnesstech.com/es/podcasts/feed.xml" client:load />
+  <PodcastEpisode episode={episode} rssUrl="https://tobyonfitnesstech.com/es/podcasts/feed.xml" />
   <StickySubscribeBar client:load />
 </Layout>
 

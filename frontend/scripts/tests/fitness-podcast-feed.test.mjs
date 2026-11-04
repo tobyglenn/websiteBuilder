@@ -14,7 +14,10 @@ const podcastPages = [
 test('production builds snapshot the fitness podcast feed before Astro', async () => {
   const packageJson = JSON.parse(await readFile('package.json', 'utf8'));
 
-  assert.match(packageJson.scripts.build, /^npm run snapshot:fitness-podcast-feed /);
+  const steps = packageJson.scripts.build.split(' && ');
+  const snapshot = steps.findIndex((step) => step === 'npm run snapshot:fitness-podcast-feed');
+  const build = steps.findIndex((step) => /\bastro build$/.test(step));
+  assert.ok(snapshot >= 0 && build > snapshot, 'snapshot must run before Astro, after any build preparation');
   assert.match(packageJson.scripts.build, /TOFT_FITNESS_PODCAST_FEED_SNAPSHOT=/);
 });
 

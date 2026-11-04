@@ -2,7 +2,7 @@
 import { imageVariants } from '../../lib/imageVariants.mjs';
 import { marked } from 'marked';
 import Layout from '../../layouts/Layout.astro';
-import EpisodeDetail from '../../components/EpisodeDetail.jsx';
+import PodcastEpisode from '../../components/PodcastEpisode.astro';
 import StickySubscribeBar from '../../components/StickySubscribeBar.jsx';
 import {
   getFitnessEpisodeNumber,
@@ -367,7 +367,7 @@ const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
       </div>
     </div>
   ) : (
-    <EpisodeDetail episode={{ ...episode, coverSrcset: imageVariants(episode.coverImage, "176px").srcset }} client:load />
+    <PodcastEpisode episode={episode} />
   )}
   <StickySubscribeBar client:load />
 </Layout>

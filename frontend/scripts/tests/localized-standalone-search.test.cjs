@@ -37,6 +37,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
           const empty = await page.evaluate(() => window.searchSignals.filter(x => x.event === 'search_no_results'));
           assert.equal(empty.length, 1);
           assert.doesNotMatch(JSON.stringify(empty), /zzqa-no-such-topic/);
+          await page.evaluate(() => document.fonts.ready.then(() => undefined));
           assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), true);
         }
         // Exercise the actual Astro router, including a second visit to the same inline script.

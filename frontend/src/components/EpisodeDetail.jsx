@@ -7,7 +7,7 @@ const OPENCLAW_IHEART   = 'https://iheart.com/podcast/324046562/';
 const OPENCLAW_AMAZON   = 'https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily';
 const OPENCLAW_RSS      = 'https://tobyonfitnesstech.com/podcasts/feed.xml';
 
-export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
+export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS, showNotes, transcript }) {
   const [activeTab, setActiveTab] = useState('shownotes');
 
   useEffect(() => {
@@ -116,11 +116,12 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS }) {
 
       {/* Content */}
       <div className="max-w-4xl mx-auto px-4 py-10">
-        {activeTab === 'shownotes' ? (
-          <ShowNotes episode={episode} />
-        ) : (
-          <FullTranscript episode={episode} />
-        )}
+        <div hidden={activeTab !== 'shownotes'}>
+          <ShowNotes episode={episode} content={showNotes} />
+        </div>
+        <div hidden={activeTab !== 'transcript'}>
+          <FullTranscript episode={episode} content={transcript} />
+        </div>
       </div>
 
       {/* Subscribe footer */}
@@ -154,14 +155,11 @@ function SectionHeading({ icon, label }) {
   );
 }
 
-function ShowNotes({ episode }) {
+function ShowNotes({ episode, content }) {
   return (
     <div id="shownotes" className="space-y-12">
-      {episode.showNotesHtml ? (
-        <div
-          className="show-notes-content prose prose-invert prose-sm max-w-none text-neutral-300"
-          dangerouslySetInnerHTML={{ __html: episode.showNotesHtml.replace(/<h1(\s[^>]*)?>/gi, '<h2$1>').replace(/<\/h1>/gi, '</h2>') }}
-        />
+      {episode.hasShowNotes ? (
+        content
       ) : (
         <>
           {/* Topics */}
@@ -207,13 +205,10 @@ function ShowNotes({ episode }) {
   );
 }
 
-function FullTranscript({ episode }) {
+function FullTranscript({ episode, content }) {
   return (
     <div id="transcript">
-      <div
-        className="max-w-[65ch] text-neutral-300 text-[1.0625rem] leading-[1.85] transcript-content"
-        dangerouslySetInnerHTML={{ __html: episode.transcriptHtml }}
-      />
+      {content}
 
       <div className="mt-16 pt-8 border-t border-neutral-800 flex items-center justify-between">
         <button

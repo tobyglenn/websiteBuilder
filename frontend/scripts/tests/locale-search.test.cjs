@@ -16,6 +16,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
           ? route.continue() : route.abort());
         for (const locale of ['de', 'es', 'hi', 'pt']) {
           await page.goto(`${base}/${locale}/speediance/`);
+          await page.evaluate(() => document.fonts.ready.then(() => undefined));
           assert.equal(await page.locator('html').getAttribute('lang'), locale);
           assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `https://tobyonfitnesstech.com/${locale}/speediance/`);
           assert.equal(await page.locator('link[hreflang="en"]').getAttribute('href'), 'https://tobyonfitnesstech.com/speediance/');
@@ -23,6 +24,7 @@ for (const [name, engine] of Object.entries({ chromium, webkit })) {
         }
         const query = '<img src=x onerror="window.searchInjected=true">';
         await page.goto(`${base}/search/?q=${encodeURIComponent(query)}`);
+        await page.waitForFunction(() => document.querySelector('#search-summary')?.textContent.includes('<img src=x'));
         assert.match(await page.locator('#search-summary').textContent(), /<img src=x/);
         assert.equal(await page.locator('#search-summary img').count(), 0);
         assert.equal(await page.evaluate(() => window.searchInjected), undefined);
