@@ -2,12 +2,13 @@
 import Layout from '../../../layouts/Layout.astro';
 import VideoGrid from '../../../components/VideoGrid.jsx';
 import { Play } from 'lucide-react';
-import { VIDEOS } from '../../../data/mock.js';
+import { VIDEOS, toGridVideo } from '../../../data/mock.js';
 
 const title = "सभी वीडियो - Toby on Fitness Tech";
-const description = "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और ट्रांसफॉर्मेशन कंटेंट वाले सभी 104 वीडियो देखें।";
+const description = `Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और ट्रांसफॉर्मेशन कंटेंट वाले सभी ${VIDEOS.length} वीडियो देखें।`;
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const INITIAL_VIDEO_COUNT = 48;
 
 // Define playlists based on keywords
 const PLAYLIST_DEFINITIONS = [
@@ -88,7 +89,7 @@ const videosCollectionSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/hi/videos/#collection`,
   "name": "Toby on Fitness Tech — पूरी वीडियो लाइब्रेरी",
-  "description": "Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले सभी 104 वीडियो। बिना स्क्रिप्ट, बिना स्पॉन्सर।",
+  "description": `Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले सभी ${VIDEOS.length} वीडियो। बिना स्क्रिप्ट, बिना स्पॉन्सर।`,
   "url": `${siteUrl}/hi/videos/`,
   "inLanguage": "hi",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -153,13 +154,13 @@ const videosCollectionSchema = {
           <span class="text-neutral-400">कोई स्क्रिप्ट नहीं। कोई स्पॉन्सर नहीं।</span>
         </h1>
         <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
-          Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले 104 वीडियो। नीचे विषय के अनुसार फ़िल्टर करें।
+          Speediance रिव्यू, BJJ कमेंट्री, फिटनेस टेक की गहराई वाली पड़ताल और वास्तविक ट्रांसफॉर्मेशन डेटा वाले {VIDEOS.length} वीडियो। नीचे विषय के अनुसार फ़िल्टर करें।
         </p>
       </div>
     </section>
     
     <!-- Grid -->
     <div class="container mx-auto px-4 py-10">
-      <VideoGrid client:load showFilters={true} videos={VIDEOS} hideShortsByDefault={true} />
+      <VideoGrid client:load showFilters={true} videos={VIDEOS.slice(0, INITIAL_VIDEO_COUNT).map(toGridVideo)} pageSize={INITIAL_VIDEO_COUNT} videosJsonUrl="/videos/all.json" hideShortsByDefault={true} />
     </div>
   </Layout>

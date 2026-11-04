@@ -3,6 +3,7 @@ import { getLocalizedBlogPosts, type BlogTranslationLocale } from './localizedBl
 import { homepageWeek, selectWeeklyPost } from './weeklyFeature.mjs';
 import { isLongFormVideo } from './videoMeta.js';
 import videosData from '../data/videos.json';
+import { imageVariants } from './imageVariants.mjs';
 
 export function getHomepageFeature(lang = 'en', now = new Date()) {
   const canonical = selectWeeklyPost(CANONICAL_BLOG_POSTS, now);
@@ -24,6 +25,8 @@ export function getHomepageFeature(lang = 'en', now = new Date()) {
       description: post.excerpt,
       slug: canonical.slug,
       image: canonical.image,
+      // Rendered at 104px (80px on phones); ships a small WebP instead of the full artwork.
+      responsiveImage: imageVariants(canonical.image, '104px'),
       imageAlt: post.title,
       href: `${translated ? `/${lang}` : ''}/blog/${canonical.slug}/`,
       week: homepageWeek(now).key,

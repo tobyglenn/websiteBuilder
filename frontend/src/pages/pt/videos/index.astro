@@ -2,12 +2,13 @@
 import Layout from '../../../layouts/Layout.astro';
 import VideoGrid from '../../../components/VideoGrid.jsx';
 import { Play } from 'lucide-react';
-import { VIDEOS } from '../../../data/mock.js';
+import { VIDEOS, toGridVideo } from '../../../data/mock.js';
 
 const title = "Todos os vídeos - Toby on Fitness Tech";
-const description = "Navegue por todos os 104 vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e conteúdo de transformação.";
+const description = `Navegue por todos os ${VIDEOS.length} vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e conteúdo de transformação.`;
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const INITIAL_VIDEO_COUNT = 48;
 
 // Define playlists based on keywords
 const PLAYLIST_DEFINITIONS = [
@@ -88,7 +89,7 @@ const videosCollectionSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/pt/videos/#collection`,
   "name": "Toby on Fitness Tech — Biblioteca completa de vídeos",
-  "description": "Todos os 104 vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Sem roteiros, sem patrocinadores.",
+  "description": `Todos os ${VIDEOS.length} vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Sem roteiros, sem patrocinadores.`,
   "url": `${siteUrl}/pt/videos/`,
   "inLanguage": "pt",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -153,13 +154,13 @@ const videosCollectionSchema = {
           <span class="text-neutral-400">Sem roteiros. Sem patrocinadores.</span>
         </h1>
         <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
-          104 vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Filtre por tópico abaixo.
+          {VIDEOS.length} vídeos com análises de Speediance, comentários de BJJ, mergulhos profundos em tecnologia fitness e dados reais de transformação. Filtre por tópico abaixo.
         </p>
       </div>
     </section>
     
     <!-- Grid -->
     <div class="container mx-auto px-4 py-10">
-      <VideoGrid client:load showFilters={true} videos={VIDEOS} hideShortsByDefault={true} />
+      <VideoGrid client:load showFilters={true} videos={VIDEOS.slice(0, INITIAL_VIDEO_COUNT).map(toGridVideo)} pageSize={INITIAL_VIDEO_COUNT} videosJsonUrl="/videos/all.json" hideShortsByDefault={true} />
     </div>
   </Layout>

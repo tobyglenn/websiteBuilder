@@ -1,7 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.jsx';
-import Footer from '../../components/Footer.jsx';
 import { Moon, Heart, Activity, Thermometer, Clock, TrendingUp } from 'lucide-react';
 import {
   currentData,
@@ -63,9 +61,8 @@ const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
   description="Datos reales de sueño de mi 8Sleep Pod 3 — puntuaciones de sueño, HRV, fases del sueño y seguimiento de temperatura. Mira cómo optimizo la recuperación a través del sueño."
   breadcrumbs={[{ name: "Inicio", url: "/" }, { name: "Datos de sueño", url: "/sleep" }]}
 >
-  <Header client:load />
   
-  <main class="bg-neutral-950 min-h-screen pb-20">
+  <div class="bg-neutral-950 min-h-screen pb-20">
     <!-- Hero Section -->
     <section data-page-intro class="pt-6 pb-6 px-4">
       <div class="max-w-6xl mx-auto">
@@ -301,7 +298,6 @@ const totalPct = stages.reduce((sum, s) => sum + parseFloat(s.pct), 0);
         </div>
       </div>
     </section>
-  </main>
+  </div>
 
-  <Footer />
 </Layout>

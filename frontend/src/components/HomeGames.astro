@@ -1,4 +1,5 @@
 ---
+import { imageVariants } from '../lib/imageVariants.mjs';
 import {Gamepad2, ArrowRight} from 'lucide-react';
 import { projectGroups, projectHref } from '../data/projects';
 import { gameBySlug, releasesFor, journalHref, playHref } from '../lib/gameJournal.mjs';
@@ -53,7 +54,7 @@ const featuredProjects = featuredProjectSlugs
             {project.heroImage && (
               <a href={projectHref(project.slug)} class="block aspect-video overflow-hidden bg-neutral-950" aria-label={project.title}>
                 <img
-                  src={project.heroImage.src}
+                  src={project.heroImage.src} {...imageVariants(project.heroImage.src, "(min-width: 1280px) 620px, (min-width: 768px) 50vw, 100vw")}
                   alt={project.heroImage.alt}
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   loading="lazy"

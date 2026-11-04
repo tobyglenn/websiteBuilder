@@ -21,15 +21,18 @@ export const GET: APIRoute = () => {
     searchText: normalizeSearchText([post.title, post.excerpt, post.category, post.tags]),
   }));
 
+  // Result cards show at most a couple of lines of the description; the full
+  // text stays searchable through searchText, so the preview is trimmed.
   const videos = (videosData.videos || []).map((video) => ({
     id: video.id,
     title: video.title,
-    description: video.description,
+    description: (video.description || '').slice(0, 160),
     category: video.category,
     thumbnail: video.thumbnail,
     duration_formatted: video.duration_formatted,
+    published_at: (video.publishedAt || '').slice(0, 10),
     kind: isLikelyShortVideo(video) ? 'Short' : 'Video',
-    searchText: normalizeSearchText([video.title, video.description, video.category]),
+    searchText: normalizeSearchText([video.title, video.description, video.category, video.tags]),
   }));
 
   return new Response(JSON.stringify({ blogPosts, videos }), {

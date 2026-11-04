@@ -1,27 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { VIDEOS } from '../../data/mock.js';
-import { CANONICAL_BLOG_POSTS } from '../../lib/blogPosts';
 import { Search as SearchIcon } from 'lucide-react';
-
-// Pass data to client-side script as JSON
-const videosData = JSON.stringify(VIDEOS.map(v => ({
-  id: v.id,
-  title: v.title,
-  description: v.description,
-  thumbnail: v.thumbnail,
-  published_at: v.published_at,
-  tags: v.tags,
-})));
-
-const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
-  slug: p.slug,
-  title: p.title,
-  excerpt: p.excerpt,
-  category: p.category,
-  published_at: p.published_at,
-  content: p.content,
-})));
 ---
 
 <Layout title="Buscar - Toby sobre tecnología fitness" description="Busca videos, artículos del blog y reseñas de equipo en TobyOnFitnessTech." noindex={true}>
@@ -34,7 +13,7 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
         <p id="search-summary" class="text-neutral-400 text-lg">Ingresa arriba un término de búsqueda para encontrar videos y artículos.</p>
     </div>
 
-    <form id="standalone-search-form" action="/es/search/" method="get" class="mb-8 flex max-w-2xl gap-2">
+    <form id="standalone-search-form" data-copy-prompt="Ingresa arriba un término de búsqueda para encontrar videos y artículos." data-copy-loading="Buscando…" data-copy-found="Se encontraron {total} resultados para &quot;{q}&quot;" data-copy-failed="No se pudo cargar la búsqueda. Inténtalo de nuevo." data-copy-read="Leer análisis →" action="/es/search/" method="get" class="mb-8 flex max-w-2xl gap-2">
       <label for="standalone-query" class="sr-only">Buscar vídeos y artículos</label>
       <input id="standalone-query" name="q" type="search" maxlength="120" class="min-w-0 flex-1 rounded-md border border-neutral-700 bg-neutral-900 px-3 py-2 text-white" />
       <button type="submit" aria-label="Buscar vídeos y artículos" title="Buscar vídeos y artículos" class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-blue-600 text-white hover:bg-blue-500">
@@ -68,129 +47,6 @@ const blogData = JSON.stringify(CANONICAL_BLOG_POSTS.map(p => ({
   </div>
 </Layout>
 
-<script define:vars={{ videosData, blogData }} data-astro-rerun>
-(() => {
-  const VIDEOS = JSON.parse(videosData);
-  const BLOG_POSTS = JSON.parse(blogData);
-  let lastSearchKey = '';
-  const captureSearch = (event, properties) => {
-    const payload = { search_surface: 'standalone_page', $current_url: location.origin + location.pathname, ...properties };
-    if (window.toftAnalytics) window.toftAnalytics.capture(event, payload);
-    else (window.__TOFT_ANALYTICS_QUEUE__ ||= []).push([event, payload]);
-  };
-
-  function search(q) {
-    if (!q || !q.trim()) return { videos: [], blog: [] };
-    const lower = q.toLowerCase();
-    const videos = VIDEOS.filter(v =>
-      v.title.toLowerCase().includes(lower) ||
-      (v.description || '').toLowerCase().includes(lower) ||
-      (v.tags || []).some(t => t.toLowerCase().includes(lower))
-    );
-    const blog = BLOG_POSTS.filter(p =>
-      p.title.toLowerCase().includes(lower) ||
-      (p.excerpt || '').toLowerCase().includes(lower) ||
-      (p.content || '').toLowerCase().includes(lower)
-    );
-    return { videos, blog };
-  }
-
-  function renderResults() {
-    const params = new URLSearchParams(window.location.search);
-    const q = params.get('q') || '';
-    document.getElementById('standalone-query').value = q;
-    const { videos, blog } = search(q);
-    const total = videos.length + blog.length;
-
-    const summary = document.getElementById('search-summary');
-    const noResults = document.getElementById('no-results');
-    const videoSection = document.getElementById('video-results-section');
-    const blogSection = document.getElementById('blog-results-section');
-    const videoResults = document.getElementById('video-results');
-    const blogResults = document.getElementById('blog-results');
-
-    if (!q.trim()) {
-      lastSearchKey = '';
-      summary.textContent = 'Ingresa arriba un término de búsqueda para encontrar videos y artículos.';
-      noResults.classList.add('hidden');
-      videoSection.classList.add('hidden');
-      blogSection.classList.add('hidden');
-      return;
-    }
-
-    // URL search terms are untrusted text, never HTML.
-    summary.textContent = `Se encontraron ${total} resultados para "${q}"`;
-
-    const key = JSON.stringify([q, total]);
-    if (key !== lastSearchKey) {
-      lastSearchKey = key;
-      const properties = { search_query_length: q.trim().length, result_count: total, blog_result_count: blog.length, video_result_count: videos.length };
-      captureSearch('search_performed', properties);
-      if (total === 0) captureSearch('search_no_results', properties);
-    }
-
-    if (total === 0) {
-      noResults.classList.remove('hidden');
-      videoSection.classList.add('hidden');
-      blogSection.classList.add('hidden');
-      return;
-    }
-
-    noResults.classList.add('hidden');
-
-    if (videos.length > 0) {
-      videoSection.classList.remove('hidden');
-      videoResults.innerHTML = videos.map(v =>
-        '<a href="/video/' + encodeURIComponent(v.id) + '/" class="flex gap-4 group bg-neutral-900/50 p-4 rounded-xl border border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900 transition-all">' + `
-          <div class="relative w-40 flex-shrink-0 aspect-video rounded-lg overflow-hidden bg-neutral-800">
-            <img src="${v.thumbnail}" alt="${v.title.replace(/"/g, '&quot;')}" class="w-full h-full object-cover group-hover:scale-105 transition-transform" loading="lazy" />
-          </div>
-          <div class="flex-1 min-w-0">
-            <h3 class="text-lg font-bold text-white mb-1 line-clamp-1 group-hover:text-blue-400 transition-colors">${v.title}</h3>
-            <p class="text-sm text-neutral-400 line-clamp-2 mb-2">${v.description || ''}</p>
-            <span class="text-xs text-neutral-500">${new Date(v.published_at).toLocaleDateString()}</span>
-          </div>
-        </a>
-      `).join('');
-    } else {
-      videoSection.classList.add('hidden');
-    }
-
-    if (blog.length > 0) {
-      blogSection.classList.remove('hidden');
-      blogResults.innerHTML = blog.map(p =>
-        '<a href="/blog/' + encodeURIComponent(p.slug) + '/" class="flex gap-4 group bg-neutral-900/50 p-4 rounded-xl border border-neutral-800/50 hover:border-neutral-700 hover:bg-neutral-900 transition-all">' + `
-          <div class="flex-1">
-            <span class="text-xs font-bold text-blue-500 uppercase tracking-wider mb-1 block">${p.category}</span>
-            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-blue-400 transition-colors">${p.title}</h3>
-            <p class="text-sm text-neutral-400 line-clamp-2 mb-3">${p.excerpt}</p>
-            <span class="text-xs text-neutral-500">Leer análisis →</span>
-          </div>
-        </a>
-      `).join('');
-    } else {
-      blogSection.classList.add('hidden');
-    }
-  }
-
-  // Run on load and on popstate
-  renderResults();
-  document.getElementById('standalone-search-form').addEventListener('submit', event => {
-    event.preventDefault();
-    const url = new URL(location.href);
-    const query = document.getElementById('standalone-query').value.trim();
-    if (query) url.searchParams.set('q', query);
-    else url.searchParams.delete('q');
-    history.replaceState(null, '', url);
-    renderResults();
-  });
-  window.addEventListener('popstate', renderResults);
-  document.addEventListener('astro:before-swap', () => window.removeEventListener('popstate', renderResults), { once: true });
-  document.getElementById('results-grid').addEventListener('click', event => {
-    const link = event.target instanceof Element ? event.target.closest('a') : null;
-    const section = link?.closest('#video-results, #blog-results');
-    if (!section) return;
-    captureSearch('search_result_click', { content_type: section.id === 'video-results' ? 'video' : 'blog', content_slug: new URL(link.href).pathname, position: [...section.querySelectorAll('a')].indexOf(link) + 1, search_query_length: (new URLSearchParams(location.search).get('q') || '').trim().length });
-  });
-})();
+<script>
+  import '../../lib/standaloneSearch.js';
 </script>

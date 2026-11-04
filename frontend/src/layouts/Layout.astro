@@ -490,13 +490,9 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
     <meta name="generator" content={Astro.generator} />
     
-    <!-- Preconnect to external domains for faster connection -->
-    <link rel="preconnect" href="https://www.youtube.com" />
-    <link rel="preconnect" href="https://www.instagram.com" />
-    <link rel="preconnect" href="https://x.com" />
+    <!-- Most pages show YouTube thumbnails; embeds and social links are opened on demand. -->
+    <link rel="dns-prefetch" href="https://i.ytimg.com" />
     <link rel="dns-prefetch" href="https://www.youtube.com" />
-    <link rel="dns-prefetch" href="https://www.instagram.com" />
-    <link rel="dns-prefetch" href="https://x.com" />
     
     <SEO 
       title={seoTitle}
@@ -571,17 +567,6 @@ const allSchemas: object[] = [personSchema, websiteSchema, organizationSchema, s
     {allSchemas.map((schema) => (
       <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     ))}
-    <script type="application/ld+json" set:html={JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "TobyOnFitnessTech",
-      "url": "https://tobyonfitnesstech.com/",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://tobyonfitnesstech.com/search/?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    })} />
   </head>
   <body class="bg-neutral-950 text-neutral-100 min-h-screen flex flex-col font-sans selection:bg-blue-500/30">
     <div data-pagefind-ignore>

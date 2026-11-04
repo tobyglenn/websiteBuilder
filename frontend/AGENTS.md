@@ -5,7 +5,7 @@
 - **Framework**: Astro 7.x (`astro@^7.1.6`) with `@astrojs/react`, `@astrojs/rss`, `@astrojs/sitemap`.
 - **CSS Engine**: Tailwind CSS v4 (`tailwindcss@^4.3.3`) via `@tailwindcss/vite` configured in `frontend/astro.config.mjs`.
 - **State & React Islands**: React 19 (`react@^19.2.8`) islands for interactive components (`VideoGrid.jsx`, `VideoPlayer.jsx`, `NewsletterSignup.jsx`, `Header.jsx`, `WorkoutHub.jsx`).
-- **Search**: Pagefind indexer run during `npm run build` (`dist/pagefind`), with `data-pagefind-body`, `data-pagefind-filter`, and `data-pagefind-meta` attributes.
+- **Search**: The header modal and the `/search/` pages share `/search-index.json` (titles, excerpts, tags). The `/search/` pages also query the Pagefind index built during `npm run build` (`dist/pagefind`) for full-text article matches (`src/lib/standaloneSearch.js`). Never inline the catalog into page HTML.
 - **Client Transitions**: Astro `<ClientRouter />` enabled in `Layout.astro` for smooth client-side navigation.
 
 ---
@@ -66,6 +66,13 @@ Translated video transcripts use `src/pages/[locale]/video/[id].astro` and are p
 
 ---
 
+## 5a. Performance Guardrails
+
+- **Images**: `npm run build:image-variants` writes resized WebP copies of local artwork to `public/_variants/` (gitignored) before `astro build`. When rendering a local image on a card or article hero, keep `src` and add `{...imageVariants(src, sizes)}` from `src/lib/imageVariants.mjs`, with `sizes` matching the rendered width.
+- **Island props**: Pass React islands only the fields they render. `VideoGrid` gets `toGridVideo()` rows from `src/data/mock.js` and loads the rest from `/videos/all.json`; never import `videos.json` into client components.
+- **Layout**: Pages render inside `Layout.astro`, which already provides the header, footer and `<main>`. Don't add another `<Header>`, `<Footer>` or `<main>` in a page.
+- **Analytics loader**: `public/js/posthog-analytics.js` stays readable in the repo; `scripts/minify-public-scripts.mjs` minifies the copy in `dist/` during the build.
+
 ## 6. Analytics & Conversion Tracking
 
 - **PostHog Analytics**: Loaded via `public/js/posthog-analytics.js` and abstracted through `src/lib/analytics.js` (`captureEvent`).
@@ -87,7 +94,7 @@ npm run dev
 # Run unit tests
 npm run test:workout-hub
 
-# Build site for production (snapshots podcast feed, builds Astro, runs Pagefind, audits indexability)
+# Build site for production (image variants, podcast feed snapshot, Astro build, script minify, Pagefind, audits)
 npm run build
 
 # Preview build output

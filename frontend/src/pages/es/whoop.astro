@@ -1,7 +1,5 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Header from '../../components/Header.jsx';
-import Footer from '../../components/Footer.jsx';
 import { Activity, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
 import {
   RECOVERY_RECORDS,
@@ -70,9 +68,8 @@ const redDash = (redPct / 100) * circumference;
   description="Puntuaciones de recuperación de WHOOP en vivo, tendencias de HRV, rendimiento del sueño y datos de esfuerzo del entrenamiento real de Toby. Actualizado diariamente."
   breadcrumbs={[{ name: "Inicio", url: "/" }, { name: "Datos de WHOOP", url: "/whoop" }]}
 >
-  <Header client:load />
   
-  <main class="bg-neutral-950 min-h-screen pb-20">
+  <div class="bg-neutral-950 min-h-screen pb-20">
     <!-- Hero Section -->
     <section data-page-intro class="pt-6 pb-6 px-4">
       <div class="max-w-6xl mx-auto">
@@ -351,7 +348,6 @@ const redDash = (redPct / 100) * circumference;
         </div>
       </div>
     </section>
-  </main>
+  </div>
 
-  <Footer />
 </Layout>

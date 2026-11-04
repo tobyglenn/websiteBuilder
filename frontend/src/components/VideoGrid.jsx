@@ -1,7 +1,6 @@
 import { navigate } from 'astro:transitions/client';
 import React, { useState, useMemo, useEffect, useRef } from 'react';
 import { Play, Filter, Clock, SortDesc, Eye } from 'lucide-react';
-import { videos as allVideos } from '../data/youtube.js';
 import { isLikelyShortVideo, isLiveVideo as isLiveVideoMeta, parseVideoDurationSeconds } from '../lib/videoMeta.js';
 import { captureEvent, cleanAnalyticsText } from '../lib/analytics.js';
 
@@ -119,7 +118,7 @@ function formatViews(count) {
   return `${num.toLocaleString()} views`;
 }
 
-export default function VideoGrid({ limit = null, showFilters = true, videos, hideShortsByDefault = false, pageSize = 48, videosJsonUrl = null }) {
+export default function VideoGrid({ limit = null, showFilters = true, videos = [], hideShortsByDefault = false, pageSize = 48, videosJsonUrl = null }) {
   // Paginated mode (used by /videos/): only the first page of videos is passed
   // as a prop so the initial HTML stays small; the rest loads from videosJsonUrl.
   const isPaginated = !limit && Boolean(videosJsonUrl);
@@ -128,7 +127,7 @@ export default function VideoGrid({ limit = null, showFilters = true, videos, hi
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [visibleCount, setVisibleCount] = useState(pageSize);
   const loadAllAttempted = useRef(false);
-  const baseVideos = videos || allVideos;
+  const baseVideos = videos;
   const sourceVideos = useMemo(() => {
     if (extraVideos.length === 0) return baseVideos;
     const seenIds = new Set(baseVideos.map((v) => v.id));

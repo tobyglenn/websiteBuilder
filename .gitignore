@@ -4,6 +4,8 @@ node_modules/
 
 # Build output
 dist/
+# Resized image copies generated at build time (frontend/scripts/build-image-variants.mjs)
+frontend/public/_variants/
 build/
 
 # OS files

@@ -23,7 +23,7 @@ export default function Hero({lang='en', feature}) {
         </nav>
       </div>
       <a href={feature.href} className="weekly-pick-card" aria-label={`${t.pick}: ${feature.title}`} data-analytics-event="content_card_click" data-analytics-content-type="blog" data-analytics-position="homepage_weekly_pick" data-analytics-content-slug={feature.slug} data-analytics-content-title={feature.title} data-analytics-item-position="1">
-        <img src={feature.image} alt={feature.imageAlt} width="160" height="120" loading="eager" decoding="async" />
+        <img src={feature.image} srcSet={feature.responsiveImage?.srcset} sizes={feature.responsiveImage?.sizes} alt={feature.imageAlt} width="160" height="120" loading="eager" decoding="async" />
         <article data-weekly-pick={feature.week}>
           <p className="weekly-pick-label">{t.pick}</p>
           <h2>{feature.title}</h2>

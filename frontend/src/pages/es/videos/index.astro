@@ -2,12 +2,13 @@
 import Layout from '../../../layouts/Layout.astro';
 import VideoGrid from '../../../components/VideoGrid.jsx';
 import { Play } from 'lucide-react';
-import { VIDEOS } from '../../../data/mock.js';
+import { VIDEOS, toGridVideo } from '../../../data/mock.js';
 
 const title = "Todos los videos - Toby on Fitness Tech";
-const description = "Explora los 104 videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y contenido de transformación.";
+const description = `Explora los ${VIDEOS.length} videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y contenido de transformación.`;
 
 const siteUrl = "https://tobyonfitnesstech.com";
+const INITIAL_VIDEO_COUNT = 48;
 
 // Define playlists based on keywords
 const PLAYLIST_DEFINITIONS = [
@@ -88,7 +89,7 @@ const videosCollectionSchema = {
   "@type": "CollectionPage",
   "@id": `${siteUrl}/es/videos/#collection`,
   "name": "Toby on Fitness Tech — Biblioteca completa de videos",
-  "description": "Los 104 videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y datos reales de transformación. Sin guiones, sin patrocinadores.",
+  "description": `Los ${VIDEOS.length} videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y datos reales de transformación. Sin guiones, sin patrocinadores.`,
   "url": `${siteUrl}/es/videos/`,
   "inLanguage": "es",
   "isPartOf": { "@id": `${siteUrl}/#website` },
@@ -154,13 +155,13 @@ const videosCollectionSchema = {
           <span class="text-neutral-400">Sin guiones. Sin patrocinadores.</span>
         </h1>
         <p class="text-neutral-400 text-base leading-relaxed max-w-2xl mx-auto">
-          104 videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y datos reales de transformación. Filtra por tema abajo.
+          {VIDEOS.length} videos sobre reseñas de Speediance, comentarios de BJJ, análisis profundos de tecnología fitness y datos reales de transformación. Filtra por tema abajo.
         </p>
       </div>
     </section>
     
     <!-- Grid -->
     <div class="container mx-auto px-4 py-10">
-      <VideoGrid client:load showFilters={true} videos={VIDEOS} hideShortsByDefault={true} />
+      <VideoGrid client:load showFilters={true} videos={VIDEOS.slice(0, INITIAL_VIDEO_COUNT).map(toGridVideo)} pageSize={INITIAL_VIDEO_COUNT} videosJsonUrl="/videos/all.json" hideShortsByDefault={true} />
     </div>
   </Layout>

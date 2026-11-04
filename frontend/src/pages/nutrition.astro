@@ -1,7 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
 import {
   NUTRITION_STATS,
   MONTHLY_TRENDS,
@@ -69,9 +67,8 @@ const jsonLd = {
 ---
 
 <Layout title="Nutrition Stats | TobyOnFitnessTech" description="Real food tracking data from Cronometer — calories, protein, carbs, fat, and hydration over time.">
-  <Header client:load />
 
-  <main class="min-h-screen bg-neutral-950 text-white">
+  <div class="min-h-screen bg-neutral-950 text-white">
     <!-- Hero -->
     <section data-page-intro id="hero" class="pt-6 pb-6 px-4">
       <div class="max-w-5xl mx-auto text-center">
@@ -241,9 +238,8 @@ const jsonLd = {
         </div>
       </section>
     )}
-  </main>
+  </div>
 
-  <Footer client:load />
 </Layout>
 
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
