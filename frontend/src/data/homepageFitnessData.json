@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-04T00:51:37.818Z",
+  "generatedAt": "2026-11-05T00:51:01.280Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Nov 3, 2026",
-    "hubTodayKey": "2026-11-03",
-    "analysisDateKey": "2026-11-03",
+    "hubTodayLabel": "Nov 4, 2026",
+    "hubTodayKey": "2026-11-04",
+    "analysisDateKey": "2026-11-04",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-11-03T19:50:54.846632"
+    "whoopLastSynced": "2026-11-04T19:50:17.544644"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9981141,
@@ -25,17 +25,17 @@
     "runCount": 0,
     "workoutCount": 1,
     "bjjCount": 0,
-    "windowStart": "2026-10-28",
-    "windowEnd": "2026-11-03"
+    "windowStart": "2026-10-29",
+    "windowEnd": "2026-11-04"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-11-03",
+    "anchorDate": "2026-11-04",
     "dateRange": {
-      "thisWeekStart": "2026-10-28",
-      "thisWeekEnd": "2026-11-03",
-      "lastWeekStart": "2026-10-21",
-      "lastWeekEnd": "2026-10-27"
+      "thisWeekStart": "2026-10-29",
+      "thisWeekEnd": "2026-11-04",
+      "lastWeekStart": "2026-10-22",
+      "lastWeekEnd": "2026-10-28"
     },
     "workouts": {
       "thisWeek": 1,
@@ -87,18 +87,11 @@
   },
   "consistency": {
     "totalActive": 1816,
-    "currentStreak": 1,
+    "currentStreak": 0,
     "longestStreak": 60,
-    "rangeStart": "2025-11-05",
-    "rangeEnd": "2026-11-03",
+    "rangeStart": "2025-11-06",
+    "rangeEnd": "2026-11-04",
     "days": [
-      {
-        "date": "2025-11-05",
-        "count": 1,
-        "runs": 0,
-        "lifting": 1,
-        "bjj": 0
-      },
       {
         "date": "2025-11-06",
         "count": 1,
@@ -1411,7 +1404,7 @@
     ]
   },
   "trainingStats": {
-    "trainingStreak": 1,
+    "trainingStreak": 0,
     "lastWorkoutData": {
       "date": "2026-11-02",
       "type": "Lifting"
@@ -1424,7 +1417,7 @@
     "lastSleepScore": 77
   },
   "labels": {
-    "thisWeek": "October 28, 2026 - November 3, 2026",
-    "lastWeek": "October 21, 2026 - October 27, 2026"
+    "thisWeek": "October 29, 2026 - November 4, 2026",
+    "lastWeek": "October 22, 2026 - October 28, 2026"
   }
 }
