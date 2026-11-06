@@ -3,10 +3,12 @@ import { usesWildRacingAiReviewImage } from './wildRacingAiBlogPresentation.mjs'
 import { usesWildRacingReviewImage } from './wildRacingBlogPresentation.mjs';
 import { usesPokemonFeatureImage } from './pokemonBlogPresentation.mjs';
 import { articleTopic } from './blogEditorial.mjs';
+import { usesRetirementReviewImage } from './retirementBlogPresentation.mjs';
 
 // Reviewed topic photography for homepage cards. Keep headline graphics out of
 // this small surface; the article title is already real, localized text below.
 export function homeBlogCover(post) {
+  if (usesRetirementReviewImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesBjjHomeTrainingImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesWildRacingAiReviewImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesWildRacingReviewImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];

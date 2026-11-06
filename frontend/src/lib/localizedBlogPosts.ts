@@ -13,6 +13,8 @@ export type LocalizedBlogPost = Omit<BlogPost, 'category'> & {
   sourceTitle: string;
   translatedAt: string;
   model: string;
+  imageAlt?: string;
+  imageCaption?: string;
 };
 
 const translationModules = import.meta.glob('../generated/blog-translations/*/*.json', {

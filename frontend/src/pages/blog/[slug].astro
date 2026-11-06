@@ -1,6 +1,7 @@
 ---
 import PagefindMeta from '../../components/PagefindMeta.astro';
 import { imageVariants } from '../../lib/imageVariants.mjs';
+import { usesRetirementReviewImage } from '../../lib/retirementBlogPresentation.mjs';
 import { usesBjjHomeTrainingImage } from '../../lib/bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage } from '../../lib/wildRacingAiBlogPresentation.mjs';
 import { usesWildRacingReviewImage } from '../../lib/wildRacingBlogPresentation.mjs';
@@ -258,6 +259,12 @@ const articleJsonLd = {
 
     {/* Content */}
     <div class="container mx-auto px-4 py-12 max-w-3xl">
+      {usesRetirementReviewImage(post) && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-retirement-art>
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt="Original retirement episode artwork showing Toby beside the words Retire at 38, $1 Million and The Withdrawal Trap." width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">Original artwork from my October 29 retirement episode, reused unchanged.</figcaption>
+        </figure>
+      )}
       {usesBjjHomeTrainingImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-bjj-home-training-art>
           <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt="Toby seated in front of a fireplace, with a black eye visible, in a frame from his BJJ update." width="1920" height="1080" class="block h-auto w-full object-contain" loading="eager" />
@@ -293,7 +300,7 @@ const articleJsonLd = {
         sourceType="blog"
         sourceSlug={`/blog/${post.slug}/`}
       />
-      <div class="markdown-shell rounded-3xl border border-neutral-800 bg-neutral-900/55 px-6 py-8 md:px-10 md:py-10 shadow-[0_30px_80px_rgba(0,0,0,0.28)]">
+      <div class:list={["markdown-shell rounded-3xl border border-neutral-800 bg-neutral-900/55 px-6 py-8 md:px-10 md:py-10 shadow-[0_30px_80px_rgba(0,0,0,0.28)]", { "retirement-ledger": usesRetirementReviewImage(post) }]}>
         <div
           class="markdown-article"
           set:html={articleHtml}
@@ -519,6 +526,24 @@ const articleJsonLd = {
     border: 0;
     background: transparent;
   }
+
+  .retirement-ledger .markdown-article table {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .retirement-ledger .markdown-article table th,
+  .retirement-ledger .markdown-article table td {
+    min-width: 0;
+    padding: 0.65rem 0.4rem;
+    white-space: normal;
+  }
+
+  .retirement-ledger .markdown-article table :is(th, td):first-child { width: 18%; }
+  .retirement-ledger .markdown-article table :is(th, td):nth-child(2) { width: 27%; }
+  .retirement-ledger .markdown-article table :is(th, td):last-child { width: 55%; text-align: right; }
 
   @media (max-width: 768px) {
     .markdown-article {

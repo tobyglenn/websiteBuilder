@@ -6,6 +6,109 @@ specific immutable version, invoke the approved release immediately. No response
 old approval, model quality approval, or general infrastructure approval is article
 approval. A revision always needs a new version and a new personal approval.
 
+## M3 daily intake and private review
+
+On the authorized M3, run the local checkout directly. Do not use the SSH examples
+below when working locally. Repository and state defaults are now derived from the
+script location, so the same command also retains the existing DGX paths there.
+`BLOG_RELEASE_REPO` and `BLOG_RELEASE_STATE` remain explicit overrides.
+
+```sh
+cd /Users/tobyglennpeters/.openclaw/workspace/websiteBuilder
+python3 scripts/dgx/blog_release.py intake > /tmp/blog-intake.json
+```
+
+Intake now collects recent public upload captions before returning evidence. Machine
+configuration is outside Git at `../blog-drafts/caption-intake.json`:
+
+```json
+{
+  "schema": "toft-caption-intake-v1",
+  "source_roots": ["/absolute/path/to/production-packages"],
+  "max_videos": 6,
+  "packages": [
+    {"receipt": "/absolute/path/to/package/youtube/main_receipt.json", "captions": "/absolute/path/to/final-master-captions.srt"}
+  ],
+  "speech_recognition": {
+    "python": "/absolute/path/to/existing/production/venv/bin/python",
+    "model": "/absolute/path/to/already-cached/MLX/whisper/model"
+  }
+}
+```
+
+Discovery reads upload receipts only, excluding Shorts, virtualenvs, and analysis
+directories. Both adjacent `*.youtube-publish.json` and custom
+`youtube/main_receipt.json` layouts are supported. Exact video/channel identity,
+current public visibility and duration are verified without credentials, independently
+of the website catalog's refresh date. Final media must match the upload receipt's
+SHA-256. Existing adjacent `captions.srt` is preferred; a registration can name SRT,
+VTT, or English timed JSON. JSON must contain `source_asset_sha256` matching the
+final master. Clips, large timing gaps, sparse text, and truncated exports are held.
+
+If production captions are missing, an explicitly configured **already installed**
+MLX Whisper environment can recognize speech from that verified final master. It runs
+with downloads disabled and an existing local model. This is speech recognition,
+not the retired article-writing or translation pipeline. No software installation,
+account mutation, publication, or private-code ingestion occurs. Recognition accuracy
+still needs editorial review. A package may explicitly declare `speech_end_seconds`
+from its verified production timeline to exclude at most 30 seconds of non-spoken
+outro; do not invent an endpoint or trim substantive speech.
+
+Captures, caption exports, and the latest per-source report live under
+`../blog-drafts/manual-release/`. Failures retain prior files and do not stop other
+sources. Read `caption_intake.errors`; a held source is not grounds to skip all other
+usable evidence. Full timed speech and fresh **published correction notes** enter
+`library.documents` together. Read both; a rough spoken estimate does not override
+a published correction. No source or model quality check confers article approval.
+`current_public_recordings` lists the paired document IDs explicitly, so the daily
+writer can find new uploads without relying on the older versioned topic list.
+
+For a restricted/offline run, `intake --no-capture` reads both the saved library and
+validated captured speech without network or writes. Saved verification dates stay
+unchanged and are labeled; they are not current product-behavior checks. Fresh
+visibility/integrity failures hold the affected source. Corrupt saved captures are
+reported individually while other valid sources remain available.
+
+The task sandbox can block DNS and localhost listeners even when the M3 itself works.
+Use the authorized execution permission for network capture and localhost preview;
+do not change DNS, credentials, firewall, or browser security settings. An offline
+intake remains useful while fresh verification is unavailable.
+
+Stage a completed package locally, then serve **only that exact review** on loopback:
+
+```sh
+python3 scripts/dgx/blog_release.py stage /absolute/path/to/package.json
+python3 scripts/dgx/blog_release.py serve-review --sha256 FULL_SHA256
+```
+
+The second command prints an `http://127.0.0.1:PORT/review.html` URL. It needs no full
+Astro build, public hosting, SSH, or local-file browser permission. It exposes no
+directory listing, raw package, approval command, or mutation API. Stop it with
+Ctrl-C. The self-contained responsive page embeds the exact image and copy, wraps
+long hashes/source prose, and provides expandable metadata and full evidence.
+An HTTP content policy blocks scripts and external assets. `preflight` remains the
+separate full isolated build check; private review is not proof of build success.
+For actual homepage, index, article, image, and social-metadata QA, retain the exact
+built static site in a new private directory:
+
+```sh
+python3 scripts/dgx/blog_release.py preflight --sha256 FULL_SHA256 --preview-dir /absolute/new/private-preview
+```
+
+The receipt records the committed infrastructure base and preview path. Existing
+destinations are never overwritten. Retention is available only during nonpublishing
+preflight and grants no approval. Serve only the retained static output on loopback
+for review, with external analytics blocked; do not expose the source checkout.
+
+The M3 uploader resolves through `.openclaw/workspace/scripts/youtube/upload.py` to
+the existing `.agentstack-daily/workspace-scripts/youtube/upload.py`. It writes the
+hash-bound receipt, including custom receipt locations used by recent packages.
+This repair does not modify that uploader, existing drafts/approvals, or schedules.
+The existing daily task should call the local intake above before authoring, read
+complete selected sources and related articles, and stage a distinct useful draft.
+It must not invoke `transcripts:sync` (which includes translations), the retired blog
+CLI, or any publish command during preparation.
+
 ## Source intake for the parent ARIA task
 
 Use the existing Mac SSH alias; no browser, visible display, new key, or remote agent

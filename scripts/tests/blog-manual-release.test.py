@@ -2,8 +2,10 @@
 """Approval boundary tests; all approvals and git pushes use temporary test data."""
 import base64
 import copy
+import contextlib
 import importlib.util
 import json
+import io
 import os
 from pathlib import Path
 import subprocess
@@ -38,6 +40,27 @@ class Boundary(unittest.TestCase):
             p=copy.deepcopy(original);mutate(p);self.assertNotEqual(h,m.validate(p))
     def test_image_change_changes_version(self):
         p=fixture();h=m.validate(p);data=b'\xff\xd8\xffchanged';p['assets'][0].update(base64=base64.b64encode(data).decode(),sha256=m.sha(data));self.assertNotEqual(h,m.validate(p))
+    def test_image_description_changes_version(self):
+        p=fixture();h=m.validate(p)
+        for field in ('alt','caption'):
+            revised=copy.deepcopy(p);revised['assets'][0][field]='An accurate image description.'
+            self.assertNotEqual(h,m.validate(revised))
+    def test_review_uses_escaped_reader_facing_image_descriptions(self):
+        p=fixture();p['assets'][0].update(alt='Toby beside "Retire at 38?" artwork.',caption='Original episode artwork <unchanged>.')
+        r=m.stage(p);page=Path(r['review_path']).read_text()
+        self.assertIn('alt="Toby beside &quot;Retire at 38?&quot; artwork."',page)
+        self.assertIn('<figcaption>Original episode artwork &lt;unchanged&gt;.</figcaption>',page)
+        self.assertNotIn('<figcaption>frontend/',page)
+        self.assertNotIn('alt="Article artwork"',page)
+    def test_review_image_fallback_never_displays_a_filename_caption(self):
+        page=Path(m.stage(fixture())['review_path']).read_text()
+        self.assertIn('alt="A test article"',page)
+        self.assertIn('<figcaption>Artwork for A test article.</figcaption>',page)
+    def test_invalid_image_descriptions_are_rejected(self):
+        for field in ('alt','caption'):
+            for value in (' ',None,42,'x'*501):
+                p=fixture();p['assets'][0][field]=value
+                with self.assertRaisesRegex(ValueError,'Asset '+field):m.validate(p)
     def test_tampered_staged_package_is_held(self):
         h=m.stage(fixture())['sha256'];p=m.STATE/'packages'/h/'package.json';p.chmod(0o600);d=json.loads(p.read_text());d['article']['title']='Altered';p.write_text(json.dumps(d))
         with self.assertRaisesRegex(ValueError,'changed after versioning'):m.load_package(h)
@@ -70,6 +93,31 @@ class Boundary(unittest.TestCase):
         h=m.stage(fixture())['sha256']
         with self.assertRaises(ValueError):m.record_approval(h,' ')
 
+    def test_review_preview_is_loopback_only_and_never_exposes_package_paths(self):
+        h=m.stage(fixture())['sha256'];observed=[]
+        class Server:
+            server_port=4328
+            def __init__(self,address,handler):
+                self.handler=handler;self.address=address
+                self.assert_address=address==('127.0.0.1',4328)
+            def __enter__(self):return self
+            def __exit__(self,*args):pass
+            def serve_forever(self):
+                for path,host in [('/review.html','127.0.0.1:4328'),('/package.json','127.0.0.1:4328'),('/../approvals','127.0.0.1:4328'),('/review.html','untrusted.example')]:
+                    request=self.handler.__new__(self.handler);request.path=path;request.headers={'Host':host};request.server=self;request.wfile=io.BytesIO()
+                    request.send_error=lambda status:observed.append(status)
+                    request.send_response=lambda status:observed.append(status)
+                    request.send_header=lambda *args:None;request.end_headers=lambda:None
+                    request.do_GET()
+                    if path=='/review.html' and host=='127.0.0.1:4328':
+                        observed.append(b'Content-Security-Policy' in request.wfile.getvalue())
+        with patch.object(m,'HTTPServer',side_effect=Server) as server,contextlib.redirect_stdout(io.StringIO()):
+            m.serve_review(h,4328)
+        self.assertEqual(server.call_args.args[0],('127.0.0.1',4328))
+        self.assertEqual(observed,[200,True,404,404,403])
+        self.assertFalse((m.STATE/'approvals').exists())
+        self.assertFalse((m.STATE/'receipts').exists())
+
 
 class IsolatedGit(unittest.TestCase):
     """Real git workflow against a local bare remote; fake render/build executables."""
@@ -86,6 +134,17 @@ class IsolatedGit(unittest.TestCase):
     def git(self,*args,cwd=None):return subprocess.check_output(['git',*args],cwd=cwd or m.REPO,stderr=subprocess.DEVNULL,text=True).strip()
     def test_preflight_does_not_approve_or_push(self):
         before=self.git('rev-parse','origin/main');h=m.stage(fixture())['sha256'];r=m.publish(h,dry_run=True);self.assertEqual(r['status'],'preflight_passed');self.assertEqual(before,self.git('rev-parse','origin/main'));self.assertFalse((m.STATE/'approvals').exists())
+    def test_preflight_can_retain_only_a_new_private_static_preview(self):
+        (self.bin/'npm').write_text('#!/bin/sh\nmkdir -p dist\nprintf "private built site" > dist/index.html\n')
+        h=m.stage(fixture())['sha256'];destination=Path(self.tmp.name)/'preview';before=self.git('rev-parse','origin/main')
+        r=m.publish(h,dry_run=True,preview_dir=destination)
+        self.assertEqual((destination/'index.html').read_text(),'private built site')
+        self.assertEqual(r['preview_path'],str(destination.resolve()))
+        self.assertEqual(r['infrastructure_commit'],before)
+        self.assertEqual(before,self.git('rev-parse','origin/main'))
+        self.assertFalse((m.STATE/'approvals').exists())
+        with self.assertRaisesRegex(ValueError,'already exists'):m.publish(h,dry_run=True,preview_dir=destination)
+        with self.assertRaisesRegex(ValueError,'only during nonpublishing'):m.publish(h,preview_dir=destination)
     def test_approved_publication_and_repeat_are_idempotent(self):
         h=m.stage(fixture())['sha256'];m.record_approval(h,'isolated-test-approval');r=m.publish(h);self.assertEqual(r['status'],'pushed');self.assertIn('test-reviewed-article',self.git('show','origin/main:frontend/src/data/mock.js'))
         with patch.object(m,'run') as run:self.assertEqual(m.publish(h),r);run.assert_not_called()

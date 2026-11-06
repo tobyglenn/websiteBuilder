@@ -109,6 +109,18 @@ test('ignores numeric character references when checking preserved numbers', () 
   assert.equal(validateTranslationDraft(translated, entitySource).title, translated.title);
 });
 
+test('allows translated ordinal wording while requiring the same number', () => {
+  const numberedSource = { ...source, content: `${source.content}\n\nThe partial withdrawal occurs in the 14th year.` };
+  const translated = {
+    title: 'WHOOP-Erholungstest',
+    excerpt: 'Eine klare Beschreibung des vollständigen Artikels für Leser.',
+    category: 'Wearables', tags: ['WHOOP'],
+    content: `${'## Ergebnis\n\nLesen Sie die [WHOOP-Seite](/whoop/) und https://example.com/data. Der vollständige übersetzte Inhalt bleibt erhalten. '.repeat(8)} Im 14. Jahr erfolgt eine Teilentnahme.`,
+  };
+  assert.equal(validateTranslationDraft(translated, numberedSource).title, translated.title);
+  assert.throws(() => validateTranslationDraft({...translated, content:translated.content.replace('14.', '13.')}, numberedSource), /missing preserved numbers: 14/);
+});
+
 test('accepts equivalent locale-specific numeric separators', () => {
   const numberedSource = {
     ...source,

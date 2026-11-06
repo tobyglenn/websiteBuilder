@@ -212,6 +212,7 @@ const numericTokens = (value) => [
   ...new Set(
     String(value || '')
       .replace(/&#(?:x[0-9a-f]+|\d+);/gi, '')
+      .replace(/\b(\d+)(?:st|nd|rd|th)\b/gi, '$1')
       .match(/\b\d[\d,.]*(?:%|[a-z]{1,4})?\b/gi) || [],
   ),
 ];

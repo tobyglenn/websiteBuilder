@@ -9,6 +9,7 @@ import fcntl
 import hashlib
 import html
 from html.parser import HTMLParser
+from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import os
 from pathlib import Path, PurePosixPath
@@ -20,8 +21,8 @@ import tempfile
 from urllib.parse import urlsplit
 
 SCHEMA = 'toft-manual-blog-v1'
-REPO = Path(os.environ.get('BLOG_RELEASE_REPO', '/home/toby/.openclaw/workspace/websiteBuilder'))
-STATE = Path(os.environ.get('BLOG_RELEASE_STATE', '/home/toby/.openclaw/workspace/blog-drafts/manual-release'))
+REPO = Path(os.environ.get('BLOG_RELEASE_REPO', str(Path(__file__).resolve().parents[2])))
+STATE = Path(os.environ.get('BLOG_RELEASE_STATE', str(REPO.parent/'blog-drafts/manual-release')))
 ARTICLE_REQUIRED = {'slug','title','excerpt','category','date','readTime','thumbnail','tags','content'}
 ARTICLE_OPTIONAL = {'id','featured','source_video_id','source_url','source_section','source_bundle','editorial_lane'}
 CATEGORIES = {'Field Reports','The Long Game','Signal vs. Noise','Speediance','Training Tips','The Numbers','BJJ','Reviews','Wearables','Build Logs','Transformation','Tips & Guides','Mat Science'}
@@ -104,7 +105,9 @@ def validate(package):
     if not isinstance(package['assets'],list):raise ValueError('Assets must be a list')
     total=0
     for asset in package['assets']:
-        if set(asset)!={'path','sha256','base64'}:raise ValueError('Unexpected asset fields')
+        if not {'path','sha256','base64'}<=set(asset) or set(asset)-{'path','sha256','base64','alt','caption'}:raise ValueError('Unexpected asset fields')
+        for field in ('alt','caption'):
+            if field in asset and (not isinstance(asset[field],str) or not asset[field].strip() or len(asset[field])>500):raise ValueError('Asset '+field+' must be nonempty text of at most 500 characters')
         path=asset['path'];p=PurePosixPath(path)
         if str(p)!=path or p.is_absolute() or '..' in p.parts or not path.startswith('frontend/public/images/blog/') or p.suffix.lower() not in {'.jpg','.jpeg','.png','.webp'}:raise ValueError('Invalid asset path')
         if path in paths:raise ValueError('Duplicate asset')
@@ -135,10 +138,12 @@ def stage(package):
         write_json(target,package);target.chmod(0o444)
     review={'schema':SCHEMA,'sha256':h,'status':'awaiting_user_review','slug':package['article']['slug'],'locales':['en']+sorted(t['lang'] for t in package['translations']),'package_path':str(target)}
     a=package['article']
-    images=''.join('<figure><img style="max-width:100%" src="data:image/'+('jpeg' if x['path'].endswith(('.jpg','.jpeg')) else PurePosixPath(x['path']).suffix[1:])+';base64,'+x['base64']+'"><figcaption>'+html.escape(x['path'])+'</figcaption></figure>' for x in package['assets'])
+    images=''.join('<figure><img alt="'+html.escape(x.get('alt',a['title']),quote=True)+'" src="data:image/'+('jpeg' if x['path'].endswith(('.jpg','.jpeg')) else PurePosixPath(x['path']).suffix[1:])+';base64,'+x['base64']+'"><figcaption>'+html.escape(x.get('caption','Artwork for '+a['title']+'.'))+'</figcaption></figure>' for x in package['assets'])
     metadata={k:v for k,v in a.items() if k!='content'}
-    body='<h1>'+html.escape(a['title'])+'</h1><p><strong>AWAITING YOUR APPROVAL — version '+h+'</strong></p>'+images+a['content']+'<h2>Exact metadata</h2><pre>'+html.escape(json.dumps(metadata,ensure_ascii=False,indent=2))+'</pre><h2>Source evidence and reviewed translations</h2><pre>'+html.escape(json.dumps({'sources':package['sources'],'translations':package['translations']},ensure_ascii=False,indent=2))+'</pre>'
-    (target.parent/'review.html').write_text('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>Review '+html.escape(a['title'])+'</title><body style="max-width:900px;margin:2rem auto;font:18px/1.6 system-ui;padding:1rem;overflow-wrap:anywhere">'+body+'</body></html>')
+    body='<main><p class="status">Private draft · awaiting your approval</p><h1>'+html.escape(a['title'])+'</h1><p>Exact version: <code>'+h+'</code></p>'+images+'<article>'+a['content']+'</article><details><summary>Exact metadata</summary><pre>'+html.escape(json.dumps(metadata,ensure_ascii=False,indent=2))+'</pre></details><details><summary>Full source evidence and reviewed translations</summary><pre>'+html.escape(json.dumps({'sources':package['sources'],'translations':package['translations']},ensure_ascii=False,indent=2))+'</pre></details><p class="status">Staging grants no approval. This page does not publish anything.</p></main>'
+    style='*{box-sizing:border-box}body{margin:0;color:#17212b;background:#f6f4ef;font:18px/1.65 system-ui}main{max-width:900px;margin:2rem auto;padding:clamp(1rem,4vw,2.5rem);background:#fff;border-radius:16px;overflow-wrap:anywhere}h1{font-size:clamp(1.7rem,5vw,2.7rem);line-height:1.15}h2{line-height:1.25}figure{margin:1.5rem 0}img{display:block;max-width:100%;height:auto;border-radius:8px}figcaption,.status{font-size:.86rem;color:#475569}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:14px/1.5 ui-monospace,monospace}details{margin:1.5rem 0;padding:1rem;background:#f1f5f9;border-radius:8px}summary{cursor:pointer;font-weight:600}table{display:block;max-width:100%;overflow-x:auto;border-collapse:collapse}td,th{padding:.6rem;border:1px solid #cbd5e1}a{color:#175ea8}code{font-size:.85em}@media(max-width:600px){main{margin:0;border-radius:0}body{font-size:17px}}'
+    csp="default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'"
+    (target.parent/'review.html').write_text('<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><meta http-equiv="Content-Security-Policy" content="'+csp+'"><title>Review '+html.escape(a['title'])+'</title><style>'+style+'</style></head><body>'+body+'</body></html>')
     review['review_path']=str(target.parent/'review.html')
     write_json(target.parent/'review.json',review)
     return review
@@ -149,6 +154,35 @@ def load_package(h):
     package=read_json(STATE/'packages'/h/'package.json')
     if validate(package)!=h:raise ValueError('Staged package changed after versioning')
     return package
+
+
+def serve_review(h, port=0):
+    """Serve one exact review on loopback. No directory, assets, APIs or writes are exposed."""
+    package=load_package(h)
+    review=stage(package)
+    body=Path(review['review_path']).read_bytes()
+    class ReviewHandler(BaseHTTPRequestHandler):
+        def do_GET(self):
+            if self.headers.get('Host') != '127.0.0.1:'+str(self.server.server_port):
+                self.send_error(403);return
+            if self.path not in ('/', '/review.html'):
+                self.send_error(404);return
+            # Detect tampering even while the private server is running.
+            load_package(h)
+            self.send_response(200)
+            self.send_header('Content-Type','text/html; charset=utf-8')
+            self.send_header('Content-Length',str(len(body)))
+            self.send_header('Cache-Control','no-store')
+            self.send_header('X-Content-Type-Options','nosniff')
+            self.send_header('Content-Security-Policy',"default-src 'none'; img-src data:; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'")
+            self.end_headers();self.wfile.write(body)
+        def log_message(self,*args):pass
+    with HTTPServer(('127.0.0.1',port),ReviewHandler) as server:
+        print(json.dumps({'status':'private_review_ready','sha256':h,
+                          'url':'http://127.0.0.1:'+str(server.server_port)+'/review.html'}),flush=True)
+        try:server.serve_forever()
+        except KeyboardInterrupt:pass
+    return {'status':'private_review_stopped','sha256':h}
 
 
 def record_approval(h, evidence):
@@ -242,8 +276,12 @@ def log_command(args,cwd,log):
     return r.stdout.strip()
 
 
-def publish(h,dry_run=False):
+def publish(h,dry_run=False,preview_dir=None):
     package=load_package(h)
+    if preview_dir is not None:
+        if not dry_run:raise ValueError('Retaining a private site preview is available only during nonpublishing preflight')
+        preview_dir=Path(preview_dir).resolve()
+        if preview_dir.exists():raise ValueError('Preview destination already exists; refusing to overwrite it')
     if not dry_run:require_approval(h)
     STATE.mkdir(parents=True,exist_ok=True)
     with (STATE/'.release.lock').open('a') as lock:
@@ -281,8 +319,11 @@ def publish(h,dry_run=False):
                 if sha((tree/asset['path']).read_bytes())!=asset['sha256']:raise ValueError('Asset changed during build')
             for t in package['translations']:
                 if read_json(tree/f"frontend/src/generated/blog-translations/{t['lang']}/{t['slug']}.json")!=t:raise ValueError('Translation changed during build')
-            result={'schema':SCHEMA,'sha256':h,'slug':package['article']['slug'],'status':'preflight_passed' if dry_run else 'built','at':stamp(),'log':str(log),'url':'https://tobyonfitnesstech.com/blog/'+package['article']['slug']}
+            result={'schema':SCHEMA,'sha256':h,'slug':package['article']['slug'],'status':'preflight_passed' if dry_run else 'built','at':stamp(),'log':str(log),'url':'https://tobyonfitnesstech.com/blog/'+package['article']['slug'],'infrastructure_commit':run(['git','rev-parse','HEAD'],tree).stdout.strip()}
             if dry_run:
+                if preview_dir is not None:
+                    shutil.copytree(tree/'frontend/dist',preview_dir)
+                    result['preview_path']=str(preview_dir)
                 write_json(STATE/'preflights'/(h+'.json'),result)
                 return result
             require_approval(h)
@@ -298,14 +339,39 @@ def publish(h,dry_run=False):
             return result
 
 
-def source_intake():
+def source_intake(capture=True, config_path=None):
     base=REPO/'scripts/dgx';plan=read_json(base/'blog-source-plan.json');library=read_json(base/'source-library.json')
     mock=(REPO/'frontend/src/data/mock.js').read_text()
-    return {'schema':'toft-blog-intake-v1','exported_at':stamp(),'plan':plan,'library':library,'published_slugs':re.findall(r'\bslug\s*:\s*[\"\']([^\"\']+)',mock),'pending_path':'/home/toby/.openclaw/workspace/blog-drafts/pending.json','policy':{'private_source_code':'never ingest or publish','sources':'Only complete public prose, verified long-form transcript passages, and owner-approved narrative notes','schedule':'ARIA drafts at 18:00 America/New_York; publish only immediately after exact-version user approval'}}
+    configured_path=Path(config_path) if config_path else STATE.parent/'caption-intake.json'
+    report={'configured':configured_path.exists(),'captured':[],'errors':[]}
+    import importlib.util
+    spec=importlib.util.spec_from_file_location('blog_capture',Path(__file__).with_name('blog_capture.py'))
+    collector=importlib.util.module_from_spec(spec);spec.loader.exec_module(collector)
+    saved_errors=[]
+    for doc in collector.saved_documents(STATE,errors=saved_errors):library['documents'][doc['id']]=doc
+    if capture:
+        try:
+            report=collector.collect(REPO,STATE,config_path)
+            for video_id in report.get('held_video_ids',[]):
+                for suffix in ('-production-full','-published-notes'):library['documents'].pop('youtube-'+str(video_id)+suffix,None)
+            for doc in report.pop('documents',[]):library['documents'][doc['id']]=doc
+        except Exception as exc:
+            report={'configured':True,'captured':[],'errors':[{'error':str(exc)}]}
+    report['errors'].extend(saved_errors)
+    report['mode']='refresh' if capture else 'saved'
+    recordings=[{'video_id':doc['video_id'],'title':doc['title'],'url':doc['url'],
+                 'published_at':doc['published_at'],'verified_at':doc['verified_at'],
+                 'freshness':doc.get('freshness','Verified during this intake'),
+                 'documents':[doc['id'],'youtube-'+doc['video_id']+'-published-notes']}
+                for doc in library['documents'].values() if doc.get('complete') is True]
+    recordings.sort(key=lambda item:item['published_at'],reverse=True)
+    report['usable_recordings']=len(recordings)
+    library['caption_capture_checked_at']=report.get('checked_at')
+    return {'schema':'toft-blog-intake-v1','exported_at':stamp(),'plan':plan,'library':library,'current_public_recordings':recordings,'caption_intake':report,'published_slugs':re.findall(r'\bslug\s*:\s*[\"\']([^\"\']+)',mock),'pending_path':str(REPO.parent/'blog-drafts/pending.json'),'policy':{'private_source_code':'never ingest or publish','sources':'Only complete public prose, verified long-form transcript passages, and owner-approved narrative notes. current_public_recordings points to paired full speech and published corrections in library.documents. Read both before choosing a distinct reader question. Caption completeness checks do not certify recognition accuracy.','schedule':'ARIA drafts at 18:00 America/New_York; publish only immediately after exact-version user approval'}}
 
 
 def import_pending():
-    original=read_json('/home/toby/.openclaw/workspace/blog-drafts/pending.json')
+    original=read_json(REPO.parent/'blog-drafts/pending.json')
     article={k:v for k,v in original.items() if k in ARTICLE_REQUIRED|ARTICLE_OPTIONAL}
     image=article['thumbnail'];data=(REPO/'frontend/public'/image.lstrip('/')).read_bytes()
     library=read_json(REPO/'scripts/dgx/source-library.json')['documents']
@@ -320,19 +386,23 @@ def import_pending():
 def main():
     p=argparse.ArgumentParser(description=__doc__);sub=p.add_subparsers(dest='command',required=True)
     stage_p=sub.add_parser('stage');stage_p.add_argument('file',help='JSON file, or - for stdin')
-    sub.add_parser('intake');sub.add_parser('import-pending')
+    intake_p=sub.add_parser('intake');intake_p.add_argument('--no-capture',action='store_true',help='Read saved public evidence without network or local source capture');intake_p.add_argument('--config',type=Path,help='Machine-local caption intake configuration')
+    sub.add_parser('import-pending')
     for name in ('show','preflight','publish','approve-and-publish'):
         cmd=sub.add_parser(name);cmd.add_argument('--sha256',required=True)
+        if name=='preflight':cmd.add_argument('--preview-dir',type=Path,help='Retain the exact built static site in a new private directory for homepage/index/article QA')
         if name=='approve-and-publish':cmd.add_argument('--approval-message-ref',required=True)
+    serve_p=sub.add_parser('serve-review');serve_p.add_argument('--sha256',required=True);serve_p.add_argument('--port',type=int,default=0)
     a=p.parse_args()
     try:
         if a.command=='stage':result=stage(json.load(sys.stdin) if a.file=='-' else read_json(a.file))
-        elif a.command=='intake':result=source_intake()
+        elif a.command=='intake':result=source_intake(capture=not a.no_capture,config_path=a.config)
         elif a.command=='import-pending':result=stage(import_pending())
         elif a.command=='show':result=load_package(a.sha256)
+        elif a.command=='serve-review':result=serve_review(a.sha256,a.port)
         else:
             if a.command=='approve-and-publish':record_approval(a.sha256,a.approval_message_ref)
-            result=publish(a.sha256,dry_run=a.command=='preflight')
+            result=publish(a.sha256,dry_run=a.command=='preflight',preview_dir=getattr(a,'preview_dir',None))
         print(json.dumps(result,ensure_ascii=False,indent=2));return 0
     except Exception as exc:
         print(str(exc),file=sys.stderr);return 1
