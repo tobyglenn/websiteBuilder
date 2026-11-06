@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-04T00:51:38.078Z",
+  "generatedAt": "2026-11-05T00:51:01.569Z",
   "definitions": {
     "running": "Garmin running and treadmill_running activities only",
     "lifting": "Lifetime recorded volume across smart cable machines",
     "whoop": "30 calendar days ending on the latest bundled recovery date; duplicate IDs and sleep naps excluded"
   },
   "sourceDates": {
-    "fitness": "2026-11-04T00:51:37.818Z",
+    "fitness": "2026-11-05T00:51:01.280Z",
     "running": "2026-10-12",
-    "whoop": "2026-11-03T19:50:54.846632",
+    "whoop": "2026-11-04T19:50:17.544644",
     "weight": "2026-07-05"
   },
   "lifetimeStats": {
@@ -92,7 +92,7 @@
     "allTimeGreenPct": 31.088082901554404,
     "allTimeYellowPct": 51.69833045480714,
     "allTimeRedPct": 17.213586643638457,
-    "lastSynced": "2026-11-03T19:50:54.846632"
+    "lastSynced": "2026-11-04T19:50:17.544644"
   },
   "strength": {
     "totalVolumeLbs": 1137021.2,
