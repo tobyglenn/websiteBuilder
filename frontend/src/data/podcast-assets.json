@@ -10193,6 +10193,38 @@
         }
       ]
     },
+    "/images/podcast/episode_127_cover_de.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep127/episode_127_cover.png",
+      "sha256": "eebdd7c8f09bb2b543a49edd8624a82a7607b6d18e17861d0b738a4fd8cbaa10",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_127_cover_de-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_127_cover_de-640.webp"
+        }
+      ]
+    },
+    "/images/podcast/episode_127_cover_es.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep127/episode_127_cover.png",
+      "sha256": "6ae991cd6b9a4c362ae2200b1b3f43a031563ce81b28a6417713d08c86765cd7",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_127_cover_es-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_127_cover_es-640.webp"
+        }
+      ]
+    },
     "/images/podcast/episode_127_cover.png": {
       "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep127/episode_127_cover.png",
       "sha256": "e28eb15073f1727c0ebcf953f1219a98dd28413a1f8e7f0d1cf2223b7b5d377b",
