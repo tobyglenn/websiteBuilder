@@ -1,4 +1,5 @@
 ---
+import { usesGeminiDownloadsImage, geminiDownloadsImageStyle } from '../lib/geminiDownloadsBlogPresentation.mjs';
 import { imageVariants } from '../lib/imageVariants.mjs';
 import { usesRetirementReviewImage, retirementReviewImageStyle } from '../lib/retirementBlogPresentation.mjs';
 import { usesBjjHomeTrainingImage, bjjHomeTrainingImageStyle } from '../lib/bjjHomeTrainingPresentation.mjs';
@@ -180,14 +181,14 @@ const schema = {
           <section class="grid gap-8 border-b border-neutral-800 pb-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(260px,0.8fr)]" data-lead-section>
             <article
               class="group grid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 md:grid-cols-[minmax(240px,0.9fr)_minmax(0,1.1fr)]"
-              style={(usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? "display: flex; flex-direction: column" : undefined}
+              style={(usesGeminiDownloadsImage(featuredPost) || usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? "display: flex; flex-direction: column" : undefined}
               data-post-card
               data-category={featuredPost.categoryKey}
               data-search={`${featuredPost.title} ${featuredPost.excerpt}`.toLocaleLowerCase(locale)}
             >
-              <a href={articleUrl(featuredPost.slug)} aria-label={usesMuseArtwork(featuredPost) || (usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? featuredPost.title : undefined} style={(usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? "min-height: 0; aspect-ratio: 16 / 9" : undefined} class="block min-h-56 bg-neutral-800">
+              <a href={articleUrl(featuredPost.slug)} aria-label={usesMuseArtwork(featuredPost) || (usesGeminiDownloadsImage(featuredPost) || usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? featuredPost.title : undefined} style={(usesGeminiDownloadsImage(featuredPost) || usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? "min-height: 0; aspect-ratio: 16 / 9" : undefined} class="block min-h-56 bg-neutral-800">
                 {featuredPost.image
-                  ? <img {...{ src: featuredPost.image, ...imageVariants(featuredPost.image, "(min-width: 768px) 45vw, 100vw") }} style={retirementReviewImageStyle(featuredPost) || bjjHomeTrainingImageStyle(featuredPost) || wildRacingAiReviewImageStyle(featuredPost) || wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (usesMuseArtwork(featuredPost) ? "object-fit: contain; object-position: center; transform: none" : undefined)} alt="" class="h-full w-full object-cover" loading="eager" />
+                  ? <img {...{ src: featuredPost.image, ...imageVariants(featuredPost.image, "(min-width: 768px) 45vw, 100vw") }} style={geminiDownloadsImageStyle(featuredPost) || retirementReviewImageStyle(featuredPost) || bjjHomeTrainingImageStyle(featuredPost) || wildRacingAiReviewImageStyle(featuredPost) || wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (usesMuseArtwork(featuredPost) ? "object-fit: contain; object-position: center; transform: none" : undefined)} alt="" class="h-full w-full object-cover" loading="eager" />
                   : <div class="flex h-full min-h-56 items-center justify-center px-6 text-center text-sm font-bold uppercase text-neutral-500">{featuredPost.category}</div>}
               </a>
               <div class="flex flex-col p-7">
@@ -214,9 +215,9 @@ const schema = {
                     data-category={post.categoryKey}
                     data-search={`${post.title} ${post.excerpt}`.toLocaleLowerCase(locale)}
                   >
-                    {(usesRetirementReviewImage(post) || usesMuseArtwork(post) || usesBjjHomeTrainingImage(post) || usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post)) && (
+                    {(usesGeminiDownloadsImage(post) || usesRetirementReviewImage(post) || usesMuseArtwork(post) || usesBjjHomeTrainingImage(post) || usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post)) && (
                       <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art>
-                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 320px, 100vw") }} alt="" width={usesBjjHomeTrainingImage(post) ? 1920 : usesWildRacingAiReviewImage(post) ? 768 : 1280} height={usesBjjHomeTrainingImage(post) ? 1080 : usesWildRacingAiReviewImage(post) ? 432 : 720} class="block h-auto w-full object-contain" loading="lazy" />
+                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 320px, 100vw") }} alt="" width={usesGeminiDownloadsImage(post) ? 1672 : usesBjjHomeTrainingImage(post) ? 1920 : usesWildRacingAiReviewImage(post) ? 768 : 1280} height={usesGeminiDownloadsImage(post) ? 941 : usesBjjHomeTrainingImage(post) ? 1080 : usesWildRacingAiReviewImage(post) ? 432 : 720} class="block h-auto w-full object-contain" loading="lazy" />
                       </a>
                     )}
                     <p class="mb-2 text-xs font-semibold text-blue-400">{post.category}</p>
@@ -239,9 +240,9 @@ const schema = {
                     data-category={post.categoryKey}
                     data-search={`${post.title} ${post.excerpt}`.toLocaleLowerCase(locale)}
                   >
-                    {(usesRetirementReviewImage(post) || usesMuseArtwork(post) || usesBjjHomeTrainingImage(post) || usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post)) && (
+                    {(usesGeminiDownloadsImage(post) || usesRetirementReviewImage(post) || usesMuseArtwork(post) || usesBjjHomeTrainingImage(post) || usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post)) && (
                       <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art>
-                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw") }} alt="" width={usesBjjHomeTrainingImage(post) ? 1920 : usesWildRacingAiReviewImage(post) ? 768 : 1280} height={usesBjjHomeTrainingImage(post) ? 1080 : usesWildRacingAiReviewImage(post) ? 432 : 720} class="block h-auto w-full object-contain" loading="lazy" />
+                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw") }} alt="" width={usesGeminiDownloadsImage(post) ? 1672 : usesBjjHomeTrainingImage(post) ? 1920 : usesWildRacingAiReviewImage(post) ? 768 : 1280} height={usesGeminiDownloadsImage(post) ? 941 : usesBjjHomeTrainingImage(post) ? 1080 : usesWildRacingAiReviewImage(post) ? 432 : 720} class="block h-auto w-full object-contain" loading="lazy" />
                       </a>
                     )}
                     <p class="mb-3 text-xs font-semibold text-blue-400">{post.category}</p>

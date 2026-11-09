@@ -1,4 +1,5 @@
 ---
+import { usesGeminiDownloadsImage, geminiDownloadsArtwork } from '../../../lib/geminiDownloadsBlogPresentation.mjs';
 import PagefindMeta from '../../../components/PagefindMeta.astro';
 import { imageVariants } from '../../../lib/imageVariants.mjs';
 import { usesRetirementReviewImage } from '../../../lib/retirementBlogPresentation.mjs';
@@ -264,6 +265,12 @@ const blogSchema = {
     </header>
 
     <div class="container mx-auto max-w-3xl px-4 py-12">
+      {usesGeminiDownloadsImage(post) && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-gemini-downloads-art>
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt={geminiDownloadsArtwork[lang].alt} width="1672" height="941" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">{geminiDownloadsArtwork[lang].caption}</figcaption>
+        </figure>
+      )}
       {usesRetirementReviewImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-retirement-art>
           <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt={post.imageAlt} width="1280" height="720" class="block h-auto w-full object-contain" loading="eager" />
