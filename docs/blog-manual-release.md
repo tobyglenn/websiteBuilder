@@ -1,4 +1,4 @@
-# Daily ARIA draft → Toby review → exact DGX release
+# Daily ARIA draft → Toby review → exact M3-to-GitHub release
 
 Effective October 21, 2026. ARIA prepares a draft at **18:00 America/New_York**.
 There is no automatic article publishing time. After Toby personally approves the
@@ -6,12 +6,26 @@ specific immutable version, invoke the approved release immediately. No response
 old approval, model quality approval, or general infrastructure approval is article
 approval. A revision always needs a new version and a new personal approval.
 
+## Canonical publication route
+
+Effective November 9, 2026, Toby switched this and future blog releases to the
+current M3 checkout, pushing through the existing GitHub remote. GitHub Actions
+builds and deploys Pages from `main`. The DGX is no longer required for blog intake,
+staging, preflight, or publication. Do not route the M3 through DGX SSH or restore
+the retired pipeline. This route change does not grant article approval.
+
+Before publishing, fetch `origin/main`, verify it is an ancestor of the committed
+release base, and preserve unrelated working-tree changes. Use the exact approved
+package hash and guarded publisher below. Verify the resulting remote commit,
+GitHub Pages deployment, and public article routes before reporting the article
+live. Do not change credentials, authentication, or security settings.
+
 ## M3 daily intake and private review
 
-On the authorized M3, run the local checkout directly. Do not use the SSH examples
-below when working locally. Repository and state defaults are now derived from the
-script location, so the same command also retains the existing DGX paths there.
-`BLOG_RELEASE_REPO` and `BLOG_RELEASE_STATE` remain explicit overrides.
+Run all commands below directly in the authorized M3 checkout. Repository and state
+defaults are derived from the script location. The legacy `scripts/dgx/` directory
+name does not mean a DGX or SSH hop is required. `BLOG_RELEASE_REPO` and
+`BLOG_RELEASE_STATE` remain explicit overrides.
 
 ```sh
 cd /Users/tobyglennpeters/.openclaw/workspace/websiteBuilder
@@ -111,12 +125,12 @@ CLI, or any publish command during preparation.
 
 ## Source intake for the parent ARIA task
 
-Use the existing Mac SSH alias; no browser, visible display, new key, or remote agent
-is needed. Set `BatchMode=yes` to fail instead of waiting for interactive auth.
+Use the same local M3 checkout for intake and release. No DGX connection, new key,
+or remote agent is needed.
 
 ```sh
-ssh -o BatchMode=yes -o ConnectTimeout=15 dgx \
-  'python3 /home/toby/.openclaw/workspace/websiteBuilder/scripts/dgx/blog_release.py intake' > intake.json
+cd /Users/tobyglennpeters/.openclaw/workspace/websiteBuilder
+python3 scripts/dgx/blog_release.py intake > /tmp/blog-intake.json
 ```
 
 The exported object contains the current source plan, complete dated public prose
@@ -133,8 +147,8 @@ If a fresh snapshot is needed, this existing deterministic source collector uses
 public endpoints only, no AI calls or publication. Inspect its errors and dates:
 
 ```sh
-ssh -o BatchMode=yes dgx \
- 'cd /home/toby/.openclaw/workspace/websiteBuilder && python3 scripts/dgx/blog_sources.py refresh scripts/dgx/blog-source-plan.json scripts/dgx/source-library.json'
+cd /Users/tobyglennpeters/.openclaw/workspace/websiteBuilder
+python3 scripts/dgx/blog_sources.py refresh scripts/dgx/blog-source-plan.json scripts/dgx/source-library.json
 ```
 
 Public repository intake verifies public visibility before reading listed prose.
@@ -185,27 +199,27 @@ review. Each follows the existing generated-record schema: `slug`, `lang`, `titl
 `sourceHash`, `sourceTitle`, `translatedAt` and optional authorship metadata. The
 `sourceHash` follows `computeSourceHash` in `frontend/scripts/blog-translations.mjs`.
 The existing output validator verifies it during build. Partial locale sets are held.
-No translations are generated or independently promoted for blogs on the DGX.
+No translations are generated or independently promoted by the release runner.
 Existing published blog translations are retained. Priority-page translation jobs
 remain separate and preserve their existing model configuration.
 
 ## Headless staging and review
 
 ```sh
-ssh -o BatchMode=yes dgx \
- 'python3 /home/toby/.openclaw/workspace/websiteBuilder/scripts/dgx/blog_release.py stage -' < package.json
+cd /Users/tobyglennpeters/.openclaw/workspace/websiteBuilder
+python3 scripts/dgx/blog_release.py stage /absolute/path/to/package.json
 ```
 
 This returns the full `sha256` and paths. Staging grants no approval. Storage:
 
-- `/home/toby/.openclaw/workspace/blog-drafts/manual-release/packages/<sha>/package.json`
+- `/Users/tobyglennpeters/.openclaw/workspace/blog-drafts/manual-release/packages/<sha>/package.json`
 - same directory: `review.html` (self-contained image, exact copy, metadata, sources, translations)
 - same directory: `review.json` (state `awaiting_user_review`)
 - `manual-release/approvals/<sha>.json` (created only by explicit approval command)
 - `manual-release/receipts/<sha>.json` (commit/push status, supports uncertain-push recovery)
 - `manual-release/logs/<sha>[-preflight].log` (full build output with URLs redacted)
 
-Fetch `review.html` over SSH to a local file and open that file for Toby. Present the
+Use `serve-review --sha256 FULL_SHA256` to open the loopback review for Toby. Present the
 slug and full version hash with the article, then retain the trusted user message
 reference when Toby explicitly approves it. Do not infer approval from a timer or
 from the earlier request to build this infrastructure. The HTML is only a private
@@ -214,8 +228,7 @@ review file, not a deployed preview. The JSON package is the authoritative versi
 To test the real build without approval, commit/push, or production article changes:
 
 ```sh
-ssh -o BatchMode=yes dgx \
- 'python3 /home/toby/.openclaw/workspace/websiteBuilder/scripts/dgx/blog_release.py preflight --sha256 FULL_SHA256'
+python3 scripts/dgx/blog_release.py preflight --sha256 FULL_SHA256
 ```
 
 Preflight uses an isolated temporary worktree, checks the normalized canonical
@@ -226,12 +239,11 @@ committed infrastructure at HEAD; uncommitted code is not a release base.
 Only after the explicit exact-version user approval:
 
 ```sh
-ssh -o BatchMode=yes dgx \
- 'python3 /home/toby/.openclaw/workspace/websiteBuilder/scripts/dgx/blog_release.py approve-and-publish --sha256 FULL_SHA256 --approval-message-ref TRUSTED_USER_MESSAGE_REFERENCE'
+python3 scripts/dgx/blog_release.py approve-and-publish --sha256 FULL_SHA256 --approval-message-ref TRUSTED_USER_MESSAGE_REFERENCE
 ```
 
 The caller is the trusted approval recorder: invoke only in direct response to Toby's
-approval of this hash. This is an audit record under the existing SSH identity, not a
+approval of this hash. This is an audit record using the existing GitHub access, not a
 new identity or cryptographic signature. Draft artifacts cannot carry approval fields.
 The publisher checks that internal receipt, serializes releases, builds only the
 approved content in a detached worktree, and stages only package paths. It performs
