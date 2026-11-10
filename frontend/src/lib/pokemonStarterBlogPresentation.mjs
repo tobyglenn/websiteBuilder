@@ -32,7 +32,7 @@ export const localizedPokemonStarterArtwork = {
     caption: 'Ilustração gerada por IA, não é uma captura de tela do jogo.',
   },
   hi: {
-    alt: 'चार फ़ोन का चित्रण, जो प्रगति, साथी की देखभाल, उपहार और लड़ाइयों को दर्शाते हैं',
+    alt: 'चार फ़ोनों का चित्रण, जो प्रगति, साथी की देखभाल, उपहार और लड़ाइयों को दर्शाते हैं',
     caption: 'एआई से बनाया गया चित्रण, गेम का स्क्रीनशॉट नहीं है।',
   },
 };
