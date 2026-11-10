@@ -11,6 +11,7 @@ import {
   usesPokemonStarterImage,
   pokemonStarterImageStyle,
   pokemonStarterArtwork,
+  localizedPokemonStarterArtwork,
 } from '../../src/lib/pokemonStarterBlogPresentation.mjs';
 import { homeBlogCover } from '../../src/lib/homeBlogCovers.mjs';
 
@@ -31,12 +32,14 @@ async function renderMarkup(markup, source, props) {
     .split('\n')
     .filter((line) => /^import /.test(line) && /Presentation\.mjs|imageVariants\.mjs/.test(line))
     .map((line) =>
-      line.replace(/'\.\.\/\.\.\/lib\/([^']+)'/, (_, file) =>
+      line.replace(/'(?:\.\.\/)+lib\/([^']+)'/, (_, file) =>
         `'${new URL(`../../src/lib/${file}`, import.meta.url).href}'`
       )
     )
     .join('\n');
-  const result = transform(`---\n${imports}\nconst { post, featuredPost } = Astro.props;\n---\n${markup}`, {
+  const result = transform(`---\n${imports}\nconst { post, featuredPost, lang } = Astro.props;
+const articleUrl = (slug) => '/' + lang + '/blog/' + slug + '/';
+const usesMuseArtwork = (post) => post.slug === 'what-changed-my-mind-about-muse' && post.image === '/images/blog/what-changed-my-mind-about-muse-aria-review.jpg';\n---\n${markup}`, {
     internalURL: 'astro/compiler-runtime',
     inlineComponentAssets: true,
     resultScopedSlot: true,
@@ -117,14 +120,14 @@ test('all three English index card positions render the uncropped cover without 
   }
 });
 
-test('social metadata stays image-driven and localized article templates are untouched', () => {
+test('social metadata stays image-driven', () => {
   assert.match(heroSource, /image=\{post\.image\}/);
   assert.match(heroSource, /"image": post\.image\.startsWith\('http'\) \? post\.image : `\$\{siteUrl\}\$\{post\.image\}`/);
-  assert.doesNotMatch(readSource('pages/[lang]/blog/[slug].astro'), /pokemonStarter/);
+  assert.match(readSource('pages/[lang]/blog/[slug].astro'), /image=\{post\.image\}/);
 });
 
-test('the changed English templates compile without errors', () => {
-  for (const path of ['pages/blog/[slug].astro', 'pages/blog/index.astro']) {
+test('the English and localized templates compile without errors', () => {
+  for (const path of ['pages/blog/[slug].astro', 'pages/blog/index.astro', 'pages/[lang]/blog/[slug].astro', 'components/LocalizedBlogIndex.astro']) {
     const result = transform(readSource(path), {
       filename: path,
       internalURL: 'astro/compiler-runtime',
@@ -133,3 +136,64 @@ test('the changed English templates compile without errors', () => {
     assert.deepEqual(result.diagnostics.filter((item) => item.severity === 'error'), [], path);
   }
 });
+
+const localizedHeroSource = readSource('pages/[lang]/blog/[slug].astro');
+const localizedIndexSource = readSource('components/LocalizedBlogIndex.astro');
+const localizedLabels = {
+  de: /KI-generierte Illustration, kein Screenshot aus dem Spiel/,
+  es: /Ilustración generada por IA, no es una captura del juego/,
+  pt: /Ilustração gerada por IA, não é uma captura de tela do jogo/,
+  hi: /एआई से बनाया गया चित्रण, गेम का स्क्रीनशॉट नहीं है/,
+};
+
+for (const lang of ['de', 'es', 'pt', 'hi']) {
+  test(`${lang} actual hero renders localized alt and disclosure without cropping`, async () => {
+    const markup = localizedHeroSource.match(/\{usesPokemonStarterImage\(post\) && \([\s\S]*?<\/figure>\s*\)\}/)?.[0];
+    assert.ok(markup);
+    const artwork = localizedPokemonStarterArtwork[lang];
+    assert.match(artwork.caption, localizedLabels[lang]);
+    assert.notEqual(artwork.alt, pokemonStarterArtwork.alt);
+    const html = await renderMarkup(markup, localizedHeroSource, { post, lang });
+    assert.ok(html.includes(`src="${post.image}"`));
+    assert.ok(html.includes(`alt="${artwork.alt}"`));
+    assert.ok(html.includes(artwork.caption));
+    assert.match(html, /width="1672" height="941"/);
+    assert.match(html, /class="block h-auto w-full object-contain"/);
+    assert.match(html, /loading="eager"/);
+    assert.match(markup, /imageVariants\(/);
+    for (const other of [{ ...post, slug: 'other' }, { ...post, image: '/other.png' }]) {
+      assert.doesNotMatch(await renderMarkup(markup, localizedHeroSource, { post: other, lang }), /<figure|<img|<figcaption/);
+    }
+  });
+
+  test(`${lang} actual featured, sidebar and grid index covers preserve the full image`, async () => {
+    const anchor = localizedIndexSource.match(/<a href=\{articleUrl\(featuredPost.slug\)\}[^\n]+>/)?.[0];
+    const img = localizedIndexSource.match(/<img \{\.\.\.\{ src: featuredPost.image[^\n]+\/>/)?.[0];
+    assert.ok(anchor && img);
+    const featured = await renderMarkup(`${anchor}${img}</a>`, localizedIndexSource, { featuredPost: post, lang });
+    assert.match(featured, /object-fit: contain; object-position: center; transform: none/);
+    assert.match(featured, /aspect-ratio: 16 \/ 9/);
+    assert.ok(featured.includes(`href="/${lang}/blog/${post.slug}/"`));
+    for (const other of [{ ...post, slug: 'other' }, { ...post, image: '/other.png' }]) {
+      const fallback = await renderMarkup(`${anchor}${img}</a>`, localizedIndexSource, { featuredPost: other, lang });
+      assert.doesNotMatch(fallback, /object-fit: contain|transform: none|aspect-ratio/);
+    }
+    const cards = [...localizedIndexSource.matchAll(/\{\(usesGeminiDownloadsImage\(post\)[^\n]+&& \([\s\S]*?<\/a>\s*\)\}/g)];
+    assert.equal(cards.length, 2);
+    for (const [markup] of cards) {
+      const html = await renderMarkup(markup, localizedIndexSource, { post, lang });
+      assert.ok(html.includes(`src="${post.image}"`));
+      assert.match(html, /width="1672" height="941"/);
+      assert.match(html, /class="block h-auto w-full object-contain"/);
+      assert.doesNotMatch(html, /scale|object-cover/);
+      assert.match(markup, /imageVariants\(/);
+      for (const other of [{ ...post, slug: 'other' }, { ...post, image: '/other.png' }]) {
+        assert.doesNotMatch(await renderMarkup(markup, localizedIndexSource, { post: other, lang }), /<img/);
+      }
+    }
+    assert.ok(readSource(`pages/${lang}/blog/index.astro`).includes(`<LocalizedBlogIndex locale="${lang}"`));
+    assert.deepEqual(homeBlogCover({ ...post, lang, category: 'Localized category' }), [
+      { src: post.image, fit: 'contain', position: '50% 50%' },
+    ]);
+  });
+}

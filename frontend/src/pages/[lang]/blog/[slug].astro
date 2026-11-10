@@ -1,4 +1,5 @@
 ---
+import { usesPokemonStarterImage, localizedPokemonStarterArtwork } from '../../../lib/pokemonStarterBlogPresentation.mjs';
 import { usesGeminiDownloadsImage, geminiDownloadsArtwork } from '../../../lib/geminiDownloadsBlogPresentation.mjs';
 import PagefindMeta from '../../../components/PagefindMeta.astro';
 import { imageVariants } from '../../../lib/imageVariants.mjs';
@@ -265,6 +266,12 @@ const blogSchema = {
     </header>
 
     <div class="container mx-auto max-w-3xl px-4 py-12">
+      {usesPokemonStarterImage(post) && (
+        <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-pokemon-starter-art>
+          <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt={localizedPokemonStarterArtwork[lang].alt} width="1672" height="941" class="block h-auto w-full object-contain" loading="eager" />
+          <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300">{localizedPokemonStarterArtwork[lang].caption}</figcaption>
+        </figure>
+      )}
       {usesGeminiDownloadsImage(post) && (
         <figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-gemini-downloads-art>
           <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 768px) 736px, 100vw") }} alt={geminiDownloadsArtwork[lang].alt} width="1672" height="941" class="block h-auto w-full object-contain" loading="eager" />
