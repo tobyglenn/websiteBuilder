@@ -1,4 +1,5 @@
 import { usesGeminiDownloadsImage } from './geminiDownloadsBlogPresentation.mjs';
+import { usesPokemonStarterImage } from './pokemonStarterBlogPresentation.mjs';
 import { usesBjjHomeTrainingImage } from './bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage } from './wildRacingAiBlogPresentation.mjs';
 import { usesWildRacingReviewImage } from './wildRacingBlogPresentation.mjs';
@@ -9,6 +10,7 @@ import { usesRetirementReviewImage } from './retirementBlogPresentation.mjs';
 // Reviewed topic photography for homepage cards. Keep headline graphics out of
 // this small surface; the article title is already real, localized text below.
 export function homeBlogCover(post) {
+  if (usesPokemonStarterImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesGeminiDownloadsImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesRetirementReviewImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesBjjHomeTrainingImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
