@@ -3,7 +3,7 @@
 # ============================
 # Nightly/morning homepage refresh for tobyonfitnesstech.com
 #
-# 1. Commits any pre-existing uncommitted changes in websiteBuilder
+# 1. Locks main and reconciles only known generated-data outputs with the remote
 # 2. Rebuilds aggregate data files (speediance + garmin) from latest sync outputs
 # 3. Runs both homepage refresh scripts (hero video + fitness data)
 # 4. Builds the Astro site locally
@@ -78,19 +78,130 @@ warn() {
 "
 }
 
-push_with_rebase_retry() {
-    # The homepage repo is also updated by video/i18n automations. If they push
-    # during this refresh, a plain push is rejected. Rebase our generated data
-    # commit onto the fresh remote and retry once instead of failing the run.
-    if git push origin main; then
-        return 0
-    fi
+# BEGIN WEBSITE_GIT_FUNCTIONS (also exercised by the local regression tests)
+HOMEPAGE_PATHS=(
+    frontend/src/data/videos.json
+    frontend/src/data/homepageHeroVideo.json
+    frontend/src/data/homepageFitnessData.json
+    frontend/src/data/speediance_dashboard_data.json
+    frontend/src/data/garmin_all_activities.json
+    frontend/src/data/garmin_processed_activities.json
+    frontend/src/data/whoop_v2_latest.json
+    frontend/src/data/siteMetrics.json
+    frontend/src/data/bodyCompositionData.json
+)
 
-    warn "Git push rejected — fetching/rebasing onto origin/main and retrying"
+website_preflight() {
+    local common commit subject
+    [ "$(git branch --show-current)" = main ] || return 1
+    git diff --name-only --diff-filter=U | grep -q . && return 1
+    common=$(git rev-parse --git-common-dir) || return 1
+    # Shared with the podcast writer. All writers must hold this through push.
+    exec {WEBSITE_WRITER_FD}>"$common/website-podcast-publish.lock" || return 1
+    flock -x "$WEBSITE_WRITER_FD" || return 1
     git fetch origin main || return 1
-    git rebase origin/main || return 1
-    git push origin main
+    validate_homepage_commits || return 1
+    # Upstream fitness producers legitimately prepare these files first.
+    # Checkpoint only those known outputs; do not stash or consume other work.
+    stage_homepage_outputs || return 1
+    if ! git diff --cached --quiet; then
+        commit_homepage_outputs "chore: pre-refresh checkpoint ${TODAY}" || return 1
+    fi
+    if ! git rebase origin/main; then
+        git rebase --abort || return 1
+        warn "Generated-data reconciliation conflicted; local checkpoint preserved"
+        return 1
+    fi
 }
+
+validate_homepage_commits() {
+    local commit subject
+    # Only this job's allowlisted generated-data commits may be reconciled.
+    # An unrelated author change must never hitchhike on an automatic push.
+    for commit in $(git rev-list origin/main..HEAD); do
+        subject=$(git log -1 --format=%s "$commit") || return 1
+        case "$subject" in
+            "update: homepage refresh "*|"chore: pre-refresh checkpoint "*) ;;
+            *) warn "Unrecognized local commit preserved: $commit"; return 1 ;;
+        esac
+        git rev-parse "$commit^2" >/dev/null 2>&1 && { warn "Local merge commit requires review"; return 1; }
+        homepage_paths_only < <(git diff-tree --no-commit-id --name-only -r -z "$commit") || return 1
+    done
+}
+
+homepage_paths_only() {
+    local path allowed candidate
+    while IFS= read -r -d '' path; do
+        allowed=false
+        for candidate in "${HOMEPAGE_PATHS[@]}"; do
+            [ "$candidate" != "$path" ] || allowed=true
+        done
+        if [ "$allowed" != true ]; then
+            warn "Unexpected changed path preserved: $path"
+            return 1
+        fi
+    done
+}
+
+stage_homepage_outputs() {
+    local path
+    # Never consume a concurrently staged edit or another writer's output.
+    homepage_paths_only < <(git diff --name-only -z HEAD; git ls-files --others --exclude-standard -z) || return 1
+    for path in "${HOMEPAGE_PATHS[@]}"; do
+        if [ -e "$path" ] || git ls-files --error-unmatch -- "$path" >/dev/null 2>&1; then
+            git add -- "$path" || return 1
+        fi
+    done
+}
+
+commit_homepage_outputs() {
+    local path
+    local -a paths=()
+    homepage_paths_only < <(git diff --name-only -z HEAD; git ls-files --others --exclude-standard -z) || return 1
+    for path in "${HOMEPAGE_PATHS[@]}"; do
+        if [ -e "$path" ] || git ls-files --error-unmatch -- "$path" >/dev/null 2>&1; then
+            paths+=("$path")
+        fi
+    done
+    [ "${#paths[@]}" -gt 0 ] || return 1
+    git commit --only -m "$1" -- "${paths[@]}"
+}
+
+push_with_rebase_retry() {
+    local attempt
+    for attempt in 1 2 3; do
+        if git push origin main; then
+            return 0
+        fi
+        [ "$attempt" -lt 3 ] || break
+        warn "Push failed; checking remote advancement before retrying"
+        # Never stash user work or leave an interrupted rebase behind.
+        [ -z "$(git status --porcelain)" ] || return 1
+        git fetch origin main || return 1
+        if ! git rebase origin/main; then
+            git rebase --abort || return 1
+            warn "Concurrent remote changes conflict; local refresh commit preserved"
+            return 1
+        fi
+    done
+    return 1
+}
+finish_homepage_publish() {
+    stage_homepage_outputs || return 1
+    if ! git diff --cached --quiet; then
+        commit_homepage_outputs "update: homepage refresh ${TODAY}" || return 1
+    fi
+    # Preflight can have checkpointed data or recovered an earlier failed push.
+    # Those commits still need publication even if this generation is unchanged.
+    validate_homepage_commits || return 1
+    local ahead
+    ahead=$(git rev-list --count origin/main..HEAD) || return 1
+    if [ "$ahead" -gt 0 ]; then
+        push_with_rebase_retry || return 1
+        CHANGED=true
+    fi
+}
+# END WEBSITE_GIT_FUNCTIONS
 
 WARNINGS=""
 CHANGED=false
@@ -130,28 +241,10 @@ ensure_fitness_hub() {
     return 1
 }
 
-# ── Step 1: Commit any pre-existing uncommitted changes ───────────────────────
+# ── Step 1: Serialize writers and synchronize before generating data ─────────
 log "=== Step 1: Pre-flight git check ==="
 cd "$REPO" || die "websiteBuilder checkout missing at $REPO"
-
-# Keep DGX in sync if the M3/Mac or another automation pushed first.
-if git diff --quiet && git diff --cached --quiet; then
-    git pull --ff-only origin main 2>/dev/null \
-        || warn "Pre-refresh pull failed — continuing with local checkout"
-fi
-
-DIRTY=$(git status --porcelain 2>/dev/null | grep -v "^??" || true)
-if [ -n "$DIRTY" ]; then
-    log "Uncommitted changes found — committing as pre-refresh checkpoint:"
-    git status --short
-    git add -A
-    git diff --cached --quiet || git commit -m "chore: pre-refresh checkpoint ${TODAY}" \
-        2>/dev/null || warn "Pre-refresh commit failed"
-    git push origin main 2>/dev/null \
-        || warn "Pre-refresh push failed — will retry after refresh"
-else
-    log "Working tree clean."
-fi
+website_preflight || die "Homepage preflight failed; existing work preserved"
 
 # ── Step 2: Rebuild aggregate data files ──────────────────────────────────────
 log "=== Step 2: Rebuild garmin_all_activities.json ==="
@@ -216,23 +309,7 @@ npm run build || die "npm run build failed"
 # ── Step 7: Commit and push ───────────────────────────────────────────────────
 log "=== Step 7: Commit and push ==="
 cd "$REPO"
-git add \
-    frontend/src/data/videos.json \
-    frontend/src/data/homepageHeroVideo.json \
-    frontend/src/data/homepageFitnessData.json \
-    frontend/src/data/speediance_dashboard_data.json \
-    frontend/src/data/garmin_all_activities.json \
-    frontend/src/data/garmin_processed_activities.json \
-    frontend/src/data/whoop_v2_latest.json \
-    2>/dev/null || true
-
-if git diff --cached --quiet; then
-    log "No data changes since last push — skipping commit"
-else
-    git commit -m "update: homepage refresh ${TODAY}" || die "Git commit failed"
-    push_with_rebase_retry || die "Git push failed"
-    CHANGED=true
-fi
+finish_homepage_publish || die "Homepage commit/push failed; local work preserved"
 
 # ── Step 8: Telegram report ───────────────────────────────────────────────────
 log "=== Step 8: Notify ==="
