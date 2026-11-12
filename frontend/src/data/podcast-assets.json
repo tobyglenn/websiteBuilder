@@ -10241,6 +10241,86 @@
         }
       ]
     },
+    "/images/podcast/episode_128_cover_de.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-de/releases/download/ep128/episode_128_cover.png",
+      "sha256": "adf6372c036fb5565198f9c67e6f96c15b7a38d4d504e268a8618e8e7b9996a5",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_128_cover_de-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_128_cover_de-640.webp"
+        }
+      ]
+    },
+    "/images/podcast/episode_128_cover_es.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-es/releases/download/ep128/episode_128_cover.png",
+      "sha256": "83ea3c87a2eb7f23b244068af67aafcc98e82dce8d8cd30c628b7252714b30a1",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_128_cover_es-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_128_cover_es-640.webp"
+        }
+      ]
+    },
+    "/images/podcast/episode_128_cover_hi.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-hi/releases/download/ep128/episode_128_cover.png",
+      "sha256": "d60a0eb8f693ae37e951418ef9729f873eb65a5e9cba287e44e8d6f7b6140a28",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_128_cover_hi-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_128_cover_hi-640.webp"
+        }
+      ]
+    },
+    "/images/podcast/episode_128_cover_pt.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-pt/releases/download/ep128/episode_128_cover.png",
+      "sha256": "e34cbe3459bfee20d5ec81bcc02d1e58c7297e336c9fcf6a04ecca809a895530",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_128_cover_pt-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_128_cover_pt-640.webp"
+        }
+      ]
+    },
+    "/images/podcast/episode_128_cover.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/ep128/episode_128_cover.png",
+      "sha256": "718599b349fd395891f532f1422d00060327a7b4a11170a0193990542a2b4b38",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/episode_128_cover-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/episode_128_cover-640.webp"
+        }
+      ]
+    },
     "/images/podcast/show_art_de.png": {
       "source": "https://raw.githubusercontent.com/tobyglenn/websiteBuilder/228a329753f2a20745c937c2149404eb37b3130d/frontend/public/images/podcast/show_art_de.png",
       "sha256": "603f6f2b1d81b8d29acf60ed933ff1211930f889f14abc30862d939508696599",
