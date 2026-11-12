@@ -1561,6 +1561,13 @@
           "durationMinute": 46,
           "calorie": 1191,
           "actionNum": 20
+        },
+        {
+          "date": "2026-11-06",
+          "totalCapacity": 0.0,
+          "durationMinute": 46,
+          "calorie": 17,
+          "actionNum": 20
         }
       ],
       "exercises": [],
@@ -1572,8 +1579,8 @@
         "calorie": 1655,
         "actionNum": 20
       },
-      "totalSessions": 10,
-      "avgVolume": 15014.8,
+      "totalSessions": 11,
+      "avgVolume": 13649.8,
       "totalVolume": 150148.0
     },
     "ARIA Handles Build Stamina 20261013": {
@@ -1916,11 +1923,11 @@
       "workout": "Warrior 3 (bar)"
     }
   },
-  "totalWorkouts": 131,
+  "totalWorkouts": 132,
   "totalVolumeLbs": 1137021.2,
   "dateRange": {
     "start": "2025-11-01",
-    "end": "2026-11-02"
+    "end": "2026-11-06"
   },
   "allSessions": [
     {
@@ -2969,6 +2976,14 @@
       "totalCapacity": 20224.0,
       "durationMinute": 46,
       "calorie": 1191,
+      "actionNum": 20
+    },
+    {
+      "date": "2026-11-06",
+      "title": "ARIA !OVERRIDE! Barbell Knee-Safe 20260917",
+      "totalCapacity": 0.0,
+      "durationMinute": 46,
+      "calorie": 17,
       "actionNum": 20
     }
   ]
