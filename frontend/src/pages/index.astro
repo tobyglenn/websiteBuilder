@@ -5,7 +5,7 @@ import HomeReviewHeading from '../components/HomeReviewHeading.astro';
 import Layout from '../layouts/Layout.astro';
 import { getHomepageFeature } from '../lib/homepageFeature';
 import Hero from '../components/Hero.jsx';
-import NewsletterSignup from '../components/NewsletterSignup.jsx';
+import HomepageNewsletter from '../components/HomepageNewsletter.astro';
 import { CANONICAL_BLOG_POSTS } from '../lib/blogPosts';
 import videosData from '../data/videos.json';
 import {
@@ -397,6 +397,6 @@ const webPageSchema = {
     data-homepage-title="Newsletter signup"
     data-homepage-purpose="conversion"
   >
-    <NewsletterSignup client:visible formLocation="homepage_newsletter" />
+    <HomepageNewsletter />
   </div>
 </Layout>

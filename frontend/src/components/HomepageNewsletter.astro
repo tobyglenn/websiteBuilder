@@ -1,0 +1,26 @@
+---
+import { Mail, CheckCircle2 } from 'lucide-react';
+---
+<section class="py-16 bg-neutral-900 border-t border-neutral-800" data-native-newsletter>
+  <div class="container mx-auto px-4 text-center max-w-2xl">
+    <Mail className="w-7 h-7 text-blue-400 mx-auto mb-6" aria-hidden="true" />
+    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Get Weekly Fitness Tech Insights</h2>
+    <p class="text-neutral-400 mb-8 max-w-lg mx-auto">Join the newsletter for honest reviews, training data, and fitness tech updates.</p>
+    <form data-homepage-newsletter method="post" action="https://app.kit.com/forms/cbadc25c13/subscriptions" class="max-w-md mx-auto" aria-busy="false">
+      <label for="homepage-newsletter-email" class="sr-only">Email address</label>
+      <div class="flex flex-col sm:flex-row gap-3">
+        <input id="homepage-newsletter-email" name="email_address" type="email" autocomplete="email" required placeholder="Enter your email" aria-describedby="homepage-newsletter-error" class="min-w-0 flex-1 bg-neutral-950 border border-neutral-700 rounded-lg px-4 py-3 text-white placeholder-neutral-500 focus:outline-none focus:border-blue-500" />
+        <button type="submit" class="bg-blue-600 hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 rounded-lg whitespace-nowrap">Subscribe</button>
+      </div>
+      <p id="homepage-newsletter-error" role="alert" class="mt-3 text-sm text-red-400" hidden></p>
+    </form>
+    <div data-newsletter-success role="status" class="bg-green-500/10 border border-green-500/20 rounded-lg p-6 text-center text-green-400" hidden>
+      <CheckCircle2 className="w-6 h-6 mx-auto mb-3" aria-hidden="true" />
+      <p>Your subscription request was received. Check your inbox for confirmation.</p>
+    </div>
+    <p class="mt-4 text-xs text-neutral-500 text-center">No spam. Unsubscribe anytime.</p>
+  </div>
+</section>
+<script>
+  import '../scripts/homepageNewsletter.js';
+</script>
