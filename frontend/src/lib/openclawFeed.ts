@@ -132,6 +132,20 @@ export function parseEpisodeNumber(itemXml: string): number {
   return titleMatch ? parseInt(titleMatch[1], 10) : 0;
 }
 
+// Unnumbered bonuses must never collide with the real Episode 0 route.
+export function podcastItemIdentity(itemXml: string): { slug: string; number: number | null; isBonus: boolean } {
+  const guid = extractTag(itemXml, 'guid');
+  const isBonus = extractTag(itemXml, 'itunes:episodeType').toLowerCase() === 'bonus'
+    && guid.startsWith('agent-stack-shorts-');
+  if (!isBonus) {
+    const number = parseEpisodeNumber(itemXml);
+    return { slug: `episode-${number}`, number, isBonus: false };
+  }
+  const slug = guid.toLowerCase().replace(/[^a-z0-9-]+/g, '-').replace(/^-+|-+$/g, '');
+  if (!slug || /^episode-\d+$/.test(slug)) throw new Error('Bonus episode needs a distinct GUID');
+  return { slug, number: null, isBonus: true };
+}
+
 export function hasEpisode(items: string[], episodeNum: number): boolean {
   return items.some((item) => parseEpisodeNumber(item) === episodeNum);
 }

@@ -10432,6 +10432,22 @@
           "src": "/images/podcast/show_art_pt-640.webp"
         }
       ]
+    },
+    "/images/podcast/agent-stack-shorts-2026-11-14-cover.png": {
+      "source": "https://github.com/clawdassistant85-netizen/openclaw-podcast-media-en/releases/download/agent-stack-shorts-2026-11-14-v2/agent-stack-shorts-2026-11-14-cover.png",
+      "sha256": "14aa108fc3ab4dd51ddef5632fd105ec50006db1c8eee35992bff4912dff635c",
+      "width": 1400,
+      "height": 1400,
+      "variants": [
+        {
+          "width": 320,
+          "src": "/images/podcast/agent-stack-shorts-2026-11-14-cover-320.webp"
+        },
+        {
+          "width": 640,
+          "src": "/images/podcast/agent-stack-shorts-2026-11-14-cover-640.webp"
+        }
+      ]
     }
   }
 }

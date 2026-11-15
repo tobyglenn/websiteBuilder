@@ -21,10 +21,12 @@ import {
   fetchFirstAvailableText,
   normalizeEpisodeTitle,
   parseEpisodeNumber,
+  podcastItemIdentity,
 } from '../../lib/openclawFeed';
 
 export async function getStaticPaths() {
   // Load transcript files — must be inside getStaticPaths for Astro's isolated scope
+  const bonusFiles = import.meta.glob('../../data/podcast-bonus/*.json', { eager: true, import: 'default' });
   const transcriptFiles = import.meta.glob('../../data/transcripts/*.txt', { query: '?raw', import: 'default', eager: true });
 
   const TOFT_VIDEOS: Record<number, string> = {
@@ -72,11 +74,13 @@ export async function getStaticPaths() {
   const items = extractChannelItems(rssText);
 
   const episodes = await Promise.all(items.map(async (item) => {
-    const episodeNum = parseEpisodeNumber(item);
-    const slug = `episode-${episodeNum}`;
+    const identity = podcastItemIdentity(item);
+    const episodeNum = identity.number;
+    const slug = identity.slug;
+    const bonus = identity.isBonus ? bonusFiles[`../../data/podcast-bonus/${slug}.json`] as any : null;
     const audioUrl = extractAttr(item, 'enclosure', 'url');
     const title = normalizeEpisodeTitle(extractTag(item, 'title'));
-    const description = extractTag(item, 'description');
+    const description = extractTag(item, 'description').split(/\n\s*Show notes:/i)[0];
     const pubDate = extractTag(item, 'pubDate');
     const duration = extractTag(item, 'itunes:duration');
     let transcriptSourceUrl = extractTag(item, 'link');
@@ -95,17 +99,17 @@ export async function getStaticPaths() {
 
     // Step 1: Fetch dedicated show notes file (all episodes)
     let showNotesMd = '';
-    const showNotesResult = await fetchFirstAvailableText(
-      englishShowNotesCandidates(episodeNum),
-    );
+    const showNotesResult = identity.isBonus
+      ? (bonus?.showNotes ? { text: bonus.showNotes } : null)
+      : await fetchFirstAvailableText(englishShowNotesCandidates(episodeNum));
     if (showNotesResult) {
       showNotesMd = showNotesResult.text;
     }
 
     // Step 2: Fetch transcript with filename fallbacks for legacy naming.
-    const transcriptResult = await fetchFirstAvailableText(
-      englishTranscriptCandidates(episodeNum),
-    );
+    const transcriptResult = identity.isBonus
+      ? (bonus?.transcript ? { text: bonus.transcript, url: `https://tobyonfitnesstech.com/podcast-transcripts/${slug}.txt` } : null)
+      : await fetchFirstAvailableText(englishTranscriptCandidates(episodeNum));
     if (transcriptResult) {
       rawMd = transcriptResult.text;
       transcriptSourceUrl = transcriptResult.url;
@@ -189,7 +193,9 @@ export async function getStaticPaths() {
       transcriptHtml = '<p class="text-neutral-500">Transcript unavailable.</p>';
     }
 
-    const coverImage = `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
+    const coverImage = identity.isBonus
+      ? bonus?.cover || extractAttr(item, 'itunes:image', 'href')
+      : `/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`;
     const metaDescription = buildPodcastMetaDescription({
       title,
       description,
@@ -202,6 +208,8 @@ export async function getStaticPaths() {
         episode: {
           slug,
           number: episodeNum,
+          isBonus: identity.isBonus,
+          videoId: bonus?.videoId,
           title,
           description,
           metaDescription,
@@ -265,7 +273,8 @@ export async function getStaticPaths() {
 
 const { episode } = Astro.props;
 const episodeUrl = `https://tobyonfitnesstech.com/podcasts/${episode.slug}/`;
-const podcastSeriesUrl = 'https://tobyonfitnesstech.com/podcasts/';
+const podcastSeriesUrl = episode.isToft ? 'https://tobyonfitnesstech.com/podcasts/fitness-tech/' : 'https://tobyonfitnesstech.com/podcasts/agentstack/';
+const displayTitle = episode.isToft || episode.isBonus ? episode.title : `Episode ${episode.number}: ${episode.title}`;
 const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
   title: episode.title,
   description: episode.description,
@@ -273,13 +282,15 @@ const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
 ---
 
 <Layout
-  title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `Episode ${episode.number}: ${episode.title} | AgentStack Daily`}
+  title={episode.isToft ? `${episode.title} | Toby on Fitness Tech` : `${displayTitle} | AgentStack Daily`}
   description={metaDescription}
+  image={publicPreviewUrl(episode.coverImage)}
   episodeSlug={episode.isToft ? undefined : episode.slug}
+  translationLocales={episode.isBonus ? ['en'] : undefined}
   jsonLd={{
     "@context": "https://schema.org",
     "@type": "PodcastEpisode",
-    "name": episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`,
+    "name": displayTitle,
     "description": metaDescription,
     "datePublished": episode.isoDate || episode.date,
     "duration": episode.duration,
@@ -288,12 +299,12 @@ const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
     "contentUrl": episode.audioUrl,
     "podcastSeries": {
       "@type": "PodcastSeries",
-      "name": "Toby on Fitness Tech",
+      "name": episode.isToft ? "Toby on Fitness Tech" : "AgentStack Daily",
       "url": podcastSeriesUrl
     },
     "partOfSeries": {
       "@type": "PodcastSeries",
-      "name": "Toby on Fitness Tech",
+      "name": episode.isToft ? "Toby on Fitness Tech" : "AgentStack Daily",
       "url": podcastSeriesUrl
     },
     ...(episode.season ? {
@@ -303,7 +314,7 @@ const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
         "url": `https://tobyonfitnesstech.com/podcasts/?season=${episode.season}`
       }
     } : {}),
-    "episodeNumber": episode.isToft ? undefined : episode.number,
+    "episodeNumber": episode.isToft || episode.isBonus ? undefined : episode.number,
     ...(episode.videoId ? { "video": { "@type": "VideoObject", "name": episode.title, "description": episode.description, "thumbnailUrl": `https://i.ytimg.com/vi/${episode.videoId}/hqdefault.jpg`, "uploadDate": episode.isoDate || episode.date, "embedUrl": `https://www.youtube.com/embed/${episode.videoId}`, "url": `https://www.youtube.com/watch?v=${episode.videoId}` } } : {}),
     "inLanguage": "en",
     "author": {
@@ -325,7 +336,7 @@ const metaDescription = episode.metaDescription || buildPodcastMetaDescription({
   breadcrumbs={[
     { name: "Home", url: "/" },
     { name: "Podcasts", url: "/podcasts" },
-    { name: episode.isToft ? episode.title : `Episode ${episode.number}: ${episode.title}`, url: `/podcasts/${episode.slug}/` }
+    { name: displayTitle, url: `/podcasts/${episode.slug}/` }
   ]}
 >
   {episode.isToft ? (

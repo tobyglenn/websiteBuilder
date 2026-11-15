@@ -53,7 +53,7 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS, showNote
               src={episode.coverImage}
               srcSet={episode.coverSrcset}
               sizes={episode.coverSrcset ? '176px' : undefined}
-              alt={`${episode.title} — Episode ${episode.number} cover art`}
+              alt={`${episode.title} cover art`}
               className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl object-cover shrink-0 border border-neutral-700 shadow-xl shadow-black/40"
               loading="lazy"
               decoding="async"
@@ -64,7 +64,7 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS, showNote
           {/* Meta + title */}
           <div className="flex-1 min-w-0">
             <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-neutral-500 font-mono">
-              <span className="text-blue-400 font-bold tracking-widest uppercase">Episode {episode.number}</span>
+              <span className="text-blue-400 font-bold tracking-widest uppercase">{episode.isBonus ? 'Agent Stack Shorts · Bonus' : `Episode ${episode.number}`}</span>
               <span>·</span>
               <span>{episode.date}</span>
               <span>·</span>
@@ -89,6 +89,12 @@ export default function EpisodeDetail({ episode, rssUrl = OPENCLAW_RSS, showNote
           <span>🎧</span> Listen to Episode
         </a>
       </header>
+
+      {episode.videoId && (
+        <div className="max-w-4xl mx-auto px-4 pb-6">
+          <a href={`https://www.youtube.com/watch?v=${episode.videoId}`} className="text-blue-400 underline">Watch on YouTube</a>
+        </div>
+      )}
 
       {/* Sticky tab bar */}
       <div className="sticky top-16 z-20 bg-neutral-950/90 backdrop-blur-md border-b border-neutral-800">

@@ -12,6 +12,7 @@ import {
   fetchPinnedGitHubRawText,
   normalizeEpisodeTitle,
   parseEpisodeNumber,
+  podcastItemIdentity,
 } from '../../lib/openclawFeed';
 import { resolvePublicAsset } from '../../lib/publicAssets';
 
@@ -26,7 +27,10 @@ const OPENCLAW_OVERCAST = 'https://overcast.fm/itunes1878697245';
 const OPENCLAW_AMAZON = 'https://music.amazon.com/podcasts/b85209d2-776b-4ab3-9705-a2b6c6e9d6f1/openclaw-daily';
 
 interface Episode {
-  episodeNum: number;
+  episodeNum: number | null;
+  slug: string;
+  isBonus: boolean;
+  timestamp: number;
   title: string;
   description: string;
   pubDate: string;
@@ -53,6 +57,7 @@ function mdUrlToGitHub(url: string): string {
   return url;
 }
 
+const bonusFiles = import.meta.glob('../../data/podcast-bonus/*.json', { eager: true, import: 'default' });
 let episodes: Episode[] = [];
 let fetchError = false;
 
@@ -63,23 +68,25 @@ try {
 
   for (const item of items) {
     const title = normalizeEpisodeTitle(extractTag(item, 'title'));
-    const description = extractTag(item, 'description');
+    const description = extractTag(item, 'description').split(/\n\s*Show notes:/i)[0];
     const pubDateRaw = extractTag(item, 'pubDate');
     const audioUrl = extractAttr(item, 'enclosure', 'url');
     const duration = extractTag(item, 'itunes:duration');
     const link = extractTag(item, 'link');
     const showNotesUrl = mdUrlToGitHub(link);
     const pubDate = formatDate(pubDateRaw);
-    const episodeNum = parseEpisodeNumber(item);
-    const coverImage = resolvePublicAsset(
+    const identity = podcastItemIdentity(item);
+    const episodeNum = identity.number;
+    const bonus = identity.isBonus ? bonusFiles[`../../data/podcast-bonus/${identity.slug}.json`] as any : null;
+    const coverImage = identity.isBonus ? bonus?.cover || extractAttr(item, 'itunes:image', 'href') : resolvePublicAsset(
       [`/images/podcast/episode_${String(episodeNum).padStart(3, '0')}_cover.png`],
       '/images/podcast/show_art_en.png',
     );
 
-    episodes.push({ episodeNum, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
+    episodes.push({ episodeNum, slug: identity.slug, isBonus: identity.isBonus, timestamp: Date.parse(pubDateRaw) || 0, title, description, pubDate, audioUrl, duration, showNotesUrl, coverImage });
   }
 
-  episodes.sort((a, b) => b.episodeNum - a.episodeNum);
+  episodes.sort((a, b) => b.timestamp - a.timestamp);
 } catch (err) {
   fetchError = true;
   console.error('[podcasts/agentstack.astro] RSS fetch failed:', err);
@@ -160,12 +167,12 @@ try {
             <div class="pa-heading">
               <img
                 {...{ src: ep.coverImage, ...imageVariants(ep.coverImage, "176px") }}
-                alt={`Episode ${ep.episodeNum} cover art`}
+                alt={`${ep.title} cover art`}
                 class="pa-cover border-neutral-700"
               />
               <div class="pa-title-wrap">
                 <span class="pa-badge bg-blue-400/10 text-blue-400">
-                  EP {ep.episodeNum}
+                  {ep.isBonus ? 'SHORT · BONUS' : `EP ${ep.episodeNum}`}
                 </span>
                 <h2 class="pa-title text-white">
                   {ep.title}
@@ -193,13 +200,13 @@ try {
               </a>
               <div class="pa-secondary">
                 <a
-                  href={`/podcasts/episode-${ep.episodeNum}/`}
+                  href={`/podcasts/${ep.slug}/`}
                   class="pa-link bg-neutral-800 border-neutral-700 text-neutral-400"
                 >
                   📄 Show Notes
                 </a>
                 <a
-                  href={`/podcasts/episode-${ep.episodeNum}/#transcript`}
+                  href={`/podcasts/${ep.slug}/#transcript`}
                   class="pa-link bg-neutral-800 border-neutral-700 text-neutral-400"
                 >
                   📝 Transcript
@@ -213,7 +220,7 @@ try {
 
     <!-- Footer note -->
     <p class="text-center text-neutral-600 text-xs mt-12">
-      Episodes generated with agentic AI workflows · Voices by OpenAI TTS
+      Episodes generated with agentic AI workflows
     </p>
   </div>
 </Layout>
