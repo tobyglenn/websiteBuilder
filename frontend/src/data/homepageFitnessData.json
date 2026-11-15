@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-14T00:50:52.163Z",
+  "generatedAt": "2026-11-15T00:51:10.518Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Nov 13, 2026",
-    "hubTodayKey": "2026-11-13",
-    "analysisDateKey": "2026-11-13",
+    "hubTodayLabel": "Nov 14, 2026",
+    "hubTodayKey": "2026-11-14",
+    "analysisDateKey": "2026-11-14",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-11-13T19:50:02.654263"
+    "whoopLastSynced": "2026-11-14T19:50:28.700474"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9981141,
@@ -25,17 +25,17 @@
     "runCount": 0,
     "workoutCount": 0,
     "bjjCount": 0,
-    "windowStart": "2026-11-07",
-    "windowEnd": "2026-11-13"
+    "windowStart": "2026-11-08",
+    "windowEnd": "2026-11-14"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-11-13",
+    "anchorDate": "2026-11-14",
     "dateRange": {
-      "thisWeekStart": "2026-11-07",
-      "thisWeekEnd": "2026-11-13",
-      "lastWeekStart": "2026-10-31",
-      "lastWeekEnd": "2026-11-06"
+      "thisWeekStart": "2026-11-08",
+      "thisWeekEnd": "2026-11-14",
+      "lastWeekStart": "2026-11-01",
+      "lastWeekEnd": "2026-11-07"
     },
     "workouts": {
       "thisWeek": 0,
@@ -89,16 +89,9 @@
     "totalActive": 1817,
     "currentStreak": 0,
     "longestStreak": 60,
-    "rangeStart": "2025-11-15",
-    "rangeEnd": "2026-11-13",
+    "rangeStart": "2025-11-16",
+    "rangeEnd": "2026-11-14",
     "days": [
-      {
-        "date": "2025-11-15",
-        "count": 3,
-        "runs": 0,
-        "lifting": 3,
-        "bjj": 0
-      },
       {
         "date": "2025-11-16",
         "count": 1,
@@ -1375,7 +1368,7 @@
     "lastSleepScore": 70
   },
   "labels": {
-    "thisWeek": "November 7, 2026 - November 13, 2026",
-    "lastWeek": "October 31, 2026 - November 6, 2026"
+    "thisWeek": "November 8, 2026 - November 14, 2026",
+    "lastWeek": "November 1, 2026 - November 7, 2026"
   }
 }
