@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-16T00:51:23.374Z",
+  "generatedAt": "2026-11-16T14:15:29.014Z",
   "source": {
     "hubBaseUrl": "http://127.0.0.1:8082/fitness",
-    "hubTodayLabel": "Nov 15, 2026",
-    "hubTodayKey": "2026-11-15",
-    "analysisDateKey": "2026-11-15",
+    "hubTodayLabel": "Nov 16, 2026",
+    "hubTodayKey": "2026-11-16",
+    "analysisDateKey": "2026-11-16",
     "strengthDashboard": "http://127.0.0.1:8082/fitness/strength/index.html",
     "whoopDataPath": "/home/toby/clawd/data/whoop_v2_latest.json",
-    "whoopLastSynced": "2026-11-15T19:50:28.805231"
+    "whoopLastSynced": "2026-11-16T09:10:59.801555"
   },
   "lifetimeStats": {
     "totalLbsLifted": 9981141,
@@ -25,21 +25,21 @@
     "runCount": 0,
     "workoutCount": 0,
     "bjjCount": 0,
-    "windowStart": "2026-11-09",
-    "windowEnd": "2026-11-15"
+    "windowStart": "2026-11-10",
+    "windowEnd": "2026-11-16"
   },
   "weeklyProgress": {
     "mode": "rolling_7_days",
-    "anchorDate": "2026-11-15",
+    "anchorDate": "2026-11-16",
     "dateRange": {
-      "thisWeekStart": "2026-11-09",
-      "thisWeekEnd": "2026-11-15",
-      "lastWeekStart": "2026-11-02",
-      "lastWeekEnd": "2026-11-08"
+      "thisWeekStart": "2026-11-10",
+      "thisWeekEnd": "2026-11-16",
+      "lastWeekStart": "2026-11-03",
+      "lastWeekEnd": "2026-11-09"
     },
     "workouts": {
       "thisWeek": 0,
-      "lastWeek": 2
+      "lastWeek": 1
     },
     "runs": {
       "thisWeek": 0,
@@ -47,7 +47,7 @@
     },
     "volume": {
       "thisWeek": 0,
-      "lastWeek": 20224
+      "lastWeek": 0
     },
     "miles": {
       "thisWeek": 0,
@@ -89,16 +89,9 @@
     "totalActive": 1817,
     "currentStreak": 0,
     "longestStreak": 60,
-    "rangeStart": "2025-11-17",
-    "rangeEnd": "2026-11-15",
+    "rangeStart": "2025-11-18",
+    "rangeEnd": "2026-11-16",
     "days": [
-      {
-        "date": "2025-11-17",
-        "count": 3,
-        "runs": 0,
-        "lifting": 1,
-        "bjj": 2
-      },
       {
         "date": "2025-11-18",
         "count": 1,
@@ -1358,10 +1351,10 @@
   },
   "recovery": {
     "currentScore": 0,
-    "lastSleepScore": 62
+    "lastSleepScore": 60
   },
   "labels": {
-    "thisWeek": "November 9, 2026 - November 15, 2026",
-    "lastWeek": "November 2, 2026 - November 8, 2026"
+    "thisWeek": "November 10, 2026 - November 16, 2026",
+    "lastWeek": "November 3, 2026 - November 9, 2026"
   }
 }
