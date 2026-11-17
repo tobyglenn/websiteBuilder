@@ -56162,18 +56162,18 @@
                 "id": 1960554070,
                 "user_id": 1781625,
                 "created_at": "2026-11-16T16:24:38.441Z",
-                "updated_at": "2026-11-16T23:55:09.869Z",
+                "updated_at": "2026-11-17T12:56:01.014Z",
                 "start": "2026-11-16T12:38:59.200Z",
                 "end": null,
                 "timezone_offset": "-05:00",
                 "score_state": "SCORED",
                 "score": {
-                    "strain": 20.625608,
-                    "kilojoule": 17175.19,
-                    "average_heart_rate": 104,
-                    "max_heart_rate": 178
+                    "strain": 20.77029,
+                    "kilojoule": 55888.176,
+                    "average_heart_rate": 123,
+                    "max_heart_rate": 180
                 },
-                "step_count": 9492
+                "step_count": 10042
             }
         ]
     },
@@ -188255,11 +188255,197 @@
                     }
                 },
                 "sport_id": 44
+            },
+            {
+                "id": "f18f1d11-dd99-48d4-b43c-eb0bc620c979",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-11-17T12:55:55.889Z",
+                "updated_at": "2026-11-17T12:56:00.333Z",
+                "start": "2026-11-17T11:44:00.070Z",
+                "end": "2026-11-17T12:32:59.080Z",
+                "timezone_offset": "-05:00",
+                "sport_name": "yoga",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 15.44984,
+                    "average_heart_rate": 156,
+                    "max_heart_rate": 180,
+                    "kilojoule": 2832.4595,
+                    "percent_recorded": 0.9999966,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 13000,
+                        "zone_one_milli": 229000,
+                        "zone_two_milli": 321010,
+                        "zone_three_milli": 1942000,
+                        "zone_four_milli": 432000,
+                        "zone_five_milli": 2000
+                    }
+                },
+                "sport_id": 44
+            },
+            {
+                "id": "900d2403-3188-4e93-bb44-78a37f4aea61",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-11-17T11:45:52.014Z",
+                "updated_at": "2026-11-17T11:45:57.194Z",
+                "start": "2026-11-17T09:25:00.680Z",
+                "end": "2026-11-17T11:26:59.070Z",
+                "timezone_offset": "-05:00",
+                "sport_name": "yoga",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 17.980446,
+                    "average_heart_rate": 148,
+                    "max_heart_rate": 170,
+                    "kilojoule": 6078.253,
+                    "percent_recorded": 0.9999467,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 359000,
+                        "zone_one_milli": 837990,
+                        "zone_two_milli": 1261990,
+                        "zone_three_milli": 4830410,
+                        "zone_four_milli": 29000,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 44
+            },
+            {
+                "id": "e5c215ca-e328-42cd-b4bd-d3d2ab4d71ec",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-11-17T09:15:41.854Z",
+                "updated_at": "2026-11-17T09:15:47.224Z",
+                "start": "2026-11-17T06:22:00.290Z",
+                "end": "2026-11-17T08:59:59.680Z",
+                "timezone_offset": "-05:00",
+                "sport_name": "yoga",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 20.165157,
+                    "average_heart_rate": 154,
+                    "max_heart_rate": 170,
+                    "kilojoule": 8933.453,
+                    "percent_recorded": 0.9999589,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 405000,
+                        "zone_one_milli": 512050,
+                        "zone_two_milli": 679000,
+                        "zone_three_milli": 7866340,
+                        "zone_four_milli": 17000,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 44
+            },
+            {
+                "id": "2c8247fc-81ae-422f-adfd-18d6e231c896",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-11-17T06:05:28.844Z",
+                "updated_at": "2026-11-17T06:05:32.802Z",
+                "start": "2026-11-17T05:33:00.130Z",
+                "end": "2026-11-17T05:52:59.180Z",
+                "timezone_offset": "-05:00",
+                "sport_name": "yoga",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 9.40049,
+                    "average_heart_rate": 152,
+                    "max_heart_rate": 161,
+                    "kilojoule": 1073.1008,
+                    "percent_recorded": 0.9999583,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 28000,
+                        "zone_one_milli": 80000,
+                        "zone_two_milli": 196000,
+                        "zone_three_milli": 895050,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 44
+            },
+            {
+                "id": "2e813ee2-5e33-4522-837c-d67dfd05d538",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-11-17T05:25:27.042Z",
+                "updated_at": "2026-11-17T05:25:32.179Z",
+                "start": "2026-11-17T03:23:00.850Z",
+                "end": "2026-11-17T05:05:59.080Z",
+                "timezone_offset": "-05:00",
+                "sport_name": "yoga",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 18.32825,
+                    "average_heart_rate": 156,
+                    "max_heart_rate": 166,
+                    "kilojoule": 5996.436,
+                    "percent_recorded": 0.99996275,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 36000,
+                        "zone_one_milli": 169060,
+                        "zone_two_milli": 318000,
+                        "zone_three_milli": 5655170,
+                        "zone_four_milli": 0,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 44
+            },
+            {
+                "id": "c1282bbc-136f-44a5-ab56-481429f2ecec",
+                "v1_id": null,
+                "user_id": 1781625,
+                "created_at": "2026-11-17T03:05:18.152Z",
+                "updated_at": "2026-11-17T03:05:23.478Z",
+                "start": "2026-11-17T00:47:00.660Z",
+                "end": "2026-11-17T02:52:59.730Z",
+                "timezone_offset": "-05:00",
+                "sport_name": "yoga",
+                "score_state": "SCORED",
+                "score": {
+                    "strain": 19.019028,
+                    "average_heart_rate": 155,
+                    "max_heart_rate": 173,
+                    "kilojoule": 7231.1562,
+                    "percent_recorded": 0.99999076,
+                    "distance_meter": null,
+                    "altitude_gain_meter": null,
+                    "altitude_change_meter": null,
+                    "zone_durations": {
+                        "zone_zero_milli": 42000,
+                        "zone_one_milli": 208000,
+                        "zone_two_milli": 408000,
+                        "zone_three_milli": 6868070,
+                        "zone_four_milli": 33000,
+                        "zone_five_milli": 0
+                    }
+                },
+                "sport_id": 44
             }
         ]
     },
     "journal": {
         "records": []
     },
-    "last_synced": "2026-11-16T19:50:28.667355"
+    "last_synced": "2026-11-17T09:11:01.819023"
 }
