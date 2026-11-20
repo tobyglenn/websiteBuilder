@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, realpath, writeFile } from 'node:fs/promises';
 import { homedir } from 'node:os';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -8,12 +8,12 @@ const __dirname = path.dirname(__filename);
 
 const DATA_DIR = path.resolve(__dirname, '../src/data');
 const OUTPUT_FILE = path.join(DATA_DIR, 'homepageFitnessData.json');
+const WEBSITE_REPO = path.resolve(__dirname, '../..');
 const FITNESS_HUB_BASE =
   process.env.FITNESS_HUB_BASE ?? 'http://192.168.1.249:8082/fitness';
 const ET_TIME_ZONE = 'America/New_York';
 const WHOOP_DATA_CANDIDATES = [
   process.env.WHOOP_DATA_PATH,
-  path.join(DATA_DIR, 'whoop_v2_latest.json'),
   path.join(homedir(), 'clawd/data/whoop_v2_latest.json'),
   path.join(homedir(), '.openclaw/workspace/fitness-ecosystem/data/whoop_v2_latest.json'),
 ].filter(Boolean);
@@ -218,14 +218,17 @@ async function readJson(filename) {
 
 async function readFreshestWhoopData() {
   const candidates = [];
+  const repository = await realpath(WEBSITE_REPO);
 
   for (const filePath of [...new Set(WHOOP_DATA_CANDIDATES)]) {
     try {
-      const raw = await readFile(filePath, 'utf8');
-      const data = JSON.parse(raw);
+      const resolved = await realpath(filePath);
+      const relative = path.relative(repository, resolved);
+      if (relative === '' || (!relative.startsWith(`..${path.sep}`) && relative !== '..' && !path.isAbsolute(relative))) continue;
+      const data = JSON.parse(await readFile(resolved, 'utf8'));
+      if (!Array.isArray(data?.recovery?.records)) continue;
       candidates.push({
         data,
-        filePath,
         lastSynced: timestampFromValue(data?.last_synced) ?? 0,
       });
     } catch {
@@ -234,7 +237,7 @@ async function readFreshestWhoopData() {
   }
 
   if (candidates.length === 0) {
-    throw new Error('Could not load WHOOP data from any configured source');
+    throw new Error('Could not load WHOOP data from a configured private source');
   }
 
   candidates.sort((a, b) => a.lastSynced - b.lastSynced);
@@ -486,7 +489,7 @@ async function main() {
     fetchHtml('strength/index.html'),
     readUnifiedTrainingTimeline(),
   ]);
-  const { data: whoopData, filePath: whoopDataPath } = whoopSource;
+  const { data: whoopData } = whoopSource;
 
   const hubHtml = hubResult.ok ? hubResult.text : null;
   const strengthHtml = strengthResult.ok ? strengthResult.text : null;
@@ -598,38 +601,6 @@ async function main() {
     });
   }
 
-  for (const workout of whoopData.workouts?.records || []) {
-    const key = dateKeyFromValue(workout.start);
-    if (!key) continue;
-
-    if (workout.sport_name === 'running' && !runByDate.has(key)) {
-      runByDate.set(key, { count: 1, miles: 0 });
-    }
-
-    if (workout.sport_name === 'jiu-jitsu') {
-      bjjByDate.set(key, (bjjByDate.get(key) ?? 0) + 1);
-    }
-
-    if (workout.sport_name === 'weightlifting') {
-      whoopLiftDates.add(key);
-    }
-
-    const workoutType =
-      workout.sport_name === 'running'
-        ? 'Running'
-        : workout.sport_name === 'weightlifting'
-          ? 'Lifting'
-          : workout.sport_name === 'jiu-jitsu'
-            ? 'BJJ'
-            : null;
-    const candidate = workoutType
-      ? createLastActivityCandidate(workoutType, workout.start)
-      : null;
-    if (candidate) {
-      lastActivityCandidates.push(candidate);
-    }
-  }
-
   for (const [date, miles] of morningReportStats.cardioDistanceByDate || []) {
     const current = runByDate.get(date);
     if (current) {
@@ -667,13 +638,21 @@ async function main() {
     }
   }
 
-  const latestWhoopRecoveryRecord = [...(whoopData.recovery?.records || [])]
-    .sort(
-      (a, b) =>
-        (timestampFromValue(a?.created_at || a?.date) ?? 0) -
-        (timestampFromValue(b?.created_at || b?.date) ?? 0)
-    )
-    .at(-1);
+  // Keep WHOOP workouts in period totals only. No WHOOP activity supplies an
+  // individual day, chart cell or last-workout entry in the public output.
+  const publicRunByDate = new Map(runByDate);
+  for (const workout of whoopData.workouts?.records || []) {
+    const key = dateKeyFromValue(workout.start);
+    if (!key) continue;
+    if (workout.sport_name === 'running' && !runByDate.has(key)) {
+      runByDate.set(key, { count: 1, miles: 0 });
+    } else if (workout.sport_name === 'jiu-jitsu') {
+      bjjByDate.set(key, (bjjByDate.get(key) ?? 0) + 1);
+    } else if (workout.sport_name === 'weightlifting') {
+      whoopLiftDates.add(key);
+    }
+  }
+
   const derivedTotalRunSessions = (garminData.activities || []).filter((activity) =>
     ['running', 'treadmill_running'].includes(activity.activityType)
   ).length;
@@ -688,14 +667,6 @@ async function main() {
     hubStats.totalLiftingVolume ?? strengthSummary.lifetimeVolume + Math.round(derivedCurrentYearLiftingVolume);
   const totalRunSessions = hubStats.totalRunSessions ?? derivedTotalRunSessions;
   const totalRunMiles = hubStats.totalRunMiles ?? Number(derivedTotalRunMiles.toFixed(1));
-  const currentRecovery =
-    morningReportStats.currentRecovery ??
-    hubStats.currentRecovery ??
-    latestWhoopRecoveryRecord?.score?.recovery_score ??
-    latestWhoopRecoveryRecord?.recovery_score ??
-    null;
-  const lastSleepScore = morningReportStats.lastSleepScore ?? hubStats.lastSleepScore ?? null;
-
   const consistencyLiftByDate = new Map(liftByDate);
   for (const key of whoopLiftDates) {
     if (!consistencyLiftByDate.has(key)) {
@@ -709,9 +680,8 @@ async function main() {
   // activity data, not to a stale hub date.
   const currentEtKey = dateKeyFromDate(new Date());
   const freshestActivityKey = [
-    ...runByDate.keys(),
+    ...publicRunByDate.keys(),
     ...liftByDate.keys(),
-    ...bjjByDate.keys(),
   ].sort().at(-1);
   const analysisDateKey = [hubStats.todayKey, freshestActivityKey, currentEtKey]
     .filter(Boolean)
@@ -744,7 +714,8 @@ async function main() {
   const streaks = calculateStreaks(sortedActivityDates, analysisDateKey);
 
   const heatmapStart = addDays(analysisDateKey, -(52 * 7 - 1));
-  const heatmapDays = [...activityCounts.entries()]
+  const publicActivityCounts = collectActivityDates({ runByDate: publicRunByDate, liftByDate, bjjByDate: new Map() });
+  const heatmapDays = [...publicActivityCounts.entries()]
     .filter(([date]) => date >= heatmapStart && date <= analysisDateKey)
     .sort(([a], [b]) => a.localeCompare(b))
     .map(([date, activity]) => ({
@@ -774,9 +745,8 @@ async function main() {
   const lastActivity =
     lastActivityCandidates.sort((a, b) => a.timestamp - b.timestamp).at(-1) ??
     [
-      ...[...runByDate.keys()].map((date) => ({ date, type: 'Running' })),
+      ...[...publicRunByDate.keys()].map((date) => ({ date, type: 'Running' })),
       ...[...liftByDate.keys()].map((date) => ({ date, type: 'Lifting' })),
-      ...[...bjjByDate.keys()].map((date) => ({ date, type: 'BJJ' })),
     ]
       .sort((a, b) => a.date.localeCompare(b.date))
       .at(-1) ??
@@ -819,8 +789,6 @@ async function main() {
       hubTodayKey: hubStats.todayKey,
       analysisDateKey,
       strengthDashboard: `${FITNESS_HUB_BASE}/strength/index.html`,
-      whoopDataPath,
-      whoopLastSynced: whoopData?.last_synced ?? null,
     },
     lifetimeStats: {
       totalLbsLifted: totalLiftingVolume,
@@ -916,10 +884,6 @@ async function main() {
         : null,
       thisWeekVolume: weeklyThisWeek.volume,
       thisMonthMiles: Number(thisMonthMiles.toFixed(1)),
-    },
-    recovery: {
-      currentScore: currentRecovery,
-      lastSleepScore,
     },
     labels: {
       thisWeek: `${formatDateLabel(thisWeekStart)} - ${formatDateLabel(thisWeekEnd)}`,

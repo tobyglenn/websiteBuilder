@@ -64,7 +64,7 @@ export function retainDeployAssets({ repo = process.cwd(), dist = 'dist', ref = 
 
 // Direct Pages deployments retain browser bundles from the currently live site,
 // so generated output no longer needs a second Git branch.
-export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://tobyonfitnesstech.com', days = 30, now = new Date(), fetchAsset = fetch, retryDelayMs = 1000 } = {}) {
+export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://tobyonfitnesstech.com', days = 30, now = new Date(), fetchAsset = fetch, retryDelayMs = 1000, whoopBoundaryVersion = null } = {}) {
   const output = resolve(dist);
   const active = [];
   const visit = (folder, prefix) => {
@@ -106,8 +106,12 @@ export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://to
       if (!candidates.has(path) || Date.parse(date) > Date.parse(candidates.get(path))) candidates.set(path, date);
     }
   };
-  for (const path of previous.active) add(path, previous.builtAt);
-  for (const asset of previous.retained) add(asset.path, asset.lastUsedAt);
+  // Never copy pre-privacy-cutover assets. Later deployments can retain
+  // normal immutable bundles from a post-cutover manifest.
+  if (whoopBoundaryVersion === null || previous.whoopBoundaryVersion === whoopBoundaryVersion) {
+    for (const path of previous.active) add(path, previous.builtAt);
+    for (const asset of previous.retained) add(asset.path, asset.lastUsedAt);
+  }
   const queue = [...candidates];
   const retained = [];
   await Promise.all(Array.from({ length: Math.min(4, queue.length) }, async () => {
@@ -122,13 +126,16 @@ export async function retainLiveDeployAssets({ dist = 'dist', site = 'https://to
       retained.push({ path, lastUsedAt });
     }
   }));
-  const manifest = { version: 1, builtAt: now.toISOString(), retentionDays: days, active: active.sort(), retained: retained.sort((a, b) => a.path.localeCompare(b.path)) };
+  const manifest = { version: 1, ...(whoopBoundaryVersion === null ? {} : { whoopBoundaryVersion }),
+    builtAt: now.toISOString(), retentionDays: days, active: active.sort(),
+    retained: retained.sort((a, b) => a.path.localeCompare(b.path)) };
   writeFileSync(join(output, MANIFEST), `${JSON.stringify(manifest, null, 2)}\n`);
   return { active: active.length, retained: retained.length, retentionDays: days };
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   console.log(JSON.stringify(process.argv.includes('--live')
-    ? await retainLiveDeployAssets({ dist: process.argv[2] || 'dist' })
+    ? await retainLiveDeployAssets({ dist: process.argv[2] || 'dist',
+      whoopBoundaryVersion: process.argv.includes('--whoop-summary-boundary') ? 1 : null })
     : retainDeployAssets({ dist: process.argv[2] || 'dist' })));
 }

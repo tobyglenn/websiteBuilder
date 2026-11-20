@@ -24,7 +24,11 @@ class WriterTests(unittest.TestCase):
         self.git(self.root, 'clone', str(self.remote), str(self.other))
         self.configure(self.other)
         self.helper = self.root / 'functions.sh'
-        self.helper.write_text('set -uo pipefail\nTODAY=test\nwarn() { echo "$*" >&2; }\n' + FUNCTIONS)
+        self.helper.write_text(
+            'set -uo pipefail\nTODAY=test\nwarn() { echo "$*" >&2; }\n'
+            + FUNCTIONS
+            + '\ncheck_whoop_source() { [ ! -f .git/test-whoop-boundary-rejected ]; }\n'
+        )
     def tearDown(self): self.tmp.cleanup()
     def git(self, cwd, *args):
         return subprocess.check_output(['git', *args], cwd=cwd, stderr=subprocess.STDOUT, text=True).strip()
@@ -89,6 +93,23 @@ class WriterTests(unittest.TestCase):
         r=self.runfn('website_preflight && finish_homepage_publish')
         self.assertEqual(r.returncode,0,r.stderr)
         self.assertEqual(self.git(self.local,'rev-parse','HEAD'),self.git(self.remote,'rev-parse','main'))
+    def test_boundary_failure_preserves_uncommitted_data_before_checkpoint(self):
+        (self.local/'.git/test-whoop-boundary-rejected').touch()
+        self.write(self.local,DATA,'{}\n')
+        before = self.git(self.local,'rev-parse','HEAD')
+        self.assertNotEqual(self.runfn('website_preflight').returncode, 0)
+        self.assertEqual(self.git(self.local,'rev-parse','HEAD'), before)
+        self.assertEqual(self.git(self.local,'diff','--cached','--name-only'), '')
+
+    def test_boundary_failure_keeps_pending_commit_off_remote(self):
+        self.write(self.local,DATA,'{}\n')
+        self.git(self.local,'add',DATA)
+        self.git(self.local,'commit','-m','update: homepage refresh test')
+        before = self.git(self.remote,'rev-parse','main')
+        (self.local/'.git/test-whoop-boundary-rejected').touch()
+        self.assertNotEqual(self.runfn('push_with_rebase_retry').returncode, 0)
+        self.assertEqual(self.git(self.remote,'rev-parse','main'), before)
+
     def test_late_unrelated_commit_not_published(self):
         self.write(self.local,DATA,'{}\n'); self.git(self.local,'add',DATA)
         self.git(self.local,'commit','-m','user change')

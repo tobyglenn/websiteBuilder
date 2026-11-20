@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "metrics": {
+    "available": true,
+    "windowStart": "2026-10-22",
+    "windowEnd": "2026-11-20",
+    "sampleCount": 13,
+    "recoveryAvg": 47.4,
+    "hrvAvg": 42,
+    "rhrAvg": 72.2,
+    "asleepHoursAvg": 6.1,
+    "remHoursAvg": 1.8,
+    "deepHoursAvg": 1.5,
+    "sleepPerfAvg": 68.8,
+    "respiratoryAvg": 16.5,
+    "strainAvg": 14.4,
+    "totalRecords": 1742,
+    "allTimeRecoveryAvg": 55.5,
+    "allTimeGreenPct": 31.1,
+    "allTimeYellowPct": 53.1,
+    "allTimeRedPct": 15.8,
+    "lastSynced": null
+  },
+  "dashboard": {
+    "avgRecovery": 55.5,
+    "avgHrv": 33.5,
+    "avgRhr": 68.9,
+    "avgSleepPerformance": 68.8,
+    "totalDays": 1365,
+    "green": 424,
+    "yellow": 725,
+    "red": 216,
+    "weekly": [
+      {
+        "period": "2026-09-21",
+        "recovery": 42.7,
+        "hrv": 25.8
+      },
+      {
+        "period": "2026-09-28",
+        "recovery": 59.4,
+        "hrv": 34.1
+      },
+      {
+        "period": "2026-10-05",
+        "recovery": 81.1,
+        "hrv": 43.1
+      },
+      {
+        "period": "2026-10-12",
+        "recovery": 52.6,
+        "hrv": 30.4
+      },
+      {
+        "period": "2026-10-19",
+        "recovery": 51.7,
+        "hrv": 29.7
+      },
+      {
+        "period": "2026-10-26",
+        "recovery": 35.3,
+        "hrv": 23.6
+      }
+    ]
+  },
+  "fitnessAge": {
+    "avgHrv": 33.5,
+    "avgRhr": 68.9,
+    "avgRecovery": 55.5,
+    "workoutConsistency": 41.1,
+    "windowDays": 90
+  },
+  "year2025": {
+    "totalDays": 362,
+    "avgStrain": 7.5,
+    "avgRecovery": 57,
+    "avgSleep": 6.8,
+    "avgHRV": 27,
+    "avgRHR": 76,
+    "recoveryRate": 34
+  }
+}

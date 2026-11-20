@@ -28,6 +28,29 @@ edits. A checkpoint or prior pending refresh is pushed even if regeneration has
 no additional diff. Other producers must avoid concurrent writes to these
 files; final dirty-state checks detect but cannot prevent uncooperative writers.
 
+## WHOOP publication boundary
+
+The homepage writer projects the private WHOOP export into
+`frontend/src/data/whoop-public-summary.json` using an explicit field allowlist.
+Never copy the raw input into the website checkout, generated data, or deployment
+artifact. The public WHOOP charts use completed weekly averages with at least
+three distinct days, and other site pages use aggregate windows only. Day-level
+training display must not include source-only WHOOP sessions. Private reports
+continue unchanged.
+
+The writer checks source, index and pending publish commits; CI independently
+checks the candidate and the final Pages artifact. The first post-cutover Pages
+artifact skips pre-cutover retained bundles and records a boundary marker for
+normal retention on later builds. This stops prospective publication; it does
+not remove older Git commits, cached pages, or third-party copies.
+
+Cutover order: keep the old website refresher paused, validate the scoped
+candidate and full Pages artifact, then update the reviewed writer only after
+the corrected source is on `main`. Confirm the private input remains readable
+and untracked; run a controlled fresh summary refresh, verify the public summary
+pages, and only then resume automatic publication. Do not run a historical
+writer against the new repository or reuse unreviewed pending generated commits.
+
 ## Runtime installation and validation
 
 Run `bash scripts/dgx/install-website-writers.sh` from a reviewed checkout.

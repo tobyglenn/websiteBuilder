@@ -29,26 +29,20 @@ pipeline without re-discovering everything from scratch.
 | Gear detail page  | `frontend/src/pages/gear/[slug].astro`                                  |
 | Gear data         | `frontend/src/data/gearItems.ts`                                        |
 | Aggregated stats  | `frontend/src/data/fitnessStats.ts`                                     |
-| WHOOP data        | `frontend/src/data/whoop_v2_latest.json`                                |
+| WHOOP data        | `frontend/src/data/whoop-public-summary.json`                                |
 | Garmin data       | `frontend/src/data/garmin_all_activities.json`                          |
 | Speediance data   | `frontend/src/data/speediance_dashboard_data.json`                      |
 | 8Sleep data       | `frontend/src/data/eight_sleep_historical.csv`                          |
 | Build output      | `frontend/dist/`                                                        |
 
-## WHOOP Data Structure
+## WHOOP public data boundary
 
-The WHOOP JSON uses this structure (important for correct data access):
-
-```
-whoopData.recovery.records[]   → recovery scores, HRV, RHR
-whoopData.sleep.records[]      → sleep data
-whoopData.workouts.records[]   → activity/strain data
-whoopData.cycle.records[]      → physiological cycles
-whoopData.last_synced          → ISO timestamp of last data sync
-```
-
-Records are stored **oldest-first** in the file. Sort descending by
-`created_at` before slicing for "most recent N" queries.
+The site builds only from an allowlisted aggregate snapshot. The raw WHOOP
+export is a private input to the DGX summary projector, never a source checkout
+or deployment artifact. The public dashboard shows weekly means for completed
+weeks with at least three distinct days, plus summary metrics; it does not
+publish the raw record table, unique IDs or precise sample timestamps. The
+private fitness-report pipeline continues to use its original sources.
 
 ## Build & Deploy
 

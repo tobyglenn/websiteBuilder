@@ -108,7 +108,7 @@ const LIVE_DATA_LASTMOD = [
   './src/data/bodyCompositionData.json',
   './src/data/garmin_processed_activities.json',
   './src/data/garmin_all_activities.json',
-  './src/data/whoop_v2_latest.json',
+  './src/data/whoop-public-summary.json',
   './src/data/recentActivity.js',
 ].map(fileLastmod).filter(Boolean).sort().at(-1);
 

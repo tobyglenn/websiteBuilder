@@ -86,20 +86,24 @@ HOMEPAGE_PATHS=(
     frontend/src/data/speediance_dashboard_data.json
     frontend/src/data/garmin_all_activities.json
     frontend/src/data/garmin_processed_activities.json
-    frontend/src/data/whoop_v2_latest.json
+    frontend/src/data/whoop-public-summary.json
     frontend/src/data/siteMetrics.json
     frontend/src/data/bodyCompositionData.json
 )
 
 website_preflight() {
-    local common commit subject
+    local common upstream
     [ "$(git branch --show-current)" = main ] || return 1
     git diff --name-only --diff-filter=U | grep -q . && return 1
     common=$(git rev-parse --git-common-dir) || return 1
     # Shared with the podcast writer. All writers must hold this through push.
     exec {WEBSITE_WRITER_FD}>"$common/website-podcast-publish.lock" || return 1
     flock -x "$WEBSITE_WRITER_FD" || return 1
+    check_whoop_source || return 1
+    check_whoop_source --commit HEAD || return 1
     git fetch origin main || return 1
+    upstream=$(git rev-parse refs/remotes/origin/main) || return 1
+    check_whoop_source --commit "$upstream" || return 1
     validate_homepage_commits || return 1
     # Upstream fitness producers legitimately prepare these files first.
     # Checkpoint only those known outputs; do not stash or consume other work.
@@ -112,6 +116,12 @@ website_preflight() {
         warn "Generated-data reconciliation conflicted; local checkpoint preserved"
         return 1
     fi
+    check_whoop_source || return 1
+    check_whoop_source --commit HEAD || return 1
+}
+
+check_whoop_source() {
+    node frontend/scripts/check-whoop-public-boundary.mjs "$@"
 }
 
 validate_homepage_commits() {
@@ -126,6 +136,7 @@ validate_homepage_commits() {
         esac
         git rev-parse "$commit^2" >/dev/null 2>&1 && { warn "Local merge commit requires review"; return 1; }
         homepage_paths_only < <(git diff-tree --no-commit-id --name-only -r -z "$commit") || return 1
+        check_whoop_source --commit "$commit" || return 1
     done
 }
 
@@ -145,6 +156,7 @@ homepage_paths_only() {
 
 stage_homepage_outputs() {
     local path
+    check_whoop_source || return 1
     # Never consume a concurrently staged edit or another writer's output.
     homepage_paths_only < <(git diff --name-only -z HEAD; git ls-files --others --exclude-standard -z) || return 1
     for path in "${HOMEPAGE_PATHS[@]}"; do
@@ -156,6 +168,7 @@ stage_homepage_outputs() {
 
 commit_homepage_outputs() {
     local path
+    check_whoop_source || return 1
     local -a paths=()
     homepage_paths_only < <(git diff --name-only -z HEAD; git ls-files --others --exclude-standard -z) || return 1
     for path in "${HOMEPAGE_PATHS[@]}"; do
@@ -168,8 +181,11 @@ commit_homepage_outputs() {
 }
 
 push_with_rebase_retry() {
-    local attempt
+    local attempt upstream
     for attempt in 1 2 3; do
+        check_whoop_source || return 1
+        check_whoop_source --commit HEAD || return 1
+        validate_homepage_commits || return 1
         if git push origin main; then
             return 0
         fi
@@ -178,6 +194,8 @@ push_with_rebase_retry() {
         # Never stash user work or leave an interrupted rebase behind.
         [ -z "$(git status --porcelain)" ] || return 1
         git fetch origin main || return 1
+        upstream=$(git rev-parse refs/remotes/origin/main) || return 1
+        check_whoop_source --commit "$upstream" || return 1
         if ! git rebase origin/main; then
             git rebase --abort || return 1
             warn "Concurrent remote changes conflict; local refresh commit preserved"
@@ -258,7 +276,7 @@ log "=== Step 2b: Rebuild speediance_dashboard_data.json ==="
 
 log "Copying data files to websiteBuilder..."
 WEBSITE_DATA="$FRONTEND/src/data"
-for f in garmin_all_activities.json speediance_dashboard_data.json garmin_processed_activities.json whoop_v2_latest.json; do
+for f in garmin_all_activities.json speediance_dashboard_data.json garmin_processed_activities.json; do
     if [ -f "$CLAWD_DATA/$f" ]; then
         cp "$CLAWD_DATA/$f" "$WEBSITE_DATA/$f"
         log "  Copied $f"
@@ -293,6 +311,10 @@ node scripts/refresh-homepage-hero-video.mjs \
 
 # ── Step 5: Refresh homepage fitness data ─────────────────────────────────────
 log "=== Step 5: Refresh homepage fitness data ==="
+node scripts/derive-whoop-public-summary.mjs \
+    --input "$CLAWD_DATA/whoop_v2_latest.json" \
+    --output "$WEBSITE_DATA/whoop-public-summary.json" \
+    || die "WHOOP public summary generation failed"
 ensure_fitness_hub || die "fitness hub unavailable at ${FITNESS_HUB_BASE}"
 FITNESS_OUTPUT=$(node scripts/refresh-homepage-fitness-data.mjs 2>&1)
 FITNESS_CODE=$?
@@ -305,6 +327,8 @@ echo "$FITNESS_OUTPUT"
 # ── Step 6: Astro build ────────────────────────────────────────────────────────
 log "=== Step 6: Build ==="
 npm run build || die "npm run build failed"
+node scripts/check-whoop-public-boundary.mjs --artifact dist \
+    || die "WHOOP public artifact boundary check failed"
 
 # ── Step 7: Commit and push ───────────────────────────────────────────────────
 log "=== Step 7: Commit and push ==="

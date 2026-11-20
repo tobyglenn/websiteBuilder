@@ -2,16 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import { Activity, ArrowRight, Heart, Moon, TrendingUp, Zap, Clock } from 'lucide-react';
 import {
-  RECOVERY_RECORDS,
   AVG_RECOVERY,
   AVG_HRV,
   AVG_RHR,
   AVG_SLEEP_PERF,
   TOTAL_DAYS,
-  RECENT_RECORDS,
   TREND_DATA,
   RECOVERY_BREAKDOWN,
-  LAST_SYNCED,
+  LAST_SYNC_DAY,
+  whoopTrendPoints,
 } from '../data/whoop.js';
 
 // Recovery color helper
@@ -26,20 +25,11 @@ const chartWidth = 600;
 const chartHeight = 200;
 const chartPadding = 30;
 
-// Generate recovery trend SVG points
-function generateTrendLine(data, valueKey, maxVal = 100) {
-  if (!data.length) return '';
-  return data
-    .map((d, i) => {
-      const x = chartPadding + (i / (data.length - 1)) * (chartWidth - 2 * chartPadding);
-      const y = chartHeight - chartPadding - (d[valueKey] / maxVal) * (chartHeight - 2 * chartPadding);
-      return `${x},${y}`;
-    })
-    .join(' ');
-}
-
-const recoveryPoints = generateTrendLine(TREND_DATA, 'recovery', 100);
-const hrvPoints = generateTrendLine(TREND_DATA, 'hrv', 100);
+// Only weekly averages are charted; the source export never enters the site.
+const recoveryTrend = whoopTrendPoints(TREND_DATA, 'recovery', chartWidth, chartHeight, chartPadding);
+const hrvTrend = whoopTrendPoints(TREND_DATA, 'hrv', chartWidth, chartHeight, chartPadding);
+const polyline = (points: { x: number; y: number }[]) => points.map(({ x, y }) => `${x},${y}`).join(' ');
+const recentWeeks = [...TREND_DATA].reverse();
 
 // Donut chart calculations
 const donutSize = 160;
@@ -60,7 +50,6 @@ const greenDash = (greenPct / 100) * circumference;
 const yellowDash = (yellowPct / 100) * circumference;
 const redDash = (redPct / 100) * circumference;
 
-// Last synced is imported as LAST_SYNCED from whoop.js
 ---
 
 <Layout 
@@ -94,7 +83,7 @@ const redDash = (redPct / 100) * circumference;
         <div class="mb-7 max-w-2xl">
           <p class="mb-2 text-xs font-semibold uppercase text-blue-400">Reader guides</p>
           <h2 class="mb-3 text-3xl font-bold text-white">Put the recovery score in context</h2>
-          <p class="leading-relaxed text-neutral-400">The dashboard shows what WHOOP measured. These hands-on comparisons explain the tradeoffs, what changed with WHOOP 5, and when another wearable tells the story better.</p>
+          <p class="leading-relaxed text-neutral-400">The dashboard summarizes what WHOOP measured. These hands-on comparisons explain the tradeoffs, what changed with WHOOP 5, and when another wearable tells the story better.</p>
         </div>
         <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           {[
@@ -169,8 +158,8 @@ const redDash = (redPct / 100) * circumference;
         <div class="grid md:grid-cols-2 gap-6">
           <!-- Recovery Trend Chart -->
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-            <h2 class="text-xl font-bold text-white mb-6">Recovery Score Trend</h2>
-            {TREND_DATA.length > 0 ? (
+            <h2 class="text-xl font-bold text-white mb-6">Weekly Recovery Trend</h2>
+            {recoveryTrend.points.length > 0 ? (
               <div class="overflow-x-auto">
                 <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
                   <!-- Grid -->
@@ -183,7 +172,7 @@ const redDash = (redPct / 100) * circumference;
                   
                   <!-- Line -->
                   <polyline
-                    points={recoveryPoints}
+                    points={polyline(recoveryTrend.points)}
                     fill="none"
                     stroke="#3B82F6"
                     stroke-width="2"
@@ -192,13 +181,9 @@ const redDash = (redPct / 100) * circumference;
                   />
                   
                   <!-- Data points -->
-                  {TREND_DATA.map((d, i) => {
-                    const x = chartPadding + (i / (TREND_DATA.length - 1)) * (chartWidth - 2 * chartPadding);
-                    const y = chartHeight - chartPadding - (d.recovery / 100) * (chartHeight - 2 * chartPadding);
-                    return (
-                      <circle cx={x} cy={y} r="3" fill="#3B82F6" />
-                    );
-                  })}
+                  {recoveryTrend.points.map(({ x, y }) => (
+                    <circle cx={x} cy={y} r="3" fill="#3B82F6" />
+                  ))}
                 </svg>
               </div>
             ) : (
@@ -208,8 +193,8 @@ const redDash = (redPct / 100) * circumference;
 
           <!-- HRV Trend Chart -->
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-            <h2 class="text-xl font-bold text-white mb-6">HRV Trend</h2>
-            {TREND_DATA.length > 0 ? (
+            <h2 class="text-xl font-bold text-white mb-6">Weekly HRV Trend</h2>
+            {hrvTrend.points.length > 0 ? (
               <div class="overflow-x-auto">
                 <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} class="w-full h-auto min-w-[300px]" preserveAspectRatio="xMidYMid meet">
                   <!-- Grid -->
@@ -217,12 +202,12 @@ const redDash = (redPct / 100) * circumference;
                   <line x1={chartPadding} y1={chartPadding} x2={chartPadding} y2={chartHeight - chartPadding} stroke="#333" stroke-width="1" />
                   
                   <!-- Y-axis labels -->
-                  <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">100</text>
+                  <text x={chartPadding - 5} y={chartPadding + 4} fill="#666" font-size="10" text-anchor="end">{Math.ceil(hrvTrend.max)}</text>
                   <text x={chartPadding - 5} y={chartHeight - chartPadding + 4} fill="#666" font-size="10" text-anchor="end">0</text>
                   
                   <!-- Line -->
                   <polyline
-                    points={hrvPoints}
+                    points={polyline(hrvTrend.points)}
                     fill="none"
                     stroke="#10B981"
                     stroke-width="2"
@@ -231,13 +216,9 @@ const redDash = (redPct / 100) * circumference;
                   />
                   
                   <!-- Data points -->
-                  {TREND_DATA.map((d, i) => {
-                    const x = chartPadding + (i / (TREND_DATA.length - 1)) * (chartWidth - 2 * chartPadding);
-                    const y = chartHeight - chartPadding - (d.hrv / 100) * (chartHeight - 2 * chartPadding);
-                    return (
-                      <circle cx={x} cy={y} r="3" fill="#10B981" />
-                    );
-                  })}
+                  {hrvTrend.points.map(({ x, y }) => (
+                    <circle cx={x} cy={y} r="3" fill="#10B981" />
+                  ))}
                 </svg>
               </div>
             ) : (
@@ -248,7 +229,7 @@ const redDash = (redPct / 100) * circumference;
       </div>
     </section>
 
-    <!-- Recovery Breakdown & Recent Table -->
+    <!-- Recovery Breakdown & Weekly Table -->
     <section class="px-4 pb-10">
       <div class="max-w-6xl mx-auto">
         <div class="grid md:grid-cols-2 gap-6">
@@ -308,32 +289,33 @@ const redDash = (redPct / 100) * circumference;
             </div>
           </div>
 
-          <!-- Recent 10 Days Table -->
+          <!-- Weekly Averages Table -->
           <div class="bg-neutral-900 rounded-xl p-6 border border-neutral-800">
-            <h2 class="text-xl font-bold text-white mb-6">Recent 10 Days</h2>
+            <h2 class="text-xl font-bold text-white mb-6">Weekly Averages</h2>
             <div class="overflow-x-auto">
               <table class="w-full">
                 <thead>
                   <tr class="text-neutral-400 text-sm border-b border-neutral-800">
-                    <th class="text-left py-2 px-2">Date</th>
+                    <th class="text-left py-2 px-2">Week of</th>
                     <th class="text-left py-2 px-2">Recovery</th>
                     <th class="text-left py-2 px-2">HRV</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {RECENT_RECORDS.map((row) => (
+                  {recentWeeks.map((row) => (
                     <tr class="border-b border-neutral-800/50">
                       <td class="py-2 px-2 text-white text-sm">
-                        {new Date(row.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        {new Date(row.period + 'T12:00:00Z').toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'UTC' })}
                       </td>
                       <td class="py-2 px-2">
-                        <span class={`px-2 py-0.5 rounded text-sm font-medium ${getRecoveryColor(row.recovery_score)}`}>
-                          {row.recovery_score}
+                        <span class={`px-2 py-0.5 rounded text-sm font-medium ${row.recovery == null ? 'text-neutral-400' : getRecoveryColor(row.recovery)}`}>
+                          {row.recovery == null ? '—' : row.recovery.toFixed(1)}
                         </span>
                       </td>
-                      <td class="py-2 px-2 text-neutral-300 text-sm">{row.hrv.toFixed(1)} ms</td>
+                      <td class="py-2 px-2 text-neutral-300 text-sm">{row.hrv == null ? '—' : `${row.hrv.toFixed(1)} ms`}</td>
                     </tr>
                   ))}
+                  {recentWeeks.length === 0 && <tr><td colspan="3" class="py-2 px-2 text-neutral-400">{'No weekly summaries available'}</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -370,7 +352,7 @@ const redDash = (redPct / 100) * circumference;
       <div class="max-w-6xl mx-auto">
         <div class="flex items-center gap-2 text-neutral-500 text-sm">
           <Clock class="w-4 h-4" />
-          <span>Last synced: {LAST_SYNCED ? new Date(LAST_SYNCED).toLocaleString() : 'N/A'}</span>
+          <span>Last synced: {LAST_SYNC_DAY ? new Date(LAST_SYNC_DAY + 'T12:00:00Z').toLocaleDateString('en-US', { timeZone: 'UTC' }) : 'N/A'}</span>
         </div>
       </div>
     </section>

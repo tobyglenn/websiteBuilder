@@ -54,3 +54,7 @@ improvement-log.json
 frontend/public/images/podcast/*.png
 frontend/public/images/podcast/*.jpg
 frontend/public/images/podcast/*.jpeg
+
+# WHOOP raw records are a local data-lake input, never public site source/output.
+/frontend/src/data/whoop_v2_latest.json
+/frontend/public/**/whoop_v2_latest.json

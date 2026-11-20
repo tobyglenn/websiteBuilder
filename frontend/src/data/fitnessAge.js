@@ -1,10 +1,8 @@
-import whoopData from './whoop_v2_latest.json';
+import whoopSummary from './whoop-public-summary.json';
 import garminData from './garmin_all_activities.json';
 
 const ACTUAL_AGE = 44;
 
-const recoveryRecords = whoopData?.recovery?.records ?? [];
-const workoutRecords = whoopData?.workouts?.records ?? [];
 const garminActivities = garminData?.activities ?? [];
 
 const safeDate = (value) => {
@@ -17,44 +15,10 @@ const toNumber = (value, fallback = 0) => {
   return Number.isFinite(n) ? n : fallback;
 };
 
-const average = (arr) => {
-  if (!arr.length) return 0;
-  return arr.reduce((sum, v) => sum + v, 0) / arr.length;
-};
-
-const sortedRecovery = recoveryRecords
-  .map((r) => ({
-    date: safeDate(r.created_at),
-    hrv: toNumber(r?.score?.hrv_rmssd_milli),
-    rhr: toNumber(r?.score?.resting_heart_rate),
-    recovery: toNumber(r?.score?.recovery_score),
-  }))
-  .filter((r) => r.date)
-  .sort((a, b) => a.date - b.date);
-
-const avgHRV = average(sortedRecovery.map((r) => r.hrv).filter((v) => v > 0));
-const avgRHR = average(sortedRecovery.map((r) => r.rhr).filter((v) => v > 0));
-const avgRecovery = average(sortedRecovery.map((r) => r.recovery).filter((v) => v > 0));
-
-const recoveryWindowDays = Math.min(90, sortedRecovery.length || 1);
-const recentRecovery = sortedRecovery.slice(-recoveryWindowDays);
-
-const latestRecoveryDate = recentRecovery.length
-  ? recentRecovery[recentRecovery.length - 1].date
-  : new Date();
-
-const windowStart = new Date(latestRecoveryDate);
-windowStart.setDate(windowStart.getDate() - (recoveryWindowDays - 1));
-
-const workoutDates = new Set(
-  workoutRecords
-    .map((w) => safeDate(w?.start))
-    .filter(Boolean)
-    .map((d) => d.toISOString().split('T')[0])
-);
-
-const workoutDaysInWindow = recentRecovery.filter((r) => workoutDates.has(r.date.toISOString().split('T')[0])).length;
-const workoutConsistency = recoveryWindowDays > 0 ? (workoutDaysInWindow / recoveryWindowDays) * 100 : 0;
+const {
+  avgHrv: avgHRV, avgRhr: avgRHR, avgRecovery, workoutConsistency,
+  windowDays: recoveryWindowDays,
+} = whoopSummary.fitnessAge;
 const weeklyWorkouts = (workoutConsistency / 100) * 7;
 
 const runningActivities = garminActivities.filter((a) => {
@@ -88,9 +52,9 @@ const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
 const hrvNormFor40s = 45;
 const rhrNormFor40s = 60;
 
-const hrvScore = clamp(50 + ((avgHRV - hrvNormFor40s) / 20) * 50, 0, 100);
-const rhrScore = clamp(50 + ((rhrNormFor40s - avgRHR) / 15) * 50, 0, 100);
-const recoveryScoreNorm = clamp(avgRecovery, 0, 100);
+const hrvScore = clamp(50 + (((avgHRV ?? hrvNormFor40s) - hrvNormFor40s) / 20) * 50, 0, 100);
+const rhrScore = clamp(50 + ((rhrNormFor40s - (avgRHR ?? rhrNormFor40s)) / 15) * 50, 0, 100);
+const recoveryScoreNorm = clamp(avgRecovery ?? 50, 0, 100);
 const consistencyScore = clamp(workoutConsistency, 0, 100);
 const cardioScore = clamp((runMiles / 35) * 100, 0, 100);
 
@@ -109,9 +73,9 @@ const FITNESS_AGE_DATA = {
   actualAge: ACTUAL_AGE,
   fitnessAge,
   ageDelta,
-  avgHRV: Number(avgHRV.toFixed(1)),
-  avgRHR: Number(avgRHR.toFixed(1)),
-  avgRecovery: Number(avgRecovery.toFixed(1)),
+  avgHRV: avgHRV ?? "—",
+  avgRHR: avgRHR ?? "—",
+  avgRecovery: avgRecovery ?? "—",
   workoutConsistency: Number(workoutConsistency.toFixed(1)),
   weeklyWorkouts: Number(weeklyWorkouts.toFixed(1)),
   runningMiles: Number(runMiles.toFixed(1)),

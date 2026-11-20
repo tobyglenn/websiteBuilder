@@ -5,7 +5,7 @@
 import garminRaw from './garmin_all_activities.json';
 import speedianceRaw from './speediance_dashboard_data.json';
 import { EIGHT_SLEEP_RECORDS } from './eightsleep.js';
-import whoopRaw from './whoop_v2_latest.json';
+import whoopSummary from './whoop-public-summary.json';
 
 // Helper to format numbers with commas
 function fmtNum(n) {
@@ -160,78 +160,12 @@ function processEightSleep() {
   };
 }
 
-// Process WHOOP data
-function processWhoop() {
-  const data = whoopRaw;
-  
-  if (!data || !data.recovery || !data.recovery.records || data.recovery.records.length === 0) {
-    return {
-      totalDays: 0,
-      avgStrain: 0,
-      avgRecovery: 0,
-      avgSleep: 0,
-      avgHRV: 0,
-      avgRHR: 0,
-      recoveryRate: 0,
-      maxStrain: 0
-    };
-  }
-  
-  const records = data.recovery.records.map(r => ({
-    date: new Date(r.created_at).toISOString().split('T')[0],
-    recovery: r.score?.recovery_score || 0,
-    strain: r.score?.strain || 0,
-    hrv: r.score?.hrv_rmssd_milli || 0,
-    rhr: r.score?.resting_heart_rate || 0,
-    sleep: r.score?.sleep_performance_seconds || 0
-  }));
-  
-  // Filter for 2025
-  const daily2025 = records.filter(d => d.date.startsWith('2025'));
-  
-  if (daily2025.length === 0) {
-    return {
-      totalDays: 0,
-      avgStrain: 0,
-      avgRecovery: 0,
-      avgSleep: 0,
-      avgHRV: 0,
-      avgRHR: 0,
-      recoveryRate: 0,
-      maxStrain: 0
-    };
-  }
-  
-  const avgRecovery = Math.round(daily2025.reduce((sum, d) => sum + (d.recovery || 0), 0) / daily2025.length);
-  const avgHRV = Math.round(daily2025.reduce((sum, d) => sum + (d.hrv || 0), 0) / daily2025.length);
-  const avgRHR = Math.round(daily2025.reduce((sum, d) => sum + (d.rhr || 0), 0) / daily2025.length);
-  const avgSleep = Math.round(daily2025.reduce((sum, d) => sum + (d.sleep || 0), 0) / daily2025.length / 3600 * 10) / 10;
-  
-  // Recovery rate (days in green recovery / total days)
-  const greenDays = daily2025.filter(d => d.recovery >= 67).length;
-  const recoveryRate = Math.round((greenDays / daily2025.length) * 100);
-  
-  // Calculate strain from activity data if available
-  const maxStrain = 21; // Default max
-  
-  return {
-    totalDays: daily2025.length,
-    avgStrain: 12, // Placeholder - would need activity data
-    avgRecovery,
-    avgSleep,
-    avgHRV,
-    avgRHR,
-    recoveryRate,
-    maxStrain
-  };
-}
-
 // Main export
 export function getYearInReview2025() {
   const garmin = processGarmin();
   const speediance = processSpeediance();
   const eightSleep = processEightSleep();
-  const whoop = processWhoop();
+  const whoop = whoopSummary.year2025;
   
   // Calculate combined stats
   const totalWorkouts = garmin.totalRuns + speediance.totalWorkouts;

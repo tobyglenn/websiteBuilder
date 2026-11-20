@@ -4,7 +4,7 @@ import { cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, write
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import test from 'node:test';
-import { retainDeployAssets } from '../retain-deploy-assets.mjs';
+import { retainDeployAssets, retainLiveDeployAssets } from '../retain-deploy-assets.mjs';
 
 function fixture(t) {
   const root = mkdtempSync(join(tmpdir(), 'asset-retention-'));
@@ -115,4 +115,31 @@ test('live retention retries temporary upstream errors and network failures, and
     return new Response('unavailable', { status: 503 });
   } }), /HTTP 503/);
   assert.equal(calls, 4);
+});
+
+
+test('WHOOP privacy cutover does not fetch any legacy assets and keeps routine retention afterward', async t => {
+  const f = fixture(t);
+  const manifestPath = join(f.dist, 'deploy-asset-retention.json');
+  const now = new Date('2026-09-25T12:00:00Z');
+  const legacy = { version: 1, builtAt: now.toISOString(), active: ['_astro/Legacy.abcdefgh.js'], retained: [] };
+  const requests = [];
+  const options = { dist: f.dist, now, whoopBoundaryVersion: 1 };
+  const first = await retainLiveDeployAssets({ ...options, fetchAsset: async url => {
+    requests.push(url.pathname);
+    assert.equal(url.pathname, '/deploy-asset-retention.json');
+    return Response.json(legacy);
+  } });
+  assert.equal(first.retained, 0);
+  assert.equal(existsSync(join(f.dist, '_astro/Legacy.abcdefgh.js')), false);
+  const previous = JSON.parse(readFileSync(manifestPath, 'utf8'));
+  assert.equal(previous.whoopBoundaryVersion, 1);
+  rmSync(join(f.dist, '_astro/Current.abcdefgh.js'));
+  writeFileSync(join(f.dist, '_astro/Refreshed.abcdefghi.js'), 'new asset');
+  const next = await retainLiveDeployAssets({ ...options, fetchAsset: async url => {
+    requests.push(url.pathname);
+    return url.pathname.endsWith('.json') ? Response.json(previous) : new Response('old safe asset');
+  } });
+  assert.equal(next.retained, 1);
+  assert.deepEqual(requests, ['/deploy-asset-retention.json', '/deploy-asset-retention.json', '/_astro/Current.abcdefgh.js']);
 });

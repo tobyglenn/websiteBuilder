@@ -42,6 +42,12 @@ jobs:
           cache: "npm"
           cache-dependency-path: frontend/package-lock.json
 
+      - name: Verify WHOOP public source boundary
+        run: |
+          node frontend/scripts/check-whoop-public-boundary.mjs
+          node frontend/scripts/check-whoop-public-boundary.mjs --commit HEAD
+          node --test frontend/scripts/tests/whoop-public-summary.test.mjs frontend/scripts/tests/whoop-public-boundary.test.mjs
+
       - name: Install dependencies
         run: npm ci
         working-directory: frontend
@@ -88,7 +94,10 @@ jobs:
         run: node --test frontend/scripts/tests/retain-deploy-assets.test.mjs frontend/scripts/tests/podcast-assets.test.mjs frontend/scripts/tests/gsc-data-quality.test.mjs
 
       - name: Preserve recently used hashed browser assets
-        run: node frontend/scripts/retain-deploy-assets.mjs frontend/dist --live
+        run: node frontend/scripts/retain-deploy-assets.mjs frontend/dist --live --whoop-summary-boundary
+
+      - name: Verify WHOOP public artifact boundary
+        run: node frontend/scripts/check-whoop-public-boundary.mjs --artifact frontend/dist
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

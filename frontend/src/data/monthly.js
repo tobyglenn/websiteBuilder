@@ -3,7 +3,6 @@
 
 import garminData from './garmin_all_activities.json';
 import speedianceData from './speediance_dashboard_data.json';
-import whoopData from './whoop_v2_latest.json';
 
 // Helper to parse date from various formats
 function parseDate(dateStr) {
@@ -93,52 +92,10 @@ Object.keys(speedianceByMonth).forEach((key) => {
   m.totalDurationHours = (m.totalDuration / 60).toFixed(2);
 });
 
-// Process WHOOP data - recovery scores and sleep performance
-const whoopRecords = whoopData.recovery?.records || [];
-const whoopByMonth = {};
-whoopRecords.forEach((record) => {
-  const dateStr = record.created_at;
-  const monthKey = getMonthKey(dateStr);
-  if (!monthKey) return;
-  
-  if (!whoopByMonth[monthKey]) {
-    whoopByMonth[monthKey] = {
-      recoveryScores: [],
-      sleepPerformances: [],
-      hrvValues: [],
-      restingHrValues: [],
-      daysCount: 0,
-    };
-  }
-  
-  const recovery = record.score?.recovery_score || 0;
-  const sleepPerf = record.score?.sleep_performance || 0;
-  const hrv = record.score?.hrv_rmssd_milli || 0;
-  const rhr = record.score?.resting_heart_rate || 0;
-  
-  whoopByMonth[monthKey].daysCount += 1;
-  
-  if (recovery > 0) whoopByMonth[monthKey].recoveryScores.push(recovery);
-  if (sleepPerf > 0) whoopByMonth[monthKey].sleepPerformances.push(sleepPerf);
-  if (hrv > 0) whoopByMonth[monthKey].hrvValues.push(hrv);
-  if (rhr > 0) whoopByMonth[monthKey].restingHrValues.push(rhr);
-});
-
-// Calculate averages for WHOOP
-Object.keys(whoopByMonth).forEach((key) => {
-  const m = whoopByMonth[key];
-  const avg = (arr) => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length) : 0;
-  m.avgRecovery = avg(m.recoveryScores);
-  m.avgSleepPerformance = avg(m.sleepPerformances);
-  m.avgHrv = avg(m.hrvValues);
-  m.avgRestingHr = avg(m.restingHrValues);
-});
-
 // Get all unique months and sort them
 const allMonths = new Set([
   ...Object.keys(garminByMonth),
   ...Object.keys(speedianceByMonth),
-  ...Object.keys(whoopByMonth),
 ]);
 
 const sortedMonths = Array.from(allMonths).sort();
@@ -160,7 +117,6 @@ function getMonthlyDataForYear(year) {
       month: monthKey,
       garmin: garminByMonth[monthKey] || null,
       speediance: speedianceByMonth[monthKey] || null,
-      whoop: whoopByMonth[monthKey] || null,
     }));
 }
 
@@ -180,5 +136,4 @@ export {
   formatMonthDisplay,
   garminByMonth,
   speedianceByMonth,
-  whoopByMonth,
 };
