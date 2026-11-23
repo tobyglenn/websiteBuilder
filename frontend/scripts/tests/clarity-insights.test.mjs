@@ -179,3 +179,70 @@ test('labels a weekly report partial until fourteen daily snapshots exist', () =
   assert.equal(report.periods.prior.snapshots, 0);
   assert.equal(report.currentPageDeviceFriction[0].decisionSampleQualified, false);
 });
+
+const acquisitionFixture = () => [
+  snapshot({ date: '2026-11-21', readers: 100, bots: 5, scroll: 30, active: 10, total: 20 }),
+  snapshot({ date: '2026-11-22', readers: 40, bots: 2, scroll: 30, active: 10, total: 20 }),
+];
+
+test('reconciles reader and bot acquisition contributions before attributing a decline', () => {
+  const result = buildClarityReport(acquisitionFixture(), { periodDays: 1 }).acquisitionComparison;
+  assert.equal(result.ready, true);
+  assert.equal(result.readerSessionDelta, -60);
+  assert.equal(result.rows[0].readers.delta, -60);
+  assert.equal(result.rows[0].bots.delta, -3);
+  assert.equal(result.rows[0].shareOfNetReaderChangePercent, 100);
+});
+
+test('new and disappeared sources are zero-filled only for reconciled periods', () => {
+  const snapshots = acquisitionFixture();
+  snapshots[1].queries.acquisition.metrics[0].information[0].Source = 'Bing';
+  const result = buildClarityReport(snapshots, { periodDays: 1 }).acquisitionComparison;
+  assert.equal(result.ready, true);
+  assert.equal(result.rows.find(row => row.source === 'Google').readers.delta, -100);
+  assert.equal(result.rows.find(row => row.source === 'Bing').readers.percentChange, null);
+  assert.equal(result.rows.reduce((sum, row) => sum + row.readers.delta, 0), -60);
+});
+
+test('missing, truncated, invalid and bot-mismatched acquisition data hold attribution', () => {
+  for (const mutate of [
+    s => { delete s.queries.acquisition; },
+    s => { s.queries.acquisition.metrics[0].information[0].totalSessionCount = '20'; },
+    s => { s.queries.acquisition.metrics[0].information[0].totalBotSessionCount = '0'; },
+    s => { s.queries.acquisition.metrics[0].information[0].totalSessionCount = 'bad'; },
+  ]) {
+    const snapshots = acquisitionFixture();
+    mutate(snapshots[1]);
+    const result = buildClarityReport(snapshots, { periodDays: 1 }).acquisitionComparison;
+    assert.equal(result.ready, false);
+    assert.deepEqual(result.rows, []);
+  }
+});
+
+test('partial dates hold attribution even when acquisition counts reconcile', () => {
+  const snapshots = acquisitionFixture();
+  snapshots[0].snapshotDate = '2026-11-20';
+  const result = buildClarityReport(snapshots, { periodDays: 1 }).acquisitionComparison;
+  assert.equal(result.ready, false);
+  assert.match(result.reason, /consecutive/);
+});
+
+test('unchanged net reader traffic has no percentage contribution denominator', () => {
+  const snapshots = acquisitionFixture();
+  snapshots[1].queries.summary.metrics[0].information[0].totalSessionCount = '100';
+  snapshots[1].queries.acquisition.metrics[0].information[0].totalSessionCount = '100';
+  const result = buildClarityReport(snapshots, { periodDays: 1 }).acquisitionComparison;
+  assert.equal(result.ready, true);
+  assert.equal(result.rows[0].shareOfNetReaderChangePercent, null);
+});
+
+test('offsetting daily source omissions do not pass a period-total reconciliation', () => {
+  const snapshots = Array.from({ length: 4 }, (_, i) => snapshot({
+    date: `2026-11-${19 + i}`, readers: 10, bots: 0, scroll: 30, active: 10, total: 20,
+  }));
+  snapshots[2].queries.acquisition.metrics[0].information[0].totalSessionCount = '5';
+  snapshots[3].queries.acquisition.metrics[0].information[0].totalSessionCount = '15';
+  const result = buildClarityReport(snapshots, { periodDays: 2 }).acquisitionComparison;
+  assert.equal(result.ready, false);
+  assert.deepEqual(result.rows, []);
+});

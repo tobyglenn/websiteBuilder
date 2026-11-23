@@ -318,6 +318,61 @@ const metricComparison = (current, prior) => ({
   percentChange: prior ? round(100 * (current - prior) / prior) : null,
 });
 
+const compareAcquisition = (currentSnapshots, priorSnapshots, current, prior, ready) => {
+  const summarize = (snapshots, summary) => {
+    const rows = acquisitionRows(snapshots);
+    const valid = snapshots.every((snapshot) => ['summary', 'acquisition'].every((query) => {
+      const traffic = metricRows(snapshotMetrics(snapshot, query), 'Traffic');
+      return traffic.length > 0 && traffic.every((row) =>
+        ['totalSessionCount', 'totalBotSessionCount'].every((field) =>
+          row[field] !== null && row[field] !== undefined && row[field] !== ''
+          && Number.isInteger(Number(row[field])) && Number(row[field]) >= 0));
+    }) && ['totalSessionCount', 'totalBotSessionCount'].every((field) =>
+      metricRows(snapshotMetrics(snapshot, 'acquisition'), 'Traffic')
+        .reduce((sum, row) => sum + Number(row[field]), 0)
+      === Number(firstMetricRow(snapshotMetrics(snapshot, 'summary'), 'Traffic')[field])));
+    const readerSessions = rows.reduce((sum, row) => sum + row.readerSessions, 0);
+    const botSessions = rows.reduce((sum, row) => sum + row.botSessions, 0);
+    return {
+      rows, readerSessions, botSessions,
+      reconciled: valid && readerSessions === summary.readerSessions
+        && botSessions === summary.botSessions,
+    };
+  };
+  const currentSources = summarize(currentSnapshots, current);
+  const priorSources = summarize(priorSnapshots, prior);
+  const comparable = ready && currentSources.reconciled && priorSources.reconciled;
+  const readerSessionDelta = current.readerSessions - prior.readerSessions;
+  const key = (row) => JSON.stringify([row.source, row.medium, row.channel]);
+  const currentByKey = new Map(currentSources.rows.map((row) => [key(row), row]));
+  const priorByKey = new Map(priorSources.rows.map((row) => [key(row), row]));
+  // Only treat a missing source as zero after both complete periods reconcile.
+  const rows = comparable ? [...new Set([...currentByKey.keys(), ...priorByKey.keys()])]
+    .map((id) => {
+      const now = currentByKey.get(id);
+      const before = priorByKey.get(id);
+      const { source, medium, channel } = now || before;
+      const readers = metricComparison(now?.readerSessions || 0, before?.readerSessions || 0);
+      return {
+        source, medium, channel, readers,
+        bots: metricComparison(now?.botSessions || 0, before?.botSessions || 0),
+        shareOfNetReaderChangePercent: readerSessionDelta
+          ? round(100 * readers.delta / readerSessionDelta) : null,
+      };
+    }).sort((a, b) => Math.abs(b.readers.delta) - Math.abs(a.readers.delta)) : [];
+  return {
+    ready: comparable,
+    reason: !ready ? 'Incomplete consecutive snapshot dates.'
+      : !comparable ? 'Acquisition counts are missing, invalid, or do not reconcile with summary totals.'
+        : null,
+    interpretation: 'Source contributions describe where the net session change occurred, not its cause. Offsetting changes may produce negative shares or shares over 100%.',
+    readerSessionDelta,
+    current: { readerSessions: currentSources.readerSessions, botSessions: currentSources.botSessions, reconciled: currentSources.reconciled },
+    prior: { readerSessions: priorSources.readerSessions, botSessions: priorSources.botSessions, reconciled: priorSources.reconciled },
+    rows,
+  };
+};
+
 export const buildClarityReport = (
   inputSnapshots,
   { generatedAt = new Date().toISOString(), periodDays = 7 } = {},
@@ -381,6 +436,8 @@ export const buildClarityReport = (
       .slice(0, 50),
     currentAcquisition: acquisitionRows(currentSnapshots).slice(0, 100),
     priorAcquisition: acquisitionRows(priorSnapshots).slice(0, 100),
+    acquisitionComparison: compareAcquisition(currentSnapshots, priorSnapshots,
+      currentSummary, priorSummary, periodMetadata(snapshots, periodDays * 2).complete),
     availableSnapshotDates: snapshots.map((snapshot) => snapshot.snapshotDate),
   };
 };
