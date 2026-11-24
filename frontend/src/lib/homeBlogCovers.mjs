@@ -7,8 +7,7 @@ import { usesPokemonFeatureImage } from './pokemonBlogPresentation.mjs';
 import { articleTopic } from './blogEditorial.mjs';
 import { usesRetirementReviewImage } from './retirementBlogPresentation.mjs';
 
-// Reviewed topic photography for homepage cards. Keep headline graphics out of
-// this small surface; the article title is already real, localized text below.
+// Use topic photography on cards without a reviewed cover layout.
 export function homeBlogCover(post) {
   if (usesPokemonStarterImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesGeminiDownloadsImage(post)) return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
@@ -19,6 +18,7 @@ export function homeBlogCover(post) {
   if (post.slug === 'what-changed-my-mind-about-muse' && post.image === '/images/blog/what-changed-my-mind-about-muse-aria-review.jpg') return [{ src: post.image, fit: 'contain', position: '50% 50%' }];
   if (usesPokemonFeatureImage(post)) return [{ src: post.image, fit: "contain", position: "50% 50%" }];
   if (post.slug === "wild-rebellion-guidance-without-open-panels") return [{ src: "/images/blog/wild-rebellion-guidance-without-open-panels-wild-racing-aria-review.png", fit: "contain", position: "50% 50%" }];
+  if (post.reviewedArtwork && post.image) return [{ src: post.image, fit: "contain", position: "50% 50%" }];
   const topic = articleTopic({ ...post, category: post.categoryKey || post.category,
     title: post.sourceTitle || post.title });
   const covers = {

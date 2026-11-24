@@ -219,6 +219,9 @@ def inject(root,package):
     insert=text.rfind('\n];')
     if insert<0:raise ValueError('Cannot locate BLOG_POSTS array boundary')
     entry={**a,'id':a.get('id',a['slug'].replace('-','_')),'featured':False}
+    cover=next(asset for asset in package['assets'] if asset['path']=='frontend/public'+a['thumbnail'])
+    if 'alt' in cover:
+        entry['reviewedArtwork']={field:cover[field] for field in ('alt','caption') if field in cover}
     rendered='  {\n'+',\n'.join('    '+key+': '+json.dumps(value,ensure_ascii=False) for key,value in entry.items())+'\n  },\n'
     mock.write_text(text[:insert]+'\n'+rendered+text[insert:])
     changed=['frontend/src/data/mock.js']
@@ -237,13 +240,18 @@ def inject(root,package):
 
 VERIFY_JS = '''import {createServer} from 'vite';
 import fs from 'node:fs';
-const a=JSON.parse(fs.readFileSync(process.argv[1],'utf8')).article;
+const {article:a,assets}=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));
 const server=await createServer({root:process.cwd(),appType:'custom',logLevel:'silent',server:{middlewareMode:true}});
 try {
  const m=await server.ssrLoadModule('/src/lib/blogPosts.ts');
  const posts=m.CANONICAL_BLOG_POSTS.filter(p=>p.slug===a.slug);
  if(posts.length!==1 || m.BLOG_REDIRECTS[a.slug]) throw Error('Missing, duplicated or redirected approved slug');
  const p=posts[0];
+ if(process.argv[2]==='--verify-reviewed-artwork') {
+  const cover=assets.find(asset=>asset.path==='frontend/public'+a.thumbnail);
+  const artwork=cover.alt ? {alt:cover.alt,...(cover.caption ? {caption:cover.caption} : {})} : null;
+  if(JSON.stringify(p.reviewedArtwork || null)!==JSON.stringify(artwork)) throw Error('Canonical artwork differs from approved package');
+ }
  const expected={title:a.title,excerpt:a.excerpt,category:a.category,published_at:a.date,image:a.thumbnail,tags:a.tags,content:a.content};
  for(const [key,value] of Object.entries(expected)) if(JSON.stringify(p[key])!==JSON.stringify(value)) throw Error('Canonical article differs from approved package: '+key);
  console.log('Exact canonical article verified');
@@ -310,9 +318,9 @@ def publish(h,dry_run=False,preview_dir=None):
             shutil.copytree(REPO/'frontend/node_modules',tree/'frontend/node_modules',symlinks=True,ignore=shutil.ignore_patterns('.vite','.vite-temp','.cache'))
             changed=inject(tree,package)
             package_path=STATE/'packages'/h/'package.json'
-            log_command(['node','--input-type=module','-e',VERIFY_JS,str(package_path)],tree/'frontend',log)
+            log_command(['node','--input-type=module','-e',VERIFY_JS,'--',str(package_path),'--verify-reviewed-artwork'],tree/'frontend',log)
             log_command(['npm','run','build'],tree/'frontend',log)
-            log_command(['node','--input-type=module','-e',VERIFY_JS,str(package_path)],tree/'frontend',log)
+            log_command(['node','--input-type=module','-e',VERIFY_JS,'--',str(package_path),'--verify-reviewed-artwork'],tree/'frontend',log)
             # Recheck exact bytes and approval after the build, before any commit/push.
             if digest(load_package(h))!=h:raise ValueError('Package changed during build')
             for asset in package['assets']:

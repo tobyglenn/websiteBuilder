@@ -1,7 +1,7 @@
 ---
 import { usesPokemonStarterImage, pokemonStarterImageStyle } from '../lib/pokemonStarterBlogPresentation.mjs';
 import { usesGeminiDownloadsImage, geminiDownloadsImageStyle } from '../lib/geminiDownloadsBlogPresentation.mjs';
-import { imageVariants } from '../lib/imageVariants.mjs';
+import { imageDimensions, imageVariants } from '../lib/imageVariants.mjs';
 import { usesRetirementReviewImage, retirementReviewImageStyle } from '../lib/retirementBlogPresentation.mjs';
 import { usesBjjHomeTrainingImage, bjjHomeTrainingImageStyle } from '../lib/bjjHomeTrainingPresentation.mjs';
 import { usesWildRacingAiReviewImage, wildRacingAiReviewImageStyle } from '../lib/wildRacingAiBlogPresentation.mjs';
@@ -11,6 +11,7 @@ import Layout from '../layouts/Layout.astro';
 import {
   getLocalizedBlogPosts,
   type BlogTranslationLocale,
+  type LocalizedBlogPost,
 } from '../lib/localizedBlogPosts';
 
 interface Props {
@@ -21,6 +22,22 @@ const { locale } = Astro.props;
 
 const usesMuseArtwork = (post: { slug?: string; image?: string }) =>
   post.slug === "what-changed-my-mind-about-muse" && post.image === "/images/blog/what-changed-my-mind-about-muse-aria-review.jpg";
+
+const usesFullWidthArtwork = (post: LocalizedBlogPost) =>
+  Boolean(post.reviewedArtwork) || usesGeminiDownloadsImage(post) || usesPokemonStarterImage(post) ||
+  usesRetirementReviewImage(post) || usesBjjHomeTrainingImage(post) ||
+  usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post);
+
+const usesIndexArtwork = (post: LocalizedBlogPost) =>
+  usesFullWidthArtwork(post) || usesMuseArtwork(post);
+
+function indexArtworkDimensions(post: LocalizedBlogPost) {
+  if (post.reviewedArtwork) return imageDimensions(post.image);
+  if (usesGeminiDownloadsImage(post) || usesPokemonStarterImage(post)) return { width: 1672, height: 941 };
+  if (usesBjjHomeTrainingImage(post)) return { width: 1920, height: 1080 };
+  if (usesWildRacingAiReviewImage(post)) return { width: 768, height: 432 };
+  return { width: 1280, height: 720 };
+}
 
 const UI = {
   de: {
@@ -182,14 +199,14 @@ const schema = {
           <section class="grid gap-8 border-b border-neutral-800 pb-12 lg:grid-cols-[minmax(0,1.7fr)_minmax(260px,0.8fr)]" data-lead-section>
             <article
               class="group grid overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900 md:grid-cols-[minmax(240px,0.9fr)_minmax(0,1.1fr)]"
-              style={(usesGeminiDownloadsImage(featuredPost) || usesPokemonStarterImage(featuredPost) || usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? "display: flex; flex-direction: column" : undefined}
+              style={usesFullWidthArtwork(featuredPost) ? "display: flex; flex-direction: column" : undefined}
               data-post-card
               data-category={featuredPost.categoryKey}
               data-search={`${featuredPost.title} ${featuredPost.excerpt}`.toLocaleLowerCase(locale)}
             >
-              <a href={articleUrl(featuredPost.slug)} aria-label={usesMuseArtwork(featuredPost) || (usesGeminiDownloadsImage(featuredPost) || usesPokemonStarterImage(featuredPost) || usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? featuredPost.title : undefined} style={(usesGeminiDownloadsImage(featuredPost) || usesPokemonStarterImage(featuredPost) || usesRetirementReviewImage(featuredPost) || usesBjjHomeTrainingImage(featuredPost) || usesWildRacingAiReviewImage(featuredPost) || usesWildRacingReviewImage(featuredPost)) ? "min-height: 0; aspect-ratio: 16 / 9" : undefined} class="block min-h-56 bg-neutral-800">
+              <a href={articleUrl(featuredPost.slug)} aria-label={usesIndexArtwork(featuredPost) ? featuredPost.title : undefined} style={usesFullWidthArtwork(featuredPost) ? "min-height: 0; aspect-ratio: 16 / 9" : undefined} class="block min-h-56 bg-neutral-800">
                 {featuredPost.image
-                  ? <img {...{ src: featuredPost.image, ...imageVariants(featuredPost.image, "(min-width: 768px) 45vw, 100vw") }} style={geminiDownloadsImageStyle(featuredPost) || pokemonStarterImageStyle(featuredPost) || retirementReviewImageStyle(featuredPost) || bjjHomeTrainingImageStyle(featuredPost) || wildRacingAiReviewImageStyle(featuredPost) || wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (usesMuseArtwork(featuredPost) ? "object-fit: contain; object-position: center; transform: none" : undefined)} alt="" class="h-full w-full object-cover" loading="eager" />
+                  ? <img {...{ src: featuredPost.image, ...imageVariants(featuredPost.image, featuredPost.reviewedArtwork ? "(min-width: 1024px) 66vw, 100vw" : "(min-width: 768px) 45vw, 100vw") }} style={geminiDownloadsImageStyle(featuredPost) || pokemonStarterImageStyle(featuredPost) || retirementReviewImageStyle(featuredPost) || bjjHomeTrainingImageStyle(featuredPost) || wildRacingAiReviewImageStyle(featuredPost) || wildRacingReviewImageStyle(featuredPost) || pokemonFeatureImageStyle(featuredPost) || (usesMuseArtwork(featuredPost) || featuredPost.reviewedArtwork ? "object-fit: contain; object-position: center; transform: none" : undefined)} alt="" class="h-full w-full object-cover" loading="eager" />
                   : <div class="flex h-full min-h-56 items-center justify-center px-6 text-center text-sm font-bold uppercase text-neutral-500">{featuredPost.category}</div>}
               </a>
               <div class="flex flex-col p-7">
@@ -216,9 +233,9 @@ const schema = {
                     data-category={post.categoryKey}
                     data-search={`${post.title} ${post.excerpt}`.toLocaleLowerCase(locale)}
                   >
-                    {(usesGeminiDownloadsImage(post) || usesPokemonStarterImage(post) || usesRetirementReviewImage(post) || usesMuseArtwork(post) || usesBjjHomeTrainingImage(post) || usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post)) && (
-                      <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art>
-                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 320px, 100vw") }} alt="" width={usesGeminiDownloadsImage(post) ? 1672 : usesPokemonStarterImage(post) ? 1672 : usesBjjHomeTrainingImage(post) ? 1920 : usesWildRacingAiReviewImage(post) ? 768 : 1280} height={usesGeminiDownloadsImage(post) ? 941 : usesPokemonStarterImage(post) ? 941 : usesBjjHomeTrainingImage(post) ? 1080 : usesWildRacingAiReviewImage(post) ? 432 : 720} class="block h-auto w-full object-contain" loading="lazy" />
+                    {usesIndexArtwork(post) && (
+                      <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art={post.reviewedArtwork ? undefined : true}>
+                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 320px, 100vw") }} alt="" {...indexArtworkDimensions(post)} class="block h-auto w-full object-contain" loading="lazy" />
                       </a>
                     )}
                     <p class="mb-2 text-xs font-semibold text-blue-400">{post.category}</p>
@@ -241,9 +258,9 @@ const schema = {
                     data-category={post.categoryKey}
                     data-search={`${post.title} ${post.excerpt}`.toLocaleLowerCase(locale)}
                   >
-                    {(usesGeminiDownloadsImage(post) || usesPokemonStarterImage(post) || usesRetirementReviewImage(post) || usesMuseArtwork(post) || usesBjjHomeTrainingImage(post) || usesWildRacingAiReviewImage(post) || usesWildRacingReviewImage(post)) && (
-                      <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art>
-                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw") }} alt="" width={usesGeminiDownloadsImage(post) ? 1672 : usesPokemonStarterImage(post) ? 1672 : usesBjjHomeTrainingImage(post) ? 1920 : usesWildRacingAiReviewImage(post) ? 768 : 1280} height={usesGeminiDownloadsImage(post) ? 941 : usesPokemonStarterImage(post) ? 941 : usesBjjHomeTrainingImage(post) ? 1080 : usesWildRacingAiReviewImage(post) ? 432 : 720} class="block h-auto w-full object-contain" loading="lazy" />
+                    {usesIndexArtwork(post) && (
+                      <a href={articleUrl(post.slug)} aria-label={post.title} class="mb-3 block overflow-hidden rounded-lg bg-neutral-950" data-reviewed-muse-index-art={post.reviewedArtwork ? undefined : true}>
+                        <img {...{ src: post.image, ...imageVariants(post.image, "(min-width: 1024px) 400px, (min-width: 768px) 50vw, 100vw") }} alt="" {...indexArtworkDimensions(post)} class="block h-auto w-full object-contain" loading="lazy" />
                       </a>
                     )}
                     <p class="mb-3 text-xs font-semibold text-blue-400">{post.category}</p>

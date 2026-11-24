@@ -17,6 +17,7 @@ export type BlogPost = {
   updated_at?: string;
   editorial_lane?: string;
   image?: string;
+  reviewedArtwork?: { alt: string; caption?: string };
   tags: string[];
   content: string;
 };
@@ -253,7 +254,9 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
   const override = SEO_OVERRIDES[slug];
   const title = String(override?.title || post.title || post.slug || '');
   const category = normalizeBlogCategory(String(post.category || 'Analysis'), {title, slug, tags});
-  const image = resolveCoverImage(String(post.image || post.thumbnail || ''), slug, title, category);
+  const rawImage = String(post.image || post.thumbnail || '');
+  const reviewedArtwork = post.reviewedArtwork && imageExists(rawImage) ? post.reviewedArtwork : undefined;
+  const image = reviewedArtwork ? rawImage : resolveCoverImage(rawImage, slug, title, category);
 
   return {
     slug,
@@ -262,6 +265,7 @@ function normalizeFallbackPost(post: RawFallbackBlogPost): BlogPost {
     category,
     published_at,
     image,
+    reviewedArtwork,
     tags,
     content: String(post.content || ''),
     editorial_lane: post.editorial_lane || post.source_bundle?.lane,

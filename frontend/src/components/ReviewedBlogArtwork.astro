@@ -1,0 +1,29 @@
+---
+import { imageDimensions, imageVariants } from '../lib/imageVariants.mjs';
+
+interface Props {
+  image: string;
+  artwork: { alt: string; caption?: string };
+  imageAlt?: string;
+  imageCaption?: string;
+}
+
+const { image, artwork, imageAlt, imageCaption } = Astro.props;
+const localizedAlt = typeof imageAlt === 'string' && imageAlt.trim();
+const localizedCaption = typeof imageCaption === 'string' && imageCaption.trim();
+const caption = localizedCaption || artwork.caption;
+---
+
+<figure class="mb-8 overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900" data-reviewed-article-artwork>
+  <img
+    src={image}
+    {...imageVariants(image, '(min-width: 768px) 736px, calc(100vw - 32px)')}
+    {...imageDimensions(image)}
+    alt={localizedAlt || artwork.alt}
+    lang={localizedAlt ? undefined : 'en'}
+    class="block h-auto w-full object-contain"
+    loading="eager"
+    decoding="async"
+  />
+  {caption && <figcaption class="px-4 py-3 text-sm leading-relaxed text-neutral-300" lang={localizedCaption ? undefined : 'en'}>{caption}</figcaption>}
+</figure>

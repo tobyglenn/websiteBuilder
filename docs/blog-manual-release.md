@@ -189,6 +189,13 @@ A UTF-8 JSON file contains exactly these top-level fields:
 Optional article fields are `id`, `featured` (false only), `source_video_id`,
 `source_section`, `source_bundle`, `editorial_lane`. All article fields, sources,
 embedded asset bytes/digests and translation records enter the canonical SHA-256.
+For a new article, give the asset matching `article.thumbnail` a descriptive
+`alt` to show the exact artwork on the homepage and blog index cards, in the
+article, and in its social preview. Add a `caption` on the same asset to display
+it beneath the artwork. Localized articles use the same image and can supply
+`imageAlt` and `imageCaption` in their reviewed translation records. The English
+text is language-marked when used as a fallback.
+
 Dates, images, tags and citations cannot change after approval. Supply final source
 citations in `content`: the publisher does not append or rewrite them.
 

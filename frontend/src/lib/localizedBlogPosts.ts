@@ -1,4 +1,4 @@
-import type { BlogPost } from './blogPosts';
+import { CANONICAL_BLOG_POSTS, type BlogPost } from './blogPosts';
 import { normalizeBlogCategory } from './blogEditorial.mjs';
 import { MANUAL_REDIRECTS } from './blogSlugRedirects';
 
@@ -24,9 +24,15 @@ const translationModules = import.meta.glob('../generated/blog-translations/*/*.
 
 const CATEGORY_LABELS = {"de": {"Build Logs": "Entwicklungsberichte", "BJJ": "BJJ", "Reviews": "Tests", "Training Tips": "Trainingstipps", "Wearables": "Wearables"}, "es": {"Build Logs": "Desarrollo", "BJJ": "BJJ", "Reviews": "Reseñas", "Training Tips": "Consejos de entrenamiento", "Wearables": "Wearables"}, "pt": {"Build Logs": "Desenvolvimento", "BJJ": "BJJ", "Reviews": "Análises", "Training Tips": "Dicas de treino", "Wearables": "Wearables"}, "hi": {"Build Logs": "निर्माण विवरण", "BJJ": "BJJ", "Reviews": "समीक्षाएँ", "Training Tips": "प्रशिक्षण सुझाव", "Wearables": "वियरेबल्स"}};
 
+const reviewedArtBySlug = new Map(
+  CANONICAL_BLOG_POSTS.filter(post => post.reviewedArtwork).map(post => [post.slug, post]),
+);
+
 const localizedPosts = Object.values(translationModules).map(post => {
   const categoryKey = normalizeBlogCategory(post.categoryKey, {title:post.sourceTitle, slug:post.slug});
-  return {...post, categoryKey, category:CATEGORY_LABELS[post.lang]?.[categoryKey] || post.category};
+  const source = reviewedArtBySlug.get(post.slug);
+  const reviewedArtwork = source && source.image === post.image ? source.reviewedArtwork : undefined;
+  return {...post, categoryKey, category:CATEGORY_LABELS[post.lang]?.[categoryKey] || post.category, reviewedArtwork};
 }).filter((post) =>
   Boolean(post?.slug && post?.lang && post?.title && post?.excerpt && post?.content && !MANUAL_REDIRECTS[post.slug]),
 );

@@ -61,6 +61,32 @@ class Boundary(unittest.TestCase):
             for value in (' ',None,42,'x'*501):
                 p=fixture();p['assets'][0][field]=value
                 with self.assertRaisesRegex(ValueError,'Asset '+field):m.validate(p)
+    def test_only_described_thumbnail_opts_into_reviewed_site_artwork(self):
+        for cover_fields, expected in [
+            ({'alt':'Comparison chart','caption':'Reviewed figures.'}, True),
+            ({'alt':'Comparison chart'}, True),
+            ({'caption':'Reviewed figures.'}, False),
+            ({}, False),
+        ]:
+            with self.subTest(cover_fields=cover_fields), tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp)
+                mock=root/'frontend/src/data/mock.js'
+                mock.parent.mkdir(parents=True)
+                mock.write_text('export const BLOG_POSTS = [\n];\n')
+                p=fixture()
+                cover=p['assets'][0]
+                cover.update(cover_fields)
+                p['assets'].insert(0,{**cover,'path':'frontend/public/images/blog/support.jpg','alt':'Supporting image'})
+                h=m.validate(p)
+                m.inject(root,p)
+                self.assertEqual(h,m.validate(p))
+                marker='reviewedArtwork: '+json.dumps(cover_fields)
+                if expected:
+                    self.assertIn(marker,mock.read_text())
+                else:
+                    self.assertNotIn('reviewedArtwork',mock.read_text())
+                self.assertNotIn('Supporting image',mock.read_text())
+
     def test_tampered_staged_package_is_held(self):
         h=m.stage(fixture())['sha256'];p=m.STATE/'packages'/h/'package.json';p.chmod(0o600);d=json.loads(p.read_text());d['article']['title']='Altered';p.write_text(json.dumps(d))
         with self.assertRaisesRegex(ValueError,'changed after versioning'):m.load_package(h)

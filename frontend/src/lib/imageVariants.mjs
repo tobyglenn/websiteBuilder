@@ -18,6 +18,11 @@ function variantManifest() {
   return manifest;
 }
 
+export function imageDimensions(src) {
+  const image = variantManifest()[src];
+  return image ? { width: image.width, height: image.height } : {};
+}
+
 /**
  * Returns responsive image attributes. Podcast artwork overrides src with a
  * versioned WebP; its full-size original is hosted on public GitHub.
