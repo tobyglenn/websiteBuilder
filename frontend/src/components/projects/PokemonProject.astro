@@ -24,16 +24,20 @@ const shortcuts = [
   { href: '#documentation', label: 'Documentation' },
 ];
 const routine = [
-  { title: 'Free Mega Evolutions', text: 'Visit the prepared Mega tag. A displayed Mega Energy cost means the Pokémon is skipped.' },
-  { title: 'Buddy care', text: 'Feed berries, take a snapshot, and play. Check the buddy profile for the resulting hearts.' },
-  { title: 'Gifts', text: 'Open the friends list and hand the phone to the gift workflow.' },
-  { title: 'GO Battle League', text: 'Return to the map and start the daily battle workflow on that phone.' },
+  { title: 'Buddy care and training', text: 'Feed berries, take a snapshot, and play. A training battle attempts the Battle Together heart.' },
+  { title: 'Special trades and free Mega Evolutions', text: 'Check the private special-trade configuration, then visit the Mega tag and skip evolutions that cost Mega Energy.' },
+  { title: 'Item-bag cleanup and gifts', text: 'The bag step discards the listed item types, then the gift workflow opens the friends list.' },
+  { title: 'Battles and another buddy round', text: 'Start the daily GO Battle League workflow, then revisit berry feeding, play, and the snapshot.' },
 ];
 const workflows = [
-  { anchor: 'starter', file: 'starter.py', title: 'Daily starter', detail: 'Start from the game map. Each phone advances through Mega Evolutions, buddy care, gifts, and battles at its own pace.', command: 'python starter.py --plan' },
+  { anchor: 'starter', file: 'starter.py', title: 'Daily starter', detail: 'Start from the game map. Preview the default sequence. Add --skip special bag to leave special trades and item counts alone.', command: 'python starter.py --plan' },
+  { anchor: 'buddy', file: 'buddy.py', title: 'Earn buddy hearts', detail: 'Run buddy care and the training battle on their own. The dry run previews the steps on a selected device.', command: 'python buddy.py --devices android-one --plan' },
   { anchor: 'send_gifts', file: 'gift.py', title: 'Open and send gifts', detail: 'Start from the friends list. Use gifts-only mode if you want to exclude the gym-berry screen from this run.', command: 'python gift.py --devices android-one --count 1 --gifts-only --plan' },
   { anchor: 'battle_league', file: 'gbl.py', title: 'GO Battle League', detail: 'Set a small battle count and check league and party settings on the phone. The workflow handles matchmaking, combat input, and the result screens.', command: 'python gbl.py --devices android-one --count 1 --plan' },
   { anchor: 'trade_pokemon', file: 'trade.py', title: 'Trade between two phones', detail: 'The standard trade command expects two configured phones attached to the same host. Verify the pair and the Pokémon offered on both screens before a trade.', command: 'python trade.py --pair android-one android-two --count 1 --plan' },
+  { anchor: 'collect_trades', file: 'collect_trades.py', title: 'Plan trades across hosts', detail: 'Use the receiver’s private Pokédex audit to choose eligible partners. Trade confirmations reserve both accounts across configured hosts and hold further trades if the result is uncertain.', command: 'python collect_trades.py --plan' },
+  { anchor: 'storage_favorites', file: 'storage_favorites.py', title: 'Prepare named storage searches', detail: 'Review search definitions for potential trades, collection cleanup, and candy investment. The plan lists which favorites would be synchronized.', command: 'python storage_favorites.py --plan' },
+  { anchor: 'ender', file: 'ender.py', title: 'Finish the day', detail: 'Plan the evening routine for buddy hearts, gifts, and prepared trades. Review the final storage selection on each phone before transferring anything.', command: 'python ender.py --plan' },
   { anchor: 'catch', file: 'catch.py', title: 'Catch reward encounters', detail: 'Work from an award encounter or research claim. Screen detection and throw behavior depend on the device and encounter.', command: 'python catch.py --help' },
   { anchor: 'add_friends', file: 'add_friends.py', title: 'Send friend requests', detail: 'Use a privately maintained trainer-code list. The local request history tracks attempts, while the other trainer still has to accept the request.', command: 'python add_friends.py --devices android-one --count 1 --codes-file trainer-codes.txt --plan' },
   { anchor: 'feed_berries', file: 'scripts/berry.py', title: 'Feed gym defenders', detail: 'Start at a defender’s feeding screen and set a berry budget. This command is specific to gym feeding.', command: 'python scripts/berry.py --devices android-one --spend 1 --plan' },
@@ -86,9 +90,9 @@ const analytics = {
 
     <section id="overview" class="section routine" aria-labelledby="routine-heading">
       <div class="section-heading">
-        <h2 id="routine-heading">One morning, four steps</h2>
-        <p>The daily starter links jobs that can also run on their own. Each phone follows the same order without waiting for the others.</p>
-        <p><a href="/blog/pokemon-go-daily-starter-routine/">Read the daily starter walkthrough</a></p>
+        <h2 id="routine-heading">What the daily starter runs</h2>
+        <p>Start from the map and run a plan to see the enabled steps. Use <code>--skip special bag</code> if you only want the everyday care, gifts, and battle steps.</p>
+        <p><a href="/blog/pokemon-go-daily-starter-routine/">Read the original starter walkthrough</a></p>
       </div>
       <ol>
         {routine.map(({ title, text }) => (
