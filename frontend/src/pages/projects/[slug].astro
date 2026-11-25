@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import PokemonProject from '../../components/projects/PokemonProject.astro';
 import GameShowcase from '../../components/games/GameShowcase.astro';
 import WildRacingShowcase from '../../components/games/WildRacingShowcase.astro';
 import { gameBySlug } from '../../lib/gameJournal.mjs';
@@ -12,6 +13,9 @@ export function getStaticPaths() {
 const { project } = Astro.props;
 const game = gameBySlug(project.slug);
 const isPokemon = project.slug === 'pokemon-go-automation';
+const description = isPokemon
+  ? 'Open-source Python workflows for Pokémon GO on connected Android phones and iPhones, with a daily starter, fleet routing, and step-by-step setup.'
+  : project.description;
 const sourceHref = (file: string) => `${pokemonRepository}/blob/main/${file}`;
 const documentation = [
   { file: 'README.md', label: 'Start here', description: 'Installation, entry points, and the project overview.' },
@@ -28,7 +32,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@type': isPokemon ? 'SoftwareSourceCode' : 'CreativeWork',
   name: project.title,
-  description: project.description,
+  description,
   url: `https://tobyonfitnesstech.com${projectHref(project.slug)}`,
   author: { '@type': 'Person', name: 'Toby Glenn Peters', url: 'https://tobyonfitnesstech.com/about/' },
   image: project.heroImage ? `https://tobyonfitnesstech.com${project.heroImage.src}` : undefined,
@@ -38,12 +42,12 @@ const schema = {
 
 {game?.slug === 'wild-rebellion' && !/^\/(de|es|hi|pt)\//.test(Astro.url.pathname) ? <WildRacingShowcase/> : game ? <GameShowcase game={game}/> : <Layout
   title={`${project.title} project guide | Toby on Fitness Tech`}
-  description={project.description}
+  description={description}
   image={project.heroImage?.src}
   jsonLd={schema}
   breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Projects', url: '/projects/' }, { name: project.title, url: projectHref(project.slug) }]}
 >
-  <div class="project-page">
+  {isPokemon ? <PokemonProject project={project} /> : <div class="project-page">
     <div class="project-shell">
       <a class="back-link" href="/projects/">← All Projects</a>
 
@@ -343,7 +347,7 @@ const schema = {
 
       <footer class="project-footer"><a href="/projects/">← Explore all projects</a><span>{project.title}</span></footer>
     </div>
-  </div>
+  </div>}
 </Layout>}
 
 <style>

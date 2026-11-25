@@ -1,0 +1,322 @@
+---
+import { pokemonRepository, type Project } from '../../data/projects';
+import { imageVariants } from '../../lib/imageVariants.mjs';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const source = (path: string) => `${pokemonRepository}/blob/main/${path}`;
+const hero = project.heroImage!;
+const gallery = [
+  { file: 'battle_party', width: 1224, height: 2992, title: 'Choose a party', alt: 'Pokémon GO Competitors Cup party selection' },
+  { file: 'battle_shield', width: 1316, height: 2560, title: 'Respond to a charged attack', alt: 'A purple Protect Shield blocks an incoming move in Pokémon GO' },
+  { file: 'battle_charge', width: 1316, height: 2560, title: 'Use a charged move', alt: 'Pokémon GO showing a charged move during a battle' },
+];
+const imageRoot = '/images/projects/pokemon-go-automation';
+const shortcuts = [
+  { href: '#overview', label: 'Daily routine' },
+  { href: '#workflow-files', label: 'Workflows' },
+  { href: '#capabilities', label: 'Architecture' },
+  { href: '#getting-started', label: 'Set up a phone' },
+  { href: '#gallery', label: 'Battle screenshots' },
+  { href: '#documentation', label: 'Documentation' },
+];
+const routine = [
+  { title: 'Free Mega Evolutions', text: 'Visit the prepared Mega tag. A displayed Mega Energy cost means the Pokémon is skipped.' },
+  { title: 'Buddy care', text: 'Feed berries, take a snapshot, and play. Check the buddy profile for the resulting hearts.' },
+  { title: 'Gifts', text: 'Open the friends list and hand the phone to the gift workflow.' },
+  { title: 'GO Battle League', text: 'Return to the map and start the daily battle workflow on that phone.' },
+];
+const workflows = [
+  { anchor: 'starter', file: 'starter.py', title: 'Daily starter', detail: 'Start from the game map. Each phone advances through Mega Evolutions, buddy care, gifts, and battles at its own pace.', command: 'python starter.py --plan' },
+  { anchor: 'send_gifts', file: 'gift.py', title: 'Open and send gifts', detail: 'Start from the friends list. Use gifts-only mode if you want to exclude the gym-berry screen from this run.', command: 'python gift.py --devices android-one --count 1 --gifts-only --plan' },
+  { anchor: 'battle_league', file: 'gbl.py', title: 'GO Battle League', detail: 'Set a small battle count and check league and party settings on the phone. The workflow handles matchmaking, combat input, and the result screens.', command: 'python gbl.py --devices android-one --count 1 --plan' },
+  { anchor: 'trade_pokemon', file: 'trade.py', title: 'Trade between two phones', detail: 'The standard trade command expects two configured phones attached to the same host. Verify the pair and the Pokémon offered on both screens before a trade.', command: 'python trade.py --pair android-one android-two --count 1 --plan' },
+  { anchor: 'catch', file: 'catch.py', title: 'Catch reward encounters', detail: 'Work from an award encounter or research claim. Screen detection and throw behavior depend on the device and encounter.', command: 'python catch.py --help' },
+  { anchor: 'add_friends', file: 'add_friends.py', title: 'Send friend requests', detail: 'Use a privately maintained trainer-code list. The local request history tracks attempts, while the other trainer still has to accept the request.', command: 'python add_friends.py --devices android-one --count 1 --codes-file trainer-codes.txt --plan' },
+  { anchor: 'feed_berries', file: 'scripts/berry.py', title: 'Feed gym defenders', detail: 'Start at a defender’s feeding screen and set a berry budget. This command is specific to gym feeding.', command: 'python scripts/berry.py --devices android-one --spend 1 --plan' },
+  { anchor: 'raidspend', file: 'raidspend.py', title: 'Plan raid attackers and candy', detail: 'Use collection readings to compare attackers, upgrade costs, and Rare Candy targets. The planner reports recommendations for you to review.', command: 'python raidspend.py --help' },
+  { anchor: 'transfer_pokemon', file: 'luckytrash.py', title: 'Review a prepared transfer selection', detail: 'Transfers are permanent. Start with a selection you reviewed on the phone. The live workflow requires an explicit limit and a deletion confirmation.', command: 'python luckytrash.py --devices android-one --count 1 --plan' },
+  { anchor: 'fleet', file: 'scripts/fleet.py', title: 'Check connected phones', detail: 'Status checks fleet readiness. The owners command reports which configured computer can see each phone.', command: 'python scripts/fleet.py status' },
+];
+const docs = [
+  { path: 'docs/README.md', title: 'Project overview', detail: 'Install the package and find the supported commands.' },
+  { path: 'docs/getting-started.md', title: 'Getting started', detail: 'Connect and calibrate a first phone.' },
+  { path: 'docs/workflows.md', title: 'Workflow guide', detail: 'Check prerequisites, flags, and expected starting screens.' },
+  { path: 'docs/configuration.md', title: 'Configuration', detail: 'Create a private inventory and configure additional hosts.' },
+  { path: 'docs/architecture.md', title: 'Architecture', detail: 'Follow a command through routing and platform workers.' },
+  { path: 'docs/testing.md', title: 'Testing and verification', detail: 'Check what a plan, a live probe, and an observed action establish.' },
+  { path: 'docs/privacy.md', title: 'Privacy', detail: 'Keep identifiers, screenshots, and run history outside the public tree.' },
+  { path: 'docs/file-reference.md', title: 'File reference', detail: 'Locate the implementation behind each workflow.' },
+  { path: 'docs/ai-handoff.md', title: 'Coding-agent handoff', detail: 'Get oriented before extending a workflow.' },
+];
+const analytics = {
+  'data-analytics-event': 'project_destination_click',
+  'data-analytics-content-type': 'project',
+  'data-analytics-content-slug': project.slug,
+  'data-analytics-content-title': project.title,
+};
+---
+
+<div class="pogo-page">
+  <div class="pogo-shell">
+    <a class="back-link" href="/projects/">← All projects</a>
+
+    <header class="hero" data-page-intro>
+      <div class="hero-copy">
+        <p class="project-type">Open-source Python project</p>
+        <h1 data-page-title>{project.title}</h1>
+        <p class="hero-summary">Run repeatable Pokémon GO routines on connected Android phones and iPhones. Start with one device, preview a command, and check the result on the phone.</p>
+        <div class="actions">
+          <a class="primary" href="#getting-started">Set up a phone</a>
+          <a class="secondary" href={pokemonRepository} {...analytics}>View the source on GitHub</a>
+        </div>
+      </div>
+      <figure class="hero-media">
+        <img src={hero.src} {...imageVariants(hero.src, '(max-width: 700px) 136px, 208px')} alt={hero.alt} width="1316" height="2560" fetchpriority="high" decoding="async" />
+        <figcaption>GO Battle League on a physical phone</figcaption>
+      </figure>
+    </header>
+
+    <nav class="jump-links" aria-label="On this page">
+      {shortcuts.map(({ href, label }) => <a href={href}>{label}</a>)}
+    </nav>
+
+    <section id="overview" class="section routine" aria-labelledby="routine-heading">
+      <div class="section-heading">
+        <h2 id="routine-heading">One morning, four steps</h2>
+        <p>The daily starter links jobs that can also run on their own. Each phone follows the same order without waiting for the others.</p>
+        <p><a href="/blog/pokemon-go-daily-starter-routine/">Read the daily starter walkthrough</a></p>
+      </div>
+      <ol>
+        {routine.map(({ title, text }) => (
+          <li><h3>{title}</h3><p>{text}</p></li>
+        ))}
+      </ol>
+    </section>
+
+    <section id="workflow-files" class="section" aria-labelledby="workflows-heading">
+      <div class="section-heading">
+        <h2 id="workflows-heading">Choose a workflow</h2>
+        <p>Open a workflow for its starting screen, preview command, and source. The device names in the examples are placeholders.</p>
+      </div>
+      <div class="workflow-list">
+        {workflows.map(({ anchor, file, title, detail, command }) => (
+          <details id={anchor}>
+            <summary><span>{title}</span><code>{file}</code></summary>
+            <div class="workflow-body">
+              <p>{detail}</p>
+              <pre><code>{command}</code></pre>
+              <a href={source(file)}>View {file} on GitHub</a>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section id="capabilities" class="section" aria-labelledby="architecture-heading">
+      <div class="section-heading">
+        <h2 id="architecture-heading">From a command to a phone screen</h2>
+        <p>The command line, fleet routing, and screen workers each handle a different part of the job.</p>
+      </div>
+      <div class="architecture">
+        <article>
+          <h3>Pick the job</h3>
+          <p>Use a specific command or preview <a href={source('play.py')}><code>play.py</code></a>, which reads the current screen and reports which job each phone would start.</p>
+        </article>
+        <article>
+          <h3>Find the host</h3>
+          <p>The fleet looks for the selected phone on configured computers. Use <code>--local</code> to restrict a supported command to the current host.</p>
+        </article>
+        <article>
+          <h3>Read the screen</h3>
+          <p>Android workers use ADB. iPhone workers use Appium and WebDriverAgent. Screen recognition and calibration vary by workflow and device.</p>
+        </article>
+      </div>
+      <p id="production-pipeline" class="section-note">Game updates, delayed animations, or a different layout can interrupt a run. Inspect the phone before resuming.</p>
+    </section>
+
+    <section id="getting-started" class="section setup" aria-labelledby="setup-heading">
+      <div class="section-heading">
+        <h2 id="setup-heading">Set up your first phone</h2>
+        <p>Start from the <a href={source('docs/getting-started.md')}>installation guide</a>. Android needs Platform Tools. iPhone control needs macOS, Xcode, Appium, and a working WebDriverAgent connection.</p>
+      </div>
+      <ol>
+        <li><strong>Create a private inventory.</strong> Copy the example configuration and add only the phone you intend to test.</li>
+        <li><strong>Check the connection.</strong> Compare fleet status with the device you can see and unlock.</li>
+        <li><strong>Preview the workflow.</strong> Replace <code>android-one</code> with your configured alias. Use the actual phone screen to check the starting state and observe any supervised action.</li>
+      </ol>
+      <pre><code>{'python scripts/fleet.py status\npython gift.py --devices android-one --count 1 --gifts-only --plan'}</code></pre>
+      <dl class="evidence">
+        <div><dt>Plan</dt><dd>Shows configured routing and arguments. <code>play.py --plan</code> also reads phone screens to classify the job.</dd></div>
+        <div><dt>Live status</dt><dd>Checks connectivity and configuration. A broad run can discover Android phones outside the private registry.</dd></div>
+        <div><dt>Observed result</dt><dd>Check the expected game state on the physical phone after a supervised run.</dd></div>
+      </dl>
+    </section>
+
+    <section id="gallery" class="section" aria-labelledby="gallery-heading">
+      <div class="section-heading">
+        <h2 id="gallery-heading">Three screens from GO Battle League</h2>
+        <p>Party selection, a deployed shield, and a charged move show why the battle worker needs to read the current screen before choosing an input.</p>
+      </div>
+      <div class="screenshots">
+        {gallery.map(({ file, title, alt, width, height }) => {
+          const src = `${imageRoot}/${file}.png`;
+          return (
+            <figure>
+              <a href={src} aria-label={`Open full-size screenshot: ${title}`}>
+                <img src={src} {...imageVariants(src, '(max-width: 700px) 104px, 190px')} alt={alt} width={width} height={height} loading="lazy" decoding="async" />
+              </a>
+              <figcaption>{title}</figcaption>
+            </figure>
+          );
+        })}
+      </div>
+    </section>
+
+    <section id="documentation" class="section" aria-labelledby="documentation-heading">
+      <div class="section-heading">
+        <h2 id="documentation-heading">Public documentation</h2>
+      </div>
+      <ul class="documents">
+        {docs.map(({ path, title, detail }) => (
+          <li><a href={source(path)}>{title}</a><p>{detail}</p></li>
+        ))}
+      </ul>
+    </section>
+
+    <footer id="project-notes" class="project-notes">
+      <h2>Project notes</h2>
+      <p>This is an independent project. Review the <a href="https://nianticlabs.com/terms">game’s terms</a> before using automation on an account. The public repository provides reusable code and examples. Keep device identifiers, trainer information, and screenshots in private storage.</p>
+      <p><a href="/blog/pokemon-go-automation-trading-gbl-gifts-and-more/">Read the toolkit overview</a></p>
+    </footer>
+  </div>
+</div>
+
+<style>
+  .pogo-page {
+    --ink: var(--color-neutral-100);
+    --subtle: var(--color-neutral-400);
+    --rule: var(--color-neutral-700);
+    --panel: var(--color-neutral-900);
+    --link: #b0e6d8;
+    color: var(--ink);
+    padding: 1.5rem 1.25rem 4rem;
+  }
+
+  :global([data-theme='light']) .pogo-page { --link: #185c51; }
+
+  .pogo-shell { max-width: 71rem; margin-inline: auto; }
+  .back-link { display: inline-block; margin: 0 0 1rem; color: var(--subtle); font-size: .9rem; }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(13rem, 20rem);
+    align-items: center;
+    gap: clamp(1.5rem, 5vw, 4rem);
+    padding: clamp(1.5rem, 5vw, 4rem);
+    border-radius: 1.25rem;
+    color: #eef3ff;
+    background: #171e2b;
+  }
+  .project-type { color: #aee9d2; font-weight: 650; margin-bottom: 1rem; }
+  h1, h2, h3 { font-family: inherit; }
+  .hero h1[data-page-title] {
+    font-size: clamp(2.1rem, 6.5vw, 5.3rem) !important;
+    font-weight: 760;
+    line-height: .99 !important;
+    letter-spacing: -.06em !important;
+    max-width: 13ch;
+    margin: 0;
+  }
+  .hero .hero-summary { font-size: clamp(1.05rem, 1.85vw, 1.2rem) !important; color: #d2dcec; line-height: 1.55; margin-top: 1.15rem !important; max-width: 45ch; }
+  .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem; margin-top: 1.6rem; }
+  .actions a { display: inline-flex; align-items: center; padding: .72rem .95rem; border: 1px solid #79889f; border-radius: .45rem; font-weight: 700; }
+  .actions a:hover { text-decoration: underline; }
+  .actions .primary { color: #171e2b; background: #ffca74; border-color: #ffca74; }
+  .actions .secondary { color: #eef3ff; }
+  .hero-media {
+    display: grid;
+    justify-items: center;
+    gap: .65rem;
+    align-self: stretch;
+    align-content: center;
+    border-radius: 4rem 4rem .85rem .85rem;
+    padding: 1.25rem 1rem .9rem;
+    background: #164b68;
+    margin: 0;
+  }
+  .hero-media img { display: block; width: min(100%, 13rem); height: auto; border: .3rem solid #171e2b; border-radius: 1.25rem; }
+  .hero-media figcaption { color: #eef3ff; font-size: .8rem; text-align: center; }
+
+  .jump-links { display: flex; flex-wrap: wrap; gap: .35rem 1.4rem; padding-block: 1rem; border-bottom: 1px solid var(--rule); }
+  .jump-links a { display: inline-flex; align-items: center; min-height: 2.65rem; font-weight: 660; font-size: .95rem; }
+  .jump-links a:hover, .back-link:hover { text-decoration: underline; }
+  .section { padding-block: clamp(2.5rem, 6vw, 4.6rem); border-bottom: 1px solid var(--rule); }
+  .section, .workflow-list details, .project-notes, .section-note { scroll-margin-top: 6rem; }
+  .section-heading { max-width: 42rem; margin-bottom: 1.6rem; }
+  h2 { font-size: clamp(1.85rem, 4.4vw, 3rem); font-weight: 740; letter-spacing: -.041em; line-height: 1.1; }
+  h3 { font-size: 1.09rem; font-weight: 700; }
+  .section p, .setup li, .project-notes p { color: var(--subtle); line-height: 1.65; }
+  .section-heading p, .project-notes p { margin-top: .75rem; }
+  .section a, .project-notes a { color: var(--link); text-decoration: underline; text-underline-offset: .2em; }
+  .pogo-page :is(a, summary):focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+  .routine { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1rem, 6vw, 5rem); }
+  .routine ol { padding-inline-start: 2.25rem; list-style: decimal; }
+  .routine li { padding: .8rem 0 .8rem .45rem; border-top: 1px solid var(--rule); }
+  .routine li:last-child { border-bottom: 1px solid var(--rule); }
+  .routine li::marker { font-weight: 750; color: var(--link); }
+  .routine li p, .architecture article p { margin-top: .25rem; }
+
+  .workflow-list { border-block: 1px solid var(--rule); }
+  .workflow-list details + details { border-top: 1px solid var(--rule); }
+  .workflow-list details:target { background: var(--panel); }
+  .workflow-list summary { padding: .9rem 1rem; display: grid; grid-template-columns: 1.2rem minmax(0, 1fr) minmax(0, 13rem); gap: .75rem; align-items: center; cursor: pointer; list-style: none; font-weight: 680; min-height: 3.25rem; }
+  .workflow-list summary::-webkit-details-marker { display: none; }
+  .workflow-list summary::before { content: ''; width: .55rem; height: .55rem; border: solid currentColor; border-width: 0 2px 2px 0; rotate: -45deg; }
+  .workflow-list [open] summary::before { rotate: 45deg; }
+  .workflow-list summary:hover { background: var(--panel); }
+  .workflow-list summary code { color: var(--subtle); font-size: .8rem; overflow-wrap: anywhere; }
+  .workflow-body { padding: .1rem 1rem 1.15rem 2.95rem; }
+  .workflow-body p { max-width: 66ch; }
+  .workflow-body a { display: inline-block; margin-top: .75rem; }
+  pre { padding: .85rem 1rem; background: #171e2b; color: #eef3ff; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .87rem; line-height: 1.65; border-radius: .4rem; }
+  .workflow-body pre { margin-top: .75rem; }
+
+  .architecture { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+  .architecture article { border-block-start: .2rem solid var(--link); padding: 1rem; background: var(--panel); }
+  .section-note { margin-top: 1rem; }
+  .setup ol { list-style: decimal; padding-inline-start: 1.4rem; }
+  .setup li { margin-block: .55rem; padding-inline-start: .3rem; }
+  .setup strong { color: var(--ink); }
+  .setup pre { margin-top: 1.2rem; }
+  .evidence { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: 1.6rem; }
+  .evidence div { border-top: 1px solid var(--rule); padding-top: .75rem; }
+  .evidence dt { font-weight: 700; }
+  .evidence dd { color: var(--subtle); line-height: 1.6; margin-top: .3rem; }
+  .screenshots { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(.5rem, 3vw, 2rem); background: #164b68; border-radius: .85rem; padding: clamp(.5rem, 4vw, 2rem); color: #eef3ff; }
+  .screenshots figure { display: flex; flex-direction: column; align-items: center; margin: 0; }
+  .screenshots a { display: grid; place-items: end center; width: 100%; aspect-ratio: .48; max-height: 26rem; color: #eef3ff; }
+  .screenshots img { display: block; width: auto; max-width: 100%; height: 100%; min-height: 0; border: .2rem solid #171e2b; border-radius: .55rem; object-fit: contain; }
+  .screenshots figcaption { text-align: center; margin-top: .65rem; font-size: clamp(.74rem, 2vw, 1rem); line-height: 1.35; }
+  .documents { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem 1.5rem; padding: 0; margin: 0; list-style: none; }
+  .documents li { padding-block: .75rem; border-top: 1px solid var(--rule); }
+  .documents a { font-weight: 700; }
+  .documents p { margin-top: .3rem; }
+  .project-notes { padding-top: 2rem; max-width: 44rem; }
+  .project-notes h2 { font-size: 1.38rem; }
+
+  @media (max-width: 700px) {
+    .pogo-page { padding-inline: .9rem; }
+    .hero { grid-template-columns: 1fr; gap: 1.2rem; }
+    .hero-media { border-radius: .75rem; padding-block: .9rem; }
+    .hero-media img { width: 8.5rem; }
+    .routine, .architecture, .evidence { grid-template-columns: minmax(0, 1fr); }
+    .routine .section-heading { margin-bottom: 0; }
+    .documents { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .workflow-list summary { grid-template-columns: .8rem minmax(0, 1fr); gap: .25rem .6rem; padding-left: .6rem; }
+    .workflow-list summary code { grid-column: 2; }
+    .workflow-body { padding-left: 2rem; }
+  }
+</style>
